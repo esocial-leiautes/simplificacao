@@ -1,0 +1,344 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns="http://www.esocial.gov.br/schema/evt/evtInfoEmpregador/v03_00_00" targetNamespace="http://www.esocial.gov.br/schema/evt/evtInfoEmpregador/v03_00_00" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+    <xs:include schemaLocation="include/ideEvento_evtTab.xsd " />
+    <xs:include schemaLocation="include/ideEmpregador_evtTab.xsd" />
+    <xs:include schemaLocation="include/periodo_evtTab.xsd" />
+    <xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd" />
+    <xs:element name="eSocial">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="evtInfoEmpregador">
+                    <xs:annotation>
+                        <xs:documentation>Evento de informações do empregador</xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="ideEvento" type="T_ideEvento_evtTab">
+                                <xs:annotation>
+                                    <xs:documentation>Informações de Identificação do Evento</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="ideEmpregador" type="T_ideEmpregador_evtTab">
+                                <xs:annotation>
+                                    <xs:documentation>Informações de identificação do empregador</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="infoEmpregador">
+                                <xs:annotation>
+                                    <xs:documentation>Informações do Empregador</xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:choice>
+                                            <xs:element name="inclusao">
+                                                <xs:annotation>
+                                                    <xs:documentation>Inclusão de novas informações</xs:documentation>
+                                                </xs:annotation>
+                                                <xs:complexType>
+                                                    <xs:sequence>
+                                                        <xs:element name="idePeriodo" type="T_periodo_evtTab">
+                                                            <xs:annotation>
+                                                                <xs:documentation>Período de validade das informações incluídas</xs:documentation>
+                                                            </xs:annotation>
+                                                        </xs:element>
+                                                        <xs:element name="infoCadastro" type="T_infoCadastro">
+                                                            <xs:annotation>
+                                                                <xs:documentation>Informações do empregador</xs:documentation>
+                                                            </xs:annotation>
+                                                        </xs:element>
+                                                    </xs:sequence>
+                                                </xs:complexType>
+                                            </xs:element>
+                                            <xs:element name="alteracao">
+                                                <xs:annotation>
+                                                    <xs:documentation>Alteração das informações</xs:documentation>
+                                                </xs:annotation>
+                                                <xs:complexType>
+                                                    <xs:sequence>
+                                                        <xs:element name="idePeriodo" type="T_periodo_evtTab">
+                                                            <xs:annotation>
+                                                                <xs:documentation>Período de validade das informações alteradas</xs:documentation>
+                                                            </xs:annotation>
+                                                        </xs:element>
+                                                        <xs:element name="infoCadastro" type="T_infoCadastro">
+                                                            <xs:annotation>
+                                                                <xs:documentation>Informações do empregador</xs:documentation>
+                                                            </xs:annotation>
+                                                        </xs:element>
+                                                        <xs:element name="novaValidade" type="T_periodo_evtTab" minOccurs="0">
+                                                            <xs:annotation>
+                                                                <xs:documentation>Novo período de validade das informações</xs:documentation>
+                                                            </xs:annotation>
+                                                        </xs:element>
+                                                    </xs:sequence>
+                                                </xs:complexType>
+                                            </xs:element>
+                                            <xs:element name="exclusao">
+                                                <xs:annotation>
+                                                    <xs:documentation>Exclusão das informações</xs:documentation>
+                                                </xs:annotation>
+                                                <xs:complexType>
+                                                    <xs:sequence>
+                                                        <xs:element name="idePeriodo" type="T_periodo_evtTab">
+                                                            <xs:annotation>
+                                                                <xs:documentation>Período de validade das informações excluídas</xs:documentation>
+                                                            </xs:annotation>
+                                                        </xs:element>
+                                                    </xs:sequence>
+                                                </xs:complexType>
+                                            </xs:element>
+                                        </xs:choice>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="Id" type="xs:ID" use="required" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:element ref="ds:Signature" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="T_infoCadastro">
+        <xs:annotation>
+            <xs:documentation>Informações do Empregador</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="classTrib">
+                <xs:simpleType>
+                    <xs:annotation>
+                        <xs:documentation>Enquadramento do contribuinte</xs:documentation>
+                    </xs:annotation>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="\d{2}" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="indCoop" minOccurs="0">
+                <xs:simpleType>
+                    <xs:annotation>
+                        <xs:documentation>Indicativo de Cooperativa</xs:documentation>
+                    </xs:annotation>
+                    <xs:restriction base="xs:byte">
+                        <xs:enumeration value="0">
+                            <xs:annotation>
+                                <xs:documentation>Não é cooperativa</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="1">
+                            <xs:annotation>
+                                <xs:documentation>Cooperativa de Trabalho</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="2">
+                            <xs:annotation>
+                                <xs:documentation>Cooperativa de Produção</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="3">
+                            <xs:annotation>
+                                <xs:documentation>Outras Cooperativas</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="indConstr" minOccurs="0">
+                <xs:simpleType>
+                    <xs:annotation>
+                        <xs:documentation>Indicativo de Construtora</xs:documentation>
+                    </xs:annotation>
+                    <xs:restriction base="xs:byte">
+                        <xs:enumeration value="0">
+                            <xs:annotation>
+                                <xs:documentation>Não é Construtora</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="1">
+                            <xs:annotation>
+                                <xs:documentation>Empresa Construtora</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="indDesFolha">
+                <xs:simpleType>
+                    <xs:annotation>
+                        <xs:documentation>Indicativo de Desoneração da Folha</xs:documentation>
+                    </xs:annotation>
+                    <xs:restriction base="xs:byte">
+                        <xs:enumeration value="0">
+                            <xs:annotation>
+                                <xs:documentation>Não Aplicável</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="1">
+                            <xs:annotation>
+                                <xs:documentation>Empresa enquadrada nos art. 7º a 9º da Lei 12.546/2011</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="indOpcCP" minOccurs="0">
+                <xs:simpleType>
+                    <xs:annotation>
+                        <xs:documentation>Indicativo de Opção da CP</xs:documentation>
+                    </xs:annotation>
+                    <xs:restriction base="xs:byte">
+                        <xs:enumeration value="1">
+                            <xs:annotation>
+                                <xs:documentation>Sobre a comercialização da sua produção</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="2">
+                            <xs:annotation>
+                                <xs:documentation>Sobre a folha de pagamento</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="indPorte" minOccurs="0">
+                <xs:simpleType>
+                    <xs:annotation>
+                        <xs:documentation>Indicativo de microempresa ou empresa de pequeno porte</xs:documentation>
+                    </xs:annotation>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="[S]" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="indOptRegEletron">
+                <xs:simpleType>
+                    <xs:annotation>
+                        <xs:documentation>Opção p/ registro eletrônico de empregados</xs:documentation>
+                    </xs:annotation>
+                    <xs:restriction base="xs:byte">
+                        <xs:enumeration value="0">
+                            <xs:annotation>
+                                <xs:documentation>Não optou pelo registro eletrônico de empregados</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="1">
+                            <xs:annotation>
+                                <xs:documentation>Optou pelo registro eletrônico de empregados</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="cnpjEFR" minOccurs="0">
+                <xs:simpleType>
+                    <xs:annotation>
+                        <xs:documentation>CNPJ do Ente Federativo Responsável - EFR</xs:documentation>
+                    </xs:annotation>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="\d{14}" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dadosIsencao" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Informações Complementares - Empresas Isentas - Dados da Isenção</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ideMinLei">
+                            <xs:simpleType>
+                                <xs:annotation>
+                                    <xs:documentation>Ministério/Lei que concedeu isenção</xs:documentation>
+                                </xs:annotation>
+                                <xs:restriction base="xs:string">
+                                    <xs:pattern value=".*[^\s].*" />
+                                    <xs:maxLength value="70" />
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:element>
+                        <xs:element name="nrCertif">
+                            <xs:simpleType>
+                                <xs:annotation>
+                                    <xs:documentation>Número do CEBAS</xs:documentation>
+                                </xs:annotation>
+                                <xs:restriction base="xs:string">
+                                    <xs:pattern value=".*[^\s].*" />
+                                    <xs:maxLength value="40" />
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:element>
+                        <xs:element name="dtEmisCertif" type="xs:date">
+                            <xs:annotation>
+                                <xs:documentation>Data de Emissão do Certificado/publicação da Lei</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="dtVencCertif" type="xs:date">
+                            <xs:annotation>
+                                <xs:documentation>Data de vencimento do certificado</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="nrProtRenov" minOccurs="0">
+                            <xs:simpleType>
+                                <xs:annotation>
+                                    <xs:documentation>Protocolo do pedido de renovação</xs:documentation>
+                                </xs:annotation>
+                                <xs:restriction base="xs:string">
+                                    <xs:pattern value=".*[^\s].*" />
+                                    <xs:maxLength value="40" />
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:element>
+                        <xs:element name="dtProtRenov" type="xs:date" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>Data do protocolo de renovação</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="dtDou" type="xs:date" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>Data de Publicação no DOU</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="pagDou" minOccurs="0">
+                            <xs:simpleType>
+                                <xs:annotation>
+                                    <xs:documentation>Número da página do DOU</xs:documentation>
+                                </xs:annotation>
+                                <xs:restriction base="xs:integer">
+                                    <xs:pattern value="\d{1,5}" />
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="infoOrgInternacional" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Informações exclusivas de organismos internacionais e outras instituições extraterritoriais</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="indAcordoIsenMulta">
+                            <xs:simpleType>
+                                <xs:annotation>
+                                    <xs:documentation>Acordo internacional para isenção de multa</xs:documentation>
+                                </xs:annotation>
+                                <xs:restriction base="xs:byte">
+                                    <xs:enumeration value="0">
+                                        <xs:annotation>
+                                            <xs:documentation>Sem acordo</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:enumeration>
+                                    <xs:enumeration value="1">
+                                        <xs:annotation>
+                                            <xs:documentation>Com acordo</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:enumeration>
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
