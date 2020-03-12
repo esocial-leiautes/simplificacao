@@ -8,7 +8,8 @@
             <xs:element name="tpInsc">
                 <xs:simpleType>
                     <xs:annotation>
-                        <xs:documentation>Tipo de Inscrição, conforme Tabela 05</xs:documentation>
+                        <xs:documentation>Tipo de Inscrição</xs:documentation>
+                        <xs:documentation>Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.</xs:documentation>
                     </xs:annotation>
                     <xs:restriction base="xs:byte">
                         <xs:enumeration value="1">
@@ -28,6 +29,8 @@
                 <xs:simpleType>
                     <xs:annotation>
                         <xs:documentation>Número de Inscrição</xs:documentation>
+                        <xs:documentation>Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {tpInsc}.</xs:documentation>
+                        <xs:documentation>Validação: Se {tpInsc} for igual a [1], deve ser um número de CNPJ válido. Neste caso, deve ser informada apenas a raiz/base (8 posições), exceto se natureza jurídica do declarante for igual a ([1015, 1040, 1074, 1104, 1139, 1163, 1198, 1252, 1287, 1317, 1341]), situação em que o campo deve ser preenchido com o CNPJ completo (14 posições). Se {tpInsc} for igual a [2], deve ser um CPF válido.</xs:documentation>
                     </xs:annotation>
                     <xs:restriction base="xs:string">
                         <xs:pattern value="\d{8}|\d{14}" />

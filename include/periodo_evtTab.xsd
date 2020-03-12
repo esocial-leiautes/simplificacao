@@ -8,9 +8,12 @@
             <xs:element name="iniValid">
                 <xs:simpleType>
                     <xs:annotation>
-                        <xs:documentation>Início da validade (AAAA-MM)</xs:documentation>
+                        <xs:documentation>Início da validade</xs:documentation>
+                        <xs:documentation>Preencher com o mês e ano de início da validade das informações prestadas no evento, no formato AAAA-MM.</xs:documentation>
+                        <xs:documentation>Validação: Deve ser uma data válida, igual ou posterior à data de início de obrigatoriedade deste evento para o empregador no eSocial, no formato AAAA-MM.</xs:documentation>
                     </xs:annotation>
                     <xs:restriction base="xs:string">
+                        <xs:length value="7" />
                         <xs:pattern value="[2]{1}\d{3}-(1[0-2]|0[1-9])" />
                     </xs:restriction>
                 </xs:simpleType>
@@ -18,9 +21,12 @@
             <xs:element name="fimValid" minOccurs="0">
                 <xs:simpleType>
                     <xs:annotation>
-                        <xs:documentation>Período final da validade, no formato (AAAA-MM)</xs:documentation>
+                        <xs:documentation>Fim da validade</xs:documentation>
+                        <xs:documentation>Preencher com o mês e ano de término da validade das informações, se houver.</xs:documentation>
+                        <xs:documentation>Validação: Se informado, deve estar no formato AAAA-MM e ser um período igual ou posterior a {iniValid}.</xs:documentation>
                     </xs:annotation>
                     <xs:restriction base="xs:string">
+                        <xs:length value="7" />
                         <xs:pattern value="[2]{1}\d{3}-(1[0-2]|0[1-9])" />
                     </xs:restriction>
                 </xs:simpleType>
