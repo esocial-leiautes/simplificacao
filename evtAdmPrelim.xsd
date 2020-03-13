@@ -2,7 +2,6 @@
 <xs:schema xmlns="http://www.esocial.gov.br/schema/evt/evtAdmPrelim/v01_00_00" targetNamespace="http://www.esocial.gov.br/schema/evt/evtAdmPrelim/v01_00_00" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
     <xs:include schemaLocation="include/ideEvento_trab.xsd " />
     <xs:include schemaLocation="include/ideEmpregador_evtTab.xsd" />
-    <xs:include schemaLocation="include/periodo_evtTab.xsd" />
     <xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd" />
     <xs:element name="eSocial">
         <xs:complexType>
@@ -221,7 +220,18 @@
                                 </xs:complexType>
                             </xs:element>
                         </xs:sequence>
-                        <xs:attribute name="Id" type="xs:ID" use="required" />
+                        <xs:attribute name="Id" use="required">
+                            <xs:simpleType>
+                                <xs:annotation>
+                                    <xs:documentation>Identificação única do evento</xs:documentation>
+                                    <xs:documentation>REGRA:REGRA_VALIDA_ID_EVENTO</xs:documentation>
+                                </xs:annotation>
+                                <xs:restriction base="xs:ID">
+                                    <xs:length value="36" />
+                                    <xs:pattern value="ID\d{34}" />
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:attribute>
                     </xs:complexType>
                 </xs:element>
                 <xs:element ref="ds:Signature" />
