@@ -1,0 +1,231 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns="http://www.esocial.gov.br/schema/evt/evtAdmPrelim/v01_00_00" targetNamespace="http://www.esocial.gov.br/schema/evt/evtAdmPrelim/v01_00_00" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+    <xs:include schemaLocation="include/ideEvento_trab.xsd " />
+    <xs:include schemaLocation="include/ideEmpregador_evtTab.xsd" />
+    <xs:include schemaLocation="include/periodo_evtTab.xsd" />
+    <xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd" />
+    <xs:element name="eSocial">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="evtAdmPrelim">
+                    <xs:annotation>
+                        <xs:documentation>Evento Registro Preliminar de Trabalhador</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_ENVIO_PROC_FECHAMENTO</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_EVENTOS_EXTEMP</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_EXCLUSAO_ADMISSAO_PRELIMINAR</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_EXISTE_INFO_EMPREGADOR</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_RETIFICA_MESMO_VINCULO</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_VALIDA_ADMISSAO_PRELIMINAR</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_VALIDA_EMPREGADOR</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_VALIDA_MATRICULA</xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="ideEvento" type="T_ideEvento_trab">
+                                <xs:annotation>
+                                    <xs:documentation>Informações de Identificação do Evento</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="ideEmpregador" type="T_ideEmpregador_evtTab">
+                                <xs:annotation>
+                                    <xs:documentation>Informações de identificação do empregador</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="infoRegPrelim">
+                                <xs:annotation>
+                                    <xs:documentation>Informações do Registro Preliminar do Trabalhador</xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="cpfTrab">
+                                            <xs:simpleType>
+                                                <xs:annotation>
+                                                    <xs:documentation>CPF do trabalhador</xs:documentation>
+                                                </xs:annotation>
+                                                <xs:restriction base="xs:string">
+                                                    <xs:pattern value="\d{11}" />
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element name="dtNascto" type="xs:date">
+                                            <xs:annotation>
+                                                <xs:documentation>Data de Nascimento</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="dtAdm" type="xs:date">
+                                            <xs:annotation>
+                                                <xs:documentation>Data de admissão do trabalhador</xs:documentation>
+                                                <xs:documentation>Preencher com a data de admissão do trabalhador (ou data de início, no caso de TSVE - Trabalhador Sem Vínculo de Emprego/Estatutário).</xs:documentation>
+                                                <xs:documentation>Validação: Deve ser posterior à data de nascimento do trabalhador e igual ou posterior à data de início da obrigatoriedade dos eventos não periódicos para o empregador. Se {codCateg} = [1XX,301,302,303,306,307,309,310,312], a data não pode ser superior a 30 (trinta) dias a partir da data atual.</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="matricula">
+                                            <xs:simpleType>
+                                                <xs:annotation>
+                                                    <xs:documentation>Matrícula</xs:documentation>
+                                                    <xs:documentation>Matrícula atribuída ao trabalhador pela empresa.</xs:documentation>
+                                                    <xs:documentation>Validação: O valor informado não pode conter a expressão 'eSocial' nas 7 (sete) primeiras posições.</xs:documentation>
+                                                    <xs:documentation>REGRA:REGRA_CARACTER_ESPECIAL</xs:documentation>
+                                                </xs:annotation>
+                                                <xs:restriction base="xs:string">
+                                                    <xs:pattern value=".*[^\s].*" />
+                                                    <xs:minLength value="1" />
+                                                    <xs:maxLength value="30" />
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element name="codCateg">
+                                            <xs:simpleType>
+                                                <xs:annotation>
+                                                    <xs:documentation>Código da Categoria</xs:documentation>
+                                                    <xs:documentation>Preencher com o código da categoria do trabalhador, conforme Tabela 01.</xs:documentation>
+                                                    <xs:documentation>Validação: Deve ser um código de categoria sujeito ao Registro de Eventos Trabalhistas - RET de trabalhador não vinculado ao Regime Próprio de Previdência Social - RPPS, ou seja, "Empregado" ([1XX]), algumas categorias de "Agente Público" ([301,302,303,304,306,307,309,310,312]), "Avulso" ([2XX]), "Cessão" ([4XX]), algumas categorias de "Contribuinte Individual" ([721,722,723,731,734,738,761,771]) ou de "Bolsista" ([901,902]).</xs:documentation>
+                                                </xs:annotation>
+                                                <xs:restriction base="xs:integer">
+                                                    <xs:pattern value="\d{3}" />
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element name="natAtividade" minOccurs="0">
+                                            <xs:simpleType>
+                                                <xs:annotation>
+                                                    <xs:documentation>Natureza da atividade</xs:documentation>
+                                                    <xs:documentation>Validação: Preenchimento obrigatório se {codCateg} for relativo a "Empregado", "Agente Público", "Avulso" ou igual a [401, 731, 734, 738]. Não deve ser preenchido se {codCateg} = [721, 722, 771, 901]. Se {codCateg} = [104], deve ser preenchido com [1]. Se {codCateg} = [102], deve ser preenchido com [2].</xs:documentation>
+                                                </xs:annotation>
+                                                <xs:restriction base="xs:byte">
+                                                    <xs:enumeration value="1">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Trabalho Urbano</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:enumeration>
+                                                    <xs:enumeration value="2">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Trabalho Rural</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:enumeration>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element name="infoRegCTPS" minOccurs="0">
+                                            <xs:annotation>
+                                                <xs:documentation>Informações referentes ao registro e à CTPS Digital</xs:documentation>
+                                            </xs:annotation>
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="CBOCargo">
+                                                        <xs:simpleType>
+                                                            <xs:annotation>
+                                                                <xs:documentation>Classificação Brasileira de Ocupação</xs:documentation>
+                                                                <xs:documentation>Informar a Classificação Brasileira de Ocupações - CBO relativa ao cargo</xs:documentation>
+                                                                <xs:documentation>Validação: Deve ser um código existente na tabela de CBO, com 6 (seis) posições.</xs:documentation>
+                                                            </xs:annotation>
+                                                            <xs:restriction base="xs:string">
+                                                                <xs:pattern value="\d{6}" />
+                                                            </xs:restriction>
+                                                        </xs:simpleType>
+                                                    </xs:element>
+                                                    <xs:element name="vrSalFx">
+                                                        <xs:simpleType>
+                                                            <xs:annotation>
+                                                                <xs:documentation>Salário base do trabalhador</xs:documentation>
+                                                                <xs:documentation>Salário base do trabalhador, correspondente à parte fixa da remuneração.</xs:documentation>
+                                                                <xs:documentation>Validação: Se {undSalFixo} for igual a [7], preencher com 0 (zero).</xs:documentation>
+                                                            </xs:annotation>
+                                                            <xs:restriction base="xs:decimal">
+                                                                <xs:totalDigits value="14" />
+                                                                <xs:fractionDigits value="2" />
+                                                                <xs:minInclusive value="0" />
+                                                                <xs:maxInclusive value="999999999999.99" />
+                                                            </xs:restriction>
+                                                        </xs:simpleType>
+                                                    </xs:element>
+                                                    <xs:element name="undSalFixo">
+                                                        <xs:simpleType>
+                                                            <xs:annotation>
+                                                                <xs:documentation>Unidade de pagamento da parte fixa da remuneração</xs:documentation>
+                                                            </xs:annotation>
+                                                            <xs:restriction base="xs:byte">
+                                                                <xs:enumeration value="1">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Por Hora</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:enumeration>
+                                                                <xs:enumeration value="2">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Por Dia</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:enumeration>
+                                                                <xs:enumeration value="3">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Por Semana</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:enumeration>
+                                                                <xs:enumeration value="4">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Por Quinzena</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:enumeration>
+                                                                <xs:enumeration value="5">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Por Mês</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:enumeration>
+                                                                <xs:enumeration value="6">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Por Tarefa</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:enumeration>
+                                                                <xs:enumeration value="7">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Não aplicável - salário exclusivamente variável</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:enumeration>
+                                                            </xs:restriction>
+                                                        </xs:simpleType>
+                                                    </xs:element>
+                                                    <xs:element name="tpContr">
+                                                        <xs:simpleType>
+                                                            <xs:annotation>
+                                                                <xs:documentation>Tipo de contrato de trabalho</xs:documentation>
+                                                            </xs:annotation>
+                                                            <xs:restriction base="xs:byte">
+                                                                <xs:enumeration value="1">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Prazo indeterminado</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:enumeration>
+                                                                <xs:enumeration value="2">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Prazo determinado, definido em dias</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:enumeration>
+                                                                <xs:enumeration value="3">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Prazo determinado, vinculado à ocorrência de um fato</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:enumeration>
+                                                            </xs:restriction>
+                                                        </xs:simpleType>
+                                                    </xs:element>
+                                                    <xs:element name="dtTerm" type="xs:date" minOccurs="0">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Data do Término</xs:documentation>
+                                                            <xs:documentation>Data do término do contrato por prazo determinado.</xs:documentation>
+                                                            <xs:documentation>Validação: O preenchimento é obrigatório se {tpContr} = [2]. Não informar se {tpContr} = [1]. Deve ser igual ou posterior à data de admissão.</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:element>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="Id" type="xs:ID" use="required" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:element ref="ds:Signature" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
