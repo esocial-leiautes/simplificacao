@@ -10,6 +10,15 @@
                 <xs:element name="evtTabRubrica">
                     <xs:annotation>
                         <xs:documentation>Evento Tabela de Rubricas</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_ENVIO_PROC_FECHAMENTO</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_EXISTE_INFO_EMPREGADOR</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_TABGERAL_ALTERACAO_PERIODO_CONFLITANTE</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_TABGERAL_EXISTE_REGISTRO_ALTERADO</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_TABGERAL_EXISTE_REGISTRO_EXCLUIDO</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_TABGERAL_INCLUSAO_PERIODO_CONFLITANTE</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_TABRUBR_INCLUSAO</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_TAB_PERMITE_EXCLUSAO</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_VALIDA_DT_FUTURA</xs:documentation>
                     </xs:annotation>
                     <xs:complexType>
                         <xs:sequence>
@@ -119,9 +128,13 @@
                 <xs:simpleType>
                     <xs:annotation>
                         <xs:documentation>Código da Rubrica</xs:documentation>
+                        <xs:documentation>Informar o código atribuído pela empresa e que identifica a rubrica em sua folha de pagamento.</xs:documentation>
+                        <xs:documentation>Validação: O código não pode conter a expressão "eSocial" nas 7 (sete) primeiras posições.</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_CARACTER_ESPECIAL</xs:documentation>
                     </xs:annotation>
                     <xs:restriction base="xs:string">
                         <xs:pattern value=".*[^\s].*" />
+                        <xs:minLength value="1" />
                         <xs:maxLength value="30" />
                     </xs:restriction>
                 </xs:simpleType>
@@ -130,9 +143,13 @@
                 <xs:simpleType>
                     <xs:annotation>
                         <xs:documentation>Identificador da tabela de rubricas</xs:documentation>
+                        <xs:documentation>Preencher com o identificador da Tabela de Rubricas no âmbito do empregador.</xs:documentation>
+                        <xs:documentation>Validação: O identificador não pode conter a expressão "eSocial" nas 7 (sete) primeiras posições.</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_CARACTER_ESPECIAL</xs:documentation>
                     </xs:annotation>
                     <xs:restriction base="xs:string">
                         <xs:pattern value=".*[^\s].*" />
+                        <xs:minLength value="1" />
                         <xs:maxLength value="8" />
                     </xs:restriction>
                 </xs:simpleType>
@@ -140,9 +157,12 @@
             <xs:element name="iniValid">
                 <xs:simpleType>
                     <xs:annotation>
-                        <xs:documentation>Início da validade (AAAA-MM)</xs:documentation>
+                        <xs:documentation>Início da validade</xs:documentation>
+                        <xs:documentation>Preencher com o mês e ano de início da validade das informações prestadas no evento, no formato AAAA-MM.</xs:documentation>
+                        <xs:documentation>Validação: Deve ser uma data válida, igual ou posterior à data de início de obrigatoriedade deste evento para o empregador no eSocial, no formato AAAA-MM.</xs:documentation>
                     </xs:annotation>
                     <xs:restriction base="xs:string">
+                        <xs:length value="7" />
                         <xs:pattern value="[2]{1}\d{3}-(1[0-2]|0[1-9])" />
                     </xs:restriction>
                 </xs:simpleType>
@@ -150,9 +170,12 @@
             <xs:element name="fimValid" minOccurs="0">
                 <xs:simpleType>
                     <xs:annotation>
-                        <xs:documentation>Período final da validade, no formato (AAAA-MM)</xs:documentation>
+                        <xs:documentation>Fim da validade</xs:documentation>
+                        <xs:documentation>Preencher com o mês e ano de término da validade das informações, se houver.</xs:documentation>
+                        <xs:documentation>Validação: Se informado, deve estar no formato AAAA-MM e ser um período igual ou posterior a {iniValid}.</xs:documentation>
                     </xs:annotation>
                     <xs:restriction base="xs:string">
+                        <xs:length value="7" />
                         <xs:pattern value="[2]{1}\d{3}-(1[0-2]|0[1-9])" />
                     </xs:restriction>
                 </xs:simpleType>
@@ -171,6 +194,7 @@
                     </xs:annotation>
                     <xs:restriction base="xs:string">
                         <xs:pattern value=".*[^\s].*" />
+                        <xs:minLength value="1" />
                         <xs:maxLength value="100" />
                     </xs:restriction>
                 </xs:simpleType>
@@ -179,6 +203,7 @@
                 <xs:simpleType>
                     <xs:annotation>
                         <xs:documentation>Código de Classificação da Rubrica</xs:documentation>
+                        <xs:documentation>Validação: Deve ser um código existente na Tabela 03 - Tabela de Natureza das Rubricas da Folha de Pagamento.</xs:documentation>
                     </xs:annotation>
                     <xs:restriction base="xs:integer">
                         <xs:pattern value="\d{4}" />
@@ -218,6 +243,7 @@
                 <xs:simpleType>
                     <xs:annotation>
                         <xs:documentation>Incidência para a Previdência Social</xs:documentation>
+                        <xs:documentation>Validação: Para utilização de código [91,92,93,94,95,96,97,98], é necessária a existência de registro complementar com informações relativas ao processo.</xs:documentation>
                     </xs:annotation>
                     <xs:restriction base="xs:string">
                         <xs:enumeration value="00">
@@ -352,6 +378,7 @@
                 <xs:simpleType>
                     <xs:annotation>
                         <xs:documentation>Incidência para o IRRF</xs:documentation>
+                        <xs:documentation>Validação: Deve ser um código válido e existente na Tabela 21 - Código de incidência tributária da rubrica para o IRRF. Para utilização de código [9XXX], é necessária a existência de registro complementar com informações relativas ao processo.</xs:documentation>
                     </xs:annotation>
                     <xs:restriction base="xs:string">
                         <xs:pattern value="\d{2}" />
@@ -362,6 +389,7 @@
                 <xs:simpleType>
                     <xs:annotation>
                         <xs:documentation>Incidência para o FGTS</xs:documentation>
+                        <xs:documentation>Validação: Para utilização de código [91, 92, 93], é necessária a existência de registro complementar com informações relativas ao processo.</xs:documentation>
                     </xs:annotation>
                     <xs:restriction base="xs:string">
                         <xs:enumeration value="00">
@@ -445,19 +473,30 @@
                 <xs:simpleType>
                     <xs:annotation>
                         <xs:documentation>Compõe o teto remuneratório específico (art 37, XI, da CF/1988)</xs:documentation>
+                        <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se a natureza jurídica do declarante for Administração Pública (grupo [1]).</xs:documentation>
                     </xs:annotation>
                     <xs:restriction base="xs:string">
-                        <xs:pattern value="[N|S]" />
+                        <xs:enumeration value="S">
+                            <xs:annotation>
+                                <xs:documentation>Sim</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="N">
+                            <xs:annotation>
+                                <xs:documentation>Não</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
                     </xs:restriction>
                 </xs:simpleType>
             </xs:element>
             <xs:element name="observacao" minOccurs="0">
                 <xs:simpleType>
                     <xs:annotation>
-                        <xs:documentation>Observação</xs:documentation>
+                        <xs:documentation>Observações relacionadas à rubrica ou à sua utilização</xs:documentation>
                     </xs:annotation>
                     <xs:restriction base="xs:string">
                         <xs:pattern value=".*[^\s].*" />
+                        <xs:minLength value="1" />
                         <xs:maxLength value="255" />
                     </xs:restriction>
                 </xs:simpleType>
@@ -472,6 +511,7 @@
                             <xs:simpleType>
                                 <xs:annotation>
                                     <xs:documentation>Tipo de Processo</xs:documentation>
+                                    <xs:documentation>Preencher com o código correspondente ao tipo de processo.</xs:documentation>
                                 </xs:annotation>
                                 <xs:restriction base="xs:byte">
                                     <xs:enumeration value="1">
@@ -491,6 +531,8 @@
                             <xs:simpleType>
                                 <xs:annotation>
                                     <xs:documentation>Número do Processo</xs:documentation>
+                                    <xs:documentation>Informar um número de processo cadastrado através do evento S-1070, cujo {indMatProc} seja igual a [1].</xs:documentation>
+                                    <xs:documentation>Validação: Deve ser um número de processo administrativo ou judicial válido e existente na Tabela de Processos (S-1070), com {indMatProc} = [1].</xs:documentation>
                                 </xs:annotation>
                                 <xs:restriction base="xs:string">
                                     <xs:pattern value="\d{17}|\d{20}|\d{21}" />
@@ -520,6 +562,7 @@
                             <xs:simpleType>
                                 <xs:annotation>
                                     <xs:documentation>Código do Indicativo da Suspensão</xs:documentation>
+                                    <xs:documentation>Validação: A informação prestada deve estar de acordo com o que foi informado em S-1070.</xs:documentation>
                                 </xs:annotation>
                                 <xs:restriction base="xs:integer">
                                     <xs:pattern value="\d{1,14}" />
@@ -539,6 +582,8 @@
                             <xs:simpleType>
                                 <xs:annotation>
                                     <xs:documentation>Número do Processo</xs:documentation>
+                                    <xs:documentation>Informar um número de processo cadastrado através do evento S-1070, cujo {indMatProc} seja igual a [1].</xs:documentation>
+                                    <xs:documentation>Validação: Deve ser um número de processo administrativo ou judicial válido e existente na Tabela de Processos (S-1070), com {indMatProc} = [1].</xs:documentation>
                                 </xs:annotation>
                                 <xs:restriction base="xs:string">
                                     <xs:pattern value="\d{20}" />
@@ -549,6 +594,7 @@
                             <xs:simpleType>
                                 <xs:annotation>
                                     <xs:documentation>Código do Indicativo da Suspensão</xs:documentation>
+                                    <xs:documentation>Validação: A informação prestada deve estar de acordo com o que foi informado em S-1070.</xs:documentation>
                                 </xs:annotation>
                                 <xs:restriction base="xs:integer">
                                     <xs:pattern value="\d{1,14}" />
@@ -568,6 +614,8 @@
                             <xs:simpleType>
                                 <xs:annotation>
                                     <xs:documentation>Número do Processo</xs:documentation>
+                                    <xs:documentation>Informar um número de processo cadastrado através do evento S-1070, cujo {indMatProc} seja igual a [1].</xs:documentation>
+                                    <xs:documentation>Validação: Deve ser um número de processo administrativo ou judicial válido e existente na Tabela de Processos (S-1070), com {indMatProc} = [1].</xs:documentation>
                                 </xs:annotation>
                                 <xs:restriction base="xs:string">
                                     <xs:pattern value="\d{20}" />
