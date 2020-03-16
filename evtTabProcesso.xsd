@@ -5,6 +5,9 @@
     <xs:include schemaLocation="include/periodo_evtTab.xsd" />
     <xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd" />
     <xs:element name="eSocial">
+        <xs:annotation>
+            <xs:documentation>S-1070 - Tabela de Processos Administrativos/Judiciais</xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="evtTabProcesso">
@@ -43,6 +46,7 @@
                                             <xs:element name="inclusao">
                                                 <xs:annotation>
                                                     <xs:documentation>Inclusão de novas informações</xs:documentation>
+                                                    <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
                                                 </xs:annotation>
                                                 <xs:complexType>
                                                     <xs:sequence>
@@ -62,6 +66,7 @@
                                             <xs:element name="alteracao">
                                                 <xs:annotation>
                                                     <xs:documentation>Alteração das informações</xs:documentation>
+                                                    <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
                                                 </xs:annotation>
                                                 <xs:complexType>
                                                     <xs:sequence>
@@ -78,6 +83,7 @@
                                                         <xs:element name="novaValidade" type="T_periodo_evtTab" minOccurs="0">
                                                             <xs:annotation>
                                                                 <xs:documentation>Novo período de validade das informações</xs:documentation>
+                                                                <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
                                                             </xs:annotation>
                                                         </xs:element>
                                                     </xs:sequence>
@@ -86,6 +92,7 @@
                                             <xs:element name="exclusao">
                                                 <xs:annotation>
                                                     <xs:documentation>Exclusão das informações</xs:documentation>
+                                                    <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
                                                 </xs:annotation>
                                                 <xs:complexType>
                                                     <xs:sequence>
@@ -248,6 +255,7 @@
             <xs:element name="dadosProcJud" minOccurs="0">
                 <xs:annotation>
                     <xs:documentation>Informações Complementares do Processo Judicial</xs:documentation>
+                    <xs:documentation>CONDICAO_GRUPO: O (se {tpProc} = [2] e {indMatProc} = [1]); N (nos demais casos)</xs:documentation>
                 </xs:annotation>
                 <xs:complexType>
                     <xs:sequence>
@@ -314,6 +322,8 @@
             <xs:element name="infoSusp" minOccurs="0" maxOccurs="99">
                 <xs:annotation>
                     <xs:documentation>Informações de suspensão de exigibilidade de tributos</xs:documentation>
+                    <xs:documentation>CHAVE_GRUPO: {codSusp}</xs:documentation>
+                    <xs:documentation>CONDICAO_GRUPO: O (se {indMatProc} for igual a [1]); N (nos demais casos)</xs:documentation>
                 </xs:annotation>
                 <xs:complexType>
                     <xs:sequence>

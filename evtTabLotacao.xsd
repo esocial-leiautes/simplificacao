@@ -5,6 +5,9 @@
     <xs:include schemaLocation="include/periodo_evtTab.xsd" />
     <xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd" />
     <xs:element name="eSocial">
+        <xs:annotation>
+            <xs:documentation>S-1020 - Tabela de Lotações Tributárias</xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="evtTabLotacao">
@@ -44,6 +47,7 @@
                                             <xs:element name="inclusao">
                                                 <xs:annotation>
                                                     <xs:documentation>Inclusão de novas informações</xs:documentation>
+                                                    <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
                                                 </xs:annotation>
                                                 <xs:complexType>
                                                     <xs:sequence>
@@ -63,6 +67,7 @@
                                             <xs:element name="alteracao">
                                                 <xs:annotation>
                                                     <xs:documentation>Alteração das informações</xs:documentation>
+                                                    <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
                                                 </xs:annotation>
                                                 <xs:complexType>
                                                     <xs:sequence>
@@ -79,6 +84,7 @@
                                                         <xs:element name="novaValidade" type="T_periodo_evtTab" minOccurs="0">
                                                             <xs:annotation>
                                                                 <xs:documentation>Novo período de validade das informações</xs:documentation>
+                                                                <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
                                                             </xs:annotation>
                                                         </xs:element>
                                                     </xs:sequence>
@@ -87,6 +93,7 @@
                                             <xs:element name="exclusao">
                                                 <xs:annotation>
                                                     <xs:documentation>Exclusão das informações</xs:documentation>
+                                                    <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
                                                 </xs:annotation>
                                                 <xs:complexType>
                                                     <xs:sequence>
@@ -267,12 +274,14 @@
                         <xs:element name="infoProcJudTerceiros" minOccurs="0">
                             <xs:annotation>
                                 <xs:documentation>Informações de processos judiciais relativos às contribuições destinadas a outras Entidades</xs:documentation>
+                                <xs:documentation>CONDICAO_GRUPO: O (se {codTercsSusp} for preenchido); N (nos demais casos)</xs:documentation>
                             </xs:annotation>
                             <xs:complexType>
                                 <xs:sequence>
                                     <xs:element name="procJudTerceiro" maxOccurs="99">
                                         <xs:annotation>
                                             <xs:documentation>Identificação do Processo Judicial</xs:documentation>
+                                            <xs:documentation>CHAVE_GRUPO: {codTerc}, {nrProcJud}</xs:documentation>
                                         </xs:annotation>
                                         <xs:complexType>
                                             <xs:sequence>
@@ -322,6 +331,7 @@
             <xs:element name="infoEmprParcial" minOccurs="0">
                 <xs:annotation>
                     <xs:documentation>Informação complementar de obra de construção civil</xs:documentation>
+                    <xs:documentation>CONDICAO_GRUPO: O (se {tpLotacao} = [02]); N (nos demais casos)</xs:documentation>
                 </xs:annotation>
                 <xs:complexType>
                     <xs:sequence>
@@ -391,6 +401,7 @@
             <xs:element name="dadosOperPortuario" minOccurs="0">
                 <xs:annotation>
                     <xs:documentation>Informações do Operador Portuário</xs:documentation>
+                    <xs:documentation>CONDICAO_GRUPO: O (se {tpLotacao} = [08]); N (nos demais casos)</xs:documentation>
                 </xs:annotation>
                 <xs:complexType>
                     <xs:sequence>

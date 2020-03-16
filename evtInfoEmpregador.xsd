@@ -5,6 +5,9 @@
     <xs:include schemaLocation="include/periodo_evtTab.xsd" />
     <xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd" />
     <xs:element name="eSocial">
+        <xs:annotation>
+            <xs:documentation>S-1000 - Informações do Empregador/Contribuinte/Órgão Público</xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="evtInfoEmpregador">
@@ -76,6 +79,7 @@
                                             <xs:element name="inclusao">
                                                 <xs:annotation>
                                                     <xs:documentation>Inclusão de novas informações</xs:documentation>
+                                                    <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
                                                 </xs:annotation>
                                                 <xs:complexType>
                                                     <xs:sequence>
@@ -95,6 +99,7 @@
                                             <xs:element name="alteracao">
                                                 <xs:annotation>
                                                     <xs:documentation>Alteração das informações</xs:documentation>
+                                                    <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
                                                 </xs:annotation>
                                                 <xs:complexType>
                                                     <xs:sequence>
@@ -111,6 +116,7 @@
                                                         <xs:element name="novaValidade" type="T_periodo_evtTab" minOccurs="0">
                                                             <xs:annotation>
                                                                 <xs:documentation>Novo período de validade das informações</xs:documentation>
+                                                                <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
                                                             </xs:annotation>
                                                         </xs:element>
                                                     </xs:sequence>
@@ -119,6 +125,7 @@
                                             <xs:element name="exclusao">
                                                 <xs:annotation>
                                                     <xs:documentation>Exclusão das informações</xs:documentation>
+                                                    <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
                                                 </xs:annotation>
                                                 <xs:complexType>
                                                     <xs:sequence>
@@ -307,6 +314,7 @@
             <xs:element name="dadosIsencao" minOccurs="0">
                 <xs:annotation>
                     <xs:documentation>Informações Complementares - Empresas Isentas - Dados da Isenção</xs:documentation>
+                    <xs:documentation>CONDICAO_GRUPO: OC (se {classTrib} = [80]); N (nos demais casos)</xs:documentation>
                 </xs:annotation>
                 <xs:complexType>
                     <xs:sequence>
@@ -383,6 +391,7 @@
             <xs:element name="infoOrgInternacional" minOccurs="0">
                 <xs:annotation>
                     <xs:documentation>Informações exclusivas de organismos internacionais e outras instituições extraterritoriais</xs:documentation>
+                    <xs:documentation>O (se a natureza jurídica pertencer ao grupo [5]); N (nos demais casos)</xs:documentation>
                 </xs:annotation>
                 <xs:complexType>
                     <xs:sequence>

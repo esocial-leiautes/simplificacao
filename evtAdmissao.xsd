@@ -10,6 +10,9 @@
     <xs:include schemaLocation="include/localTrabalho.xsd" />
     <xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd" />
     <xs:element name="eSocial">
+        <xs:annotation>
+            <xs:documentation>S-2200 - Cadastramento Inicial do Vínculo e Admissão/Ingresso de Trabalhador</xs:documentation>
+        </xs:annotation>
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="evtAdmissao">
@@ -287,6 +290,7 @@
                                         <xs:element name="endereco">
                                             <xs:annotation>
                                                 <xs:documentation>Endereço do Trabalhador</xs:documentation>
+                                                <xs:documentation>CONDICAO_GRUPO: O (se grupo {desligamento} não estiver preenchido); F (nos demais casos)</xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>
@@ -294,11 +298,13 @@
                                                         <xs:element name="brasil" type="T_endereco_Brasil">
                                                             <xs:annotation>
                                                                 <xs:documentation>Endereço no Brasil</xs:documentation>
+                                                                <xs:documentation>CONDICAO_GRUPO: O (se não informados os grupos {exterior} e {desligamento}); N (se grupo {exterior} estiver preenchido); F (nos demais casos)</xs:documentation>
                                                             </xs:annotation>
                                                         </xs:element>
                                                         <xs:element name="exterior" type="T_endereco_exterior">
                                                             <xs:annotation>
                                                                 <xs:documentation>Endereço no Exterior</xs:documentation>
+                                                                <xs:documentation>CONDICAO_GRUPO: O (se não informados os grupos {brasil} e {desligamento}); N (se grupo {brasil} estiver preenchido); F (nos demais casos)</xs:documentation>
                                                             </xs:annotation>
                                                         </xs:element>
                                                     </xs:choice>
@@ -308,11 +314,13 @@
                                         <xs:element name="trabImig" type="T_imigrante" minOccurs="0">
                                             <xs:annotation>
                                                 <xs:documentation>Informações do trabalhador imigrante</xs:documentation>
+                                                <xs:documentation>CONDICAO_GRUPO: N (se {paisNac} = Brasil); OC (se {paisNac} diferent de Brasil) e se grupo {desligamento} não estiver preenchido); F (nos demais casos)</xs:documentation>
                                             </xs:annotation>
                                         </xs:element>
                                         <xs:element name="infoDeficiencia" minOccurs="0">
                                             <xs:annotation>
                                                 <xs:documentation>Pessoa com Deficiência</xs:documentation>
+                                                <xs:documentation>CONDICAO_GRUPO: OC (se grupo {desligamento} não estiver preenchido); F (nos demais casos)</xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>
@@ -371,11 +379,14 @@
                                         <xs:element name="dependente" type="T_dependente" minOccurs="0" maxOccurs="99">
                                             <xs:annotation>
                                                 <xs:documentation>Informações dos dependentes</xs:documentation>
+                                                <xs:documentation>CHAVE_GRUPO: {tpDep}, {nmDep}, {dtNascto}</xs:documentation>
+                                                <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
                                             </xs:annotation>
                                         </xs:element>
                                         <xs:element name="contato" type="T_contato" minOccurs="0">
                                             <xs:annotation>
                                                 <xs:documentation>Informações de Contato</xs:documentation>
+                                                <xs:documentation>CONDICAO_GRUPO: OC (se grupo {desligamento} não estiver preenchido); F (nos demais casos)</xs:documentation>
                                             </xs:annotation>
                                         </xs:element>
                                     </xs:sequence>
@@ -463,6 +474,7 @@
                                                         <xs:element name="infoCeletista">
                                                             <xs:annotation>
                                                                 <xs:documentation>Informações de Trabalhador Celetista</xs:documentation>
+                                                                <xs:documentation>CONDICAO_GRUPO: O (se {tpRegTrab = [1]); N (nos demais casos)</xs:documentation>
                                                             </xs:annotation>
                                                             <xs:complexType>
                                                                 <xs:sequence>
@@ -613,6 +625,7 @@
                                                                     <xs:element name="FGTS" minOccurs="0">
                                                                         <xs:annotation>
                                                                             <xs:documentation>Informações do Fundo de Garantia do Tempo de Serviço - FGTS</xs:documentation>
+                                                                            <xs:documentation>CONDICAO_GRUPO: N (se {tpAdmissao} = [6] OU (se {codCateg} diferente de [104] e {dtAdm} >= [1988-10-05]) OU (se {codCateg} = [104] e {dtAdm} >= [2015-10-01])); O (nos demais casos)</xs:documentation>
                                                                         </xs:annotation>
                                                                         <xs:complexType>
                                                                             <xs:annotation>
@@ -630,6 +643,7 @@
                                                                     <xs:element name="trabTemporario" minOccurs="0">
                                                                         <xs:annotation>
                                                                             <xs:documentation>Dados sobre trabalho temporário</xs:documentation>
+                                                                            <xs:documentation>CONDICAO_GRUPO: N (se {codCateg} diferente de [106]); O (se {codCateg} = [106] e se grupo {desligamento} não estiver preenchido); F (nos demais casos)</xs:documentation>
                                                                         </xs:annotation>
                                                                         <xs:complexType>
                                                                             <xs:sequence>
@@ -709,6 +723,8 @@
                                                                                 <xs:element name="ideTrabSubstituido" minOccurs="0" maxOccurs="9">
                                                                                     <xs:annotation>
                                                                                         <xs:documentation>Identificação do(s) trabalhador(es) substituído(s)</xs:documentation>
+                                                                                        <xs:documentation>CHAVE_GRUPO: {cpfTrabSubst}</xs:documentation>
+                                                                                        <xs:documentation>CONDICAO_GRUPO: O (se {hipLeg} = [1]); N (nos demais casos)</xs:documentation>
                                                                                     </xs:annotation>
                                                                                     <xs:complexType>
                                                                                         <xs:sequence>
@@ -732,6 +748,7 @@
                                                                     <xs:element name="aprend" minOccurs="0">
                                                                         <xs:annotation>
                                                                             <xs:documentation>Informações relacionadas ao aprendiz</xs:documentation>
+                                                                            <xs:documentation>CONDICAO_GRUPO: N (se {codCateg} diferente de [103]); OC (se {codCateg} = [103] e se grupo {desligamento} não estiver preenchido); F (nos demais casos)</xs:documentation>
                                                                         </xs:annotation>
                                                                         <xs:complexType>
                                                                             <xs:sequence>
@@ -776,6 +793,7 @@
                                                         <xs:element name="infoEstatutario">
                                                             <xs:annotation>
                                                                 <xs:documentation>Informações de Trabalhador Estatutário</xs:documentation>
+                                                                <xs:documentation>CONDICAO_GRUPO: O (se {tpRegTrab = [2]); N (nos demais casos)</xs:documentation>
                                                             </xs:annotation>
                                                             <xs:complexType>
                                                                 <xs:sequence>
@@ -985,11 +1003,13 @@
                                                     <xs:element name="remuneracao" type="T_remuneracao" minOccurs="0">
                                                         <xs:annotation>
                                                             <xs:documentation>Informações da remuneração e periodicidade de pagamento</xs:documentation>
+                                                            <xs:documentation>CONDICAO_GRUPO: N (se {tpRegTrab} = [2]); O (se {tpRegTrab} = [1] e se grupo {desligamento} não estiver preenchido); F (nos demais casos)</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
                                                     <xs:element name="duracao" minOccurs="0">
                                                         <xs:annotation>
                                                             <xs:documentation>Duração do Contrato de Trabalho</xs:documentation>
+                                                            <xs:documentation>CONDICAO_GRUPO: N (se {tpRegTrab} = [2]); O (se {tpRegTrab} = [1] e se grupo {desligamento} não estiver preenchido); F (nos demais casos)</xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
                                                             <xs:sequence>
@@ -1050,17 +1070,20 @@
                                                     <xs:element name="localTrabalho">
                                                         <xs:annotation>
                                                             <xs:documentation>Informações do local de trabalho</xs:documentation>
+                                                            <xs:documentation>CONDICAO_GRUPO: O (se grupo {desligamento} não estiver preenchido); F (nos demais casos)</xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
                                                             <xs:sequence>
                                                                 <xs:element name="localTrabGeral" type="T_localTrabalho" minOccurs="0">
                                                                     <xs:annotation>
                                                                         <xs:documentation>Estabelecimento onde o trabalhador exercerá suas atividades</xs:documentation>
+                                                                        <xs:documentation>CONDICAO_GRUPO: N (se {codCateg} = [104, 106]); O (se {codCateg} diferente de [104, 106] e se grupo {desligamento} não estiver preenchido); F (nos demais casos)</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
                                                                 <xs:element name="localTrabDom" type="T_endereco_Brasil" minOccurs="0">
                                                                     <xs:annotation>
                                                                         <xs:documentation>Endereço de trabalho do trabalhador doméstico e trabalhador temporário</xs:documentation>
+                                                                        <xs:documentation>CONDICAO_GRUPO: N (se {codCateg} diferente de [104, 106]); O (se {codCateg} = [104, 106] e se grupo {desligamento} não estiver preenchido); F (nos demais casos)</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
                                                             </xs:sequence>
@@ -1069,6 +1092,7 @@
                                                     <xs:element name="horContratual" minOccurs="0">
                                                         <xs:annotation>
                                                             <xs:documentation>Informações do Horário Contratual do Trabalhador</xs:documentation>
+                                                            <xs:documentation>CONDICAO_GRUPO: O (se {tpRegJor} = [1] e se grupo {desligamento} não estiver preenchido); OC (se {tpRegJor} diferente de [1] e se grupo {desligamento} não estiver preenchido); F (nos demais casos)</xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
                                                             <xs:sequence>
@@ -1179,6 +1203,7 @@
                                                     <xs:element name="alvaraJudicial" minOccurs="0">
                                                         <xs:annotation>
                                                             <xs:documentation>Dados do Alvará Judicial</xs:documentation>
+                                                            <xs:documentation>CONDICAO_GRUPO: OC (se grupo {desligamento} não estiver preenchido); F (nos demais casos)</xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
                                                             <xs:sequence>
@@ -1199,6 +1224,7 @@
                                                     <xs:element name="observacoes" minOccurs="0" maxOccurs="99">
                                                         <xs:annotation>
                                                             <xs:documentation>Observações do contrato de trabalho</xs:documentation>
+                                                            <xs:documentation>CONDICAO_GRUPO: OC (se grupo {desligamento} não estiver preenchido); F (nos demais casos)</xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
                                                             <xs:sequence>
@@ -1220,6 +1246,8 @@
                                                     <xs:element name="treiCap" minOccurs="0" maxOccurs="99">
                                                         <xs:annotation>
                                                             <xs:documentation>Treinamentos, Capacitações, Exercícios Simulados e Outras Anotações</xs:documentation>
+                                                            <xs:documentation>CHAVE_GRUPO: {codTreiCap}</xs:documentation>
+                                                            <xs:documentation>CONDICAO_GRUPO: OC (se grupo {desligamento} não estiver preenchido); F (nos demais casos)</xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
                                                             <xs:sequence>
@@ -1243,6 +1271,7 @@
                                         <xs:element name="sucessaoVinc" minOccurs="0">
                                             <xs:annotation>
                                                 <xs:documentation>Grupo de informações da sucessão de vínculo trabalhista</xs:documentation>
+                                                <xs:documentation>CONDICAO_GRUPO: O (se {tpAdmissao} = [2, 3, 4] ou {tpProv} = [5, 8]); N (nos demais casos)</xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>
@@ -1327,6 +1356,7 @@
                                         <xs:element name="transfDom" minOccurs="0">
                                             <xs:annotation>
                                                 <xs:documentation>Informações do empregado doméstico transferido de outro representante da mesma unidade familiar</xs:documentation>
+                                                <xs:documentation>CONDICAO_GRUPO: O (se {tpAdmissao} for igual [5]); N (nos demais casos)</xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>
@@ -1363,6 +1393,7 @@
                                         <xs:element name="mudancaCPF" minOccurs="0">
                                             <xs:annotation>
                                                 <xs:documentation>Informações de mudança de CPF do trabalhador</xs:documentation>
+                                                <xs:documentation>CONDICAO_GRUPO: O (se {tpAdmissao} = [6] ou {tpProv} = [10]); N (nos demais casos)</xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>
@@ -1411,6 +1442,7 @@
                                         <xs:element name="afastamento" minOccurs="0">
                                             <xs:annotation>
                                                 <xs:documentation>Informações de afastamento do trabalhador</xs:documentation>
+                                                <xs:documentation>CONDICAO_GRUPO: N (se grupo {desligamento} estiver preenchido); OC (nos demais casos)</xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>
@@ -1437,6 +1469,7 @@
                                         <xs:element name="desligamento" minOccurs="0">
                                             <xs:annotation>
                                                 <xs:documentation>Informações de desligamento do trabalhador</xs:documentation>
+                                                <xs:documentation>CONDICAO_GRUPO: N (se (grupo {afastamento} ou {cessao} estiver preenchido) ou (se {tpAdmissao} = [6] ou {tpProv} = [10])); OC (nos demais casos)</xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>
@@ -1453,6 +1486,7 @@
                                         <xs:element name="cessao" minOccurs="0">
                                             <xs:annotation>
                                                 <xs:documentation>Informações de cessão/exercício em outro órgão do trabalhador</xs:documentation>
+                                                <xs:documentation>CONDICAO_GRUPO: N (se grupo {desligamento} estiver preenchido); F (nos demais casos)</xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>
