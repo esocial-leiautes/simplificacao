@@ -3,9 +3,13 @@
     <xs:include schemaLocation="include/ideEvento_trab.xsd " />
     <xs:include schemaLocation="include/ideEmpregador_evtTab.xsd" />
     <xs:include schemaLocation="include/ideVinculo.xsd" />
+    <xs:include schemaLocation="include/aprend.xsd" />
     <xs:include schemaLocation="include/remuneracao.xsd" />
     <xs:include schemaLocation="include/localTrabalho.xsd" />
+    <xs:include schemaLocation="include/horContratual.xsd" />
     <xs:include schemaLocation="include/endereco.xsd" />
+    <xs:include schemaLocation="include/alvaraJudicial.xsd" />
+    <xs:include schemaLocation="include/treiCap.xsd" />
     <xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd" />
     <xs:element name="eSocial">
         <xs:annotation>
@@ -73,30 +77,11 @@
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>
-                                                    <xs:element name="tpRegPrev">
-                                                        <xs:simpleType>
-                                                            <xs:annotation>
-                                                                <xs:documentation>Regime previdenciário</xs:documentation>
-                                                                <xs:documentation>Validação: Se {codCateg} = [104], deve ser preenchido com [1]. Se {codCateg} = [101, 102, 103, 105, 106, 107, 108, 111], não pode ser preenchido com [2].</xs:documentation>
-                                                            </xs:annotation>
-                                                            <xs:restriction base="xs:byte">
-                                                                <xs:enumeration value="1">
-                                                                    <xs:annotation>
-                                                                        <xs:documentation>Regime Geral da Previdência Social - RGPS</xs:documentation>
-                                                                    </xs:annotation>
-                                                                </xs:enumeration>
-                                                                <xs:enumeration value="2">
-                                                                    <xs:annotation>
-                                                                        <xs:documentation>Regime Próprio de Previdência Social - RPPS ou regime dos militares</xs:documentation>
-                                                                    </xs:annotation>
-                                                                </xs:enumeration>
-                                                                <xs:enumeration value="3">
-                                                                    <xs:annotation>
-                                                                        <xs:documentation>Regime de Previdência Social no Exterior</xs:documentation>
-                                                                    </xs:annotation>
-                                                                </xs:enumeration>
-                                                            </xs:restriction>
-                                                        </xs:simpleType>
+                                                    <xs:element name="tpRegPrev" type="TS_tpRegPrev">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Regime previdenciário</xs:documentation>
+                                                            <xs:documentation>Validação: Se {codCateg} = [104], deve ser preenchido com [1]. Se {codCateg} = [101, 102, 103, 105, 106, 107, 108, 111], não pode ser preenchido com [2].</xs:documentation>
+                                                        </xs:annotation>
                                                     </xs:element>
                                                 </xs:sequence>
                                             </xs:complexType>
@@ -114,78 +99,23 @@
                                                         </xs:annotation>
                                                         <xs:complexType>
                                                             <xs:sequence>
-                                                                <xs:element name="tpRegJor">
-                                                                    <xs:simpleType>
-                                                                        <xs:annotation>
-                                                                            <xs:documentation>Regime de jornada do empregado</xs:documentation>
-                                                                        </xs:annotation>
-                                                                        <xs:restriction base="xs:byte">
-                                                                            <xs:enumeration value="1">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Submetidos a Horário de Trabalho (Cap. II da CLT)</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:enumeration>
-                                                                            <xs:enumeration value="2">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Atividade Externa especificada no Inciso I do Art. 62 da CLT</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:enumeration>
-                                                                            <xs:enumeration value="3">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Funções especificadas no Inciso II do Art. 62 da CLT</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:enumeration>
-                                                                            <xs:enumeration value="4">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Teletrabalho, previsto no Inciso III do Art. 62 da CLT</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:enumeration>
-                                                                        </xs:restriction>
-                                                                    </xs:simpleType>
+                                                                <xs:element name="tpRegJor" type="TS_tpRegJor">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Regime de jornada do empregado</xs:documentation>
+                                                                    </xs:annotation>
                                                                 </xs:element>
-                                                                <xs:element name="natAtividade">
-                                                                    <xs:simpleType>
-                                                                        <xs:annotation>
-                                                                            <xs:documentation>Natureza da atividade</xs:documentation>
-                                                                            <xs:documentation>Validação: Se {codCateg} = [104], deve ser preenchido com [1]. Se {codCateg} = [102], deve ser preenchido com [2].</xs:documentation>
-                                                                        </xs:annotation>
-                                                                        <xs:restriction base="xs:byte">
-                                                                            <xs:enumeration value="1">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Trabalho Urbano</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:enumeration>
-                                                                            <xs:enumeration value="2">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Trabalho Rural</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:enumeration>
-                                                                        </xs:restriction>
-                                                                    </xs:simpleType>
+                                                                <xs:element name="natAtividade" type="TS_natAtividade">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Natureza da atividade</xs:documentation>
+                                                                        <xs:documentation>Validação: Se {codCateg} = [104], deve ser preenchido com [1]. Se {codCateg} = [102], deve ser preenchido com [2].</xs:documentation>
+                                                                    </xs:annotation>
                                                                 </xs:element>
-                                                                <xs:element name="dtBase" minOccurs="0">
-                                                                    <xs:simpleType>
-                                                                        <xs:annotation>
-                                                                            <xs:documentation>Mês relativo à data base da categoria profissional do trabalhador</xs:documentation>
-                                                                            <xs:documentation>Validação: Se informado, deve ser maior ou igual a 1 e menor ou igual a 12.</xs:documentation>
-                                                                        </xs:annotation>
-                                                                        <xs:restriction base="xs:byte">
-                                                                            <xs:pattern value="\d{1,2}" />
-                                                                            <xs:minInclusive value="1" />
-                                                                            <xs:maxInclusive value="12" />
-                                                                        </xs:restriction>
-                                                                    </xs:simpleType>
-                                                                </xs:element>
-                                                                <xs:element name="cnpjSindCategProf">
-                                                                    <xs:simpleType>
-                                                                        <xs:annotation>
-                                                                            <xs:documentation>Preencher com o CNPJ do sindicato representativo da categoria (Preponderante ou Diferenciada)</xs:documentation>
-                                                                            <xs:documentation>Validação: Deve ser um CNPJ válido, com 14 (catorze) algarismos.</xs:documentation>
-                                                                        </xs:annotation>
-                                                                        <xs:restriction base="xs:string">
-                                                                            <xs:pattern value="\d{14}" />
-                                                                        </xs:restriction>
-                                                                    </xs:simpleType>
+                                                                <xs:element name="dtBase" minOccurs="0" type="TS_dtBase" />
+                                                                <xs:element name="cnpjSindCategProf" type="TS_cnpj">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Preencher com o CNPJ do sindicato representativo da categoria (Preponderante ou Diferenciada)</xs:documentation>
+                                                                        <xs:documentation>Validação: Deve ser um CNPJ válido, com 14 (catorze) algarismos.</xs:documentation>
+                                                                    </xs:annotation>
                                                                 </xs:element>
                                                                 <xs:element name="trabTemp" minOccurs="0">
                                                                     <xs:annotation>
@@ -194,63 +124,20 @@
                                                                     </xs:annotation>
                                                                     <xs:complexType>
                                                                         <xs:sequence>
-                                                                            <xs:element name="justProrr">
-                                                                                <xs:simpleType>
-                                                                                    <xs:annotation>
-                                                                                        <xs:documentation>Justificativa da prorrogação</xs:documentation>
-                                                                                        <xs:documentation>Descrever a justificativa para a prorrogação do contrato de trabalho temporário.</xs:documentation>
-                                                                                    </xs:annotation>
-                                                                                    <xs:restriction base="xs:string">
-                                                                                        <xs:minLength value="2" />
-                                                                                        <xs:maxLength value="999" />
-                                                                                        <xs:pattern value=".*[^\s].*" />
-                                                                                    </xs:restriction>
-                                                                                </xs:simpleType>
+                                                                            <xs:element name="justProrr" type="TS_texto_999">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Justificativa da prorrogação</xs:documentation>
+                                                                                    <xs:documentation>Descrever a justificativa para a prorrogação do contrato de trabalho temporário.</xs:documentation>
+                                                                                </xs:annotation>
                                                                             </xs:element>
                                                                         </xs:sequence>
                                                                     </xs:complexType>
                                                                 </xs:element>
-                                                                <xs:element name="aprend" minOccurs="0">
+                                                                <xs:element name="aprend" minOccurs="0" type="T_aprend">
                                                                     <xs:annotation>
                                                                         <xs:documentation>Informações relacionadas ao aprendiz</xs:documentation>
                                                                         <xs:documentation>CONDICAO_GRUPO: OC (se {codCateg} = [103]); N (nos demais casos)</xs:documentation>
                                                                     </xs:annotation>
-                                                                    <xs:complexType>
-                                                                        <xs:sequence>
-                                                                            <xs:element name="tpInsc">
-                                                                                <xs:simpleType>
-                                                                                    <xs:annotation>
-                                                                                        <xs:documentation>Tipo de Inscrição</xs:documentation>
-                                                                                        <xs:documentation>Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.</xs:documentation>
-                                                                                    </xs:annotation>
-                                                                                    <xs:restriction base="xs:byte">
-                                                                                        <xs:enumeration value="1">
-                                                                                            <xs:annotation>
-                                                                                                <xs:documentation>CNPJ</xs:documentation>
-                                                                                            </xs:annotation>
-                                                                                        </xs:enumeration>
-                                                                                        <xs:enumeration value="2">
-                                                                                            <xs:annotation>
-                                                                                                <xs:documentation>CPF</xs:documentation>
-                                                                                            </xs:annotation>
-                                                                                        </xs:enumeration>
-                                                                                    </xs:restriction>
-                                                                                </xs:simpleType>
-                                                                            </xs:element>
-                                                                            <xs:element name="nrInsc">
-                                                                                <xs:simpleType>
-                                                                                    <xs:annotation>
-                                                                                        <xs:documentation>Número de Inscrição</xs:documentation>
-                                                                                        <xs:documentation>Informar o número de inscrição do empregador para o qual a contratação de aprendiz foi efetivada, de acordo com o tipo de inscrição indicado no campo {tpInsc}.</xs:documentation>
-                                                                                        <xs:documentation>Validação: Deve ser um identificador válido e: a) Se {tpInsc} = [1], deve ser diferente dos estabelecimentos informados na Tabela S-1005, com 14 (catorze) algarismos. Se o empregador for pessoa jurídica, a raiz do CNPJ informado deve ser diferente da raiz do CNPJ do empregador. b) Se {tpInsc} = [2], deve ser diferente do CPF do empregado. Se o empregador for pessoa física, também deve ser diferente do CPF do empregador.</xs:documentation>
-                                                                                    </xs:annotation>
-                                                                                    <xs:restriction base="xs:string">
-                                                                                        <xs:pattern value="\d{11}|\d{14}" />
-                                                                                    </xs:restriction>
-                                                                                </xs:simpleType>
-                                                                            </xs:element>
-                                                                        </xs:sequence>
-                                                                    </xs:complexType>
                                                                 </xs:element>
                                                             </xs:sequence>
                                                         </xs:complexType>
@@ -262,34 +149,10 @@
                                                         </xs:annotation>
                                                         <xs:complexType>
                                                             <xs:sequence>
-                                                                <xs:element name="tpPlanRP" minOccurs="0">
-                                                                    <xs:simpleType>
-                                                                        <xs:annotation>
-                                                                            <xs:documentation>Tipo de plano de segregação da massa</xs:documentation>
-                                                                        </xs:annotation>
-                                                                        <xs:restriction base="xs:byte">
-                                                                            <xs:enumeration value="0">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Sem segregação da massa</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:enumeration>
-                                                                            <xs:enumeration value="1">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Fundo em capitalização</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:enumeration>
-                                                                            <xs:enumeration value="2">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Fundo em repartição</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:enumeration>
-                                                                            <xs:enumeration value="3">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Mantido pelo Tesouro</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:enumeration>
-                                                                        </xs:restriction>
-                                                                    </xs:simpleType>
+                                                                <xs:element name="tpPlanRP" minOccurs="0" type="TS_tpPlanRP">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Tipo de plano de segregação da massa</xs:documentation>
+                                                                    </xs:annotation>
                                                                 </xs:element>
                                                                 <xs:element name="indTetoRGPS" type="TS_sim_nao" minOccurs="0">
                                                                     <xs:annotation>
@@ -313,53 +176,29 @@
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>
-                                                    <xs:element name="nmCargo" minOccurs="0">
-                                                        <xs:simpleType>
-                                                            <xs:annotation>
-                                                                <xs:documentation>Nome do Cargo</xs:documentation>
-                                                                <xs:documentation>Validação: O preenchimento é obrigatório, exceto se for relativo a servidor nomeado em cargo em comissão ({tpRegTrab} = [2] e {tpProv} = [2]).</xs:documentation>
-                                                            </xs:annotation>
-                                                            <xs:restriction base="xs:string">
-                                                                <xs:minLength value="1" />
-                                                                <xs:maxLength value="100" />
-                                                                <xs:pattern value=".*[^\s].*" />
-                                                            </xs:restriction>
-                                                        </xs:simpleType>
+                                                    <xs:element name="nmCargo" minOccurs="0" type="TS_texto_100">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Nome do Cargo</xs:documentation>
+                                                            <xs:documentation>Validação: O preenchimento é obrigatório, exceto se for relativo a servidor nomeado em cargo em comissão ({tpRegTrab} = [2] e {tpProv} = [2]).</xs:documentation>
+                                                        </xs:annotation>
                                                     </xs:element>
-                                                    <xs:element name="CBOCargo" minOccurs="0">
-                                                        <xs:simpleType>
-                                                            <xs:annotation>
-                                                                <xs:documentation>Classificação Brasileira de Ocupação</xs:documentation>
-                                                                <xs:documentation>Validação: Informação obrigatória e exclusiva se {nmCargo} for preenchido. Se informado, deve ser um código existente na tabela de CBO, com 6 (seis) posições.</xs:documentation>
-                                                            </xs:annotation>
-                                                            <xs:restriction base="xs:string">
-                                                                <xs:pattern value="\d{6}" />
-                                                            </xs:restriction>
-                                                        </xs:simpleType>
+                                                    <xs:element name="CBOCargo" minOccurs="0" type="TS_cbo">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Classificação Brasileira de Ocupação</xs:documentation>
+                                                            <xs:documentation>Validação: Informação obrigatória e exclusiva se {nmCargo} for preenchido. Se informado, deve ser um código existente na tabela de CBO, com 6 (seis) posições.</xs:documentation>
+                                                        </xs:annotation>
                                                     </xs:element>
-                                                    <xs:element name="nmFuncao" minOccurs="0">
-                                                        <xs:simpleType>
-                                                            <xs:annotation>
-                                                                <xs:documentation>Nome da Função de confiança/Cargo em Comissão</xs:documentation>
-                                                                <xs:documentation>Validação: Preenchimento obrigatório se for relativo a servidor nomeado em cargo em comissão ({tpRegTrab} = [2] e {tpProv} = [2]).</xs:documentation>
-                                                            </xs:annotation>
-                                                            <xs:restriction base="xs:string">
-                                                                <xs:minLength value="1" />
-                                                                <xs:maxLength value="100" />
-                                                                <xs:pattern value=".*[^\s].*" />
-                                                            </xs:restriction>
-                                                        </xs:simpleType>
+                                                    <xs:element name="nmFuncao" minOccurs="0" type="TS_texto_100">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Nome da Função de confiança/Cargo em Comissão</xs:documentation>
+                                                            <xs:documentation>Validação: Preenchimento obrigatório se for relativo a servidor nomeado em cargo em comissão ({tpRegTrab} = [2] e {tpProv} = [2]).</xs:documentation>
+                                                        </xs:annotation>
                                                     </xs:element>
-                                                    <xs:element name="CBOFuncao" minOccurs="0">
-                                                        <xs:simpleType>
-                                                            <xs:annotation>
-                                                                <xs:documentation>Classificação Brasileira de Ocupação</xs:documentation>
-                                                                <xs:documentation>Validação: Informação obrigatória e exclusiva se {nmFuncao} for preenchido. Se informado, deve ser um código existente na tabela de CBO, com 6 (seis) posições.</xs:documentation>
-                                                            </xs:annotation>
-                                                            <xs:restriction base="xs:string">
-                                                                <xs:pattern value="\d{6}" />
-                                                            </xs:restriction>
-                                                        </xs:simpleType>
+                                                    <xs:element name="CBOFuncao" minOccurs="0" type="TS_cbo">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Classificação Brasileira de Ocupação</xs:documentation>
+                                                            <xs:documentation>Validação: Informação obrigatória e exclusiva se {nmFuncao} for preenchido. Se informado, deve ser um código existente na tabela de CBO, com 6 (seis) posições.</xs:documentation>
+                                                        </xs:annotation>
                                                     </xs:element>
                                                     <xs:element name="acumCargo" type="TS_sim_nao" minOccurs="0">
                                                         <xs:annotation>
@@ -367,18 +206,7 @@
                                                             <xs:documentation>Validação: Preenchimento obrigatório se a natureza jurídica do declarante for igual a [1XXX, 2011, 2038].</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
-                                                    <xs:element name="codCateg">
-                                                        <xs:simpleType>
-                                                            <xs:annotation>
-                                                                <xs:documentation>Código da Categoria</xs:documentation>
-                                                                <xs:documentation>Preencher com o código da categoria do trabalhador, conforme Tabela 01.</xs:documentation>
-                                                                <xs:documentation>Validação: Deve ser um código válido e existente na Tabela 01.</xs:documentation>
-                                                            </xs:annotation>
-                                                            <xs:restriction base="xs:integer">
-                                                                <xs:pattern value="\d{3}" />
-                                                            </xs:restriction>
-                                                        </xs:simpleType>
-                                                    </xs:element>
+                                                    <xs:element name="codCateg" type="TS_codCateg" />
                                                     <xs:element name="remuneracao" type="T_remuneracao" minOccurs="0">
                                                         <xs:annotation>
                                                             <xs:documentation>Informações da remuneração e periodicidade de pagamento</xs:documentation>
@@ -392,30 +220,7 @@
                                                         </xs:annotation>
                                                         <xs:complexType>
                                                             <xs:sequence>
-                                                                <xs:element name="tpContr">
-                                                                    <xs:simpleType>
-                                                                        <xs:annotation>
-                                                                            <xs:documentation>Tipo de contrato</xs:documentation>
-                                                                        </xs:annotation>
-                                                                        <xs:restriction base="xs:byte">
-                                                                            <xs:enumeration value="1">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Prazo indeterminado</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:enumeration>
-                                                                            <xs:enumeration value="2">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Prazo determinado, definido em dias</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:enumeration>
-                                                                            <xs:enumeration value="3">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Prazo determinado, vinculado à ocorrência de um fato</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:enumeration>
-                                                                        </xs:restriction>
-                                                                    </xs:simpleType>
-                                                                </xs:element>
+                                                                <xs:element name="tpContr" type="TS_tpContr" />
                                                                 <xs:element name="dtTerm" type="xs:date" minOccurs="0">
                                                                     <xs:annotation>
                                                                         <xs:documentation>Data do Término</xs:documentation>
@@ -423,18 +228,11 @@
                                                                         <xs:documentation>Validação: O preenchimento é obrigatório se {tpContr} = [2]. Não informar se {tpContr} = [1]. Se preenchido, deve ser igual ou posterior à data de admissão (no caso de sucessão ou de mudança de CPF, igual ou posterior à data da transferência ou à data de alteração do CPF, respectivamente).</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
-                                                                <xs:element name="objDet" minOccurs="0">
-                                                                    <xs:simpleType>
-                                                                        <xs:annotation>
-                                                                            <xs:documentation>Indicação do objeto determinante da contratação por prazo determinado (obra, serviço, safra, etc.)</xs:documentation>
-                                                                            <xs:documentation>Validação: O preenchimento é obrigatório e exclusivo se {tpContr} = [3].</xs:documentation>
-                                                                        </xs:annotation>
-                                                                        <xs:restriction base="xs:string">
-                                                                            <xs:minLength value="2" />
-                                                                            <xs:maxLength value="255" />
-                                                                            <xs:pattern value=".*[^\s].*" />
-                                                                        </xs:restriction>
-                                                                    </xs:simpleType>
+                                                                <xs:element name="objDet" minOccurs="0" type="TS_texto_255">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Indicação do objeto determinante da contratação por prazo determinado (obra, serviço, safra, etc.)</xs:documentation>
+                                                                        <xs:documentation>Validação: O preenchimento é obrigatório e exclusivo se {tpContr} = [3].</xs:documentation>
+                                                                    </xs:annotation>
                                                                 </xs:element>
                                                             </xs:sequence>
                                                         </xs:complexType>
@@ -460,137 +258,17 @@
                                                             </xs:sequence>
                                                         </xs:complexType>
                                                     </xs:element>
-                                                    <xs:element name="horContratual" minOccurs="0">
+                                                    <xs:element name="horContratual" minOccurs="0" type="T_horContratual">
                                                         <xs:annotation>
                                                             <xs:documentation>Informações do Horário Contratual do Trabalhador</xs:documentation>
                                                             <xs:documentation>CONDICAO_GRUPO: O (se {tpRegJor} = [1]); OC (nos demais casos)</xs:documentation>
                                                         </xs:annotation>
-                                                        <xs:complexType>
-                                                            <xs:sequence>
-                                                                <xs:element name="qtdHrsSem" minOccurs="0">
-                                                                    <xs:simpleType>
-                                                                        <xs:annotation>
-                                                                            <xs:documentation>Quantidade média de horas relativas à jornada semanal do trabalhador</xs:documentation>
-                                                                            <xs:documentation>Validação: Deve ser preenchido se {codCateg} diferente de [111]. Se preenchido, deve ser maior que zero.</xs:documentation>
-                                                                        </xs:annotation>
-                                                                        <xs:restriction base="xs:decimal">
-                                                                            <xs:totalDigits value="4" />
-                                                                            <xs:fractionDigits value="2" />
-                                                                            <xs:minExclusive value="0" />
-                                                                            <xs:maxInclusive value="99.99" />
-                                                                        </xs:restriction>
-                                                                    </xs:simpleType>
-                                                                </xs:element>
-                                                                <xs:element name="tpJornada">
-                                                                    <xs:simpleType>
-                                                                        <xs:annotation>
-                                                                            <xs:documentation>Tipo da Jornada</xs:documentation>
-                                                                        </xs:annotation>
-                                                                        <xs:restriction base="xs:byte">
-                                                                            <xs:enumeration value="2">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Jornada 12 x 36 (12 horas de trabalho seguidas de 36 horas ininterruptas de descanso)</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:enumeration>
-                                                                            <xs:enumeration value="3">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Jornada com horário diário fixo e folga variável; 4 - Jornada com horário diário fixo e folga fixa (no domingo)</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:enumeration>
-                                                                            <xs:enumeration value="5">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Jornada com horário diário fixo e folga fixa (exceto no domingo)</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:enumeration>
-                                                                            <xs:enumeration value="6">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Jornada com horário diário fixo e folga fixa (em outro dia da semana), com folga adicional periódica no domingo</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:enumeration>
-                                                                            <xs:enumeration value="7">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Turno ininterrupto de revezamento</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:enumeration>
-                                                                            <xs:enumeration value="9">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Demais tipos de jornada</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:enumeration>
-                                                                        </xs:restriction>
-                                                                    </xs:simpleType>
-                                                                </xs:element>
-                                                                <xs:element name="tmpParc">
-                                                                    <xs:simpleType>
-                                                                        <xs:annotation>
-                                                                            <xs:documentation>Contrato de trabalho em regime de tempo parcial</xs:documentation>
-                                                                            <xs:documentation>Preencher com o código relativo ao tipo de contrato em tempo parcial.</xs:documentation>
-                                                                            <xs:documentation>Validação: O código [1] só é válido se {codCateg} = [104]. Os códigos [2, 3] não são válidos se {codCateg} = [104].</xs:documentation>
-                                                                        </xs:annotation>
-                                                                        <xs:restriction base="xs:byte">
-                                                                            <xs:enumeration value="0">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Não é contrato em tempo parcial</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:enumeration>
-                                                                            <xs:enumeration value="1">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Limitado a 25 horas semanais</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:enumeration>
-                                                                            <xs:enumeration value="2">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Limitado a 30 horas semanais</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:enumeration>
-                                                                            <xs:enumeration value="3">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Limitado a 26 horas semanais</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:enumeration>
-                                                                        </xs:restriction>
-                                                                    </xs:simpleType>
-                                                                </xs:element>
-                                                                <xs:element name="horNoturno" type="TS_sim_nao">
-                                                                    <xs:annotation>
-                                                                        <xs:documentation>Indicar se a jornada semanal possui horário noturno (no todo ou em parte)</xs:documentation>
-                                                                    </xs:annotation>
-                                                                </xs:element>
-                                                                <xs:element name="dscJorn">
-                                                                    <xs:simpleType>
-                                                                        <xs:annotation>
-                                                                            <xs:documentation>Descrição da jornada semanal contratual, contendo os dias da semana e os respectivos horários contratuais (entrada, saída e intervalos)</xs:documentation>
-                                                                        </xs:annotation>
-                                                                        <xs:restriction base="xs:string">
-                                                                            <xs:minLength value="1" />
-                                                                            <xs:maxLength value="999" />
-                                                                            <xs:pattern value=".*[^\s].*" />
-                                                                        </xs:restriction>
-                                                                    </xs:simpleType>
-                                                                </xs:element>
-                                                            </xs:sequence>
-                                                        </xs:complexType>
                                                     </xs:element>
-                                                    <xs:element name="alvaraJudicial" minOccurs="0">
+                                                    <xs:element name="alvaraJudicial" minOccurs="0" type="T_alvaraJudicial">
                                                         <xs:annotation>
                                                             <xs:documentation>Dados do Alvará Judicial</xs:documentation>
                                                             <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
                                                         </xs:annotation>
-                                                        <xs:complexType>
-                                                            <xs:sequence>
-                                                                <xs:element name="nrProcJud">
-                                                                    <xs:simpleType>
-                                                                        <xs:annotation>
-                                                                            <xs:documentation>Identificação do Número do Processo Judicial</xs:documentation>
-                                                                            <xs:documentation>Validação: Deve ser um número de processo judicial válido.</xs:documentation>
-                                                                        </xs:annotation>
-                                                                        <xs:restriction base="xs:string">
-                                                                            <xs:pattern value="\d{20}" />
-                                                                        </xs:restriction>
-                                                                    </xs:simpleType>
-                                                                </xs:element>
-                                                            </xs:sequence>
-                                                        </xs:complexType>
                                                     </xs:element>
                                                     <xs:element name="observacoes" minOccurs="0" maxOccurs="99">
                                                         <xs:annotation>
@@ -599,42 +277,20 @@
                                                         </xs:annotation>
                                                         <xs:complexType>
                                                             <xs:sequence>
-                                                                <xs:element name="observacao">
-                                                                    <xs:simpleType>
-                                                                        <xs:annotation>
-                                                                            <xs:documentation>Observação</xs:documentation>
-                                                                        </xs:annotation>
-                                                                        <xs:restriction base="xs:string">
-                                                                            <xs:minLength value="2" />
-                                                                            <xs:maxLength value="255" />
-                                                                            <xs:pattern value=".*[^\s].*" />
-                                                                        </xs:restriction>
-                                                                    </xs:simpleType>
+                                                                <xs:element name="observacao" type="TS_texto_255">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Observação</xs:documentation>
+                                                                    </xs:annotation>
                                                                 </xs:element>
                                                             </xs:sequence>
                                                         </xs:complexType>
                                                     </xs:element>
-                                                    <xs:element name="treiCap" minOccurs="0" maxOccurs="99">
+                                                    <xs:element name="treiCap" minOccurs="0" maxOccurs="99" type="T_treiCap">
                                                         <xs:annotation>
                                                             <xs:documentation>Treinamentos, Capacitações, Exercícios Simulados e Outras Anotações</xs:documentation>
                                                             <xs:documentation>CHAVE_GRUPO: {codTreiCap}</xs:documentation>
                                                             <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
                                                         </xs:annotation>
-                                                        <xs:complexType>
-                                                            <xs:sequence>
-                                                                <xs:element name="codTreiCap">
-                                                                    <xs:simpleType>
-                                                                        <xs:annotation>
-                                                                            <xs:documentation>Código do treinamento, capacitação, exercício simulado ou outra anotação, conforme Tabela 28</xs:documentation>
-                                                                            <xs:documentation>Validação: Deve ser um código existente na Tabela 28 - Treinamentos, Capacitações, Exercícios Simulados e Outras Anotações.</xs:documentation>
-                                                                        </xs:annotation>
-                                                                        <xs:restriction base="xs:string">
-                                                                            <xs:pattern value="\d{4}" />
-                                                                        </xs:restriction>
-                                                                    </xs:simpleType>
-                                                                </xs:element>
-                                                            </xs:sequence>
-                                                        </xs:complexType>
                                                     </xs:element>
                                                 </xs:sequence>
                                             </xs:complexType>
