@@ -636,6 +636,14 @@
         </xs:restriction>
     </xs:simpleType>
 
+    <xs:simpleType name="TS_hora">
+        <xs:restriction base="xs:integer">
+            <xs:pattern value="\d{4}" />
+            <xs:minInclusive value="0" />
+            <xs:maxInclusive value="2359" />
+        </xs:restriction>
+    </xs:simpleType>
+
     <xs:simpleType name="TS_crm">
         <xs:restriction base="xs:string">
             <xs:minLength value="1" />
@@ -734,11 +742,22 @@
 
     <xs:simpleType name="TS_cep">
         <xs:annotation>
-            <xs:documentation>Código de Endereçamento Postal - CEP</xs:documentation>
+            <xs:documentation>CEP</xs:documentation>
             <xs:documentation>Validação: Deve ser preenchido apenas com números, com 8 (oito) posições.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:integer">
             <xs:pattern value="\d{8}" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="TS_codPostal">
+        <xs:annotation>
+            <xs:documentation>Código Postal</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:minLength value="4" />
+            <xs:maxLength value="12" />
+            <xs:pattern value=".*[^\s].*" />
         </xs:restriction>
     </xs:simpleType>
 

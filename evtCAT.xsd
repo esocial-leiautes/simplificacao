@@ -67,18 +67,11 @@
                                                 </xs:restriction>
                                             </xs:simpleType>
                                         </xs:element>
-                                        <xs:element name="hrAcid" minOccurs="0">
-                                            <xs:simpleType>
-                                                <xs:annotation>
-                                                    <xs:documentation>Hora do Acidente, no formato HHMM</xs:documentation>
-                                                    <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se {tpAcid} = [1]. Se informada, deve estar no intervalo entre [0000] e [2359], criticando inclusive a segunda parte do número, que indica os minutos, que deve ser menor ou igual a 59. Se {tpCat} = [2,3] deve ser informado valor igual ao preenchido no evento de CAT anterior, quando informado em {nrRecCatOrig}.</xs:documentation>
-                                                </xs:annotation>
-                                                <xs:restriction base="xs:integer">
-                                                    <xs:pattern value="\d{4}" />
-                                                    <xs:minInclusive value="0" />
-                                                    <xs:maxInclusive value="2359" />
-                                                </xs:restriction>
-                                            </xs:simpleType>
+                                        <xs:element name="hrAcid" minOccurs="0" type="TS_hora">
+                                            <xs:annotation>
+                                                <xs:documentation>Hora do Acidente, no formato HHMM</xs:documentation>
+                                                <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se {tpAcid} = [1]. Se informada, deve estar no intervalo entre [0000] e [2359], criticando inclusive a segunda parte do número, que indica os minutos, que deve ser menor ou igual a 59. Se {tpCat} = [2,3] deve ser informado valor igual ao preenchido no evento de CAT anterior, quando informado em {nrRecCatOrig}.</xs:documentation>
+                                            </xs:annotation>
                                         </xs:element>
                                         <xs:element name="hrsTrabAntesAcid" minOccurs="0">
                                             <xs:simpleType>
@@ -170,17 +163,10 @@
                                                 </xs:restriction>
                                             </xs:simpleType>
                                         </xs:element>
-                                        <xs:element name="obsCAT" minOccurs="0">
-                                            <xs:simpleType>
-                                                <xs:annotation>
-                                                    <xs:documentation>Observação</xs:documentation>
-                                                </xs:annotation>
-                                                <xs:restriction base="xs:string">
-                                                    <xs:minLength value="2" />
-                                                    <xs:maxLength value="999" />
-                                                    <xs:pattern value=".*[^\s].*" />
-                                                </xs:restriction>
-                                            </xs:simpleType>
+                                        <xs:element name="obsCAT" minOccurs="0" type="TS_texto_999">
+                                            <xs:annotation>
+                                                <xs:documentation>Observação</xs:documentation>
+                                            </xs:annotation>
                                         </xs:element>
                                         <xs:element name="localAcidente">
                                             <xs:annotation>
@@ -233,88 +219,26 @@
                                                             </xs:restriction>
                                                         </xs:simpleType>
                                                     </xs:element>
-                                                    <xs:element name="dscLocal" minOccurs="0">
-                                                        <xs:simpleType>
-                                                            <xs:annotation>
-                                                                <xs:documentation>Especificação do local do acidente (pátio, rampa de acesso, posto de trabalho, etc.)</xs:documentation>
-                                                            </xs:annotation>
-                                                            <xs:restriction base="xs:string">
-                                                                <xs:minLength value="2" />
-                                                                <xs:maxLength value="255" />
-                                                                <xs:pattern value=".*[^\s].*" />
-                                                            </xs:restriction>
-                                                        </xs:simpleType>
+                                                    <xs:element name="dscLocal" minOccurs="0" type="TS_texto_255">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Especificação do local do acidente (pátio, rampa de acesso, posto de trabalho, etc.)</xs:documentation>
+                                                        </xs:annotation>
                                                     </xs:element>
-                                                    <xs:element name="dscLograd">
-                                                        <xs:simpleType>
-                                                            <xs:annotation>
-                                                                <xs:documentation>Descrição do logradouro</xs:documentation>
-                                                            </xs:annotation>
-                                                            <xs:restriction base="xs:string">
-                                                                <xs:minLength value="1" />
-                                                                <xs:maxLength value="100" />
-                                                                <xs:pattern value=".*[^\s].*" />
-                                                            </xs:restriction>
-                                                        </xs:simpleType>
+                                                    <xs:element name="dscLograd" type="TS_dscLograd" />
+                                                    <xs:element name="nrLograd" type="TS_nrLograd" />
+                                                    <xs:element name="complemento" minOccurs="0" type="TS_complemento" />
+                                                    <xs:element name="bairro" minOccurs="0" type="TS_bairro" />
+                                                    <xs:element name="cep" minOccurs="0" type="TS_cep">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Código de Endereçamento Postal - CEP</xs:documentation>
+                                                            <xs:documentation>Validação: Preenchimento obrigatório se {tpLocal} = [1, 3, 5]. Não preencher se {tpLocal} = [2]. Se preenchido, deve ser informado apenas com números, com 8 (oito) posições.</xs:documentation>
+                                                        </xs:annotation>
                                                     </xs:element>
-                                                    <xs:element name="nrLograd">
-                                                        <xs:simpleType>
-                                                            <xs:annotation>
-                                                                <xs:documentation>Número do logradouro</xs:documentation>
-                                                                <xs:documentation>Se não houver número a ser informado, preencher com "S/N".</xs:documentation>
-                                                            </xs:annotation>
-                                                            <xs:restriction base="xs:string">
-                                                                <xs:minLength value="1" />
-                                                                <xs:maxLength value="10" />
-                                                                <xs:pattern value=".*[^\s].*" />
-                                                            </xs:restriction>
-                                                        </xs:simpleType>
-                                                    </xs:element>
-                                                    <xs:element name="complemento" minOccurs="0">
-                                                        <xs:simpleType>
-                                                            <xs:annotation>
-                                                                <xs:documentation>Complemento do logradouro</xs:documentation>
-                                                            </xs:annotation>
-                                                            <xs:restriction base="xs:string">
-                                                                <xs:minLength value="1" />
-                                                                <xs:maxLength value="30" />
-                                                                <xs:pattern value=".*[^\s].*" />
-                                                            </xs:restriction>
-                                                        </xs:simpleType>
-                                                    </xs:element>
-                                                    <xs:element name="bairro" minOccurs="0">
-                                                        <xs:simpleType>
-                                                            <xs:annotation>
-                                                                <xs:documentation>Nome do bairro/distrito</xs:documentation>
-                                                            </xs:annotation>
-                                                            <xs:restriction base="xs:string">
-                                                                <xs:minLength value="1" />
-                                                                <xs:maxLength value="90" />
-                                                                <xs:pattern value=".*[^\s].*" />
-                                                            </xs:restriction>
-                                                        </xs:simpleType>
-                                                    </xs:element>
-                                                    <xs:element name="cep" minOccurs="0">
-                                                        <xs:simpleType>
-                                                            <xs:annotation>
-                                                                <xs:documentation>Código de Endereçamento Postal - CEP</xs:documentation>
-                                                                <xs:documentation>Validação: Preenchimento obrigatório se {tpLocal} = [1, 3, 5]. Não preencher se {tpLocal} = [2]. Se preenchido, deve ser informado apenas com números, com 8 (oito) posições.</xs:documentation>
-                                                            </xs:annotation>
-                                                            <xs:restriction base="xs:string">
-                                                                <xs:pattern value="\d{8}" />
-                                                            </xs:restriction>
-                                                        </xs:simpleType>
-                                                    </xs:element>
-                                                    <xs:element name="codMunic" minOccurs="0">
-                                                        <xs:simpleType>
-                                                            <xs:annotation>
-                                                                <xs:documentation>Código do Município</xs:documentation>
-                                                                <xs:documentation>Validação: Preenchimento obrigatório se {tpLocal} = [1, 3, 4, 5]. Não preencher se {tpLocal} = [2]. Se informado, deve ser um código existente na tabela do IBGE.</xs:documentation>
-                                                            </xs:annotation>
-                                                            <xs:restriction base="xs:integer">
-                                                                <xs:pattern value="\d{7}" />
-                                                            </xs:restriction>
-                                                        </xs:simpleType>
+                                                    <xs:element name="codMunic" minOccurs="0" type="TS_codMunic">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Código do Município</xs:documentation>
+                                                            <xs:documentation>Validação: Preenchimento obrigatório se {tpLocal} = [1, 3, 4, 5]. Não preencher se {tpLocal} = [2]. Se informado, deve ser um código existente na tabela do IBGE.</xs:documentation>
+                                                        </xs:annotation>
                                                     </xs:element>
                                                     <xs:element name="uf" type="TS_uf" minOccurs="0">
                                                         <xs:annotation>
@@ -333,18 +257,11 @@
                                                             </xs:restriction>
                                                         </xs:simpleType>
                                                     </xs:element>
-                                                    <xs:element name="codPostal" minOccurs="0">
-                                                        <xs:simpleType>
-                                                            <xs:annotation>
-                                                                <xs:documentation>CEP</xs:documentation>
-                                                                <xs:documentation>Validação: Preenchimento obrigatório se {tpLocal} = [2]. Não preencher nos demais casos.</xs:documentation>
-                                                            </xs:annotation>
-                                                            <xs:restriction base="xs:string">
-                                                                <xs:minLength value="4" />
-                                                                <xs:maxLength value="12" />
-                                                                <xs:pattern value=".*[^\s].*" />
-                                                            </xs:restriction>
-                                                        </xs:simpleType>
+                                                    <xs:element name="codPostal" minOccurs="0" type="TS_codPostal">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Código Postal</xs:documentation>
+                                                            <xs:documentation>Validação: Preenchimento obrigatório se {tpLocal} = [2]. Não preencher nos demais casos.</xs:documentation>
+                                                        </xs:annotation>
                                                     </xs:element>
                                                     <xs:element name="ideLocalAcid" minOccurs="0">
                                                         <xs:annotation>
@@ -377,17 +294,12 @@
                                                                         </xs:restriction>
                                                                     </xs:simpleType>
                                                                 </xs:element>
-                                                                <xs:element name="nrInsc">
-                                                                    <xs:simpleType>
-                                                                        <xs:annotation>
-                                                                            <xs:documentation>Número de Inscrição</xs:documentation>
-                                                                            <xs:documentation>Informar o número de inscrição do estabelecimento, de acordo com o tipo de inscrição indicado no campo {tpInsc}. Se o acidente ou a doença ocupacional ocorreu em local onde o trabalhador presta serviços, deve ser um número de inscrição pertencente à contratante dos serviços.</xs:documentation>
-                                                                            <xs:documentation>Validação: Deve ser compatível com o conteúdo do campo {tpInsc}. Deve ser um identificador válido, constante das bases da RFB, e: a) Se {tpLocal} = [1], deve constar na Tabela S-1005; b) Se {tpLocal} = [3], deve ser diferente dos estabelecimentos informados na Tabela S-1005 e, se {tpInsc} = [1], diferente do CNPJ base indicado em S-1000.</xs:documentation>
-                                                                        </xs:annotation>
-                                                                        <xs:restriction base="xs:string">
-                                                                            <xs:pattern value="\d{11}|\d{14}" />
-                                                                        </xs:restriction>
-                                                                    </xs:simpleType>
+                                                                <xs:element name="nrInsc" type="TS_nrInsc_11_14">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Número de Inscrição</xs:documentation>
+                                                                        <xs:documentation>Informar o número de inscrição do estabelecimento, de acordo com o tipo de inscrição indicado no campo {tpInsc}. Se o acidente ou a doença ocupacional ocorreu em local onde o trabalhador presta serviços, deve ser um número de inscrição pertencente à contratante dos serviços.</xs:documentation>
+                                                                        <xs:documentation>Validação: Deve ser compatível com o conteúdo do campo {tpInsc}. Deve ser um identificador válido, constante das bases da RFB, e: a) Se {tpLocal} = [1], deve constar na Tabela S-1005; b) Se {tpLocal} = [3], deve ser diferente dos estabelecimentos informados na Tabela S-1005 e, se {tpInsc} = [1], diferente do CNPJ base indicado em S-1000.</xs:documentation>
+                                                                    </xs:annotation>
                                                                 </xs:element>
                                                             </xs:sequence>
                                                         </xs:complexType>
@@ -479,18 +391,11 @@
                                                             <xs:documentation>Validação: Deve ser uma data válida, igual ou anterior à data atual.</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
-                                                    <xs:element name="hrAtendimento">
-                                                        <xs:simpleType>
-                                                            <xs:annotation>
-                                                                <xs:documentation>Hora do atendimento</xs:documentation>
-                                                                <xs:documentation>Validação: Deve estar no intervalo entre [0000] e [2359], criticando inclusive a segunda parte do número, que indica os minutos, que deve ser menor ou igual a 59.</xs:documentation>
-                                                            </xs:annotation>
-                                                            <xs:restriction base="xs:integer">
-                                                                <xs:pattern value="\d{4}" />
-                                                                <xs:minInclusive value="0" />
-                                                                <xs:maxInclusive value="2359" />
-                                                            </xs:restriction>
-                                                        </xs:simpleType>
+                                                    <xs:element name="hrAtendimento" type="TS_hora">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Hora do atendimento</xs:documentation>
+                                                            <xs:documentation>Validação: Deve estar no intervalo entre [0000] e [2359], criticando inclusive a segunda parte do número, que indica os minutos, que deve ser menor ou igual a 59.</xs:documentation>
+                                                        </xs:annotation>
                                                     </xs:element>
                                                     <xs:element name="indInternacao" type="TS_sim_nao">
                                                         <xs:annotation>
@@ -536,17 +441,10 @@
                                                             </xs:restriction>
                                                         </xs:simpleType>
                                                     </xs:element>
-                                                    <xs:element name="diagProvavel" minOccurs="0">
-                                                        <xs:simpleType>
-                                                            <xs:annotation>
-                                                                <xs:documentation>Diagnóstico Provável</xs:documentation>
-                                                            </xs:annotation>
-                                                            <xs:restriction base="xs:string">
-                                                                <xs:minLength value="1" />
-                                                                <xs:maxLength value="100" />
-                                                                <xs:pattern value=".*[^\s].*" />
-                                                            </xs:restriction>
-                                                        </xs:simpleType>
+                                                    <xs:element name="diagProvavel" minOccurs="0" type="TS_texto_100">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Diagnóstico Provável</xs:documentation>
+                                                        </xs:annotation>
                                                     </xs:element>
                                                     <xs:element name="codCID">
                                                         <xs:simpleType>
@@ -560,17 +458,10 @@
                                                             </xs:restriction>
                                                         </xs:simpleType>
                                                     </xs:element>
-                                                    <xs:element name="observacao" minOccurs="0">
-                                                        <xs:simpleType>
-                                                            <xs:annotation>
-                                                                <xs:documentation>Observação</xs:documentation>
-                                                            </xs:annotation>
-                                                            <xs:restriction base="xs:string">
-                                                                <xs:minLength value="2" />
-                                                                <xs:maxLength value="255" />
-                                                                <xs:pattern value=".*[^\s].*" />
-                                                            </xs:restriction>
-                                                        </xs:simpleType>
+                                                    <xs:element name="observacao" minOccurs="0" type="TS_texto_255">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Observação</xs:documentation>
+                                                        </xs:annotation>
                                                     </xs:element>
                                                     <xs:element name="emitente">
                                                         <xs:annotation>
@@ -578,17 +469,10 @@
                                                         </xs:annotation>
                                                         <xs:complexType>
                                                             <xs:sequence>
-                                                                <xs:element name="nmEmit">
-                                                                    <xs:simpleType>
-                                                                        <xs:annotation>
-                                                                            <xs:documentation>Nome do médico/dentista que emitiu o atestado</xs:documentation>
-                                                                        </xs:annotation>
-                                                                        <xs:restriction base="xs:string">
-                                                                            <xs:minLength value="2" />
-                                                                            <xs:maxLength value="70" />
-                                                                            <xs:pattern value=".*[^\s].*" />
-                                                                        </xs:restriction>
-                                                                    </xs:simpleType>
+                                                                <xs:element name="nmEmit" type="TS_nome">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Nome do médico/dentista que emitiu o atestado</xs:documentation>
+                                                                    </xs:annotation>
                                                                 </xs:element>
                                                                 <xs:element name="ideOC">
                                                                     <xs:simpleType>
@@ -617,7 +501,7 @@
                                                                 <xs:element name="nrOC">
                                                                     <xs:simpleType>
                                                                         <xs:annotation>
-                                                                            <xs:documentation>Inscr no órgão de classe</xs:documentation>
+                                                                            <xs:documentation>Número de Inscrição no órgão de classe</xs:documentation>
                                                                         </xs:annotation>
                                                                         <xs:restriction base="xs:string">
                                                                             <xs:minLength value="2" />
@@ -644,20 +528,13 @@
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>
-                                                    <xs:element name="nrRecCatOrig">
-                                                        <xs:simpleType>
-                                                            <xs:annotation>
-                                                                <xs:documentation>Número da CAT origem</xs:documentation>
-                                                                <xs:documentation>Informar o número do recibo da última CAT referente ao mesmo acidente/doença relacionada ao trabalho, nos casos: a) de CAT de reabertura; b) de óbito, quando houver CAT anterior.</xs:documentation>
-                                                                <xs:documentation>Validação: Deve corresponder ao número do recibo do arquivo relativo à última CAT informada anteriormente, pertencente ao mesmo contrato, desde que {indCatObito} da última CAT informada seja igual a [N]. O sistema não efetuará a conferência da informação se {dtAcid} for anterior à data de transferência no evento de admissão.</xs:documentation>
-                                                                <xs:documentation>OBS: Quando {dtAcid} for anterior à data de obrigatoriedade do empregador ao envio deste evento, a CAT de reabertura e/ou de óbito não devem ser informadas ao eSocial, mantendo-se o procedimento realizado na emissão da CAT original.</xs:documentation>
-                                                            </xs:annotation>
-                                                            <xs:restriction base="xs:string">
-                                                                <xs:minLength value="1" />
-                                                                <xs:maxLength value="40" />
-                                                                <xs:pattern value=".*[^\s].*" />
-                                                            </xs:restriction>
-                                                        </xs:simpleType>
+                                                    <xs:element name="nrRecCatOrig" type="TS_nrRecibo">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Número da CAT origem</xs:documentation>
+                                                            <xs:documentation>Informar o número do recibo da última CAT referente ao mesmo acidente/doença relacionada ao trabalho, nos casos: a) de CAT de reabertura; b) de óbito, quando houver CAT anterior.</xs:documentation>
+                                                            <xs:documentation>Validação: Deve corresponder ao número do recibo do arquivo relativo à última CAT informada anteriormente, pertencente ao mesmo contrato, desde que {indCatObito} da última CAT informada seja igual a [N]. O sistema não efetuará a conferência da informação se {dtAcid} for anterior à data de transferência no evento de admissão.</xs:documentation>
+                                                            <xs:documentation>OBS: Quando {dtAcid} for anterior à data de obrigatoriedade do empregador ao envio deste evento, a CAT de reabertura e/ou de óbito não devem ser informadas ao eSocial, mantendo-se o procedimento realizado na emissão da CAT original.</xs:documentation>
+                                                        </xs:annotation>
                                                     </xs:element>
                                                 </xs:sequence>
                                             </xs:complexType>
