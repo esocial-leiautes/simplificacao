@@ -23,31 +23,18 @@
                     </xs:annotation>
                     <xs:complexType>
                         <xs:sequence>
-                            <xs:element name="ideEvento" type="T_ideEvento_trab">
-                                <xs:annotation>
-                                    <xs:documentation>Informações de Identificação do Evento</xs:documentation>
-                                </xs:annotation>
-                            </xs:element>
-                            <xs:element name="ideEmpregador" type="T_ideEmpregador_evtTab">
-                                <xs:annotation>
-                                    <xs:documentation>Informações de identificação do empregador</xs:documentation>
-                                </xs:annotation>
-                            </xs:element>
+                            <xs:element name="ideEvento" type="T_ideEvento_trab" />
+                            <xs:element name="ideEmpregador" type="T_ideEmpregador_evtTab" />
                             <xs:element name="infoRegPrelim">
                                 <xs:annotation>
                                     <xs:documentation>Informações do Registro Preliminar do Trabalhador</xs:documentation>
                                 </xs:annotation>
                                 <xs:complexType>
                                     <xs:sequence>
-                                        <xs:element name="cpfTrab">
-                                            <xs:simpleType>
-                                                <xs:annotation>
-                                                    <xs:documentation>CPF do trabalhador</xs:documentation>
-                                                </xs:annotation>
-                                                <xs:restriction base="xs:string">
-                                                    <xs:pattern value="\d{11}" />
-                                                </xs:restriction>
-                                            </xs:simpleType>
+                                        <xs:element name="cpfTrab" type="TS_cpf">
+                                            <xs:annotation>
+                                                <xs:documentation>CPF do trabalhador</xs:documentation>
+                                            </xs:annotation>
                                         </xs:element>
                                         <xs:element name="dtNascto" type="xs:date">
                                             <xs:annotation>
@@ -70,43 +57,24 @@
                                                     <xs:documentation>REGRA:REGRA_CARACTER_ESPECIAL</xs:documentation>
                                                 </xs:annotation>
                                                 <xs:restriction base="xs:string">
-                                                    <xs:pattern value=".*[^\s].*" />
                                                     <xs:minLength value="1" />
                                                     <xs:maxLength value="30" />
+                                                    <xs:pattern value=".*[^\s].*" />
                                                 </xs:restriction>
                                             </xs:simpleType>
                                         </xs:element>
-                                        <xs:element name="codCateg">
-                                            <xs:simpleType>
-                                                <xs:annotation>
-                                                    <xs:documentation>Código da Categoria</xs:documentation>
-                                                    <xs:documentation>Preencher com o código da categoria do trabalhador, conforme Tabela 01.</xs:documentation>
-                                                    <xs:documentation>Validação: Deve ser um código de categoria sujeito ao Registro de Eventos Trabalhistas - RET de trabalhador não vinculado ao Regime Próprio de Previdência Social - RPPS, ou seja, "Empregado" ([1XX]), algumas categorias de "Agente Público" ([301,302,303,304,306,307,309,310,312]), "Avulso" ([2XX]), "Cessão" ([4XX]), algumas categorias de "Contribuinte Individual" ([721,722,723,731,734,738,761,771]) ou de "Bolsista" ([901,902]).</xs:documentation>
-                                                </xs:annotation>
-                                                <xs:restriction base="xs:integer">
-                                                    <xs:pattern value="\d{3}" />
-                                                </xs:restriction>
-                                            </xs:simpleType>
+                                        <xs:element name="codCateg" type="TS_codCateg">
+                                            <xs:annotation>
+                                                <xs:documentation>Código da Categoria</xs:documentation>
+                                                <xs:documentation>Preencher com o código da categoria do trabalhador, conforme Tabela 01.</xs:documentation>
+                                                <xs:documentation>Validação: Deve ser um código de categoria sujeito ao Registro de Eventos Trabalhistas - RET de trabalhador não vinculado ao Regime Próprio de Previdência Social - RPPS, ou seja, "Empregado" ([1XX]), algumas categorias de "Agente Público" ([301,302,303,304,306,307,309,310,312]), "Avulso" ([2XX]), "Cessão" ([4XX]), algumas categorias de "Contribuinte Individual" ([721,722,723,731,734,738,761,771]) ou de "Bolsista" ([901,902]).</xs:documentation>
+                                            </xs:annotation>
                                         </xs:element>
-                                        <xs:element name="natAtividade" minOccurs="0">
-                                            <xs:simpleType>
-                                                <xs:annotation>
-                                                    <xs:documentation>Natureza da atividade</xs:documentation>
-                                                    <xs:documentation>Validação: Preenchimento obrigatório se {codCateg} for relativo a "Empregado", "Agente Público", "Avulso" ou igual a [401, 731, 734, 738]. Não deve ser preenchido se {codCateg} = [721, 722, 771, 901]. Se {codCateg} = [104], deve ser preenchido com [1]. Se {codCateg} = [102], deve ser preenchido com [2].</xs:documentation>
-                                                </xs:annotation>
-                                                <xs:restriction base="xs:byte">
-                                                    <xs:enumeration value="1">
-                                                        <xs:annotation>
-                                                            <xs:documentation>Trabalho Urbano</xs:documentation>
-                                                        </xs:annotation>
-                                                    </xs:enumeration>
-                                                    <xs:enumeration value="2">
-                                                        <xs:annotation>
-                                                            <xs:documentation>Trabalho Rural</xs:documentation>
-                                                        </xs:annotation>
-                                                    </xs:enumeration>
-                                                </xs:restriction>
-                                            </xs:simpleType>
+                                        <xs:element name="natAtividade" minOccurs="0" type="TS_natAtividade">
+                                            <xs:annotation>
+                                                <xs:documentation>Natureza da atividade</xs:documentation>
+                                                <xs:documentation>Validação: Preenchimento obrigatório se {codCateg} for relativo a "Empregado", "Agente Público", "Avulso" ou igual a [401, 731, 734, 738]. Não deve ser preenchido se {codCateg} = [721, 722, 771, 901]. Se {codCateg} = [104], deve ser preenchido com [1]. Se {codCateg} = [102], deve ser preenchido com [2].</xs:documentation>
+                                            </xs:annotation>
                                         </xs:element>
                                         <xs:element name="infoRegCTPS" minOccurs="0">
                                             <xs:annotation>
@@ -115,17 +83,12 @@
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>
-                                                    <xs:element name="CBOCargo">
-                                                        <xs:simpleType>
-                                                            <xs:annotation>
-                                                                <xs:documentation>Classificação Brasileira de Ocupação</xs:documentation>
-                                                                <xs:documentation>Informar a Classificação Brasileira de Ocupações - CBO relativa ao cargo</xs:documentation>
-                                                                <xs:documentation>Validação: Deve ser um código existente na tabela de CBO, com 6 (seis) posições.</xs:documentation>
-                                                            </xs:annotation>
-                                                            <xs:restriction base="xs:string">
-                                                                <xs:pattern value="\d{6}" />
-                                                            </xs:restriction>
-                                                        </xs:simpleType>
+                                                    <xs:element name="CBOCargo" type="TS_cbo">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Classificação Brasileira de Ocupação</xs:documentation>
+                                                            <xs:documentation>Informar a Classificação Brasileira de Ocupações - CBO relativa ao cargo</xs:documentation>
+                                                            <xs:documentation>Validação: Deve ser um código existente na tabela de CBO, com 6 (seis) posições.</xs:documentation>
+                                                        </xs:annotation>
                                                     </xs:element>
                                                     <xs:element name="vrSalFx">
                                                         <xs:simpleType>
@@ -224,18 +187,7 @@
                                 </xs:complexType>
                             </xs:element>
                         </xs:sequence>
-                        <xs:attribute name="Id" use="required">
-                            <xs:simpleType>
-                                <xs:annotation>
-                                    <xs:documentation>Identificação única do evento</xs:documentation>
-                                    <xs:documentation>REGRA:REGRA_VALIDA_ID_EVENTO</xs:documentation>
-                                </xs:annotation>
-                                <xs:restriction base="xs:ID">
-                                    <xs:length value="36" />
-                                    <xs:pattern value="ID\d{34}" />
-                                </xs:restriction>
-                            </xs:simpleType>
-                        </xs:attribute>
+                        <xs:attribute name="Id" use="required" type="TS_Id" />
                     </xs:complexType>
                 </xs:element>
                 <xs:element ref="ds:Signature" />

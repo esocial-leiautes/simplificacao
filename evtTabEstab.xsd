@@ -2,7 +2,7 @@
 <xs:schema xmlns="http://www.esocial.gov.br/schema/evt/evtTabEstab/v01_00_00" targetNamespace="http://www.esocial.gov.br/schema/evt/evtTabEstab/v01_00_00" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
     <xs:include schemaLocation="include/ideEvento_evtTab.xsd " />
     <xs:include schemaLocation="include/ideEmpregador_evtTab.xsd" />
-    <xs:include schemaLocation="include/periodo_evtTab.xsd" />
+    <xs:include schemaLocation="include/novaValidade.xsd" />
     <xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd" />
     <xs:element name="eSocial">
         <xs:annotation>
@@ -26,16 +26,8 @@
                     </xs:annotation>
                     <xs:complexType>
                         <xs:sequence>
-                            <xs:element name="ideEvento" type="T_ideEvento_evtTab">
-                                <xs:annotation>
-                                    <xs:documentation>Informações de Identificação do Evento</xs:documentation>
-                                </xs:annotation>
-                            </xs:element>
-                            <xs:element name="ideEmpregador" type="T_ideEmpregador_evtTab">
-                                <xs:annotation>
-                                    <xs:documentation>Informações de identificação do empregador</xs:documentation>
-                                </xs:annotation>
-                            </xs:element>
+                            <xs:element name="ideEvento" type="T_ideEvento_evtTab" />
+                            <xs:element name="ideEmpregador" type="T_ideEmpregador_evtTab" />
                             <xs:element name="infoEstab">
                                 <xs:annotation>
                                     <xs:documentation>Informações do Estabelecimento ou obra</xs:documentation>
@@ -50,16 +42,8 @@
                                                 </xs:annotation>
                                                 <xs:complexType>
                                                     <xs:sequence>
-                                                        <xs:element name="ideEstab" type="T_ideEstab">
-                                                            <xs:annotation>
-                                                                <xs:documentation>Identificação do estabelecimento, obra ou órgão público e validade das informações</xs:documentation>
-                                                            </xs:annotation>
-                                                        </xs:element>
-                                                        <xs:element name="dadosEstab" type="T_dadosEstab">
-                                                            <xs:annotation>
-                                                                <xs:documentation>Detalhamento das informações do estabelecimento, obra ou órgão público</xs:documentation>
-                                                            </xs:annotation>
-                                                        </xs:element>
+                                                        <xs:element name="ideEstab" type="T_ideEstab" />
+                                                        <xs:element name="dadosEstab" type="T_dadosEstab" />
                                                     </xs:sequence>
                                                 </xs:complexType>
                                             </xs:element>
@@ -70,22 +54,9 @@
                                                 </xs:annotation>
                                                 <xs:complexType>
                                                     <xs:sequence>
-                                                        <xs:element name="ideEstab" type="T_ideEstab">
-                                                            <xs:annotation>
-                                                                <xs:documentation>Identificação do estabelecimento, obra ou órgão público e validade das informações</xs:documentation>
-                                                            </xs:annotation>
-                                                        </xs:element>
-                                                        <xs:element name="dadosEstab" type="T_dadosEstab">
-                                                            <xs:annotation>
-                                                                <xs:documentation>Detalhamento das informações do estabelecimento, obra ou órgão público</xs:documentation>
-                                                            </xs:annotation>
-                                                        </xs:element>
-                                                        <xs:element name="novaValidade" type="T_periodo_evtTab" minOccurs="0">
-                                                            <xs:annotation>
-                                                                <xs:documentation>Novo período de validade das informações</xs:documentation>
-                                                                <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
-                                                            </xs:annotation>
-                                                        </xs:element>
+                                                        <xs:element name="ideEstab" type="T_ideEstab" />
+                                                        <xs:element name="dadosEstab" type="T_dadosEstab" />
+                                                        <xs:element name="novaValidade" type="T_novaValidade" minOccurs="0" />
                                                     </xs:sequence>
                                                 </xs:complexType>
                                             </xs:element>
@@ -96,11 +67,7 @@
                                                 </xs:annotation>
                                                 <xs:complexType>
                                                     <xs:sequence>
-                                                        <xs:element name="ideEstab" type="T_ideEstab">
-                                                            <xs:annotation>
-                                                                <xs:documentation>Identificação do estabelecimento, obra ou órgão público</xs:documentation>
-                                                            </xs:annotation>
-                                                        </xs:element>
+                                                        <xs:element name="ideEstab" type="T_ideEstab" />
                                                     </xs:sequence>
                                                 </xs:complexType>
                                             </xs:element>
@@ -109,18 +76,7 @@
                                 </xs:complexType>
                             </xs:element>
                         </xs:sequence>
-                        <xs:attribute name="Id" use="required">
-                            <xs:simpleType>
-                                <xs:annotation>
-                                    <xs:documentation>Identificação única do evento</xs:documentation>
-                                    <xs:documentation>REGRA:REGRA_VALIDA_ID_EVENTO</xs:documentation>
-                                </xs:annotation>
-                                <xs:restriction base="xs:ID">
-                                    <xs:length value="36" />
-                                    <xs:pattern value="ID\d{34}" />
-                                </xs:restriction>
-                            </xs:simpleType>
-                        </xs:attribute>
+                        <xs:attribute name="Id" use="required" type="TS_Id" />
                     </xs:complexType>
                 </xs:element>
                 <xs:element ref="ds:Signature" />
@@ -132,88 +88,24 @@
             <xs:documentation>Identificação do estabelecimento, obra ou órgão público e validade das informações</xs:documentation>
         </xs:annotation>
         <xs:sequence>
-            <xs:element name="tpInsc">
-                <xs:simpleType>
-                    <xs:annotation>
-                        <xs:documentation>Tipo de Inscrição</xs:documentation>
-                        <xs:documentation>Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.</xs:documentation>
-                    </xs:annotation>
-                    <xs:restriction base="xs:byte">
-                        <xs:enumeration value="1">
-                            <xs:annotation>
-                                <xs:documentation>CNPJ</xs:documentation>
-                            </xs:annotation>
-                        </xs:enumeration>
-                        <xs:enumeration value="3">
-                            <xs:annotation>
-                                <xs:documentation>CAEPF</xs:documentation>
-                            </xs:annotation>
-                        </xs:enumeration>
-                        <xs:enumeration value="4">
-                            <xs:annotation>
-                                <xs:documentation>CNO</xs:documentation>
-                            </xs:annotation>
-                        </xs:enumeration>
-                    </xs:restriction>
-                </xs:simpleType>
+            <xs:element name="tpInsc" type="TS_tpInsc_1_3_4" />
+            <xs:element name="nrInsc" type="TS_nrInsc_12_14">
+                <xs:annotation>
+                    <xs:documentation>Número de Inscrição</xs:documentation>
+                    <xs:documentation>Informar o número de inscrição do estabelecimento, obra de construção civil ou órgão público de acordo com o tipo de inscrição indicado no campo {tpInsc}.</xs:documentation>
+                    <xs:documentation>Validação: Deve ser compatível com o conteúdo do campo {tpInsc}. Deve ser um identificador válido, constante das bases da RFB, vinculado ao empregador.</xs:documentation>
+                </xs:annotation>
             </xs:element>
-            <xs:element name="nrInsc">
-                <xs:simpleType>
-                    <xs:annotation>
-                        <xs:documentation>Número de Inscrição</xs:documentation>
-                        <xs:documentation>Informar o número de inscrição do estabelecimento, obra de construção civil ou órgão público de acordo com o tipo de inscrição indicado no campo {tpInsc}.</xs:documentation>
-                        <xs:documentation>Validação: Deve ser compatível com o conteúdo do campo {tpInsc}. Deve ser um identificador válido, constante das bases da RFB, vinculado ao empregador.</xs:documentation>
-                    </xs:annotation>
-                    <xs:restriction base="xs:string">
-                        <xs:pattern value="\d{12}|\d{14}" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:element>
-            <xs:element name="iniValid">
-                <xs:simpleType>
-                    <xs:annotation>
-                        <xs:documentation>Início da validade</xs:documentation>
-                        <xs:documentation>Preencher com o mês e ano de início da validade das informações prestadas no evento, no formato AAAA-MM.</xs:documentation>
-                        <xs:documentation>Validação: Deve ser uma data válida, igual ou posterior à data de início de obrigatoriedade deste evento para o empregador no eSocial, no formato AAAA-MM.</xs:documentation>
-                    </xs:annotation>
-                    <xs:restriction base="xs:string">
-                        <xs:length value="7" />
-                        <xs:pattern value="[2]{1}\d{3}-(1[0-2]|0[1-9])" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:element>
-            <xs:element name="fimValid" minOccurs="0">
-                <xs:simpleType>
-                    <xs:annotation>
-                        <xs:documentation>Fim da validade</xs:documentation>
-                        <xs:documentation>Preencher com o mês e ano de término da validade das informações, se houver.</xs:documentation>
-                        <xs:documentation>Validação: Se informado, deve estar no formato AAAA-MM e ser um período igual ou posterior a {iniValid}.</xs:documentation>
-                    </xs:annotation>
-                    <xs:restriction base="xs:string">
-                        <xs:length value="7" />
-                        <xs:pattern value="[2]{1}\d{3}-(1[0-2]|0[1-9])" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:element>
+            <xs:element name="iniValid" type="TS_iniValid" />
+            <xs:element name="fimValid" minOccurs="0" type="TS_fimValid" />
         </xs:sequence>
     </xs:complexType>
     <xs:complexType name="T_dadosEstab">
         <xs:annotation>
-            <xs:documentation>Detalhamento das informações do estabelecimento/obra</xs:documentation>
+            <xs:documentation>Detalhamento das informações do estabelecimento, obra ou órgão público</xs:documentation>
         </xs:annotation>
         <xs:sequence>
-            <xs:element name="cnaePrep">
-                <xs:simpleType>
-                    <xs:annotation>
-                        <xs:documentation>Código do CNAE</xs:documentation>
-                        <xs:documentation>Preencher com o código CNAE conforme legislação vigente, referente à atividade econômica preponderante do estabelecimento.</xs:documentation>
-                        <xs:documentation>Validação: Deve ser um número existente na tabela CNAE.</xs:documentation>
-                    </xs:annotation>
-                    <xs:restriction base="xs:integer">
-                        <xs:pattern value="\d{7}" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:element>
+            <xs:element name="cnaePrep" type="TS_cnae" />
             <xs:element name="aliqGilrat" minOccurs="0">
                 <xs:annotation>
                     <xs:documentation>Informações de Apuração da alíquota Gilrat do Estabelecimento</xs:documentation>
@@ -221,33 +113,18 @@
                 </xs:annotation>
                 <xs:complexType>
                     <xs:sequence>
-                        <xs:element name="aliqRat" minOccurs="0">
-                            <xs:simpleType>
-                                <xs:annotation>
-                                    <xs:documentation>Alíquota RAT</xs:documentation>
-                                    <xs:documentation>Preencher com a alíquota definida na legislação vigente para a atividade (CNAE) preponderante. A divergência só é permitida se existir o registro complementar com informações sobre o processo administrativo/judicial que permite a aplicação de alíquotas diferentes.</xs:documentation>
-                                    <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se a alíquota informada for diferente da definida na legislação vigente para o código CNAE informado (neste caso, deverá haver informações de processo em {procAdmJudRat}). Se informada, deve ser igual a 1, 2 ou 3, e diferente da alíquota definida na legislação vigente para a atividade (CNAE) preponderante.</xs:documentation>
-                                </xs:annotation>
-                                <xs:restriction base="xs:byte">
-                                    <xs:enumeration value="1" />
-                                    <xs:enumeration value="2" />
-                                    <xs:enumeration value="3" />
-                                </xs:restriction>
-                            </xs:simpleType>
+                        <xs:element name="aliqRat" minOccurs="0" type="TS_aliqRat">
+                            <xs:annotation>
+                                <xs:documentation>Alíquota RAT</xs:documentation>
+                                <xs:documentation>Preencher com a alíquota definida na legislação vigente para a atividade (CNAE) preponderante. A divergência só é permitida se existir o registro complementar com informações sobre o processo administrativo/judicial que permite a aplicação de alíquotas diferentes.</xs:documentation>
+                                <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se a alíquota informada for diferente da definida na legislação vigente para o código CNAE informado (neste caso, deverá haver informações de processo em {procAdmJudRat}). Se informada, deve ser igual a 1, 2 ou 3, e diferente da alíquota definida na legislação vigente para a atividade (CNAE) preponderante.</xs:documentation>
+                            </xs:annotation>
                         </xs:element>
-                        <xs:element name="fap" minOccurs="0">
-                            <xs:simpleType>
-                                <xs:annotation>
-                                    <xs:documentation>Fator Acidentário de Prevenção - FAP</xs:documentation>
-                                    <xs:documentation>Validação: Preenchimento obrigatório e exclusivo por Pessoa Jurídica e {ideEstab/tpInsc} = [4] ou se {ideEstab/tpInsc} = [1] e o fator informado for diferente do definido pelo órgão governamental competente para o estabelecimento (neste caso, deverá haver informações de processo em {procAdmJudFap}). Se informado, deve ser um número maior ou igual a 0,5000 e menor ou igual a 2,0000 e, se {ideEstab/tpInsc} = [1], deve ser diferente do valor definido pelo órgão governamental competente.</xs:documentation>
-                                </xs:annotation>
-                                <xs:restriction base="xs:decimal">
-                                    <xs:totalDigits value="5" />
-                                    <xs:fractionDigits value="4" />
-                                    <xs:minInclusive value="0.5" />
-                                    <xs:maxInclusive value="2" />
-                                </xs:restriction>
-                            </xs:simpleType>
+                        <xs:element name="fap" minOccurs="0" type="TS_fap">
+                            <xs:annotation>
+                                <xs:documentation>Fator Acidentário de Prevenção - FAP</xs:documentation>
+                                <xs:documentation>Validação: Preenchimento obrigatório e exclusivo por Pessoa Jurídica e {ideEstab/tpInsc} = [4] ou se {ideEstab/tpInsc} = [1] e o fator informado for diferente do definido pelo órgão governamental competente para o estabelecimento (neste caso, deverá haver informações de processo em {procAdmJudFap}). Se informado, deve ser um número maior ou igual a 0,5000 e menor ou igual a 2,0000 e, se {ideEstab/tpInsc} = [1], deve ser diferente do valor definido pelo órgão governamental competente.</xs:documentation>
+                            </xs:annotation>
                         </xs:element>
                         <xs:element name="procAdmJudRat" minOccurs="0">
                             <xs:annotation>
@@ -256,49 +133,15 @@
                             </xs:annotation>
                             <xs:complexType>
                                 <xs:sequence>
-                                    <xs:element name="tpProc">
-                                        <xs:simpleType>
-                                            <xs:annotation>
-                                                <xs:documentation>Tipo de Processo</xs:documentation>
-                                                <xs:documentation>Preencher com o código correspondente ao tipo de processo.</xs:documentation>
-                                            </xs:annotation>
-                                            <xs:restriction base="xs:byte">
-                                                <xs:enumeration value="1">
-                                                    <xs:annotation>
-                                                        <xs:documentation>Administrativo</xs:documentation>
-                                                    </xs:annotation>
-                                                </xs:enumeration>
-                                                <xs:enumeration value="2">
-                                                    <xs:annotation>
-                                                        <xs:documentation>Judicial</xs:documentation>
-                                                    </xs:annotation>
-                                                </xs:enumeration>
-                                            </xs:restriction>
-                                        </xs:simpleType>
+                                    <xs:element name="tpProc" type="TS_tpProc_1_2" />
+                                    <xs:element name="nrProc" type="TS_nrProc_17_20_21">
+                                        <xs:annotation>
+                                            <xs:documentation>Número do Processo</xs:documentation>
+                                            <xs:documentation>Informar um número de processo cadastrado através do evento S-1070, cujo {indMatProc} seja igual a [1].</xs:documentation>
+                                            <xs:documentation>Validação: Deve ser um número de processo administrativo ou judicial válido e existente na Tabela de Processos (S-1070), com {indMatProc} = [1].</xs:documentation>
+                                        </xs:annotation>
                                     </xs:element>
-                                    <xs:element name="nrProc">
-                                        <xs:simpleType>
-                                            <xs:annotation>
-                                                <xs:documentation>Número do Processo</xs:documentation>
-                                                <xs:documentation>Informar um número de processo cadastrado através do evento S-1070, cujo {indMatProc} seja igual a [1].</xs:documentation>
-                                                <xs:documentation>Validação: Deve ser um número de processo administrativo ou judicial válido e existente na Tabela de Processos (S-1070), com {indMatProc} = [1].</xs:documentation>
-                                            </xs:annotation>
-                                            <xs:restriction base="xs:string">
-                                                <xs:pattern value="\d{17}|\d{20}|\d{21}" />
-                                            </xs:restriction>
-                                        </xs:simpleType>
-                                    </xs:element>
-                                    <xs:element name="codSusp">
-                                        <xs:simpleType>
-                                            <xs:annotation>
-                                                <xs:documentation>Código do Indicativo da Suspensão</xs:documentation>
-                                                <xs:documentation>Validação: A informação prestada deve estar de acordo com o que foi informado em S-1070.</xs:documentation>
-                                            </xs:annotation>
-                                            <xs:restriction base="xs:integer">
-                                                <xs:pattern value="\d{1,14}" />
-                                            </xs:restriction>
-                                        </xs:simpleType>
-                                    </xs:element>
+                                    <xs:element name="codSusp" type="TS_codSusp" />
                                 </xs:sequence>
                             </xs:complexType>
                         </xs:element>
@@ -309,54 +152,15 @@
                             </xs:annotation>
                             <xs:complexType>
                                 <xs:sequence>
-                                    <xs:element name="tpProc">
-                                        <xs:simpleType>
-                                            <xs:annotation>
-                                                <xs:documentation>Tipo de Processo</xs:documentation>
-                                                <xs:documentation>Preencher com o código correspondente ao tipo de processo.</xs:documentation>
-                                            </xs:annotation>
-                                            <xs:restriction base="xs:byte">
-                                                <xs:enumeration value="1">
-                                                    <xs:annotation>
-                                                        <xs:documentation>Administrativo</xs:documentation>
-                                                    </xs:annotation>
-                                                </xs:enumeration>
-                                                <xs:enumeration value="2">
-                                                    <xs:annotation>
-                                                        <xs:documentation>Judicial</xs:documentation>
-                                                    </xs:annotation>
-                                                </xs:enumeration>
-                                                <xs:enumeration value="4">
-                                                    <xs:annotation>
-                                                        <xs:documentation>Processo FAP</xs:documentation>
-                                                    </xs:annotation>
-                                                </xs:enumeration>
-                                            </xs:restriction>
-                                        </xs:simpleType>
+                                    <xs:element name="tpProc" type="TS_tpProc_1_2_4" />
+                                    <xs:element name="nrProc" type="TS_nrProc_16_17_20_21">
+                                        <xs:annotation>
+                                            <xs:documentation>Número do Processo</xs:documentation>
+                                            <xs:documentation>Informar um número de processo cadastrado através do evento S-1070, cujo {indMatProc} seja igual a [1].</xs:documentation>
+                                            <xs:documentation>Validação: Deve ser um número de processo administrativo ou judicial válido e existente na Tabela de Processos (S-1070), com {indMatProc} = [1].</xs:documentation>
+                                        </xs:annotation>
                                     </xs:element>
-                                    <xs:element name="nrProc">
-                                        <xs:simpleType>
-                                            <xs:annotation>
-                                                <xs:documentation>Número do Processo</xs:documentation>
-                                                <xs:documentation>Informar um número de processo cadastrado através do evento S-1070, cujo {indMatProc} seja igual a [1].</xs:documentation>
-                                                <xs:documentation>Validação: Deve ser um número de processo administrativo ou judicial válido e existente na Tabela de Processos (S-1070), com {indMatProc} = [1].</xs:documentation>
-                                            </xs:annotation>
-                                            <xs:restriction base="xs:string">
-                                                <xs:pattern value="\d{17}|\d{20}|\d{21}" />
-                                            </xs:restriction>
-                                        </xs:simpleType>
-                                    </xs:element>
-                                    <xs:element name="codSusp">
-                                        <xs:simpleType>
-                                            <xs:annotation>
-                                                <xs:documentation>Código do Indicativo da Suspensão</xs:documentation>
-                                                <xs:documentation>Validação: A informação prestada deve estar de acordo com o que foi informado em S-1070.</xs:documentation>
-                                            </xs:annotation>
-                                            <xs:restriction base="xs:integer">
-                                                <xs:pattern value="\d{1,14}" />
-                                            </xs:restriction>
-                                        </xs:simpleType>
-                                    </xs:element>
+                                    <xs:element name="codSusp" type="TS_codSusp" />
                                 </xs:sequence>
                             </xs:complexType>
                         </xs:element>
@@ -441,16 +245,11 @@
                             </xs:annotation>
                             <xs:complexType>
                                 <xs:sequence>
-                                    <xs:element name="nrProcJud">
-                                        <xs:simpleType>
-                                            <xs:annotation>
-                                                <xs:documentation>Identificação do Número do Processo Judicial</xs:documentation>
-                                                <xs:documentation>Validação: Se informado, deve ser um número de processo judicial válido.</xs:documentation>
-                                            </xs:annotation>
-                                            <xs:restriction base="xs:string">
-                                                <xs:pattern value="\d{20}" />
-                                            </xs:restriction>
-                                        </xs:simpleType>
+                                    <xs:element name="nrProcJud" type="TS_nrProcJud">
+                                        <xs:annotation>
+                                            <xs:documentation>Identificação do Número do Processo Judicial</xs:documentation>
+                                            <xs:documentation>Validação: Se informado, deve ser um número de processo judicial válido.</xs:documentation>
+                                        </xs:annotation>
                                     </xs:element>
                                     <xs:element name="infoEntEduc" minOccurs="0" maxOccurs="99">
                                         <xs:annotation>
@@ -460,17 +259,12 @@
                                         </xs:annotation>
                                         <xs:complexType>
                                             <xs:sequence>
-                                                <xs:element name="nrInsc">
-                                                    <xs:simpleType>
-                                                        <xs:annotation>
-                                                            <xs:documentation>Número de Inscrição</xs:documentation>
-                                                            <xs:documentation>Informar o número de inscrição da entidade educativa ou de prática desportiva.</xs:documentation>
-                                                            <xs:documentation>Validação: Deve ser um número de CNPJ válido, com 14 (catorze) algarismos.</xs:documentation>
-                                                        </xs:annotation>
-                                                        <xs:restriction base="xs:string">
-                                                            <xs:pattern value="\d{14}" />
-                                                        </xs:restriction>
-                                                    </xs:simpleType>
+                                                <xs:element name="nrInsc" type="TS_cnpj">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Número de Inscrição</xs:documentation>
+                                                        <xs:documentation>Informar o número de inscrição da entidade educativa ou de prática desportiva.</xs:documentation>
+                                                        <xs:documentation>Validação: Deve ser um número de CNPJ válido, com 14 (catorze) algarismos.</xs:documentation>
+                                                    </xs:annotation>
                                                 </xs:element>
                                             </xs:sequence>
                                         </xs:complexType>
@@ -485,16 +279,11 @@
                             </xs:annotation>
                             <xs:complexType>
                                 <xs:sequence>
-                                    <xs:element name="nrProcJud">
-                                        <xs:simpleType>
-                                            <xs:annotation>
-                                                <xs:documentation>Identificação do Número do Processo Judicial</xs:documentation>
-                                                <xs:documentation>Validação: Se informado, deve ser um número de processo judicial válido.</xs:documentation>
-                                            </xs:annotation>
-                                            <xs:restriction base="xs:string">
-                                                <xs:pattern value="\d{20}" />
-                                            </xs:restriction>
-                                        </xs:simpleType>
+                                    <xs:element name="nrProcJud" type="TS_nrProcJud">
+                                        <xs:annotation>
+                                            <xs:documentation>Identificação do Número do Processo Judicial</xs:documentation>
+                                            <xs:documentation>Validação: Se informado, deve ser um número de processo judicial válido.</xs:documentation>
+                                        </xs:annotation>
                                     </xs:element>
                                 </xs:sequence>
                             </xs:complexType>

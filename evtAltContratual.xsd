@@ -29,16 +29,8 @@
                     </xs:annotation>
                     <xs:complexType>
                         <xs:sequence>
-                            <xs:element name="ideEvento" type="T_ideEvento_trab">
-                                <xs:annotation>
-                                    <xs:documentation>Informações de Identificação do Evento</xs:documentation>
-                                </xs:annotation>
-                            </xs:element>
-                            <xs:element name="ideEmpregador" type="T_ideEmpregador_evtTab">
-                                <xs:annotation>
-                                    <xs:documentation>Informações de identificação do empregador</xs:documentation>
-                                </xs:annotation>
-                            </xs:element>
+                            <xs:element name="ideEvento" type="T_ideEvento_trab" />
+                            <xs:element name="ideEmpregador" type="T_ideEmpregador_evtTab" />
                             <xs:element name="ideVinculo" type="T_ideVinculo">
                                 <xs:annotation>
                                     <xs:documentation>Informações de Identificação do Trabalhador e do Vínculo</xs:documentation>
@@ -69,9 +61,9 @@
                                                     <xs:documentation>Descrição da alteração</xs:documentation>
                                                 </xs:annotation>
                                                 <xs:restriction base="xs:string">
-                                                    <xs:pattern value=".*[^\s].*" />
                                                     <xs:minLength value="2" />
                                                     <xs:maxLength value="150" />
+                                                    <xs:pattern value=".*[^\s].*" />
                                                 </xs:restriction>
                                             </xs:simpleType>
                                         </xs:element>
@@ -209,9 +201,9 @@
                                                                                         <xs:documentation>Descrever a justificativa para a prorrogação do contrato de trabalho temporário.</xs:documentation>
                                                                                     </xs:annotation>
                                                                                     <xs:restriction base="xs:string">
-                                                                                        <xs:pattern value=".*[^\s].*" />
                                                                                         <xs:minLength value="2" />
                                                                                         <xs:maxLength value="999" />
+                                                                                        <xs:pattern value=".*[^\s].*" />
                                                                                     </xs:restriction>
                                                                                 </xs:simpleType>
                                                                             </xs:element>
@@ -651,36 +643,11 @@
                                 </xs:complexType>
                             </xs:element>
                         </xs:sequence>
-                        <xs:attribute name="Id" use="required">
-                            <xs:simpleType>
-                                <xs:annotation>
-                                    <xs:documentation>Identificação única do evento</xs:documentation>
-                                    <xs:documentation>REGRA:REGRA_VALIDA_ID_EVENTO</xs:documentation>
-                                </xs:annotation>
-                                <xs:restriction base="xs:ID">
-                                    <xs:length value="36" />
-                                    <xs:pattern value="ID\d{34}" />
-                                </xs:restriction>
-                            </xs:simpleType>
-                        </xs:attribute>
+                        <xs:attribute name="Id" use="required" type="TS_Id" />
                     </xs:complexType>
                 </xs:element>
                 <xs:element ref="ds:Signature" />
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    <xs:simpleType name="TS_sim_nao">
-        <xs:restriction base="xs:string">
-            <xs:enumeration value="S">
-                <xs:annotation>
-                    <xs:documentation>Sim</xs:documentation>
-                </xs:annotation>
-            </xs:enumeration>
-            <xs:enumeration value="N">
-                <xs:annotation>
-                    <xs:documentation>Não</xs:documentation>
-                </xs:annotation>
-            </xs:enumeration>
-        </xs:restriction>
-    </xs:simpleType>
 </xs:schema>

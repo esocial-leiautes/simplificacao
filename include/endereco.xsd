@@ -1,129 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+    <xs:include schemaLocation="tiposSimples.xsd" />
     <xs:complexType name="T_endereco_Brasil">
-        <xs:annotation>
-            <xs:documentation>Informações do Endereço no Brasil</xs:documentation>
-        </xs:annotation>
         <xs:sequence>
-            <xs:element name="tpLograd" minOccurs="0">
-                <xs:simpleType>
-                    <xs:annotation>
-                        <xs:documentation>Tipo de Logradouro</xs:documentation>
-                        <xs:documentation>Validação: Se informado, deve ser um código válido, existente na Tabela 20.</xs:documentation>
-                    </xs:annotation>
-                    <xs:restriction base="xs:string">
-                        <xs:minLength value="1" />
-                        <xs:maxLength value="4" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:element>
-            <xs:element name="dscLograd">
-                <xs:simpleType>
-                    <xs:annotation>
-                        <xs:documentation>Descrição do logradouro</xs:documentation>
-                    </xs:annotation>
-                    <xs:restriction base="xs:string">
-                        <xs:pattern value=".*[^\s].*" />
-                        <xs:minLength value="1" />
-                        <xs:maxLength value="100" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:element>
-            <xs:element name="nrLograd">
-                <xs:simpleType>
-                    <xs:annotation>
-                        <xs:documentation>Número do logradouro</xs:documentation>
-                        <xs:documentation>Se não houver número a ser informado, preencher com "S/N".</xs:documentation>
-                    </xs:annotation>
-                    <xs:restriction base="xs:string">
-                        <xs:pattern value=".*[^\s].*" />
-                        <xs:minLength value="1" />
-                        <xs:maxLength value="10" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:element>
-            <xs:element name="complemento" minOccurs="0">
-                <xs:simpleType>
-                    <xs:annotation>
-                        <xs:documentation>Complemento do logradouro</xs:documentation>
-                    </xs:annotation>
-                    <xs:restriction base="xs:string">
-                        <xs:pattern value=".*[^\s].*" />
-                        <xs:minLength value="1" />
-                        <xs:maxLength value="30" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:element>
-            <xs:element name="bairro" minOccurs="0">
-                <xs:simpleType>
-                    <xs:annotation>
-                        <xs:documentation>Nome do bairro/distrito</xs:documentation>
-                    </xs:annotation>
-                    <xs:restriction base="xs:string">
-                        <xs:minLength value="1" />
-                        <xs:maxLength value="90" />
-                        <xs:pattern value=".*[^\s].*" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:element>
-            <xs:element name="cep">
-                <xs:simpleType>
-                    <xs:annotation>
-                        <xs:documentation>Código de Endereçamento Postal - CEP</xs:documentation>
-                        <xs:documentation>Validação: Deve ser preenchido apenas com números, com 8 (oito) posições.</xs:documentation>
-                    </xs:annotation>
-                    <xs:restriction base="xs:string">
-                        <xs:pattern value="\d{8}" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:element>
-            <xs:element name="codMunic">
-                <xs:simpleType>
-                    <xs:annotation>
-                        <xs:documentation>Código do Município</xs:documentation>
-                        <xs:documentation>Validação: Deve ser um código existente na tabela do IBGE.</xs:documentation>
-                    </xs:annotation>
-                    <xs:restriction base="xs:integer">
-                        <xs:pattern value="\d{7}" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:element>
-            <xs:element name="uf">
-                <xs:simpleType>
-                    <xs:annotation>
-                        <xs:documentation>Sigla da UF</xs:documentation>
-                    </xs:annotation>
-                    <xs:restriction base="xs:string">
-                        <xs:enumeration value="AC" />
-                        <xs:enumeration value="AL" />
-                        <xs:enumeration value="AP" />
-                        <xs:enumeration value="AM" />
-                        <xs:enumeration value="BA" />
-                        <xs:enumeration value="CE" />
-                        <xs:enumeration value="DF" />
-                        <xs:enumeration value="ES" />
-                        <xs:enumeration value="GO" />
-                        <xs:enumeration value="MA" />
-                        <xs:enumeration value="MT" />
-                        <xs:enumeration value="MS" />
-                        <xs:enumeration value="MG" />
-                        <xs:enumeration value="PA" />
-                        <xs:enumeration value="PB" />
-                        <xs:enumeration value="PR" />
-                        <xs:enumeration value="PE" />
-                        <xs:enumeration value="PI" />
-                        <xs:enumeration value="RJ" />
-                        <xs:enumeration value="RN" />
-                        <xs:enumeration value="RS" />
-                        <xs:enumeration value="RO" />
-                        <xs:enumeration value="RR" />
-                        <xs:enumeration value="SC" />
-                        <xs:enumeration value="SP" />
-                        <xs:enumeration value="SE" />
-                        <xs:enumeration value="TO" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:element>
+            <xs:element name="tpLograd" minOccurs="0" type="TS_tpLograd" />
+            <xs:element name="dscLograd" type="TS_dscLograd" />
+            <xs:element name="nrLograd" type="TS_nrLograd" />
+            <xs:element name="complemento" minOccurs="0" type="TS_complemento" />
+            <xs:element name="bairro" minOccurs="0" type="TS_bairro" />
+            <xs:element name="cep" type="TS_cep" />
+            <xs:element name="codMunic" type="TS_codMunic" />
+            <xs:element name="uf" type="TS_uf" />
         </xs:sequence>
     </xs:complexType>
 
@@ -132,64 +19,16 @@
             <xs:documentation>Informações do Endereço no Exterior</xs:documentation>
         </xs:annotation>
         <xs:sequence>
-            <xs:element name="paisResid">
-                <xs:simpleType>
-                    <xs:annotation>
-                        <xs:documentation>Código do País</xs:documentation>
-                        <xs:documentation>Validação: Deve ser um código existente na Tabela 06.</xs:documentation>
-                    </xs:annotation>
-                    <xs:restriction base="xs:string">
-                        <xs:length value="3" />
-                    </xs:restriction>
-                </xs:simpleType>
+            <xs:element name="paisResid" type="TS_pais">
+                <xs:annotation>
+                    <xs:documentation>Código do País</xs:documentation>
+                    <xs:documentation>Validação: Deve ser um código existente na Tabela 06.</xs:documentation>
+                </xs:annotation>
             </xs:element>
-            <xs:element name="dscLograd">
-                <xs:simpleType>
-                    <xs:annotation>
-                        <xs:documentation>Descrição do logradouro</xs:documentation>
-                    </xs:annotation>
-                    <xs:restriction base="xs:string">
-                        <xs:minLength value="1" />
-                        <xs:maxLength value="100" />
-                        <xs:pattern value=".*[^\s].*" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:element>
-            <xs:element name="nrLograd">
-                <xs:simpleType>
-                    <xs:annotation>
-                        <xs:documentation>Número do logradouro</xs:documentation>
-                        <xs:documentation>Se não houver número a ser informado, preencher com "S/N".</xs:documentation>
-                    </xs:annotation>
-                    <xs:restriction base="xs:string">
-                        <xs:minLength value="1" />
-                        <xs:maxLength value="10" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:element>
-            <xs:element name="complemento" minOccurs="0">
-                <xs:simpleType>
-                    <xs:annotation>
-                        <xs:documentation>Complemento do logradouro</xs:documentation>
-                    </xs:annotation>
-                    <xs:restriction base="xs:string">
-                        <xs:minLength value="1" />
-                        <xs:maxLength value="30" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:element>
-            <xs:element name="bairro" minOccurs="0">
-                <xs:simpleType>
-                    <xs:annotation>
-                        <xs:documentation>Nome do bairro/distrito</xs:documentation>
-                    </xs:annotation>
-                    <xs:restriction base="xs:string">
-                        <xs:minLength value="1" />
-                        <xs:maxLength value="90" />
-                        <xs:pattern value=".*[^\s].*" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:element>
+            <xs:element name="dscLograd" type="TS_dscLograd" />
+            <xs:element name="nrLograd" type="TS_nrLograd" />
+            <xs:element name="complemento" minOccurs="0" type="TS_complemento" />
+            <xs:element name="bairro" minOccurs="0" type="TS_bairro" />
             <xs:element name="nmCid">
                 <xs:simpleType>
                     <xs:annotation>

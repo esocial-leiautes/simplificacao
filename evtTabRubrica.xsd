@@ -2,7 +2,7 @@
 <xs:schema xmlns="http://www.esocial.gov.br/schema/evt/evtTabRubrica/v01_00_00" targetNamespace="http://www.esocial.gov.br/schema/evt/evtTabRubrica/v01_00_00" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
     <xs:include schemaLocation="include/ideEvento_evtTab.xsd " />
     <xs:include schemaLocation="include/ideEmpregador_evtTab.xsd" />
-    <xs:include schemaLocation="include/periodo_evtTab.xsd" />
+    <xs:include schemaLocation="include/novaValidade.xsd" />
     <xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd" />
     <xs:element name="eSocial">
         <xs:annotation>
@@ -25,16 +25,8 @@
                     </xs:annotation>
                     <xs:complexType>
                         <xs:sequence>
-                            <xs:element name="ideEvento" type="T_ideEvento_evtTab">
-                                <xs:annotation>
-                                    <xs:documentation>Informações de Identificação do Evento</xs:documentation>
-                                </xs:annotation>
-                            </xs:element>
-                            <xs:element name="ideEmpregador" type="T_ideEmpregador_evtTab">
-                                <xs:annotation>
-                                    <xs:documentation>Informações de identificação do empregador</xs:documentation>
-                                </xs:annotation>
-                            </xs:element>
+                            <xs:element name="ideEvento" type="T_ideEvento_evtTab" />
+                            <xs:element name="ideEmpregador" type="T_ideEmpregador_evtTab" />
                             <xs:element name="infoRubrica">
                                 <xs:annotation>
                                     <xs:documentation>Informações da Rubrica</xs:documentation>
@@ -49,16 +41,8 @@
                                                 </xs:annotation>
                                                 <xs:complexType>
                                                     <xs:sequence>
-                                                        <xs:element name="ideRubrica" type="T_ideRubrica">
-                                                            <xs:annotation>
-                                                                <xs:documentation>Informações de identificação da rubrica e validade das informações</xs:documentation>
-                                                            </xs:annotation>
-                                                        </xs:element>
-                                                        <xs:element name="dadosRubrica" type="T_dadosRubrica">
-                                                            <xs:annotation>
-                                                                <xs:documentation>Informações da rubrica</xs:documentation>
-                                                            </xs:annotation>
-                                                        </xs:element>
+                                                        <xs:element name="ideRubrica" type="T_ideRubrica" />
+                                                        <xs:element name="dadosRubrica" type="T_dadosRubrica" />
                                                     </xs:sequence>
                                                 </xs:complexType>
                                             </xs:element>
@@ -69,22 +53,9 @@
                                                 </xs:annotation>
                                                 <xs:complexType>
                                                     <xs:sequence>
-                                                        <xs:element name="ideRubrica" type="T_ideRubrica">
-                                                            <xs:annotation>
-                                                                <xs:documentation>Informações de identificação da rubrica</xs:documentation>
-                                                            </xs:annotation>
-                                                        </xs:element>
-                                                        <xs:element name="dadosRubrica" type="T_dadosRubrica">
-                                                            <xs:annotation>
-                                                                <xs:documentation>Informações da rubrica</xs:documentation>
-                                                            </xs:annotation>
-                                                        </xs:element>
-                                                        <xs:element name="novaValidade" type="T_periodo_evtTab" minOccurs="0">
-                                                            <xs:annotation>
-                                                                <xs:documentation>Novo período de validade das informações</xs:documentation>
-                                                                <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
-                                                            </xs:annotation>
-                                                        </xs:element>
+                                                        <xs:element name="ideRubrica" type="T_ideRubrica" />
+                                                        <xs:element name="dadosRubrica" type="T_dadosRubrica" />
+                                                        <xs:element name="novaValidade" type="T_novaValidade" minOccurs="0" />
                                                     </xs:sequence>
                                                 </xs:complexType>
                                             </xs:element>
@@ -95,11 +66,7 @@
                                                 </xs:annotation>
                                                 <xs:complexType>
                                                     <xs:sequence>
-                                                        <xs:element name="ideRubrica" type="T_ideRubrica">
-                                                            <xs:annotation>
-                                                                <xs:documentation>Identificação da rubrica que será excluída</xs:documentation>
-                                                            </xs:annotation>
-                                                        </xs:element>
+                                                        <xs:element name="ideRubrica" type="T_ideRubrica" />
                                                     </xs:sequence>
                                                 </xs:complexType>
                                             </xs:element>
@@ -108,18 +75,7 @@
                                 </xs:complexType>
                             </xs:element>
                         </xs:sequence>
-                        <xs:attribute name="Id" use="required">
-                            <xs:simpleType>
-                                <xs:annotation>
-                                    <xs:documentation>Identificação única do evento</xs:documentation>
-                                    <xs:documentation>REGRA:REGRA_VALIDA_ID_EVENTO</xs:documentation>
-                                </xs:annotation>
-                                <xs:restriction base="xs:ID">
-                                    <xs:length value="36" />
-                                    <xs:pattern value="ID\d{34}" />
-                                </xs:restriction>
-                            </xs:simpleType>
-                        </xs:attribute>
+                        <xs:attribute name="Id" use="required" type="TS_Id" />
                     </xs:complexType>
                 </xs:element>
                 <xs:element ref="ds:Signature" />
@@ -131,62 +87,24 @@
             <xs:documentation>Identificação da Rubrica e período de validade</xs:documentation>
         </xs:annotation>
         <xs:sequence>
-            <xs:element name="codRubr">
-                <xs:simpleType>
-                    <xs:annotation>
-                        <xs:documentation>Código da Rubrica</xs:documentation>
-                        <xs:documentation>Informar o código atribuído pela empresa e que identifica a rubrica em sua folha de pagamento.</xs:documentation>
-                        <xs:documentation>Validação: O código não pode conter a expressão 'eSocial' nas 7 (sete) primeiras posições.</xs:documentation>
-                        <xs:documentation>REGRA:REGRA_CARACTER_ESPECIAL</xs:documentation>
-                    </xs:annotation>
-                    <xs:restriction base="xs:string">
-                        <xs:pattern value=".*[^\s].*" />
-                        <xs:minLength value="1" />
-                        <xs:maxLength value="30" />
-                    </xs:restriction>
-                </xs:simpleType>
+            <xs:element name="codRubr" type="TS_codigo_esocial">
+                <xs:annotation>
+                    <xs:documentation>Código da Rubrica</xs:documentation>
+                    <xs:documentation>Informar o código atribuído pela empresa e que identifica a rubrica em sua folha de pagamento.</xs:documentation>
+                    <xs:documentation>Validação: O código não pode conter a expressão 'eSocial' nas 7 (sete) primeiras posições.</xs:documentation>
+                    <xs:documentation>REGRA:REGRA_CARACTER_ESPECIAL</xs:documentation>
+                </xs:annotation>
             </xs:element>
-            <xs:element name="ideTabRubr">
-                <xs:simpleType>
-                    <xs:annotation>
-                        <xs:documentation>Identificador da tabela de rubricas</xs:documentation>
-                        <xs:documentation>Preencher com o identificador da Tabela de Rubricas no âmbito do empregador.</xs:documentation>
-                        <xs:documentation>Validação: O identificador não pode conter a expressão 'eSocial' nas 7 (sete) primeiras posições.</xs:documentation>
-                        <xs:documentation>REGRA:REGRA_CARACTER_ESPECIAL</xs:documentation>
-                    </xs:annotation>
-                    <xs:restriction base="xs:string">
-                        <xs:pattern value=".*[^\s].*" />
-                        <xs:minLength value="1" />
-                        <xs:maxLength value="8" />
-                    </xs:restriction>
-                </xs:simpleType>
+            <xs:element name="ideTabRubr" type="TS_ideTabRubr">
+                <xs:annotation>
+                    <xs:documentation>Identificador da tabela de rubricas</xs:documentation>
+                    <xs:documentation>Preencher com o identificador da Tabela de Rubricas no âmbito do empregador.</xs:documentation>
+                    <xs:documentation>Validação: O identificador não pode conter a expressão 'eSocial' nas 7 (sete) primeiras posições.</xs:documentation>
+                    <xs:documentation>REGRA:REGRA_CARACTER_ESPECIAL</xs:documentation>
+                </xs:annotation>
             </xs:element>
-            <xs:element name="iniValid">
-                <xs:simpleType>
-                    <xs:annotation>
-                        <xs:documentation>Início da validade</xs:documentation>
-                        <xs:documentation>Preencher com o mês e ano de início da validade das informações prestadas no evento, no formato AAAA-MM.</xs:documentation>
-                        <xs:documentation>Validação: Deve ser uma data válida, igual ou posterior à data de início de obrigatoriedade deste evento para o empregador no eSocial, no formato AAAA-MM.</xs:documentation>
-                    </xs:annotation>
-                    <xs:restriction base="xs:string">
-                        <xs:length value="7" />
-                        <xs:pattern value="[2]{1}\d{3}-(1[0-2]|0[1-9])" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:element>
-            <xs:element name="fimValid" minOccurs="0">
-                <xs:simpleType>
-                    <xs:annotation>
-                        <xs:documentation>Fim da validade</xs:documentation>
-                        <xs:documentation>Preencher com o mês e ano de término da validade das informações, se houver.</xs:documentation>
-                        <xs:documentation>Validação: Se informado, deve estar no formato AAAA-MM e ser um período igual ou posterior a {iniValid}.</xs:documentation>
-                    </xs:annotation>
-                    <xs:restriction base="xs:string">
-                        <xs:length value="7" />
-                        <xs:pattern value="[2]{1}\d{3}-(1[0-2]|0[1-9])" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:element>
+            <xs:element name="iniValid" type="TS_iniValid" />
+            <xs:element name="fimValid" minOccurs="0" type="TS_fimValid" />
         </xs:sequence>
     </xs:complexType>
     <xs:complexType name="T_dadosRubrica">
@@ -194,17 +112,10 @@
             <xs:documentation>Informações da Rubrica</xs:documentation>
         </xs:annotation>
         <xs:sequence>
-            <xs:element name="dscRubr">
-                <xs:simpleType>
-                    <xs:annotation>
-                        <xs:documentation>Descrição (nome) da rubrica no sistema de folha de pagamento</xs:documentation>
-                    </xs:annotation>
-                    <xs:restriction base="xs:string">
-                        <xs:pattern value=".*[^\s].*" />
-                        <xs:minLength value="1" />
-                        <xs:maxLength value="100" />
-                    </xs:restriction>
-                </xs:simpleType>
+            <xs:element name="dscRubr" type="TS_texto_100">
+                <xs:annotation>
+                    <xs:documentation>Descrição (nome) da rubrica no sistema de folha de pagamento</xs:documentation>
+                </xs:annotation>
             </xs:element>
             <xs:element name="natRubr">
                 <xs:simpleType>
@@ -387,7 +298,7 @@
                         <xs:documentation>Incidência para o IRRF</xs:documentation>
                         <xs:documentation>Validação: Deve ser um código válido e existente na Tabela 21 - Código de incidência tributária da rubrica para o IRRF. Para utilização de código [9XXX], é necessária a existência de registro complementar com informações relativas ao processo.</xs:documentation>
                     </xs:annotation>
-                    <xs:restriction base="xs:string">
+                    <xs:restriction base="xs:byte">
                         <xs:pattern value="\d{2}" />
                     </xs:restriction>
                 </xs:simpleType>
@@ -476,37 +387,16 @@
                     </xs:restriction>
                 </xs:simpleType>
             </xs:element>
-            <xs:element name="tetoRemun" minOccurs="0">
-                <xs:simpleType>
-                    <xs:annotation>
-                        <xs:documentation>Compõe o teto remuneratório específico (art 37, XI, da CF/1988)</xs:documentation>
-                        <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se a natureza jurídica do declarante for Administração Pública (grupo [1]).</xs:documentation>
-                    </xs:annotation>
-                    <xs:restriction base="xs:string">
-                        <xs:enumeration value="S">
-                            <xs:annotation>
-                                <xs:documentation>Sim</xs:documentation>
-                            </xs:annotation>
-                        </xs:enumeration>
-                        <xs:enumeration value="N">
-                            <xs:annotation>
-                                <xs:documentation>Não</xs:documentation>
-                            </xs:annotation>
-                        </xs:enumeration>
-                    </xs:restriction>
-                </xs:simpleType>
+            <xs:element name="tetoRemun" minOccurs="0" type="TS_sim_nao">
+                <xs:annotation>
+                    <xs:documentation>Compõe o teto remuneratório específico (art 37, XI, da CF/1988)</xs:documentation>
+                    <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se a natureza jurídica do declarante for Administração Pública (grupo [1]).</xs:documentation>
+                </xs:annotation>
             </xs:element>
-            <xs:element name="observacao" minOccurs="0">
-                <xs:simpleType>
-                    <xs:annotation>
-                        <xs:documentation>Observações relacionadas à rubrica ou à sua utilização</xs:documentation>
-                    </xs:annotation>
-                    <xs:restriction base="xs:string">
-                        <xs:pattern value=".*[^\s].*" />
-                        <xs:minLength value="1" />
-                        <xs:maxLength value="255" />
-                    </xs:restriction>
-                </xs:simpleType>
+            <xs:element name="observacao" minOccurs="0" type="TS_texto_255">
+                <xs:annotation>
+                    <xs:documentation>Observações relacionadas à rubrica ou à sua utilização</xs:documentation>
+                </xs:annotation>
             </xs:element>
             <xs:element name="ideProcessoCP" minOccurs="0" maxOccurs="99">
                 <xs:annotation>
@@ -516,37 +406,13 @@
                 </xs:annotation>
                 <xs:complexType>
                     <xs:sequence>
-                        <xs:element name="tpProc">
-                            <xs:simpleType>
-                                <xs:annotation>
-                                    <xs:documentation>Tipo de Processo</xs:documentation>
-                                    <xs:documentation>Preencher com o código correspondente ao tipo de processo.</xs:documentation>
-                                </xs:annotation>
-                                <xs:restriction base="xs:byte">
-                                    <xs:enumeration value="1">
-                                        <xs:annotation>
-                                            <xs:documentation>Administrativo</xs:documentation>
-                                        </xs:annotation>
-                                    </xs:enumeration>
-                                    <xs:enumeration value="2">
-                                        <xs:annotation>
-                                            <xs:documentation>Judicial</xs:documentation>
-                                        </xs:annotation>
-                                    </xs:enumeration>
-                                </xs:restriction>
-                            </xs:simpleType>
-                        </xs:element>
-                        <xs:element name="nrProc">
-                            <xs:simpleType>
-                                <xs:annotation>
-                                    <xs:documentation>Número do Processo</xs:documentation>
-                                    <xs:documentation>Informar um número de processo cadastrado através do evento S-1070, cujo {indMatProc} seja igual a [1].</xs:documentation>
-                                    <xs:documentation>Validação: Deve ser um número de processo administrativo ou judicial válido e existente na Tabela de Processos (S-1070), com {indMatProc} = [1].</xs:documentation>
-                                </xs:annotation>
-                                <xs:restriction base="xs:string">
-                                    <xs:pattern value="\d{17}|\d{20}|\d{21}" />
-                                </xs:restriction>
-                            </xs:simpleType>
+                        <xs:element name="tpProc" type="TS_tpProc_1_2" />
+                        <xs:element name="nrProc" type="TS_nrProc_17_20_21">
+                            <xs:annotation>
+                                <xs:documentation>Número do Processo</xs:documentation>
+                                <xs:documentation>Informar um número de processo cadastrado através do evento S-1070, cujo {indMatProc} seja igual a [1].</xs:documentation>
+                                <xs:documentation>Validação: Deve ser um número de processo administrativo ou judicial válido e existente na Tabela de Processos (S-1070), com {indMatProc} = [1].</xs:documentation>
+                            </xs:annotation>
                         </xs:element>
                         <xs:element name="extDecisao">
                             <xs:simpleType>
@@ -567,17 +433,7 @@
                                 </xs:restriction>
                             </xs:simpleType>
                         </xs:element>
-                        <xs:element name="codSusp">
-                            <xs:simpleType>
-                                <xs:annotation>
-                                    <xs:documentation>Código do Indicativo da Suspensão</xs:documentation>
-                                    <xs:documentation>Validação: A informação prestada deve estar de acordo com o que foi informado em S-1070.</xs:documentation>
-                                </xs:annotation>
-                                <xs:restriction base="xs:integer">
-                                    <xs:pattern value="\d{1,14}" />
-                                </xs:restriction>
-                            </xs:simpleType>
-                        </xs:element>
+                        <xs:element name="codSusp" type="TS_codSusp" />
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
@@ -589,29 +445,14 @@
                 </xs:annotation>
                 <xs:complexType>
                     <xs:sequence>
-                        <xs:element name="nrProc">
-                            <xs:simpleType>
+                        <xs:element name="nrProc" type="TS_nrProcJud">
                                 <xs:annotation>
                                     <xs:documentation>Número do Processo</xs:documentation>
                                     <xs:documentation>Informar um número de processo cadastrado através do evento S-1070, cujo {indMatProc} seja igual a [1].</xs:documentation>
-                                    <xs:documentation>Validação: Deve ser um número de processo administrativo ou judicial válido e existente na Tabela de Processos (S-1070), com {indMatProc} = [1].</xs:documentation>
+                                    <xs:documentation>Validação: Deve ser um número de processo judicial válido e existente na Tabela de Processos (S-1070), com {indMatProc} = [1].</xs:documentation>
                                 </xs:annotation>
-                                <xs:restriction base="xs:string">
-                                    <xs:pattern value="\d{20}" />
-                                </xs:restriction>
-                            </xs:simpleType>
                         </xs:element>
-                        <xs:element name="codSusp">
-                            <xs:simpleType>
-                                <xs:annotation>
-                                    <xs:documentation>Código do Indicativo da Suspensão</xs:documentation>
-                                    <xs:documentation>Validação: A informação prestada deve estar de acordo com o que foi informado em S-1070.</xs:documentation>
-                                </xs:annotation>
-                                <xs:restriction base="xs:integer">
-                                    <xs:pattern value="\d{1,14}" />
-                                </xs:restriction>
-                            </xs:simpleType>
-                        </xs:element>
+                        <xs:element name="codSusp" type="TS_codSusp" />
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
@@ -623,17 +464,12 @@
                 </xs:annotation>
                 <xs:complexType>
                     <xs:sequence>
-                        <xs:element name="nrProc">
-                            <xs:simpleType>
-                                <xs:annotation>
-                                    <xs:documentation>Número do Processo</xs:documentation>
-                                    <xs:documentation>Informar um número de processo cadastrado através do evento S-1070, cujo {indMatProc} seja igual a [1].</xs:documentation>
-                                    <xs:documentation>Validação: Deve ser um número de processo administrativo ou judicial válido e existente na Tabela de Processos (S-1070), com {indMatProc} = [1].</xs:documentation>
-                                </xs:annotation>
-                                <xs:restriction base="xs:string">
-                                    <xs:pattern value="\d{20}" />
-                                </xs:restriction>
-                            </xs:simpleType>
+                        <xs:element name="nrProc" type="TS_nrProcJud">
+                            <xs:annotation>
+                                <xs:documentation>Número do Processo</xs:documentation>
+                                <xs:documentation>Informar um número de processo cadastrado através do evento S-1070, cujo {indMatProc} seja igual a [1].</xs:documentation>
+                                <xs:documentation>Validação: Deve ser um número de processo judicial válido e existente na Tabela de Processos (S-1070), com {indMatProc} = [1].</xs:documentation>
+                            </xs:annotation>
                         </xs:element>
                     </xs:sequence>
                 </xs:complexType>

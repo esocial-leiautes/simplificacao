@@ -1,46 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+    <xs:include schemaLocation="tiposSimples.xsd" />
     <xs:complexType name="T_localTrabalho">
         <xs:annotation>
             <xs:documentation>Informações do Local de Trabalho</xs:documentation>
         </xs:annotation>
         <xs:sequence>
-            <xs:element name="tpInsc">
-                <xs:simpleType>
-                    <xs:annotation>
-                        <xs:documentation>Tipo de Inscrição</xs:documentation>
-                        <xs:documentation>Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.</xs:documentation>
-                    </xs:annotation>
-                    <xs:restriction base="xs:byte">
-                        <xs:enumeration value="1">
-                            <xs:annotation>
-                                <xs:documentation>CNPJ</xs:documentation>
-                            </xs:annotation>
-                        </xs:enumeration>
-                        <xs:enumeration value="3">
-                            <xs:annotation>
-                                <xs:documentation>CAEPF</xs:documentation>
-                            </xs:annotation>
-                        </xs:enumeration>
-                        <xs:enumeration value="4">
-                            <xs:annotation>
-                                <xs:documentation>CNO</xs:documentation>
-                            </xs:annotation>
-                        </xs:enumeration>
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:element>
-            <xs:element name="nrInsc">
-                <xs:simpleType>
-                    <xs:annotation>
-                        <xs:documentation>Número de Inscrição</xs:documentation>
-                        <xs:documentation>Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {tpInsc}.</xs:documentation>
-                        <xs:documentation>Validação: A inscrição informada deve ser compatível com {tpInsc} e constar na Tabela S-1005.</xs:documentation>
-                    </xs:annotation>
-                    <xs:restriction base="xs:string">
-                        <xs:pattern value="\d{12}|\d{14}" />
-                    </xs:restriction>
-                </xs:simpleType>
+            <xs:element name="tpInsc" type="TS_tpInsc_1_3_4" />
+            <xs:element name="nrInsc" type="TS_nrInsc_12_14">
+                <xs:annotation>
+                    <xs:documentation>Número de Inscrição</xs:documentation>
+                    <xs:documentation>Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {tpInsc}.</xs:documentation>
+                    <xs:documentation>Validação: A inscrição informada deve ser compatível com {tpInsc} e constar na Tabela S-1005.</xs:documentation>
+                </xs:annotation>
             </xs:element>
             <xs:element name="descComp" minOccurs="0">
                 <xs:simpleType>

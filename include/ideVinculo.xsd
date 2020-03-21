@@ -1,33 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+    <xs:include schemaLocation="tiposSimples.xsd" />
     <xs:complexType name="T_ideVinculo">
         <xs:annotation>
             <xs:documentation>Informações do Vínculo</xs:documentation>
         </xs:annotation>
         <xs:sequence>
-            <xs:element name="cpfTrab">
-                <xs:simpleType>
-                    <xs:annotation>
-                        <xs:documentation>CPF do trabalhador</xs:documentation>
-                    </xs:annotation>
-                    <xs:restriction base="xs:integer">
-                        <xs:pattern value="\d{11}" />
-                    </xs:restriction>
-                </xs:simpleType>
+            <xs:element name="cpfTrab" type="TS_cpf">
+                <xs:annotation>
+                    <xs:documentation>CPF do trabalhador</xs:documentation>
+                </xs:annotation>
             </xs:element>
-            <xs:element name="matricula">
-                <xs:simpleType>
-                    <xs:annotation>
-                        <xs:documentation>Matricula</xs:documentation>
-                        <xs:documentation>Matrícula atribuída ao trabalhador pela empresa ou, no caso de servidor público, a matrícula constante no Sistema de Administração de Recursos Humanos do órgão.</xs:documentation>
-                        <xs:documentation>Validação: Deve corresponder à matrícula informada pelo empregador no evento S-2200 do respectivo vínculo trabalhista.</xs:documentation>
-                    </xs:annotation>
-                    <xs:restriction base="xs:string">
-                        <xs:pattern value=".*[^\s].*" />
-                        <xs:minLength value="1" />
-                        <xs:maxLength value="30" />
-                    </xs:restriction>
-                </xs:simpleType>
+            <xs:element name="matricula" type="TS_codigo_esocial">
+                <xs:annotation>
+                    <xs:documentation>Matricula</xs:documentation>
+                    <xs:documentation>Matrícula atribuída ao trabalhador pela empresa ou, no caso de servidor público, a matrícula constante no Sistema de Administração de Recursos Humanos do órgão.</xs:documentation>
+                    <xs:documentation>Validação: Deve corresponder à matrícula informada pelo empregador no evento S-2200 do respectivo vínculo trabalhista.</xs:documentation>
+                </xs:annotation>
             </xs:element>
         </xs:sequence>
     </xs:complexType>

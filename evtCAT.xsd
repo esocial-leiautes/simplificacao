@@ -27,16 +27,8 @@
                     </xs:annotation>
                     <xs:complexType>
                         <xs:sequence>
-                            <xs:element name="ideEvento" type="T_ideEvento_trab">
-                                <xs:annotation>
-                                    <xs:documentation>Informações de Identificação do Evento</xs:documentation>
-                                </xs:annotation>
-                            </xs:element>
-                            <xs:element name="ideEmpregador" type="T_ideEmpregador_evtTab">
-                                <xs:annotation>
-                                    <xs:documentation>Informações de identificação do empregador</xs:documentation>
-                                </xs:annotation>
-                            </xs:element>
+                            <xs:element name="ideEvento" type="T_ideEvento_trab" />
+                            <xs:element name="ideEmpregador" type="T_ideEmpregador_evtTab" />
                             <xs:element name="ideVinculo" type="T_ideVinculo">
                                 <xs:annotation>
                                     <xs:documentation>Informações de Identificação do Trabalhador e do Vínculo</xs:documentation>
@@ -184,9 +176,9 @@
                                                     <xs:documentation>Observação</xs:documentation>
                                                 </xs:annotation>
                                                 <xs:restriction base="xs:string">
-                                                    <xs:pattern value=".*[^\s].*" />
                                                     <xs:minLength value="2" />
                                                     <xs:maxLength value="999" />
+                                                    <xs:pattern value=".*[^\s].*" />
                                                 </xs:restriction>
                                             </xs:simpleType>
                                         </xs:element>
@@ -247,9 +239,9 @@
                                                                 <xs:documentation>Especificação do local do acidente (pátio, rampa de acesso, posto de trabalho, etc.)</xs:documentation>
                                                             </xs:annotation>
                                                             <xs:restriction base="xs:string">
-                                                                <xs:pattern value=".*[^\s].*" />
                                                                 <xs:minLength value="2" />
                                                                 <xs:maxLength value="255" />
+                                                                <xs:pattern value=".*[^\s].*" />
                                                             </xs:restriction>
                                                         </xs:simpleType>
                                                     </xs:element>
@@ -259,9 +251,9 @@
                                                                 <xs:documentation>Descrição do logradouro</xs:documentation>
                                                             </xs:annotation>
                                                             <xs:restriction base="xs:string">
-                                                                <xs:pattern value=".*[^\s].*" />
                                                                 <xs:minLength value="1" />
                                                                 <xs:maxLength value="100" />
+                                                                <xs:pattern value=".*[^\s].*" />
                                                             </xs:restriction>
                                                         </xs:simpleType>
                                                     </xs:element>
@@ -272,9 +264,9 @@
                                                                 <xs:documentation>Se não houver número a ser informado, preencher com "S/N".</xs:documentation>
                                                             </xs:annotation>
                                                             <xs:restriction base="xs:string">
-                                                                <xs:pattern value=".*[^\s].*" />
                                                                 <xs:minLength value="1" />
                                                                 <xs:maxLength value="10" />
+                                                                <xs:pattern value=".*[^\s].*" />
                                                             </xs:restriction>
                                                         </xs:simpleType>
                                                     </xs:element>
@@ -284,9 +276,9 @@
                                                                 <xs:documentation>Complemento do logradouro</xs:documentation>
                                                             </xs:annotation>
                                                             <xs:restriction base="xs:string">
-                                                                <xs:pattern value=".*[^\s].*" />
                                                                 <xs:minLength value="1" />
                                                                 <xs:maxLength value="30" />
+                                                                <xs:pattern value=".*[^\s].*" />
                                                             </xs:restriction>
                                                         </xs:simpleType>
                                                     </xs:element>
@@ -296,9 +288,9 @@
                                                                 <xs:documentation>Nome do bairro/distrito</xs:documentation>
                                                             </xs:annotation>
                                                             <xs:restriction base="xs:string">
-                                                                <xs:pattern value=".*[^\s].*" />
                                                                 <xs:minLength value="1" />
                                                                 <xs:maxLength value="90" />
+                                                                <xs:pattern value=".*[^\s].*" />
                                                             </xs:restriction>
                                                         </xs:simpleType>
                                                     </xs:element>
@@ -348,9 +340,9 @@
                                                                 <xs:documentation>Validação: Preenchimento obrigatório se {tpLocal} = [2]. Não preencher nos demais casos.</xs:documentation>
                                                             </xs:annotation>
                                                             <xs:restriction base="xs:string">
-                                                                <xs:pattern value=".*[^\s].*" />
                                                                 <xs:minLength value="4" />
                                                                 <xs:maxLength value="12" />
+                                                                <xs:pattern value=".*[^\s].*" />
                                                             </xs:restriction>
                                                         </xs:simpleType>
                                                     </xs:element>
@@ -674,67 +666,11 @@
                                 </xs:complexType>
                             </xs:element>
                         </xs:sequence>
-                        <xs:attribute name="Id" use="required">
-                            <xs:simpleType>
-                                <xs:annotation>
-                                    <xs:documentation>Identificação única do evento</xs:documentation>
-                                    <xs:documentation>REGRA:REGRA_VALIDA_ID_EVENTO</xs:documentation>
-                                </xs:annotation>
-                                <xs:restriction base="xs:ID">
-                                    <xs:length value="36" />
-                                    <xs:pattern value="ID\d{34}" />
-                                </xs:restriction>
-                            </xs:simpleType>
-                        </xs:attribute>
+                        <xs:attribute name="Id" use="required" type="TS_Id" />
                     </xs:complexType>
                 </xs:element>
                 <xs:element ref="ds:Signature" />
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    <xs:simpleType name="TS_sim_nao">
-        <xs:restriction base="xs:string">
-            <xs:enumeration value="S">
-                <xs:annotation>
-                    <xs:documentation>Sim</xs:documentation>
-                </xs:annotation>
-            </xs:enumeration>
-            <xs:enumeration value="N">
-                <xs:annotation>
-                    <xs:documentation>Não</xs:documentation>
-                </xs:annotation>
-            </xs:enumeration>
-        </xs:restriction>
-    </xs:simpleType>
-    <xs:simpleType name="TS_uf">
-        <xs:restriction base="xs:string">
-            <xs:enumeration value="AC" />
-            <xs:enumeration value="AL" />
-            <xs:enumeration value="AP" />
-            <xs:enumeration value="AM" />
-            <xs:enumeration value="BA" />
-            <xs:enumeration value="CE" />
-            <xs:enumeration value="DF" />
-            <xs:enumeration value="ES" />
-            <xs:enumeration value="GO" />
-            <xs:enumeration value="MA" />
-            <xs:enumeration value="MT" />
-            <xs:enumeration value="MS" />
-            <xs:enumeration value="MG" />
-            <xs:enumeration value="PA" />
-            <xs:enumeration value="PB" />
-            <xs:enumeration value="PR" />
-            <xs:enumeration value="PE" />
-            <xs:enumeration value="PI" />
-            <xs:enumeration value="RJ" />
-            <xs:enumeration value="RN" />
-            <xs:enumeration value="RS" />
-            <xs:enumeration value="RO" />
-            <xs:enumeration value="RR" />
-            <xs:enumeration value="SC" />
-            <xs:enumeration value="SP" />
-            <xs:enumeration value="SE" />
-            <xs:enumeration value="TO" />
-        </xs:restriction>
-    </xs:simpleType>
 </xs:schema>

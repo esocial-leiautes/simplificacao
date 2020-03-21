@@ -2,7 +2,7 @@
 <xs:schema xmlns="http://www.esocial.gov.br/schema/evt/evtTabLotacao/v01_00_00" targetNamespace="http://www.esocial.gov.br/schema/evt/evtTabLotacao/v01_00_00" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
     <xs:include schemaLocation="include/ideEvento_evtTab.xsd " />
     <xs:include schemaLocation="include/ideEmpregador_evtTab.xsd" />
-    <xs:include schemaLocation="include/periodo_evtTab.xsd" />
+    <xs:include schemaLocation="include/novaValidade.xsd" />
     <xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd" />
     <xs:element name="eSocial">
         <xs:annotation>
@@ -27,16 +27,8 @@
                     </xs:annotation>
                     <xs:complexType>
                         <xs:sequence>
-                            <xs:element name="ideEvento" type="T_ideEvento_evtTab">
-                                <xs:annotation>
-                                    <xs:documentation>Informações de Identificação do Evento</xs:documentation>
-                                </xs:annotation>
-                            </xs:element>
-                            <xs:element name="ideEmpregador" type="T_ideEmpregador_evtTab">
-                                <xs:annotation>
-                                    <xs:documentation>Informações de identificação do empregador</xs:documentation>
-                                </xs:annotation>
-                            </xs:element>
+                            <xs:element name="ideEvento" type="T_ideEvento_evtTab" />
+                            <xs:element name="ideEmpregador" type="T_ideEmpregador_evtTab" />
                             <xs:element name="infoLotacao">
                                 <xs:annotation>
                                     <xs:documentation>Informações da Lotação</xs:documentation>
@@ -51,16 +43,8 @@
                                                 </xs:annotation>
                                                 <xs:complexType>
                                                     <xs:sequence>
-                                                        <xs:element name="ideLotacao" type="T_ideLotacao">
-                                                            <xs:annotation>
-                                                                <xs:documentation>Identificação da Lotação</xs:documentation>
-                                                            </xs:annotation>
-                                                        </xs:element>
-                                                        <xs:element name="dadosLotacao" type="T_dadosLotacao">
-                                                            <xs:annotation>
-                                                                <xs:documentation>Informações da Lotação</xs:documentation>
-                                                            </xs:annotation>
-                                                        </xs:element>
+                                                        <xs:element name="ideLotacao" type="T_ideLotacao" />
+                                                        <xs:element name="dadosLotacao" type="T_dadosLotacao" />
                                                     </xs:sequence>
                                                 </xs:complexType>
                                             </xs:element>
@@ -71,22 +55,9 @@
                                                 </xs:annotation>
                                                 <xs:complexType>
                                                     <xs:sequence>
-                                                        <xs:element name="ideLotacao" type="T_ideLotacao">
-                                                            <xs:annotation>
-                                                                <xs:documentation>Informações de identificação da lotação</xs:documentation>
-                                                            </xs:annotation>
-                                                        </xs:element>
-                                                        <xs:element name="dadosLotacao" type="T_dadosLotacao">
-                                                            <xs:annotation>
-                                                                <xs:documentation>Informações da lotação</xs:documentation>
-                                                            </xs:annotation>
-                                                        </xs:element>
-                                                        <xs:element name="novaValidade" type="T_periodo_evtTab" minOccurs="0">
-                                                            <xs:annotation>
-                                                                <xs:documentation>Novo período de validade das informações</xs:documentation>
-                                                                <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
-                                                            </xs:annotation>
-                                                        </xs:element>
+                                                        <xs:element name="ideLotacao" type="T_ideLotacao" />
+                                                        <xs:element name="dadosLotacao" type="T_dadosLotacao" />
+                                                        <xs:element name="novaValidade" type="T_novaValidade" minOccurs="0" />
                                                     </xs:sequence>
                                                 </xs:complexType>
                                             </xs:element>
@@ -97,11 +68,7 @@
                                                 </xs:annotation>
                                                 <xs:complexType>
                                                     <xs:sequence>
-                                                        <xs:element name="ideLotacao" type="T_ideLotacao">
-                                                            <xs:annotation>
-                                                                <xs:documentation>Identificação da lotação que será excluída</xs:documentation>
-                                                            </xs:annotation>
-                                                        </xs:element>
+                                                        <xs:element name="ideLotacao" type="T_ideLotacao" />
                                                     </xs:sequence>
                                                 </xs:complexType>
                                             </xs:element>
@@ -110,18 +77,7 @@
                                 </xs:complexType>
                             </xs:element>
                         </xs:sequence>
-                        <xs:attribute name="Id" use="required">
-                            <xs:simpleType>
-                                <xs:annotation>
-                                    <xs:documentation>Identificação única do evento</xs:documentation>
-                                    <xs:documentation>REGRA:REGRA_VALIDA_ID_EVENTO</xs:documentation>
-                                </xs:annotation>
-                                <xs:restriction base="xs:ID">
-                                    <xs:length value="36" />
-                                    <xs:pattern value="ID\d{34}" />
-                                </xs:restriction>
-                            </xs:simpleType>
-                        </xs:attribute>
+                        <xs:attribute name="Id" use="required" type="TS_Id" />
                     </xs:complexType>
                 </xs:element>
                 <xs:element ref="ds:Signature" />
@@ -133,47 +89,16 @@
             <xs:documentation>Identificação da Lotação e período de validade</xs:documentation>
         </xs:annotation>
         <xs:sequence>
-            <xs:element name="codLotacao">
-                <xs:simpleType>
-                    <xs:annotation>
-                        <xs:documentation>Código da Lotação</xs:documentation>
-                        <xs:documentation>Informar o código atribuído pela empresa para a lotação tributária.</xs:documentation>
-                        <xs:documentation>Validação: O código atribuído não pode conter a expressão 'eSocial' nas 7 primeiras posições.</xs:documentation>
-                        <xs:documentation>REGRA:REGRA_CARACTER_ESPECIAL</xs:documentation>
-                    </xs:annotation>
-                    <xs:restriction base="xs:string">
-                        <xs:pattern value=".*[^\s].*" />
-                        <xs:minLength value="1" />
-                        <xs:maxLength value="30" />
-                    </xs:restriction>
-                </xs:simpleType>
+            <xs:element name="codLotacao" type="TS_codigo_esocial">
+                <xs:annotation>
+                    <xs:documentation>Código da Lotação</xs:documentation>
+                    <xs:documentation>Informar o código atribuído pela empresa para a lotação tributária.</xs:documentation>
+                    <xs:documentation>Validação: O código atribuído não pode conter a expressão 'eSocial' nas 7 primeiras posições.</xs:documentation>
+                    <xs:documentation>REGRA:REGRA_CARACTER_ESPECIAL</xs:documentation>
+                </xs:annotation>
             </xs:element>
-            <xs:element name="iniValid">
-                <xs:simpleType>
-                    <xs:annotation>
-                        <xs:documentation>Início da validade</xs:documentation>
-                        <xs:documentation>Preencher com o mês e ano de início da validade das informações prestadas no evento, no formato AAAA-MM.</xs:documentation>
-                        <xs:documentation>Validação: Deve ser uma data válida, igual ou posterior à data de início de obrigatoriedade deste evento para o empregador no eSocial, no formato AAAA-MM.</xs:documentation>
-                    </xs:annotation>
-                    <xs:restriction base="xs:string">
-                        <xs:length value="7" />
-                        <xs:pattern value="[2]{1}\d{3}-(1[0-2]|0[1-9])" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:element>
-            <xs:element name="fimValid" minOccurs="0">
-                <xs:simpleType>
-                    <xs:annotation>
-                        <xs:documentation>Fim da validade</xs:documentation>
-                        <xs:documentation>Preencher com o mês e ano de término da validade das informações, se houver.</xs:documentation>
-                        <xs:documentation>Validação: Se informado, deve estar no formato AAAA-MM e ser um período igual ou posterior a {iniValid}.</xs:documentation>
-                    </xs:annotation>
-                    <xs:restriction base="xs:string">
-                        <xs:length value="7" />
-                        <xs:pattern value="[2]{1}\d{3}-(1[0-2]|0[1-9])" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:element>
+            <xs:element name="iniValid" type="TS_iniValid" />
+            <xs:element name="fimValid" minOccurs="0" type="TS_fimValid" />
         </xs:sequence>
     </xs:complexType>
     <xs:complexType name="T_dadosLotacao">
@@ -181,54 +106,20 @@
             <xs:documentation>Informações da Lotação</xs:documentation>
         </xs:annotation>
         <xs:sequence>
-            <xs:element name="tpLotacao">
-                <xs:simpleType>
-                    <xs:annotation>
-                        <xs:documentation>Tipo de Lotação</xs:documentation>
-                        <xs:documentation>Validação: Deve ser um código válido, existente na Tabela 10, e compatível com a Classificação Tributária indicada no evento de Informações Cadastrais do Empregador.</xs:documentation>
-                    </xs:annotation>
-                    <xs:restriction base="xs:string">
-                        <xs:pattern value="\d{2}" />
-                    </xs:restriction>
-                </xs:simpleType>
+            <xs:element name="tpLotacao" type="TS_tpLotacao" />
+            <xs:element name="tpInsc" minOccurs="0" type="TS_tpInsc_1_2_4">
+                <xs:annotation>
+                    <xs:documentation>Tipo de Inscrição</xs:documentation>
+                    <xs:documentation>Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.</xs:documentation>
+                    <xs:documentation>Validação: O campo não deve ser preenchido se {tpLotacao} for igual a [01, 10, 21, 24, 90, 91]. Nos demais casos, observar conteúdo exigido para o campo {nrInsc}, conforme Tabela 10 - Tipos de Lotação Tributária.</xs:documentation>
+                </xs:annotation>
             </xs:element>
-            <xs:element name="tpInsc" minOccurs="0">
-                <xs:simpleType>
-                    <xs:annotation>
-                        <xs:documentation>Tipo de Inscrição</xs:documentation>
-                        <xs:documentation>Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.</xs:documentation>
-                        <xs:documentation>Validação: O campo não deve ser preenchido se {tpLotacao} for igual a [01, 10, 21, 24, 90, 91]. Nos demais casos, observar conteúdo exigido para o campo {nrInsc}, conforme Tabela 10 - Tipos de Lotação Tributária.</xs:documentation>
-                    </xs:annotation>
-                    <xs:restriction base="xs:byte">
-                        <xs:enumeration value="1">
-                            <xs:annotation>
-                                <xs:documentation>CNPJ</xs:documentation>
-                            </xs:annotation>
-                        </xs:enumeration>
-                        <xs:enumeration value="2">
-                            <xs:annotation>
-                                <xs:documentation>CPF</xs:documentation>
-                            </xs:annotation>
-                        </xs:enumeration>
-                        <xs:enumeration value="4">
-                            <xs:annotation>
-                                <xs:documentation>CNO</xs:documentation>
-                            </xs:annotation>
-                        </xs:enumeration>
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:element>
-            <xs:element name="nrInsc" minOccurs="0">
-                <xs:simpleType>
-                    <xs:annotation>
-                        <xs:documentation>Número de Inscrição</xs:documentation>
-                        <xs:documentation>Preencher com o número de Inscrição (CNPJ, CPF, CNO) ao qual pertence a lotação tributária, conforme indicado na Tabela 10 - Tipos de Lotação Tributária.</xs:documentation>
-                        <xs:documentation>Validação: a) Deve ser preenchido de acordo com o conteúdo exigido, conforme especificado no campo {tpInsc} e na Tabela 10. b) Deve ser um identificador válido, constante das bases da RFB.</xs:documentation>
-                    </xs:annotation>
-                    <xs:restriction base="xs:string">
-                        <xs:pattern value="\d{11}|\d{12}|\d{14}" />
-                    </xs:restriction>
-                </xs:simpleType>
+            <xs:element name="nrInsc" minOccurs="0" type="TS_nrInsc_11_12_14">
+                <xs:annotation>
+                    <xs:documentation>Número de Inscrição</xs:documentation>
+                    <xs:documentation>Preencher com o número de Inscrição (CNPJ, CPF, CNO) ao qual pertence a lotação tributária, conforme indicado na Tabela 10 - Tipos de Lotação Tributária.</xs:documentation>
+                    <xs:documentation>Validação: a) Deve ser preenchido de acordo com o conteúdo exigido, conforme especificado no campo {tpInsc} e na Tabela 10. b) Deve ser um identificador válido, constante das bases da RFB.</xs:documentation>
+                </xs:annotation>
             </xs:element>
             <xs:element name="fpasLotacao">
                 <xs:annotation>
@@ -236,40 +127,20 @@
                 </xs:annotation>
                 <xs:complexType>
                     <xs:sequence>
-                        <xs:element name="fpas">
-                            <xs:simpleType>
-                                <xs:annotation>
-                                    <xs:documentation>Código do FPAS</xs:documentation>
-                                    <xs:documentation>Validação: Deve ser um código FPAS válido, conforme Tabela 04.</xs:documentation>
-                                </xs:annotation>
-                                <xs:restriction base="xs:integer">
-                                    <xs:pattern value="\d{3}" />
-                                </xs:restriction>
-                            </xs:simpleType>
+                        <xs:element name="fpas" type="TS_fpas" />
+                        <xs:element name="codTercs" type="TS_codTercs">
+                            <xs:annotation>
+                                <xs:documentation>Código de Terceiros</xs:documentation>
+                                <xs:documentation>Preencher com o código de Terceiros, conforme Tabela 04, já considerando a existência de eventuais convênios para recolhimento direto. Exemplo: Se o contribuinte está enquadrado com FPAS 507, cujo código cheio de Terceiros é 0079, se possuir convênio com Senai deve informar o código 0075.</xs:documentation>
+                                <xs:documentation>Validação: Se a classificação tributária for igual a [01, 02, 03, 04], informar 0000. Nos demais casos, o código de terceiros informado deve ser compatível com o código de FPAS informado, conforme Tabela 04.</xs:documentation>
+                            </xs:annotation>
                         </xs:element>
-                        <xs:element name="codTercs">
-                            <xs:simpleType>
-                                <xs:annotation>
-                                    <xs:documentation>Código de Terceiros</xs:documentation>
-                                    <xs:documentation>Preencher com o código de Terceiros, conforme Tabela 04, já considerando a existência de eventuais convênios para recolhimento direto. Exemplo: Se o contribuinte está enquadrado com FPAS 507, cujo código cheio de Terceiros é 0079, se possuir convênio com Senai deve informar o código 0075.</xs:documentation>
-                                    <xs:documentation>Validação: Se a classificação tributária for igual a [01, 02, 03, 04], informar 0000. Nos demais casos, o código de terceiros informado deve ser compatível com o código de FPAS informado, conforme Tabela 04.</xs:documentation>
-                                </xs:annotation>
-                                <xs:restriction base="xs:string">
-                                    <xs:pattern value="\d{4}" />
-                                </xs:restriction>
-                            </xs:simpleType>
-                        </xs:element>
-                        <xs:element name="codTercsSusp" minOccurs="0">
-                            <xs:simpleType>
-                                <xs:annotation>
-                                    <xs:documentation>Código de Terceiros Suspenso</xs:documentation>
-                                    <xs:documentation>Informar o código combinado dos Terceiros para os quais o recolhimento está suspenso em virtude de processos Judiciais. Exemplo: Se o contribuinte possui decisões de processos para suspensão de recolhimentos ao Sesi (0008) e ao Sebrae (0064), deve informar o código combinado das duas entidades, ou seja, 0072.</xs:documentation>
-                                    <xs:documentation>Validação: Deve ser um código consistente com a Tabela 04. Deve haver um processo em {procJudTerceiro} para cada código de Terceiro cujo recolhimento esteja suspenso.</xs:documentation>
-                                </xs:annotation>
-                                <xs:restriction base="xs:string">
-                                    <xs:pattern value="\d{4}" />
-                                </xs:restriction>
-                            </xs:simpleType>
+                        <xs:element name="codTercsSusp" minOccurs="0" type="TS_codTercs">
+                            <xs:annotation>
+                                <xs:documentation>Código de Terceiros Suspenso</xs:documentation>
+                                <xs:documentation>Informar o código combinado dos Terceiros para os quais o recolhimento está suspenso em virtude de processos Judiciais. Exemplo: Se o contribuinte possui decisões de processos para suspensão de recolhimentos ao Sesi (0008) e ao Sebrae (0064), deve informar o código combinado das duas entidades, ou seja, 0072.</xs:documentation>
+                                <xs:documentation>Validação: Deve ser um código consistente com a Tabela 04. Deve haver um processo em {procJudTerceiro} para cada código de Terceiro cujo recolhimento esteja suspenso.</xs:documentation>
+                            </xs:annotation>
                         </xs:element>
                         <xs:element name="infoProcJudTerceiros" minOccurs="0">
                             <xs:annotation>
@@ -285,40 +156,20 @@
                                         </xs:annotation>
                                         <xs:complexType>
                                             <xs:sequence>
-                                                <xs:element name="codTerc">
-                                                    <xs:simpleType>
-                                                        <xs:annotation>
-                                                            <xs:documentation>Código de Terceiro</xs:documentation>
-                                                            <xs:documentation>Validação: Deve ser um código de terceiro válido e compatível com o FPAS/Terceiros informado no registro superior, conforme Tabela 04.</xs:documentation>
-                                                        </xs:annotation>
-                                                        <xs:restriction base="xs:string">
-                                                            <xs:pattern value="\d{4}" />
-                                                        </xs:restriction>
-                                                    </xs:simpleType>
+                                                <xs:element name="codTerc" type="TS_codTercs">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Código de Terceiro</xs:documentation>
+                                                        <xs:documentation>Validação: Deve ser um código de terceiro válido e compatível com o FPAS/Terceiros informado no registro superior, conforme Tabela 04.</xs:documentation>
+                                                    </xs:annotation>
                                                 </xs:element>
-                                                <xs:element name="nrProcJud">
-                                                    <xs:simpleType>
-                                                        <xs:annotation>
-                                                            <xs:documentation>Número do Processo Judicial</xs:documentation>
-                                                            <xs:documentation>Informar um número de processo judicial cadastrado através do evento S-1070, cujo {indMatProc} seja igual a [1].</xs:documentation>
-                                                            <xs:documentation>Validação: Deve ser um número de processo válido e deve existir na Tabela de Processos (S-1070), com {indMatProc} = [1].</xs:documentation>
-                                                        </xs:annotation>
-                                                        <xs:restriction base="xs:string">
-                                                            <xs:pattern value="\d{20}" />
-                                                        </xs:restriction>
-                                                    </xs:simpleType>
+                                                <xs:element name="nrProcJud" type="TS_nrProcJud">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Número do Processo Judicial</xs:documentation>
+                                                        <xs:documentation>Informar um número de processo judicial cadastrado através do evento S-1070, cujo {indMatProc} seja igual a [1].</xs:documentation>
+                                                        <xs:documentation>Validação: Deve ser um número de processo válido e deve existir na Tabela de Processos (S-1070), com {indMatProc} = [1].</xs:documentation>
+                                                    </xs:annotation>
                                                 </xs:element>
-                                                <xs:element name="codSusp">
-                                                    <xs:simpleType>
-                                                        <xs:annotation>
-                                                            <xs:documentation>Código do Indicativo da Suspensão</xs:documentation>
-                                                            <xs:documentation>Validação: A informação prestada deve estar de acordo com o que foi informado em S-1070.</xs:documentation>
-                                                        </xs:annotation>
-                                                        <xs:restriction base="xs:integer">
-                                                            <xs:pattern value="\d{1,14}" />
-                                                        </xs:restriction>
-                                                    </xs:simpleType>
-                                                </xs:element>
+                                                <xs:element name="codSusp" type="TS_codSusp" />
                                             </xs:sequence>
                                         </xs:complexType>
                                     </xs:element>
@@ -335,65 +186,27 @@
                 </xs:annotation>
                 <xs:complexType>
                     <xs:sequence>
-                        <xs:element name="tpInscContrat">
-                            <xs:simpleType>
-                                <xs:annotation>
-                                    <xs:documentation>Tipo de Inscrição do contratante</xs:documentation>
-                                </xs:annotation>
-                                <xs:restriction base="xs:byte">
-                                    <xs:enumeration value="1">
-                                        <xs:annotation>
-                                            <xs:documentation>CNPJ</xs:documentation>
-                                        </xs:annotation>
-                                    </xs:enumeration>
-                                    <xs:enumeration value="2">
-                                        <xs:annotation>
-                                            <xs:documentation>CPF</xs:documentation>
-                                        </xs:annotation>
-                                    </xs:enumeration>
-                                </xs:restriction>
-                            </xs:simpleType>
+                        <xs:element name="tpInscContrat" type="TS_tpInsc_1_2">
+                            <xs:annotation>
+                                <xs:documentation>Tipo de Inscrição do contratante</xs:documentation>
+                            </xs:annotation>
                         </xs:element>
-                        <xs:element name="nrInscContrat">
-                            <xs:simpleType>
-                                <xs:annotation>
-                                    <xs:documentation>Número de Inscrição do Contratante</xs:documentation>
-                                    <xs:documentation>Validação: Deve ser um número de CNPJ ou CPF válido, conforme definido em {tpInscContrat}.</xs:documentation>
-                                </xs:annotation>
-                                <xs:restriction base="xs:string">
-                                    <xs:pattern value="\d{11}|\d{14}" />
-                                </xs:restriction>
-                            </xs:simpleType>
+                        <xs:element name="nrInscContrat" type="TS_nrInsc_11_14">
+                            <xs:annotation>
+                                <xs:documentation>Número de Inscrição do Contratante</xs:documentation>
+                                <xs:documentation>Validação: Deve ser um número de CNPJ ou CPF válido, conforme definido em {tpInscContrat}.</xs:documentation>
+                            </xs:annotation>
                         </xs:element>
-                        <xs:element name="tpInscProp">
-                            <xs:simpleType>
-                                <xs:annotation>
-                                    <xs:documentation>Tipo de Inscrição do proprietário do CNO</xs:documentation>
-                                </xs:annotation>
-                                <xs:restriction base="xs:byte">
-                                    <xs:enumeration value="1">
-                                        <xs:annotation>
-                                            <xs:documentation>CNPJ</xs:documentation>
-                                        </xs:annotation>
-                                    </xs:enumeration>
-                                    <xs:enumeration value="2">
-                                        <xs:annotation>
-                                            <xs:documentation>CPF</xs:documentation>
-                                        </xs:annotation>
-                                    </xs:enumeration>
-                                </xs:restriction>
-                            </xs:simpleType>
+                        <xs:element name="tpInscProp" type="TS_tpInsc_1_2">
+                            <xs:annotation>
+                                <xs:documentation>Tipo de Inscrição do proprietário do CNO</xs:documentation>
+                            </xs:annotation>
                         </xs:element>
-                        <xs:element name="nrInscProp">
-                            <xs:simpleType>
-                                <xs:annotation>
-                                    <xs:documentation>Número de Inscrição do proprietário do CNO</xs:documentation>
-                                    <xs:documentation>Validação: Deve ser um CNPJ ou CPF válido, conforme indicado em {tpInscProp}.</xs:documentation>
-                                </xs:annotation>
-                                <xs:restriction base="xs:string">
-                                    <xs:pattern value="\d{11}|\d{14}" />
-                                </xs:restriction>
-                            </xs:simpleType>
+                        <xs:element name="nrInscProp" type="TS_nrInsc_11_14">
+                            <xs:annotation>
+                                <xs:documentation>Número de Inscrição do proprietário do CNO</xs:documentation>
+                                <xs:documentation>Validação: Deve ser um CNPJ ou CPF válido, conforme indicado em {tpInscProp}.</xs:documentation>
+                            </xs:annotation>
                         </xs:element>
                     </xs:sequence>
                 </xs:complexType>
@@ -405,32 +218,17 @@
                 </xs:annotation>
                 <xs:complexType>
                     <xs:sequence>
-                        <xs:element name="aliqRat">
-                            <xs:simpleType>
-                                <xs:annotation>
-                                    <xs:documentation>Alíquota RAT</xs:documentation>
-                                    <xs:documentation>Preencher com a alíquota definida na legislação vigente para a atividade (CNAE) preponderante.</xs:documentation>
-                                </xs:annotation>
-                                <xs:restriction base="xs:byte">
-                                    <xs:enumeration value="1" />
-                                    <xs:enumeration value="2" />
-                                    <xs:enumeration value="3" />
-                                </xs:restriction>
-                            </xs:simpleType>
+                        <xs:element name="aliqRat" type="TS_aliqRat">
+                            <xs:annotation>
+                                <xs:documentation>Alíquota RAT</xs:documentation>
+                                <xs:documentation>Preencher com a alíquota definida na legislação vigente para a atividade (CNAE) preponderante.</xs:documentation>
+                            </xs:annotation>
                         </xs:element>
-                        <xs:element name="fap">
-                            <xs:simpleType>
-                                <xs:annotation>
-                                    <xs:documentation>Fator Acidentário de Prevenção - FAP</xs:documentation>
-                                    <xs:documentation>Validação: Deve ser um número maior ou igual a 0,5000 e menor ou igual a 2,0000, de acordo com o estabelecido pelo órgão governamental competente.</xs:documentation>
-                                </xs:annotation>
-                                <xs:restriction base="xs:decimal">
-                                    <xs:totalDigits value="5" />
-                                    <xs:fractionDigits value="4" />
-                                    <xs:minInclusive value="0.5" />
-                                    <xs:maxInclusive value="2" />
-                                </xs:restriction>
-                            </xs:simpleType>
+                        <xs:element name="fap" type="TS_fap">
+                            <xs:annotation>
+                                <xs:documentation>Fator Acidentário de Prevenção - FAP</xs:documentation>
+                                <xs:documentation>Validação: Deve ser um número maior ou igual a 0,5000 e menor ou igual a 2,0000, de acordo com o estabelecido pelo órgão governamental competente.</xs:documentation>
+                            </xs:annotation>
                         </xs:element>
                     </xs:sequence>
                 </xs:complexType>
