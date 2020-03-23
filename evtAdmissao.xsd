@@ -219,11 +219,16 @@
                                                             <xs:documentation>Nome do Dependente</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
-                                                    <xs:element name="dtNascto" type="xs:date">
-                                                        <xs:annotation>
-                                                            <xs:documentation>Data de Nascimento</xs:documentation>
-                                                            <xs:documentation>Validação: Deve ser maior ou igual que 01/01/1890 e menor que a data atual.</xs:documentation>
-                                                        </xs:annotation>
+                                                    <xs:element name="dtNascto">
+                                                        <xs:simpleType>
+                                                            <xs:annotation>
+                                                                <xs:documentation>Data de Nascimento</xs:documentation>
+                                                                <xs:documentation>Validação: Deve ser maior ou igual que 01/01/1890 e menor que a data atual.</xs:documentation>
+                                                            </xs:annotation>
+                                                            <xs:restriction base="xs:date">
+                                                                <xs:minInclusive value="1890-01-01" />
+                                                            </xs:restriction>
+                                                        </xs:simpleType>
                                                     </xs:element>
                                                     <xs:element name="cpfDep" minOccurs="0" type="TS_cpf">
                                                         <xs:annotation>
