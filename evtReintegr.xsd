@@ -77,16 +77,11 @@
                                                 </xs:restriction>
                                             </xs:simpleType>
                                         </xs:element>
-                                        <xs:element name="nrProcJud" minOccurs="0">
-                                            <xs:simpleType>
-                                                <xs:annotation>
-                                                    <xs:documentation>Em caso de reintegração por determinação judicial, preencher com o número do processo.</xs:documentation>
-                                                    <xs:documentation>Validação: Informação obrigatória e exclusiva se {tpReint} = [1]. Se preenchido, deve ser um processo judicial válido, com 20 (vinte) algarismos.</xs:documentation>
-                                                </xs:annotation>
-                                                <xs:restriction base="xs:string">
-                                                    <xs:pattern value="\d{20}" />
-                                                </xs:restriction>
-                                            </xs:simpleType>
+                                        <xs:element name="nrProcJud" minOccurs="0" type="TS_nrProcJud">
+                                            <xs:annotation>
+                                                <xs:documentation>Em caso de reintegração por determinação judicial, preencher com o número do processo.</xs:documentation>
+                                                <xs:documentation>Validação: Informação obrigatória e exclusiva se {tpReint} = [1]. Se preenchido, deve ser um processo judicial válido, com 20 (vinte) algarismos.</xs:documentation>
+                                            </xs:annotation>
                                         </xs:element>
                                         <xs:element name="nrLeiAnistia" minOccurs="0">
                                             <xs:simpleType>
@@ -124,17 +119,7 @@
                                                             <xs:documentation>Validação: Deve ser igual ou posterior à data de admissão/exercício do trabalhador e anterior à data do efetivo retorno ao trabalho.</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
-                                                    <xs:element name="codMotAfast">
-                                                        <xs:simpleType>
-                                                            <xs:annotation>
-                                                                <xs:documentation>Código do motivo de afastamento temporário, conforme tabela 18</xs:documentation>
-                                                                <xs:documentation>Validação: Deve ser um código existente na Tabela 18.</xs:documentation>
-                                                            </xs:annotation>
-                                                            <xs:restriction base="xs:string">
-                                                                <xs:pattern value="\d{2}" />
-                                                            </xs:restriction>
-                                                        </xs:simpleType>
-                                                    </xs:element>
+                                                    <xs:element name="codMotAfast" type="TS_codMotAfast" />
                                                 </xs:sequence>
                                             </xs:complexType>
                                         </xs:element>
