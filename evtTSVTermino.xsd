@@ -1,0 +1,247 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns="http://www.esocial.gov.br/schema/evt/evtTSVTermino/v01_00_00" targetNamespace="http://www.esocial.gov.br/schema/evt/evtTSVTermino/v01_00_00" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+    <xs:include schemaLocation="include/ideEvento_trab.xsd " />
+    <xs:include schemaLocation="include/ideEmpregador_evtTab.xsd" />
+    <xs:include schemaLocation="include/ideTrabSemVinculo.xsd" />
+    <xs:include schemaLocation="include/procJudTrab.xsd" />
+    <xs:include schemaLocation="include/infoMV.xsd" />
+    <xs:include schemaLocation="include/quarentena.xsd" />
+    <xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd" />
+    <xs:element name="eSocial">
+        <xs:annotation>
+            <xs:documentation>S-2399 - Trabalhador Sem Vínculo de Emprego/Estatutário - Término</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="evtTSVTermino">
+                    <xs:annotation>
+                        <xs:documentation>TSVE - Término</xs:documentation>
+                        <xs:documentation>CHAVE_GRUPO: {Id}</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_ENVIO_PROC_FECHAMENTO</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_EVENTOS_EXTEMP</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_EXISTE_INFO_EMPREGADOR</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_GERAL_VALIDA_DADOS_TABCONTRIB</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_MUDANCA_CPF</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_REMUN_IND_RETIFICACAO</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_REMUN_PERMITE_EXCLUSAO</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_RETIFICA_MESMO_VINCULO</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_TSV_ATIVO_NA_DTEVENTO</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_VALIDA_EMPREGADOR</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_VALIDA_PERIODO_APURACAO</xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="ideEvento" type="T_ideEvento_trab" />
+                            <xs:element name="ideEmpregador" type="T_ideEmpregador_evtTab" />
+                            <xs:element name="ideTrabSemVinculo" type="T_ideTrabSemVinculo" />
+                            <xs:element name="infoTSVTermino">
+                                <xs:annotation>
+                                    <xs:documentation>Trabalhador Sem Vínculo de Emprego - Término</xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="dtTerm" type="xs:date">
+                                            <xs:annotation>
+                                                <xs:documentation>Data do Término.</xs:documentation>
+                                                <xs:documentation>Validação: Deve ser igual ou posterior à data de início do contrato informada no evento de início respectivo e não superior à data atual acrescida de 10 dias corridos.</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="mtvDesligTSV" minOccurs="0">
+                                            <xs:simpleType>
+                                                <xs:annotation>
+                                                    <xs:documentation>Motivo do Término.</xs:documentation>
+                                                    <xs:documentation>Validação: Informação obrigatória se {codCateg} = [721] ou se o grupo {mudancaCPF} estiver preenchido. Não preencher nas demais situações.</xs:documentation>
+                                                </xs:annotation>
+                                                <xs:restriction base="xs:string">
+                                                    <xs:enumeration value="01">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Exoneração do Diretor Não Empregado sem justa causa, por deliberação da assembleia, dos sócios cotistas ou da autoridade competente</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:enumeration>
+                                                    <xs:enumeration value="02">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Término de Mandato do Diretor Não Empregado que não tenha sido reconduzido ao cargo</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:enumeration>
+                                                    <xs:enumeration value="03">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Exoneração a pedido de Diretor Não Empregado</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:enumeration>
+                                                    <xs:enumeration value="04">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Exoneração do Diretor Não Empregado por culpa recíproca ou força maior</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:enumeration>
+                                                    <xs:enumeration value="05">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Morte do Diretor Não Empregado</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:enumeration>
+                                                    <xs:enumeration value="06">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Exoneração do Diretor Não Empregado por falência, encerramento ou supressão de parte da empresa</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:enumeration>
+                                                    <xs:enumeration value="07">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Mudança de CPF</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:enumeration>
+                                                    <xs:enumeration value="99">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Outros</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:enumeration>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element name="pensAlim" minOccurs="0" type="TS_pensAlim">
+                                            <xs:annotation>
+                                                <xs:documentation>Indicativo de pensão alimentícia para fins de retenção de FGTS.</xs:documentation>
+                                                <xs:documentation>Validação: Informação obrigatória se {codCateg} = [201, 202, 721] e se {dtTerm} for posterior a 21/04/2019.</xs:documentation>
+                                                <xs:documentation>Informação opcional se {codCateg} = [201, 202, 721] e se {dtTerm} for igual ou anterior a 21/04/2019.</xs:documentation>
+                                                <xs:documentation>Não preencher nas demais situações.</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="percAliment" minOccurs="0" type="TS_percAliment" />
+                                        <xs:element name="vrAlim" minOccurs="0" type="TS_vrAlim" />
+                                        <xs:element name="mudancaCPF" minOccurs="0">
+                                            <xs:annotation>
+                                                <xs:documentation>Informação do novo CPF do trabalhador</xs:documentation>
+                                                <xs:documentation>CONDICAO_GRUPO: O (se {mtvDesligTSV} = [07]); N (nos demais casos)</xs:documentation>
+                                            </xs:annotation>
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="novoCPF" type="TS_cpf">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Preencher com o novo CPF do trabalhador.</xs:documentation>
+                                                            <xs:documentation>Validação: Deve ser um CPF válido e diferente do CPF do empregador e do antigo CPF do trabalhador.</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:element>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="verbasResc" minOccurs="0">
+                                            <xs:annotation>
+                                                <xs:documentation>Verbas rescisórias</xs:documentation>
+                                                <xs:documentation>CONDICAO_GRUPO: N (se {mtvDesligTSV} = [07] OU se {dtTerm} for anterior ao início de obrigatoriedade dos eventos periódicos para o empregador OU se {codCateg} diferente de [721]); OC (nos demais casos)</xs:documentation>
+                                            </xs:annotation>
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="dmDev" maxOccurs="50">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Identificação dos demonstrativos de pagamentos a serem efetuados</xs:documentation>
+                                                            <xs:documentation>CHAVE_GRUPO: {ideDmDev}</xs:documentation>
+                                                        </xs:annotation>
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:element name="ideDmDev" type="TS_codigo_esocial">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Identificador atribuído pela empresa para o demonstrativo de valores devidos ao trabalhador relativo a verbas rescisórias.</xs:documentation>
+                                                                        <xs:documentation>Validação: Deve ser um identificador único dentro da mesma competência para cada um dos demonstrativos de pagamento gerados no presente arquivo de rescisão contratual.</xs:documentation>
+                                                                        <xs:documentation>REGRA:REGRA_CARACTER_ESPECIAL</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:element>
+                                                                <xs:element name="ideEstabLot" maxOccurs="99">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Identificação do estabelecimento e lotação</xs:documentation>
+                                                                        <xs:documentation>CHAVE_GRUPO: {tpInsc}, {nrInsc}, {codLotacao}</xs:documentation>
+                                                                    </xs:annotation>
+                                                                    <xs:complexType>
+                                                                        <xs:sequence>
+                                                                            <xs:element name="tpInsc" type="TS_tpInsc_1_3_4">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.</xs:documentation>
+                                                                                    <xs:documentation>Validação: Se {classTrib} igual a [21], deve ser igual a [3,4]. Se {classTrib} igual a [22], deve ser igual a [3] e o CAEPF deve ser de segurado especial.</xs:documentation>
+                                                                                    <xs:documentation>Nos demais casos ({classTrib} diferente de [21,22]) deve ser igual a [1,4].</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:element>
+                                                                            <xs:element name="nrInsc" type="TS_nrInsc_12_14">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {tpInsc}.</xs:documentation>
+                                                                                    <xs:documentation>Validação: A inscrição informada deve ser compatível com {tpInsc}. Se {tpInsc} igual a [1, 3, 4] deve constar na Tabela S-1005.</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:element>
+                                                                            <xs:element name="codLotacao" type="TS_codigo_esocial">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Informar o código atribuído pela empresa para a lotação tributária.</xs:documentation>
+                                                                                    <xs:documentation>Validação: Deve ser um código existente na Tabela de Lotações Tributárias (S-1020).</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:element>
+                                                                            <xs:element name="detVerbas" maxOccurs="200">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Verbas Rescisórias</xs:documentation>
+                                                                                </xs:annotation>
+                                                                                <xs:complexType>
+                                                                                    <xs:sequence>
+                                                                                        <xs:element name="codRubr" type="TS_codigo_esocial">
+                                                                                            <xs:annotation>
+                                                                                                <xs:documentation>Informar o código atribuído pelo empregador que identifica a rubrica em sua folha de pagamento.</xs:documentation>
+                                                                                                <xs:documentation>Validação: O código informado deve existir na Tabela S-1010 - Tabela de Rubricas, vigente no mês da data do término, informada no campo {dtTerm}. Não pode ser utilizada rubrica cujo {codIncCP} em S-1010 seja igual a [25, 26, 51] se {codCateg} pertencer a um dos grupos "Contribuinte Individual" ou "Bolsista" da Tabela 01.</xs:documentation>
+                                                                                            </xs:annotation>
+                                                                                        </xs:element>
+                                                                                        <xs:element name="ideTabRubr" type="TS_ideTabRubr">
+                                                                                            <xs:annotation>
+                                                                                                <xs:documentation>Preencher com o identificador da Tabela de Rubricas, conforme informado em S-1010, para a rubrica definida em {codRubr}.</xs:documentation>
+                                                                                                <xs:documentation>Validação: Deve existir na Tabela S-1010 (em conjunto com {codRubr}) vigente no período indicado em {perApur}.</xs:documentation>
+                                                                                            </xs:annotation>
+                                                                                        </xs:element>
+                                                                                        <xs:element name="qtdRubr" minOccurs="0" type="TS_qtdRubr" />
+                                                                                        <xs:element name="fatorRubr" minOccurs="0" type="TS_fator" />
+                                                                                        <xs:element name="vrRubr" type="TS_vrRubr" />
+                                                                                        <xs:element name="indApurIR" type="TS_indApurIR">
+                                                                                            <xs:annotation>
+                                                                                                <xs:documentation>Indicativo de tipo de apuração de IR.</xs:documentation>
+                                                                                                <xs:documentation>Validação: Informação obrigatória e exclusiva se mês/ano de {dtTerm} >= [2020-09].</xs:documentation>
+                                                                                            </xs:annotation>
+                                                                                        </xs:element>
+                                                                                    </xs:sequence>
+                                                                                </xs:complexType>
+                                                                            </xs:element>
+                                                                            <xs:element name="infoAgNocivo" minOccurs="0">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Grau de Exposição a Agentes Nocivos</xs:documentation>
+                                                                                    <xs:documentation>CONDICAO_GRUPO: O (se {codCateg} = [2XX, 731, 734, 738]); N (nos demais casos)</xs:documentation>
+                                                                                </xs:annotation>
+                                                                                <xs:complexType>
+                                                                                    <xs:sequence>
+                                                                                        <xs:element name="grauExp" type="TS_grauExp" />
+                                                                                    </xs:sequence>
+                                                                                </xs:complexType>
+                                                                            </xs:element>
+                                                                            <xs:element name="infoSimples" minOccurs="0">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Informação relativa a empresas do Simples</xs:documentation>
+                                                                                    <xs:documentation>CONDICAO_GRUPO: O (se {classTrib} = [03]); N (nos demais casos)</xs:documentation>
+                                                                                </xs:annotation>
+                                                                                <xs:complexType>
+                                                                                    <xs:sequence>
+                                                                                        <xs:element name="indSimples" type="TS_indSimples" />
+                                                                                    </xs:sequence>
+                                                                                </xs:complexType>
+                                                                            </xs:element>
+                                                                        </xs:sequence>
+                                                                    </xs:complexType>
+                                                                </xs:element>
+                                                            </xs:sequence>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                    <xs:element name="procJudTrab" minOccurs="0" maxOccurs="99" type="T_procJudTrab" />
+                                                    <xs:element name="infoMV" type="T_infoMV" minOccurs="0" />
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="quarentena" minOccurs="0" type="T_quarentena" />
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="Id" use="required" type="TS_Id" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:element ref="ds:Signature" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

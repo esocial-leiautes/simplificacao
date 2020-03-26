@@ -722,7 +722,7 @@
 
     <xs:simpleType name="TS_fator">
         <xs:annotation>
-            <xs:documentation>Fator utilizado na apuração da rubrica</xs:documentation>
+            <xs:documentation>Informar o fator, percentual, etc, da rubrica, quando necessário.</xs:documentation>
             <xs:documentation>Ex: Adicional de Horas Extras 50%, relacionado a uma rubrica de horas extras: Fator = 50.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:decimal">
@@ -734,7 +734,7 @@
 
     <xs:simpleType name="TS_vrRubr">
         <xs:annotation>
-            <xs:documentation>Valor total da rubrica</xs:documentation>
+            <xs:documentation>Valor total da rubrica.</xs:documentation>
             <xs:documentation>Validação: Deve ser maior que zero.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="TS_valorMonetario">
@@ -759,7 +759,7 @@
 
     <xs:simpleType name="TS_grauExp">
         <xs:annotation>
-            <xs:documentation>Código que representa o grau de exposição a agentes nocivos</xs:documentation>
+            <xs:documentation>Preencher com o código que representa o grau de exposição a agentes nocivos, conforme Tabela 02.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:byte">
             <xs:enumeration value="1">
@@ -787,7 +787,7 @@
 
     <xs:simpleType name="TS_indSimples">
         <xs:annotation>
-            <xs:documentation>Indicador de Contribuição Substituída</xs:documentation>
+            <xs:documentation>Indicador de Contribuição Substituída.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:byte">
             <xs:enumeration value="1">
@@ -810,7 +810,7 @@
 
     <xs:simpleType name="TS_tpTrib">
         <xs:annotation>
-            <xs:documentation>Abrangência da decisão</xs:documentation>
+            <xs:documentation>Abrangência da decisão.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:byte">
             <xs:enumeration value="1">
@@ -828,7 +828,7 @@
 
     <xs:simpleType name="TS_indMV">
         <xs:annotation>
-            <xs:documentation>Indicador de desconto da contribuição previdenciária do trabalhador</xs:documentation>
+            <xs:documentation>Indicador de desconto da contribuição previdenciária do trabalhador.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:byte">
             <xs:enumeration value="1">
@@ -876,7 +876,7 @@
 
     <xs:simpleType name="TS_percAliment">
         <xs:annotation>
-            <xs:documentation>Percentual a ser destinado a pensão alimentícia</xs:documentation>
+            <xs:documentation>Percentual a ser destinado a pensão alimentícia.</xs:documentation>
             <xs:documentation>Validação: Deve ser maior que 0 (zero) e menor ou igual a 100 (cem). Informação obrigatória se {pensAlim} = [1,3]. Não pode ser preenchido nos demais casos.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:decimal">
@@ -885,6 +885,14 @@
             <xs:minExclusive value="0" />
             <xs:maxInclusive value="100" />
         </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="TS_vrAlim">
+        <xs:annotation>
+            <xs:documentation>Valor da pensão alimentícia.</xs:documentation>
+            <xs:documentation>Validação: Informação obrigatória se {pensAlim} = [2,3]. Não pode ser preenchido nos demais casos.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="TS_valorMonetario" />
     </xs:simpleType>
 
     <xs:simpleType name="TS_dia">

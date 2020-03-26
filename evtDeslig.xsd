@@ -3,7 +3,9 @@
     <xs:include schemaLocation="include/ideEvento_trab.xsd " />
     <xs:include schemaLocation="include/ideEmpregador_evtTab.xsd" />
     <xs:include schemaLocation="include/ideVinculo.xsd" />
+    <xs:include schemaLocation="include/procJudTrab.xsd" />
     <xs:include schemaLocation="include/infoMV.xsd" />
+    <xs:include schemaLocation="include/quarentena.xsd" />
     <xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd" />
     <xs:element name="eSocial">
         <xs:annotation>
@@ -85,12 +87,7 @@
                                             </xs:annotation>
                                         </xs:element>
                                         <xs:element name="percAliment" minOccurs="0" type="TS_percAliment" />
-                                        <xs:element name="vrAlim" minOccurs="0" type="TS_valorMonetario">
-                                            <xs:annotation>
-                                                <xs:documentation>Valor da pensão alimentícia</xs:documentation>
-                                                <xs:documentation>Validação: Informação obrigatória se {pensAlim} = [2,3]. Não pode ser preenchido nos demais casos.</xs:documentation>
-                                            </xs:annotation>
-                                        </xs:element>
+                                        <xs:element name="vrAlim" minOccurs="0" type="TS_vrAlim" />
                                         <xs:element name="nrProcTrab" minOccurs="0" type="TS_nrProcJud">
                                             <xs:annotation>
                                                 <xs:documentation>Número que identifica o processo trabalhista, quando o desligamento se der por decisão judicial</xs:documentation>
@@ -469,25 +466,7 @@
                                                             </xs:sequence>
                                                         </xs:complexType>
                                                     </xs:element>
-                                                    <xs:element name="procJudTrab" minOccurs="0" maxOccurs="99">
-                                                        <xs:annotation>
-                                                            <xs:documentation>Informações sobre a existência de processos judiciais do trabalhador com decisão favorável quanto à não incidência de contribuição previdenciária e/ou Imposto de Renda</xs:documentation>
-                                                            <xs:documentation>CHAVE_GRUPO: {tpTrib}, {nrProcJud}, {codSusp}</xs:documentation>
-                                                            <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
-                                                        </xs:annotation>
-                                                        <xs:complexType>
-                                                            <xs:sequence>
-                                                                <xs:element name="tpTrib" type="TS_tpTrib" />
-                                                                <xs:element name="nrProcJud" type="TS_nrProcJud">
-                                                                    <xs:annotation>
-                                                                        <xs:documentation>Número do Processo Judicial</xs:documentation>
-                                                                        <xs:documentation>Validação: O processo deve existir na Tabela de Processos (S-1070), com {indMatProc} = [1].</xs:documentation>
-                                                                    </xs:annotation>
-                                                                </xs:element>
-                                                                <xs:element name="codSusp" type="TS_codSusp" />
-                                                            </xs:sequence>
-                                                        </xs:complexType>
-                                                    </xs:element>
+                                                    <xs:element name="procJudTrab" minOccurs="0" maxOccurs="99" type="T_procJudTrab" />
                                                     <xs:element name="infoMV" type="T_infoMV" minOccurs="0" />
                                                     <xs:element name="procCS" minOccurs="0">
                                                         <xs:annotation>
@@ -508,22 +487,7 @@
                                                 </xs:sequence>
                                             </xs:complexType>
                                         </xs:element>
-                                        <xs:element name="quarentena" minOccurs="0">
-                                            <xs:annotation>
-                                                <xs:documentation>Informações sobre a quarentena remunerada de trabalhador desligado</xs:documentation>
-                                                <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
-                                            </xs:annotation>
-                                            <xs:complexType>
-                                                <xs:sequence>
-                                                    <xs:element name="dtFimQuar" type="xs:date">
-                                                        <xs:annotation>
-                                                            <xs:documentation>Preencher com a data final da quarentena a que está sujeito o trabalhador</xs:documentation>
-                                                            <xs:documentation>Validação: Deve ser uma data posterior a data de término do contrato.</xs:documentation>
-                                                        </xs:annotation>
-                                                    </xs:element>
-                                                </xs:sequence>
-                                            </xs:complexType>
-                                        </xs:element>
+                                        <xs:element name="quarentena" minOccurs="0" type="T_quarentena" />
                                         <xs:element name="consigFGTS" minOccurs="0" maxOccurs="99">
                                             <xs:annotation>
                                                 <xs:documentation>Informações sobre operação de crédito consignado com garantia de FGTS</xs:documentation>
