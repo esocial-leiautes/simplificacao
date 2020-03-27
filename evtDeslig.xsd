@@ -48,41 +48,40 @@
                                         <xs:element name="mtvDeslig">
                                             <xs:simpleType>
                                                 <xs:annotation>
-                                                    <xs:documentation>Código de Motivo do Desligamento, conforme tabela 19</xs:documentation>
+                                                    <xs:documentation>Código de Motivo do Desligamento.</xs:documentation>
                                                     <xs:documentation>Validação: Deve ser um código válido e existente na Tabela 19.</xs:documentation>
                                                 </xs:annotation>
-                                                <xs:restriction base="xs:byte">
+                                                <xs:restriction base="xs:string">
                                                     <xs:pattern value="\d{2}" />
                                                 </xs:restriction>
                                             </xs:simpleType>
                                         </xs:element>
                                         <xs:element name="dtDeslig" type="xs:date">
                                             <xs:annotation>
-                                                <xs:documentation>Data do Desligamento</xs:documentation>
                                                 <xs:documentation>Preencher com a data do último dia trabalhado para o respectivo vínculo.</xs:documentation>
                                                 <xs:documentation>Validação: Deve ser uma data igual ou posterior à data de admissão/exercício do trabalhador (no caso de sucessão ou de mudança de CPF, igual ou posterior à data da transferência ou à data de alteração do CPF, respectivamente) e não superior à data atual acrescida de 10 dias corridos.</xs:documentation>
                                             </xs:annotation>
                                         </xs:element>
                                         <xs:element name="dtAvPrv" minOccurs="0" type="xs:date">
                                             <xs:annotation>
-                                                <xs:documentation>Data de início do aviso prévio</xs:documentation>
+                                                <xs:documentation>Data de início do aviso prévio.</xs:documentation>
                                                 <xs:documentation>Validação: Se informada, deve ser igual ou posterior à data de admissão e igual ou anterior a {dtDeslig}.</xs:documentation>
                                             </xs:annotation>
                                         </xs:element>
                                         <xs:element name="indPagtoAPI" type="TS_sim_nao">
                                             <xs:annotation>
-                                                <xs:documentation>Indicativo de pagamento de Aviso Prévio Indenizado pelo empregador, ao empregado</xs:documentation>
+                                                <xs:documentation>Indicativo de pagamento de Aviso Prévio Indenizado pelo empregador, ao empregado.</xs:documentation>
                                             </xs:annotation>
                                         </xs:element>
                                         <xs:element name="dtProjFimAPI" minOccurs="0" type="xs:date">
                                             <xs:annotation>
-                                                <xs:documentation>Data projetada para o término do aviso prévio indenizado</xs:documentation>
+                                                <xs:documentation>Data projetada para o término do aviso prévio indenizado.</xs:documentation>
                                                 <xs:documentation>Validação: Obrigatório se {indPagtoAPI} for igual a [S], devendo ser igual ou posterior a {dtDeslig}.</xs:documentation>
                                             </xs:annotation>
                                         </xs:element>
                                         <xs:element name="pensAlim" minOccurs="0" type="TS_pensAlim">
                                             <xs:annotation>
-                                                <xs:documentation>Indicativo de pensão alimentícia para fins de retenção de FGTS</xs:documentation>
+                                                <xs:documentation>Indicativo de pensão alimentícia para fins de retenção de FGTS.</xs:documentation>
                                                 <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se o vínculo for celetista ({tpRegTrab} indicado no evento S-2200 = [1]).</xs:documentation>
                                             </xs:annotation>
                                         </xs:element>
@@ -90,13 +89,13 @@
                                         <xs:element name="vrAlim" minOccurs="0" type="TS_vrAlim" />
                                         <xs:element name="nrProcTrab" minOccurs="0" type="TS_nrProcJud">
                                             <xs:annotation>
-                                                <xs:documentation>Número que identifica o processo trabalhista, quando o desligamento se der por decisão judicial</xs:documentation>
+                                                <xs:documentation>Número que identifica o processo trabalhista, quando o desligamento se der por decisão judicial.</xs:documentation>
                                                 <xs:documentation>Validação: Se preenchido, deve ser um processo judicial válido, com 20 (vinte) algarismos</xs:documentation>
                                             </xs:annotation>
                                         </xs:element>
                                         <xs:element name="infoInterm" minOccurs="0" maxOccurs="31">
                                             <xs:annotation>
-                                                <xs:documentation>Informações relativas ao trabalho intermitente.</xs:documentation>
+                                                <xs:documentation>Informações relativas ao trabalho intermitente</xs:documentation>
                                                 <xs:documentation>CHAVE_GRUPO: {dia}</xs:documentation>
                                                 <xs:documentation>CONDICAO_GRUPO: OC (se {codCateg} = [111] em mês/ano de {dtDeslig}; N (nos demais casos)</xs:documentation>
                                             </xs:annotation>
@@ -115,7 +114,7 @@
                                                 <xs:sequence>
                                                     <xs:element name="observacao" type="TS_texto_255">
                                                         <xs:annotation>
-                                                            <xs:documentation>Observação</xs:documentation>
+                                                            <xs:documentation>Observação relevante sobre o desligamento do trabalhador, que não esteja consignada em outros campos.</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
                                                 </xs:sequence>
@@ -128,15 +127,13 @@
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>
-                                                    <xs:element name="tpInscSuc" type="TS_tpInsc_1_2">
-                                                        <xs:annotation>
-                                                            <xs:documentation>Tipo de inscrição</xs:documentation>
-                                                        </xs:annotation>
-                                                    </xs:element>
+                                                    <xs:element name="tpInscSuc" type="TS_tpInsc_1_2" />
                                                     <xs:element name="cnpjSucessora" type="TS_nrInsc_11_14">
                                                         <xs:annotation>
-                                                            <xs:documentation>Informar o número de inscrição do empregador sucessor, de acordo com o tipo de inscrição indicado no campo {tpInscSuc}</xs:documentation>
-                                                            <xs:documentation>Validação: Deve ser um número de inscrição válido diferente da inscrição do declarante, considerando as particularidades aplicadas à informação de CNPJ de órgão público em S-1000. Se {tpInscSuc} = [1], deve possuir 14 (catorze) algarismos e ser diferente do CNPJ base do empregador e dos estabelecimentos informados através do evento S-1005. Se {tpInscSuc} = [2], deve possuir 11 (onze) algarismos</xs:documentation>
+                                                            <xs:documentation>Informar o número de inscrição do empregador sucessor, de acordo com o tipo de inscrição indicado no campo {tpInscSuc}.</xs:documentation>
+                                                            <xs:documentation>Validação: Deve ser um número de inscrição válido diferente da inscrição do declarante, considerando as particularidades aplicadas à informação de CNPJ de órgão público em S-1000.</xs:documentation>
+                                                            <xs:documentation>Se {tpInscSuc} = [1], deve possuir 14 (catorze) algarismos e ser diferente do CNPJ base do empregador e dos estabelecimentos informados através do evento S-1005.</xs:documentation>
+                                                            <xs:documentation>Se {tpInscSuc} = [2], deve possuir 11 (onze) algarismos</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
                                                 </xs:sequence>
@@ -151,13 +148,13 @@
                                                 <xs:sequence>
                                                     <xs:element name="cpfSubstituto" type="TS_cpf">
                                                         <xs:annotation>
-                                                            <xs:documentation>CPF do novo titular</xs:documentation>
+                                                            <xs:documentation>Preencher com o CPF do novo titular.</xs:documentation>
                                                             <xs:documentation>Validação: Deve ser um CPF válido e diferente do CPF do declarante e do empregado.</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
                                                     <xs:element name="dtNascto" type="xs:date">
                                                         <xs:annotation>
-                                                            <xs:documentation>Data de Nascimento</xs:documentation>
+                                                            <xs:documentation>Preencher com a data de nascimento do novo titular.</xs:documentation>
                                                             <xs:documentation>Validação: Deve corresponder à data de nascimento cadastrada na base de dados do CPF do {cpfSubstituto}.</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
@@ -173,7 +170,7 @@
                                                 <xs:sequence>
                                                     <xs:element name="novoCPF" type="TS_cpf">
                                                         <xs:annotation>
-                                                            <xs:documentation>Novo CPF do trabalhador</xs:documentation>
+                                                            <xs:documentation>Preencher com o novo CPF do trabalhador.</xs:documentation>
                                                             <xs:documentation>Validação: Deve ser um CPF válido e diferente do CPF do empregador e do antigo CPF do trabalhador.</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
@@ -217,20 +214,22 @@
                                                                                     <xs:sequence>
                                                                                         <xs:element name="tpInsc" type="TS_tpInsc_1_2_3_4">
                                                                                             <xs:annotation>
-                                                                                                <xs:documentation>Tipo de Inscrição</xs:documentation>
-                                                                                                <xs:documentation>Validação: Se {classTrib} igual a [21], deve ser igual a [3,4], exceto se empregador doméstico. Se {classTrib} igual a [22], caso não seja empregador doméstico, deve ser igual a [3, 4] e, se for igual a [3], o CAEPF deve constar na Tabela S-1005 como sendo de segurado especial. Se empregador doméstico (trabalhador com {codCateg} = [104]), deve ser igual a [2]. Nos demais casos ({classTrib} diferente de [21,22]), deve ser igual a [1,4].</xs:documentation>
+                                                                                                <xs:documentation>Preencher com o código correspondente ao tipo de inscrição do estabelecimento, de acordo com as opções da Tabela 05.</xs:documentation>
+                                                                                                <xs:documentation>Validação: Se {classTrib} igual a [21], deve ser igual a [3,4], exceto se empregador doméstico.</xs:documentation>
+                                                                                                <xs:documentation>Se {classTrib} igual a [22], caso não seja empregador doméstico, deve ser igual a [3, 4] e, se for igual a [3], o CAEPF deve constar na Tabela S-1005 como sendo de segurado especial. Se empregador doméstico (trabalhador com {codCateg} = [104]), deve ser igual a [2].</xs:documentation>
+                                                                                                <xs:documentation>Nos demais casos ({classTrib} diferente de [21,22]), deve ser igual a [1,4].</xs:documentation>
                                                                                             </xs:annotation>
                                                                                         </xs:element>
                                                                                         <xs:element name="nrInsc" type="TS_nrInsc_11_12_14">
                                                                                             <xs:annotation>
-                                                                                                <xs:documentation>Número de Inscrição</xs:documentation>
+                                                                                                <xs:documentation>Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {tpInsc}.</xs:documentation>
                                                                                                 <xs:documentation>Validação: A inscrição informada deve ser compatível com {tpInsc}. Se {tpInsc} igual a [1, 3, 4] deve constar na Tabela S-1005.</xs:documentation>
                                                                                             </xs:annotation>
                                                                                         </xs:element>
                                                                                         <xs:element name="codLotacao" type="TS_codigo_esocial">
                                                                                             <xs:annotation>
-                                                                                                <xs:documentation>Código da Lotação</xs:documentation>
-                                                                                                <xs:documentation>Validação: Deve ser um código existente em S-1020 - Tabela de Lotações Tributárias</xs:documentation>
+                                                                                                <xs:documentation>Informar o código atribuído pela empresa para a lotação tributária.</xs:documentation>
+                                                                                                <xs:documentation>Validação: Deve ser um código existente em S-1020 - Tabela de Lotações Tributárias.</xs:documentation>
                                                                                             </xs:annotation>
                                                                                         </xs:element>
                                                                                         <xs:element name="detVerbas" maxOccurs="200">
@@ -241,22 +240,22 @@
                                                                                                 <xs:sequence>
                                                                                                     <xs:element name="codRubr" type="TS_codigo_esocial">
                                                                                                         <xs:annotation>
-                                                                                                            <xs:documentation>Código da Rubrica</xs:documentation>
+                                                                                                            <xs:documentation>Informar o código atribuído pelo empregador e que identifica a rubrica em sua folha de pagamento.</xs:documentation>
                                                                                                             <xs:documentation>Validação: O código informado deve existir na Tabela S-1010 - Tabela de Rubricas, vigente no mês da data do desligamento, informada no campo {dtDeslig}.</xs:documentation>
                                                                                                         </xs:annotation>
                                                                                                     </xs:element>
                                                                                                     <xs:element name="ideTabRubr" type="TS_ideTabRubr">
                                                                                                         <xs:annotation>
-                                                                                                            <xs:documentation>Identificador da tabela de rubricas</xs:documentation>
+                                                                                                            <xs:documentation>Preencher com o identificador da Tabela de Rubricas, conforme informado em S-1010, para a rubrica definida em {codRubr}.</xs:documentation>
                                                                                                             <xs:documentation>Validação: Deve existir na Tabela S-1010 (em conjunto com {codRubr}) vigente no mês da data do desligamento, informada no campo {dtDeslig}.</xs:documentation>
                                                                                                         </xs:annotation>
                                                                                                     </xs:element>
                                                                                                     <xs:element name="qtdRubr" minOccurs="0" type="TS_qtdRubr" />
                                                                                                     <xs:element name="fatorRubr" minOccurs="0" type="TS_fator" />
                                                                                                     <xs:element name="vrRubr" type="TS_vrRubr" />
-                                                                                                    <xs:element name="indApurIR" type="TS_indApurIR">
+                                                                                                    <xs:element name="indApurIR" type="TS_indApurIR" minOccurs="0">
                                                                                                         <xs:annotation>
-                                                                                                            <xs:documentation>Indicativo de tipo de apuração de IR</xs:documentation>
+                                                                                                            <xs:documentation>Indicativo de tipo de apuração de IR.</xs:documentation>
                                                                                                             <xs:documentation>Validação: Informação obrigatória e se mês/ano de {dtDeslig} >= [2020-09].</xs:documentation>
                                                                                                         </xs:annotation>
                                                                                                     </xs:element>
@@ -308,7 +307,7 @@
                                                                                         <xs:element name="dtAcConv" minOccurs="0">
                                                                                             <xs:simpleType>
                                                                                                 <xs:annotation>
-                                                                                                    <xs:documentation>Data da assinatura do acordo, convenção coletiva, sentença normativa ou da conversão da licença saúde em acidente de trabalho</xs:documentation>
+                                                                                                    <xs:documentation>Data da assinatura do acordo, convenção coletiva, sentença normativa ou da conversão da licença saúde em acidente de trabalho.</xs:documentation>
                                                                                                     <xs:documentation>Validação: Informação obrigatória se {tpAcConv} = [A, B, C, D, E]. Se preenchida, seu mês/ano deve ser igual ou anterior ao mês/ano da data de desligamento, em {dtDeslig}. A data deve ser igual ou posterior a 01/01/1890.</xs:documentation>
                                                                                                 </xs:annotation>
                                                                                                 <xs:restriction base="xs:date">
@@ -319,7 +318,7 @@
                                                                                         <xs:element name="tpAcConv">
                                                                                             <xs:simpleType>
                                                                                                 <xs:annotation>
-                                                                                                    <xs:documentation>Tipo do instrumento ou situação ensejadora da remuneração relativa a Períodos de Apuração Anteriores</xs:documentation>
+                                                                                                    <xs:documentation>Tipo do instrumento ou situação ensejadora da remuneração relativa a Períodos de Apuração Anteriores.</xs:documentation>
                                                                                                 </xs:annotation>
                                                                                                 <xs:restriction base="xs:string">
                                                                                                     <xs:enumeration value="A">
@@ -357,7 +356,7 @@
                                                                                         </xs:element>
                                                                                         <xs:element name="dsc" type="TS_texto_255">
                                                                                             <xs:annotation>
-                                                                                                <xs:documentation>Detalhamento do instrumento ou situação que originou o pagamento das verbas relativas a períodos anteriores</xs:documentation>
+                                                                                                <xs:documentation>Detalhamento do instrumento ou situação que originou o pagamento das verbas relativas a períodos anteriores.</xs:documentation>
                                                                                             </xs:annotation>
                                                                                         </xs:element>
                                                                                         <xs:element name="idePeriodo" maxOccurs="180">
@@ -369,7 +368,6 @@
                                                                                                 <xs:sequence>
                                                                                                     <xs:element name="perRef" type="TS_periodo_mensal">
                                                                                                         <xs:annotation>
-                                                                                                            <xs:documentation>Período de referência</xs:documentation>
                                                                                                             <xs:documentation>Informar o período ao qual se refere o complemento de remuneração no formato AAAA-MM.</xs:documentation>
                                                                                                             <xs:documentation>Validação: Deve ser igual ou anterior ao mês da data do desligamento, informada em {dtDeslig}.</xs:documentation>
                                                                                                         </xs:annotation>
@@ -383,20 +381,23 @@
                                                                                                             <xs:sequence>
                                                                                                                 <xs:element name="tpInsc" type="TS_tpInsc_1_2_3_4">
                                                                                                                     <xs:annotation>
-                                                                                                                        <xs:documentation>Tipo de Inscrição</xs:documentation>
-                                                                                                                        <xs:documentation>Validação: Se {classTrib} igual a [21], deve ser igual a [3,4], exceto se empregador doméstico. Se {classTrib} igual a [22], caso não seja empregador doméstico, deve ser igual a [3, 4] e, se for igual a [3], o CAEPF deve constar na Tabela S-1005 como sendo de segurado especial. Se empregador doméstico (trabalhador com {codCateg} = [104]), deve ser igual a [2]. Nos demais casos ({classTrib} diferente de [21,22]), deve ser igual a [1,4].</xs:documentation>
+                                                                                                                        <xs:documentation>Preencher com o código correspondente ao tipo de inscrição do estabelecimento, de acordo com as opções da Tabela 05.</xs:documentation>
+                                                                                                                        <xs:documentation>Validação: Se {classTrib} igual a [21], deve ser igual a [3,4], exceto se empregador doméstico.</xs:documentation>
+                                                                                                                        <xs:documentation>Se {classTrib} igual a [22], caso não seja empregador doméstico, deve ser igual a [3, 4] e, se for igual a [3], o CAEPF deve constar na Tabela S-1005 como sendo de segurado especial.</xs:documentation>
+                                                                                                                        <xs:documentation>Se empregador doméstico (trabalhador com {codCateg} = [104]), deve ser igual a [2].</xs:documentation>
+                                                                                                                        <xs:documentation>Nos demais casos ({classTrib} diferente de [21,22]), deve ser igual a [1,4].</xs:documentation>
                                                                                                                     </xs:annotation>
                                                                                                                 </xs:element>
                                                                                                                 <xs:element name="nrInsc" type="TS_nrInsc_11_12_14">
                                                                                                                     <xs:annotation>
-                                                                                                                        <xs:documentation>Número de Inscrição</xs:documentation>
+                                                                                                                        <xs:documentation>Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {tpInsc}.</xs:documentation>
                                                                                                                         <xs:documentation>Validação: A inscrição informada deve ser compatível com {tpInsc}. Se {tpInsc} igual a [1, 3, 4] deve constar na Tabela S-1005.</xs:documentation>
                                                                                                                     </xs:annotation>
                                                                                                                 </xs:element>
                                                                                                                 <xs:element name="codLotacao" type="TS_codigo_esocial">
                                                                                                                     <xs:annotation>
-                                                                                                                        <xs:documentation>Código da Lotação</xs:documentation>
-                                                                                                                        <xs:documentation>Validação: Deve ser um código existente em S-1020 - Tabela de Lotações Tributárias</xs:documentation>
+                                                                                                                        <xs:documentation>Informar o código atribuído pela empresa para a lotação tributária.</xs:documentation>
+                                                                                                                        <xs:documentation>Validação: Deve ser um código existente em S-1020 - Tabela de Lotações Tributárias.</xs:documentation>
                                                                                                                     </xs:annotation>
                                                                                                                 </xs:element>
                                                                                                                 <xs:element name="detVerbas" maxOccurs="200">
@@ -407,22 +408,22 @@
                                                                                                                         <xs:sequence>
                                                                                                                             <xs:element name="codRubr" type="TS_codigo_esocial">
                                                                                                                                 <xs:annotation>
-                                                                                                                                    <xs:documentation>Código da Rubrica</xs:documentation>
+                                                                                                                                    <xs:documentation>Informar o código atribuído pelo empregador e que identifica a rubrica em sua folha de pagamento.</xs:documentation>
                                                                                                                                     <xs:documentation>Validação: O código informado deve existir na Tabela S-1010 - Tabela de Rubricas vigente no mês de referência, informado em {perRef}.</xs:documentation>
                                                                                                                                 </xs:annotation>
                                                                                                                             </xs:element>
                                                                                                                             <xs:element name="ideTabRubr" type="TS_ideTabRubr">
                                                                                                                                 <xs:annotation>
-                                                                                                                                    <xs:documentation>Identificador da tabela de rubricas</xs:documentation>
+                                                                                                                                    <xs:documentation>Preencher com o identificador da Tabela de Rubricas, conforme informado em S-1010, para a rubrica definida em {codRubr}.</xs:documentation>
                                                                                                                                     <xs:documentation>Validação: Deve existir na Tabela S-1010 (em conjunto com {codRubr}) vigente no período indicado em {perRef}.</xs:documentation>
                                                                                                                                 </xs:annotation>
                                                                                                                             </xs:element>
                                                                                                                             <xs:element name="qtdRubr" minOccurs="0" type="TS_qtdRubr" />
                                                                                                                             <xs:element name="fatorRubr" minOccurs="0" type="TS_fator" />
                                                                                                                             <xs:element name="vrRubr" type="TS_vrRubr" />
-                                                                                                                            <xs:element name="indApurIR" type="TS_indApurIR">
+                                                                                                                            <xs:element name="indApurIR" type="TS_indApurIR" minOccurs="0">
                                                                                                                                 <xs:annotation>
-                                                                                                                                    <xs:documentation>Indicativo de tipo de apuração de IR</xs:documentation>
+                                                                                                                                    <xs:documentation>Indicativo de tipo de apuração de IR.</xs:documentation>
                                                                                                                                     <xs:documentation>Validação: Informação obrigatória e se mês/ano de {dtDeslig} >= [2020-09].</xs:documentation>
                                                                                                                                 </xs:annotation>
                                                                                                                             </xs:element>
@@ -477,7 +478,7 @@
                                                             <xs:sequence>
                                                                 <xs:element name="nrProcJud" type="TS_nrProcJud">
                                                                     <xs:annotation>
-                                                                        <xs:documentation>Número do Processo Judicial</xs:documentation>
+                                                                        <xs:documentation>Informar um número de processo judicial.</xs:documentation>
                                                                         <xs:documentation>Validação: Deve ser um número de processo judicial válido e existente na Tabela de Processos (S-1070), com {indMatProc} = [1, 7].</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
@@ -498,7 +499,7 @@
                                                     <xs:element name="insConsig">
                                                         <xs:simpleType>
                                                             <xs:annotation>
-                                                                <xs:documentation>Matrícula da Instituição Consignatária cadastrada na CEF</xs:documentation>
+                                                                <xs:documentation>Matrícula da Instituição Consignatária, cadastrada na Caixa Econômica Federal.</xs:documentation>
                                                             </xs:annotation>
                                                             <xs:restriction base="xs:string">
                                                                 <xs:minLength value="1" />
@@ -509,7 +510,7 @@
                                                     <xs:element name="nrContr">
                                                         <xs:simpleType>
                                                             <xs:annotation>
-                                                                <xs:documentation>Número do contrato de empréstimo consignado existente na Instituição Consignatária</xs:documentation>
+                                                                <xs:documentation>Número do contrato de empréstimo consignado existente na Instituição Consignatária.</xs:documentation>
                                                             </xs:annotation>
                                                             <xs:restriction base="xs:string">
                                                                 <xs:pattern value="\d{1,40}" />

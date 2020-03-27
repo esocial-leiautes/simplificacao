@@ -83,8 +83,7 @@
                                                 </xs:annotation>
                                                 <xs:restriction base="xs:integer">
                                                     <xs:pattern value="\d{4}" />
-                                                    <xs:minInclusive value="0" />
-                                                    <xs:maxInclusive value="9959" />
+                                                    <xs:pattern value="([0-9][0-9][0-5][0-9])" />
                                                 </xs:restriction>
                                             </xs:simpleType>
                                         </xs:element>
@@ -225,6 +224,7 @@
                                                             <xs:documentation>Especificação do local do acidente (pátio, rampa de acesso, posto de trabalho, etc.)</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
+                                                    <xs:element name="tpLograd" type="TS_tpLograd" />
                                                     <xs:element name="dscLograd" type="TS_dscLograd" />
                                                     <xs:element name="nrLograd" type="TS_nrLograd" />
                                                     <xs:element name="complemento" minOccurs="0" type="TS_complemento" />
@@ -271,32 +271,12 @@
                                                         </xs:annotation>
                                                         <xs:complexType>
                                                             <xs:sequence>
-                                                                <xs:element name="tpInsc">
-                                                                    <xs:simpleType>
-                                                                        <xs:annotation>
-                                                                            <xs:documentation>Tipo de Inscrição</xs:documentation>
-                                                                            <xs:documentation>Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.</xs:documentation>
-                                                                        </xs:annotation>
-                                                                        <xs:restriction base="xs:byte">
-                                                                            <xs:enumeration value="1">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>CNPJ</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:enumeration>
-                                                                            <xs:enumeration value="2">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>CPF</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:enumeration>
-                                                                            <xs:enumeration value="3">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>CAEPF</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:enumeration>
-                                                                        </xs:restriction>
-                                                                    </xs:simpleType>
+                                                                <xs:element name="tpInsc" type="TS_tpInsc_1_3_4">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Preencher com o código correspondente ao tipo de inscrição do local onde ocorreu o acidente ou a doença ocupacional, conforme Tabela 05.</xs:documentation>
+                                                                    </xs:annotation>
                                                                 </xs:element>
-                                                                <xs:element name="nrInsc" type="TS_nrInsc_11_14">
+                                                                <xs:element name="nrInsc" type="TS_nrInsc_12_14">
                                                                     <xs:annotation>
                                                                         <xs:documentation>Número de Inscrição</xs:documentation>
                                                                         <xs:documentation>Informar o número de inscrição do estabelecimento, de acordo com o tipo de inscrição indicado no campo {tpInsc}. Se o acidente ou a doença ocupacional ocorreu em local onde o trabalhador presta serviços, deve ser um número de inscrição pertencente à contratante dos serviços.</xs:documentation>
@@ -457,7 +437,7 @@
                                                                 <xs:documentation>Validação: Deve ser preenchido com caracteres alfanuméricos conforme opções constantes na tabela CID.</xs:documentation>
                                                             </xs:annotation>
                                                             <xs:restriction base="xs:string">
-                                                                <xs:minLength value="1" />
+                                                                <xs:minLength value="3" />
                                                                 <xs:maxLength value="4" />
                                                             </xs:restriction>
                                                         </xs:simpleType>
@@ -508,7 +488,7 @@
                                                                             <xs:documentation>Número de Inscrição no órgão de classe</xs:documentation>
                                                                         </xs:annotation>
                                                                         <xs:restriction base="xs:string">
-                                                                            <xs:minLength value="2" />
+                                                                            <xs:minLength value="1" />
                                                                             <xs:maxLength value="14" />
                                                                             <xs:pattern value=".*[^\s].*" />
                                                                         </xs:restriction>
