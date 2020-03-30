@@ -90,7 +90,6 @@
 
     <xs:simpleType name="TS_tpProc_1_2">
         <xs:annotation>
-            <xs:documentation>Tipo de Processo</xs:documentation>
             <xs:documentation>Preencher com o código correspondente ao tipo de processo.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:byte">
@@ -282,6 +281,43 @@
             <xs:documentation>Fim da validade</xs:documentation>
             <xs:documentation>Preencher com o mês e ano de término da validade das informações, se houver.</xs:documentation>
             <xs:documentation>Validação: Se informado, deve estar no formato AAAA-MM e ser um período igual ou posterior a {iniValid}.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="TS_periodo_mensal" />
+    </xs:simpleType>
+
+    <xs:simpleType name="TS_indApuracao">
+        <xs:annotation>
+            <xs:documentation>Indicativo de período de apuração.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:byte">
+            <xs:enumeration value="1">
+                <xs:annotation>
+                    <xs:documentation>Mensal</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="2">
+                <xs:annotation>
+                    <xs:documentation>Anual (13° salário)</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="TS_perApur">
+        <xs:annotation>
+            <xs:documentation>Informar o mês/ano (formato AAAA-MM) de referência das informações, se {indApuracao} for igual a [1], ou apenas o ano (formato AAAA), se {indApuracao} for igual a [2].</xs:documentation>
+            <xs:documentation>Validação: Deve ser um mês/ano ou ano válido, igual ou posterior a implementação do eSocial.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[2]{1}\d{3}-(1[0-2]|0[1-9])" />
+            <xs:pattern value="[2]{1}\d{3}" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="TS_perApur_mensal">
+        <xs:annotation>
+            <xs:documentation>Informar o mês/ano (formato AAAA-MM) de referência das informações.</xs:documentation>
+            <xs:documentation>Validação: Deve ser um mês/ano válido, igual ou posterior a implementação do eSocial.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="TS_periodo_mensal" />
     </xs:simpleType>
