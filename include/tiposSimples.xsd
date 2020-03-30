@@ -712,6 +712,15 @@
         </xs:restriction>
     </xs:simpleType>
 
+    <xs:simpleType name="TS_valorMonetario_positivo">
+        <xs:restriction base="xs:decimal">
+            <xs:totalDigits value="14" />
+            <xs:fractionDigits value="2" />
+            <xs:minExclusive value="0" />
+            <xs:maxInclusive value="999999999999.99" />
+        </xs:restriction>
+    </xs:simpleType>
+
     <xs:simpleType name="TS_tpInsc_1_2_3_4">
         <xs:annotation>
             <xs:documentation>Tipo de Inscrição</xs:documentation>
@@ -772,9 +781,7 @@
             <xs:documentation>Valor total da rubrica.</xs:documentation>
             <xs:documentation>Validação: Deve ser maior que zero.</xs:documentation>
         </xs:annotation>
-        <xs:restriction base="TS_valorMonetario">
-            <xs:minExclusive value="0" />
-        </xs:restriction>
+        <xs:restriction base="TS_valorMonetario_positivo" />
     </xs:simpleType>
 
     <xs:simpleType name="TS_indApurIR">
@@ -1136,12 +1143,7 @@
             <xs:documentation>Salário base do trabalhador, correspondente à parte fixa da remuneração.</xs:documentation>
             <xs:documentation>Validação: Se {undSalFixo} for igual a [7], preencher com 0 (zero).</xs:documentation>
         </xs:annotation>
-        <xs:restriction base="xs:decimal">
-            <xs:totalDigits value="14" />
-            <xs:fractionDigits value="2" />
-            <xs:minInclusive value="0" />
-            <xs:maxInclusive value="999999999999.99" />
-        </xs:restriction>
+        <xs:restriction base="TS_valorMonetario" />
     </xs:simpleType>
 
     <xs:simpleType name="TS_undSalFixo">
