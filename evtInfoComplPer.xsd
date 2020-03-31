@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns="http://www.esocial.gov.br/schema/evt/evtInfoComplPer/v01_00_00" targetNamespace="http://www.esocial.gov.br/schema/evt/evtInfoComplPer/v01_00_00" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+    <xs:include schemaLocation="include/ideEvento_folha.xsd " />
+    <xs:include schemaLocation="include/ideEmpregador_evtTab.xsd" />
+    <xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd" />
+    <xs:element name="eSocial">
+        <xs:annotation>
+            <xs:documentation>S-1280 - Informações Complementares aos Eventos Periódicos</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="evtInfoComplPer">
+                    <xs:annotation>
+                        <xs:documentation>Informações Complementares</xs:documentation>
+                        <xs:documentation>CHAVE_GRUPO: {Id}</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_ENVIO_PROC_FECHAMENTO</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_EVENTOS_EXTEMP</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_EVE_FOPAG_IND_RETIFICACAO</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_EVE_FOPAG_INFO_COMPAT_CLASSTRIB</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_EVE_FOPAG_PERMITE_EXCLUSAO</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_EXISTE_INFO_EMPREGADOR</xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="ideEvento" type="T_ideEvento_folha" />
+                            <xs:element name="ideEmpregador" type="T_ideEmpregador_evtTab" />
+                            <xs:element name="infoSubstPatr" minOccurs="0">
+                                <xs:annotation>
+                                    <xs:documentation>Inf. Complementares - Empresas Enquadradas nos artigos 7 a 9 da Lei 12.546/2011</xs:documentation>
+                                    <xs:documentation>CONDICAO_GRUPO: O (se {indDesFolha} existente nas informações do empregador = [1]); N (nos demais casos)</xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="indSubstPatr">
+                                            <xs:simpleType>
+                                                <xs:annotation>
+                                                    <xs:documentation>Indicativo de substituição da contribuição previdenciária patronal</xs:documentation>
+                                                </xs:annotation>
+                                                <xs:restriction base="xs:byte">
+                                                    <xs:enumeration value="1">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Integralmente substituída</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:enumeration>
+                                                    <xs:enumeration value="2">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Parcialmente substituída</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:enumeration>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element name="percRedContrib" type="TS_percentual">
+                                            <xs:annotation>
+                                                <xs:documentation>Percentual não substituído pela contribuição prevista na lei 12.546/2011. Informar 0 (zero) se {indSubstPatr} = 1.</xs:documentation>
+                                                <xs:documentation>Caso contrário, preencher com o percentual correspondente à razão entre a receita de atividades não relacionadas nos artigos 7º e 8º da Lei 12.546/2011 e a receita bruta total.</xs:documentation>
+                                                <xs:documentation>Validação: Se {indSubstPatr} for igual a 1, informar 0 (zero).</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="infoSubstPatrOpPort" minOccurs="0" maxOccurs="9999">
+                                <xs:annotation>
+                                    <xs:documentation>Informação de substituição prevista na Lei 12.546/2011</xs:documentation>
+                                    <xs:documentation>CHAVE_GRUPO: {codLotacao}</xs:documentation>
+                                    <xs:documentation>CONDICAO_GRUPO: OC (se {classTrib} = [09]; N (Nos demais casos)</xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="codLotacao" type="TS_codigo_esocial">
+                                            <xs:annotation>
+                                                <xs:documentation>Informar o código atribuído pela empresa para a lotação tributária.</xs:documentation>
+                                                <xs:documentation>Validação: Deve ser um código existente em S-1020 - Tabela de Lotações Tributárias, com {tpLotacao} = [08].</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="infoAtivConcom" minOccurs="0">
+                                <xs:annotation>
+                                    <xs:documentation>Empresas enquadradas no Simples Nacional - Atividades Concomitantes</xs:documentation>
+                                    <xs:documentation>CONDICAO_GRUPO: O (se {classTrib} do empregador for igual a [03]); N (nas demais situações)</xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="fatorMes" type="TS_percentual">
+                                            <xs:annotation>
+                                                <xs:documentation>Informe o fator a ser utilizado para cálculo da contribuição patronal do mês dos trabalhadores envolvidos na execução das atividades enquadradas no Anexo IV em conjunto com as dos Anexos I a III e V da Lei Complementar nº 123/2006.</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="fator13" type="TS_percentual">
+                                            <xs:annotation>
+                                                <xs:documentation>Informe o fator a ser utilizado para cálculo da contribuição patronal do décimo terceiro dos trabalhadores envolvidos na execução das atividades enquadradas no Anexo IV em conjunto com as dos Anexos I a III e V da Lei Complementar nº 123/2006.</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="Id" use="required" type="TS_Id" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:element ref="ds:Signature" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

@@ -918,17 +918,29 @@
         </xs:restriction>
     </xs:simpleType>
 
-    <xs:simpleType name="TS_percAliment">
-        <xs:annotation>
-            <xs:documentation>Percentual a ser destinado a pensão alimentícia.</xs:documentation>
-            <xs:documentation>Validação: Deve ser maior que 0 (zero) e menor ou igual a 100 (cem). Informação obrigatória se {pensAlim} = [1,3]. Não pode ser preenchido nos demais casos.</xs:documentation>
-        </xs:annotation>
+    <xs:simpleType name="TS_percentual">
+        <xs:restriction base="xs:decimal">
+            <xs:totalDigits value="5" />
+            <xs:fractionDigits value="2" />
+            <xs:maxInclusive value="100" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="TS_percentual_positivo">
         <xs:restriction base="xs:decimal">
             <xs:totalDigits value="5" />
             <xs:fractionDigits value="2" />
             <xs:minExclusive value="0" />
             <xs:maxInclusive value="100" />
         </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="TS_percAliment">
+        <xs:annotation>
+            <xs:documentation>Percentual a ser destinado a pensão alimentícia.</xs:documentation>
+            <xs:documentation>Validação: Deve ser maior que 0 (zero) e menor ou igual a 100 (cem). Informação obrigatória se {pensAlim} = [1,3]. Não pode ser preenchido nos demais casos.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="TS_percentual_positivo" />
     </xs:simpleType>
 
     <xs:simpleType name="TS_vrAlim">
