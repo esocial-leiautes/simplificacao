@@ -4,6 +4,7 @@
     <xs:include schemaLocation="include/ideEmpregador_evtTab.xsd" />
     <xs:include schemaLocation="include/ideVinculo.xsd" />
     <xs:include schemaLocation="include/procJudTrab.xsd" />
+    <xs:include schemaLocation="include/infoInterm.xsd" />
     <xs:include schemaLocation="include/infoMV.xsd" />
     <xs:include schemaLocation="include/quarentena.xsd" />
     <xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd" />
@@ -93,17 +94,12 @@
                                                 <xs:documentation>Validação: Se preenchido, deve ser um processo judicial válido, com 20 (vinte) algarismos</xs:documentation>
                                             </xs:annotation>
                                         </xs:element>
-                                        <xs:element name="infoInterm" minOccurs="0" maxOccurs="31">
+                                        <xs:element name="infoInterm" minOccurs="0" maxOccurs="31" type="T_infoInterm">
                                             <xs:annotation>
                                                 <xs:documentation>Informações relativas ao trabalho intermitente</xs:documentation>
                                                 <xs:documentation>CHAVE_GRUPO: {dia}</xs:documentation>
                                                 <xs:documentation>CONDICAO_GRUPO: OC (se {codCateg} = [111] em mês/ano de {dtDeslig}; N (nos demais casos)</xs:documentation>
                                             </xs:annotation>
-                                            <xs:complexType>
-                                                <xs:sequence>
-                                                    <xs:element name="dia" type="TS_dia" />
-                                                </xs:sequence>
-                                            </xs:complexType>
                                         </xs:element>
                                         <xs:element name="observacoes" minOccurs="0" maxOccurs="99">
                                             <xs:annotation>
@@ -280,7 +276,11 @@
                                                                                             </xs:annotation>
                                                                                             <xs:complexType>
                                                                                                 <xs:sequence>
-                                                                                                    <xs:element name="indSimples" type="TS_indSimples" />
+                                                                                                    <xs:element name="indSimples" type="TS_indSimples">
+                                                                                                        <xs:annotation>
+                                                                                                            <xs:documentation>Indicador de Contribuição Substituída.</xs:documentation>
+                                                                                                        </xs:annotation>
+                                                                                                    </xs:element>
                                                                                                 </xs:sequence>
                                                                                             </xs:complexType>
                                                                                         </xs:element>
@@ -448,7 +448,11 @@
                                                                                                                     </xs:annotation>
                                                                                                                     <xs:complexType>
                                                                                                                         <xs:sequence>
-                                                                                                                            <xs:element name="indSimples" type="TS_indSimples" />
+                                                                                                                            <xs:element name="indSimples" type="TS_indSimples">
+                                                                                                                                <xs:annotation>
+                                                                                                                                    <xs:documentation>Indicador de Contribuição Substituída.</xs:documentation>
+                                                                                                                                </xs:annotation>
+                                                                                                                            </xs:element>
                                                                                                                         </xs:sequence>
                                                                                                                     </xs:complexType>
                                                                                                                 </xs:element>

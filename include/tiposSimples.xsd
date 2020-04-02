@@ -311,6 +311,8 @@
         <xs:restriction base="xs:string">
             <xs:pattern value="[2]{1}\d{3}-(1[0-2]|0[1-9])" />
             <xs:pattern value="[2]{1}\d{3}" />
+            <xs:minLength value="4" />
+            <xs:maxLength value="7" />
         </xs:restriction>
     </xs:simpleType>
 
@@ -755,7 +757,7 @@
             <xs:documentation>Informar a quantidade de referência para apuração (em horas, cotas, meses, percentual, etc.).</xs:documentation>
             <xs:documentation>Exs.: Quantidade de horas extras trabalhadas relacionada com uma rubrica de hora extra, quantidade de dias trabalhados relacionada com uma rubrica de salário. etc.</xs:documentation>
             <xs:documentation>Preenchimento obrigatório quando se tratar de rubrica relativa a faltas ou Descanso Semanal Remunerado - DSR sobre faltas (nesse caso, informar a quantidade de dias).</xs:documentation>
-            <xs:documentation>Validação: Informação obrigatória se {codRubr} tiver {natRubr} em S-1010 igual a [9207, 9211]. Deve ser maior que zero.</xs:documentation>
+            <xs:documentation>Validação: Deve ser maior que zero. Informação obrigatória se {codRubr} tiver {natRubr} em S-1010 igual a [9207, 9211].</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:decimal">
             <xs:totalDigits value="6" />
@@ -768,7 +770,8 @@
     <xs:simpleType name="TS_fator">
         <xs:annotation>
             <xs:documentation>Informar o fator, percentual, etc, da rubrica, quando necessário.</xs:documentation>
-            <xs:documentation>Ex: Adicional de Horas Extras 50%, relacionado a uma rubrica de horas extras: Fator = 50. Deve ser maior que zero.</xs:documentation>
+            <xs:documentation>Ex: Adicional de Horas Extras 50%, relacionado a uma rubrica de horas extras: Fator = 50.</xs:documentation>
+            <xs:documentation>Validação: Deve ser maior que zero.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:decimal">
             <xs:totalDigits value="5" />
@@ -832,6 +835,7 @@
     <xs:simpleType name="TS_indSimples">
         <xs:annotation>
             <xs:documentation>Indicador de Contribuição Substituída.</xs:documentation>
+            <xs:documentation>Validação: O preenchimento do campo é obrigatório apenas no caso das empresas enquadradas no regime de tributação Simples Nacional, com tributação previdenciária substituída e não substituída, ({classTrib} do evento S-1000 -Informações do Empregador = [03]). Para os demais empregadores, não deve ser informado.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:byte">
             <xs:enumeration value="1">

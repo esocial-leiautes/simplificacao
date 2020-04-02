@@ -749,12 +749,14 @@
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>
-                                                    <xs:element name="tpInscAnt">
+                                                    <xs:element name="tpInsc">
                                                         <xs:simpleType>
                                                             <xs:annotation>
                                                                 <xs:documentation>Tipo de inscrição</xs:documentation>
                                                                 <xs:documentation>Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.</xs:documentation>
-                                                                <xs:documentation>Validação: Deve ser igual a [1] (CNPJ), [2] (CPF), [5] (CGC) ou [6] (CEI). Somente é possível informar [5] se {dtTrans} for igual ou anterior a 01/07/1988. Somente é possível informar [6] se {dtTransf} for igual ou anterior a 31/12/2011.</xs:documentation>
+                                                                <xs:documentation>Validação: Deve ser igual a [1] (CNPJ), [2] (CPF), [5] (CGC) ou [6] (CEI).</xs:documentation>
+                                                                <xs:documentation>Somente é possível informar [5] se {dtTrans} for igual ou anterior a 01/07/1988.</xs:documentation>
+                                                                <xs:documentation>Somente é possível informar [6] se {dtTransf} for igual ou anterior a 31/12/2011.</xs:documentation>
                                                             </xs:annotation>
                                                             <xs:restriction base="xs:byte">
                                                                 <xs:enumeration value="1">
@@ -780,12 +782,15 @@
                                                             </xs:restriction>
                                                         </xs:simpleType>
                                                     </xs:element>
-                                                    <xs:element name="cnpjEmpregAnt">
+                                                    <xs:element name="nrInsc">
                                                         <xs:simpleType>
                                                             <xs:annotation>
-                                                                <xs:documentation>CNPJ do empregador anterior</xs:documentation>
-                                                                <xs:documentation>Informar o número de inscrição do empregador anterior, de acordo com o tipo de inscrição indicado no campo {tpInscAnt}.</xs:documentation>
-                                                                <xs:documentation>Validação: Deve ser um número de inscrição válido diferente da inscrição do declarante, considerando as particularidades aplicadas à informação de CNPJ de órgão público em S-1000. Se {tpInscAnt} = [1], deve possuir 14 (catorze) algarismos e ser diferente do CNPJ base do empregador e dos estabelecimentos informados através do evento S-1005. Se {tpInscAnt} = [2], deve possuir 11 (onze) algarismos. Se {tpInscAnt} = [5], deve possuir somente algarismos. Se {tpInscAnt} = [6], deve possuir 12 (doze) algarismos.</xs:documentation>
+                                                                <xs:documentation>Informar o número de inscrição do empregador anterior, de acordo com o tipo de inscrição indicado no campo {sucessaoVinc}/{tpInsc}.</xs:documentation>
+                                                                <xs:documentation>Validação: Deve ser um número de inscrição válido diferente da inscrição do declarante, considerando as particularidades aplicadas à informação de CNPJ de órgão público em S-1000.</xs:documentation>
+                                                                <xs:documentation>Se {tpInsc} = [1], deve possuir 14 (catorze) algarismos e ser diferente do CNPJ base do empregador e dos estabelecimentos informados através do evento S-1005.</xs:documentation>
+                                                                <xs:documentation>Se {tpInsc} = [2], deve possuir 11 (onze) algarismos.</xs:documentation>
+                                                                <xs:documentation>Se {tpInsc} = [5], deve possuir somente algarismos.</xs:documentation>
+                                                                <xs:documentation>Se {tpInsc} = [6], deve possuir 12 (doze) algarismos.</xs:documentation>
                                                             </xs:annotation>
                                                             <xs:restriction base="xs:string">
                                                                 <xs:pattern value="\d{8,14}" />
