@@ -401,11 +401,16 @@
                                                                                     <xs:documentation>Preencher com a matrícula do trabalhador no empregador/órgão público cedente/de origem.</xs:documentation>
                                                                                 </xs:annotation>
                                                                             </xs:element>
-                                                                            <xs:element name="dtAdmCed" type="xs:date">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Preencher com a data de admissão (ou de exercício) do trabalhador no empregador/órgão público cedente/de origem.</xs:documentation>
-                                                                                    <xs:documentation>Validação: Deve ser uma data anterior à data de início informada no evento. A data deve ser igual ou posterior a 01/01/1890.</xs:documentation>
-                                                                                </xs:annotation>
+                                                                            <xs:element name="dtAdmCed">
+                                                                                <xs:simpleType>
+                                                                                    <xs:annotation>
+                                                                                        <xs:documentation>Preencher com a data de admissão (ou de exercício) do trabalhador no empregador/órgão público cedente/de origem.</xs:documentation>
+                                                                                        <xs:documentation>Validação: Deve ser uma data anterior à data de início informada no evento. A data deve ser igual ou posterior a 01/01/1890.</xs:documentation>
+                                                                                    </xs:annotation>
+                                                                                    <xs:restriction base="xs:date">
+                                                                                        <xs:minInclusive value="1890-01-01" />
+                                                                                    </xs:restriction>
+                                                                                </xs:simpleType>
                                                                             </xs:element>
                                                                         </xs:sequence>
                                                                     </xs:complexType>
