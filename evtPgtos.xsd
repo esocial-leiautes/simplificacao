@@ -38,10 +38,10 @@
                                                 <xs:documentation>Validação: Deve ser o mesmo CPF informado no evento de remuneração ou desligamento (S-1200, S-1202, S-1207, S-2299 ou S-2399).</xs:documentation>
                                             </xs:annotation>
                                         </xs:element>
-                                        <xs:element name="infoPgto" maxOccurs="60">
+                                        <xs:element name="infoPgto" maxOccurs="999">
                                             <xs:annotation>
                                                 <xs:documentation>Informações dos pagamentos efetuados</xs:documentation>
-                                                <xs:documentation>CHAVE_GRUPO: {dtPgto}, {tpPgto}</xs:documentation>
+                                                <xs:documentation>CHAVE_GRUPO: {dtPgto}, {tpPgto}, {perRef}, {ideDmDev}</xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>
@@ -90,6 +90,8 @@
                                                             <xs:documentation>Informar a competência declarada no campo {perApur} do evento remuneratório a que se refere o pagamento, no formato AAAA-MM (ou AAAA, se for relativa à folha de 13° salário).</xs:documentation>
                                                             <xs:documentation>Validação: Informação obrigatória e exclusiva se {tpPgto} = [1, 5, 6]. Deve corresponder ao conteúdo indicado na relação a seguir:</xs:documentation>
                                                             <xs:documentation>Se {tpPgto} = [1], {perApur} do S-1200;</xs:documentation>
+                                                            <xs:documentation>Se {tpPgto} = [2], mês/ano de {dtDeslig} do S-2299 (formato AAAA-MM);</xs:documentation>
+                                                            <xs:documentation>Se {tpPgto} = [3], mês/ano de {dtTerm} do S-2399 (formato AAAA-MM);</xs:documentation>
                                                             <xs:documentation>Se {tpPgto} = [5], {perApur} do S-1202;</xs:documentation>
                                                             <xs:documentation>Se {tpPgto} = [6], {perApur} do S-1207.</xs:documentation>
                                                         </xs:annotation>
