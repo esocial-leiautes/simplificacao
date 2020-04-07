@@ -1,0 +1,830 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns="http://www.esocial.gov.br/schema/evt/evtFGTS/v01_00_00" targetNamespace="http://www.esocial.gov.br/schema/evt/evtFGTS/v01_00_00" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+    <xs:include schemaLocation="include/ideEmpregador.xsd " />
+    <xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd" />
+    <xs:element name="eSocial">
+        <xs:annotation>
+            <xs:documentation>S-5013 - Informações do FGTS consolidadas por contribuinte</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="evtFGTS">
+                    <xs:annotation>
+                        <xs:documentation>Evento FGTS consolidado</xs:documentation>
+                        <xs:documentation>CHAVE_GRUPO: {Id}</xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="ideEvento">
+                                <xs:annotation>
+                                    <xs:documentation>Identificação do evento de retorno</xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="indApuracao" type="TS_indApuracao" />
+                                        <xs:element name="perApur" type="TS_perApur">
+                                            <xs:annotation>
+                                                <xs:documentation>Informar o mês/ano (formato AAAA-MM), ou apenas o ano (formato AAAA), de referência das informações.</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="ideEmpregador" type="T_ideEmpregador" />
+                            <xs:element name="infoFGTS">
+                                <xs:annotation>
+                                    <xs:documentation>Informações relativas ao FGTS</xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="nrRecArqBase" type="TS_nrRecibo">
+                                            <xs:annotation>
+                                                <xs:documentation>Preencher com o número do recibo do arquivo que deu origem ao presente arquivo de retorno ao empregador.</xs:documentation>
+                                                <xs:documentation>Validação: Deve ser um recibo de entrega válido, correspondente ao arquivo que deu origem ao presente arquivo de retorno (S-1299).</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="indExistInfo">
+                                            <xs:simpleType>
+                                                <xs:annotation>
+                                                    <xs:documentation>Indicativo de existência de FGTS.</xs:documentation>
+                                                </xs:annotation>
+                                                <xs:restriction base="xs:byte">
+                                                    <xs:enumeration value="1">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Há informações de FGTS</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:enumeration>
+                                                    <xs:enumeration value="2">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Há movimento, porém não há informações de FGTS</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:enumeration>
+                                                    <xs:enumeration value="3">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Não há movimento no período informado em {perApur}</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:enumeration>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element name="ideEstab" minOccurs="0" maxOccurs="unbounded">
+                                            <xs:annotation>
+                                                <xs:documentation>Identificação do estabelecimento</xs:documentation>
+                                                <xs:documentation>CHAVE_GRUPO: {tpInsc}, {nrInsc}</xs:documentation>
+                                                <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
+                                            </xs:annotation>
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="tpInsc" type="TS_tpInsc_1_2_3_4" />
+                                                    <xs:element name="nrInsc" type="TS_nrInsc_11_12_14">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {tpInsc}.</xs:documentation>
+                                                            <xs:documentation>A inscrição informada segue o evento que deu origem ao presente evento (S-1270 ou S-5003).</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:element>
+                                                    <xs:element name="ideLotacao" minOccurs="1" maxOccurs="unbounded">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Identificação da lotação tributária</xs:documentation>
+                                                            <xs:documentation>CHAVE_GRUPO: {codLotacao}</xs:documentation>
+                                                        </xs:annotation>
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:element name="codLotacao" type="TS_codigo_esocial">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Informar o código atribuído pela empresa para a lotação tributária.</xs:documentation>
+                                                                        <xs:documentation>Evento de origem: S-1270 ou S-5003.</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:element>
+                                                                <xs:element name="dadosLotacao">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Infomações da lotação</xs:documentation>
+                                                                    </xs:annotation>
+                                                                    <xs:complexType>
+                                                                        <xs:sequence>
+                                                                            <xs:element name="tpLotacao" type="TS_tpLotacao">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Preencher com o código correspondente ao tipo de lotação, conforme Tabela 10.</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:element>
+                                                                            <xs:element name="tpInsc" type="TS_tpInsc_1_2_3_4">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:element>
+                                                                            <xs:element name="nrInsc" type="TS_nrInsc_11_12_14">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Preencher com o número de Inscrição (CNPJ, CPF, CNO) ao qual pertence a lotação tributária, conforme indicado na Tabela 10 - Tipos de Lotação Tributária.</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:element>
+                                                                        </xs:sequence>
+                                                                    </xs:complexType>
+                                                                </xs:element>
+                                                                <xs:element name="infoBaseFGTS" minOccurs="0">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Bases de cálculo do FGTS</xs:documentation>
+                                                                        <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
+                                                                    </xs:annotation>
+                                                                    <xs:complexType>
+                                                                        <xs:sequence>
+                                                                            <xs:element name="basePerApur" minOccurs="0" maxOccurs="99">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Bases de cálculo do FGTS, exceto se {tpAcConv} = [E]</xs:documentation>
+                                                                                    <xs:documentation>CHAVE_GRUPO: {tpValor}, {indIncid}</xs:documentation>
+                                                                                    <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
+                                                                                </xs:annotation>
+                                                                                <xs:complexType>
+                                                                                    <xs:sequence>
+                                                                                        <xs:element name="tpValor">
+                                                                                            <xs:simpleType>
+                                                                                                <xs:annotation>
+                                                                                                    <xs:documentation>Tipo de valor que influi na apuração do FGTS (Base de Cálculo).</xs:documentation>
+                                                                                                    <xs:documentation>Validação: Se o evento de origem for S-5003, deve corresponder ao valor informado no campo {tpValor} desse evento.</xs:documentation>
+                                                                                                </xs:annotation>
+                                                                                                <xs:restriction base="xs:byte">
+                                                                                                    <xs:enumeration value="11">
+                                                                                                        <xs:annotation>
+                                                                                                            <xs:documentation>FGTS</xs:documentation>
+                                                                                                        </xs:annotation>
+                                                                                                    </xs:enumeration>
+                                                                                                    <xs:enumeration value="12">
+                                                                                                        <xs:annotation>
+                                                                                                            <xs:documentation>FGTS 13° Salário</xs:documentation>
+                                                                                                        </xs:annotation>
+                                                                                                    </xs:enumeration>
+                                                                                                    <xs:enumeration value="13">
+                                                                                                        <xs:annotation>
+                                                                                                            <xs:documentation>FGTS Dissídio</xs:documentation>
+                                                                                                        </xs:annotation>
+                                                                                                    </xs:enumeration>
+                                                                                                    <xs:enumeration value="14">
+                                                                                                        <xs:annotation>
+                                                                                                            <xs:documentation>FGTS Dissídio 13º Salário</xs:documentation>
+                                                                                                        </xs:annotation>
+                                                                                                    </xs:enumeration>
+                                                                                                    <xs:enumeration value="15">
+                                                                                                        <xs:annotation>
+                                                                                                            <xs:documentation>FGTS - Aprendiz/Contrato Verde e Amarelo</xs:documentation>
+                                                                                                        </xs:annotation>
+                                                                                                    </xs:enumeration>
+                                                                                                    <xs:enumeration value="16">
+                                                                                                        <xs:annotation>
+                                                                                                            <xs:documentation>FGTS 13° Salário - Aprendiz/Contrato Verde e Amarelo</xs:documentation>
+                                                                                                        </xs:annotation>
+                                                                                                    </xs:enumeration>
+                                                                                                    <xs:enumeration value="17">
+                                                                                                        <xs:annotation>
+                                                                                                            <xs:documentation>FGTS Dissídio - Aprendiz/Contrato Verde e Amarelo</xs:documentation>
+                                                                                                        </xs:annotation>
+                                                                                                    </xs:enumeration>
+                                                                                                    <xs:enumeration value="18">
+                                                                                                        <xs:annotation>
+                                                                                                            <xs:documentation>FGTS Dissídio 13º Salário - Aprendiz/Contrato Verde e Amarelo</xs:documentation>
+                                                                                                        </xs:annotation>
+                                                                                                    </xs:enumeration>
+                                                                                                    <xs:enumeration value="19">
+                                                                                                        <xs:annotation>
+                                                                                                            <xs:documentation>FGTS - Avulsos não portuários</xs:documentation>
+                                                                                                        </xs:annotation>
+                                                                                                    </xs:enumeration>
+                                                                                                    <xs:enumeration value="21">
+                                                                                                        <xs:annotation>
+                                                                                                            <xs:documentation>FGTS Rescisório</xs:documentation>
+                                                                                                        </xs:annotation>
+                                                                                                    </xs:enumeration>
+                                                                                                    <xs:enumeration value="22">
+                                                                                                        <xs:annotation>
+                                                                                                            <xs:documentation>FGTS Rescisório 13° Salário</xs:documentation>
+                                                                                                        </xs:annotation>
+                                                                                                    </xs:enumeration>
+                                                                                                    <xs:enumeration value="23">
+                                                                                                        <xs:annotation>
+                                                                                                            <xs:documentation>FGTS Rescisório Aviso Prévio</xs:documentation>
+                                                                                                        </xs:annotation>
+                                                                                                    </xs:enumeration>
+                                                                                                    <xs:enumeration value="24">
+                                                                                                        <xs:annotation>
+                                                                                                            <xs:documentation>FGTS Rescisório Dissídio</xs:documentation>
+                                                                                                        </xs:annotation>
+                                                                                                    </xs:enumeration>
+                                                                                                    <xs:enumeration value="25">
+                                                                                                        <xs:annotation>
+                                                                                                            <xs:documentation>FGTS Rescisório Dissídio 13º Salário</xs:documentation>
+                                                                                                        </xs:annotation>
+                                                                                                    </xs:enumeration>
+                                                                                                    <xs:enumeration value="26">
+                                                                                                        <xs:annotation>
+                                                                                                            <xs:documentation>FGTS Rescisório Dissídio Aviso Prévio</xs:documentation>
+                                                                                                        </xs:annotation>
+                                                                                                    </xs:enumeration>
+                                                                                                    <xs:enumeration value="27">
+                                                                                                        <xs:annotation>
+                                                                                                            <xs:documentation>FGTS Rescisório - Aprendiz/Contrato Verde e Amarelo</xs:documentation>
+                                                                                                        </xs:annotation>
+                                                                                                    </xs:enumeration>
+                                                                                                    <xs:enumeration value="28">
+                                                                                                        <xs:annotation>
+                                                                                                            <xs:documentation>FGTS Rescisório 13° Salário - Aprendiz/Contrato Verde e Amarelo</xs:documentation>
+                                                                                                        </xs:annotation>
+                                                                                                    </xs:enumeration>
+                                                                                                    <xs:enumeration value="29">
+                                                                                                        <xs:annotation>
+                                                                                                            <xs:documentation>FGTS Rescisório Aviso Prévio - Aprendiz/Contrato Verde e Amarelo</xs:documentation>
+                                                                                                        </xs:annotation>
+                                                                                                    </xs:enumeration>
+                                                                                                    <xs:enumeration value="30">
+                                                                                                        <xs:annotation>
+                                                                                                            <xs:documentation>FGTS Rescisório Dissídio - Aprendiz/Contrato Verde e Amarelo</xs:documentation>
+                                                                                                        </xs:annotation>
+                                                                                                    </xs:enumeration>
+                                                                                                    <xs:enumeration value="31">
+                                                                                                        <xs:annotation>
+                                                                                                            <xs:documentation>FGTS Rescisório Dissídio 13° Salário - Aprendiz/Contrato Verde e Amarelo</xs:documentation>
+                                                                                                        </xs:annotation>
+                                                                                                    </xs:enumeration>
+                                                                                                    <xs:enumeration value="32">
+                                                                                                        <xs:annotation>
+                                                                                                            <xs:documentation>FGTS Rescisório Dissídio Aviso Prévio - Aprendiz/Contrato Verde e Amarelo</xs:documentation>
+                                                                                                        </xs:annotation>
+                                                                                                    </xs:enumeration>
+                                                                                                    <xs:enumeration value="41">
+                                                                                                        <xs:annotation>
+                                                                                                            <xs:documentation>FGTS - Indenização compensatória do empregado doméstico</xs:documentation>
+                                                                                                        </xs:annotation>
+                                                                                                    </xs:enumeration>
+                                                                                                    <xs:enumeration value="42">
+                                                                                                        <xs:annotation>
+                                                                                                            <xs:documentation>FGTS 13° Salário - Indenização compensatória do empregado doméstico</xs:documentation>
+                                                                                                        </xs:annotation>
+                                                                                                    </xs:enumeration>
+                                                                                                    <xs:enumeration value="43">
+                                                                                                        <xs:annotation>
+                                                                                                            <xs:documentation>FGTS Dissídio - Indenização compensatória do empregado doméstico</xs:documentation>
+                                                                                                        </xs:annotation>
+                                                                                                    </xs:enumeration>
+                                                                                                    <xs:enumeration value="44">
+                                                                                                        <xs:annotation>
+                                                                                                            <xs:documentation>FGTS Dissídio 13º Salário - Indenização compensatória do empregado doméstico</xs:documentation>
+                                                                                                        </xs:annotation>
+                                                                                                    </xs:enumeration>
+                                                                                                    <xs:enumeration value="45">
+                                                                                                        <xs:annotation>
+                                                                                                            <xs:documentation>FGTS Rescisório - Indenização compensatória do empregado doméstico</xs:documentation>
+                                                                                                        </xs:annotation>
+                                                                                                    </xs:enumeration>
+                                                                                                    <xs:enumeration value="46">
+                                                                                                        <xs:annotation>
+                                                                                                            <xs:documentation>FGTS Rescisório 13° Salário - Indenização compensatória do empregado doméstico</xs:documentation>
+                                                                                                        </xs:annotation>
+                                                                                                    </xs:enumeration>
+                                                                                                    <xs:enumeration value="47">
+                                                                                                        <xs:annotation>
+                                                                                                            <xs:documentation>FGTS Rescisório Aviso Prévio - Indenização compensatória do empregado doméstico</xs:documentation>
+                                                                                                        </xs:annotation>
+                                                                                                    </xs:enumeration>
+                                                                                                    <xs:enumeration value="48">
+                                                                                                        <xs:annotation>
+                                                                                                            <xs:documentation>FGTS Rescisório Dissídio - Indenização compensatória do empregado doméstico</xs:documentation>
+                                                                                                        </xs:annotation>
+                                                                                                    </xs:enumeration>
+                                                                                                    <xs:enumeration value="49">
+                                                                                                        <xs:annotation>
+                                                                                                            <xs:documentation>FGTS Rescisório Dissídio 13º Salário - Indenização compensatória do empregado doméstico</xs:documentation>
+                                                                                                        </xs:annotation>
+                                                                                                    </xs:enumeration>
+                                                                                                    <xs:enumeration value="50">
+                                                                                                        <xs:annotation>
+                                                                                                            <xs:documentation>FGTS Rescisório Dissídio Aviso Prévio - Indenização compensatória do empregado doméstico</xs:documentation>
+                                                                                                        </xs:annotation>
+                                                                                                    </xs:enumeration>
+                                                                                                </xs:restriction>
+                                                                                            </xs:simpleType>
+                                                                                        </xs:element>
+                                                                                        <xs:element name="indIncid">
+                                                                                            <xs:simpleType>
+                                                                                                <xs:annotation>
+                                                                                                    <xs:documentation>Indicativo de incidência de FGTS.</xs:documentation>
+                                                                                                    <xs:documentation>Validação: Se {tpValor} for diferente de [19], deve corresponder ao valor informado no campo {indIncid} do evento S-5003.</xs:documentation>
+                                                                                                    <xs:documentation>Se {tpValor} = [19], deve ser retornado [1].</xs:documentation>
+                                                                                                </xs:annotation>
+                                                                                                <xs:restriction base="xs:byte">
+                                                                                                    <xs:enumeration value="1">
+                                                                                                        <xs:annotation>
+                                                                                                            <xs:documentation>Normal (incidência de FGTS)</xs:documentation>
+                                                                                                        </xs:annotation>
+                                                                                                    </xs:enumeration>
+                                                                                                    <xs:enumeration value="2">
+                                                                                                        <xs:annotation>
+                                                                                                            <xs:documentation>Incidência de FGTS suspensa em decorrência de decisão judicial</xs:documentation>
+                                                                                                        </xs:annotation>
+                                                                                                    </xs:enumeration>
+                                                                                                </xs:restriction>
+                                                                                            </xs:simpleType>
+                                                                                        </xs:element>
+                                                                                        <xs:element name="baseFGTS" type="TS_valorMonetario_positivo">
+                                                                                            <xs:annotation>
+                                                                                                <xs:documentation>Remuneração (valor da base de cálculo) do FGTS.</xs:documentation>
+                                                                                                <xs:documentation>Validação: Deve ser maior que 0 (zero).</xs:documentation>
+                                                                                                <xs:documentation>Se {tpValor} for diferente de [19], deve corresponder ao somatório dos valores informados no campo {remFGTS} do evento S-5003, agrupados por {tpValor} e {indIncid}.</xs:documentation>
+                                                                                                <xs:documentation>Se {tpValor} = [19], deve corresponder à remuneração dos trabalhadores avulsos não portuários contratados, conforme informado no campo {vrBcFGTS} do evento S-1270.</xs:documentation>
+                                                                                            </xs:annotation>
+                                                                                        </xs:element>
+                                                                                    </xs:sequence>
+                                                                                </xs:complexType>
+                                                                            </xs:element>
+                                                                            <xs:element name="infoBasePerAntE" minOccurs="0" maxOccurs="180">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Informações sobre bases de cálculo do FGTS, quando {tpAcConv} = [E]</xs:documentation>
+                                                                                    <xs:documentation>CHAVE_GRUPO: {perRef}</xs:documentation>
+                                                                                    <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
+                                                                                </xs:annotation>
+                                                                                <xs:complexType>
+                                                                                    <xs:sequence>
+                                                                                        <xs:element name="perRef" type="TS_periodo_mensal">
+                                                                                            <xs:annotation>
+                                                                                                <xs:documentation>Informar o período ao qual se refere a remuneração no formato AAAA-MM.</xs:documentation>
+                                                                                                <xs:documentation>Validação: Deve corresponder ao período informado no evento de origem.</xs:documentation>
+                                                                                            </xs:annotation>
+                                                                                        </xs:element>
+                                                                                        <xs:element name="basePerAntE" maxOccurs="99">
+                                                                                            <xs:annotation>
+                                                                                                <xs:documentation>Bases de cálculo do FGTS, quando {tpAcConv} = [E]</xs:documentation>
+                                                                                                <xs:documentation>CHAVE_GRUPO: {tpValorE}, {indIncidE}</xs:documentation>
+                                                                                            </xs:annotation>
+                                                                                            <xs:complexType>
+                                                                                                <xs:sequence>
+                                                                                                    <xs:element name="tpValorE">
+                                                                                                        <xs:simpleType>
+                                                                                                            <xs:annotation>
+                                                                                                                <xs:documentation>Tipo de valor que influi na apuração do FGTS.</xs:documentation>
+                                                                                                                <xs:documentation>Validação: Deve corresponder ao valor informado no campo {tpValorE} do evento de origem.</xs:documentation>
+                                                                                                            </xs:annotation>
+                                                                                                            <xs:restriction base="xs:byte">
+                                                                                                                <xs:enumeration value="13">
+                                                                                                                    <xs:annotation>
+                                                                                                                        <xs:documentation>FGTS Dissídio</xs:documentation>
+                                                                                                                    </xs:annotation>
+                                                                                                                </xs:enumeration>
+                                                                                                                <xs:enumeration value="14">
+                                                                                                                    <xs:annotation>
+                                                                                                                        <xs:documentation>FGTS Dissídio 13º Salário</xs:documentation>
+                                                                                                                    </xs:annotation>
+                                                                                                                </xs:enumeration>
+                                                                                                                <xs:enumeration value="17">
+                                                                                                                    <xs:annotation>
+                                                                                                                        <xs:documentation>FGTS Dissídio - Aprendiz/Contrato Verde e Amarelo</xs:documentation>
+                                                                                                                    </xs:annotation>
+                                                                                                                </xs:enumeration>
+                                                                                                                <xs:enumeration value="18">
+                                                                                                                    <xs:annotation>
+                                                                                                                        <xs:documentation>FGTS Dissídio 13º Salário - Aprendiz/Contrato Verde e Amarelo</xs:documentation>
+                                                                                                                    </xs:annotation>
+                                                                                                                </xs:enumeration>
+                                                                                                                <xs:enumeration value="24">
+                                                                                                                    <xs:annotation>
+                                                                                                                        <xs:documentation>FGTS Rescisório Dissídio</xs:documentation>
+                                                                                                                    </xs:annotation>
+                                                                                                                </xs:enumeration>
+                                                                                                                <xs:enumeration value="25">
+                                                                                                                    <xs:annotation>
+                                                                                                                        <xs:documentation>FGTS Rescisório Dissídio 13º Salário</xs:documentation>
+                                                                                                                    </xs:annotation>
+                                                                                                                </xs:enumeration>
+                                                                                                                <xs:enumeration value="26">
+                                                                                                                    <xs:annotation>
+                                                                                                                        <xs:documentation>FGTS Rescisório Dissídio Aviso Prévio</xs:documentation>
+                                                                                                                    </xs:annotation>
+                                                                                                                </xs:enumeration>
+                                                                                                                <xs:enumeration value="30">
+                                                                                                                    <xs:annotation>
+                                                                                                                        <xs:documentation>FGTS Rescisório Dissídio - Aprendiz/Contrato Verde e Amarelo</xs:documentation>
+                                                                                                                    </xs:annotation>
+                                                                                                                </xs:enumeration>
+                                                                                                                <xs:enumeration value="31">
+                                                                                                                    <xs:annotation>
+                                                                                                                        <xs:documentation>FGTS Rescisório Dissídio 13° Salário - Aprendiz/Contrato Verde e Amarelo</xs:documentation>
+                                                                                                                    </xs:annotation>
+                                                                                                                </xs:enumeration>
+                                                                                                                <xs:enumeration value="32">
+                                                                                                                    <xs:annotation>
+                                                                                                                        <xs:documentation>FGTS Rescisório Dissídio Aviso Prévio - Aprendiz/Contrato Verde e Amarelo</xs:documentation>
+                                                                                                                    </xs:annotation>
+                                                                                                                </xs:enumeration>
+                                                                                                                <xs:enumeration value="43">
+                                                                                                                    <xs:annotation>
+                                                                                                                        <xs:documentation>FGTS Dissídio - Indenização compensatória do empregado doméstico</xs:documentation>
+                                                                                                                    </xs:annotation>
+                                                                                                                </xs:enumeration>
+                                                                                                                <xs:enumeration value="44">
+                                                                                                                    <xs:annotation>
+                                                                                                                        <xs:documentation>FGTS Dissídio 13º Salário - Indenização compensatória do empregado doméstico</xs:documentation>
+                                                                                                                    </xs:annotation>
+                                                                                                                </xs:enumeration>
+                                                                                                                <xs:enumeration value="48">
+                                                                                                                    <xs:annotation>
+                                                                                                                        <xs:documentation>FGTS Rescisório Dissídio - Indenização compensatória do empregado doméstico</xs:documentation>
+                                                                                                                    </xs:annotation>
+                                                                                                                </xs:enumeration>
+                                                                                                                <xs:enumeration value="49">
+                                                                                                                    <xs:annotation>
+                                                                                                                        <xs:documentation>FGTS Rescisório Dissídio 13º Salário - Indenização compensatória do empregado doméstico</xs:documentation>
+                                                                                                                    </xs:annotation>
+                                                                                                                </xs:enumeration>
+                                                                                                                <xs:enumeration value="50">
+                                                                                                                    <xs:annotation>
+                                                                                                                        <xs:documentation>FGTS Rescisório Dissídio Aviso Prévio - Indenização compensatória do empregado doméstico</xs:documentation>
+                                                                                                                    </xs:annotation>
+                                                                                                                </xs:enumeration>
+                                                                                                            </xs:restriction>
+                                                                                                        </xs:simpleType>
+                                                                                                    </xs:element>
+                                                                                                    <xs:element name="indIncid">
+                                                                                                        <xs:simpleType>
+                                                                                                            <xs:annotation>
+                                                                                                                <xs:documentation>Indicativo de incidência de FGTS.</xs:documentation>
+                                                                                                                <xs:documentation>Validação: Deve corresponder ao valor informado no campo {indIncidE} do evento de origem.</xs:documentation>
+                                                                                                            </xs:annotation>
+                                                                                                            <xs:restriction base="xs:byte">
+                                                                                                                <xs:enumeration value="1">
+                                                                                                                    <xs:annotation>
+                                                                                                                        <xs:documentation>Normal (incidência de FGTS)</xs:documentation>
+                                                                                                                    </xs:annotation>
+                                                                                                                </xs:enumeration>
+                                                                                                                <xs:enumeration value="2">
+                                                                                                                    <xs:annotation>
+                                                                                                                        <xs:documentation>Incidência de FGTS suspensa em decorrência de decisão judicial</xs:documentation>
+                                                                                                                    </xs:annotation>
+                                                                                                                </xs:enumeration>
+                                                                                                            </xs:restriction>
+                                                                                                        </xs:simpleType>
+                                                                                                    </xs:element>
+                                                                                                    <xs:element name="baseFGTSE" type="TS_valorMonetario_positivo">
+                                                                                                        <xs:annotation>
+                                                                                                            <xs:documentation>Remuneração (valor da base de cálculo) do FGTS.</xs:documentation>
+                                                                                                            <xs:documentation>Validação: Deve ser maior que 0 (zero).</xs:documentation>
+                                                                                                            <xs:documentation>Deve corresponder ao somatório dos valores informados no campo {remFGTSE} do evento de origem, agrupados por {tpValorE} e {indIncidE}.</xs:documentation>
+                                                                                                        </xs:annotation>
+                                                                                                    </xs:element>
+                                                                                                </xs:sequence>
+                                                                                            </xs:complexType>
+                                                                                        </xs:element>
+                                                                                    </xs:sequence>
+                                                                                </xs:complexType>
+                                                                            </xs:element>
+                                                                        </xs:sequence>
+                                                                    </xs:complexType>
+                                                                </xs:element>
+                                                            </xs:sequence>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="infoDpsFGTS" minOccurs="0">
+                                            <xs:annotation>
+                                                <xs:documentation>Informações sobre FGTS agrupadas por tipo de depósito</xs:documentation>
+                                                <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
+                                            </xs:annotation>
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="dpsPerApur" minOccurs="0" maxOccurs="99">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Valores de FGTS, exceto se {tpAcConv} = [E]</xs:documentation>
+                                                            <xs:documentation>CHAVE_GRUPO: {tpDps}</xs:documentation>
+                                                            <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
+                                                        </xs:annotation>
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:element name="tpDps">
+                                                                    <xs:simpleType>
+                                                                        <xs:annotation>
+                                                                            <xs:documentation>Tipo de depósito.</xs:documentation>
+                                                                            <xs:documentation>Validação: Se o evento de origem for S-5003, deve corresponder ao valor informado no campo {tpDps} desse evento.</xs:documentation>
+                                                                            <xs:documentation>Se o evento de origem for S-1270, deve ser retornado [59].</xs:documentation>
+                                                                        </xs:annotation>
+                                                                        <xs:restriction base="xs:byte">
+                                                                            <xs:enumeration value="41">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>FGTS - Indenização compensatória do empregado doméstico</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="42">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>FGTS 13° Salário - Indenização compensatória do empregado doméstico</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="43">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>FGTS Dissídio - Indenização compensatória do empregado doméstico</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="44">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>FGTS Dissídio 13º Salário - Indenização compensatória do empregado doméstico</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="45">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>FGTS Rescisório - Indenização compensatória do empregado doméstico</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="46">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>FGTS Rescisório 13° Salário - Indenização compensatória do empregado doméstico</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="47">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>FGTS Rescisório Aviso Prévio - Indenização compensatória do empregado doméstico</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="48">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>FGTS Rescisório Dissídio - Indenização compensatória do empregado doméstico</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="49">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>FGTS Rescisório Dissídio 13º Salário - Indenização compensatória do empregado doméstico</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="50">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>FGTS Rescisório Dissídio Aviso Prévio - Indenização compensatória do empregado doméstico</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="51">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>FGTS</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="52">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>FGTS 13° Salário</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="53">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>FGTS Dissídio</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="54">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>FGTS Dissídio 13º Salário</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="55">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>FGTS - Aprendiz/Contrato Verde e Amarelo</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="56">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>FGTS 13° Salário - Aprendiz/Contrato Verde e Amarelo</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="57">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>FGTS Dissídio - Aprendiz/Contrato Verde e Amarelo</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="58">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>FGTS Dissídio 13º Salário - Aprendiz/Contrato Verde e Amarelo</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="59">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>FGTS - Avulsos não portuários</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="61">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>FGTS Rescisório</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="62">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>FGTS Rescisório 13° Salário</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="63">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>FGTS Rescisório Aviso Prévio</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="64">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>FGTS Rescisório Dissídio</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="65">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>FGTS Rescisório Dissídio 13º Salário</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="66">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>FGTS Rescisório Dissídio Aviso Prévio</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="67">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>FGTS Rescisório - Aprendiz/Contrato Verde e Amarelo</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="68">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>FGTS Rescisório 13° Salário - Aprendiz/Contrato Verde e Amarelo</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="69">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>FGTS Rescisório Aviso Prévio - Aprendiz/Contrato Verde e Amarelo</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="70">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>FGTS Rescisório Dissídio - Aprendiz/Contrato Verde e Amarelo</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="71">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>FGTS Rescisório Dissídio 13° Salário - Aprendiz/Contrato Verde e Amarelo</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="72">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>FGTS Rescisório Dissídio Aviso Prévio - Aprendiz/Contrato Verde e Amarelo</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                        </xs:restriction>
+                                                                    </xs:simpleType>
+                                                                </xs:element>
+                                                                <xs:element name="vrFGTS" type="TS_valorMonetario_positivo">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Valor histórico do FGTS a ser depositado na conta vinculada do trabalhador.</xs:documentation>
+                                                                        <xs:documentation>Validação: Deve ser maior que 0 (zero).</xs:documentation>
+                                                                        <xs:documentation>Se {tpDps} for diferente de [59], deve corresponder ao somatório dos valores informados no campo {dpsFGTS} do evento S-5003, agrupados por {tpDps}.</xs:documentation>
+                                                                        <xs:documentation>Se {tpDps} = [59], deve corresponder ao somatório dos valores informados no campo {baseFGTS}, desde que {tpValor} = [19], e aplicar a alíquota de 8%.</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:element>
+                                                            </xs:sequence>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                    <xs:element name="infoDpsPerAntE" minOccurs="0" maxOccurs="180">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Informações sobre o FGTS quando {tpAcConv} = [E]</xs:documentation>
+                                                            <xs:documentation>CHAVE_GRUPO: {perRef}</xs:documentation>
+                                                            <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
+                                                        </xs:annotation>
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:element name="perRef" type="TS_periodo_mensal">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Informar o período ao qual se refere a remuneração no formato AAAA-MM.</xs:documentation>
+                                                                        <xs:documentation>Validação: Deve corresponder ao período informado no evento de origem.</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:element>
+                                                                <xs:element name="dpsPerAntE" maxOccurs="99">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Valores de FGTS quando {tpAcConv} = [E]</xs:documentation>
+                                                                        <xs:documentation>CHAVE_GRUPO: {tpDpsE}</xs:documentation>
+                                                                    </xs:annotation>
+                                                                    <xs:complexType>
+                                                                        <xs:sequence>
+                                                                            <xs:element name="tpDpsE">
+                                                                                <xs:simpleType>
+                                                                                    <xs:annotation>
+                                                                                        <xs:documentation>Tipo de depósito.</xs:documentation>
+                                                                                    </xs:annotation>
+                                                                                    <xs:restriction base="xs:byte">
+                                                                                        <xs:enumeration value="43">
+                                                                                            <xs:annotation>
+                                                                                                <xs:documentation>FGTS Dissídio - Indenização compensatória do empregado doméstico</xs:documentation>
+                                                                                            </xs:annotation>
+                                                                                        </xs:enumeration>
+                                                                                        <xs:enumeration value="44">
+                                                                                            <xs:annotation>
+                                                                                                <xs:documentation>FGTS Dissídio 13º Salário - Indenização compensatória do empregado doméstico</xs:documentation>
+                                                                                            </xs:annotation>
+                                                                                        </xs:enumeration>
+                                                                                        <xs:enumeration value="48">
+                                                                                            <xs:annotation>
+                                                                                                <xs:documentation>FGTS Rescisório Dissídio - Indenização compensatória do empregado doméstico</xs:documentation>
+                                                                                            </xs:annotation>
+                                                                                        </xs:enumeration>
+                                                                                        <xs:enumeration value="49">
+                                                                                            <xs:annotation>
+                                                                                                <xs:documentation>FGTS Rescisório Dissídio 13º Salário - Indenização compensatória do empregado doméstico</xs:documentation>
+                                                                                            </xs:annotation>
+                                                                                        </xs:enumeration>
+                                                                                        <xs:enumeration value="50">
+                                                                                            <xs:annotation>
+                                                                                                <xs:documentation>FGTS Rescisório Dissídio Aviso Prévio - Indenização compensatória do empregado doméstico</xs:documentation>
+                                                                                            </xs:annotation>
+                                                                                        </xs:enumeration>
+                                                                                        <xs:enumeration value="53">
+                                                                                            <xs:annotation>
+                                                                                                <xs:documentation>FGTS Dissídio</xs:documentation>
+                                                                                            </xs:annotation>
+                                                                                        </xs:enumeration>
+                                                                                        <xs:enumeration value="54">
+                                                                                            <xs:annotation>
+                                                                                                <xs:documentation>FGTS Dissídio 13º Salário</xs:documentation>
+                                                                                            </xs:annotation>
+                                                                                        </xs:enumeration>
+                                                                                        <xs:enumeration value="57">
+                                                                                            <xs:annotation>
+                                                                                                <xs:documentation>FGTS Dissídio - Aprendiz/Contrato Verde e Amarelo</xs:documentation>
+                                                                                            </xs:annotation>
+                                                                                        </xs:enumeration>
+                                                                                        <xs:enumeration value="58">
+                                                                                            <xs:annotation>
+                                                                                                <xs:documentation>FGTS Dissídio 13º Salário - Aprendiz/Contrato Verde e Amarelo</xs:documentation>
+                                                                                            </xs:annotation>
+                                                                                        </xs:enumeration>
+                                                                                        <xs:enumeration value="64">
+                                                                                            <xs:annotation>
+                                                                                                <xs:documentation>FGTS Rescisório Dissídio</xs:documentation>
+                                                                                            </xs:annotation>
+                                                                                        </xs:enumeration>
+                                                                                        <xs:enumeration value="65">
+                                                                                            <xs:annotation>
+                                                                                                <xs:documentation>FGTS Rescisório Dissídio 13º Salário</xs:documentation>
+                                                                                            </xs:annotation>
+                                                                                        </xs:enumeration>
+                                                                                        <xs:enumeration value="66">
+                                                                                            <xs:annotation>
+                                                                                                <xs:documentation>FGTS Rescisório Dissídio Aviso Prévio</xs:documentation>
+                                                                                            </xs:annotation>
+                                                                                        </xs:enumeration>
+                                                                                        <xs:enumeration value="70">
+                                                                                            <xs:annotation>
+                                                                                                <xs:documentation>FGTS Rescisório Dissídio - Aprendiz/Contrato Verde e Amarelo</xs:documentation>
+                                                                                            </xs:annotation>
+                                                                                        </xs:enumeration>
+                                                                                        <xs:enumeration value="71">
+                                                                                            <xs:annotation>
+                                                                                                <xs:documentation>FGTS Rescisório Dissídio 13° Salário - Aprendiz/Contrato Verde e Amarelo</xs:documentation>
+                                                                                            </xs:annotation>
+                                                                                        </xs:enumeration>
+                                                                                        <xs:enumeration value="72">
+                                                                                            <xs:annotation>
+                                                                                                <xs:documentation>FGTS Rescisório Dissídio Aviso Prévio - Aprendiz/Contrato Verde e Amarelo</xs:documentation>
+                                                                                            </xs:annotation>
+                                                                                        </xs:enumeration>
+                                                                                    </xs:restriction>
+                                                                                </xs:simpleType>
+                                                                            </xs:element>
+                                                                            <xs:element name="vrFGTSE" type="TS_valorMonetario_positivo">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Valor histórico do FGTS a ser depositado na conta vinculada do trabalhador.</xs:documentation>
+                                                                                    <xs:documentation>Validação: Deve ser maior que 0 (zero).</xs:documentation>
+                                                                                    <xs:documentation>Deve corresponder ao somatório dos valores informados no campo {dpsFGTSE} do evento de origem, agrupados por {tpDpsE}.</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:element>
+                                                                        </xs:sequence>
+                                                                    </xs:complexType>
+                                                                </xs:element>
+                                                            </xs:sequence>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="Id" use="required" type="TS_Id" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:element ref="ds:Signature" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="TEmpregador">
+        <xs:sequence>
+            <xs:element name="tpInsc">
+                <xs:simpleType>
+                    <xs:annotation>
+                        <xs:documentation>Tipo de Inscrição, conforme tabela 5.</xs:documentation>
+                    </xs:annotation>
+                    <xs:restriction base="xs:byte">
+                        <xs:pattern value="\d" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="nrInsc">
+                <xs:simpleType>
+                    <xs:annotation>
+                        <xs:documentation>Número de Inscrição</xs:documentation>
+                    </xs:annotation>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="\d{8,14}" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
