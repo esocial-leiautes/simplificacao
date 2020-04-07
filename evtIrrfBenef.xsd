@@ -1,0 +1,438 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns="http://www.esocial.gov.br/schema/evt/evtIrrfBenef/v01_00_00" targetNamespace="http://www.esocial.gov.br/schema/evt/evtIrrfBenef/v01_00_00" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+    <xs:include schemaLocation="include/ideEmpregador.xsd " />
+    <xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd" />
+    <xs:element name="eSocial">
+        <xs:annotation>
+            <xs:documentation>S-5002 - Imposto de Renda Retido na Fonte por trabalhador</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="evtIrrfBenef">
+                    <xs:annotation>
+                        <xs:documentation>Evento IRRF</xs:documentation>
+                        <xs:documentation>CHAVE_GRUPO: {Id}</xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="ideEvento">
+                                <xs:annotation>
+                                    <xs:documentation>Identificação do evento de retorno</xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="nrRecArqBase" type="TS_nrRecibo">
+                                            <xs:annotation>
+                                                <xs:documentation>Preencher com o número do recibo do arquivo que deu origem ao presente arquivo de retorno ao empregador.</xs:documentation>
+                                                <xs:documentation>Validação: Deve corresponder ao recibo de um arquivo com informações de rendimentos sujeitos a IRRF (S-1210 ou S-3000).</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="perApur" type="TS_perApur_mensal">
+                                            <xs:annotation>
+                                                <xs:documentation>Informar o mês/ano (formato AAAA-MM) de referência das informações.</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="ideEmpregador" type="T_ideEmpregador" />
+                            <xs:element name="ideTrabalhador">
+                                <xs:annotation>
+                                    <xs:documentation>Identificação do beneficiário</xs:documentation>
+                                    <xs:documentation>CHAVE_GRUPO: {cpfBenef}</xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="cpfBenef" type="TS_cpf">
+                                            <xs:annotation>
+                                                <xs:documentation>Número de inscrição no Cadastro de Pessoa Física - CPF do beneficiário do pagamento.</xs:documentation>
+                                                <xs:documentation>Origem: campo {cpfBenef} do S-1210.</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="dmDev" maxOccurs="unbounded">
+                                            <xs:annotation>
+                                                <xs:documentation>Informações do demonstrativo de valores devidos</xs:documentation>
+                                                <xs:documentation>CHAVE_GRUPO: {perRef}, {ideDmDev}, {tpPgto}, {dtPgto}</xs:documentation>
+                                            </xs:annotation>
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="perRef" type="TS_perApur">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Período de referência das informações, no formato AAAA-MM (ou AAAA, se for relativa à folha de 13° salário).</xs:documentation>
+                                                            <xs:documentation>Origem: campo {perRef} do S-1210.</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:element>
+                                                    <xs:element name="ideDmDev" type="TS_codigo_esocial">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Identificador atribuído pela fonte pagadora para o demonstrativo de valores devidos ao trabalhador.</xs:documentation>
+                                                            <xs:documentation>Origem: campo {ideDmDev} do S-1210.</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:element>
+                                                    <xs:element name="tpPgto">
+                                                        <xs:simpleType>
+                                                            <xs:annotation>
+                                                                <xs:documentation>Informar o evento de origem do pagamento.</xs:documentation>
+                                                                <xs:documentation>Origem: campo {tpPgto} do S-1210.</xs:documentation>
+                                                            </xs:annotation>
+                                                            <xs:restriction base="xs:byte">
+                                                                <xs:enumeration value="1">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>S-1200</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:enumeration>
+                                                                <xs:enumeration value="2">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>S-2299</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:enumeration>
+                                                                <xs:enumeration value="3">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>S-2399</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:enumeration>
+                                                            </xs:restriction>
+                                                        </xs:simpleType>
+                                                    </xs:element>
+                                                    <xs:element name="dtPgto" type="xs:date">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Informar a data de pagamento.</xs:documentation>
+                                                            <xs:documentation>Origem: campo {dtPgto} do S-1210.</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:element>
+                                                    <xs:element name="codCateg" type="TS_codCateg">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Preencher com o código da categoria do trabalhador, conforme Tabela 01.</xs:documentation>
+                                                            <xs:documentation>Evento de origem: S-1200, S-2299 ou S-2399.</xs:documentation>
+                                                            <xs:documentation>Validação: Deve ser um código válido e existente na Tabela 01.</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:element>
+                                                    <xs:element name="infoIR" maxOccurs="999">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Bases, deduções, isenções e retenções do IRRF</xs:documentation>
+                                                        </xs:annotation>
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:element name="tpInfoIR">
+                                                                    <xs:simpleType>
+                                                                        <xs:annotation>
+                                                                            <xs:documentation>Consolidação dos tipos de valores relativos ao IRRF.</xs:documentation>
+                                                                        </xs:annotation>
+                                                                        <xs:restriction base="xs:integer">
+                                                                            <xs:enumeration value="11">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Rendimento tributável: Remuneração mensal</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="12">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Rendimento tributável: 13º salário</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="14">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Rendimento tributável: PLR</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="31">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Retenção: Remuneração mensal</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="32">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Retenção: 13º salário</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="34">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Retenção: PLR</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="41">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Dedução da base de cálculo: Previdência Social Oficial - PSO - Remuneração mensal</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="42">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Dedução da base de cálculo: PSO - 13º salário</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="46">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Dedução da base de cálculo: Previdência Privada - Salário mensal</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="47">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Dedução da base de cálculo: Previdência Privada - 13º salário</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="51">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Dedução da base de cálculo: Pensão Alimentícia - Remuneração mensal</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="52">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Dedução da base de cálculo: Pensão Alimentícia - 13º salário</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="54">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Dedução da base de cálculo: Pensão Alimentícia - PLR</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="61">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Dedução da base de cálculo: Fundo de Aposentadoria Programada Individual - FAPI - Remuneração mensal</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="62">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Dedução da base de cálculo: Fundo de Aposentadoria Programada Individual - FAPI - 13º salário</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="63">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Dedução da base de cálculo: Fundação de Previdência Complementar do Servidor Público - Remuneração mensal</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="64">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Dedução da base de cálculo: Fundação de Previdência Complementar do Servidor Público - 13º salário</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="70">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Rendimento não tributável ou isento: Parcela Isenta 65 anos - Remuneração mensal</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="71">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Rendimento não tributável ou isento: Parcela Isenta 65 anos - 13º salário</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="72">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Rendimento não tributável ou isento: Diárias</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="73">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Rendimento não tributável ou isento: Ajuda de custo</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="74">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Rendimento não tributável ou isento: Indenização e rescisão de contrato, inclusive a título de PDV e acidentes de trabalho</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="75">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Rendimento não tributável ou isento: Abono pecuniário</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="700">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Rendimento não tributável ou isento: Auxílio Moradia</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="701">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Rendimento não tributável ou isento: Parte não tributável do valor de serviço de transporte de passageiros ou cargas</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="79">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Rendimento não tributável ou isento: Outras isenções</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="9011">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Exigibilidade suspensa - Rendimento tributável: Remuneração mensal</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="9012">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Exigibilidade suspensa - Rendimento tributável: 13º salário</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="9014">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Exigibilidade suspensa - Rendimento tributável: PLR</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="9031">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Exigibilidade suspensa - Retenção: Remuneração mensal</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="9032">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Exigibilidade suspensa - Retenção: 13º salário</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="9034">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Exigibilidade suspensa - Retenção: PLR</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="9831">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Exigibilidade suspensa - Retenção: Depósito judicial - Mensal</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="9832">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Exigibilidade suspensa - Retenção: Depósito judicial - 13º salário</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="9834">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Exigibilidade suspensa - Retenção: Depósito judicial - PLR</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="9041">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Exigibilidade suspensa - Dedução da base de cálculo: Previdência Social Oficial - PSO - Remuneração mensal</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="9042">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Exigibilidade suspensa - Dedução da base de cálculo: PSO - 13º salário</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="9046">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Exigibilidade suspensa - Dedução da base de cálculo: Previdência Privada - Salário mensal</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="9047">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Exigibilidade suspensa - Dedução da base de cálculo: Previdência Privada - 13º salário</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="9051">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Exigibilidade suspensa - Dedução da base de cálculo: Pensão Alimentícia - Remuneração mensal</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="9052">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Exigibilidade suspensa - Dedução da base de cálculo: Pensão Alimentícia - 13º salário</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="9054">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Exigibilidade suspensa - Dedução da base de cálculo: Pensão Alimentícia - PLR</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="9061">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Exigibilidade suspensa - Dedução da base de cálculo: Fundo de Aposentadoria Programada Individual - FAPI - Remuneração mensal</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="9062">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Exigibilidade suspensa - Dedução da base de cálculo: Fundo de Aposentadoria Programada Individual - FAPI - 13º salário</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="9063">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Exigibilidade suspensa - Dedução da base de cálculo: Fundação de Previdência Complementar do Servidor Público - Remuneração mensal</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="9064">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Exigibilidade suspensa - Dedução da base de cálculo: Fundação de Previdência Complementar do Servidor Público - 13º salário</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="9082">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Compensação judicial do ano-calendário</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="9083">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Compensação judicial de anos anteriores</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                        </xs:restriction>
+                                                                    </xs:simpleType>
+                                                                </xs:element>
+                                                                <xs:element name="valor" type="TS_valorMonetario_positivo">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Composição do valor do rendimento tributável, não tributável, retenção, dedução ou isenção do IRRF, de acordo com a classificação apresentada no campo {tpInfoIR}.</xs:documentation>
+                                                                        <xs:documentation>Validação: Deve ser maior que 0 (zero).</xs:documentation>
+                                                                        <xs:documentation>Deve corresponder ao somatório dos valores informados nas rubricas (campo {vrRubr}) dos eventos de origem do S-1210 (grupos {remunPerApur} e {remunPerAnt} do S-1200 e grupo {verbasResc} do S-2299 e S-2399), desde que o campo {indApurIR} vinculado às respectivas rubricas seja igual a 0, obedecendo ao que segue:</xs:documentation>
+                                                                        <xs:documentation>a) Somar os valores das rubricas cujo {tpRubr} em {S-1010} seja igual a [1,3] e subtrair os valores das rubricas cujo {tpRubr} em {S-1010} seja igual a [2,4], observando a tabela de relacionamento abaixo:</xs:documentation>
+                                                                        <xs:documentation>{tpInfoIR} = [11], {codIncIRRF} = [11, 13];</xs:documentation>
+                                                                        <xs:documentation>{tpInfoIR} = [12], {codIncIRRF} = [12];</xs:documentation>
+                                                                        <xs:documentation>{tpInfoIR} = [14], {codIncIRRF} = [14];</xs:documentation>
+                                                                        <xs:documentation>{tpInfoIR} = [70], {codIncIRRF} = [70];</xs:documentation>
+                                                                        <xs:documentation>{tpInfoIR} = [71], {codIncIRRF} = [71];</xs:documentation>
+                                                                        <xs:documentation>{tpInfoIR} = [72], {codIncIRRF} = [72];</xs:documentation>
+                                                                        <xs:documentation>{tpInfoIR} = [73], {codIncIRRF} = [73];</xs:documentation>
+                                                                        <xs:documentation>{tpInfoIR} = [74], {codIncIRRF} = [74];</xs:documentation>
+                                                                        <xs:documentation>{tpInfoIR} = [75], {codIncIRRF} = [75];</xs:documentation>
+                                                                        <xs:documentation>{tpInfoIR} = [700], {codIncIRRF} = [700];</xs:documentation>
+                                                                        <xs:documentation>{tpInfoIR} = [701], {codIncIRRF} = [701];</xs:documentation>
+                                                                        <xs:documentation>{tpInfoIR} = [79], {codIncIRRF} = [79];</xs:documentation>
+                                                                        <xs:documentation>{tpInfoIR} = [9011], {codIncIRRF} = [9011, 9013];</xs:documentation>
+                                                                        <xs:documentation>{tpInfoIR} = [9012], {codIncIRRF} = [9012];</xs:documentation>
+                                                                        <xs:documentation>{tpInfoIR} = [9014], {codIncIRRF} = [9014].</xs:documentation>
+                                                                        <xs:documentation>b) Somar os valores das rubricas cujo {tpRubr} em {S-1010} seja igual a [2,4] e subtrair os valores das rubricas cujo {tpRubr} em {S-1010} seja igual a [1,3], observando a tabela de relacionamento abaixo:</xs:documentation>
+                                                                        <xs:documentation>{tpInfoIR} = [31], {codIncIRRF} = [31, 33];</xs:documentation>
+                                                                        <xs:documentation>{tpInfoIR} = [32], {codIncIRRF} = [32];</xs:documentation>
+                                                                        <xs:documentation>{tpInfoIR} = [34], {codIncIRRF} = [34];</xs:documentation>
+                                                                        <xs:documentation>{tpInfoIR} = [41], {codIncIRRF} = [41, 43];</xs:documentation>
+                                                                        <xs:documentation>{tpInfoIR} = [42], {codIncIRRF} = [42];</xs:documentation>
+                                                                        <xs:documentation>{tpInfoIR} = [46], {codIncIRRF} = [46, 48];</xs:documentation>
+                                                                        <xs:documentation>{tpInfoIR} = [47], {codIncIRRF} = [47];</xs:documentation>
+                                                                        <xs:documentation>{tpInfoIR} = [51], {codIncIRRF} = [51, 53];</xs:documentation>
+                                                                        <xs:documentation>{tpInfoIR} = [52], {codIncIRRF} = [52];</xs:documentation>
+                                                                        <xs:documentation>{tpInfoIR} = [54], {codIncIRRF} = [54];</xs:documentation>
+                                                                        <xs:documentation>{tpInfoIR} = [61], {codIncIRRF} = [61, 66];</xs:documentation>
+                                                                        <xs:documentation>{tpInfoIR} = [62], {codIncIRRF} = [62];</xs:documentation>
+                                                                        <xs:documentation>{tpInfoIR} = [63], {codIncIRRF} = [63, 65];</xs:documentation>
+                                                                        <xs:documentation>{tpInfoIR} = [64], {codIncIRRF} = [64];</xs:documentation>
+                                                                        <xs:documentation>{tpInfoIR} = [9031], {codIncIRRF} = [9031, 9033];</xs:documentation>
+                                                                        <xs:documentation>{tpInfoIR} = [9032], {codIncIRRF} = [9032];</xs:documentation>
+                                                                        <xs:documentation>{tpInfoIR} = [9034], {codIncIRRF} = [9034];</xs:documentation>
+                                                                        <xs:documentation>{tpInfoIR} = [9831], {codIncIRRF} = [9831, 9833];</xs:documentation>
+                                                                        <xs:documentation>{tpInfoIR} = [9832], {codIncIRRF} = [9832];</xs:documentation>
+                                                                        <xs:documentation>{tpInfoIR} = [9834], {codIncIRRF} = [9834];</xs:documentation>
+                                                                        <xs:documentation>{tpInfoIR} = [9041], {codIncIRRF} = [9041, 9043];</xs:documentation>
+                                                                        <xs:documentation>{tpInfoIR} = [9042], {codIncIRRF} = [9042];</xs:documentation>
+                                                                        <xs:documentation>{tpInfoIR} = [9046], {codIncIRRF} = [9046, 9048];</xs:documentation>
+                                                                        <xs:documentation>{tpInfoIR} = [9047], {codIncIRRF} = [9047];</xs:documentation>
+                                                                        <xs:documentation>{tpInfoIR} = [9051], {codIncIRRF} = [9051, 9053];</xs:documentation>
+                                                                        <xs:documentation>{tpInfoIR} = [9052], {codIncIRRF} = [9052];</xs:documentation>
+                                                                        <xs:documentation>{tpInfoIR} = [9054], {codIncIRRF} = [9054];</xs:documentation>
+                                                                        <xs:documentation>{tpInfoIR} = [9061], {codIncIRRF} = [9061, 9066];</xs:documentation>
+                                                                        <xs:documentation>{tpInfoIR} = [9062], {codIncIRRF} = [9062];</xs:documentation>
+                                                                        <xs:documentation>{tpInfoIR} = [9063], {codIncIRRF} = [9063, 9065];</xs:documentation>
+                                                                        <xs:documentation>{tpInfoIR} = [9064], {codIncIRRF} = [9064];</xs:documentation>
+                                                                        <xs:documentation>{tpInfoIR} = [9082], {codIncIRRF} = [9082];</xs:documentation>
+                                                                        <xs:documentation>{tpInfoIR} = [9083], {codIncIRRF} = [9083].</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:element>
+                                                            </xs:sequence>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="Id" use="required" type="TS_Id" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:element ref="ds:Signature" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
