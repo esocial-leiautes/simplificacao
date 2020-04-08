@@ -78,21 +78,20 @@
                                                         </xs:annotation>
                                                         <xs:complexType>
                                                             <xs:sequence>
-                                                                <xs:element name="tpInsc" type="TS_tpInsc_1" />
-                                                                <xs:element name="nrInsc" type="TS_cnpj">
+                                                                <xs:element name="cnpjOrgaoAnt" type="TS_cnpj">
                                                                     <xs:annotation>
-                                                                        <xs:documentation>Informar o número de inscrição do empregador anterior, de acordo com o tipo de inscrição indicado no campo {sucessaoVinc}/{tpInsc}.</xs:documentation>
-                                                                        <xs:documentation>Validação: Deve ser um número de inscrição válido diferente da inscrição do declarante, considerando as particularidades aplicadas à informação de CNPJ de órgão público em S-1000. Além disso, deve possuir 14 (catorze) algarismos e ser diferente do CNPJ base do empregador e dos estabelecimentos informados através do evento S-1005.</xs:documentation>
+                                                                        <xs:documentation>Informar o CNPJ do órgão público anterior.</xs:documentation>
+                                                                        <xs:documentation>Validação: Deve ser um CNPJ válido e diferente da inscrição do declarante, considerando as particularidades aplicadas à informação de CNPJ de órgão público em S-1000. Além disso, deve possuir 14 (catorze) algarismos e ser diferente do CNPJ base do órgão público declarante e dos estabelecimentos informados através do evento S-1005.</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
                                                                 <xs:element name="matricAnt" minOccurs="0" type="TS_codigo_esocial">
                                                                     <xs:annotation>
-                                                                        <xs:documentation>Matrícula do trabalhador no empregador anterior.</xs:documentation>
+                                                                        <xs:documentation>Matrícula do trabalhador no órgão público anterior.</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
                                                                 <xs:element name="dtExercicio" type="xs:date">
                                                                     <xs:annotation>
-                                                                        <xs:documentation>Preencher com a data de exercício do servidor. No caso de transferência do servidor, deve ser preenchida a data inicial do vínculo no primeiro empregador (data de início do vínculo).</xs:documentation>
+                                                                        <xs:documentation>Preencher com a data de exercício do servidor. No caso de transferência do servidor, deve ser preenchida a data inicial do vínculo no primeiro órgão público (data de início do vínculo).</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
                                                                 <xs:element name="observacao" minOccurs="0" type="TS_texto_255">
@@ -175,10 +174,10 @@
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>
-                                                    <xs:element name="remunSuc" type="TS_sim_nao">
+                                                    <xs:element name="remunOrgSuc" type="TS_sim_nao">
                                                         <xs:annotation>
                                                             <xs:documentation>Indicar se a remuneração é relativa a verbas de natureza salarial ou não salarial devidas pelo órgão sucessor a servidor desligado ainda na sucedida.</xs:documentation>
-                                                            <xs:documentation>Validação: Se {codCateg} diferente de [1XX, 3XX], deve ser informado [N].</xs:documentation>
+                                                            <xs:documentation>Validação: Se {codCateg} for diferente de [1XX, 3XX], deve ser informado [N].</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
                                                     <xs:element name="idePeriodo" maxOccurs="180">
@@ -219,7 +218,7 @@
                                                                                         <xs:element name="matricula" minOccurs="0" type="TS_codigo_esocial">
                                                                                             <xs:annotation>
                                                                                                 <xs:documentation>Matrícula atribuída ao trabalhador pela empresa ou, no caso de servidor público, a matrícula constante no Sistema de Administração de Recursos Humanos do órgão.</xs:documentation>
-                                                                                                <xs:documentation>Validação: Deve corresponder à matrícula informada pelo empregador no evento S-2200 ou S-2300 do respectivo contrato. Não preencher no caso de TSVE - Trabalhador Sem Vínculo de Emprego/Estatutário sem informação de matrícula no evento S-2300.</xs:documentation>
+                                                                                                <xs:documentation>Validação: Deve corresponder à matrícula informada pelo empregador no evento S-2200 ou S-2300 do respectivo contrato. Não preencher no caso de TSVE - Trabalhador Sem Vínculo de Emprego/Estatutário sem informação de matrícula no evento S-2300 ou se {remunOrgSuc} = [S].</xs:documentation>
                                                                                             </xs:annotation>
                                                                                         </xs:element>
                                                                                         <xs:element name="itensRemun" type="T_itensRemun_rpps" maxOccurs="200" />

@@ -116,7 +116,7 @@
                                         <xs:element name="trabImig" minOccurs="0">
                                             <xs:annotation>
                                                 <xs:documentation>Informações do trabalhador imigrante</xs:documentation>
-                                                <xs:documentation>CONDICAO_GRUPO: N (se {paisNac} = Brasil); OC (se {paisNac} diferent de Brasil) e se grupo {desligamento} não estiver preenchido); F (nos demais casos)</xs:documentation>
+                                                <xs:documentation>CONDICAO_GRUPO: N (se {paisNac} = [105]); OC (se {paisNac} for diferente de [105]) e se grupo {desligamento} não estiver preenchido); F (nos demais casos)</xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>
@@ -494,7 +494,8 @@
                                                                         <xs:simpleType>
                                                                             <xs:annotation>
                                                                                 <xs:documentation>Preencher com o tipo de provimento</xs:documentation>
-                                                                                <xs:documentation>Validação: Os valores [3, 4, 5, 6, 7, 8, 9] só são permitidos se a natureza jurídica do declarante for Administração Pública (grupo [1]). Se {codCateg} = [302], deve ser preenchido com [2].</xs:documentation>
+                                                                                <xs:documentation>Validação: Os valores [3, 4, 5, 6, 7, 8, 9] só são permitidos se a natureza jurídica do declarante for Administração Pública (grupo [1]).</xs:documentation>
+                                                                                <xs:documentation>Se {codCateg} = [302], deve ser preenchido com [2].</xs:documentation>
                                                                             </xs:annotation>
                                                                             <xs:restriction base="xs:byte">
                                                                                 <xs:enumeration value="1">
@@ -641,7 +642,7 @@
                                                     </xs:element>
                                                     <xs:element name="acumCargo" type="TS_sim_nao" minOccurs="0">
                                                         <xs:annotation>
-                                                            <xs:documentation>Indicar se é um cargo acumulável</xs:documentation>
+                                                            <xs:documentation>Informar se o cargo, emprego ou função pública é acumulável.</xs:documentation>
                                                             <xs:documentation>Validação: Preenchimento obrigatório se {cadIni} = [N] e se a natureza jurídica do declarante for igual a [1XXX, 2011, 2038].</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
@@ -696,7 +697,7 @@
                                                                         <xs:documentation>CONDICAO_GRUPO: N (se {codCateg} = [104, 106]); O (se {codCateg} diferente de [104, 106] e se grupo {desligamento} não estiver preenchido); F (nos demais casos)</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
-                                                                <xs:element name="localTrabDom" type="T_endereco_Brasil" minOccurs="0">
+                                                                <xs:element name="localTempDom" type="T_endereco_Brasil" minOccurs="0">
                                                                     <xs:annotation>
                                                                         <xs:documentation>Endereço de trabalho do trabalhador doméstico e trabalhador temporário</xs:documentation>
                                                                         <xs:documentation>CONDICAO_GRUPO: N (se {codCateg} diferente de [104, 106]); O (se {codCateg} = [104, 106] e se grupo {desligamento} não estiver preenchido); F (nos demais casos)</xs:documentation>
@@ -785,7 +786,7 @@
                                                     <xs:element name="nrInsc">
                                                         <xs:simpleType>
                                                             <xs:annotation>
-                                                                <xs:documentation>Informar o número de inscrição do empregador anterior, de acordo com o tipo de inscrição indicado no campo {sucessaoVinc}/{tpInsc}.</xs:documentation>
+                                                                <xs:documentation>Informar o número de inscrição do empregador anterior, de acordo com o tipo de inscrição indicado no campo {sucessaoVinc/tpInsc}.</xs:documentation>
                                                                 <xs:documentation>Validação: Deve ser um número de inscrição válido diferente da inscrição do declarante, considerando as particularidades aplicadas à informação de CNPJ de órgão público em S-1000.</xs:documentation>
                                                                 <xs:documentation>Se {tpInsc} = [1], deve possuir 14 (catorze) algarismos e ser diferente do CNPJ base do empregador e dos estabelecimentos informados através do evento S-1005.</xs:documentation>
                                                                 <xs:documentation>Se {tpInsc} = [2], deve possuir 11 (onze) algarismos.</xs:documentation>
@@ -929,7 +930,7 @@
                                                         <xs:annotation>
                                                             <xs:documentation>Data de início da cessão/exercício em outro órgão.</xs:documentation>
                                                             <xs:documentation>Validação: Devem ser observadas as seguintes regras:</xs:documentation>
-                                                            <xs:documentation>a) Deve ser igual ou posterior à data de admissão/exercício do trabalhador;</xs:documentation>
+                                                            <xs:documentation>a) Deve ser igual ou posterior à data de admissão/exercício do trabalhador e igual ou posterior a [2020-11-09];</xs:documentation>
                                                             <xs:documentation>b) Se {cadIni} = [S], deve ser anterior à data de início da obrigatoriedade dos eventos não periódicos para o empregador/ente público;</xs:documentation>
                                                             <xs:documentation>c) Se {cadIni} = [N], deve ser anterior à data da transferência ou alteração do CPF do empregado ({sucessaoVinc/dtTransf} ou {mudancaCPF/dtAltCPF}).</xs:documentation>
                                                             <xs:documentation>Não informar se {tpAdmissao} = [1] ou {tpProv} diferente de [5, 8, 10].</xs:documentation>

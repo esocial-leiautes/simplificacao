@@ -77,11 +77,10 @@
                                                         <xs:annotation>
                                                             <xs:documentation>Data de início do afastamento</xs:documentation>
                                                             <xs:documentation>Validação: Deve-se obedecer às seguintes regras:</xs:documentation>
-                                                            <xs:documentation>a) A data deve ser igual ou posterior a data de admissão do vínculo ao qual se refere o evento (no caso de sucessão ou mudança de CPF, igual ou posterior à data da transferência ou à data de alteração do CPF, respectivamente);</xs:documentation>
-                                                            <xs:documentation>b) Não pode ser superior à data atual, exceto se:</xs:documentation>
-                                                            <xs:documentation>b1) {codMotAfast} = [15] (férias), situação em que pode ser até 60 dias superior à data atual;</xs:documentation>
-                                                            <xs:documentation>b2) {codMotAfast} = [18], situação em que pode ser até 120 dias superior à data atual;</xs:documentation>
-                                                            <xs:documentation>c) É necessário que o trabalhador esteja, antes da data de início do afastamento, em atividade, ou seja, não pode existir evento de afastamento anterior a {dtIniAfast} sem que este tenha sido encerrado.</xs:documentation>
+                                                            <xs:documentation>a) Não pode ser superior à data atual, exceto se:</xs:documentation>
+                                                            <xs:documentation>a1) {codMotAfast} = [15] (férias), situação em que pode ser até 60 dias superior à data atual;</xs:documentation>
+                                                            <xs:documentation>a2) {codMotAfast} = [18], situação em que pode ser até 120 dias superior à data atual;</xs:documentation>
+                                                            <xs:documentation>b) É necessário que o trabalhador esteja, antes da data de início do afastamento, em atividade, ou seja, não pode existir evento de afastamento anterior a {dtIniAfast} sem que este tenha sido encerrado.</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
                                                     <xs:element name="codMotAfast" type="TS_codMotAfast" />
@@ -126,7 +125,7 @@
                                                     <xs:element name="perAquis" minOccurs="0">
                                                         <xs:annotation>
                                                             <xs:documentation>Informações referentes ao período aquisitivo de férias</xs:documentation>
-                                                            <xs:documentation>CONDICAO_GRUPO: O (se {codMotAfast} = [15] E ({codCateg} = [1XX, 301, 302, 303, 306, 307, 309, 310, 312, 410] com {tpRegTrab} = [1] no RET OU {codCateg} = [401] com {tpRegTrab} = [1] no RET ou não informado) E {dtIniAfast} >= [2020-09-08]); N (nos demais casos)</xs:documentation>
+                                                            <xs:documentation>CONDICAO_GRUPO: O (se {codMotAfast} = [15] E ({codCateg} = [1XX, 301, 302, 303, 304, 306, 307, 309, 310, 312, 410] com {tpRegTrab} = [1] no RET OU {codCateg} = [401] com {tpRegTrab} = [1] no RET ou não informado) E {dtIniAfast} >= [2020-09-08]); N (nos demais casos)</xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
                                                             <xs:sequence>
@@ -314,7 +313,10 @@
                                                             <xs:annotation>
                                                                 <xs:documentation>Número do Processo</xs:documentation>
                                                                 <xs:documentation>Informar o número do processo administrativo/judicial ou do benefício de acordo com o tipo informado em {tpProc}.</xs:documentation>
-                                                                <xs:documentation>Validação: O preenchimento é obrigatório se {origRetif} = [2, 3].</xs:documentation>
+                                                                <xs:documentation>Validação: O preenchimento é obrigatório se {origRetif} = [2, 3]. Deve ser um número de processo/benefício válido e:</xs:documentation>
+                                                                <xs:documentation>a) Se {tpProc} = [1], deve possuir 17 (dezessete) ou 21 (vinte e um) algarismos;</xs:documentation>
+                                                                <xs:documentation>b) Se {tpProc} = [2], deve possuir 20 (vinte) algarismos;</xs:documentation>
+                                                                <xs:documentation>c) Se {tpProc} = [3], deve possuir 10 (dez) algarismos.</xs:documentation>
                                                             </xs:annotation>
                                                             <xs:restriction base="xs:string">
                                                                 <xs:pattern value="\d{10}|\d{17}|\d{20}|\d{21}" />
@@ -328,6 +330,7 @@
                                             <xs:annotation>
                                                 <xs:documentation>Informações do Término do Afastamento</xs:documentation>
                                                 <xs:documentation>CONDICAO_GRUPO: O (se não for preenchido o registro {iniAfastamento}); OC (nos demais casos)</xs:documentation>
+                                                <xs:documentation>REGRA:REGRA_EXISTE_EVENTO_AFASTAMENTO</xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>

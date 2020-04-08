@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <xs:schema xmlns="http://www.esocial.gov.br/schema/evt/evtPgtos/v01_00_00" targetNamespace="http://www.esocial.gov.br/schema/evt/evtPgtos/v01_00_00" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
-    <xs:include schemaLocation="include/ideEvento_folha.xsd " />
+    <xs:include schemaLocation="include/ideEvento_folha_mensal.xsd " />
     <xs:include schemaLocation="include/ideEmpregador.xsd " />
     <xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd" />
     <xs:element name="eSocial">
@@ -11,7 +11,7 @@
             <xs:sequence>
                 <xs:element name="evtPgtos">
                     <xs:annotation>
-                        <xs:documentation>Evento Pagtos Efetuados</xs:documentation>
+                        <xs:documentation>Pagamentos de rendimentos do trabalho</xs:documentation>
                         <xs:documentation>CHAVE_GRUPO: {Id}</xs:documentation>
                         <xs:documentation>REGRA:REGRA_CONTROLE_DUPLICIDADE</xs:documentation>
                         <xs:documentation>REGRA:REGRA_ENVIO_PROC_FECHAMENTO</xs:documentation>
@@ -23,7 +23,7 @@
                     </xs:annotation>
                     <xs:complexType>
                         <xs:sequence>
-                            <xs:element name="ideEvento" type="T_ideEvento_folha" />
+                            <xs:element name="ideEvento" type="T_ideEvento_folha_mensal" />
                             <xs:element name="ideEmpregador" type="T_ideEmpregador" />
                             <xs:element name="ideBenef">
                                 <xs:annotation>
@@ -87,8 +87,8 @@
                                                     </xs:element>
                                                     <xs:element name="perRef" minOccurs="0" type="TS_perApur">
                                                         <xs:annotation>
-                                                            <xs:documentation>Informar a competência declarada no campo {perApur} do evento remuneratório a que se refere o pagamento, no formato AAAA-MM (ou AAAA, se for relativa à folha de 13° salário).</xs:documentation>
-                                                            <xs:documentation>Validação: Informação obrigatória e exclusiva se {tpPgto} = [1, 5, 6]. Deve corresponder ao conteúdo indicado na relação a seguir:</xs:documentation>
+                                                            <xs:documentation>Informar a competência declarada no campo {perApur} do evento remuneratório a que se refere o pagamento, no formato AAAA-MM (ou AAAA, se for relativa à folha de 13° salário). Se {tpPgto} = [2, 3], informar o mês/ano da data de desligamento (ou de término), no formato AAAA-MM.</xs:documentation>
+                                                            <xs:documentation>Validação: Deve corresponder ao conteúdo indicado na relação a seguir:</xs:documentation>
                                                             <xs:documentation>Se {tpPgto} = [1], {perApur} do S-1200;</xs:documentation>
                                                             <xs:documentation>Se {tpPgto} = [2], mês/ano de {dtDeslig} do S-2299 (formato AAAA-MM);</xs:documentation>
                                                             <xs:documentation>Se {tpPgto} = [3], mês/ano de {dtTerm} do S-2399 (formato AAAA-MM);</xs:documentation>

@@ -31,6 +31,7 @@
                         <xs:documentation>REGRA:REGRA_RETIFICA_MESMO_VINCULO</xs:documentation>
                         <xs:documentation>REGRA:REGRA_TSV_VERIFICA_DUPLICIDADE</xs:documentation>
                         <xs:documentation>REGRA:REGRA_VALIDA_EMPREGADOR</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_VALIDA_MATRICULA</xs:documentation>
                         <xs:documentation>REGRA:REGRA_VALIDA_TRABALHADOR_BASE_CPF</xs:documentation>
                     </xs:annotation>
                     <xs:complexType>
@@ -106,7 +107,7 @@
                                         <xs:element name="trabImig" minOccurs="0">
                                             <xs:annotation>
                                                 <xs:documentation>Informações do trabalhador imigrante</xs:documentation>
-                                                <xs:documentation>CONDICAO_GRUPO: OC (se {paisNac} diferente de Brasil); N (nos demais casos)</xs:documentation>
+                                                <xs:documentation>CONDICAO_GRUPO: OC (se {paisNac} diferente de [105]); N (nos demais casos)</xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>
@@ -288,7 +289,7 @@
                                                             <xs:documentation>CONDICAO_GRUPO: O (se {codCateg} = [305, 721, 722, 771]); OC (nos demais casos)</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
-                                                    <xs:element name="fgts" minOccurs="0">
+                                                    <xs:element name="FGTS" minOccurs="0">
                                                         <xs:annotation>
                                                             <xs:documentation>Informações relativas ao FGTS</xs:documentation>
                                                             <xs:documentation>CONDICAO_GRUPO: O (se {codCateg} = [721]); N (nos demais casos)</xs:documentation>
@@ -463,6 +464,11 @@
                                                     <xs:element name="cpfAnt" type="TS_cpf">
                                                         <xs:annotation>
                                                             <xs:documentation>Preencher com o número do CPF antigo do trabalhador.</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:element>
+                                                    <xs:element name="matricAnt" minOccurs="0" type="TS_codigo_esocial">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Preencher com a matrícula anterior do trabalhador.</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
                                                     <xs:element name="dtAltCPF" type="xs:date">

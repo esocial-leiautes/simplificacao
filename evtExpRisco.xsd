@@ -6,13 +6,13 @@
     <xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd" />
     <xs:element name="eSocial">
         <xs:annotation>
-            <xs:documentation>S-2240 - Condições Ambientais do Trabalho - Fatores de Risco</xs:documentation>
+            <xs:documentation>S-2240 - Condições Ambientais do Trabalho - Agentes Nocivos</xs:documentation>
         </xs:annotation>
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="evtExpRisco">
                     <xs:annotation>
-                        <xs:documentation>Evento Condições Ambientais do Trabalho - Fatores de Risco</xs:documentation>
+                        <xs:documentation>Evento Condições Ambientais do Trabalho - Agentes Nocivos</xs:documentation>
                         <xs:documentation>CHAVE_GRUPO: {Id}</xs:documentation>
                         <xs:documentation>REGRA:REGRA_ENVIO_PROC_FECHAMENTO</xs:documentation>
                         <xs:documentation>REGRA:REGRA_EVENTOS_EXTEMP</xs:documentation>
@@ -29,11 +29,13 @@
                             <xs:element name="ideVinculo" type="T_ideVinculo">
                                 <xs:annotation>
                                     <xs:documentation>Informações de Identificação do Trabalhador e do Vínculo</xs:documentation>
+                                    <xs:documentation>REGRA:REGRA_TSV_ATIVO_NA_DTEVENTO</xs:documentation>
+                                    <xs:documentation>REGRA:REGRA_VINCULO_ATIVO_NA_DTEVENTO</xs:documentation>
                                 </xs:annotation>
                             </xs:element>
                             <xs:element name="infoExpRisco">
                                 <xs:annotation>
-                                    <xs:documentation>Ambiente de trabalho, atividades desempenhadas e exposição a fatores de risco</xs:documentation>
+                                    <xs:documentation>Ambiente de trabalho, atividades desempenhadas e exposição a agentes nocivos</xs:documentation>
                                     <xs:documentation>CHAVE_GRUPO: {dtIniCondicao}</xs:documentation>
                                 </xs:annotation>
                                 <xs:complexType>
@@ -108,19 +110,18 @@
                                                 </xs:sequence>
                                             </xs:complexType>
                                         </xs:element>
-                                        <xs:element name="fatRisco" maxOccurs="999">
+                                        <xs:element name="agNoc" maxOccurs="999">
                                             <xs:annotation>
-                                                <xs:documentation>Fator(es) de risco ao(s) qual(is) o trabalhador está exposto</xs:documentation>
-                                                <xs:documentation>CHAVE_GRUPO: {codFatRis}, {dscFatRisc}</xs:documentation>
+                                                <xs:documentation>Agente(s) nocivo(s) ao(s) qual(is) o trabalhador está exposto</xs:documentation>
+                                                <xs:documentation>CHAVE_GRUPO: {codAgNoc}, {dscAgNoc}</xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>
-                                                    <xs:element name="codFatRis">
+                                                    <xs:element name="codAgNoc">
                                                         <xs:simpleType>
                                                             <xs:annotation>
-                                                                <xs:documentation>Código do fator de risco</xs:documentation>
-                                                                <xs:documentation>Informar o código do fator de risco ao qual o trabalhador está exposto, conforme Tabela 24. Preencher com números e pontos. Caso não haja exposição, informar o código [09.01.001] (Ausência de fator de risco ou de atividades previstas no Anexo IV do Decreto 3.048/1999).</xs:documentation>
-                                                                <xs:documentation>Validação: Deve ser um código válido e existente na Tabela 24 - Fatores de Riscos e Atividades - Aposentadoria Especial. Não é possível informar nenhum outro código de fator de risco quando houver o código [09.01.001].</xs:documentation>
+                                                                <xs:documentation>Informar o código do agente nocivo ao qual o trabalhador está exposto, conforme Tabela 24. Preencher com números e pontos. Caso não haja exposição, informar o código [09.01.001] (Ausência de agente nocivo ou de atividades previstas no Anexo IV do Decreto 3.048/1999).</xs:documentation>
+                                                                <xs:documentation>Validação: Deve ser um código válido e existente na Tabela 24 - Agentes Nocivos e Atividades - Aposentadoria Especial. Não é possível informar nenhum outro código de agente nocivo quando houver o código [09.01.001].</xs:documentation>
                                                             </xs:annotation>
                                                             <xs:restriction base="xs:string">
                                                                 <xs:length value="9" />
@@ -128,16 +129,16 @@
                                                             </xs:restriction>
                                                         </xs:simpleType>
                                                     </xs:element>
-                                                    <xs:element name="dscFatRisc" minOccurs="0" type="TS_texto_999">
+                                                    <xs:element name="dscAgNoc" minOccurs="0" type="TS_texto_999">
                                                         <xs:annotation>
-                                                            <xs:documentation>Descrição do fator de risco</xs:documentation>
-                                                            <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se {codFatRis} = [02.01.999, 02.03.999, 02.04.999, 02.05.999, 02.06.999, 02.07.999, 02.08.999, 02.09.999, 02.10.999, 02.12.999, 02.13.999, 02.14.999, 02.15.999, 02.16.999, 05.01.001].</xs:documentation>
+                                                            <xs:documentation>Descrição do agente nocivo.</xs:documentation>
+                                                            <xs:documentation>Validação: Preenchimento obrigatório se {codAgNoc} = [01.01.001, 01.02.001, 01.03.001, 01.04.001, 01.05.001, 01.06.001, 01.07.001, 01.08.001, 01.09.001, 01.10.001, 01.12.001, 01.13.001, 01.14.001, 01.15.001, 01.16.001, 01.17.001, 01.18.001, 05.01.001].</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
                                                     <xs:element name="tpAval">
                                                         <xs:simpleType>
                                                             <xs:annotation>
-                                                                <xs:documentation>Tipo de avaliação de fator de risco</xs:documentation>
+                                                                <xs:documentation>Tipo de avaliação de agente nocivo.</xs:documentation>
                                                             </xs:annotation>
                                                             <xs:restriction base="xs:byte">
                                                                 <xs:enumeration value="1">
@@ -156,7 +157,7 @@
                                                     <xs:element name="intConc" minOccurs="0">
                                                         <xs:simpleType>
                                                             <xs:annotation>
-                                                                <xs:documentation>Intensidade, concentração ou dose da exposição do trabalhador ao fator de risco cujo critério de avaliação seja quantitativo.</xs:documentation>
+                                                                <xs:documentation>Intensidade, concentração ou dose da exposição do trabalhador ao agente nocivo cujo critério de avaliação seja quantitativo.</xs:documentation>
                                                                 <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se {tpAval} = [1].</xs:documentation>
                                                             </xs:annotation>
                                                             <xs:restriction base="xs:decimal">
@@ -170,7 +171,7 @@
                                                         <xs:simpleType>
                                                             <xs:annotation>
                                                                 <xs:documentation>Limite de tolerância calculado para agentes específicos, conforme técnica de medição exigida na legislação.</xs:documentation>
-                                                                <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se {tpAval} = [1] e {codFatRis} = [01.01.006, 02.18.001].</xs:documentation>
+                                                                <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se {tpAval} = [1] e {codAgNoc} = [01.18.001, 02.01.005].</xs:documentation>
                                                             </xs:annotation>
                                                             <xs:restriction base="xs:decimal">
                                                                 <xs:totalDigits value="10" />
@@ -362,7 +363,7 @@
                                                                     <xs:simpleType>
                                                                         <xs:annotation>
                                                                             <xs:documentation>Utilização de EPC</xs:documentation>
-                                                                            <xs:documentation>O empregador implementa medidas de proteção coletiva (EPC) para eliminar ou reduzir a exposição dos trabalhadores ao fator de risco?</xs:documentation>
+                                                                            <xs:documentation>O empregador implementa medidas de proteção coletiva (EPC) para eliminar ou reduzir a exposição dos trabalhadores ao agente nocivo?</xs:documentation>
                                                                         </xs:annotation>
                                                                         <xs:restriction base="xs:byte">
                                                                             <xs:enumeration value="0">
