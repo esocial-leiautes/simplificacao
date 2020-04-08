@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns="http://www.esocial.gov.br/schema/evt/evtCdBenefIn/v01_00_00" targetNamespace="http://www.esocial.gov.br/schema/evt/evtCdBenefIn/v01_00_00" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+    <xs:include schemaLocation="include/ideEvento_trab.xsd" />
+    <xs:include schemaLocation="include/ideEmpregador_cnpj.xsd" />
+    <xs:include schemaLocation="include/endereco.xsd" />
+    <xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd" />
+    <xs:element name="eSocial">
+        <xs:annotation>
+            <xs:documentation>S-2400 - Cadastro de Beneficiário - Entes Públicos - Início</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="evtCdBenefIn">
+                    <xs:annotation>
+                        <xs:documentation>Evento de cadastro de beneficiário - Início</xs:documentation>
+                        <xs:documentation>CHAVE_GRUPO: {Id}</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_ENVIO_PROC_FECHAMENTO</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_EVENTO_EXT_SEM_IMPACTO_FOPAG</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_EVENTOS_EXTEMP</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_EXISTE_INFO_EMPREGADOR</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_VALIDA_CNPJ</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_VALIDA_TRABALHADOR_BASE_CPF</xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="ideEvento" type="T_ideEvento_trab" />
+                            <xs:element name="ideEmpregador" type="T_ideEmpregador_cnpj" />
+                            <xs:element name="beneficiario">
+                                <xs:annotation>
+                                    <xs:documentation>Grupo de informações do beneficiário</xs:documentation>
+                                    <xs:documentation>CHAVE_GRUPO: {cpfBenef}</xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="cpfBenef" type="TS_cpf">
+                                            <xs:annotation>
+                                                <xs:documentation>Informar o CPF do beneficiário.</xs:documentation>
+                                                <xs:documentation>Validação: Não é possível existir dois eventos originais do mesmo órgão público declarante para o mesmo CPF do beneficiário.</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="nmBenefic" type="TS_nome">
+                                            <xs:annotation>
+                                                <xs:documentation>Nome do beneficiário.</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="dtNascto" type="xs:date">
+                                            <xs:annotation>
+                                                <xs:documentation>Preencher com a data de nascimento.</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="dtInicio" type="xs:date">
+                                            <xs:annotation>
+                                                <xs:documentation>Preencher com a data de início do cadastro do beneficiário. Informar a data de início da obrigatoriedade dos eventos não periódicos para o ente público no eSocial caso o beneficiário possua cadastro anterior a essa data.</xs:documentation>
+                                                <xs:documentation>Validação: Deve ser igual ou posterior à data de início da obrigatoriedade dos eventos não periódicos para o ente público no eSocial e igual ou anterior à data atual.</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="sexo" minOccurs="0" type="TS_sexo">
+                                            <xs:annotation>
+                                                <xs:documentation>Sexo do beneficiário.</xs:documentation>
+                                                <xs:documentation>Validação: Informação obrigatória se {dtInicio} for posterior ao início da obrigatoriedade dos eventos não periódicos para o ente público no eSocial.</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="racaCor" type="TS_racaCor">
+                                            <xs:annotation>
+                                                <xs:documentation>Raça e cor do beneficiário.</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="estCiv" minOccurs="0" type="TS_estCivil">
+                                            <xs:annotation>
+                                                <xs:documentation>Estado civil do beneficiário.</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="incFisMen" type="TS_sim_nao">
+                                            <xs:annotation>
+                                                <xs:documentation>Informar se o beneficiário é pessoa com doença incapacitante que isenta da contribuição previdenciária, total ou parcialmente, reconhecida administrativa ou judicialmente, na forma da lei.</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="dtIncFisMen" minOccurs="0" type="xs:date">
+                                            <xs:annotation>
+                                                <xs:documentation>Preencher com a data do reconhecimento da incapacidade.</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="endereco">
+                                            <xs:annotation>
+                                                <xs:documentation>Endereço do Trabalhador</xs:documentation>
+                                            </xs:annotation>
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:choice>
+                                                        <xs:element name="brasil" type="T_endereco_Brasil">
+                                                            <xs:annotation>
+                                                                <xs:documentation>Endereço no Brasil</xs:documentation>
+                                                                <xs:documentation>CONDICAO_GRUPO: O (se não informado o grupo {exterior}); N (nos demais casos)</xs:documentation>
+                                                            </xs:annotation>
+                                                        </xs:element>
+                                                        <xs:element name="exterior" type="T_endereco_exterior">
+                                                            <xs:annotation>
+                                                                <xs:documentation>Endereço no Exterior</xs:documentation>
+                                                                <xs:documentation>CONDICAO_GRUPO: O (se não informado o grupo {brasil}); N (nos demais casos)</xs:documentation>
+                                                            </xs:annotation>
+                                                        </xs:element>
+                                                    </xs:choice>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="dependente" minOccurs="0" maxOccurs="99">
+                                            <xs:annotation>
+                                                <xs:documentation>Informações dos dependentes</xs:documentation>
+                                                <xs:documentation>CHAVE_GRUPO: {tpDep}, {nmDep}, {dtNascto}</xs:documentation>
+                                                <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
+                                            </xs:annotation>
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="tpDep" type="TS_tpDep" />
+                                                    <xs:element name="nmDep" type="TS_nome">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Nome do dependente.</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:element>
+                                                    <xs:element name="dtNascto">
+                                                        <xs:simpleType>
+                                                            <xs:annotation>
+                                                                <xs:documentation>Preencher com a data de nascimento.</xs:documentation>
+                                                                <xs:documentation>Validação: Deve ser maior ou igual que 01/01/1890 e menor que a data atual.</xs:documentation>
+                                                            </xs:annotation>
+                                                            <xs:restriction base="xs:date">
+                                                                <xs:minInclusive value="1890-01-01" />
+                                                            </xs:restriction>
+                                                        </xs:simpleType>
+                                                    </xs:element>
+                                                    <xs:element name="cpfDep" minOccurs="0" type="TS_cpf">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Número de Inscrição no CPF.</xs:documentation>
+                                                            <xs:documentation>Validação: Deve ser um número de CPF válido, observando o que segue:</xs:documentation>
+                                                            <xs:documentation>a) O preenchimento é obrigatório se {depIRRF} = [S];</xs:documentation>
+                                                            <xs:documentation>b) Não pode haver mais de um dependente com o mesmo número de CPF.</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:element>
+                                                    <xs:element name="sexoDep" minOccurs="0" type="TS_sexo">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Sexo do dependente.</xs:documentation>
+                                                            <xs:documentation>Validação: Informação obrigatória se {dtInicio} for posterior ao início da obrigatoriedade dos eventos não periódicos para o ente público no eSocial.</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:element>
+                                                    <xs:element name="depIRRF" type="TS_sim_nao">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Informar se é dependente do beneficiário para fins de dedução de seu rendimento tributável pelo Imposto de Renda.</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:element>
+                                                    <xs:element name="incFisMen" type="TS_sim_nao">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Informar se o dependente é pessoa com doença incapacitante, na forma da lei.</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:element>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="Id" use="required" type="TS_Id" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:element ref="ds:Signature" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
