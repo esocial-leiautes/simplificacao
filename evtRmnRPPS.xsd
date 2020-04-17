@@ -142,23 +142,7 @@
                                                                         <xs:documentation>Validação: Deve constar na Tabela S-1005 em {perApur}.</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
-                                                                <xs:element name="remunPerApur" maxOccurs="8">
-                                                                    <xs:annotation>
-                                                                        <xs:documentation>Remuneração do Trabalhador</xs:documentation>
-                                                                        <xs:documentation>CHAVE_GRUPO: {matricula}</xs:documentation>
-                                                                    </xs:annotation>
-                                                                    <xs:complexType>
-                                                                        <xs:sequence>
-                                                                            <xs:element name="matricula" minOccurs="0" type="TS_codigo_esocial">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Matrícula atribuída ao trabalhador pela empresa ou, no caso de servidor público, a matrícula constante no Sistema de Administração de Recursos Humanos do órgão.</xs:documentation>
-                                                                                    <xs:documentation>Validação: Deve corresponder à matrícula informada pelo empregador no evento S-2200 ou S-2300 do respectivo contrato. Não preencher no caso de TSVE - Trabalhador Sem Vínculo de Emprego/Estatutário sem informação de matrícula no evento S-2300.</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:element>
-                                                                            <xs:element name="itensRemun" type="T_itensRemun_rpps" maxOccurs="200" />
-                                                                        </xs:sequence>
-                                                                    </xs:complexType>
-                                                                </xs:element>
+                                                                <xs:element name="remunPerApur" maxOccurs="8" type="T_remunPer" />
                                                             </xs:sequence>
                                                         </xs:complexType>
                                                     </xs:element>
@@ -206,23 +190,7 @@
                                                                                     <xs:documentation>Validação: Deve constar na Tabela S-1005 em {perRef}.</xs:documentation>
                                                                                 </xs:annotation>
                                                                             </xs:element>
-                                                                            <xs:element name="remunPerAnt" maxOccurs="8">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Remuneração do Trabalhador</xs:documentation>
-                                                                                    <xs:documentation>CHAVE_GRUPO: {matricula}</xs:documentation>
-                                                                                </xs:annotation>
-                                                                                <xs:complexType>
-                                                                                    <xs:sequence>
-                                                                                        <xs:element name="matricula" minOccurs="0" type="TS_codigo_esocial">
-                                                                                            <xs:annotation>
-                                                                                                <xs:documentation>Matrícula atribuída ao trabalhador pela empresa ou, no caso de servidor público, a matrícula constante no Sistema de Administração de Recursos Humanos do órgão.</xs:documentation>
-                                                                                                <xs:documentation>Validação: Deve corresponder à matrícula informada pelo empregador no evento S-2200 ou S-2300 do respectivo contrato. Não preencher no caso de TSVE - Trabalhador Sem Vínculo de Emprego/Estatutário sem informação de matrícula no evento S-2300 ou se {remunOrgSuc} = [S].</xs:documentation>
-                                                                                            </xs:annotation>
-                                                                                        </xs:element>
-                                                                                        <xs:element name="itensRemun" type="T_itensRemun_rpps" maxOccurs="200" />
-                                                                                    </xs:sequence>
-                                                                                </xs:complexType>
-                                                                            </xs:element>
+                                                                            <xs:element name="remunPerAnt" maxOccurs="8" type="T_remunPer" />
                                                                         </xs:sequence>
                                                                     </xs:complexType>
                                                                 </xs:element>
@@ -243,4 +211,19 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+    <xs:complexType name="T_remunPer">
+        <xs:annotation>
+            <xs:documentation>Remuneração do Trabalhador</xs:documentation>
+            <xs:documentation>CHAVE_GRUPO: {matricula}</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="matricula" minOccurs="0" type="TS_codigo_esocial">
+                <xs:annotation>
+                    <xs:documentation>Matrícula atribuída ao trabalhador pela empresa ou, no caso de servidor público, a matrícula constante no Sistema de Administração de Recursos Humanos do órgão.</xs:documentation>
+                    <xs:documentation>Validação: Deve corresponder à matrícula informada pelo empregador no evento S-2200 ou S-2300 do respectivo contrato. Não preencher no caso de TSVE - Trabalhador Sem Vínculo de Emprego/Estatutário sem informação de matrícula no evento S-2300.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="itensRemun" type="T_itensRemun_rpps" maxOccurs="200" />
+        </xs:sequence>
+    </xs:complexType>
 </xs:schema>
