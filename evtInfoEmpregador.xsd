@@ -33,9 +33,9 @@
                                         <xs:element name="tpInsc" type="TS_tpInsc_1_2" />
                                         <xs:element name="nrInsc" type="TS_nrInsc_8_11_14">
                                             <xs:annotation>
-                                                <xs:documentation>Número de Inscrição</xs:documentation>
-                                                <xs:documentation>Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {tpInsc}.</xs:documentation>
-                                                <xs:documentation>Validação: Se {tpInsc} for igual a [1], deve ser um número de CNPJ válido. Neste caso, deve ser informada apenas a raiz/base (8 posições), exceto se natureza jurídica do declarante for igual a ([1015, 1040, 1074, 1104, 1139, 1163, 1198, 1252, 1287, 1317, 1341]), situação em que o campo deve ser preenchido com o CNPJ completo (14 posições). Se {tpInsc} for igual a [2], deve ser um CPF válido.</xs:documentation>
+                                                <xs:documentation>Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {ideEmpregador/tpInsc}.</xs:documentation>
+                                                <xs:documentation>Validação: Se {ideEmpregador/tpInsc} for igual a [1], deve ser um número de CNPJ válido. Neste caso, deve ser informada apenas a raiz/base (8 posições), exceto se natureza jurídica do declarante for igual a (101-5, 104-0, 107-4, 110-4, 113-9, 116-3, 119-8, 125-2, 128-7, 131-7, 134-1), situação em que o campo deve ser preenchido com o CNPJ completo (14 posições).</xs:documentation>
+                                                <xs:documentation>Se {ideEmpregador/tpInsc} for igual a [2], deve ser um CPF válido.</xs:documentation>
                                             </xs:annotation>
                                         </xs:element>
                                     </xs:sequence>
@@ -119,7 +119,7 @@
             <xs:element name="classTrib">
                 <xs:simpleType>
                     <xs:annotation>
-                        <xs:documentation>Classificação tributária</xs:documentation>
+                        <xs:documentation>Preencher com o código correspondente à classificação tributária do contribuinte, conforme Tabela 08.</xs:documentation>
                         <xs:documentation>Validação: Deve ser um dos códigos existentes na Tabela 08. Os códigos [21] e [22] somente podem ser utilizados se {tpInsc} for igual a [2]. Para os demais códigos, {tpInsc} deve ser igual a [1].</xs:documentation>
                     </xs:annotation>
                     <xs:restriction base="xs:string">
@@ -130,8 +130,8 @@
             <xs:element name="indCoop" minOccurs="0">
                 <xs:simpleType>
                     <xs:annotation>
-                        <xs:documentation>Indicativo de Cooperativa</xs:documentation>
-                        <xs:documentation>Validação: O preenchimento do campo é exclusivo e obrigatório para PJ. Somente pode ser diferente de ZERO se a natureza jurídica do declarante for igual a [2143].</xs:documentation>
+                        <xs:documentation>Indicativo de cooperativa.</xs:documentation>
+                        <xs:documentation>Validação: O preenchimento do campo é exclusivo e obrigatório para PJ. Somente pode ser diferente de [0] se a natureza jurídica do declarante for igual a 214-3.</xs:documentation>
                     </xs:annotation>
                     <xs:restriction base="xs:byte">
                         <xs:enumeration value="0">
@@ -141,17 +141,17 @@
                         </xs:enumeration>
                         <xs:enumeration value="1">
                             <xs:annotation>
-                                <xs:documentation>Cooperativa de Trabalho</xs:documentation>
+                                <xs:documentation>Cooperativa de trabalho</xs:documentation>
                             </xs:annotation>
                         </xs:enumeration>
                         <xs:enumeration value="2">
                             <xs:annotation>
-                                <xs:documentation>Cooperativa de Produção</xs:documentation>
+                                <xs:documentation>Cooperativa de produção</xs:documentation>
                             </xs:annotation>
                         </xs:enumeration>
                         <xs:enumeration value="3">
                             <xs:annotation>
-                                <xs:documentation>Outras Cooperativas</xs:documentation>
+                                <xs:documentation>Outras cooperativas</xs:documentation>
                             </xs:annotation>
                         </xs:enumeration>
                     </xs:restriction>
@@ -160,18 +160,18 @@
             <xs:element name="indConstr" minOccurs="0">
                 <xs:simpleType>
                     <xs:annotation>
-                        <xs:documentation>Indicativo de Construtora</xs:documentation>
-                        <xs:documentation>Validação: O preenchimento do campo é exclusivo e obrigatório para PJ. Valores Válidos: 0, 1.</xs:documentation>
+                        <xs:documentation>Indicativo de construtora.</xs:documentation>
+                        <xs:documentation>Validação: O preenchimento do campo é exclusivo e obrigatório para PJ.</xs:documentation>
                     </xs:annotation>
                     <xs:restriction base="xs:byte">
                         <xs:enumeration value="0">
                             <xs:annotation>
-                                <xs:documentation>Não é Construtora</xs:documentation>
+                                <xs:documentation>Não é construtora</xs:documentation>
                             </xs:annotation>
                         </xs:enumeration>
                         <xs:enumeration value="1">
                             <xs:annotation>
-                                <xs:documentation>Empresa Construtora</xs:documentation>
+                                <xs:documentation>Empresa construtora</xs:documentation>
                             </xs:annotation>
                         </xs:enumeration>
                     </xs:restriction>
@@ -180,13 +180,13 @@
             <xs:element name="indDesFolha">
                 <xs:simpleType>
                     <xs:annotation>
-                        <xs:documentation>Indicativo de Desoneração da Folha</xs:documentation>
+                        <xs:documentation>Indicativo de desoneração da folha./xs:documentation>
                         <xs:documentation>Validação: Pode ser igual a [1] apenas se a classificação tributária for igual a [02, 03, 99]. Nos demais casos, deve ser igual a [0].</xs:documentation>
                     </xs:annotation>
                     <xs:restriction base="xs:byte">
                         <xs:enumeration value="0">
                             <xs:annotation>
-                                <xs:documentation>Não Aplicável</xs:documentation>
+                                <xs:documentation>Não aplicável</xs:documentation>
                             </xs:annotation>
                         </xs:enumeration>
                         <xs:enumeration value="1">
@@ -200,8 +200,8 @@
             <xs:element name="indOpcCP" minOccurs="0">
                 <xs:simpleType>
                     <xs:annotation>
-                        <xs:documentation>Indicativo da opção pelo produtor rural pela forma de tributação da contribuição previdenciária, nos termos do art. 25, §13, da Lei 8.212/1991 e do art. 25, §7°, da Lei 8.870/1994. O não preenchimento deste campo por parte do produtor rural implica opção pela comercialização da sua produção.</xs:documentation>
-                        <xs:documentation>Validação: Não preencher se ({classTrib} diferente de [07, 08, 21]).</xs:documentation>
+                        <xs:documentation>Indicativo da opção pelo produtor rural pela forma de tributação da contribuição previdenciária, nos termos do art. 25, § 13, da Lei 8.212/1991 e do art. 25, § 7°, da Lei 8.870/1994. O não preenchimento deste campo por parte do produtor rural implica opção pela comercialização da sua produção.</xs:documentation>
+                        <xs:documentation>Validação: Não preencher se {classTrib} for diferente de [07, 08, 21].</xs:documentation>
                     </xs:annotation>
                     <xs:restriction base="xs:byte">
                         <xs:enumeration value="1">
@@ -220,7 +220,7 @@
             <xs:element name="indPorte" minOccurs="0">
                 <xs:simpleType>
                     <xs:annotation>
-                        <xs:documentation>Indicativo de microempresa (ME) ou empresa de pequeno porte (EPP) para permissão de acesso ao módulo simplificado (não preencher caso o usuário não se enquadre como micro ou pequena empresa)</xs:documentation>
+                        <xs:documentation>Indicativo de microempresa (ME) ou empresa de pequeno porte (EPP) para permissão de acesso ao módulo simplificado (não preencher caso o usuário não se enquadre como micro ou pequena empresa).</xs:documentation>
                         <xs:documentation>Validação: Não preencher se {classTrib} = [21, 22].</xs:documentation>
                     </xs:annotation>
                     <xs:restriction base="xs:string">
@@ -235,7 +235,7 @@
             <xs:element name="indOptRegEletron">
                 <xs:simpleType>
                     <xs:annotation>
-                        <xs:documentation>Opção pelo registro eletrônico de empregados</xs:documentation>
+                        <xs:documentation>Indica se houve opção pelo registro eletrônico de empregados.</xs:documentation>
                     </xs:annotation>
                     <xs:restriction base="xs:byte">
                         <xs:enumeration value="0">
@@ -253,13 +253,14 @@
             </xs:element>
             <xs:element name="cnpjEFR" minOccurs="0" type="TS_cnpj">
                 <xs:annotation>
-                    <xs:documentation>CNPJ do Ente Federativo Responsável - EFR</xs:documentation>
-                    <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se a natureza jurídica do declarante for Administração Pública (grupo [1]). Nesse caso, informar o campo com 14 (catorze) algarismos. Informação validada no cadastro do CNPJ da RFB.</xs:documentation>
+                    <xs:documentation>CNPJ do Ente Federativo Responsável - EFR.</xs:documentation>
+                    <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se a natureza jurídica do declarante for Administração Pública (grupo [1]). Nesse caso, informar o campo com 14 (catorze) algarismos.</xs:documentation>
+                    <xs:documentation>Informação validada no cadastro do CNPJ da RFB.</xs:documentation>
                 </xs:annotation>
             </xs:element>
             <xs:element name="dadosIsencao" minOccurs="0">
                 <xs:annotation>
-                    <xs:documentation>Informações Complementares - Empresas Isentas - Dados da Isenção</xs:documentation>
+                    <xs:documentation>Informações complementares - Empresas isentas - Dados da isenção</xs:documentation>
                     <xs:documentation>CONDICAO_GRUPO: OC (se {classTrib} = [80]); N (nos demais casos)</xs:documentation>
                 </xs:annotation>
                 <xs:complexType>
@@ -267,7 +268,7 @@
                         <xs:element name="ideMinLei">
                             <xs:simpleType>
                                 <xs:annotation>
-                                    <xs:documentation>Sigla e nome do Ministério ou Lei que concedeu o Certificado</xs:documentation>
+                                    <xs:documentation>Sigla e nome do Ministério ou lei que concedeu o certificado.</xs:documentation>
                                 </xs:annotation>
                                 <xs:restriction base="xs:string">
                                     <xs:minLength value="1" />
@@ -279,7 +280,7 @@
                         <xs:element name="nrCertif">
                             <xs:simpleType>
                                 <xs:annotation>
-                                    <xs:documentation>Número do Certificado de Entidade Beneficente de Assistência Social (CEBAS), número da portaria de concessão do Certificado, ou, no caso de concessão através de Lei específica, o número da Lei.</xs:documentation>
+                                    <xs:documentation>Número do Certificado de Entidade Beneficente de Assistência Social (CEBAS), número da portaria de concessão do certificado, ou, no caso de concessão através de lei específica, o número da lei.</xs:documentation>
                                 </xs:annotation>
                                 <xs:restriction base="xs:string">
                                     <xs:minLength value="1" />
@@ -290,19 +291,19 @@
                         </xs:element>
                         <xs:element name="dtEmisCertif" type="xs:date">
                             <xs:annotation>
-                                <xs:documentation>Data de Emissão do Certificado/publicação da Lei</xs:documentation>
+                                <xs:documentation>Data de emissão do certificado/publicação da lei.</xs:documentation>
                             </xs:annotation>
                         </xs:element>
                         <xs:element name="dtVencCertif" type="xs:date">
                             <xs:annotation>
-                                <xs:documentation>Data de vencimento do Certificado</xs:documentation>
+                                <xs:documentation>Data de vencimento do certificado.</xs:documentation>
                                 <xs:documentation>Validação: Não pode ser anterior a {dtEmisCertif}.</xs:documentation>
                             </xs:annotation>
                         </xs:element>
                         <xs:element name="nrProtRenov" minOccurs="0">
                             <xs:simpleType>
                                 <xs:annotation>
-                                    <xs:documentation>Número do protocolo do pedido de renovação</xs:documentation>
+                                    <xs:documentation>Número do protocolo do pedido de renovação.</xs:documentation>
                                 </xs:annotation>
                                 <xs:restriction base="xs:string">
                                     <xs:minLength value="1" />
@@ -313,18 +314,18 @@
                         </xs:element>
                         <xs:element name="dtProtRenov" type="xs:date" minOccurs="0">
                             <xs:annotation>
-                                <xs:documentation>Data do protocolo de renovação</xs:documentation>
+                                <xs:documentation>Data do protocolo de renovação.</xs:documentation>
                             </xs:annotation>
                         </xs:element>
                         <xs:element name="dtDou" type="xs:date" minOccurs="0">
                             <xs:annotation>
-                                <xs:documentation>Data de publicação no Diário Oficial da União</xs:documentation>
+                                <xs:documentation>Data de publicação no Diário Oficial da União (DOU).</xs:documentation>
                             </xs:annotation>
                         </xs:element>
                         <xs:element name="pagDou" minOccurs="0">
                             <xs:simpleType>
                                 <xs:annotation>
-                                    <xs:documentation>Número da página no DOU referente à publicação do documento de concessão do Certificado</xs:documentation>
+                                    <xs:documentation>Número da página no DOU referente à publicação do documento de concessão do certificado.</xs:documentation>
                                 </xs:annotation>
                                 <xs:restriction base="xs:integer">
                                     <xs:pattern value="\d{1,5}" />
@@ -344,7 +345,7 @@
                         <xs:element name="indAcordoIsenMulta">
                             <xs:simpleType>
                                 <xs:annotation>
-                                    <xs:documentation>Indicativo da existência de acordo internacional para isenção de multa</xs:documentation>
+                                    <xs:documentation>Indicativo da existência de acordo internacional para isenção de multa.</xs:documentation>
                                 </xs:annotation>
                                 <xs:restriction base="xs:byte">
                                     <xs:enumeration value="0">
