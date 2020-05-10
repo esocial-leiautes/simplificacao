@@ -10,7 +10,7 @@
             <xs:sequence>
                 <xs:element name="evtInfoEmpregador">
                     <xs:annotation>
-                        <xs:documentation>Evento de informações do empregador</xs:documentation>
+                        <xs:documentation>Evento de informações do empregador.</xs:documentation>
                         <xs:documentation>CHAVE_GRUPO: {Id}</xs:documentation>
                         <xs:documentation>REGRA:REGRA_ENVIO_PROC_FECHAMENTO</xs:documentation>
                         <xs:documentation>REGRA:REGRA_INFO_EMP_PERIODO_CONFLITANTE</xs:documentation>
@@ -25,7 +25,7 @@
                             <xs:element name="ideEvento" type="T_ideEvento_evtTab" />
                             <xs:element name="ideEmpregador">
                                 <xs:annotation>
-                                    <xs:documentation>Informações de identificação do empregador</xs:documentation>
+                                    <xs:documentation>Informações de identificação do empregador.</xs:documentation>
                                     <xs:documentation>CHAVE_GRUPO: {tpInsc}, {nrInsc}</xs:documentation>
                                 </xs:annotation>
                                 <xs:complexType>
@@ -33,9 +33,9 @@
                                         <xs:element name="tpInsc" type="TS_tpInsc_1_2" />
                                         <xs:element name="nrInsc" type="TS_nrInsc_8_11_14">
                                             <xs:annotation>
-                                                <xs:documentation>Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {ideEmpregador/tpInsc}.</xs:documentation>
-                                                <xs:documentation>Validação: Se {ideEmpregador/tpInsc} for igual a [1], deve ser um número de CNPJ válido. Neste caso, deve ser informada apenas a raiz/base (8 posições), exceto se natureza jurídica do declarante for igual a (101-5, 104-0, 107-4, 110-4, 113-9, 116-3, 119-8, 125-2, 128-7, 131-7, 134-1), situação em que o campo deve ser preenchido com o CNPJ completo (14 posições).</xs:documentation>
-                                                <xs:documentation>Se {ideEmpregador/tpInsc} for igual a [2], deve ser um CPF válido.</xs:documentation>
+                                                <xs:documentation>Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {tpInsc}(1000_ideEmpregador_tpInsc).</xs:documentation>
+                                                <xs:documentation>Validação: Se {tpInsc}(1000_ideEmpregador_tpInsc) for igual a [1], deve ser um número de CNPJ válido. Neste caso, deve ser informada apenas a raiz/base (8 posições), exceto se natureza jurídica do declarante for igual a 101-5, 104-0, 107-4, 110-4, 113-9, 116-3, 119-8, 125-2, 128-7, 131-7 ou 134-1, situação em que o campo deve ser preenchido com o CNPJ completo (14 posições).</xs:documentation>
+                                                <xs:documentation>Se {tpInsc}(1000_ideEmpregador_tpInsc) for igual a [2], deve ser um CPF válido.</xs:documentation>
                                             </xs:annotation>
                                         </xs:element>
                                     </xs:sequence>
@@ -43,21 +43,22 @@
                             </xs:element>
                             <xs:element name="infoEmpregador">
                                 <xs:annotation>
-                                    <xs:documentation>Informações do Empregador</xs:documentation>
+                                    <xs:documentation>Informações do empregador.</xs:documentation>
+                                    <xs:documentation>DESCRICAO_COMPLETA:Identificação da operação (inclusão, alteração ou exclusão) e das respectivas informações do empregador.</xs:documentation>
                                 </xs:annotation>
                                 <xs:complexType>
                                     <xs:sequence>
                                         <xs:choice>
                                             <xs:element name="inclusao">
                                                 <xs:annotation>
-                                                    <xs:documentation>Inclusão de novas informações</xs:documentation>
+                                                    <xs:documentation>Inclusão de novas informações.</xs:documentation>
                                                     <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
                                                 </xs:annotation>
                                                 <xs:complexType>
                                                     <xs:sequence>
                                                         <xs:element name="idePeriodo" type="T_novaValidade">
                                                             <xs:annotation>
-                                                                <xs:documentation>Período de validade das informações</xs:documentation>
+                                                                <xs:documentation>Período de validade das informações.</xs:documentation>
                                                                 <xs:documentation>CHAVE_GRUPO: {iniValid}, {fimValid}</xs:documentation>
                                                             </xs:annotation>
                                                         </xs:element>
@@ -67,14 +68,14 @@
                                             </xs:element>
                                             <xs:element name="alteracao">
                                                 <xs:annotation>
-                                                    <xs:documentation>Alteração das informações</xs:documentation>
+                                                    <xs:documentation>Alteração das informações.</xs:documentation>
                                                     <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
                                                 </xs:annotation>
                                                 <xs:complexType>
                                                     <xs:sequence>
                                                         <xs:element name="idePeriodo" type="T_novaValidade">
                                                             <xs:annotation>
-                                                                <xs:documentation>Período de validade das informações</xs:documentation>
+                                                                <xs:documentation>Período de validade das informações.</xs:documentation>
                                                                 <xs:documentation>CHAVE_GRUPO: {iniValid}, {fimValid}</xs:documentation>
                                                             </xs:annotation>
                                                         </xs:element>
@@ -85,14 +86,14 @@
                                             </xs:element>
                                             <xs:element name="exclusao">
                                                 <xs:annotation>
-                                                    <xs:documentation>Exclusão das informações</xs:documentation>
+                                                    <xs:documentation>Exclusão das informações.</xs:documentation>
                                                     <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
                                                 </xs:annotation>
                                                 <xs:complexType>
                                                     <xs:sequence>
                                                         <xs:element name="idePeriodo" type="T_novaValidade">
                                                             <xs:annotation>
-                                                                <xs:documentation>Período de validade das informações</xs:documentation>
+                                                                <xs:documentation>Período de validade das informações.</xs:documentation>
                                                                 <xs:documentation>CHAVE_GRUPO: {iniValid}, {fimValid}</xs:documentation>
                                                             </xs:annotation>
                                                         </xs:element>
@@ -113,14 +114,14 @@
     </xs:element>
     <xs:complexType name="T_infoCadastro">
         <xs:annotation>
-            <xs:documentation>Detalhamento das informações do empregador</xs:documentation>
+            <xs:documentation>Detalhamento das informações do empregador.</xs:documentation>
         </xs:annotation>
         <xs:sequence>
             <xs:element name="classTrib">
                 <xs:simpleType>
                     <xs:annotation>
                         <xs:documentation>Preencher com o código correspondente à classificação tributária do contribuinte, conforme Tabela 08.</xs:documentation>
-                        <xs:documentation>Validação: Deve ser um dos códigos existentes na Tabela 08. Os códigos [21] e [22] somente podem ser utilizados se {tpInsc} for igual a [2]. Para os demais códigos, {tpInsc} deve ser igual a [1].</xs:documentation>
+                        <xs:documentation>Validação: Deve ser um dos códigos existentes na Tabela 08. Os códigos [21] e [22] somente podem ser utilizados se {tpInsc}(1000_ideEmpregador_tpInsc) for igual a [2]. Para os demais códigos, {tpInsc}(1000_ideEmpregador_tpInsc) deve ser igual a [1].</xs:documentation>
                     </xs:annotation>
                     <xs:restriction base="xs:string">
                         <xs:pattern value="\d{2}" />
@@ -260,7 +261,7 @@
             </xs:element>
             <xs:element name="dadosIsencao" minOccurs="0">
                 <xs:annotation>
-                    <xs:documentation>Informações complementares - Empresas isentas - Dados da isenção</xs:documentation>
+                    <xs:documentation>Informações complementares - Empresas isentas - Dados da isenção.</xs:documentation>
                     <xs:documentation>CONDICAO_GRUPO: OC (se {classTrib} = [80]); N (nos demais casos)</xs:documentation>
                 </xs:annotation>
                 <xs:complexType>
@@ -337,7 +338,7 @@
             </xs:element>
             <xs:element name="infoOrgInternacional" minOccurs="0">
                 <xs:annotation>
-                    <xs:documentation>Informações exclusivas de organismos internacionais e outras instituições extraterritoriais</xs:documentation>
+                    <xs:documentation>Informações exclusivas de organismos internacionais e outras instituições extraterritoriais.</xs:documentation>
                     <xs:documentation>CONDICAO_GRUPO: O (se a natureza jurídica pertencer ao grupo [5]); N (nos demais casos)</xs:documentation>
                 </xs:annotation>
                 <xs:complexType>
