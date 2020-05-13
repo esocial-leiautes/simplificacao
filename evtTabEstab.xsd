@@ -10,7 +10,8 @@
             <xs:sequence>
                 <xs:element name="evtTabEstab">
                     <xs:annotation>
-                        <xs:documentation>Evento Tabela de Estabelecimentos, Obras ou Órgãos Públicos</xs:documentation>
+                        <xs:documentation>Evento Tabela de Estabelecimentos</xs:documentation>
+                        <xs:documentation>DESCRICAO_COMPLETA:Evento Tabela de Estabelecimentos, Obras ou Unidades de Órgãos Públicos.</xs:documentation>
                         <xs:documentation>CHAVE_GRUPO: {Id}</xs:documentation>
                         <xs:documentation>REGRA:REGRA_ENVIO_PROC_FECHAMENTO</xs:documentation>
                         <xs:documentation>REGRA:REGRA_EXISTE_INFO_EMPREGADOR</xs:documentation>
@@ -29,7 +30,7 @@
                             <xs:element name="ideEmpregador" type="T_ideEmpregador" />
                             <xs:element name="infoEstab">
                                 <xs:annotation>
-                                    <xs:documentation>Informações do Estabelecimento ou obra</xs:documentation>
+                                    <xs:documentation>Informações do estabelecimento</xs:documentation>
                                 </xs:annotation>
                                 <xs:complexType>
                                     <xs:sequence>
@@ -84,7 +85,7 @@
     </xs:element>
     <xs:complexType name="T_ideEstab">
         <xs:annotation>
-            <xs:documentation>Identificação do estabelecimento, obra ou órgão público e validade das informações</xs:documentation>
+            <xs:documentation>Identificação do estabelecimento e validade das informações</xs:documentation>
             <xs:documentation>CHAVE_GRUPO: {tpInsc}, {nrInsc}, {iniValid}, {fimValid}</xs:documentation>
         </xs:annotation>
         <xs:sequence>
@@ -102,13 +103,13 @@
     </xs:complexType>
     <xs:complexType name="T_dadosEstab">
         <xs:annotation>
-            <xs:documentation>Detalhamento das informações do estabelecimento, obra ou órgão público</xs:documentation>
+            <xs:documentation>Detalhamento das informações do estabelecimento</xs:documentation>
         </xs:annotation>
         <xs:sequence>
             <xs:element name="cnaePrep" type="TS_cnae" />
             <xs:element name="aliqGilrat" minOccurs="0">
                 <xs:annotation>
-                    <xs:documentation>Informações de Apuração da alíquota Gilrat do Estabelecimento</xs:documentation>
+                    <xs:documentation>Informações de apuração da alíquota GILRAT do estabelecimento</xs:documentation>
                     <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
                 </xs:annotation>
                 <xs:complexType>
@@ -170,7 +171,7 @@
             <xs:element name="infoCaepf" minOccurs="0">
                 <xs:annotation>
                     <xs:documentation>Informações relativas ao CAEPF</xs:documentation>
-                    <xs:documentation>CONDICAO_GRUPO: O (se {tpInsc} = [3]); N (nos demais casos)</xs:documentation>
+                    <xs:documentation>CONDICAO_GRUPO: O (se {ideEstab/tpInsc}(1005_infoEstab_inclusao_ideEstab_tpInsc) = [3]); N (nos demais casos)</xs:documentation>
                 </xs:annotation>
                 <xs:complexType>
                     <xs:sequence>
@@ -204,8 +205,8 @@
             </xs:element>
             <xs:element name="infoObra" minOccurs="0">
                 <xs:annotation>
-                    <xs:documentation>Indicativo de substituição da contribuição Patronal - Obra de Construção Civil</xs:documentation>
-                    <xs:documentation>CONDICAO_GRUPO: O (se {indConstr} = [1] e {ideEstab/tpInsc} = [4]); N (nos demais casos)</xs:documentation>
+                    <xs:documentation>Indicativo de substituição da contribuição patronal - Obra de construção civil</xs:documentation>
+                    <xs:documentation>CONDICAO_GRUPO: O (se {indConstr}(1000_infoEmpregador_inclusao_infoCadastro_indConstr) em S-1000 = [1] e {ideEstab/tpInsc}(1005_infoEstab_inclusao_ideEstab_tpInsc) = [4]); N (nos demais casos)</xs:documentation>
                 </xs:annotation>
                 <xs:complexType>
                     <xs:sequence>
@@ -233,7 +234,7 @@
             </xs:element>
             <xs:element name="infoTrab" minOccurs="0">
                 <xs:annotation>
-                    <xs:documentation>Informações Trabalhistas</xs:documentation>
+                    <xs:documentation>Informações trabalhistas</xs:documentation>
                     <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
                 </xs:annotation>
                 <xs:complexType>
