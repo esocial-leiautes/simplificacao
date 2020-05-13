@@ -33,9 +33,9 @@
                                         <xs:element name="tpInsc" type="TS_tpInsc_1_2" />
                                         <xs:element name="nrInsc" type="TS_nrInsc_8_11_14">
                                             <xs:annotation>
-                                                <xs:documentation>Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {tpInsc}(1000_ideEmpregador_tpInsc).</xs:documentation>
-                                                <xs:documentation>Validação: Se {tpInsc}(1000_ideEmpregador_tpInsc) for igual a [1], deve ser um número de CNPJ válido. Neste caso, deve ser informada apenas a raiz/base (8 posições), exceto se natureza jurídica do declarante for igual a 101-5, 104-0, 107-4, 110-4, 113-9, 116-3, 119-8, 125-2, 128-7, 131-7 ou 134-1, situação em que o campo deve ser preenchido com o CNPJ completo (14 posições).</xs:documentation>
-                                                <xs:documentation>Se {tpInsc}(1000_ideEmpregador_tpInsc) for igual a [2], deve ser um CPF válido.</xs:documentation>
+                                                <xs:documentation>Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {tpInsc}(./tpInsc).</xs:documentation>
+                                                <xs:documentation>Validação: Se {tpInsc}(./tpInsc) for igual a [1], deve ser um número de CNPJ válido. Neste caso, deve ser informada apenas a raiz/base (8 posições), exceto se natureza jurídica do declarante for igual a 101-5, 104-0, 107-4, 110-4, 113-9, 116-3, 119-8, 125-2, 128-7, 131-7 ou 134-1, situação em que o campo deve ser preenchido com o CNPJ completo (14 posições).</xs:documentation>
+                                                <xs:documentation>Se {tpInsc}(./tpInsc) for igual a [2], deve ser um CPF válido.</xs:documentation>
                                             </xs:annotation>
                                         </xs:element>
                                     </xs:sequence>
@@ -121,7 +121,7 @@
                 <xs:simpleType>
                     <xs:annotation>
                         <xs:documentation>Preencher com o código correspondente à classificação tributária do contribuinte, conforme Tabela 08.</xs:documentation>
-                        <xs:documentation>Validação: Deve ser um dos códigos existentes na Tabela 08. Os códigos [21] e [22] somente podem ser utilizados se {tpInsc}(1000_ideEmpregador_tpInsc) for igual a [2]. Para os demais códigos, {tpInsc}(1000_ideEmpregador_tpInsc) deve ser igual a [1].</xs:documentation>
+                        <xs:documentation>Validação: Deve ser um código válido e existente na Tabela 08. Os códigos [21] e [22] somente podem ser utilizados se {tpInsc}(1000_ideEmpregador_tpInsc) for igual a [2]. Para os demais códigos, {tpInsc}(1000_ideEmpregador_tpInsc) deve ser igual a [1].</xs:documentation>
                     </xs:annotation>
                     <xs:restriction base="xs:string">
                         <xs:pattern value="\d{2}" />
@@ -182,7 +182,7 @@
                 <xs:simpleType>
                     <xs:annotation>
                         <xs:documentation>Indicativo de desoneração da folha.</xs:documentation>
-                        <xs:documentation>Validação: Pode ser igual a [1] apenas se a classificação tributária for igual a [02, 03, 99]. Nos demais casos, deve ser igual a [0].</xs:documentation>
+                        <xs:documentation>Validação: Pode ser igual a [1] apenas se {classTrib}(./classTrib) = [02, 03, 99]. Nos demais casos, deve ser igual a [0].</xs:documentation>
                     </xs:annotation>
                     <xs:restriction base="xs:byte">
                         <xs:enumeration value="0">
@@ -202,7 +202,7 @@
                 <xs:simpleType>
                     <xs:annotation>
                         <xs:documentation>Indicativo da opção pelo produtor rural pela forma de tributação da contribuição previdenciária, nos termos do art. 25, § 13, da Lei 8.212/1991 e do art. 25, § 7°, da Lei 8.870/1994. O não preenchimento deste campo por parte do produtor rural implica opção pela comercialização da sua produção.</xs:documentation>
-                        <xs:documentation>Validação: Não preencher se {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) for diferente de [07, 08, 21].</xs:documentation>
+                        <xs:documentation>Validação: Não preencher se {classTrib}(./classTrib) for diferente de [07, 08, 21].</xs:documentation>
                     </xs:annotation>
                     <xs:restriction base="xs:byte">
                         <xs:enumeration value="1">
@@ -222,7 +222,7 @@
                 <xs:simpleType>
                     <xs:annotation>
                         <xs:documentation>Indicativo de microempresa (ME) ou empresa de pequeno porte (EPP) para permissão de acesso ao módulo simplificado (não preencher caso o usuário não se enquadre como micro ou pequena empresa).</xs:documentation>
-                        <xs:documentation>Validação: Não preencher se {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) = [21, 22].</xs:documentation>
+                        <xs:documentation>Validação: Não preencher se {classTrib}(./classTrib) = [21, 22].</xs:documentation>
                     </xs:annotation>
                     <xs:restriction base="xs:string">
                         <xs:enumeration value="S">
@@ -298,7 +298,7 @@
                         <xs:element name="dtVencCertif" type="xs:date">
                             <xs:annotation>
                                 <xs:documentation>Data de vencimento do certificado.</xs:documentation>
-                                <xs:documentation>Validação: Não pode ser anterior a {dtEmisCertif}(1000_infoEmpregador_inclusao_dadosIsencao_dtEmisCertif).</xs:documentation>
+                                <xs:documentation>Validação: Não pode ser anterior a {dtEmisCertif}(./dtEmisCertif).</xs:documentation>
                             </xs:annotation>
                         </xs:element>
                         <xs:element name="nrProtRenov" minOccurs="0">
