@@ -93,9 +93,8 @@
             <xs:element name="tpInsc" type="TS_tpInsc_1_3_4" />
             <xs:element name="nrInsc" type="TS_nrInsc_12_14">
                 <xs:annotation>
-                    <xs:documentation>Número de Inscrição</xs:documentation>
-                    <xs:documentation>Informar o número de inscrição do estabelecimento, obra de construção civil ou órgão público de acordo com o tipo de inscrição indicado no campo {tpInsc}.</xs:documentation>
-                    <xs:documentation>Validação: Deve ser compatível com o conteúdo do campo {tpInsc}. Deve ser um identificador válido, constante das bases da RFB, vinculado ao empregador.</xs:documentation>
+                    <xs:documentation>Informar o número de inscrição do estabelecimento, obra de construção civil ou órgão público de acordo com o tipo de inscrição indicado no campo {ideEstab/tpInsc}(./tpInsc).</xs:documentation>
+                    <xs:documentation>Validação: Deve ser compatível com o conteúdo do campo {ideEstab/tpInsc}(./tpInsc). Deve ser um identificador válido, constante das bases da RFB, vinculado ao empregador.</xs:documentation>
                 </xs:annotation>
             </xs:element>
             <xs:element name="iniValid" type="TS_iniValid" />
@@ -118,15 +117,16 @@
                     <xs:sequence>
                         <xs:element name="aliqRat" minOccurs="0" type="TS_aliqRat">
                             <xs:annotation>
-                                <xs:documentation>Alíquota RAT</xs:documentation>
-                                <xs:documentation>Preencher com a alíquota definida na legislação vigente para a atividade (CNAE) preponderante. A divergência só é permitida se existir o registro complementar com informações sobre o processo administrativo/judicial que permite a aplicação de alíquotas diferentes.</xs:documentation>
-                                <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se a alíquota informada for diferente da definida na legislação vigente para o código CNAE informado (neste caso, deverá haver informações de processo em {procAdmJudRat}). Se informada, deve ser igual a 1, 2 ou 3, e diferente da alíquota definida na legislação vigente para a atividade (CNAE) preponderante.</xs:documentation>
+                                <xs:documentation>Informar a alíquota RAT, quando divergente da legislação vigente para a atividade (CNAE) preponderante. A divergência só é permitida se existir o grupo com informações sobre o processo administrativo/judicial que permite a aplicação de alíquota diferente.</xs:documentation>
+                                <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se a alíquota informada for diferente da definida na legislação vigente para o código CNAE informado (neste caso, deverá haver informações de processo em {procAdmJudRat}(1005_infoEstab_inclusao_aliqGilrat_procAdmJudRat)).</xs:documentation>
+                                <xs:documentation>Se informada, deve ser diferente da alíquota definida na legislação vigente para a atividade (CNAE) preponderante.</xs:documentation>                            
                             </xs:annotation>
                         </xs:element>
                         <xs:element name="fap" minOccurs="0" type="TS_fap">
                             <xs:annotation>
-                                <xs:documentation>Fator Acidentário de Prevenção - FAP</xs:documentation>
-                                <xs:documentation>Validação: Preenchimento obrigatório e exclusivo por Pessoa Jurídica e {ideEstab/tpInsc} = [4] ou se {ideEstab/tpInsc} = [1] e o fator informado for diferente do definido pelo órgão governamental competente para o estabelecimento (neste caso, deverá haver informações de processo em {procAdmJudFap}). Se informado, deve ser um número maior ou igual a 0,5000 e menor ou igual a 2,0000 e, se {ideEstab/tpInsc} = [1], deve ser diferente do valor definido pelo órgão governamental competente.</xs:documentation>
+                                <xs:documentation>Fator Acidentário de Prevenção - FAP.</xs:documentation>
+                                <xs:documentation>Validação: Preenchimento obrigatório e exclusivo por Pessoa Jurídica e {ideEstab/tpInsc}(1005_infoEstab_inclusao_ideEstab_tpInsc) = [4], ou se {ideEstab/tpInsc}(1005_infoEstab_inclusao_ideEstab_tpInsc) = [1] e o fator informado for diferente do definido pelo órgão governamental competente para o estabelecimento (neste caso, deverá haver informações de processo em {procAdmJudFap}(1005_infoEstab_inclusao_aliqGilrat_procAdmJudFap)).</xs:documentation>
+                                <xs:documentation>Se informado, deve ser um número maior ou igual a 0,5000 e menor ou igual a 2,0000 e, se {ideEstab/tpInsc}(1005_infoEstab_inclusao_ideEstab_tpInsc) = [1], deve ser diferente do valor definido pelo órgão governamental competente.</xs:documentation>
                             </xs:annotation>
                         </xs:element>
                         <xs:element name="procAdmJudRat" minOccurs="0">
@@ -140,9 +140,8 @@
                                     <xs:element name="tpProc" type="TS_tpProc_1_2" />
                                     <xs:element name="nrProc" type="TS_nrProc_17_20_21">
                                         <xs:annotation>
-                                            <xs:documentation>Número do Processo</xs:documentation>
-                                            <xs:documentation>Informar um número de processo cadastrado através do evento S-1070, cujo {indMatProc} seja igual a [1].</xs:documentation>
-                                            <xs:documentation>Validação: Deve ser um número de processo administrativo ou judicial válido e existente na Tabela de Processos (S-1070), com {indMatProc} = [1].</xs:documentation>
+                                            <xs:documentation>Informar um número de processo cadastrado através do evento S-1070, cujo {indMatProc}(1070_infoProcesso_inclusao_dadosProc_indMatProc) seja igual a [1].</xs:documentation>
+                                            <xs:documentation>Validação: Deve ser um número de processo administrativo ou judicial válido e existente na Tabela de Processos (S-1070), com {indMatProc}(1070_infoProcesso_inclusao_dadosProc_indMatProc) = [1].</xs:documentation>
                                         </xs:annotation>
                                     </xs:element>
                                     <xs:element name="codSusp" type="TS_codSusp" />
@@ -160,9 +159,8 @@
                                     <xs:element name="tpProc" type="TS_tpProc_1_2_4" />
                                     <xs:element name="nrProc" type="TS_nrProc_16_17_20_21">
                                         <xs:annotation>
-                                            <xs:documentation>Número do Processo</xs:documentation>
-                                            <xs:documentation>Informar um número de processo cadastrado através do evento S-1070, cujo {indMatProc} seja igual a [1].</xs:documentation>
-                                            <xs:documentation>Validação: Deve ser um número de processo administrativo ou judicial válido e existente na Tabela de Processos (S-1070), com {indMatProc} = [1].</xs:documentation>
+                                            <xs:documentation>Informar um número de processo cadastrado através do evento S-1070, cujo {indMatProc}(1070_infoProcesso_inclusao_dadosProc_indMatProc) seja igual a [1].</xs:documentation>
+                                            <xs:documentation>Validação: Deve ser um número de processo administrativo ou judicial válido e existente na Tabela de Processos (S-1070), com {indMatProc}(1070_infoProcesso_inclusao_dadosProc_indMatProc) = [1].</xs:documentation>
                                         </xs:annotation>
                                     </xs:element>
                                     <xs:element name="codSusp" type="TS_codSusp" />
@@ -183,23 +181,23 @@
                         <xs:element name="tpCaepf">
                             <xs:simpleType>
                                 <xs:annotation>
-                                    <xs:documentation>Tipo de CAEPF</xs:documentation>
+                                    <xs:documentation>Tipo de CAEPF.</xs:documentation>
                                     <xs:documentation>Validação: Deve ser compatível com o cadastro da RFB.</xs:documentation>
                                 </xs:annotation>
                                 <xs:restriction base="xs:byte">
                                     <xs:enumeration value="1">
                                         <xs:annotation>
-                                            <xs:documentation>Contribuinte Individual</xs:documentation>
+                                            <xs:documentation>Contribuinte individual</xs:documentation>
                                         </xs:annotation>
                                     </xs:enumeration>
                                     <xs:enumeration value="2">
                                         <xs:annotation>
-                                            <xs:documentation>Produtor Rural</xs:documentation>
+                                            <xs:documentation>Produtor rural</xs:documentation>
                                         </xs:annotation>
                                     </xs:enumeration>
                                     <xs:enumeration value="3">
                                         <xs:annotation>
-                                            <xs:documentation>Segurado Especial</xs:documentation>
+                                            <xs:documentation>Segurado especial</xs:documentation>
                                         </xs:annotation>
                                     </xs:enumeration>
                                 </xs:restriction>
@@ -219,17 +217,17 @@
                         <xs:element name="indSubstPatrObra">
                             <xs:simpleType>
                                 <xs:annotation>
-                                    <xs:documentation>Substituição da CP patronal de Obra</xs:documentation>
+                                    <xs:documentation>Indicativo de substituição da contribuição patronal de obra de construção civil.</xs:documentation>
                                 </xs:annotation>
                                 <xs:restriction base="xs:byte">
                                     <xs:enumeration value="1">
                                         <xs:annotation>
-                                            <xs:documentation>Contribuição Patronal Substituída</xs:documentation>
+                                            <xs:documentation>Contribuição patronal substituída</xs:documentation>
                                         </xs:annotation>
                                     </xs:enumeration>
                                     <xs:enumeration value="2">
                                         <xs:annotation>
-                                            <xs:documentation>Contribuição Patronal Não Substituída</xs:documentation>
+                                            <xs:documentation>Contribuição patronal não substituída</xs:documentation>
                                         </xs:annotation>
                                     </xs:enumeration>
                                 </xs:restriction>
@@ -248,15 +246,16 @@
                     <xs:sequence>
                         <xs:element name="infoApr" minOccurs="0">
                             <xs:annotation>
-                                <xs:documentation>Informações relacionadas à contratação de aprendiz.</xs:documentation>
-                                <xs:documentation>DESCRICAO_COMPLETA:Preenchimento obrigatório somente no caso de dispensa, ainda que parcial, de contratação de aprendiz em virtude de processo judicial ou quando houver contratação de aprendiz por meio de entidade educativa ou de prática desportiva.</xs:documentation>
+                                <xs:documentation>Informações relacionadas à contratação de aprendiz</xs:documentation>
+                                <xs:documentation>DESCRICAO_COMPLETA:Informações relacionadas à contratação de aprendiz.</xs:documentation>
+                                <xs:documentation>Preenchimento obrigatório somente no caso de dispensa, ainda que parcial, de contratação de aprendiz em virtude de processo judicial ou quando houver contratação de aprendiz por meio de entidade educativa ou de prática desportiva.</xs:documentation>
                                 <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
                             </xs:annotation>
                             <xs:complexType>
                                 <xs:sequence>
                                     <xs:element name="nrProcJud" type="TS_nrProcJud" minOccurs="0">
                                         <xs:annotation>
-                                            <xs:documentation>Identificação do Número do Processo Judicial</xs:documentation>
+                                            <xs:documentation>Preencher com o número do processo judicial.</xs:documentation>
                                             <xs:documentation>Validação: Se informado, deve ser um número de processo judicial válido.</xs:documentation>
                                         </xs:annotation>
                                     </xs:element>
@@ -270,7 +269,6 @@
                                             <xs:sequence>
                                                 <xs:element name="nrInsc" type="TS_cnpj">
                                                     <xs:annotation>
-                                                        <xs:documentation>Número de Inscrição</xs:documentation>
                                                         <xs:documentation>Informar o número de inscrição da entidade educativa ou de prática desportiva.</xs:documentation>
                                                         <xs:documentation>Validação: Deve ser um número de CNPJ válido, com 14 (catorze) algarismos.</xs:documentation>
                                                     </xs:annotation>
@@ -283,7 +281,7 @@
                         </xs:element>
                         <xs:element name="infoPCD" minOccurs="0">
                             <xs:annotation>
-                                <xs:documentation>Informações sobre a contratação de pessoa com deficiência (PCD).</xs:documentation>
+                                <xs:documentation>Informações sobre a contratação de PCD.</xs:documentation>
                                 <xs:documentation>DESCRICAO_COMPLETA:Informações sobre a contratação de pessoa com deficiência (PCD).</xs:documentation>
                                 <xs:documentation>Essa informação deve ser prestada apenas no estabelecimento matriz.</xs:documentation>
                                 <xs:documentation>Preenchimento obrigatório somente no caso de dispensa, ainda que parcial, de contratação de PCD em virtude de processo judicial.</xs:documentation>
@@ -293,8 +291,8 @@
                                 <xs:sequence>
                                     <xs:element name="nrProcJud" type="TS_nrProcJud">
                                         <xs:annotation>
-                                            <xs:documentation>Identificação do Número do Processo Judicial</xs:documentation>
-                                            <xs:documentation>Validação: Se informado, deve ser um número de processo judicial válido.</xs:documentation>
+                                            <xs:documentation>Preencher com o número do processo judicial.</xs:documentation>
+                                            <xs:documentation>Validação: Deve ser um número de processo judicial válido.</xs:documentation>
                                         </xs:annotation>
                                     </xs:element>
                                 </xs:sequence>
