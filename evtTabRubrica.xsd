@@ -114,7 +114,7 @@
         <xs:sequence>
             <xs:element name="dscRubr" type="TS_texto_100">
                 <xs:annotation>
-                    <xs:documentation>Descrição (nome) da rubrica no sistema de folha de pagamento</xs:documentation>
+                    <xs:documentation>Informar a descrição (nome) da rubrica no sistema de folha de pagamento da empresa.</xs:documentation>
                 </xs:annotation>
             </xs:element>
             <xs:element name="natRubr">
@@ -161,7 +161,7 @@
                 <xs:simpleType>
                     <xs:annotation>
                         <xs:documentation>Código de incidência tributária da rubrica para a Previdência Social.</xs:documentation>
-                        <xs:documentation>Validação: Para utilização de código [91, 92, 93, 94, 95, 96, 97, 98], é necessária a existência de registro complementar com informações relativas ao processo.</xs:documentation>
+                        <xs:documentation>Validação: Para utilização de código [91, 92, 93, 94, 95, 96, 97, 98], é necessária a existência de grupo com informações relativas ao processo.</xs:documentation>
                     </xs:annotation>
                     <xs:restriction base="xs:string">
                         <xs:enumeration value="00">
@@ -187,17 +187,17 @@
                         </xs:enumeration>
                         <xs:enumeration value="13">
                             <xs:annotation>
-                                <xs:documentation>Exclusiva do smpregador - mensal</xs:documentation>
+                                <xs:documentation>Exclusiva do empregador - Mensal</xs:documentation>
                             </xs:annotation>
                         </xs:enumeration>
                         <xs:enumeration value="14">
                             <xs:annotation>
-                                <xs:documentation>Exclusiva do smpregador - 13° salário</xs:documentation>
+                                <xs:documentation>Exclusiva do empregador - 13° salário</xs:documentation>
                             </xs:annotation>
                         </xs:enumeration>
                         <xs:enumeration value="15">
                             <xs:annotation>
-                                <xs:documentation>Exclusiva do segurado - mensal</xs:documentation>
+                                <xs:documentation>Exclusiva do segurado - Mensal</xs:documentation>
                             </xs:annotation>
                         </xs:enumeration>
                         <xs:enumeration value="16">
@@ -275,7 +275,7 @@
                         </xs:enumeration>
                         <xs:enumeration value="95">
                             <xs:annotation>
-                                <xs:documentation>Exclusiva do empregador - mensal</xs:documentation>
+                                <xs:documentation>Exclusiva do empregador - Mensal</xs:documentation>
                             </xs:annotation>
                         </xs:enumeration>
                         <xs:enumeration value="96">
@@ -311,8 +311,8 @@
             <xs:element name="codIncFGTS">
                 <xs:simpleType>
                     <xs:annotation>
-                        <xs:documentation>Código de incidência da rubrica para o FGTS</xs:documentation>
-                        <xs:documentation>Validação: Para utilização de código [91, 92, 93], é necessária a existência de registro complementar com informações relativas ao processo.</xs:documentation>
+                        <xs:documentation>Código de incidência da rubrica para o FGTS.</xs:documentation>
+                        <xs:documentation>Validação: Para utilização de código [91, 92, 93], é necessária a existência de grupo com informações relativas ao processo.</xs:documentation>
                     </xs:annotation>
                     <xs:restriction base="xs:string">
                         <xs:enumeration value="00">
@@ -327,7 +327,7 @@
                         </xs:enumeration>
                         <xs:enumeration value="12">
                             <xs:annotation>
-                                <xs:documentation>Base de cálculo do FGTS 13° Salário</xs:documentation>
+                                <xs:documentation>Base de cálculo do FGTS 13° salário</xs:documentation>
                             </xs:annotation>
                         </xs:enumeration>
                         <xs:enumeration value="21">
@@ -400,7 +400,7 @@
             </xs:element>
             <xs:element name="observacao" minOccurs="0" type="TS_texto_255">
                 <xs:annotation>
-                    <xs:documentation>Observações relacionadas à rubrica ou à sua utilização</xs:documentation>
+                    <xs:documentation>Observações relacionadas à rubrica ou à sua utilização.</xs:documentation>
                 </xs:annotation>
             </xs:element>
             <xs:element name="ideProcessoCP" minOccurs="0" maxOccurs="99">
@@ -408,21 +408,21 @@
                     <xs:documentation>Identificação de processo - Incidência de Contrib. Previdenciária</xs:documentation>
                     <xs:documentation>DESCRICAO_COMPLETA:Caso a empresa possua processo administrativo ou judicial com decisão/sentença favorável, determinando a não incidência de contribuição previdenciária relativa à rubrica identificada no evento, as informações deverão ser incluídas neste grupo, e o detalhamento do processo deverá ser efetuado através de evento específico na Tabela de Processos (S-1070).</xs:documentation>
                     <xs:documentation>CHAVE_GRUPO: {nrProc}</xs:documentation>
-                    <xs:documentation>CONDICAO_GRUPO: O (se {codIncCP} = [9X]); N (nos demais casos)</xs:documentation>
+                    <xs:documentation>CONDICAO_GRUPO: O (se {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) = [9X]); N (nos demais casos)</xs:documentation>
                 </xs:annotation>
                 <xs:complexType>
                     <xs:sequence>
                         <xs:element name="tpProc" type="TS_tpProc_1_2" />
                         <xs:element name="nrProc" type="TS_nrProc_17_20_21">
                             <xs:annotation>
-                                <xs:documentation>Informar um número de processo cadastrado através do evento S-1070, cujo {indMatProc} seja igual a [1].</xs:documentation>
-                                <xs:documentation>Validação: Deve ser um número de processo administrativo ou judicial válido e existente na Tabela de Processos (S-1070), com {indMatProc} = [1].</xs:documentation>
+                                <xs:documentation>Informar um número de processo cadastrado através do evento S-1070, cujo {indMatProc}(1070_infoProcesso_inclusao_dadosProc_indMatProc) seja igual a [1].</xs:documentation>
+                                <xs:documentation>Validação: Deve ser um número de processo válido e existente na Tabela de Processos (S-1070), com {indMatProc}(1070_infoProcesso_inclusao_dadosProc_indMatProc) = [1].</xs:documentation>
                             </xs:annotation>
                         </xs:element>
                         <xs:element name="extDecisao">
                             <xs:simpleType>
                                 <xs:annotation>
-                                    <xs:documentation>Extensão da decisão/sentença</xs:documentation>
+                                    <xs:documentation>Extensão da decisão/sentença.</xs:documentation>
                                 </xs:annotation>
                                 <xs:restriction base="xs:byte">
                                     <xs:enumeration value="1">
@@ -447,14 +447,14 @@
                     <xs:documentation>Identificação de processo - Incidência de IRRF</xs:documentation>
                     <xs:documentation>DESCRICAO_COMPLETA:Caso a empresa possua processo judicial com decisão/sentença favorável, determinando a não incidência de imposto de renda relativo à rubrica identificada no evento, as informações deverão ser incluídas neste grupo, e o detalhamento do processo deverá ser efetuado através de evento específico na Tabela de Processos (S-1070).</xs:documentation>
                     <xs:documentation>CHAVE_GRUPO: {nrProc}</xs:documentation>
-                    <xs:documentation>CONDICAO_GRUPO: O (se {codIncIRRF} = [9X] ou [9XXX]); N (nos demais casos)</xs:documentation>
+                    <xs:documentation>CONDICAO_GRUPO: O (se {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) = [9X] ou [9XXX]); N (nos demais casos)</xs:documentation>
                 </xs:annotation>
                 <xs:complexType>
                     <xs:sequence>
                         <xs:element name="nrProc" type="TS_nrProcJud">
                             <xs:annotation>
-                                <xs:documentation>Informar um número de processo cadastrado através do evento S-1070, cujo {indMatProc} seja igual a [1].</xs:documentation>
-                                <xs:documentation>Validação: Deve ser um número de processo judicial válido e existente na Tabela de Processos (S-1070), com {indMatProc} = [1].</xs:documentation>
+                                <xs:documentation>Informar um número de processo cadastrado através do evento S-1070, cujo {indMatProc}(1070_infoProcesso_inclusao_dadosProc_indMatProc) seja igual a [1].</xs:documentation>
+                                <xs:documentation>Validação: Deve ser um número de processo judicial válido e existente na Tabela de Processos (S-1070), com {indMatProc}(1070_infoProcesso_inclusao_dadosProc_indMatProc) = [1].</xs:documentation>
                             </xs:annotation>
                         </xs:element>
                         <xs:element name="codSusp" type="TS_codSusp" />
@@ -466,14 +466,14 @@
                     <xs:documentation>Identificação de processo - Incidência de FGTS</xs:documentation>
                     <xs:documentation>DESCRICAO_COMPLETA:Caso a empresa possua processo judicial com decisão/sentença favorável, determinando a não incidência de FGTS relativo à rubrica identificada no evento, as informações deverão ser incluídas neste grupo, e o detalhamento do processo deverá ser efetuado através de evento específico na Tabela de Processos (S-1070).</xs:documentation>
                     <xs:documentation>CHAVE_GRUPO: {nrProc}</xs:documentation>
-                    <xs:documentation>CONDICAO_GRUPO: O (se {codIncFGTS} = [9X]); N (nos demais casos)</xs:documentation>
+                    <xs:documentation>CONDICAO_GRUPO: O (se {codIncFGTS}(1010_infoRubrica_inclusao_dadosRubrica_codIncFGTS) = [9X]); N (nos demais casos)</xs:documentation>
                 </xs:annotation>
                 <xs:complexType>
                     <xs:sequence>
                         <xs:element name="nrProc" type="TS_nrProcJud">
                             <xs:annotation>
-                                <xs:documentation>Informar um número de processo cadastrado através do evento S-1070, cujo {indMatProc} seja igual a [1].</xs:documentation>
-                                <xs:documentation>Validação: Deve ser um número de processo judicial válido e existente na Tabela de Processos (S-1070), com {indMatProc} = [1].</xs:documentation>
+                                <xs:documentation>Informar um número de processo cadastrado através do evento S-1070, cujo {indMatProc}(1070_infoProcesso_inclusao_dadosProc_indMatProc) seja igual a [1, 7].</xs:documentation>
+                                <xs:documentation>Validação: Deve ser um número de processo judicial válido e existente na Tabela de Processos (S-1070), com {indMatProc}(1070_infoProcesso_inclusao_dadosProc_indMatProc) = [1, 7].</xs:documentation>
                             </xs:annotation>
                         </xs:element>
                     </xs:sequence>
