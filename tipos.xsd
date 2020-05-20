@@ -311,7 +311,8 @@
             <xs:element name="nrRecibo" minOccurs="0" type="TS_nrRecibo">
                 <xs:annotation>
                     <xs:documentation>Preencher com o número do recibo do arquivo a ser retificado.</xs:documentation>
-                    <xs:documentation>Validação: O preenchimento é obrigatório se {indRetif} = [2]. Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo retificado.</xs:documentation>
+                    <xs:documentation>Validação: O preenchimento é obrigatório se {indRetif}(./indRetif) = [2].</xs:documentation>
+                    <xs:documentation>Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo retificado.</xs:documentation>
                 </xs:annotation>
             </xs:element>
             <xs:element name="perApur" type="TS_perApur_mensal" />
@@ -345,7 +346,8 @@
             <xs:element name="nrRecibo" minOccurs="0" type="TS_nrRecibo">
                 <xs:annotation>
                     <xs:documentation>Preencher com o número do recibo do arquivo a ser retificado.</xs:documentation>
-                    <xs:documentation>Validação: O preenchimento é obrigatório se {indRetif} = [2]. Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo retificado.</xs:documentation>
+                    <xs:documentation>Validação: O preenchimento é obrigatório se {indRetif}(./indRetif) = [2].</xs:documentation>
+                    <xs:documentation>Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo retificado.</xs:documentation>
                 </xs:annotation>
             </xs:element>
             <xs:element name="indApuracao" type="TS_indApuracao" />
@@ -365,7 +367,8 @@
             <xs:element name="nrRecibo" minOccurs="0" type="TS_nrRecibo">
                 <xs:annotation>
                     <xs:documentation>Preencher com o número do recibo do arquivo a ser retificado.</xs:documentation>
-                    <xs:documentation>Validação: O preenchimento é obrigatório se {indRetif} = [2]. Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo retificado.</xs:documentation>
+                    <xs:documentation>Validação: O preenchimento é obrigatório se {indRetif}(./indRetif) = [2].</xs:documentation>
+                    <xs:documentation>Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo retificado.</xs:documentation>
                 </xs:annotation>
             </xs:element>
             <xs:element name="tpAmb" type="TS_tpAmb" />
@@ -657,7 +660,7 @@
 
     <xs:complexType name="T_itensRemun_rpps">
         <xs:annotation>
-            <xs:documentation>Itens da Remuneração do Trabalhador</xs:documentation>
+            <xs:documentation>Itens da remuneração do trabalhador</xs:documentation>
         </xs:annotation>
         <xs:sequence>
             <xs:element name="codRubr" type="TS_codigo_esocial">
@@ -689,24 +692,19 @@
 
     <xs:complexType name="T_itensRemun">
         <xs:annotation>
-            <xs:documentation>Itens da Remuneração do Trabalhador</xs:documentation>
+            <xs:documentation>Itens da remuneração do trabalhador</xs:documentation>
+            <xs:documentation>DESCRICAO_COMPLETA:Rubricas que compõem a remuneração do trabalhador.</xs:documentation>
         </xs:annotation>
         <xs:sequence>
             <xs:element name="codRubr" type="TS_codigo_esocial">
                 <xs:annotation>
-                    <xs:documentation>Informar o código atribuído pelo empregador e que identifica a rubrica em sua folha de pagamento.</xs:documentation>
-                    <xs:documentation>Validação: O código informado deve existir na Tabela S-1010 - Tabela de Rubricas, vigente no período indicado em:</xs:documentation>
-                    <xs:documentation>a) {perApur} se vinculado a {remunPerApur};</xs:documentation>
-                    <xs:documentation>b) {perRef} se vinculado a {remunPerAnt}.</xs:documentation>
-                    <xs:documentation>Não pode ser utilizada rubrica cujo {codIncCP} em S-1010 seja igual a [25, 26, 51] se {codCateg} pertencer a um dos grupos "Contribuinte Individual" ou "Bolsista" da Tabela 01.</xs:documentation>
+                    <xs:documentation>Informar o código atribuído pelo empregador e que identifica a rubrica em sua folha de pagamento ou o código da rubrica constante da Tabela 29.</xs:documentation>
+                    <xs:documentation>Validação: Não pode ser utilizada rubrica cujo {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 seja igual a [25, 26, 51] se {codCateg}(1200_dmDev_codCateg) pertencer ao grupo "Contribuinte Individual" ou "Bolsista" da Tabela 01.</xs:documentation>
                 </xs:annotation>
             </xs:element>
             <xs:element name="ideTabRubr" type="TS_ideTabRubr">
                 <xs:annotation>
-                    <xs:documentation>Preencher com o identificador da Tabela de Rubricas, conforme informado em S-1010, para a rubrica definida em {codRubr}.</xs:documentation>
-                    <xs:documentation>Validação: Deve existir na Tabela S-1010 (em conjunto com {codRubr}) vigente no período indicado em:</xs:documentation>
-                    <xs:documentation>a) {perApur} se vinculado a {remunPerApur};</xs:documentation>
-                    <xs:documentation>b) {perRef} se vinculado a {remunPerAnt}.</xs:documentation>
+                    <xs:documentation>Preencher com o identificador da Tabela de Rubricas para a rubrica definida em {codRubr}(./codRubr).</xs:documentation>
                 </xs:annotation>
             </xs:element>
             <xs:element name="qtdRubr" minOccurs="0" type="TS_qtdRubr" />
@@ -715,7 +713,7 @@
             <xs:element name="indApurIR" type="TS_indApurIR" minOccurs="0">
                 <xs:annotation>
                     <xs:documentation>Indicativo de tipo de apuração de IR.</xs:documentation>
-                    <xs:documentation>Validação: Informação obrigatória e exclusiva se {perApur} >= [2020-09] (se {indApuracao} = [1]) ou se {perApur} >= [2020] (se {indApuracao} = [2]).</xs:documentation>
+                    <xs:documentation>Validação: Informação obrigatória e exclusiva se {perApur}(1200_ideEvento_perApur) >= [2020-09] (se {indApuracao}(1200_ideEvento_indApuracao) = [1]) ou se {perApur} >= [2020] (se {indApuracao} = [2]).</xs:documentation>
                 </xs:annotation>
             </xs:element>
         </xs:sequence>
@@ -790,6 +788,7 @@
     <xs:complexType name="T_procJudTrab">
         <xs:annotation>
             <xs:documentation>Informações sobre a existência de processos judiciais do trabalhador</xs:documentation>
+            <xs:documentation>DESCRICAO_COMPLETA:Informações sobre a existência de processos judiciais do trabalhador com decisão favorável quanto à não incidência de contribuições sociais e/ou Imposto de Renda.</xs:documentation>
             <xs:documentation>CHAVE_GRUPO: {tpTrib}, {nrProcJud}, {codSusp}</xs:documentation>
             <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
         </xs:annotation>
@@ -797,8 +796,8 @@
             <xs:element name="tpTrib" type="TS_tpTrib" />
             <xs:element name="nrProcJud" type="TS_nrProcJud">
                 <xs:annotation>
-                    <xs:documentation>Informar um número de processo judicial.</xs:documentation>
-                    <xs:documentation>Validação: O processo deve existir na Tabela de Processos (S-1070), com {indMatProc} = [1].</xs:documentation>
+                    <xs:documentation>Informar um número de processo judicial cadastrado através do evento S-1070, cujo {indMatProc}(1070_infoProcesso_inclusao_dadosProc_indMatProc) seja igual a [1].</xs:documentation>
+                    <xs:documentation>Validação: O processo deve existir na Tabela de Processos (S-1070), com {indMatProc}(1070_infoProcesso_inclusao_dadosProc_indMatProc) = [1].</xs:documentation>
                 </xs:annotation>
             </xs:element>
             <xs:element name="codSusp" type="TS_codSusp" />
@@ -1164,7 +1163,7 @@
 
     <xs:simpleType name="TS_perApur">
         <xs:annotation>
-            <xs:documentation>Informar o mês/ano (formato AAAA-MM) de referência das informações, se {indApuracao} for igual a [1], ou apenas o ano (formato AAAA), se {indApuracao} for igual a [2].</xs:documentation>
+            <xs:documentation>Informar o mês/ano (formato AAAA-MM) de referência das informações, se {indApuracao}(./indApuracao) for igual a [1], ou apenas o ano (formato AAAA), se {indApuracao}(./indApuracao) for igual a [2].</xs:documentation>
             <xs:documentation>Validação: Deve ser um mês/ano ou ano válido, igual ou posterior a implementação do eSocial.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:string">
@@ -1632,10 +1631,9 @@
 
     <xs:simpleType name="TS_qtdRubr">
         <xs:annotation>
-            <xs:documentation>Informar a quantidade de referência para apuração (em horas, cotas, meses, percentual, etc.).</xs:documentation>
-            <xs:documentation>Ex.: Quantidade de horas extras trabalhadas relacionada com uma rubrica de hora extra, quantidade de dias trabalhados relacionada com uma rubrica de salário. etc.</xs:documentation>
+            <xs:documentation>Informar a quantidade de referência para apuração (em horas, cotas, meses, percentual, etc.). Ex.: Quantidade de horas extras trabalhadas relacionada com uma rubrica de hora extra, quantidade de dias trabalhados relacionada com uma rubrica de salário, etc.</xs:documentation>
             <xs:documentation>Preenchimento obrigatório quando se tratar de rubrica relativa a faltas ou Descanso Semanal Remunerado - DSR sobre faltas (nesse caso, informar a quantidade de dias).</xs:documentation>
-            <xs:documentation>Validação: Deve ser maior que zero. Informação obrigatória se {codRubr} tiver {natRubr} em S-1010 igual a [9207, 9211].</xs:documentation>
+            <xs:documentation>Validação: Deve ser maior que zero. Informação obrigatória se {codRubr}(./codRubr) tiver {natRubr}(1010_infoRubrica_inclusao_dadosRubrica_natRubr) em S-1010 igual a [9207, 9211].</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:decimal">
             <xs:totalDigits value="6" />
@@ -1647,8 +1645,7 @@
 
     <xs:simpleType name="TS_fator">
         <xs:annotation>
-            <xs:documentation>Informar o fator, percentual, etc, da rubrica, quando necessário.</xs:documentation>
-            <xs:documentation>Ex: Adicional de Horas Extras 50%, relacionado a uma rubrica de horas extras: Fator = 50.</xs:documentation>
+            <xs:documentation>Informar o fator, percentual, etc, da rubrica, quando necessário. Ex.: Adicional de horas extras 50%, relacionado a uma rubrica de horas extras: Fator = 50.</xs:documentation>
             <xs:documentation>Validação: Deve ser maior que zero.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:decimal">
@@ -1694,17 +1691,17 @@
             </xs:enumeration>
             <xs:enumeration value="2">
                 <xs:annotation>
-                    <xs:documentation>Ensejador de Aposentadoria Especial - FAE15_12% (15 anos de contribuição e alíquota de 12%)</xs:documentation>
+                    <xs:documentation>Ensejador de aposentadoria especial - FAE15_12% (15 anos de contribuição e alíquota de 12%)</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
             <xs:enumeration value="3">
                 <xs:annotation>
-                    <xs:documentation>Ensejador de Aposentadoria Especial - FAE20_09% (20 anos de contribuição e alíquota de 9%)</xs:documentation>
+                    <xs:documentation>Ensejador de aposentadoria especial - FAE20_09% (20 anos de contribuição e alíquota de 9%)</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
             <xs:enumeration value="4">
                 <xs:annotation>
-                    <xs:documentation>Ensejador de Aposentadoria Especial - FAE25_06% (25 anos de contribuição e alíquota de 6%)</xs:documentation>
+                    <xs:documentation>Ensejador de aposentadoria especial - FAE25_06% (25 anos de contribuição e alíquota de 6%)</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
         </xs:restriction>
@@ -1712,13 +1709,13 @@
 
     <xs:simpleType name="TS_indSimples">
         <xs:annotation>
-            <xs:documentation>Indicador de Contribuição Substituída.</xs:documentation>
-            <xs:documentation>Validação: O preenchimento do campo é obrigatório apenas no caso das empresas enquadradas no regime de tributação Simples Nacional, com tributação previdenciária substituída e não substituída, ({classTrib} do evento S-1000 -Informações do Empregador = [03]). Para os demais empregadores, não deve ser informado.</xs:documentation>
+            <xs:documentation>Indicador de contribuição substituída.</xs:documentation>
+            <xs:documentation>Validação: O preenchimento do campo é obrigatório apenas no caso das empresas enquadradas no regime de tributação Simples Nacional, com tributação previdenciária substituída e não substituída ({classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [03]). Para os demais empregadores, não deve ser informado.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:byte">
             <xs:enumeration value="1">
                 <xs:annotation>
-                    <xs:documentation>Contribuição Substituída Integralmente</xs:documentation>
+                    <xs:documentation>Contribuição substituída integralmente</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
             <xs:enumeration value="2">
