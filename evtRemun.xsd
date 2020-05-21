@@ -17,6 +17,7 @@
                         <xs:documentation>REGRA:REGRA_COMPATIBILIDADE_CATEGORIA_CLASSTRIB</xs:documentation>
                         <xs:documentation>REGRA:REGRA_COMPATIB_REGIME_PREV</xs:documentation>
                         <xs:documentation>REGRA:REGRA_CONTROLE_DUPLICIDADE</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_DEMONSTRATIVO</xs:documentation>
                         <xs:documentation>REGRA:REGRA_ENVIO_PROC_FECHAMENTO</xs:documentation>
                         <xs:documentation>REGRA:REGRA_EVENTOS_EXTEMP</xs:documentation>
                         <xs:documentation>REGRA:REGRA_EXISTE_INFO_EMPREGADOR</xs:documentation>
@@ -100,7 +101,7 @@
                                         <xs:element name="infoComplem" minOccurs="0">
                                             <xs:annotation>
                                                 <xs:documentation>Informações complementares de identificação do trabalhador</xs:documentation>
-                                                <xs:documentation>DESCRICAO_COMPLETA:Grupo preenchido exclusivamente quando o evento de remuneração se referir a trabalhador cuja categoria não está sujeita ao evento de admissão ou ao evento TSVE - Início. No caso das categorias em que o envio do evento TSVE é opcional, o preenchimento do grupo somente é exigido se não houver evento TSVE - Início correspondente. As informações complementares são necessárias para correta identificação do trabalhador.</xs:documentation>
+                                                <xs:documentation>DESCRICAO_COMPLETA:Grupo preenchido quando o evento de remuneração se referir a trabalhador cuja categoria não está sujeita ao evento de admissão ou ao evento TSVE - Início, bem como para informar remuneração devida pela empresa sucessora a empregado desligado ainda na sucedida. No caso das categorias em que o envio do evento TSVE - Início for opcional, o preenchimento do grupo somente é exigido se não houver o respectivo evento. As informações complementares são necessárias para correta identificação do trabalhador.</xs:documentation>
                                                 <xs:documentation>CONDICAO_GRUPO: O ((se o trabalhador não tiver nenhum cadastro no RET) OU (se {remunSuc}(1200_dmDev_infoPerAnt_ideADC_remunSuc) = [S])); N (se o trabalhador tiver cadastro ativo no RET); OC (nos demais casos)</xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
@@ -274,7 +275,7 @@
                                                 <xs:documentation>b) remuneração relativa a diferenças de vencimento provenientes de disposições legais;</xs:documentation>
                                                 <xs:documentation>c) bases de cálculo para efeitos de apuração de FGTS resultantes de conversão de licença saúde em acidente de trabalho;</xs:documentation>
                                                 <xs:documentation>d) verbas de natureza salarial ou não salarial devidas após o desligamento.</xs:documentation>
-                                                <xs:documentation>OBS: As informações previstas nos itens acima podem se referir ao período de apuração definido em {perApur}(1200_ideEvento_perApur) ou a períodos anteriores a {perApur}(1200_ideEvento_perApur).</xs:documentation>
+                                                <xs:documentation>OBS: As informações previstas acima podem se referir ao período de apuração definido em {perApur}(1200_ideEvento_perApur) ou a períodos anteriores a {perApur}(1200_ideEvento_perApur).</xs:documentation>
                                                 <xs:documentation>CONDICAO_GRUPO: O (se não existir o grupo {infoPerApur}(1200_dmDev_infoPerApur) e {indApuracao}(1200_ideEvento_indApuracao) = [1]); N (se {indApuracao}(1200_ideEvento_indApuracao) = [2] ou {codCateg}(1200_dmDev_codCateg) for diferente de [1XX, 2XX, 3XX, 721, 722, 901]); OC (nos demais casos)</xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
@@ -301,7 +302,7 @@
                                                                 <xs:element name="tpAcConv">
                                                                     <xs:simpleType>
                                                                         <xs:annotation>
-                                                                            <xs:documentation>Tipo do instrumento ou situação ensejadora da remuneração relativa a Períodos de Apuração Anteriores.</xs:documentation>
+                                                                            <xs:documentation>Tipo do instrumento ou situação ensejadora da remuneração relativa a períodos de apuração anteriores.</xs:documentation>
                                                                         </xs:annotation>
                                                                         <xs:restriction base="xs:string">
                                                                             <xs:enumeration value="A">
@@ -344,7 +345,7 @@
                                                                 </xs:element>
                                                                 <xs:element name="dsc" type="TS_texto_255">
                                                                     <xs:annotation>
-                                                                        <xs:documentation>Detalhamento do instrumento ou situação que originou o pagamento das verbas relativas a períodos anteriores.</xs:documentation>
+                                                                        <xs:documentation>Descrição do instrumento ou situação que originou o pagamento das verbas relativas a períodos anteriores.</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
                                                                 <xs:element name="remunSuc" type="TS_sim_nao">
@@ -379,10 +380,10 @@
                                                                                         <xs:element name="tpInsc" type="TS_tpInsc_1_2_3_4">
                                                                                             <xs:annotation>
                                                                                                 <xs:documentation>Preencher com o código correspondente ao tipo de inscrição do estabelecimento, de acordo com as opções da Tabela 05.</xs:documentation>
-                                                                                                <xs:documentation>Validação: Se {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) igual a [21], deve ser igual a [3, 4], exceto se empregador doméstico.</xs:documentation>
-                                                                                                <xs:documentation>Se {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) igual a [22], caso não seja empregador doméstico, deve ser igual a [3, 4] e, se for igual a [3], o CAEPF deve constar na Tabela S-1005 como sendo de segurado especial.</xs:documentation>
+                                                                                                <xs:documentation>Validação: Se {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [21], deve ser igual a [3, 4], exceto se empregador doméstico.</xs:documentation>
+                                                                                                <xs:documentation>Se {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [22], caso não seja empregador doméstico, deve ser igual a [3, 4] e, se for igual a [3], o CAEPF deve constar na Tabela S-1005 como sendo de segurado especial.</xs:documentation>
                                                                                                 <xs:documentation>Se empregador doméstico (trabalhador com {codCateg}(1200_dmDev_codCateg) = [104]), deve ser igual a [2].</xs:documentation>
-                                                                                                <xs:documentation>Nos demais casos ({classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) diferente de [21, 22]), deve ser igual a [1, 4].</xs:documentation>
+                                                                                                <xs:documentation>Nos demais casos ({classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 diferente de [21, 22]), deve ser igual a [1, 4].</xs:documentation>
                                                                                             </xs:annotation>
                                                                                         </xs:element>
                                                                                         <xs:element name="nrInsc" type="TS_nrInsc_11_12_14">
@@ -445,22 +446,22 @@
                                                     <xs:element name="codCBO" type="TS_cbo">
                                                         <xs:annotation>
                                                             <xs:documentation>Classificação Brasileira de Ocupações - CBO.</xs:documentation>
-                                                            <xs:documentation>Validação: Deve ser um código existente na tabela de CBO, com 6 (seis) posições.</xs:documentation>
+                                                            <xs:documentation>Validação: Deve ser um código válido e existente na tabela de CBO, com 6 (seis) posições.</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
                                                     <xs:element name="natAtividade" minOccurs="0" type="TS_natAtividade">
                                                         <xs:annotation>
                                                             <xs:documentation>Natureza da atividade.</xs:documentation>
                                                             <xs:documentation>Validação: O campo deve ser preenchido apenas se atendida uma das condições a seguir apresentadas:</xs:documentation>
-                                                            <xs:documentation>a) a classificação tributária for igual a [06, 07, 08];</xs:documentation>
-                                                            <xs:documentation>b) a classificação tributária for igual a [21, 22] e existir remuneração para o trabalhador vinculada a um tipo de CAEPF informado em S-1005 como produtor rural ou segurado especial.</xs:documentation>
+                                                            <xs:documentation>a) {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [06, 07, 08];</xs:documentation>
+                                                            <xs:documentation>b) {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [21, 22] e existir remuneração para o trabalhador vinculada a um tipo de CAEPF informado em S-1005 como produtor rural ou segurado especial.</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
                                                     <xs:element name="qtdDiasTrab" minOccurs="0">
                                                         <xs:simpleType>
                                                             <xs:annotation>
-                                                                <xs:documentation>Informação prestada exclusivamente pelo Segurado Especial em caso de contratação de contribuinte individual, indicando a quantidade de dias trabalhados pelo mesmo.</xs:documentation>
-                                                                <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) = [22] e {natAtividade}(./natAtividade) = [2]. Neste caso, preencher com um número entre 1 e 31.</xs:documentation>
+                                                                <xs:documentation>Informação prestada exclusivamente pelo segurado especial em caso de contratação de contribuinte individual, indicando a quantidade de dias trabalhados pelo mesmo.</xs:documentation>
+                                                                <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [22] e {natAtividade}(./natAtividade) = [2]. Neste caso, preencher com um número entre 1 e 31.</xs:documentation>
                                                             </xs:annotation>
                                                             <xs:restriction base="xs:byte">
                                                                 <xs:pattern value="\d{1,2}" />
