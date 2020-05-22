@@ -10,9 +10,10 @@
             <xs:sequence>
                 <xs:element name="evtBenPrRP">
                     <xs:annotation>
-                        <xs:documentation>Benefícios - Entes públicos</xs:documentation>
+                        <xs:documentation>Evento Benefícios - Entes Públicos.</xs:documentation>
                         <xs:documentation>CHAVE_GRUPO: {Id}</xs:documentation>
                         <xs:documentation>REGRA:REGRA_CONTROLE_DUPLICIDADE</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_DEMONSTRATIVO</xs:documentation>
                         <xs:documentation>REGRA:REGRA_ENVIO_PROC_FECHAMENTO</xs:documentation>
                         <xs:documentation>REGRA:REGRA_EVENTOS_EXTEMP</xs:documentation>
                         <xs:documentation>REGRA:REGRA_EXISTE_INFO_EMPREGADOR</xs:documentation>
@@ -30,7 +31,7 @@
                             <xs:element name="ideEmpregador" type="T_ideEmpregador_cnpj" />
                             <xs:element name="ideBenef">
                                 <xs:annotation>
-                                    <xs:documentation>Identificação do Beneficiário</xs:documentation>
+                                    <xs:documentation>Identificação do beneficiário.</xs:documentation>
                                     <xs:documentation>CHAVE_GRUPO: {cpfBenef}</xs:documentation>
                                 </xs:annotation>
                                 <xs:complexType>
@@ -47,6 +48,7 @@
                             <xs:element name="dmDev" maxOccurs="999">
                                 <xs:annotation>
                                     <xs:documentation>Demonstrativos de valores devidos ao beneficiário</xs:documentation>
+                                    <xs:documentation>DESCRICAO_COMPLETA:Identificação de cada um dos demonstrativos de valores devidos ao beneficiário.</xs:documentation>
                                     <xs:documentation>CHAVE_GRUPO: {ideDmDev}</xs:documentation>
                                 </xs:annotation>
                                 <xs:complexType>
@@ -64,8 +66,8 @@
                                         </xs:element>
                                         <xs:element name="infoPerApur" minOccurs="0">
                                             <xs:annotation>
-                                                <xs:documentation>Informações relativas ao período de apuração</xs:documentation>
-                                                <xs:documentation>CONDICAO_GRUPO: O (se não existir o grupo {infoPerAnt}); OC (nas demais situações)</xs:documentation>
+                                                <xs:documentation>Informações relativas ao período de apuração.</xs:documentation>
+                                                <xs:documentation>CONDICAO_GRUPO: O (se não existir o grupo {infoPerAnt}); OC (nos demais casos)</xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>
@@ -76,13 +78,15 @@
                                         <xs:element name="infoPerAnt" minOccurs="0">
                                             <xs:annotation>
                                                 <xs:documentation>Informações relativas a períodos anteriores</xs:documentation>
-                                                <xs:documentation>CONDICAO_GRUPO: O (se não existir o grupo {infoPerApur}); OC (nas demais situações)</xs:documentation>
+                                                <xs:documentation>DESCRICAO_COMPLETA:Grupo destinado às informações relativas a períodos anteriores. Somente preencher esse grupo se houver proventos ou pensões retroativos.</xs:documentation>
+                                                <xs:documentation>CONDICAO_GRUPO: O (se não existir o grupo {infoPerApur}); OC (nos demais casos)</xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>
                                                     <xs:element name="idePeriodo" maxOccurs="180">
                                                         <xs:annotation>
                                                             <xs:documentation>Identificação do período de referência do provento ou pensão</xs:documentation>
+                                                            <xs:documentation>DESCRICAO_COMPLETA:Identificação do período ao qual se referem as diferenças de provento ou pensão.</xs:documentation>
                                                             <xs:documentation>CHAVE_GRUPO: {perRef}</xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
@@ -90,7 +94,7 @@
                                                                 <xs:element name="perRef" type="TS_periodo_mensal">
                                                                     <xs:annotation>
                                                                         <xs:documentation>Informar o período ao qual se refere o complemento de provento ou pensão, no formato AAAA-MM.</xs:documentation>
-                                                                        <xs:documentation>Validação: Deve ser igual ou anterior ao período de apuração informado em {perApur}.</xs:documentation>
+                                                                        <xs:documentation>Validação: Deve ser igual ou anterior ao período de apuração informado em {perApur}(1207_ideEvento_perApur).</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
                                                                 <xs:element name="ideEstab" maxOccurs="500" type="T_ideEstab" />
@@ -114,6 +118,7 @@
     <xs:complexType name="T_ideEstab">
         <xs:annotation>
             <xs:documentation>Identificação da unidade do órgão público</xs:documentation>
+            <xs:documentation>DESCRICAO_COMPLETA:Identificação da unidade do órgão público na qual o beneficiário possui provento ou pensão.</xs:documentation>
             <xs:documentation>CHAVE_GRUPO: {tpInsc}, {nrInsc}</xs:documentation>
         </xs:annotation>
         <xs:sequence>
@@ -121,12 +126,12 @@
             <xs:element name="nrInsc" type="TS_cnpj">
                 <xs:annotation>
                     <xs:documentation>Informar o número de inscrição da unidade do órgão público.</xs:documentation>
-                    <xs:documentation>Validação: Deve constar na Tabela S-1005 em {perApur}.</xs:documentation>
                 </xs:annotation>
             </xs:element>
             <xs:element name="itensRemun" type="T_itensRemun_rpps" maxOccurs="200">
                 <xs:annotation>
                     <xs:documentation>Itens que compõem o provento ou pensão do beneficiário</xs:documentation>
+                    <xs:documentation>DESCRICAO_COMPLETA:Rubricas que compõem o provento ou pensão do beneficiário.</xs:documentation>
                 </xs:annotation>
             </xs:element>
         </xs:sequence>
