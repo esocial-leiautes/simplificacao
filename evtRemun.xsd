@@ -46,12 +46,7 @@
                                 </xs:annotation>
                                 <xs:complexType>
                                     <xs:sequence>
-                                        <xs:element name="cpfTrab" type="TS_cpf">
-                                            <xs:annotation>
-                                                <xs:documentation>Preencher com o número do CPF do trabalhador.</xs:documentation>
-                                                <xs:documentation>Validação: Deve ser um CPF válido.</xs:documentation>
-                                            </xs:annotation>
-                                        </xs:element>
+                                        <xs:element name="cpfTrab" type="TS_cpfRemun" />
                                         <xs:element name="infoMV" minOccurs="0">
                                             <xs:annotation>
                                                 <xs:documentation>Informação de múltiplos vínculos</xs:documentation>
@@ -79,18 +74,8 @@
                                                                         <xs:documentation>d) Se {indApuracao}(1200_ideEvento_indApuracao) = [2] e {remunOutrEmpr/tpInsc}(./tpInsc) = [2], é permitido informar número de inscrição igual ao CPF do empregador.</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
-                                                                <xs:element name="codCateg" type="TS_codCateg">
-                                                                    <xs:annotation>
-                                                                        <xs:documentation>Preencher com o código da categoria do trabalhador na qual houve a remuneração.</xs:documentation>
-                                                                        <xs:documentation>Validação: Deve ser um código válido e existente na Tabela 01.</xs:documentation>
-                                                                    </xs:annotation>
-                                                                </xs:element>
-                                                                <xs:element name="vlrRemunOE" type="TS_vrRubr">
-                                                                    <xs:annotation>
-                                                                        <xs:documentation>Preencher com o valor da remuneração recebida pelo trabalhador na outra empresa/atividade, sobre a qual houve desconto/recolhimento da contribuição do segurado.</xs:documentation>
-                                                                        <xs:documentation>Validação: Deve ser maior que zero.</xs:documentation>
-                                                                    </xs:annotation>
-                                                                </xs:element>
+                                                                <xs:element name="codCateg" type="TS_codCategOE" />
+                                                                <xs:element name="vlrRemunOE" type="TS_vlrRemunOE" />
                                                             </xs:sequence>
                                                         </xs:complexType>
                                                     </xs:element>
@@ -105,22 +90,8 @@
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>
-                                                    <xs:element name="nmTrab" type="TS_nome">
-                                                        <xs:annotation>
-                                                            <xs:documentation>Nome do trabalhador.</xs:documentation>
-                                                        </xs:annotation>
-                                                    </xs:element>
-                                                    <xs:element name="dtNascto">
-                                                        <xs:simpleType>
-                                                            <xs:annotation>
-                                                                <xs:documentation>Preencher com a data de nascimento.</xs:documentation>
-                                                                <xs:documentation>Validação: Deve ser maior ou igual que 01/01/1890 e menor ou igual à data atual.</xs:documentation>
-                                                            </xs:annotation>
-                                                            <xs:restriction base="xs:date">
-                                                                <xs:minInclusive value="1890-01-01" />
-                                                            </xs:restriction>
-                                                        </xs:simpleType>
-                                                    </xs:element>
+                                                    <xs:element name="nmTrab" type="TS_nmTrab" />
+                                                    <xs:element name="dtNascto" type="TS_dtNascto" />
                                                     <xs:element name="sucessaoVinc" minOccurs="0">
                                                         <xs:annotation>
                                                             <xs:documentation>Grupo de informações da sucessão de vínculo trabalhista/estatutário.</xs:documentation>
@@ -137,21 +108,9 @@
                                                                         <xs:documentation>Se {sucessaoVinc/tpInsc}(./tpInsc) = [2], deve possuir 11 (onze) algarismos.</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
-                                                                <xs:element name="matricAnt" minOccurs="0" type="TS_codigo_esocial">
-                                                                    <xs:annotation>
-                                                                        <xs:documentation>Matrícula do trabalhador no empregador anterior.</xs:documentation>
-                                                                    </xs:annotation>
-                                                                </xs:element>
-                                                                <xs:element name="dtAdm" type="xs:date">
-                                                                    <xs:annotation>
-                                                                        <xs:documentation>Preencher com a data de admissão do trabalhador. No caso de transferência do empregado, deve ser preenchida a data inicial do vínculo no primeiro empregador (data de início do vínculo).</xs:documentation>
-                                                                    </xs:annotation>
-                                                                </xs:element>
-                                                                <xs:element name="observacao" minOccurs="0" type="TS_texto_255">
-                                                                    <xs:annotation>
-                                                                        <xs:documentation>Observação.</xs:documentation>
-                                                                    </xs:annotation>
-                                                                </xs:element>
+                                                                <xs:element name="matricAnt" minOccurs="0" type="TS_matricAnt" />
+                                                                <xs:element name="dtAdm" type="TS_dtAdm" />
+                                                                <xs:element name="observacao" minOccurs="0" type="TS_observacao" />
                                                             </xs:sequence>
                                                         </xs:complexType>
                                                     </xs:element>
@@ -201,26 +160,9 @@
                                                         </xs:annotation>
                                                         <xs:complexType>
                                                             <xs:sequence>
-                                                                <xs:element name="tpInsc" type="TS_tpInsc_1_2_3_4">
-                                                                    <xs:annotation>
-                                                                        <xs:documentation>Preencher com o código correspondente ao tipo de inscrição do estabelecimento, de acordo com as opções da Tabela 05.</xs:documentation>
-                                                                        <xs:documentation>Validação: Se {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [21], deve ser igual a [3, 4], exceto se empregador doméstico.</xs:documentation>
-                                                                        <xs:documentation>Se {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [22], caso não seja empregador doméstico, deve ser igual a [3, 4] e, se for igual a [3], o CAEPF deve constar na Tabela S-1005 como sendo de segurado especial.</xs:documentation>
-                                                                        <xs:documentation>Se empregador doméstico (trabalhador com {codCateg}(1200_dmDev_codCateg) = [104]), deve ser igual a [2].</xs:documentation>
-                                                                        <xs:documentation>Nos demais casos ({classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 diferente de [21, 22]), deve ser igual a [1, 4].</xs:documentation>
-                                                                    </xs:annotation>
-                                                                </xs:element>
-                                                                <xs:element name="nrInsc" type="TS_nrInsc_11_12_14">
-                                                                    <xs:annotation>
-                                                                        <xs:documentation>Informar o número de inscrição do estabelecimento do contribuinte de acordo com o tipo de inscrição indicado no campo {ideEstabLot/tpInsc}(./tpInsc).</xs:documentation>
-                                                                        <xs:documentation>Validação: A inscrição informada deve ser compatível com {ideEstabLot/tpInsc}(./tpInsc). Se {ideEstabLot/tpInsc}(./tpInsc) = [2], informar o CPF do empregador doméstico.</xs:documentation>
-                                                                    </xs:annotation>
-                                                                </xs:element>
-                                                                <xs:element name="codLotacao" type="TS_codigo_esocial">
-                                                                    <xs:annotation>
-                                                                        <xs:documentation>Informar o código atribuído pela empresa para a lotação tributária.</xs:documentation>
-                                                                    </xs:annotation>
-                                                                </xs:element>
+                                                                <xs:element name="tpInsc" type="TS_tpInsc_EstabLot" />
+                                                                <xs:element name="nrInsc" type="TS_nrInsc_EstabLot" />
+                                                                <xs:element name="codLotacao" type="TS_codLotacao" />
                                                                 <xs:element name="qtdDiasAv" minOccurs="0">
                                                                     <xs:simpleType>
                                                                         <xs:annotation>
@@ -377,26 +319,9 @@
                                                                                 </xs:annotation>
                                                                                 <xs:complexType>
                                                                                     <xs:sequence>
-                                                                                        <xs:element name="tpInsc" type="TS_tpInsc_1_2_3_4">
-                                                                                            <xs:annotation>
-                                                                                                <xs:documentation>Preencher com o código correspondente ao tipo de inscrição do estabelecimento, de acordo com as opções da Tabela 05.</xs:documentation>
-                                                                                                <xs:documentation>Validação: Se {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [21], deve ser igual a [3, 4], exceto se empregador doméstico.</xs:documentation>
-                                                                                                <xs:documentation>Se {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [22], caso não seja empregador doméstico, deve ser igual a [3, 4] e, se for igual a [3], o CAEPF deve constar na Tabela S-1005 como sendo de segurado especial.</xs:documentation>
-                                                                                                <xs:documentation>Se empregador doméstico (trabalhador com {codCateg}(1200_dmDev_codCateg) = [104]), deve ser igual a [2].</xs:documentation>
-                                                                                                <xs:documentation>Nos demais casos ({classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 diferente de [21, 22]), deve ser igual a [1, 4].</xs:documentation>
-                                                                                            </xs:annotation>
-                                                                                        </xs:element>
-                                                                                        <xs:element name="nrInsc" type="TS_nrInsc_11_12_14">
-                                                                                            <xs:annotation>
-                                                                                                <xs:documentation>Informar o número de inscrição do estabelecimento do contribuinte de acordo com o tipo de inscrição indicado no campo {ideEstabLot/tpInsc}(./tpInsc).</xs:documentation>
-                                                                                                <xs:documentation>Validação: A inscrição informada deve ser compatível com {ideEstabLot/tpInsc}(./tpInsc). Se {ideEstabLot/tpInsc}(./tpInsc) = [2], informar o CPF do empregador doméstico.</xs:documentation>
-                                                                                            </xs:annotation>
-                                                                                        </xs:element>
-                                                                                        <xs:element name="codLotacao" type="TS_codigo_esocial">
-                                                                                            <xs:annotation>
-                                                                                                <xs:documentation>Informar o código atribuído pela empresa para a lotação tributária.</xs:documentation>
-                                                                                            </xs:annotation>
-                                                                                        </xs:element>
+                                                                                        <xs:element name="tpInsc" type="TS_tpInsc_EstabLot" />
+                                                                                        <xs:element name="nrInsc" type="TS_nrInsc_EstabLot" />
+                                                                                        <xs:element name="codLotacao" type="TS_codLotacao" />
                                                                                         <xs:element name="remunPerAnt" maxOccurs="8">
                                                                                             <xs:annotation>
                                                                                                 <xs:documentation>Remuneração do trabalhador</xs:documentation>
@@ -484,6 +409,30 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+    <xs:complexType name="T_itensRemun">
+        <xs:annotation>
+            <xs:documentation>Itens da remuneração do trabalhador</xs:documentation>
+            <xs:documentation>DESCRICAO_COMPLETA:Rubricas que compõem a remuneração do trabalhador.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="codRubr" type="TS_codigo_esocial">
+                <xs:annotation>
+                    <xs:documentation>Informar o código atribuído pelo empregador e que identifica a rubrica em sua folha de pagamento ou o código da rubrica constante da Tabela 29.</xs:documentation>
+                    <xs:documentation>Validação: Não pode ser utilizada rubrica cujo {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 seja igual a [25, 26, 51] se {codCateg}(1200_dmDev_codCateg) pertencer ao grupo "Contribuinte Individual" ou "Bolsista" da Tabela 01.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ideTabRubr" type="TS_ideTabRubr" />
+            <xs:element name="qtdRubr" minOccurs="0" type="TS_qtdRubr" />
+            <xs:element name="fatorRubr" minOccurs="0" type="TS_fator" />
+            <xs:element name="vrRubr" type="TS_vrRubr" />
+            <xs:element name="indApurIR" type="TS_indApurIR" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Indicativo de tipo de apuração de IR.</xs:documentation>
+                    <xs:documentation>Validação: Informação obrigatória e exclusiva se {perApur}(1200_ideEvento_perApur) >= [2020-09] (se {indApuracao}(1200_ideEvento_indApuracao) = [1]) ou se {perApur} >= [2020] (se {indApuracao} = [2]).</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
     <xs:complexType name="T_infoAgNocivo">
         <xs:sequence>
             <xs:element name="grauExp" type="TS_grauExp" />

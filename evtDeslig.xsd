@@ -102,7 +102,7 @@
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>
-                                                    <xs:element name="observacao" type="TS_texto_255">
+                                                    <xs:element name="observacao" type="TS_observacao">
                                                         <xs:annotation>
                                                             <xs:documentation>Observação relevante sobre o desligamento do trabalhador, que não esteja consignada em outros campos.</xs:documentation>
                                                         </xs:annotation>
@@ -364,27 +364,9 @@
             <xs:documentation>CHAVE_GRUPO: {tpInsc}, {nrInsc}, {codLotacao}</xs:documentation>
         </xs:annotation>
         <xs:sequence>
-            <xs:element name="tpInsc" type="TS_tpInsc_1_2_3_4">
-                <xs:annotation>
-                    <xs:documentation>Preencher com o código correspondente ao tipo de inscrição do estabelecimento, de acordo com as opções da Tabela 05.</xs:documentation>
-                    <xs:documentation>Validação: Se {classTrib} igual a [21], deve ser igual a [3, 4], exceto se empregador doméstico.</xs:documentation>
-                    <xs:documentation>Se {classTrib} igual a [22], caso não seja empregador doméstico, deve ser igual a [3, 4] e, se for igual a [3], o CAEPF deve constar na Tabela S-1005 como sendo de segurado especial.</xs:documentation>
-                    <xs:documentation>Se empregador doméstico (trabalhador com {codCateg} = [104]), deve ser igual a [2].</xs:documentation>
-                    <xs:documentation>Nos demais casos ({classTrib} diferente de [21, 22]), deve ser igual a [1, 4].</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element name="nrInsc" type="TS_nrInsc_11_12_14">
-                <xs:annotation>
-                    <xs:documentation>Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {tpInsc}.</xs:documentation>
-                    <xs:documentation>Validação: A inscrição informada deve ser compatível com {tpInsc}. Se {tpInsc} igual a [1, 3, 4] deve constar na Tabela S-1005.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element name="codLotacao" type="TS_codigo_esocial">
-                <xs:annotation>
-                    <xs:documentation>Informar o código atribuído pela empresa para a lotação tributária.</xs:documentation>
-                    <xs:documentation>Validação: Deve ser um código existente em S-1020 - Tabela de Lotações Tributárias.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
+            <xs:element name="tpInsc" type="TS_tpInsc_EstabLot" />
+            <xs:element name="nrInsc" type="TS_nrInsc_EstabLot" />
+            <xs:element name="codLotacao" type="TS_codLotacao" />
             <xs:element name="detVerbas" maxOccurs="200">
                 <xs:annotation>
                     <xs:documentation>Detalhamento das verbas rescisórias</xs:documentation>
@@ -396,11 +378,7 @@
                                 <xs:documentation>Informar o código atribuído pelo empregador e que identifica a rubrica em sua folha de pagamento ou o código da rubrica constante da Tabela 29 - Tabela de Rubricas Padrão.</xs:documentation>
                             </xs:annotation>
                         </xs:element>
-                        <xs:element name="ideTabRubr" type="TS_ideTabRubr">
-                            <xs:annotation>
-                                <xs:documentation>Preencher com o identificador da Tabela de Rubricas para a rubrica definida em {codRubr}.</xs:documentation>
-                            </xs:annotation>
-                        </xs:element>
+                        <xs:element name="ideTabRubr" type="TS_ideTabRubr" />
                         <xs:element name="qtdRubr" minOccurs="0" type="TS_qtdRubr" />
                         <xs:element name="fatorRubr" minOccurs="0" type="TS_fator" />
                         <xs:element name="vrRubr" type="TS_vrRubr" />
@@ -415,7 +393,7 @@
             </xs:element>
             <xs:element name="infoAgNocivo" minOccurs="0">
                 <xs:annotation>
-                    <xs:documentation>Grau de Exposição a Agentes Nocivos</xs:documentation>
+                    <xs:documentation>Grau de exposição a agentes nocivos</xs:documentation>
                     <xs:documentation>CONDICAO_GRUPO: O (se o trabalhador estiver amparado pelo RGPS); N (nos demais casos)</xs:documentation>
                 </xs:annotation>
                 <xs:complexType>
@@ -433,7 +411,7 @@
                     <xs:sequence>
                         <xs:element name="indSimples" type="TS_indSimples">
                             <xs:annotation>
-                                <xs:documentation>Indicador de Contribuição Substituída.</xs:documentation>
+                                <xs:documentation>Indicador de contribuição substituída.</xs:documentation>
                             </xs:annotation>
                         </xs:element>
                     </xs:sequence>

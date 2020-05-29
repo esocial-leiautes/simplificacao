@@ -33,50 +33,22 @@
                             <xs:element name="ideEmpregador" type="T_ideEmpregador" />
                             <xs:element name="trabalhador">
                                 <xs:annotation>
-                                    <xs:documentation>Grupo de Informações do Trabalhador</xs:documentation>
+                                    <xs:documentation>Grupo de informações do trabalhador.</xs:documentation>
                                     <xs:documentation>CHAVE_GRUPO: {cpfTrab}</xs:documentation>
                                 </xs:annotation>
                                 <xs:complexType>
                                     <xs:sequence>
-                                        <xs:element name="cpfTrab" type="TS_cpf">
-                                            <xs:annotation>
-                                                <xs:documentation>Preencher com o número do CPF do trabalhador.</xs:documentation>
-                                            </xs:annotation>
-                                        </xs:element>
-                                        <xs:element name="nmTrab" type="TS_nome">
-                                            <xs:annotation>
-                                                <xs:documentation>Nome do Trabalhador.</xs:documentation>
-                                            </xs:annotation>
-                                        </xs:element>
-                                        <xs:element name="sexo" type="TS_sexo">
-                                            <xs:annotation>
-                                                <xs:documentation>Sexo do Trabalhador.</xs:documentation>
-                                            </xs:annotation>
-                                        </xs:element>
-                                        <xs:element name="racaCor" type="TS_racaCor">
-                                            <xs:annotation>
-                                                <xs:documentation>Raça e cor do trabalhador.</xs:documentation>
-                                            </xs:annotation>
-                                        </xs:element>
-                                        <xs:element name="estCiv" minOccurs="0" type="TS_estCivil">
-                                            <xs:annotation>
-                                                <xs:documentation>Estado civil do trabalhador.</xs:documentation>
-                                            </xs:annotation>
-                                        </xs:element>
-                                        <xs:element name="grauInstr" type="TS_grauInstr">
-                                            <xs:annotation>
-                                                <xs:documentation>Grau de instrução do trabalhador.</xs:documentation>
-                                            </xs:annotation>
-                                        </xs:element>
-                                        <xs:element name="nmSoc" minOccurs="0" type="TS_nome">
-                                            <xs:annotation>
-                                                <xs:documentation>Nome social para travesti ou transexual.</xs:documentation>
-                                            </xs:annotation>
-                                        </xs:element>
+                                        <xs:element name="cpfTrab" type="TS_cpfTrab" />
+                                        <xs:element name="nmTrab" type="TS_nmTrab" />
+                                        <xs:element name="sexo" type="TS_sexoTrab" />
+                                        <xs:element name="racaCor" type="TS_racaCorTrab" />
+                                        <xs:element name="estCiv" minOccurs="0" type="TS_estCivilTrab" />
+                                        <xs:element name="grauInstr" type="TS_grauInstr" />
+                                        <xs:element name="nmSoc" minOccurs="0" type="TS_nmSoc" />
                                         <xs:element name="nascimento" type="T_nascimento" />
                                         <xs:element name="endereco">
                                             <xs:annotation>
-                                                <xs:documentation>Endereço do Trabalhador</xs:documentation>
+                                                <xs:documentation>Endereço do trabalhador</xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>
@@ -116,7 +88,7 @@
                                         </xs:element>
                                         <xs:element name="infoDeficiencia" minOccurs="0">
                                             <xs:annotation>
-                                                <xs:documentation>Pessoa com Deficiência.</xs:documentation>
+                                                <xs:documentation>Pessoa com deficiência.</xs:documentation>
                                                 <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
@@ -151,11 +123,7 @@
                                                             <xs:documentation>Informar se o trabalhador é reabilitado (empregado) ou readaptado (servidor público/militar). Reabilitado: estando o empregado incapacitado parcial ou totalmente para o trabalho, cumpriu Programa de Reabilitação Profissional no INSS, recebendo certificado, sendo proporcionado os meios indicados para participar do mercado de trabalho. Readaptado: o servidor está investido em cargo de atribuições e responsabilidades compatíveis com a limitação que tenha sofrido em sua capacidade física ou mental verificada em inspeção médica.</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
-                                                    <xs:element name="observacao" minOccurs="0" type="TS_texto_255">
-                                                        <xs:annotation>
-                                                            <xs:documentation>Observações.</xs:documentation>
-                                                        </xs:annotation>
-                                                    </xs:element>
+                                                    <xs:element name="observacao" minOccurs="0" type="TS_observacao" />
                                                 </xs:sequence>
                                             </xs:complexType>
                                         </xs:element>
@@ -173,20 +141,10 @@
                                                             <xs:documentation>Nome do dependente.</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
-                                                    <xs:element name="dtNascto">
-                                                        <xs:simpleType>
-                                                            <xs:annotation>
-                                                                <xs:documentation>Preencher com a data de nascimento.</xs:documentation>
-                                                                <xs:documentation>Validação: Deve ser maior ou igual que 01/01/1890 e menor que a data atual.</xs:documentation>
-                                                            </xs:annotation>
-                                                            <xs:restriction base="xs:date">
-                                                                <xs:minInclusive value="1890-01-01" />
-                                                            </xs:restriction>
-                                                        </xs:simpleType>
-                                                    </xs:element>
+                                                    <xs:element name="dtNascto" type="TS_dtNascto" />
                                                     <xs:element name="cpfDep" minOccurs="0" type="TS_cpf">
                                                         <xs:annotation>
-                                                            <xs:documentation>Número de Inscrição no CPF.</xs:documentation>
+                                                            <xs:documentation>Número de inscrição no CPF.</xs:documentation>
                                                             <xs:documentation>Validação: Deve ser um número de CPF válido, observando o que segue:</xs:documentation>
                                                             <xs:documentation>a) O preenchimento é obrigatório se {depIRRF} = [S];</xs:documentation>
                                                             <xs:documentation>b) Em arquivo de empregador Pessoa Física, deve ser diferente do CPF informado em {ideEmpregador};</xs:documentation>
@@ -469,11 +427,7 @@
                                                             <xs:documentation>Data de alteração do CPF.</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
-                                                    <xs:element name="observacao" minOccurs="0" type="TS_texto_255">
-                                                        <xs:annotation>
-                                                            <xs:documentation>Observação.</xs:documentation>
-                                                        </xs:annotation>
-                                                    </xs:element>
+                                                    <xs:element name="observacao" minOccurs="0" type="TS_observacao" />
                                                 </xs:sequence>
                                             </xs:complexType>
                                         </xs:element>

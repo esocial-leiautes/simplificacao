@@ -56,12 +56,7 @@
                                                 </xs:annotation>
                                                 <xs:complexType>
                                                     <xs:sequence>
-                                                        <xs:element name="idePeriodo" type="T_periodo">
-                                                            <xs:annotation>
-                                                                <xs:documentation>Período de validade das informações.</xs:documentation>
-                                                                <xs:documentation>CHAVE_GRUPO: {iniValid}, {fimValid}</xs:documentation>
-                                                            </xs:annotation>
-                                                        </xs:element>
+                                                        <xs:element name="idePeriodo" type="T_idePeriodo" />
                                                         <xs:element name="infoCadastro" type="T_infoCadastro" />
                                                     </xs:sequence>
                                                 </xs:complexType>
@@ -73,14 +68,15 @@
                                                 </xs:annotation>
                                                 <xs:complexType>
                                                     <xs:sequence>
-                                                        <xs:element name="idePeriodo" type="T_periodo">
+                                                        <xs:element name="idePeriodo" type="T_idePeriodo" />
+                                                        <xs:element name="infoCadastro" type="T_infoCadastro" />
+                                                        <xs:element name="novaValidade" minOccurs="0" type="T_idePeriodo">
                                                             <xs:annotation>
-                                                                <xs:documentation>Período de validade das informações.</xs:documentation>
-                                                                <xs:documentation>CHAVE_GRUPO: {iniValid}, {fimValid}</xs:documentation>
+                                                                <xs:documentation>Novo período de validade das informações.</xs:documentation>
+                                                                <xs:documentation>DESCRICAO_COMPLETA:Informação preenchida exclusivamente em caso de alteração do período de validade das informações, apresentando o novo período de validade.</xs:documentation>
+                                                                <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
                                                             </xs:annotation>
                                                         </xs:element>
-                                                        <xs:element name="infoCadastro" type="T_infoCadastro" />
-                                                        <xs:element name="novaValidade" type="T_periodo" minOccurs="0" />
                                                     </xs:sequence>
                                                 </xs:complexType>
                                             </xs:element>
@@ -91,12 +87,7 @@
                                                 </xs:annotation>
                                                 <xs:complexType>
                                                     <xs:sequence>
-                                                        <xs:element name="idePeriodo" type="T_periodo">
-                                                            <xs:annotation>
-                                                                <xs:documentation>Período de validade das informações.</xs:documentation>
-                                                                <xs:documentation>CHAVE_GRUPO: {iniValid}, {fimValid}</xs:documentation>
-                                                            </xs:annotation>
-                                                        </xs:element>
+                                                        <xs:element name="idePeriodo" type="T_idePeriodo" />
                                                     </xs:sequence>
                                                 </xs:complexType>
                                             </xs:element>
@@ -112,6 +103,16 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+    <xs:complexType name="T_idePeriodo">
+        <xs:annotation>
+            <xs:documentation>Período de validade das informações.</xs:documentation>
+            <xs:documentation>CHAVE_GRUPO: {iniValid}, {fimValid}</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="iniValid" type="TS_iniValid" />
+            <xs:element name="fimValid" minOccurs="0" type="TS_fimValid" />
+        </xs:sequence>
+    </xs:complexType>
     <xs:complexType name="T_infoCadastro">
         <xs:annotation>
             <xs:documentation>Detalhamento das informações do empregador.</xs:documentation>
@@ -313,12 +314,12 @@
                                 </xs:restriction>
                             </xs:simpleType>
                         </xs:element>
-                        <xs:element name="dtProtRenov" type="xs:date" minOccurs="0">
+                        <xs:element name="dtProtRenov" minOccurs="0" type="xs:date">
                             <xs:annotation>
                                 <xs:documentation>Data do protocolo de renovação.</xs:documentation>
                             </xs:annotation>
                         </xs:element>
-                        <xs:element name="dtDou" type="xs:date" minOccurs="0">
+                        <xs:element name="dtDou" minOccurs="0" type="xs:date">
                             <xs:annotation>
                                 <xs:documentation>Data de publicação no Diário Oficial da União - DOU.</xs:documentation>
                             </xs:annotation>
