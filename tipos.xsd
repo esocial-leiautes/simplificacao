@@ -179,7 +179,7 @@
 
     <xs:complexType name="T_nascimento">
         <xs:annotation>
-            <xs:documentation>Grupo de informações do nascimento do trabalhador</xs:documentation>
+            <xs:documentation>Grupo de informações do nascimento do trabalhador.</xs:documentation>
         </xs:annotation>
         <xs:sequence>
             <xs:sequence>
@@ -191,15 +191,10 @@
                 <xs:element name="paisNascto" type="TS_pais">
                     <xs:annotation>
                         <xs:documentation>Preencher com o código do país de nascimento do trabalhador.</xs:documentation>
-                        <xs:documentation>Validação: Deve ser um código existente na Tabela 06.</xs:documentation>
+                        <xs:documentation>Validação: Deve ser um código válido e existente na Tabela 06.</xs:documentation>
                     </xs:annotation>
                 </xs:element>
-                <xs:element name="paisNac" type="TS_pais">
-                    <xs:annotation>
-                        <xs:documentation>Preencher com o código do país de nacionalidade do trabalhador.</xs:documentation>
-                        <xs:documentation>Validação: Deve ser um código existente na Tabela 06.</xs:documentation>
-                    </xs:annotation>
-                </xs:element>
+                <xs:element name="paisNac" type="TS_paisNac" />
             </xs:sequence>
         </xs:sequence>
     </xs:complexType>
@@ -233,7 +228,7 @@
             <xs:element name="paisResid" type="TS_pais">
                 <xs:annotation>
                     <xs:documentation>Preencher com o código do país.</xs:documentation>
-                    <xs:documentation>Validação: Deve ser um código existente na Tabela 06.</xs:documentation>
+                    <xs:documentation>Validação: Deve ser um código válido e existente na Tabela 06.</xs:documentation>
                 </xs:annotation>
             </xs:element>
             <xs:element name="dscLograd" type="TS_dscLograd" />
@@ -243,7 +238,7 @@
             <xs:element name="nmCid">
                 <xs:simpleType>
                     <xs:annotation>
-                        <xs:documentation>Nome da Cidade.</xs:documentation>
+                        <xs:documentation>Nome da cidade.</xs:documentation>
                     </xs:annotation>
                     <xs:restriction base="xs:string">
                         <xs:minLength value="2" />
@@ -296,10 +291,10 @@
             <xs:element name="tpInsc" type="TS_tpInsc_1_2" />
             <xs:element name="nrInsc" type="TS_nrInsc_11_14">
                 <xs:annotation>
-                    <xs:documentation>Informar o número de inscrição do empregador para o qual a contratação de aprendiz foi efetivada, de acordo com o tipo de inscrição indicado no campo {aprend/tpInsc}.</xs:documentation>
+                    <xs:documentation>Informar o número de inscrição do empregador para o qual a contratação de aprendiz foi efetivada, de acordo com o tipo de inscrição indicado no campo {aprend/tpInsc}(./tpInsc).</xs:documentation>
                     <xs:documentation>Validação: Deve ser um identificador válido e:</xs:documentation>
-                    <xs:documentation>a) Se {tpInsc} = [1], deve ser informado com 14 (catorze) algarismos. Se o empregador for pessoa jurídica, a raiz do CNPJ informado deve ser diferente de {ideEmpregador/nrInsc}.</xs:documentation>
-                    <xs:documentation>b) Se {tpInsc} = [2], deve ser diferente do CPF do empregado. Se o empregador for pessoa física, também deve ser diferente do CPF do empregador.</xs:documentation>
+                    <xs:documentation>a) Se {aprend/tpInsc}(./tpInsc) = [1], deve ser informado com 14 (catorze) algarismos. Se o empregador for pessoa jurídica, a raiz do CNPJ informado deve ser diferente de {ideEmpregador/nrInsc}.</xs:documentation>
+                    <xs:documentation>b) Se {aprend/tpInsc}(./tpInsc) = [2], deve ser diferente do CPF do empregado. Se o empregador for pessoa física, também deve ser diferente do CPF do empregador.</xs:documentation>
                 </xs:annotation>
             </xs:element>
         </xs:sequence>
@@ -313,8 +308,8 @@
             <xs:element name="undSalFixo" type="TS_undSalFixo" />
             <xs:element name="dscSalVar" minOccurs="0" type="TS_texto_999">
                 <xs:annotation>
-                    <xs:documentation>Descrição do salário variável e como este é calculado. Exemplo: Comissões pagas no percentual de 10% sobre as vendas.</xs:documentation>
-                    <xs:documentation>Validação: Preenchimento obrigatório se {undSalFixo} for igual a [6, 7].</xs:documentation>
+                    <xs:documentation>Descrição do salário por tarefa ou variável e como este é calculado. Ex.: Comissões pagas no percentual de 10% sobre as vendas.</xs:documentation>
+                    <xs:documentation>Validação: Preenchimento obrigatório se {undSalFixo}(./undSalFixo) for igual a [6, 7].</xs:documentation>
                 </xs:annotation>
             </xs:element>
         </xs:sequence>
@@ -322,22 +317,19 @@
 
     <!-- Grupo {localTrabalho} -->
 
-    <xs:complexType name="T_localTrabalho">
-        <xs:annotation>
-            <xs:documentation>Informações do Local de Trabalho</xs:documentation>
-        </xs:annotation>
+    <xs:complexType name="T_localTrabGeral">
         <xs:sequence>
             <xs:element name="tpInsc" type="TS_tpInsc_1_3_4" />
             <xs:element name="nrInsc" type="TS_nrInsc_12_14">
                 <xs:annotation>
-                    <xs:documentation>Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {tpInsc}.</xs:documentation>
-                    <xs:documentation>Validação: A inscrição informada deve ser compatível com {tpInsc} e constar na Tabela S-1005.</xs:documentation>
+                    <xs:documentation>Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {localTrabGeral/tpInsc}(./tpInsc).</xs:documentation>
+                    <xs:documentation>Validação: Deve ser um número de inscrição válido e existente na Tabela de Estabelecimentos (S-1005), bem como compatível com {localTrabGeral/tpInsc}(./tpInsc).</xs:documentation>
                 </xs:annotation>
             </xs:element>
             <xs:element name="descComp" minOccurs="0">
                 <xs:simpleType>
                     <xs:annotation>
-                        <xs:documentation>Descrição complementar do local de trabalho</xs:documentation>
+                        <xs:documentation>Descrição complementar do local de trabalho.</xs:documentation>
                     </xs:annotation>
                     <xs:restriction base="xs:string">
                         <xs:minLength value="1" />
@@ -356,8 +348,8 @@
             <xs:element name="qtdHrsSem" minOccurs="0">
                 <xs:simpleType>
                     <xs:annotation>
-                        <xs:documentation>Quantidade média de horas relativas à jornada semanal do trabalhador</xs:documentation>
-                        <xs:documentation>Validação: Deve ser preenchido se {codCateg} diferente de [111]. Se preenchido, deve ser maior que zero.</xs:documentation>
+                        <xs:documentation>Quantidade média de horas relativas à jornada semanal do trabalhador.</xs:documentation>
+                        <xs:documentation>Validação: Deve ser preenchida se {codCateg}(../codCateg) for diferente de [111]. Se informada, deve ser maior que zero.</xs:documentation>
                     </xs:annotation>
                     <xs:restriction base="xs:decimal">
                         <xs:totalDigits value="4" />
@@ -370,7 +362,7 @@
             <xs:element name="tpJornada">
                 <xs:simpleType>
                     <xs:annotation>
-                        <xs:documentation>Tipo da Jornada</xs:documentation>
+                        <xs:documentation>Tipo de jornada.</xs:documentation>
                     </xs:annotation>
                     <xs:restriction base="xs:byte">
                         <xs:enumeration value="2">
@@ -414,9 +406,8 @@
             <xs:element name="tmpParc">
                 <xs:simpleType>
                     <xs:annotation>
-                        <xs:documentation>Contrato de trabalho em regime de tempo parcial</xs:documentation>
                         <xs:documentation>Preencher com o código relativo ao tipo de contrato em tempo parcial.</xs:documentation>
-                        <xs:documentation>Validação: O código [1] só é válido se {codCateg} = [104]. Os códigos [2, 3] não são válidos se {codCateg} = [104].</xs:documentation>
+                        <xs:documentation>Validação: O código [1] só é válido se {codCateg}(../codCateg) = [104]. Os códigos [2, 3] não são válidos se {codCateg} = [104].</xs:documentation>
                     </xs:annotation>
                     <xs:restriction base="xs:byte">
                         <xs:enumeration value="0">
@@ -444,12 +435,12 @@
             </xs:element>
             <xs:element name="horNoturno" type="TS_sim_nao">
                 <xs:annotation>
-                    <xs:documentation>Indicar se a jornada semanal possui horário noturno (no todo ou em parte)</xs:documentation>
+                    <xs:documentation>Indicar se a jornada semanal possui horário noturno (no todo ou em parte).</xs:documentation>
                 </xs:annotation>
             </xs:element>
             <xs:element name="dscJorn" type="TS_texto_999">
                 <xs:annotation>
-                    <xs:documentation>Descrição da jornada semanal contratual, contendo os dias da semana e os respectivos horários contratuais (entrada, saída e intervalos)</xs:documentation>
+                    <xs:documentation>Descrição da jornada semanal contratual, contendo os dias da semana e os respectivos horários contratuais (entrada, saída e intervalos).</xs:documentation>
                 </xs:annotation>
             </xs:element>
         </xs:sequence>
@@ -461,7 +452,7 @@
         <xs:sequence>
             <xs:element name="nrProcJud" type="TS_nrProcJud">
                 <xs:annotation>
-                    <xs:documentation>Identificação do número do processo judicial.</xs:documentation>
+                    <xs:documentation>Preencher com o número do processo judicial.</xs:documentation>
                     <xs:documentation>Validação: Deve ser um número de processo judicial válido.</xs:documentation>
                 </xs:annotation>
             </xs:element>
@@ -476,8 +467,8 @@
                 <xs:element name="codTreiCap">
                     <xs:simpleType>
                         <xs:annotation>
-                            <xs:documentation>Código do treinamento, capacitação, exercício simulado ou outra anotação, conforme Tabela 28</xs:documentation>
-                            <xs:documentation>Validação: Deve ser um código existente na Tabela 28 - Treinamentos, Capacitações, Exercícios Simulados e Outras Anotações.</xs:documentation>
+                            <xs:documentation>Informar o código do treinamento, capacitação, exercício simulado ou outra anotação, conforme Tabela 28.</xs:documentation>
+                            <xs:documentation>Validação: Deve ser um código válido e existente na Tabela 28.</xs:documentation>
                         </xs:annotation>
                         <xs:restriction base="xs:integer">
                             <xs:pattern value="\d{4}" />
@@ -492,7 +483,7 @@
 
     <xs:complexType name="T_ideVinculo">
         <xs:annotation>
-            <xs:documentation>Informações do Vínculo</xs:documentation>
+            <xs:documentation>Informações de identificação do trabalhador e do vínculo.</xs:documentation>
             <xs:documentation>CHAVE_GRUPO: {cpfTrab}, {matricula}</xs:documentation>
         </xs:annotation>
         <xs:sequence>
@@ -1391,6 +1382,27 @@
         <xs:restriction base="TS_cpf" />
     </xs:simpleType>
 
+    <xs:simpleType name="TS_cpfDep">
+        <xs:annotation>
+            <xs:documentation>Número de inscrição no CPF.</xs:documentation>
+            <xs:documentation>Validação: Deve ser um número de CPF válido, observando o que segue:</xs:documentation>
+            <xs:documentation>a) O preenchimento é obrigatório se {depIRRF}(./depIRRF) = [S];</xs:documentation>
+            <xs:documentation>b) Em arquivo de empregador Pessoa Física, deve ser diferente do CPF informado em {ideEmpregador};</xs:documentation>
+            <xs:documentation>c) Não pode haver mais de um dependente com o mesmo número de CPF.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="TS_cpf" />
+    </xs:simpleType>
+
+    <xs:simpleType name="TS_cpfDepBenef">
+        <xs:annotation>
+            <xs:documentation>Número de inscrição no CPF.</xs:documentation>
+            <xs:documentation>Validação: Deve ser um número de CPF válido, observando o que segue:</xs:documentation>
+            <xs:documentation>a) O preenchimento é obrigatório se {depIRRF}(./depIRRF) = [S];</xs:documentation>
+            <xs:documentation>b) Não pode haver mais de um dependente com o mesmo número de CPF.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="TS_cpf" />
+    </xs:simpleType>
+    
     <xs:simpleType name="TS_cpfTrab">
         <xs:annotation>
             <xs:documentation>Preencher com o número do CPF do trabalhador.</xs:documentation>
@@ -1398,10 +1410,10 @@
         <xs:restriction base="TS_cpf" />
     </xs:simpleType>
 
-       <xs:simpleType name="TS_cpf">
-        <xs:restriction base="xs:string">
-            <xs:pattern value="\d{11}" />
-        </xs:restriction>
+    <xs:simpleType name="TS_cpf">
+    <xs:restriction base="xs:string">
+        <xs:pattern value="\d{11}" />
+    </xs:restriction>
     </xs:simpleType>
 
     <!-- Campo {indMV} -->
@@ -1461,6 +1473,13 @@
     <xs:simpleType name="TS_nmSoc">
         <xs:annotation>
             <xs:documentation>Nome social para travesti ou transexual.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="TS_nome" />
+    </xs:simpleType>
+
+    <xs:simpleType name="TS_nmDep">
+        <xs:annotation>
+            <xs:documentation>Nome do dependente.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="TS_nome" />
     </xs:simpleType>
@@ -1713,6 +1732,10 @@
     <!-- Campo {natAtividade} -->
    
     <xs:simpleType name="TS_natAtividade">
+        <xs:annotation>
+            <xs:documentation>Natureza da atividade.</xs:documentation>
+            <xs:documentation>Validação: Se {codCateg}(../../infoContrato_codCateg) = [104], deve ser preenchido com [1]. Se {codCateg} = [102], deve ser preenchido com [2].</xs:documentation>
+        </xs:annotation>
         <xs:restriction base="xs:byte">
             <xs:enumeration value="1">
                 <xs:annotation>
@@ -2011,20 +2034,12 @@
         </xs:restriction>
     </xs:simpleType>
 
-    <!-- Campo país -->
-
-    <xs:simpleType name="TS_pais">
-        <xs:restriction base="xs:string">
-            <xs:length value="3" />
-        </xs:restriction>
-    </xs:simpleType>
-
     <!-- Campo {tpLograd} -->
 
     <xs:simpleType name="TS_tpLograd">
         <xs:annotation>
-            <xs:documentation>Tipo de Logradouro.</xs:documentation>
-            <xs:documentation>Validação: Se informado, deve ser um código válido, existente na Tabela 20.</xs:documentation>
+            <xs:documentation>Tipo de logradouro.</xs:documentation>
+            <xs:documentation>Validação: Se informado, deve ser um código válido e existente na Tabela 20.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:string">
             <xs:minLength value="1" />
@@ -2124,7 +2139,7 @@
     <xs:simpleType name="TS_condIng">
         <xs:annotation>
             <xs:documentation>Condição de ingresso do trabalhador imigrante.</xs:documentation>
-            <xs:documentation>Validação: Se {tmpResid} = [1], não pode ser informado [2, 5]. Se {tmpResid} = [2], não pode ser informado [1].</xs:documentation>
+            <xs:documentation>Validação: Se {tmpResid}(./tmpResid) = [1], não pode ser informado [2, 5]. Se {tmpResid} = [2], não pode ser informado [1].</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:byte">
             <xs:enumeration value="1">
@@ -2216,16 +2231,46 @@
     <xs:simpleType name="TS_tpDep">
         <xs:annotation>
             <xs:documentation>Tipo de dependente.</xs:documentation>
-            <xs:documentation>Validação: Deve ser um código existente na Tabela 07.</xs:documentation>
+            <xs:documentation>Validação: Deve ser um código válido e existente na Tabela 07.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:string">
             <xs:pattern value="\d{2}" />
         </xs:restriction>
     </xs:simpleType>
 
+    <!-- Campo {depIRRF} -->
+
+    <xs:simpleType name="TS_depIRRF">
+        <xs:annotation>
+            <xs:documentation>Informar se é dependente do trabalhador para fins de dedução de seu rendimento tributável pelo Imposto de Renda.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="TS_sim_nao" />
+    </xs:simpleType>
+
+    <!-- Campo {depSF} -->
+
+    <xs:simpleType name="TS_depSF">
+        <xs:annotation>
+            <xs:documentation>Informar se é dependente para fins de recebimento do benefício de salário-família.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="TS_sim_nao" />
+    </xs:simpleType>
+
+    <!-- Campo {incTrab} -->
+
+    <xs:simpleType name="TS_incTrab">
+        <xs:annotation>
+            <xs:documentation>Informar se o dependente tem incapacidade física ou mental para o trabalho.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="TS_sim_nao" />
+    </xs:simpleType>
+
     <!-- Campo {tpRegTrab} -->
 
     <xs:simpleType name="TS_tpRegTrab">
+        <xs:annotation>
+            <xs:documentation>Tipo de regime trabalhista.</xs:documentation>
+        </xs:annotation>
         <xs:restriction base="xs:byte">
             <xs:enumeration value="1">
                 <xs:annotation>
@@ -2243,6 +2288,10 @@
     <!-- Campo {tpRegPrev} -->
    
     <xs:simpleType name="TS_tpRegPrev">
+        <xs:annotation>
+            <xs:documentation>Tipo de regime previdenciário ou regime dos militares.</xs:documentation>
+            <xs:documentation>Validação: Se {codCateg}(./infoContrato_codCateg) = [104], deve ser preenchido com [1]. Se {codCateg} = [101, 102, 103, 105, 106, 107, 108, 111], não pode ser preenchido com [2].</xs:documentation>
+        </xs:annotation>
         <xs:restriction base="xs:byte">
             <xs:enumeration value="1">
                 <xs:annotation>
@@ -2266,12 +2315,12 @@
    
     <xs:simpleType name="TS_tpRegJor">
         <xs:annotation>
-            <xs:documentation>Regime de jornada do empregado</xs:documentation>
+            <xs:documentation>Regime de jornada do empregado.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:byte">
             <xs:enumeration value="1">
                 <xs:annotation>
-                    <xs:documentation>Submetidos a horário de trabalho (Capítulo II do Título II da CLT)</xs:documentation>
+                    <xs:documentation>Submetido a horário de trabalho (Capítulo II do Título II da CLT)</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
             <xs:enumeration value="2">
@@ -2281,7 +2330,7 @@
             </xs:enumeration>
             <xs:enumeration value="3">
                 <xs:annotation>
-                    <xs:documentation>Funções especificadas no inciso II do art. 62 da CLT</xs:documentation>
+                    <xs:documentation>Função especificada no inciso II do art. 62 da CLT</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
             <xs:enumeration value="4">
@@ -2305,10 +2354,32 @@
             <xs:maxInclusive value="12" />
         </xs:restriction>
     </xs:simpleType>
+    
+    <!-- Campo {cnpjSindCategProf} -->
+
+    <xs:simpleType name="TS_cnpjSindCategProf">
+        <xs:annotation>
+            <xs:documentation>Preencher com o CNPJ do sindicato representativo da categoria (preponderante ou diferenciada).</xs:documentation>
+            <xs:documentation>Validação: Deve ser um CNPJ válido, com 14 (catorze) algarismos.</xs:documentation>
+        </xs:annotation>
+            <xs:restriction base="TS_cnpj" />
+    </xs:simpleType>
+
+    <!-- Campo {dtOpcFGTS} -->
+
+    <xs:simpleType name="TS_dtOpcFGTS">
+        <xs:annotation>
+            <xs:documentation>Informar a data de opção do trabalhador pelo FGTS.</xs:documentation>
+        </xs:annotation>
+            <xs:restriction base="xs:date" />
+    </xs:simpleType>
 
     <!-- Campo {tpPlanRP} -->
 
     <xs:simpleType name="TS_tpPlanRP">
+        <xs:annotation>
+            <xs:documentation>Tipo de plano de segregação da massa.</xs:documentation>
+        </xs:annotation>
         <xs:restriction base="xs:byte">
             <xs:enumeration value="0">
                 <xs:annotation>
@@ -2333,12 +2404,52 @@
         </xs:restriction>
     </xs:simpleType>
 
+    <!-- Campo {CBOCargo} -->
+
+    <xs:simpleType name="TS_CBOCargo">
+        <xs:annotation>
+            <xs:documentation>Informar a Classificação Brasileira de Ocupações - CBO relativa ao cargo.</xs:documentation>
+            <xs:documentation>Validação: Informação obrigatória e exclusiva se {nmCargo}(./nmCargo) for preenchido. Se informado, deve ser um código válido e existente na tabela de CBO, com 6 (seis) posições.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="TS_cbo" />
+    </xs:simpleType>
+
+    <!-- Campo {CBOFuncao} -->
+
+    <xs:simpleType name="TS_CBOFuncao">
+        <xs:annotation>
+            <xs:documentation>Informar a CBO relativa à função de confiança/cargo em comissão.</xs:documentation>
+            <xs:documentation>Validação: Informação obrigatória e exclusiva se {nmFuncao}(./nmFuncao) for preenchido. Se informado, deve ser um código válido e existente na tabela de CBO, com 6 (seis) posições.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="TS_cbo" />
+    </xs:simpleType>
+
+    <!-- Campo {dtTerm} -->
+
+    <xs:simpleType name="TS_dtTerm">
+        <xs:annotation>
+            <xs:documentation>Data do término do contrato por prazo determinado.</xs:documentation>
+            <xs:documentation>Validação: O preenchimento é obrigatório se {tpContr}(./tpContr) = [2]. Não informar se {tpContr} = [1]. Se preenchido, deve ser igual ou posterior à data de admissão (no caso de sucessão ou de mudança de CPF, igual ou posterior à data da transferência ou à data de alteração do CPF, respectivamente).</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:date" />
+    </xs:simpleType>
+
+    <!-- Campo {objDet} -->
+
+    <xs:simpleType name="TS_objDet">
+        <xs:annotation>
+            <xs:documentation>Indicação do objeto determinante da contratação por prazo determinado (obra, serviço, safra, etc.).</xs:documentation>
+            <xs:documentation>Validação: O preenchimento é obrigatório e exclusivo se {tpContr}(./tpContr) = [3].</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="TS_texto_255" />
+    </xs:simpleType>
+
     <!-- Campo {codMotAfast} -->
 
     <xs:simpleType name="TS_codMotAfast">
         <xs:annotation>
             <xs:documentation>Preencher com o código do motivo de afastamento temporário.</xs:documentation>
-            <xs:documentation>Validação: Deve ser um código existente na Tabela 18.</xs:documentation>
+            <xs:documentation>Validação: Deve ser um código válido e existente na Tabela 18.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:string">
             <xs:pattern value="\d{2}" />
@@ -2353,6 +2464,16 @@
             <xs:documentation>Validação: Não pode ser posterior a 180 (cento e oitenta) dias da data atual.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:date" />
+    </xs:simpleType>
+
+    <!-- Campo {paisNac} -->
+
+    <xs:simpleType name="TS_paisNac">
+        <xs:annotation>
+            <xs:documentation>Preencher com o código do país de nacionalidade do trabalhador.</xs:documentation>
+            <xs:documentation>Validação: Deve ser um código válido e existente na Tabela 06.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="TS_pais" />
     </xs:simpleType>
 
     <!-- Campo {nrCRM} -->
@@ -2411,6 +2532,24 @@
             <xs:documentation>Informação obrigatória se {pensAlim} = [2, 3]. Não pode ser preenchido nos demais casos.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="TS_valorMonetario_positivo" />
+    </xs:simpleType>
+
+    <!-- Campo {incFisMen} -->
+
+    <xs:simpleType name="TS_incFisMen">
+        <xs:annotation>
+            <xs:documentation>Informar se o beneficiário é pessoa com doença incapacitante que isenta da contribuição previdenciária, total ou parcialmente, reconhecida administrativa ou judicialmente, na forma da lei.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="TS_sim_nao" />
+    </xs:simpleType>
+
+    <!-- Campo {dependente/incFisMen} -->
+
+    <xs:simpleType name="TS_incFisMenDep">
+        <xs:annotation>
+            <xs:documentation>Informar se o dependente é pessoa com doença incapacitante, na forma da lei.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="TS_sim_nao" />
     </xs:simpleType>
 
     <!-- Campo {tpBeneficio} -->
@@ -2559,6 +2698,14 @@
             <xs:fractionDigits value="2" />
             <xs:minInclusive value="0" />
             <xs:maxInclusive value="100" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Campo país -->
+
+    <xs:simpleType name="TS_pais">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="\d{3}" />
         </xs:restriction>
     </xs:simpleType>
 

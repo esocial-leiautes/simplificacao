@@ -10,7 +10,7 @@
             <xs:sequence>
                 <xs:element name="evtAltCadastral">
                     <xs:annotation>
-                        <xs:documentation>Evento Alteração Cadastral do Trabalhador</xs:documentation>
+                        <xs:documentation>Evento Alteração de Dados Cadastrais do Trabalhador.</xs:documentation>
                         <xs:documentation>CHAVE_GRUPO: {Id}</xs:documentation>
                         <xs:documentation>REGRA:REGRA_ENVIO_PROC_FECHAMENTO</xs:documentation>
                         <xs:documentation>REGRA:REGRA_EVENTOS_EXTEMP</xs:documentation>
@@ -25,7 +25,7 @@
                             <xs:element name="ideEmpregador" type="T_ideEmpregador" />
                             <xs:element name="ideTrabalhador">
                                 <xs:annotation>
-                                    <xs:documentation>Identificação do trabalhador</xs:documentation>
+                                    <xs:documentation>Identificação do trabalhador.</xs:documentation>
                                     <xs:documentation>CHAVE_GRUPO: {cpfTrab}</xs:documentation>
                                 </xs:annotation>
                                 <xs:complexType>
@@ -54,29 +54,25 @@
                                                     <xs:element name="estCiv" minOccurs="0" type="TS_estCivilTrab" />
                                                     <xs:element name="grauInstr" type="TS_grauInstr" />
                                                     <xs:element name="nmSoc" minOccurs="0" type="TS_nmSoc" />
-                                                    <xs:element name="paisNac" type="TS_pais">
-                                                        <xs:annotation>
-                                                            <xs:documentation>Código do país de nacionalidade do trabalhador</xs:documentation>
-                                                            <xs:documentation>Validação: Deve ser um código existente na Tabela 06.</xs:documentation>
-                                                        </xs:annotation>
-                                                    </xs:element>
+                                                    <xs:element name="paisNac" type="TS_paisNac" />
                                                     <xs:element name="endereco">
                                                         <xs:annotation>
-                                                            <xs:documentation>Endereço do Trabalhador</xs:documentation>
+                                                            <xs:documentation>Endereço do trabalhador</xs:documentation>
+                                                            <xs:documentation>DESCRICAO_COMPLETA:Grupo de informações do endereço do trabalhador.</xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
                                                             <xs:sequence>
                                                                 <xs:choice>
                                                                     <xs:element name="brasil" type="T_endereco_brasil">
                                                                         <xs:annotation>
-                                                                            <xs:documentation>Endereço no Brasil</xs:documentation>
-                                                                            <xs:documentation>CONDICAO_GRUPO: O (se não informado o grupo {exterior}); N (nos demais casos)</xs:documentation>
+                                                                            <xs:documentation>Endereço no Brasil.</xs:documentation>
+                                                                            <xs:documentation>CONDICAO_GRUPO: O (se não informado o grupo {exterior}(2205_alteracao_dadosTrabalhador_endereco_exterior)); N (nos demais casos)</xs:documentation>
                                                                         </xs:annotation>
                                                                     </xs:element>
                                                                     <xs:element name="exterior" type="T_endereco_exterior">
                                                                         <xs:annotation>
-                                                                            <xs:documentation>Endereço no Exterior</xs:documentation>
-                                                                            <xs:documentation>CONDICAO_GRUPO: O (se não informado o grupo {brasil}); N (nos demais casos)</xs:documentation>
+                                                                            <xs:documentation>Endereço no exterior.</xs:documentation>
+                                                                            <xs:documentation>CONDICAO_GRUPO: O (se não informado o grupo {brasil}(2205_alteracao_dadosTrabalhador_endereco_brasil)); N (nos demais casos)</xs:documentation>
                                                                         </xs:annotation>
                                                                     </xs:element>
                                                                 </xs:choice>
@@ -85,23 +81,18 @@
                                                     </xs:element>
                                                     <xs:element name="trabImig" minOccurs="0">
                                                         <xs:annotation>
-                                                            <xs:documentation>Informações do trabalhador imigrante</xs:documentation>
-                                                            <xs:documentation>CONDICAO_GRUPO: OC (se {paisNac} diferente de [105]); N (nos demais casos)</xs:documentation>
+                                                            <xs:documentation>Informações do trabalhador imigrante.</xs:documentation>
+                                                            <xs:documentation>CONDICAO_GRUPO: OC (se {paisNac}(2205_alteracao_dadosTrabalhador_paisNac) for diferente de [105]); N (nos demais casos)</xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
                                                             <xs:sequence>
                                                                 <xs:element name="tmpResid" minOccurs="0" type="TS_tmpResid">
                                                                     <xs:annotation>
-                                                                        <xs:documentation>Tempo de residência do trabalhador imigrante</xs:documentation>
-                                                                        <xs:documentation>Validação: Preenchimento obrigatório quando houver trabalhador com ({dtAdm} ou {dtExercicio} ou {dtInicio}) no Registro de Eventos Trabalhistas - RET >= [2020-09-08].</xs:documentation>
+                                                                        <xs:documentation>Tempo de residência do trabalhador imigrante.</xs:documentation>
+                                                                        <xs:documentation>Validação: Preenchimento obrigatório quando houver trabalhador com ({dtAdm}(2200_vinculo_infoRegimeTrab_infoCeletista_dtAdm) ou {dtExercicio}(2200_vinculo_infoRegimeTrab_infoEstatutario_dtExercicio) ou {dtInicio}(2300_infoTSVInicio_dtInicio)) no Registro de Eventos Trabalhistas - RET >= [2020-09-08].</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
-                                                                <xs:element name="condIng" type="TS_condIng">
-                                                                    <xs:annotation>
-                                                                        <xs:documentation>Condição de ingresso do trabalhador imigrante</xs:documentation>
-                                                                        <xs:documentation>Validação: Se {tmpResid} = [1], não pode ser informado [2, 5]. Se {tmpResid} = [2], não pode ser informado [1].</xs:documentation>
-                                                                    </xs:annotation>
-                                                                </xs:element>
+                                                                <xs:element name="condIng" type="TS_condIng" />
                                                             </xs:sequence>
                                                         </xs:complexType>
                                                     </xs:element>
@@ -112,41 +103,16 @@
                                                         </xs:annotation>
                                                         <xs:complexType>
                                                             <xs:sequence>
-                                                                <xs:element name="defFisica" type="TS_sim_nao">
-                                                                    <xs:annotation>
-                                                                        <xs:documentation>Deficiência Física</xs:documentation>
-                                                                    </xs:annotation>
-                                                                </xs:element>
-                                                                <xs:element name="defVisual" type="TS_sim_nao">
-                                                                    <xs:annotation>
-                                                                        <xs:documentation>Deficiência visual</xs:documentation>
-                                                                    </xs:annotation>
-                                                                </xs:element>
-                                                                <xs:element name="defAuditiva" type="TS_sim_nao">
-                                                                    <xs:annotation>
-                                                                        <xs:documentation>Deficiência auditiva</xs:documentation>
-                                                                    </xs:annotation>
-                                                                </xs:element>
-                                                                <xs:element name="defMental" type="TS_sim_nao">
-                                                                    <xs:annotation>
-                                                                        <xs:documentation>Deficiência Mental</xs:documentation>
-                                                                    </xs:annotation>
-                                                                </xs:element>
-                                                                <xs:element name="defIntelectual" type="TS_sim_nao">
-                                                                    <xs:annotation>
-                                                                        <xs:documentation>Deficiência Intelectual</xs:documentation>
-                                                                    </xs:annotation>
-                                                                </xs:element>
-                                                                <xs:element name="reabReadap" type="TS_sim_nao">
-                                                                    <xs:annotation>
-                                                                        <xs:documentation>Reabilitado/Readaptado</xs:documentation>
-                                                                        <xs:documentation>Informar se o trabalhador é reabilitado (empregado) ou readaptado (servidor público/militar). Reabilitado: estando o empregado incapacitado parcial ou totalmente para o trabalho, cumpriu Programa de Reabilitação Profissional no INSS, recebendo certificado, sendo proporcionado os meios indicados para participar do mercado de trabalho. Readaptado: o servidor está investido em cargo de atribuições e responsabilidades compatíveis com a limitação que tenha sofrido em sua capacidade física ou mental verificada em inspeção médica.</xs:documentation>
-                                                                    </xs:annotation>
-                                                                </xs:element>
+                                                                <xs:element name="defFisica" type="TS_defFisica" />
+                                                                <xs:element name="defVisual" type="TS_defVisual" />
+                                                                <xs:element name="defAuditiva" type="TS_defAuditiva" />
+                                                                <xs:element name="defMental" type="TS_defMental" />
+                                                                <xs:element name="defIntelectual" type="TS_defIntelectual" />
+                                                                <xs:element name="reabReadap" type="TS_reabReadap" />
                                                                 <xs:element name="infoCota" type="TS_sim_nao" minOccurs="0">
                                                                     <xs:annotation>
-                                                                        <xs:documentation>Informar se o trabalhador preenche cota de pessoas com deficiência habilitadas ou de beneficiários reabilitados</xs:documentation>
-                                                                        <xs:documentation>Validação: Preenchimento obrigatório e exclusivo quando houver trabalhador cadastrado no evento S-2200 com {tpRegTrab} = [1] e ativo em {dtAlteracao}.</xs:documentation>
+                                                                        <xs:documentation>Informar se o trabalhador preenche cota de pessoas com deficiência habilitadas ou de beneficiários reabilitados.</xs:documentation>
+                                                                        <xs:documentation>Validação: Preenchimento obrigatório e exclusivo quando houver trabalhador cadastrado no evento S-2200 com {tpRegTrab}(2200_vinculo_tpRegTrab) = [1] e ativo em {dtAlteracao}(2205_alteracao_dtAlteracao).</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
                                                                 <xs:element name="observacao" minOccurs="0" type="TS_observacao" />
@@ -155,63 +121,31 @@
                                                     </xs:element>
                                                     <xs:element name="dependente" minOccurs="0" maxOccurs="99">
                                                         <xs:annotation>
-                                                            <xs:documentation>Informações dos dependentes</xs:documentation>
+                                                            <xs:documentation>Informações dos dependentes.</xs:documentation>
                                                             <xs:documentation>CHAVE_GRUPO: {tpDep}, {nmDep}, {dtNascto}</xs:documentation>
                                                             <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
                                                             <xs:sequence>
-                                                                <xs:element name="tpDep" type="TS_tpDep">
-                                                                    <xs:annotation>
-                                                                        <xs:documentation>Tipo de dependente</xs:documentation>
-                                                                        <xs:documentation>Validação: Deve ser um código existente na Tabela 07.</xs:documentation>
-                                                                    </xs:annotation>
-                                                                </xs:element>
-                                                                <xs:element name="nmDep" type="TS_nome">
-                                                                    <xs:annotation>
-                                                                        <xs:documentation>Nome do Dependente</xs:documentation>
-                                                                    </xs:annotation>
-                                                                </xs:element>
+                                                                <xs:element name="tpDep" type="TS_tpDep" />
+                                                                <xs:element name="nmDep" type="TS_nmDep" />
                                                                 <xs:element name="dtNascto" type="TS_dtNascto" />
-                                                                <xs:element name="cpfDep" minOccurs="0" type="TS_cpf">
-                                                                    <xs:annotation>
-                                                                        <xs:documentation>Número de Inscrição no CPF</xs:documentation>
-                                                                        <xs:documentation>Validação: Deve ser um número de CPF válido, observando o que segue:</xs:documentation>
-                                                                        <xs:documentation>a) O preenchimento é obrigatório se {depIRRF} = [S];</xs:documentation>
-                                                                        <xs:documentation>b) Em arquivo de empregador Pessoa Física, deve ser diferente do CPF informado em {ideEmpregador};</xs:documentation>
-                                                                        <xs:documentation>c) Não pode haver mais de um dependente com o mesmo número de CPF.</xs:documentation>
-                                                                    </xs:annotation>
-                                                                </xs:element>
+                                                                <xs:element name="cpfDep" minOccurs="0" type="TS_cpfDep" />
                                                                 <xs:element name="sexoDep" minOccurs="0" type="TS_sexo">
                                                                     <xs:annotation>
-                                                                        <xs:documentation>Sexo do dependente</xs:documentation>
-                                                                        <xs:documentation>Validação: Preenchimento obrigatório e exclusivo quando houver trabalhador cadastrado no evento S-2200, ativo em {dtAlteracao} e com {tpRegPrev} = [2] no RET.</xs:documentation>
+                                                                        <xs:documentation>Sexo do dependente.</xs:documentation>
+                                                                        <xs:documentation>Validação: Preenchimento obrigatório e exclusivo quando houver trabalhador cadastrado no evento S-2200, ativo em {dtAlteracao}(2205_alteracao_dtAlteracao) e com {tpRegPrev} = [2] no RET.</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
-                                                                <xs:element name="depIRRF" type="TS_sim_nao">
-                                                                    <xs:annotation>
-                                                                        <xs:documentation>Dependente para fins de IRRF</xs:documentation>
-                                                                        <xs:documentation>Informar se é dependente do trabalhador para fins de dedução de seu rendimento tributável pelo Imposto de Renda.</xs:documentation>
-                                                                    </xs:annotation>
-                                                                </xs:element>
-                                                                <xs:element name="depSF" type="TS_sim_nao">
-                                                                    <xs:annotation>
-                                                                        <xs:documentation>Dependente SF</xs:documentation>
-                                                                        <xs:documentation>Informar se é dependente para fins de recebimento do benefício de salário-família.</xs:documentation>
-                                                                    </xs:annotation>
-                                                                </xs:element>
-                                                                <xs:element name="incTrab" type="TS_sim_nao">
-                                                                    <xs:annotation>
-                                                                        <xs:documentation>Incapacidade para o trabalho</xs:documentation>
-                                                                        <xs:documentation>Informar se o dependente tem incapacidade física ou mental para o trabalho.</xs:documentation>
-                                                                    </xs:annotation>
-                                                                </xs:element>
+                                                                <xs:element name="depIRRF" type="TS_depIRRF" />
+                                                                <xs:element name="depSF" type="TS_depSF" />
+                                                                <xs:element name="incTrab" type="TS_incTrab" />
                                                             </xs:sequence>
                                                         </xs:complexType>
                                                     </xs:element>
                                                     <xs:element name="contato" type="T_contato" minOccurs="0">
                                                         <xs:annotation>
-                                                            <xs:documentation>Informações de Contato</xs:documentation>
+                                                            <xs:documentation>Informações de contato.</xs:documentation>
                                                             <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>

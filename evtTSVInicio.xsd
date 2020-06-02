@@ -136,36 +136,12 @@
                                             <xs:complexType>
                                                 <xs:sequence>
                                                     <xs:element name="tpDep" type="TS_tpDep" />
-                                                    <xs:element name="nmDep" type="TS_nome">
-                                                        <xs:annotation>
-                                                            <xs:documentation>Nome do dependente.</xs:documentation>
-                                                        </xs:annotation>
-                                                    </xs:element>
+                                                    <xs:element name="nmDep" type="TS_nmDep" />
                                                     <xs:element name="dtNascto" type="TS_dtNascto" />
-                                                    <xs:element name="cpfDep" minOccurs="0" type="TS_cpf">
-                                                        <xs:annotation>
-                                                            <xs:documentation>Número de inscrição no CPF.</xs:documentation>
-                                                            <xs:documentation>Validação: Deve ser um número de CPF válido, observando o que segue:</xs:documentation>
-                                                            <xs:documentation>a) O preenchimento é obrigatório se {depIRRF} = [S];</xs:documentation>
-                                                            <xs:documentation>b) Em arquivo de empregador Pessoa Física, deve ser diferente do CPF informado em {ideEmpregador};</xs:documentation>
-                                                            <xs:documentation>c) Não pode haver mais de um dependente com o mesmo número de CPF.</xs:documentation>
-                                                        </xs:annotation>
-                                                    </xs:element>
-                                                    <xs:element name="depIRRF" type="TS_sim_nao">
-                                                        <xs:annotation>
-                                                            <xs:documentation>Informar se é dependente do trabalhador para fins de dedução de seu rendimento tributável pelo Imposto de Renda.</xs:documentation>
-                                                        </xs:annotation>
-                                                    </xs:element>
-                                                    <xs:element name="depSF" type="TS_sim_nao">
-                                                        <xs:annotation>
-                                                            <xs:documentation>Informar se é dependente para fins de recebimento do benefício de salário-família.</xs:documentation>
-                                                        </xs:annotation>
-                                                    </xs:element>
-                                                    <xs:element name="incTrab" type="TS_sim_nao">
-                                                        <xs:annotation>
-                                                            <xs:documentation>Informar se o dependente tem incapacidade física ou mental para o trabalho.</xs:documentation>
-                                                        </xs:annotation>
-                                                    </xs:element>
+                                                    <xs:element name="cpfDep" minOccurs="0" type="TS_cpfDep" />
+                                                    <xs:element name="depIRRF" type="TS_depIRRF" />
+                                                    <xs:element name="depSF" type="TS_depSF" />
+                                                    <xs:element name="incTrab" type="TS_incTrab" />
                                                 </xs:sequence>
                                             </xs:complexType>
                                         </xs:element>
@@ -247,14 +223,7 @@
                                                         </xs:annotation>
                                                         <xs:complexType>
                                                             <xs:sequence>
-                                                                <xs:element name="dtOpcFGTS">
-                                                                    <xs:simpleType>
-                                                                        <xs:annotation>
-                                                                            <xs:documentation>Informar a data de opção do trabalhador pelo FGTS.</xs:documentation>
-                                                                        </xs:annotation>
-                                                                        <xs:restriction base="xs:date"></xs:restriction>
-                                                                    </xs:simpleType>
-                                                                </xs:element>
+                                                                <xs:element name="dtOpcFGTS" type="TS_dtOpcFGTS" />
                                                             </xs:sequence>
                                                         </xs:complexType>
                                                     </xs:element>
@@ -444,7 +413,7 @@
                                                             <xs:documentation>Validação: Devem ser observadas as seguintes regras:</xs:documentation>
                                                             <xs:documentation>a) Deve ser igual ou posterior à data de início do TSVE;</xs:documentation>
                                                             <xs:documentation>b) Se {cadIni} = [S], deve ser anterior à data de início da obrigatoriedade dos eventos não periódicos para o empregador;</xs:documentation>
-                                                            <xs:documentation>c) Se {cadIni} = [N], deve ser anterior à data de alteração do CPF do trabalhador ({mudancaCPF/dtAltCPF}).</xs:documentation>
+                                                            <xs:documentation>c) Se {cadIni} = [N], deve ser anterior à data de alteração do CPF do trabalhador ({dtAltCPF}).</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
                                                     <xs:element name="codMotAfast" type="TS_codMotAfast" />
