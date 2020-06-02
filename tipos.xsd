@@ -293,7 +293,7 @@
                 <xs:annotation>
                     <xs:documentation>Informar o número de inscrição do empregador para o qual a contratação de aprendiz foi efetivada, de acordo com o tipo de inscrição indicado no campo {aprend/tpInsc}(./tpInsc).</xs:documentation>
                     <xs:documentation>Validação: Deve ser um identificador válido e:</xs:documentation>
-                    <xs:documentation>a) Se {aprend/tpInsc}(./tpInsc) = [1], deve ser informado com 14 (catorze) algarismos. Se o empregador for pessoa jurídica, a raiz do CNPJ informado deve ser diferente de {ideEmpregador/nrInsc}.</xs:documentation>
+                    <xs:documentation>a) Se {aprend/tpInsc}(./tpInsc) = [1], deve ser informado com 14 (catorze) algarismos. Se o empregador for pessoa jurídica, a raiz do CNPJ informado deve ser diferente de {ideEmpregador/nrInsc}(/ideEmpregador_nrInsc).</xs:documentation>
                     <xs:documentation>b) Se {aprend/tpInsc}(./tpInsc) = [2], deve ser diferente do CPF do empregado. Se o empregador for pessoa física, também deve ser diferente do CPF do empregador.</xs:documentation>
                 </xs:annotation>
             </xs:element>
@@ -1387,7 +1387,7 @@
             <xs:documentation>Número de inscrição no CPF.</xs:documentation>
             <xs:documentation>Validação: Deve ser um número de CPF válido, observando o que segue:</xs:documentation>
             <xs:documentation>a) O preenchimento é obrigatório se {depIRRF}(./depIRRF) = [S];</xs:documentation>
-            <xs:documentation>b) Em arquivo de empregador Pessoa Física, deve ser diferente do CPF informado em {ideEmpregador};</xs:documentation>
+            <xs:documentation>b) Em arquivo de empregador Pessoa Física, deve ser diferente do CPF informado em {ideEmpregador}(/ideEmpregador);</xs:documentation>
             <xs:documentation>c) Não pode haver mais de um dependente com o mesmo número de CPF.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="TS_cpf" />
@@ -1719,6 +1719,17 @@
                 </xs:annotation>
             </xs:enumeration>
         </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Campo {perRef} -->
+
+    <xs:simpleType name="TS_perRef">
+        <xs:annotation>
+            <xs:documentation>Informar o período ao qual se refere o complemento de remuneração, no formato AAAA-MM.</xs:documentation>
+            <xs:documentation>Validação: Deve ser igual ou anterior ao período de apuração informado em {perApur}(/ideEvento_perApur).</xs:documentation>
+            <xs:documentation>Deve ser informado no formato AAAA-MM.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="TS_periodo_mensal" />
     </xs:simpleType>
 
     <!-- Campo CBO -->
