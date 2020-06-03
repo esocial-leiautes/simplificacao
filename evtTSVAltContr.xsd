@@ -36,7 +36,7 @@
                                         <xs:element name="natAtividade" minOccurs="0" type="TS_natAtividade">
                                             <xs:annotation>
                                                 <xs:documentation>Natureza da atividade</xs:documentation>
-                                                <xs:documentation>Validação: Preenchimento obrigatório se {codCateg} = [201, 202, 401, 731, 734, 738]. Não deve ser preenchido se {codCateg} = [305, 721, 722, 771, 901].</xs:documentation>
+                                                <xs:documentation>Validação: Preenchimento obrigatório se o código de categoria no Registro de Eventos Trabalhistas - RET for igual a [201, 202, 401, 731, 734, 738]. Não deve ser preenchido se o código de categoria no RET for igual a [305, 721, 722, 771, 901].</xs:documentation>
                                             </xs:annotation>
                                         </xs:element>
                                         <xs:element name="infoComplementares" minOccurs="0">
@@ -46,11 +46,30 @@
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>
-                                                    <xs:element name="cargoFuncao" minOccurs="0" type="T_cargoFuncao">
+                                                    <xs:element name="cargoFuncao" minOccurs="0">
                                                         <xs:annotation>
-                                                            <xs:documentation>Cargo/Função ocupado pelo Trabalhador Sem Vínculo</xs:documentation>
+                                                            <xs:documentation>Cargo/Função ocupado pelo TSVE</xs:documentation>
+                                                            <xs:documentation>DESCRICAO_COMPLETA:Grupo que apresenta o cargo e/ou função ocupada pelo TSVE.</xs:documentation>
                                                             <xs:documentation>CONDICAO_GRUPO: OC (se o código de categoria no RET for igual a [410, 901, 903, 904, 905]); O (nos demais casos)</xs:documentation>
                                                         </xs:annotation>
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:element name="nmCargo" minOccurs="0" type="TS_texto_100">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Informar o nome do cargo.</xs:documentation>
+                                                                        <xs:documentation>Validação: Preenchimento obrigatório se o código de categoria no RET for diferente de [410].</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:element>
+                                                                <xs:element name="CBOCargo" minOccurs="0" type="TS_CBOCargo" />
+                                                                <xs:element name="nmFuncao" minOccurs="0" type="TS_texto_100">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Informar o nome da função de confiança.</xs:documentation>
+                                                                        <xs:documentation>Validação: Preenchimento obrigatório se o código de categoria no RET for igual a [410] e não houver informação de {nmCargo}(./nmCargo).</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:element>
+                                                                <xs:element name="CBOFuncao" minOccurs="0" type="TS_CBOFuncao" />
+                                                            </xs:sequence>
+                                                        </xs:complexType>
                                                     </xs:element>
                                                     <xs:element name="remuneracao" type="T_remuneracao" minOccurs="0">
                                                         <xs:annotation>
@@ -68,7 +87,7 @@
                                                                 <xs:element name="tpRegPrev" type="TS_tpRegPrev">
                                                                     <xs:annotation>
                                                                         <xs:documentation>Tipo de regime previdenciário ou regime dos militares.</xs:documentation>
-                                                                        <xs:documentation>Validação: Se {categOrig} no evento S-2300 for relativa a "Empregado", não pode ser preenchido com [2].</xs:documentation>
+                                                                        <xs:documentation>Validação: Se {infoDirigenteSindical/categOrig}(2300_infoTSVInicio_infoComplementares_infoDirigenteSindical_categOrig) no evento S-2300 for relativa a "Empregado", não pode ser preenchido com [2].</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
                                                             </xs:sequence>
@@ -84,7 +103,7 @@
                                                                 <xs:element name="tpRegPrev" type="TS_tpRegPrev">
                                                                     <xs:annotation>
                                                                         <xs:documentation>Tipo de regime previdenciário ou regime dos militares.</xs:documentation>
-                                                                        <xs:documentation>Validação: Se houver {infoOrigem/categOrig} no evento S-2300 relativa a "Empregado", não pode ser preenchido com [2].</xs:documentation>
+                                                                        <xs:documentation>Validação: Se houver {infoOrigem/categOrig}(2300_infoTSVInicio_infoComplementares_infoTrabCedido_infoOrigem_categOrig) no evento S-2300 relativa a "Empregado", não pode ser preenchido com [2].</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
                                                             </xs:sequence>
@@ -97,12 +116,7 @@
                                                         </xs:annotation>
                                                         <xs:complexType>
                                                             <xs:sequence>
-                                                                <xs:element name="indRemunCargo" type="TS_sim_nao" minOccurs="0">
-                                                                    <xs:annotation>
-                                                                        <xs:documentation>Indicar se o servidor optou pela remuneração do cargo efetivo.</xs:documentation>
-                                                                        <xs:documentation>Validação: Informação obrigatória e exclusiva se {CBOCargo} = [111120, 111250, 111255]).</xs:documentation>
-                                                                    </xs:annotation>
-                                                                </xs:element>
+                                                                <xs:element name="indRemunCargo" type="TS_indRemunCargo" minOccurs="0" />
                                                                 <xs:element name="tpRegPrev" type="TS_tpRegPrev">
                                                                     <xs:annotation>
                                                                         <xs:documentation>Tipo de regime previdenciário ou regime dos militares.</xs:documentation>

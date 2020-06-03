@@ -537,7 +537,7 @@
                 <xs:annotation>
                     <xs:documentation>Preencher com o código da categoria do trabalhador.</xs:documentation>
                     <xs:documentation>Informar somente no caso de TSVE sem informação de matrícula no evento S-2300.</xs:documentation>
-                    <xs:documentation>Validação: Informação obrigatória e exclusiva se não houver preenchimento de {matricula}. Se informado, deve ser um código válido e existente na Tabela 01.</xs:documentation>
+                    <xs:documentation>Validação: Informação obrigatória e exclusiva se não houver preenchimento de {matricula}(./matricula). Se informado, deve ser um código válido e existente na Tabela 01.</xs:documentation>
                 </xs:annotation>
             </xs:element>
         </xs:sequence>
@@ -592,36 +592,6 @@
         </xs:sequence>
     </xs:complexType>
 
-    <!-- Grupo {cargoFuncao} -->
-
-    <xs:complexType name="T_cargoFuncao">
-        <xs:sequence>
-            <xs:element name="nmCargo" minOccurs="0" type="TS_texto_100">
-                <xs:annotation>
-                    <xs:documentation>Informar o nome do cargo.</xs:documentation>
-                    <xs:documentation>Validação: Preenchimento obrigatório se {codCateg} diferente de [410].</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element name="CBOCargo" minOccurs="0" type="TS_cbo">
-                <xs:annotation>
-                    <xs:documentation>Informar a Classificação Brasileira de Ocupações - CBO relativa ao cargo.</xs:documentation>
-                    <xs:documentation>Validação: Informação obrigatória e exclusiva se {nmCargo} for preenchido. Se informado, deve ser um código existente na tabela de CBO, com 6 (seis) posições.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element name="nmFuncao" minOccurs="0" type="TS_texto_100">
-                <xs:annotation>
-                    <xs:documentation>Informar o nome da função de confiança.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element name="CBOFuncao" minOccurs="0" type="TS_cbo">
-                <xs:annotation>
-                    <xs:documentation>Informar a Classificação Brasileira de Ocupações - CBO relativa à função de confiança.</xs:documentation>
-                    <xs:documentation>Validação: Informação obrigatória e exclusiva se {nmFuncao} for preenchido. Se informado, deve ser um código existente na tabela de CBO, com 6 (seis) posições.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-        </xs:sequence>
-    </xs:complexType>
-
     <!-- Grupo {infoEstagiario} -->
 
     <xs:complexType name="T_infoEstagiario">
@@ -629,7 +599,7 @@
             <xs:element name="natEstagio">
                 <xs:simpleType>
                     <xs:annotation>
-                        <xs:documentation>Natureza do Estágio.</xs:documentation>
+                        <xs:documentation>Natureza do estágio.</xs:documentation>
                     </xs:annotation>
                     <xs:restriction base="xs:string">
                         <xs:enumeration value="O">
@@ -715,43 +685,43 @@
                         <xs:element name="nmRazao" minOccurs="0" type="TS_texto_100">
                             <xs:annotation>
                                 <xs:documentation>Informar a razão social.</xs:documentation>
-                                <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se o campo {cnpjInstEnsino} não estiver preenchido.</xs:documentation>
+                                <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se o campo {cnpjInstEnsino}(./cnpjInstEnsino) não estiver preenchido.</xs:documentation>
                             </xs:annotation>
                         </xs:element>
                         <xs:element name="dscLograd" minOccurs="0" type="TS_dscLograd">
                             <xs:annotation>
                                 <xs:documentation>Descrição do logradouro.</xs:documentation>
-                                <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se o campo {cnpjInstEnsino} não estiver preenchido.</xs:documentation>
+                                <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se o campo {cnpjInstEnsino}(./cnpjInstEnsino) não estiver preenchido.</xs:documentation>
                             </xs:annotation>
                         </xs:element>
                         <xs:element name="nrLograd" minOccurs="0" type="TS_nrLograd">
                             <xs:annotation>
                                 <xs:documentation>Número do logradouro. Se não houver número a ser informado, preencher com "S/N".</xs:documentation>
-                                <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se o campo {cnpjInstEnsino} não estiver preenchido.</xs:documentation>
+                                <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se o campo {cnpjInstEnsino}(./cnpjInstEnsino) não estiver preenchido.</xs:documentation>
                             </xs:annotation>
                         </xs:element>
                         <xs:element name="bairro" minOccurs="0" type="TS_bairro">
                             <xs:annotation>
                                 <xs:documentation>Nome do bairro/distrito.</xs:documentation>
-                                <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se o campo {cnpjInstEnsino} não estiver preenchido.</xs:documentation>
+                                <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se o campo {cnpjInstEnsino}(./cnpjInstEnsino) não estiver preenchido.</xs:documentation>
                             </xs:annotation>
                         </xs:element>
                         <xs:element name="cep" minOccurs="0" type="TS_cep">
                             <xs:annotation>
                                 <xs:documentation>Código de Endereçamento Postal - CEP.</xs:documentation>
-                                <xs:documentation>Validação: Não informar se o campo {cnpjInstEnsino} estiver preenchido. Se informado, deve ser preenchido apenas com números, com 8 (oito) posições.</xs:documentation>
+                                <xs:documentation>Validação: Não informar se o campo {cnpjInstEnsino}(./cnpjInstEnsino) estiver preenchido. Se informado, deve ser preenchido apenas com números, com 8 (oito) posições.</xs:documentation>
                             </xs:annotation>
                         </xs:element>
                         <xs:element name="codMunic" minOccurs="0" type="TS_codMunic">
                             <xs:annotation>
                                 <xs:documentation>Preencher com o código do município.</xs:documentation>
-                                <xs:documentation>Validação: Não informar se o campo {cnpjInstEnsino} estiver preenchido. Se informado, deve ser um código existente na tabela do IBGE.</xs:documentation>
+                                <xs:documentation>Validação: Não informar se o campo {cnpjInstEnsino}(./cnpjInstEnsino) estiver preenchido. Se informado, deve ser um código existente na tabela do IBGE.</xs:documentation>
                             </xs:annotation>
                         </xs:element>
                         <xs:element name="uf" minOccurs="0" type="TS_uf">
                             <xs:annotation>
-                                <xs:documentation>Preencher com a sigla da Unidade da Federação.</xs:documentation>
-                                <xs:documentation>Validação: Não informar se o campo {cnpjInstEnsino} estiver preenchido. Se informada, deve ser uma UF válida.</xs:documentation>
+                                <xs:documentation>Preencher com a sigla da Unidade da Federação - UF.</xs:documentation>
+                                <xs:documentation>Validação: Não informar se o campo {cnpjInstEnsino}(./cnpjInstEnsino) estiver preenchido. Se informada, deve ser uma UF válida.</xs:documentation>
                             </xs:annotation>
                         </xs:element>
                     </xs:sequence>
@@ -775,7 +745,7 @@
             </xs:element>
             <xs:element name="supervisorEstagio" minOccurs="0">
                 <xs:annotation>
-                    <xs:documentation>Supervisor do Estágio</xs:documentation>
+                    <xs:documentation>Supervisor do estágio.</xs:documentation>
                     <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
                 </xs:annotation>
                 <xs:complexType>
@@ -2543,6 +2513,16 @@
             <xs:documentation>Informação obrigatória se {pensAlim} = [2, 3]. Não pode ser preenchido nos demais casos.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="TS_valorMonetario_positivo" />
+    </xs:simpleType>
+
+    <!-- Campo {indRemunCargo} -->
+
+    <xs:simpleType name="TS_indRemunCargo">
+        <xs:annotation>
+            <xs:documentation>Indicar se o servidor optou pela remuneração do cargo efetivo.</xs:documentation>
+            <xs:documentation>Validação: Informação obrigatória e exclusiva se {CBOCargo}(../cargoFuncao_CBOCargo) = [111120, 111250, 111255]).</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="TS_sim_nao" />
     </xs:simpleType>
 
     <!-- Campo {incFisMen} -->
