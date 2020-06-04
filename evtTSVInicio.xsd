@@ -74,7 +74,7 @@
                                         <xs:element name="trabImig" minOccurs="0">
                                             <xs:annotation>
                                                 <xs:documentation>Informações do trabalhador imigrante.</xs:documentation>
-                                                <xs:documentation>CONDICAO_GRUPO: OC (se {paisNac}(2300_trabalhador_nascimento_paisNac) diferente de [105]); N (nos demais casos)</xs:documentation>
+                                                <xs:documentation>CONDICAO_GRUPO: OC (se {paisNac}(2300_trabalhador_nascimento_paisNac) for diferente de [105]); N (nos demais casos)</xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>
@@ -202,7 +202,7 @@
                                                         <xs:annotation>
                                                             <xs:documentation>Cargo/Função ocupado pelo TSVE</xs:documentation>
                                                             <xs:documentation>DESCRICAO_COMPLETA:Grupo que apresenta o cargo e/ou função ocupada pelo TSVE.</xs:documentation>
-                                                            <xs:documentation>CONDICAO_GRUPO: OC (se {codCateg}(2300_infoTSVInicio_codCateg) = [410, 901, 903, 904, 905]); O (nos demais casos)</xs:documentation>
+                                                            <xs:documentation>CONDICAO_GRUPO: OC (se {codCateg}(2300_infoTSVInicio_codCateg) = [901, 903, 904, 905]); O (nos demais casos)</xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
                                                             <xs:sequence>
@@ -225,7 +225,7 @@
                                                     </xs:element>
                                                     <xs:element name="remuneracao" type="T_remuneracao" minOccurs="0">
                                                         <xs:annotation>
-                                                            <xs:documentation>Informações da remuneração e periodicidade de pagamento</xs:documentation>
+                                                            <xs:documentation>Informações da remuneração e periodicidade de pagamento.</xs:documentation>
                                                             <xs:documentation>CONDICAO_GRUPO: O (se {codCateg}(2300_infoTSVInicio_codCateg) = [305, 721, 722, 771]); OC (nos demais casos)</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
@@ -257,13 +257,13 @@
                                                                 <xs:element name="tpInsc" minOccurs="0" type="TS_tpInsc_1_2">
                                                                     <xs:annotation>
                                                                         <xs:documentation>Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.</xs:documentation>
-                                                                        <xs:documentation>Validação: O preenchimento é obrigatório e exclusivo se {infoDirigenteSindical/categOrig}(./categOrig) corresponder a "Empregado", "Agente Público", "Avulso" ou for igual a [721]. Se informado, deve ser igual a [1] (CNPJ) ou [2] (CPF).</xs:documentation>
+                                                                        <xs:documentation>Validação: O preenchimento é obrigatório e exclusivo se {infoDirigenteSindical/categOrig}(./categOrig) corresponder a "Empregado", "Agente Público", "Avulso" ou for igual a [721].</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
                                                                 <xs:element name="nrInsc" minOccurs="0" type="TS_nrInsc_11_14">
                                                                     <xs:annotation>
                                                                         <xs:documentation>Informar o número de inscrição do empregador de origem do dirigente sindical, de acordo com o tipo de inscrição indicado no campo {infoDirigenteSindical/tpInsc}(./tpInsc).</xs:documentation>
-                                                                        <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se {infoDirigenteSindical/tpInsc}(./tpInsc) for informado. Se preenchido, deve ser um número de inscrição válido diferente da inscrição do declarante, considerando as particularidades aplicadas à informação de CNPJ de órgão público em S-1000.</xs:documentation>
+                                                                        <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se {infoDirigenteSindical/tpInsc}(./tpInsc) for informado. Se preenchido, deve ser um número de inscrição válido e diferente da inscrição do declarante, considerando as particularidades aplicadas à informação de CNPJ de órgão público em S-1000.</xs:documentation>
                                                                         <xs:documentation>Se {infoDirigenteSindical/tpInsc}(./tpInsc) = [1], deve possuir 14 (catorze) algarismos e ser diferente do CNPJ base do empregador e dos estabelecimentos informados através do evento S-1005.</xs:documentation>
                                                                         <xs:documentation>Se {infoDirigenteSindical/tpInsc}(./tpInsc) = [2], deve possuir 11 (onze) algarismos.</xs:documentation>
                                                                     </xs:annotation>
@@ -311,7 +311,7 @@
                                                                 <xs:element name="tpRegPrev" type="TS_tpRegPrev">
                                                                     <xs:annotation>
                                                                         <xs:documentation>Tipo de regime previdenciário ou regime dos militares.</xs:documentation>
-                                                                        <xs:documentation>Validação: Se houver {infoTrabCedido/categOrig}(./categOrig) no grupo inferior relativa a "Empregado", não pode ser preenchido com [2].</xs:documentation>
+                                                                        <xs:documentation>Validação: Se houver {infoTrabCedido/categOrig}(./categOrig) (grupo inferior) relativa a "Empregado", não pode ser preenchido com [2].</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
                                                                 <xs:element name="infoOrigem" maxOccurs="9">
@@ -439,7 +439,7 @@
                                                 <xs:documentation>Informação do término do TSVE</xs:documentation>
                                                 <xs:documentation>DESCRICAO_COMPLETA:Informação do término do TSVE.</xs:documentation>
                                                 <xs:documentation>Grupo preenchido exclusivamente caso seja necessário enviar cadastramento inicial referente a trabalhador com data de término anterior ao início dos eventos não periódicos para o empregador no eSocial (Ex.: envio para pagamento de retiradas em meses posteriores à data de término e sob vigência dos eventos periódicos para o empregador no eSocial).</xs:documentation>
-                                                <xs:documentation>CONDICAO_GRUPO: N ((se {cadIni}(2300_infoTSVInicio_cadIni) = [N]) OU (se grupo {afastamento}(2300_infoTSVInicio_afastamento) estiver preenchido)); OC (nos demais casos)</xs:documentation>
+                                                <xs:documentation>CONDICAO_GRUPO: N (se {cadIni}(2300_infoTSVInicio_cadIni) = [N] ou grupo {afastamento}(2300_infoTSVInicio_afastamento) estiver preenchido); OC (nos demais casos)</xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>

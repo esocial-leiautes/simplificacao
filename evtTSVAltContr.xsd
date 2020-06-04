@@ -10,7 +10,8 @@
             <xs:sequence>
                 <xs:element name="evtTSVAltContr">
                     <xs:annotation>
-                        <xs:documentation>TSVE - Alteração Contratual</xs:documentation>
+                        <xs:documentation>Evento TSVE - Alteração Contratual</xs:documentation>
+                        <xs:documentation>DESCRICAO_COMPLETA:Evento Trabalhador Sem Vínculo de Emprego/Estatutário - Alteração Contratual.</xs:documentation>
                         <xs:documentation>CHAVE_GRUPO: {Id}</xs:documentation>
                         <xs:documentation>REGRA:REGRA_ENVIO_PROC_FECHAMENTO</xs:documentation>
                         <xs:documentation>REGRA:REGRA_EVENTOS_EXTEMP</xs:documentation>
@@ -27,7 +28,7 @@
                             <xs:element name="ideTrabSemVinculo" type="T_ideTrabSemVinculo" />
                             <xs:element name="infoTSVAlteracao">
                                 <xs:annotation>
-                                    <xs:documentation>Trabalhador Sem Vínculo de Emprego - Alteração Contratual</xs:documentation>
+                                    <xs:documentation>TSVE - Alteração Contratual.</xs:documentation>
                                     <xs:documentation>CHAVE_GRUPO: {dtAlteracao}</xs:documentation>
                                 </xs:annotation>
                                 <xs:complexType>
@@ -35,14 +36,15 @@
                                         <xs:element name="dtAlteracao" type="TS_dtAlteracao" />
                                         <xs:element name="natAtividade" minOccurs="0" type="TS_natAtividade">
                                             <xs:annotation>
-                                                <xs:documentation>Natureza da atividade</xs:documentation>
+                                                <xs:documentation>Natureza da atividade.</xs:documentation>
                                                 <xs:documentation>Validação: Preenchimento obrigatório se o código de categoria no Registro de Eventos Trabalhistas - RET for igual a [201, 202, 401, 731, 734, 738]. Não deve ser preenchido se o código de categoria no RET for igual a [305, 721, 722, 771, 901].</xs:documentation>
                                             </xs:annotation>
                                         </xs:element>
                                         <xs:element name="infoComplementares" minOccurs="0">
                                             <xs:annotation>
                                                 <xs:documentation>Informações complementares</xs:documentation>
-                                                <xs:documentation>CONDICAO_GRUPO: O (de acordo com as regras condicionais dos registros inferiores); OC (nos demais casos)</xs:documentation>
+                                                <xs:documentation>DESCRICAO_COMPLETA:Grupo onde são fornecidas informações complementares, preenchidas conforme a categoria do TSVE.</xs:documentation>
+                                                <xs:documentation>CONDICAO_GRUPO: O (de acordo com a condição dos grupos inferiores); OC (nos demais casos)</xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>
@@ -50,7 +52,7 @@
                                                         <xs:annotation>
                                                             <xs:documentation>Cargo/Função ocupado pelo TSVE</xs:documentation>
                                                             <xs:documentation>DESCRICAO_COMPLETA:Grupo que apresenta o cargo e/ou função ocupada pelo TSVE.</xs:documentation>
-                                                            <xs:documentation>CONDICAO_GRUPO: OC (se o código de categoria no RET for igual a [410, 901, 903, 904, 905]); O (nos demais casos)</xs:documentation>
+                                                            <xs:documentation>CONDICAO_GRUPO: OC (se o código de categoria no RET for igual a [901, 903, 904, 905]); O (nos demais casos)</xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
                                                             <xs:sequence>
@@ -73,13 +75,13 @@
                                                     </xs:element>
                                                     <xs:element name="remuneracao" type="T_remuneracao" minOccurs="0">
                                                         <xs:annotation>
-                                                            <xs:documentation>Informações da remuneração e periodicidade de pagamento</xs:documentation>
+                                                            <xs:documentation>Informações da remuneração e periodicidade de pagamento.</xs:documentation>
                                                             <xs:documentation>CONDICAO_GRUPO: O (se o código de categoria no RET for igual a [305, 721, 722, 771]); OC (nos demais casos)</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
                                                     <xs:element name="infoDirigenteSindical" minOccurs="0">
                                                         <xs:annotation>
-                                                            <xs:documentation>Informações relativas ao dirigente sindical</xs:documentation>
+                                                            <xs:documentation>Informações relativas ao dirigente sindical.</xs:documentation>
                                                             <xs:documentation>CONDICAO_GRUPO: O (se o código de categoria no RET for igual a [401]); N (nos demais casos)</xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
@@ -87,7 +89,7 @@
                                                                 <xs:element name="tpRegPrev" type="TS_tpRegPrev">
                                                                     <xs:annotation>
                                                                         <xs:documentation>Tipo de regime previdenciário ou regime dos militares.</xs:documentation>
-                                                                        <xs:documentation>Validação: Se {infoDirigenteSindical/categOrig}(2300_infoTSVInicio_infoComplementares_infoDirigenteSindical_categOrig) no evento S-2300 for relativa a "Empregado", não pode ser preenchido com [2].</xs:documentation>
+                                                                        <xs:documentation>Validação: Se {infoDirigenteSindical/categOrig}(2300_infoTSVInicio_infoComplementares_infoDirigenteSindical_categOrig) do evento S-2300 for relativa a "Empregado", não pode ser preenchido com [2].</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
                                                             </xs:sequence>
@@ -96,6 +98,7 @@
                                                     <xs:element name="infoTrabCedido" minOccurs="0">
                                                         <xs:annotation>
                                                             <xs:documentation>Informações relativas ao trabalhador cedido/em exercício em outro órgão</xs:documentation>
+                                                            <xs:documentation>DESCRICAO_COMPLETA:Informações relativas ao trabalhador cedido/em exercício em outro órgão, preenchidas exclusivamente pelo cessionário/órgão de destino.</xs:documentation>
                                                             <xs:documentation>CONDICAO_GRUPO: O (se o código de categoria no RET for igual a [410]); N (nos demais casos)</xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
@@ -111,7 +114,7 @@
                                                     </xs:element>
                                                     <xs:element name="infoMandElet" minOccurs="0">
                                                         <xs:annotation>
-                                                            <xs:documentation>Informações relativas a servidor público exercente de mandato eletivo</xs:documentation>
+                                                            <xs:documentation>Informações relativas a servidor público exercente de mandato eletivo.</xs:documentation>
                                                             <xs:documentation>CONDICAO_GRUPO: O (se o código de categoria no RET for igual a [304]); N (nos demais casos)</xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
@@ -127,7 +130,7 @@
                                                     </xs:element>
                                                     <xs:element name="infoEstagiario" minOccurs="0" type="T_infoEstagiario">
                                                         <xs:annotation>
-                                                            <xs:documentation>Informações do estagiário</xs:documentation>
+                                                            <xs:documentation>Informações do estagiário.</xs:documentation>
                                                             <xs:documentation>CONDICAO_GRUPO: O (se o código de categoria no RET for igual a [901]); N (nos demais casos)</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
