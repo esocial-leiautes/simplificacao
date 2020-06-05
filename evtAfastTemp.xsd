@@ -10,7 +10,7 @@
             <xs:sequence>
                 <xs:element name="evtAfastTemp">
                     <xs:annotation>
-                        <xs:documentation>Evento Afastamento Temporário</xs:documentation>
+                        <xs:documentation>Evento Afastamento Temporário.</xs:documentation>
                         <xs:documentation>CHAVE_GRUPO: {Id}</xs:documentation>
                         <xs:documentation>REGRA:REGRA_AFASTAMENTO</xs:documentation>
                         <xs:documentation>REGRA:REGRA_ENVIO_PROC_FECHAMENTO</xs:documentation>
@@ -21,6 +21,8 @@
                         <xs:documentation>REGRA:REGRA_EXTEMP_REINTEGRACAO</xs:documentation>
                         <xs:documentation>REGRA:REGRA_GERAL_VALIDA_DADOS_TABCONTRIB</xs:documentation>
                         <xs:documentation>REGRA:REGRA_RETIFICA_MESMO_VINCULO</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_TSV_ATIVO_NA_DTEVENTO</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_VINCULO_ATIVO_NA_DTEVENTO</xs:documentation>
                     </xs:annotation>
                     <xs:complexType>
                         <xs:sequence>
@@ -28,31 +30,23 @@
                             <xs:element name="ideEmpregador" type="T_ideEmpregador" />
                             <xs:element name="ideVinculo">
                                 <xs:annotation>
-                                    <xs:documentation>Informações de Identificação do Trabalhador e do Vínculo</xs:documentation>
+                                    <xs:documentation>Informações de identificação do trabalhador e do vínculo.</xs:documentation>
                                     <xs:documentation>CHAVE_GRUPO: {cpfTrab}, {matricula}, {codCateg}</xs:documentation>
-                                    <xs:documentation>REGRA:REGRA_TSV_ATIVO_NA_DTEVENTO</xs:documentation>
-                                    <xs:documentation>REGRA:REGRA_VINCULO_ATIVO_NA_DTEVENTO</xs:documentation>
                                 </xs:annotation>
                                 <xs:complexType>
                                     <xs:sequence>
-                                        <xs:element name="cpfTrab" type="TS_cpf">
-                                            <xs:annotation>
-                                                <xs:documentation>CPF do trabalhador</xs:documentation>
-                                            </xs:annotation>
-                                        </xs:element>
+                                        <xs:element name="cpfTrab" type="TS_cpfTrab" />
                                         <xs:element name="matricula" minOccurs="0" type="TS_codigo_esocial">
                                             <xs:annotation>
-                                                <xs:documentation>Matricula</xs:documentation>
                                                 <xs:documentation>Matrícula atribuída ao trabalhador pela empresa ou, no caso de servidor público, a matrícula constante no Sistema de Administração de Recursos Humanos do órgão.</xs:documentation>
-                                                <xs:documentation>Validação: Deve corresponder à matrícula informada pelo empregador no evento S-2200 ou S-2300 do respectivo contrato. Não preencher no caso de TSVE - Trabalhador Sem Vínculo de Emprego/Estatutário sem informação de matrícula no evento S-2300.</xs:documentation>
+                                                <xs:documentation>Validação: Deve corresponder à matrícula informada pelo empregador no evento S-2200 ou S-2300 do respectivo contrato. Não preencher no caso de Trabalhador Sem Vínculo de Emprego/Estatutário - TSVE sem informação de matrícula no evento S-2300.</xs:documentation>
                                             </xs:annotation>
                                         </xs:element>
                                         <xs:element name="codCateg" minOccurs="0" type="TS_codCateg">
                                             <xs:annotation>
-                                                <xs:documentation>Código da Categoria</xs:documentation>
-                                                <xs:documentation>Preencher com o código da categoria do trabalhador, conforme Tabela 01.</xs:documentation>
+                                                <xs:documentation>Preencher com o código da categoria do trabalhador.</xs:documentation>
                                                 <xs:documentation>Informar somente no caso de TSVE sem informação de matrícula no evento S-2300.</xs:documentation>
-                                                <xs:documentation>Validação: Informação obrigatória e exclusiva se não houver preenchimento de {matricula}. Se informado, deve ser um código válido e existente na Tabela 01.</xs:documentation>
+                                                <xs:documentation>Validação: Informação obrigatória e exclusiva se não houver preenchimento de {matricula}(./matricula). Se informado, deve ser um código válido e existente na Tabela 01.</xs:documentation>
                                             </xs:annotation>
                                         </xs:element>
                                     </xs:sequence>
@@ -60,39 +54,38 @@
                             </xs:element>
                             <xs:element name="infoAfastamento">
                                 <xs:annotation>
-                                    <xs:documentation>Informações do Evento</xs:documentation>
+                                    <xs:documentation>Informações do afastamento temporário.</xs:documentation>
                                 </xs:annotation>
                                 <xs:complexType>
                                     <xs:sequence>
                                         <xs:element name="iniAfastamento" minOccurs="0">
                                             <xs:annotation>
-                                                <xs:documentation>Informações do Afastamento Temporário - Início</xs:documentation>
-                                                <xs:documentation>CONDICAO_GRUPO: O (Se não for preenchido o registro {fimAfastamento}); OC (nos demais casos)</xs:documentation>
+                                                <xs:documentation>Informações de início do afastamento.</xs:documentation>
+                                                <xs:documentation>CONDICAO_GRUPO: O (se não for preenchido o grupo {fimAfastamento}(../fimAfastamento)); OC (nos demais casos)</xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>
                                                     <xs:element name="dtIniAfast" type="xs:date">
                                                         <xs:annotation>
-                                                            <xs:documentation>Data de início do afastamento</xs:documentation>
+                                                            <xs:documentation>Data de início do afastamento.</xs:documentation>
                                                             <xs:documentation>Validação: Deve-se obedecer às seguintes regras:</xs:documentation>
                                                             <xs:documentation>a) Não pode ser superior à data atual, exceto se:</xs:documentation>
-                                                            <xs:documentation>a1) {codMotAfast} = [15] (férias), situação em que pode ser até 60 dias superior à data atual;</xs:documentation>
-                                                            <xs:documentation>a2) {codMotAfast} = [18], situação em que pode ser até 120 dias superior à data atual;</xs:documentation>
-                                                            <xs:documentation>b) É necessário que o trabalhador esteja, antes da data de início do afastamento, em atividade, ou seja, não pode existir evento de afastamento anterior a {dtIniAfast} sem que este tenha sido encerrado.</xs:documentation>
+                                                            <xs:documentation>a1) {codMotAfast}(./codMotAfast) = [15] (férias), situação em que pode ser até 60 dias superior à data atual;</xs:documentation>
+                                                            <xs:documentation>a2) {codMotAfast}(./codMotAfast) = [18], situação em que pode ser até 120 dias superior à data atual;</xs:documentation>
+                                                            <xs:documentation>b) É necessário que o trabalhador esteja, antes da data de início do afastamento, em atividade, ou seja, não pode existir evento de afastamento anterior a {dtIniAfast}(./dtIniAfast) sem que este tenha sido encerrado.</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
                                                     <xs:element name="codMotAfast" type="TS_codMotAfast" />
                                                     <xs:element name="infoMesmoMtv" type="TS_sim_nao" minOccurs="0">
                                                         <xs:annotation>
-                                                            <xs:documentation>O afastamento decorre de mesmo acidente/doença anterior?</xs:documentation>
-                                                            <xs:documentation>Informar se o afastamento decorre da mesma doença que gerou o afastamento anterior ({codMotAfast} = [01, 03]) dentro de 60 dias.</xs:documentation>
+                                                            <xs:documentation>Informar se o afastamento decorre da mesma doença que gerou o afastamento anterior ({codMotAfast}(./codMotAfast) = [01, 03]), dentro de 60 dias.</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
                                                     <xs:element name="tpAcidTransito" minOccurs="0">
                                                         <xs:simpleType>
                                                             <xs:annotation>
-                                                                <xs:documentation>Tipo de acidente de transito</xs:documentation>
-                                                                <xs:documentation>Validação: Somente pode ser preenchido se {codMotAfast} = [01, 03].</xs:documentation>
+                                                                <xs:documentation>Tipo de acidente de trânsito.</xs:documentation>
+                                                                <xs:documentation>Validação: Somente pode ser preenchido se {codMotAfast}(./codMotAfast) = [01, 03].</xs:documentation>
                                                             </xs:annotation>
                                                             <xs:restriction base="xs:byte">
                                                                 <xs:enumeration value="1">
@@ -116,26 +109,28 @@
                                                     <xs:element name="observacao" minOccurs="0" type="TS_observacao">
                                                         <xs:annotation>
                                                             <xs:documentation>Detalhar as informações sobre o afastamento do trabalhador, de maneira a explicitar os motivos do mesmo.</xs:documentation>
-                                                            <xs:documentation>Validação: O preenchimento é obrigatório se {codMotAfast} = [21].</xs:documentation>
+                                                            <xs:documentation>Validação: O preenchimento é obrigatório se {codMotAfast}(./codMotAfast) = [21].</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
                                                     <xs:element name="perAquis" minOccurs="0">
                                                         <xs:annotation>
-                                                            <xs:documentation>Informações referentes ao período aquisitivo de férias</xs:documentation>
-                                                            <xs:documentation>CONDICAO_GRUPO: O (se {codMotAfast} = [15] E ({codCateg} = [1XX, 301, 302, 303, 304, 306, 307, 309, 310, 312, 410] com {tpRegTrab} = [1] no RET OU {codCateg} = [401] com {tpRegTrab} = [1] no RET ou não informado) E {dtIniAfast} >= [2020-09-08]); N (nos demais casos)</xs:documentation>
+                                                            <xs:documentation>Período aquisitivo de férias</xs:documentation>
+                                                            <xs:documentation>DESCRICAO_COMPLETA:Informações referentes ao período aquisitivo de férias.</xs:documentation>
+                                                            <xs:documentation>CONDICAO_GRUPO: O (se {codMotAfast}(../codMotAfast) = [15] E (o código de categoria no RET for igual a [1XX, 301, 302, 303, 304, 306, 307, 309, 310, 312, 410] com {tpRegTrab} em S-2200/S-2300 = [1] OU o código de categoria no RET for igual a [401] com {tpRegTrab} em S-2300 = [1] ou não informado) E {dtIniAfast}(../dtIniAfast) >= [2020-09-08]); N (nos demais casos)</xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
                                                             <xs:sequence>
                                                                 <xs:element name="dtInicio" type="xs:date">
                                                                     <xs:annotation>
-                                                                        <xs:documentation>Data de início do período aquisitivo de férias</xs:documentation>
+                                                                        <xs:documentation>Data de início do período aquisitivo de férias.</xs:documentation>
                                                                         <xs:documentation>Validação: Deve ser igual ou posterior à data de admissão.</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
                                                                 <xs:element name="dtFim" type="xs:date" minOccurs="0">
                                                                     <xs:annotation>
-                                                                        <xs:documentation>Data de término do período aquisitivo de férias (preencher somente se esse período for diferente de 1 ano)</xs:documentation>
-                                                                        <xs:documentation>Validação: Se informada, deve ser uma data posterior a {dtInicio}.</xs:documentation>
+                                                                        <xs:documentation>Data de término do período aquisitivo de férias.</xs:documentation>
+                                                                        <xs:documentation>Informar o campo somente se o período aquisitivo for diferente de 1 ano.</xs:documentation>
+                                                                        <xs:documentation>Validação: Se informada, deve ser uma data posterior a {dtInicio}(./dtInicio).</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
                                                             </xs:sequence>
@@ -143,14 +138,13 @@
                                                     </xs:element>
                                                     <xs:element name="infoCessao" minOccurs="0">
                                                         <xs:annotation>
-                                                            <xs:documentation>Informações Complementares - Cessão/requisição de trabalhador</xs:documentation>
-                                                            <xs:documentation>CONDICAO_GRUPO: O (se {codMotAfast} = [14]); N (nos demais casos)</xs:documentation>
+                                                            <xs:documentation>Informações complementares - Cessão/requisição de trabalhador.</xs:documentation>
+                                                            <xs:documentation>CONDICAO_GRUPO: O (se {codMotAfast}(../codMotAfast) = [14]); N (nos demais casos)</xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
                                                             <xs:sequence>
                                                                 <xs:element name="cnpjCess" type="TS_cnpj">
                                                                     <xs:annotation>
-                                                                        <xs:documentation>CNPJ do Cessionário</xs:documentation>
                                                                         <xs:documentation>Preencher com o CNPJ do órgão/entidade para o qual o trabalhador foi cedido/requisitado.</xs:documentation>
                                                                         <xs:documentation>Validação: Deve ser um CNPJ diferente do CNPJ do empregador e diferente dos estabelecimentos informados através do evento S-1005.</xs:documentation>
                                                                         <xs:documentation>REGRA:REGRA_VALIDA_CNPJ</xs:documentation>
@@ -159,7 +153,7 @@
                                                                 <xs:element name="infOnus">
                                                                     <xs:simpleType>
                                                                         <xs:annotation>
-                                                                            <xs:documentation>Ônus da Cessão</xs:documentation>
+                                                                            <xs:documentation>Ônus da cessão/requisição.</xs:documentation>
                                                                         </xs:annotation>
                                                                         <xs:restriction base="xs:byte">
                                                                             <xs:enumeration value="1">
@@ -185,14 +179,14 @@
                                                     </xs:element>
                                                     <xs:element name="infoMandSind" minOccurs="0">
                                                         <xs:annotation>
-                                                            <xs:documentation>Informações Complementares - afastamento para exercício de mandato sindical</xs:documentation>
-                                                            <xs:documentation>CONDICAO_GRUPO: O (se {codMotAfast} = [24]); N (nos demais casos)</xs:documentation>
+                                                            <xs:documentation>Informações complementares - Afastamento para exercício de mandato sindical.</xs:documentation>
+                                                            <xs:documentation>CONDICAO_GRUPO: O (se {codMotAfast}(../codMotAfast) = [24]); N (nos demais casos)</xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
                                                             <xs:sequence>
                                                                 <xs:element name="cnpjSind" type="TS_cnpj">
                                                                     <xs:annotation>
-                                                                        <xs:documentation>CNPJ do Sindicato no qual o trabalhador exercerá o mandato</xs:documentation>
+                                                                        <xs:documentation>CNPJ do sindicato no qual o trabalhador exercerá o mandato.</xs:documentation>
                                                                         <xs:documentation>Validação: Deve ser um CNPJ diferente do CNPJ base do empregador e diferente dos informados na Tabela de Estabelecimentos (S-1005).</xs:documentation>
                                                                         <xs:documentation>REGRA:REGRA_VALIDA_CNPJ</xs:documentation>
                                                                     </xs:annotation>
@@ -200,22 +194,22 @@
                                                                 <xs:element name="infOnusRemun">
                                                                     <xs:simpleType>
                                                                         <xs:annotation>
-                                                                            <xs:documentation>Ônus da Remuneração</xs:documentation>
+                                                                            <xs:documentation>Ônus da remuneração.</xs:documentation>
                                                                         </xs:annotation>
                                                                         <xs:restriction base="xs:byte">
                                                                             <xs:enumeration value="1">
                                                                                 <xs:annotation>
-                                                                                    <xs:documentation>Apenas do Empregador</xs:documentation>
+                                                                                    <xs:documentation>Apenas do empregador</xs:documentation>
                                                                                 </xs:annotation>
                                                                             </xs:enumeration>
                                                                             <xs:enumeration value="2">
                                                                                 <xs:annotation>
-                                                                                    <xs:documentation>Apenas do Sindicato</xs:documentation>
+                                                                                    <xs:documentation>Apenas do sindicato</xs:documentation>
                                                                                 </xs:annotation>
                                                                             </xs:enumeration>
                                                                             <xs:enumeration value="3">
                                                                                 <xs:annotation>
-                                                                                    <xs:documentation>Parte do Empregador, sendo a diferença e/ou complementação salarial paga pelo Sindicato</xs:documentation>
+                                                                                    <xs:documentation>Parte do empregador, sendo a diferença e/ou complementação salarial paga pelo sindicato</xs:documentation>
                                                                                 </xs:annotation>
                                                                             </xs:enumeration>
                                                                         </xs:restriction>
@@ -226,21 +220,21 @@
                                                     </xs:element>
                                                     <xs:element name="infoMandElet" minOccurs="0">
                                                         <xs:annotation>
-                                                            <xs:documentation>Informações Complementares - afastamento para exercício de mandato eletivo</xs:documentation>
-                                                            <xs:documentation>CONDICAO_GRUPO: O (se {codMotAfast} = [22]); N (nos demais casos)</xs:documentation>
+                                                            <xs:documentation>Informações complementares - Afastamento para exercício de mandato eletivo.</xs:documentation>
+                                                            <xs:documentation>CONDICAO_GRUPO: O (se {codMotAfast}(../codMotAfast) = [22]); N (nos demais casos)</xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
                                                             <xs:sequence>
                                                                 <xs:element name="cnpjMandElet" type="TS_cnpj">
                                                                     <xs:annotation>
-                                                                        <xs:documentation>CNPJ do órgão no qual o servidor exercerá o mandato eletivo</xs:documentation>
+                                                                        <xs:documentation>CNPJ do órgão no qual o servidor exercerá o mandato eletivo.</xs:documentation>
                                                                         <xs:documentation>Validação: Deve ser um CNPJ diferente do CNPJ base do empregador e diferente dos informados na Tabela de Estabelecimentos (S-1005).</xs:documentation>
                                                                         <xs:documentation>REGRA:REGRA_VALIDA_CNPJ</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
                                                                 <xs:element name="indRemunCargo" type="TS_sim_nao">
                                                                     <xs:annotation>
-                                                                        <xs:documentation>Indicar se o servidor optou pela remuneração do cargo efetivo</xs:documentation>
+                                                                        <xs:documentation>Indicar se o servidor optou pela remuneração do cargo efetivo.</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
                                                             </xs:sequence>
@@ -251,15 +245,17 @@
                                         </xs:element>
                                         <xs:element name="infoRetif" minOccurs="0">
                                             <xs:annotation>
-                                                <xs:documentation>Informações de retificação do Afastamento Temporário</xs:documentation>
-                                                <xs:documentation>CONDICAO_GRUPO: OC ((se {indRetif} = [2]) E (o registro {iniAfastamento} estiver preenchido); N (nos demais casos)</xs:documentation>
+                                                <xs:documentation>Informações de retificação do afastamento</xs:documentation>
+                                                <xs:documentation>DESCRICAO_COMPLETA:Informações de retificação do afastamento temporário.</xs:documentation>
+                                                <xs:documentation>Preenchimento obrigatório caso {codMotAfast}(../iniAfastamento_codMotAfast) seja retificado de [01] para [03] ou de [03] para [01].</xs:documentation>
+                                                <xs:documentation>CONDICAO_GRUPO: OC ((se {indRetif}(2230_ideEvento_indRetif) = [2]) E (o grupo {iniAfastamento}(../iniAfastamento) estiver preenchido); N (nos demais casos)</xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>
                                                     <xs:element name="origRetif">
                                                         <xs:simpleType>
                                                             <xs:annotation>
-                                                                <xs:documentation>Origem da retificação</xs:documentation>
+                                                                <xs:documentation>Origem da retificação.</xs:documentation>
                                                             </xs:annotation>
                                                             <xs:restriction base="xs:byte">
                                                                 <xs:enumeration value="1">
@@ -269,12 +265,12 @@
                                                                 </xs:enumeration>
                                                                 <xs:enumeration value="2">
                                                                     <xs:annotation>
-                                                                        <xs:documentation>Revisão Administrativa</xs:documentation>
+                                                                        <xs:documentation>Revisão administrativa</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:enumeration>
                                                                 <xs:enumeration value="3">
                                                                     <xs:annotation>
-                                                                        <xs:documentation>Determinação Judicial</xs:documentation>
+                                                                        <xs:documentation>Determinação judicial</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:enumeration>
                                                             </xs:restriction>
@@ -283,8 +279,8 @@
                                                     <xs:element name="tpProc" minOccurs="0">
                                                         <xs:simpleType>
                                                             <xs:annotation>
-                                                                <xs:documentation>Tipo de Processo</xs:documentation>
-                                                                <xs:documentation>Validação: O preenchimento é obrigatório se {origRetif} = [2, 3].</xs:documentation>
+                                                                <xs:documentation>Preencher com o código correspondente ao tipo de processo.</xs:documentation>
+                                                                <xs:documentation>Validação: O preenchimento é obrigatório se {origRetif}(./origRetif) = [2, 3].</xs:documentation>
                                                             </xs:annotation>
                                                             <xs:restriction base="xs:byte">
                                                                 <xs:enumeration value="1">
@@ -299,7 +295,7 @@
                                                                 </xs:enumeration>
                                                                 <xs:enumeration value="3">
                                                                     <xs:annotation>
-                                                                        <xs:documentation>Número de Benefício (NB) do INSS</xs:documentation>
+                                                                        <xs:documentation>Número de Benefício - NB do INSS</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:enumeration>
                                                             </xs:restriction>
@@ -308,12 +304,11 @@
                                                     <xs:element name="nrProc" minOccurs="0">
                                                         <xs:simpleType>
                                                             <xs:annotation>
-                                                                <xs:documentation>Número do Processo</xs:documentation>
-                                                                <xs:documentation>Informar o número do processo administrativo/judicial ou do benefício de acordo com o tipo informado em {tpProc}.</xs:documentation>
-                                                                <xs:documentation>Validação: O preenchimento é obrigatório se {origRetif} = [2, 3]. Deve ser um número de processo/benefício válido e:</xs:documentation>
-                                                                <xs:documentation>a) Se {tpProc} = [1], deve possuir 17 (dezessete) ou 21 (vinte e um) algarismos;</xs:documentation>
-                                                                <xs:documentation>b) Se {tpProc} = [2], deve possuir 20 (vinte) algarismos;</xs:documentation>
-                                                                <xs:documentation>c) Se {tpProc} = [3], deve possuir 10 (dez) algarismos.</xs:documentation>
+                                                                <xs:documentation>Informar o número do processo administrativo/judicial ou do benefício de acordo com o tipo informado em {tpProc}(./tpProc).</xs:documentation>
+                                                                <xs:documentation>Validação: O preenchimento é obrigatório se {origRetif}(./origRetif) = [2, 3]. Deve ser um número de processo/benefício válido e:</xs:documentation>
+                                                                <xs:documentation>a) Se {tpProc}(./tpProc) = [1], deve possuir 17 (dezessete) ou 21 (vinte e um) algarismos;</xs:documentation>
+                                                                <xs:documentation>b) Se {tpProc}(./tpProc) = [2], deve possuir 20 (vinte) algarismos;</xs:documentation>
+                                                                <xs:documentation>c) Se {tpProc}(./tpProc) = [3], deve possuir 10 (dez) algarismos.</xs:documentation>
                                                             </xs:annotation>
                                                             <xs:restriction base="xs:string">
                                                                 <xs:pattern value="\d{10}|\d{17}|\d{20}|\d{21}" />
@@ -325,15 +320,15 @@
                                         </xs:element>
                                         <xs:element name="fimAfastamento" minOccurs="0">
                                             <xs:annotation>
-                                                <xs:documentation>Informações do Término do Afastamento</xs:documentation>
-                                                <xs:documentation>CONDICAO_GRUPO: O (se não for preenchido o registro {iniAfastamento}); OC (nos demais casos)</xs:documentation>
+                                                <xs:documentation>Informação do término do afastamento.</xs:documentation>
+                                                <xs:documentation>CONDICAO_GRUPO: O (se não for preenchido o grupo {iniAfastamento}(../iniAfastamento)); OC (nos demais casos)</xs:documentation>
                                                 <xs:documentation>REGRA:REGRA_EXISTE_EVENTO_AFASTAMENTO</xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>
                                                     <xs:element name="dtTermAfast" type="xs:date">
                                                         <xs:annotation>
-                                                            <xs:documentation>Preencher com a data do término do afastamento do trabalhador</xs:documentation>
+                                                            <xs:documentation>Preencher com a data do término do afastamento do trabalhador.</xs:documentation>
                                                             <xs:documentation>Validação: Deve ser igual ou posterior à data de início do afastamento do trabalhador.</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
