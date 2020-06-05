@@ -10,7 +10,8 @@
             <xs:sequence>
                 <xs:element name="evtTSVTermino">
                     <xs:annotation>
-                        <xs:documentation>TSVE - Término</xs:documentation>
+                        <xs:documentation>Evento TSVE - Término</xs:documentation>
+                        <xs:documentation>DESCRICAO_COMPLETA:Evento Trabalhador Sem Vínculo de Emprego/Estatutário - Término.</xs:documentation>
                         <xs:documentation>CHAVE_GRUPO: {Id}</xs:documentation>
                         <xs:documentation>REGRA:REGRA_ENVIO_PROC_FECHAMENTO</xs:documentation>
                         <xs:documentation>REGRA:REGRA_EVENTOS_EXTEMP</xs:documentation>
@@ -31,13 +32,13 @@
                             <xs:element name="ideTrabSemVinculo" type="T_ideTrabSemVinculo" />
                             <xs:element name="infoTSVTermino">
                                 <xs:annotation>
-                                    <xs:documentation>Trabalhador Sem Vínculo de Emprego - Término</xs:documentation>
+                                    <xs:documentation>TSVE - Término.</xs:documentation>
                                 </xs:annotation>
                                 <xs:complexType>
                                     <xs:sequence>
                                         <xs:element name="dtTerm" type="xs:date">
                                             <xs:annotation>
-                                                <xs:documentation>Data do Término.</xs:documentation>
+                                                <xs:documentation>Data do término.</xs:documentation>
                                                 <xs:documentation>Validação: Deve ser uma data não superior à data atual acrescida de 10 dias corridos.</xs:documentation>
                                             </xs:annotation>
                                         </xs:element>
@@ -120,32 +121,36 @@
                                         <xs:element name="verbasResc" minOccurs="0">
                                             <xs:annotation>
                                                 <xs:documentation>Verbas rescisórias</xs:documentation>
-                                                <xs:documentation>CONDICAO_GRUPO: N (se {mtvDesligTSV}(2399_infoTSVTermino_mtvDesligTSV) = [07] OU se {dtTerm}(2399_infoTSVTermino_dtTerm) for anterior ao início de obrigatoriedade dos eventos periódicos para o empregador OU se o código de categoria no RET for diferente de [721]; OC (nos demais casos)</xs:documentation>
+                                                <xs:documentation>DESCRICAO_COMPLETA:Grupo onde são prestadas as informações relativas às verbas rescisórias do diretor não empregado, com FGTS.</xs:documentation>
+                                                <xs:documentation>CONDICAO_GRUPO: N (se {mtvDesligTSV}(2399_infoTSVTermino_mtvDesligTSV) = [07] OU {dtTerm}(2399_infoTSVTermino_dtTerm) for anterior ao início de obrigatoriedade dos eventos periódicos para o empregador OU o código de categoria no RET for diferente de [721]); OC (nos demais casos)</xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>
                                                     <xs:element name="dmDev" maxOccurs="50">
                                                         <xs:annotation>
-                                                            <xs:documentation>Identificação dos demonstrativos de pagamentos a serem efetuados</xs:documentation>
+                                                            <xs:documentation>Demonstrativo de valores devidos ao trabalhador</xs:documentation>
+                                                            <xs:documentation>DESCRICAO_COMPLETA:Identificação de cada um dos demonstrativos de valores devidos ao trabalhador.</xs:documentation>
                                                             <xs:documentation>CHAVE_GRUPO: {ideDmDev}</xs:documentation>
+                                                            <xs:documentation>REGRA:REGRA_DEMONSTRATIVO</xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
                                                             <xs:sequence>
                                                                 <xs:element name="ideDmDev" type="TS_codigo_esocial">
                                                                     <xs:annotation>
                                                                         <xs:documentation>Identificador atribuído pela empresa para o demonstrativo de valores devidos ao trabalhador relativo a verbas rescisórias.</xs:documentation>
-                                                                        <xs:documentation>Validação: Deve ser um identificador único dentro da mesma competência (mês/ano da data de término) para cada um dos demonstrativos de pagamento do trabalhador.</xs:documentation>
+                                                                        <xs:documentation>Validação: Deve ser um identificador único dentro da mesma competência (mês/ano da data de término) para cada um dos demonstrativos do trabalhador.</xs:documentation>
                                                                         <xs:documentation>REGRA:REGRA_CARACTER_ESPECIAL</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
                                                                 <xs:element name="ideEstabLot" maxOccurs="99">
                                                                     <xs:annotation>
                                                                         <xs:documentation>Identificação do estabelecimento e lotação</xs:documentation>
+                                                                        <xs:documentation>DESCRICAO_COMPLETA:Identificação do estabelecimento e da lotação nos quais o trabalhador possui remuneração no período de apuração.</xs:documentation>
                                                                         <xs:documentation>CHAVE_GRUPO: {tpInsc}, {nrInsc}, {codLotacao}</xs:documentation>
                                                                     </xs:annotation>
                                                                     <xs:complexType>
                                                                         <xs:sequence>
-                                                                            <xs:element name="tpInsc" type="TS_tpInsc_1_4" />
+                                                                            <xs:element name="tpInsc" type="TS_tpInsc_EstabLot_1_4" />
                                                                             <xs:element name="nrInsc" type="TS_nrInsc_12_14">
                                                                                 <xs:annotation>
                                                                                     <xs:documentation>Informar o número de inscrição do estabelecimento do contribuinte de acordo com o tipo de inscrição indicado no campo {ideEstabLot/tpInsc}(./tpInsc).</xs:documentation>
@@ -155,13 +160,14 @@
                                                                             <xs:element name="codLotacao" type="TS_codLotacao" />
                                                                             <xs:element name="detVerbas" maxOccurs="200">
                                                                                 <xs:annotation>
-                                                                                    <xs:documentation>Verbas rescisórias</xs:documentation>
+                                                                                    <xs:documentation>Detalhamento das verbas rescisórias</xs:documentation>
+                                                                                    <xs:documentation>DESCRICAO_COMPLETA:Detalhamento das verbas rescisórias devidas ao trabalhador. Deve haver pelo menos uma rubrica de folha, mesmo que o valor líquido a ser pago ao trabalhador seja 0 (zero) em função de descontos.</xs:documentation>
                                                                                 </xs:annotation>
                                                                                 <xs:complexType>
                                                                                     <xs:sequence>
                                                                                         <xs:element name="codRubr" type="TS_codigo_esocial">
                                                                                             <xs:annotation>
-                                                                                                <xs:documentation>Informar o código atribuído pelo empregador que identifica a rubrica em sua folha de pagamento.</xs:documentation>
+                                                                                                <xs:documentation>Informar o código atribuído pelo empregador que identifica a rubrica em sua folha de pagamento ou o código da rubrica constante da Tabela 29.</xs:documentation>
                                                                                                 <xs:documentation>Validação: Não pode ser utilizada rubrica cujo {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 seja igual a [25, 26, 51].</xs:documentation>
                                                                                             </xs:annotation>
                                                                                         </xs:element>
@@ -178,21 +184,7 @@
                                                                                     </xs:sequence>
                                                                                 </xs:complexType>
                                                                             </xs:element>
-                                                                            <xs:element name="infoSimples" minOccurs="0">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Informação relativa a empresas do Simples</xs:documentation>
-                                                                                    <xs:documentation>CONDICAO_GRUPO: O (se {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [03]); N (nos demais casos)</xs:documentation>
-                                                                                </xs:annotation>
-                                                                                <xs:complexType>
-                                                                                    <xs:sequence>
-                                                                                        <xs:element name="indSimples" type="TS_indSimples">
-                                                                                            <xs:annotation>
-                                                                                                <xs:documentation>Indicador de Contribuição Substituída.</xs:documentation>
-                                                                                            </xs:annotation>
-                                                                                        </xs:element>
-                                                                                    </xs:sequence>
-                                                                                </xs:complexType>
-                                                                            </xs:element>
+                                                                            <xs:element name="infoSimples" minOccurs="0" type="T_infoSimples" />
                                                                         </xs:sequence>
                                                                     </xs:complexType>
                                                                 </xs:element>
