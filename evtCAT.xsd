@@ -10,7 +10,7 @@
             <xs:sequence>
                 <xs:element name="evtCAT">
                     <xs:annotation>
-                        <xs:documentation>Evento Comunicação de Acidente de Trabalho</xs:documentation>
+                        <xs:documentation>Evento Comunicação de Acidente de Trabalho.</xs:documentation>
                         <xs:documentation>CHAVE_GRUPO: {Id}</xs:documentation>
                         <xs:documentation>REGRA:REGRA_ENVIO_PROC_FECHAMENTO</xs:documentation>
                         <xs:documentation>REGRA:REGRA_EVENTOS_EXTEMP</xs:documentation>
@@ -23,36 +23,33 @@
                         <xs:documentation>REGRA:REGRA_GERAL_VALIDA_DADOS_TABCONTRIB</xs:documentation>
                         <xs:documentation>REGRA:REGRA_RETIFICA_DT_ACIDENTE</xs:documentation>
                         <xs:documentation>REGRA:REGRA_RETIFICA_MESMO_VINCULO</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_TSV_ATIVO_NA_DTEVENTO</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_VINCULO_ATIVO_NA_DTEVENTO</xs:documentation>
                     </xs:annotation>
                     <xs:complexType>
                         <xs:sequence>
                             <xs:element name="ideEvento" type="T_ideEvento_trab" />
                             <xs:element name="ideEmpregador" type="T_ideEmpregador" />
-                            <xs:element name="ideVinculo" type="T_ideVinculo_sst">
-                                <xs:annotation>
-                                    <xs:documentation>Informações de Identificação do Trabalhador e do Vínculo</xs:documentation>
-                                    <xs:documentation>CHAVE_GRUPO: {cpfTrab}, {matricula}, {codCateg}</xs:documentation>
-                                    <xs:documentation>REGRA:REGRA_TSV_ATIVO_NA_DTEVENTO</xs:documentation>
-                                    <xs:documentation>REGRA:REGRA_VINCULO_ATIVO_NA_DTEVENTO</xs:documentation>
-                                </xs:annotation>
-                            </xs:element>
+                            <xs:element name="ideVinculo" type="T_ideVinculo_sst" />
                             <xs:element name="cat">
                                 <xs:annotation>
-                                    <xs:documentation>Comunicação de Acidente de Trabalho</xs:documentation>
+                                    <xs:documentation>CAT</xs:documentation>
+                                    <xs:documentation>DESCRICAO_COMPLETA:Comunicação de Acidente de Trabalho - CAT.</xs:documentation>
                                     <xs:documentation>CHAVE_GRUPO: {dtAcid}, {hrAcid}, {tpCat}</xs:documentation>
                                 </xs:annotation>
                                 <xs:complexType>
                                     <xs:sequence>
                                         <xs:element name="dtAcid" type="xs:date">
                                             <xs:annotation>
-                                                <xs:documentation>Data do Acidente</xs:documentation>
-                                                <xs:documentation>Validação: Deve ser uma data válida, igual ou anterior à data atual e igual ou posterior à data de admissão do trabalhador e à data de início da obrigatoriedade deste evento para o empregador no eSocial. Se {tpCat} = [2, 3] deve ser informado valor igual ao preenchido no evento de CAT anterior, quando informado em {nrRecCatOrig}.</xs:documentation>
+                                                <xs:documentation>Data do acidente.</xs:documentation>
+                                                <xs:documentation>Validação: Deve ser uma data válida, igual ou anterior à data atual e igual ou posterior à data de admissão do trabalhador e à data de início da obrigatoriedade deste evento para o empregador no eSocial.</xs:documentation>
+                                                <xs:documentation>Se {tpCat}(./tpCat) = [2, 3], deve ser informado valor igual ao preenchido no evento de CAT anterior, quando informado em {nrRecCatOrig}(./catOrigem_nrRecCatOrig).</xs:documentation>
                                             </xs:annotation>
                                         </xs:element>
                                         <xs:element name="tpAcid">
                                             <xs:simpleType>
                                                 <xs:annotation>
-                                                    <xs:documentation>Tipo de Acidente de Trabalho</xs:documentation>
+                                                    <xs:documentation>Tipo de acidente de trabalho.</xs:documentation>
                                                 </xs:annotation>
                                                 <xs:restriction base="xs:byte">
                                                     <xs:enumeration value="1">
@@ -70,15 +67,16 @@
                                         </xs:element>
                                         <xs:element name="hrAcid" minOccurs="0" type="TS_hora">
                                             <xs:annotation>
-                                                <xs:documentation>Hora do Acidente, no formato HHMM</xs:documentation>
-                                                <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se {tpAcid} = [1]. Se informada, deve estar no intervalo entre [0000] e [2359], criticando inclusive a segunda parte do número, que indica os minutos, que deve ser menor ou igual a 59. Se {tpCat} = [2, 3] deve ser informado valor igual ao preenchido no evento de CAT anterior, quando informado em {nrRecCatOrig}.</xs:documentation>
+                                                <xs:documentation>Hora do acidente, no formato HHMM.</xs:documentation>
+                                                <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se {tpAcid}(./tpAcid) = [1]. Se informada, deve estar no intervalo entre [0000] e [2359], criticando inclusive a segunda parte do número, que indica os minutos, que deve ser menor ou igual a 59.</xs:documentation>
+                                                <xs:documentation>Se {tpCat}(./tpCat) = [2, 3], deve ser informado valor igual ao preenchido no evento de CAT anterior, quando informado em {nrRecCatOrig}(./catOrigem_nrRecCatOrig).</xs:documentation>
                                             </xs:annotation>
                                         </xs:element>
                                         <xs:element name="hrsTrabAntesAcid" minOccurs="0">
                                             <xs:simpleType>
                                                 <xs:annotation>
-                                                    <xs:documentation>Horas trabalhadas antes do acidente, no formato HHMM</xs:documentation>
-                                                    <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se {tpAcid} = [1]. Se informada, deve estar no intervalo entre [0000] e [9959], criticando inclusive a segunda parte do número, que indica os minutos, que deve ser menor ou igual a 59.</xs:documentation>
+                                                    <xs:documentation>Horas trabalhadas antes da ocorrência do acidente, no formato HHMM.</xs:documentation>
+                                                    <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se {tpAcid}(./tpAcid) = [1]. Se informada, deve estar no intervalo entre [0000] e [9959], criticando inclusive a segunda parte do número, que indica os minutos, que deve ser menor ou igual a 59.</xs:documentation>
                                                 </xs:annotation>
                                                 <xs:restriction base="xs:integer">
                                                     <xs:pattern value="\d{4}" />
@@ -89,7 +87,7 @@
                                         <xs:element name="tpCat">
                                             <xs:simpleType>
                                                 <xs:annotation>
-                                                    <xs:documentation>Tipo de CAT</xs:documentation>
+                                                    <xs:documentation>Tipo de CAT.</xs:documentation>
                                                 </xs:annotation>
                                                 <xs:restriction base="xs:byte">
                                                     <xs:enumeration value="1">
@@ -104,7 +102,7 @@
                                                     </xs:enumeration>
                                                     <xs:enumeration value="3">
                                                         <xs:annotation>
-                                                            <xs:documentation>Comunicação de Óbito</xs:documentation>
+                                                            <xs:documentation>Comunicação de óbito</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:enumeration>
                                                 </xs:restriction>
@@ -112,27 +110,27 @@
                                         </xs:element>
                                         <xs:element name="indCatObito" type="TS_sim_nao">
                                             <xs:annotation>
-                                                <xs:documentation>Houve Óbito?</xs:documentation>
-                                                <xs:documentation>Validação: Se o {tpCat} for igual a [3], o campo deverá sempre ser preenchido com [S]. Se o {tpCat} for igual a [2], o campo deverá sempre ser preenchido com [N].</xs:documentation>
+                                                <xs:documentation>Houve óbito?</xs:documentation>
+                                                <xs:documentation>Validação: Se o {tpCat}(./tpCat) for igual a [3], o campo deverá sempre ser preenchido com [S]. Se o {tpCat} for igual a [2], o campo deverá sempre ser preenchido com [N].</xs:documentation>
                                             </xs:annotation>
                                         </xs:element>
                                         <xs:element name="dtObito" type="xs:date" minOccurs="0">
                                             <xs:annotation>
-                                                <xs:documentation>Data do óbito</xs:documentation>
-                                                <xs:documentation>Validação: Deve ser uma data válida, igual ou posterior a {dtAcid} e igual ou anterior à data atual. Preenchimento obrigatório e exclusivo se {indCatObito} = [S].</xs:documentation>
+                                                <xs:documentation>Data do óbito.</xs:documentation>
+                                                <xs:documentation>Validação: Deve ser uma data válida, igual ou posterior a {dtAcid}(./dtAcid) e igual ou anterior à data atual.</xs:documentation>
+                                                <xs:documentation>Preenchimento obrigatório e exclusivo se {indCatObito}(./indCatObito) = [S].</xs:documentation>
                                             </xs:annotation>
                                         </xs:element>
                                         <xs:element name="indComunPolicia" type="TS_sim_nao">
                                             <xs:annotation>
-                                                <xs:documentation>Indique se houve comunicação à autoridade policial</xs:documentation>
+                                                <xs:documentation>Houve comunicação à autoridade policial?</xs:documentation>
                                             </xs:annotation>
                                         </xs:element>
                                         <xs:element name="codSitGeradora">
                                             <xs:simpleType>
                                                 <xs:annotation>
-                                                    <xs:documentation>Situação geradora do acidente</xs:documentation>
-                                                    <xs:documentation>Preencher com o código da situação geradora do acidente ou da doença profissional, conforme Tabelas 15 ou 16.</xs:documentation>
-                                                    <xs:documentation>Validação: Deve ser um código existente na Tabela 15 - Agente Causador / Situação Geradora de Doença Profissional ou na Tabela 16 - Situação Geradora do Acidente de Trabalho.</xs:documentation>
+                                                    <xs:documentation>Preencher com o código da situação geradora do acidente ou da doença profissional.</xs:documentation>
+                                                    <xs:documentation>Validação: Deve ser um código válido e existente na Tabela 15 ou na Tabela 16.</xs:documentation>
                                                 </xs:annotation>
                                                 <xs:restriction base="xs:integer">
                                                     <xs:pattern value="\d{9}" />
@@ -142,12 +140,12 @@
                                         <xs:element name="iniciatCAT">
                                             <xs:simpleType>
                                                 <xs:annotation>
-                                                    <xs:documentation>Iniciativa da CAT</xs:documentation>
+                                                    <xs:documentation>Iniciativa da CAT.</xs:documentation>
                                                 </xs:annotation>
                                                 <xs:restriction base="xs:byte">
                                                     <xs:enumeration value="1">
                                                         <xs:annotation>
-                                                            <xs:documentation>Iniciativa do empregador</xs:documentation>
+                                                            <xs:documentation>Empregador</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:enumeration>
                                                     <xs:enumeration value="2">
@@ -165,19 +163,19 @@
                                         </xs:element>
                                         <xs:element name="obsCAT" minOccurs="0" type="TS_texto_999">
                                             <xs:annotation>
-                                                <xs:documentation>Observação</xs:documentation>
+                                                <xs:documentation>Observação.</xs:documentation>
                                             </xs:annotation>
                                         </xs:element>
                                         <xs:element name="localAcidente">
                                             <xs:annotation>
-                                                <xs:documentation>Local do Acidente</xs:documentation>
+                                                <xs:documentation>Local do acidente.</xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>
                                                     <xs:element name="tpLocal">
                                                         <xs:simpleType>
                                                             <xs:annotation>
-                                                                <xs:documentation>Tipo do local do acidente</xs:documentation>
+                                                                <xs:documentation>Tipo de local do acidente.</xs:documentation>
                                                             </xs:annotation>
                                                             <xs:restriction base="xs:byte">
                                                                 <xs:enumeration value="1">
@@ -187,7 +185,7 @@
                                                                 </xs:enumeration>
                                                                 <xs:enumeration value="2">
                                                                     <xs:annotation>
-                                                                        <xs:documentation>Estabelecimento do empregador no Exterior</xs:documentation>
+                                                                        <xs:documentation>Estabelecimento do empregador no exterior</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:enumeration>
                                                                 <xs:enumeration value="3">
@@ -220,37 +218,40 @@
                                                     </xs:element>
                                                     <xs:element name="dscLocal" minOccurs="0" type="TS_texto_255">
                                                         <xs:annotation>
-                                                            <xs:documentation>Especificação do local do acidente (pátio, rampa de acesso, posto de trabalho, etc.)</xs:documentation>
+                                                            <xs:documentation>Especificação do local do acidente (pátio, rampa de acesso, posto de trabalho, etc.).</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
-                                                    <xs:element name="tpLograd" type="TS_tpLograd" />
+                                                    <xs:element name="tpLograd" minOccurs="0" type="TS_tpLograd" />
                                                     <xs:element name="dscLograd" type="TS_dscLograd" />
                                                     <xs:element name="nrLograd" type="TS_nrLograd" />
                                                     <xs:element name="complemento" minOccurs="0" type="TS_complemento" />
                                                     <xs:element name="bairro" minOccurs="0" type="TS_bairro" />
                                                     <xs:element name="cep" minOccurs="0" type="TS_cep">
                                                         <xs:annotation>
-                                                            <xs:documentation>Código de Endereçamento Postal - CEP</xs:documentation>
-                                                            <xs:documentation>Validação: Preenchimento obrigatório se {tpLocal} = [1, 3, 5]. Não preencher se {tpLocal} = [2]. Se preenchido, deve ser informado apenas com números, com 8 (oito) posições.</xs:documentation>
+                                                            <xs:documentation>Código de Endereçamento Postal - CEP.</xs:documentation>
+                                                            <xs:documentation>Validação: Preenchimento obrigatório se {tpLocal}(./tpLocal) = [1, 3, 5]. Não preencher se {tpLocal} = [2].</xs:documentation>
+                                                            <xs:documentation>Se preenchido, deve ser informado apenas com números, com 8 (oito) posições.</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
                                                     <xs:element name="codMunic" minOccurs="0" type="TS_codMunic">
                                                         <xs:annotation>
-                                                            <xs:documentation>Código do Município</xs:documentation>
-                                                            <xs:documentation>Validação: Preenchimento obrigatório se {tpLocal} = [1, 3, 4, 5]. Não preencher se {tpLocal} = [2]. Se informado, deve ser um código existente na tabela do IBGE.</xs:documentation>
+                                                            <xs:documentation>Preencher com o código do município, conforme tabela do IBGE.</xs:documentation>
+                                                            <xs:documentation>Validação: Preenchimento obrigatório se {tpLocal}(./tpLocal) = [1, 3, 4, 5]. Não preencher se {tpLocal} = [2].</xs:documentation>
+                                                            <xs:documentation>Se informado, deve ser um código válido e existente na tabela do IBGE.</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
                                                     <xs:element name="uf" type="TS_uf" minOccurs="0">
                                                         <xs:annotation>
-                                                            <xs:documentation>Sigla da UF</xs:documentation>
-                                                            <xs:documentation>Validação: Preenchimento obrigatório se {tpLocal} = [1, 3, 4, 5]. Não preencher se {tpLocal} = [2]. Se informada, deve ser uma UF válida.</xs:documentation>
+                                                            <xs:documentation>Preencher com a sigla da Unidade da Federação - UF.</xs:documentation>
+                                                            <xs:documentation>Validação: Preenchimento obrigatório se {tpLocal}(./tpLocal) = [1, 3, 4, 5]. Não preencher se {tpLocal} = [2].</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
                                                     <xs:element name="pais" minOccurs="0">
                                                         <xs:simpleType>
                                                             <xs:annotation>
-                                                                <xs:documentation>País</xs:documentation>
-                                                                <xs:documentation>Validação: Deve ser um código de país válido, existente na Tabela 06. Preenchimento obrigatório se {tpLocal} = [2]. Não preencher nos demais casos.</xs:documentation>
+                                                                <xs:documentation>Preencher com o código do país.</xs:documentation>
+                                                                <xs:documentation>Validação: Deve ser um código de país válido e existente na Tabela 06.</xs:documentation>
+                                                                <xs:documentation>Preenchimento obrigatório se {tpLocal}(./tpLocal) = [2]. Não preencher nos demais casos.</xs:documentation>
                                                             </xs:annotation>
                                                             <xs:restriction base="xs:string">
                                                                 <xs:length value="3" />
@@ -259,14 +260,14 @@
                                                     </xs:element>
                                                     <xs:element name="codPostal" minOccurs="0" type="TS_codPostal">
                                                         <xs:annotation>
-                                                            <xs:documentation>Código Postal</xs:documentation>
-                                                            <xs:documentation>Validação: Preenchimento obrigatório se {tpLocal} = [2]. Não preencher nos demais casos.</xs:documentation>
+                                                            <xs:documentation>Código de Endereçamento Postal.</xs:documentation>
+                                                            <xs:documentation>Validação: Preenchimento obrigatório se {tpLocal}(./tpLocal) = [2]. Não preencher nos demais casos.</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
                                                     <xs:element name="ideLocalAcid" minOccurs="0">
                                                         <xs:annotation>
-                                                            <xs:documentation>Identificação do local onde ocorreu o acidente</xs:documentation>
-                                                            <xs:documentation>CONDICAO_GRUPO: O (se {ideEmpregador/tpInsc} = [1] e {tpLocal} = [1, 3]); OC (nos demais casos)</xs:documentation>
+                                                            <xs:documentation>Identificação do local onde ocorreu o acidente.</xs:documentation>
+                                                            <xs:documentation>CONDICAO_GRUPO: O (se {ideEmpregador/tpInsc}(2210_ideEmpregador_tpInsc) = [1] e {tpLocal}(../tpLocal) = [1, 3]); OC (nos demais casos)</xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
                                                             <xs:sequence>
@@ -277,11 +278,10 @@
                                                                 </xs:element>
                                                                 <xs:element name="nrInsc" type="TS_nrInsc_12_14">
                                                                     <xs:annotation>
-                                                                        <xs:documentation>Número de Inscrição</xs:documentation>
-                                                                        <xs:documentation>Informar o número de inscrição do estabelecimento, de acordo com o tipo de inscrição indicado no campo {tpInsc}. Se o acidente ou a doença ocupacional ocorreu em local onde o trabalhador presta serviços, deve ser um número de inscrição pertencente à contratante dos serviços.</xs:documentation>
-                                                                        <xs:documentation>Validação: Deve ser compatível com o conteúdo do campo {tpInsc}. Deve ser um identificador válido, constante das bases da RFB, e:</xs:documentation>
-                                                                        <xs:documentation>a) Se {tpLocal} = [1], deve constar na Tabela S-1005;</xs:documentation>
-                                                                        <xs:documentation>b) Se {tpLocal} = [3], deve ser diferente dos estabelecimentos informados na Tabela S-1005 e, se {tpInsc} = [1], diferente do CNPJ base indicado em S-1000.</xs:documentation>
+                                                                        <xs:documentation>Informar o número de inscrição do estabelecimento, de acordo com o tipo de inscrição indicado no campo {ideLocalAcid/tpInsc}(./tpInsc). Se o acidente ou a doença ocupacional ocorreu em local onde o trabalhador presta serviços, deve ser um número de inscrição pertencente à contratante dos serviços.</xs:documentation>
+                                                                        <xs:documentation>Validação: Deve ser compatível com o conteúdo do campo {ideLocalAcid/tpInsc}(./tpInsc). Deve ser um identificador válido, constante das bases da RFB, e:</xs:documentation>
+                                                                        <xs:documentation>a) Se {tpLocal}(../tpLocal) = [1], deve ser válido e existente na Tabela de Estabelecimentos (S-1005);</xs:documentation>
+                                                                        <xs:documentation>b) Se {tpLocal}(../tpLocal) = [3], deve ser diferente dos estabelecimentos informados na Tabela S-1005 e, se {ideLocalAcid/tpInsc}(./tpInsc) = [1], diferente do CNPJ base indicado em S-1000.</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
                                                             </xs:sequence>
@@ -292,7 +292,8 @@
                                         </xs:element>
                                         <xs:element name="parteAtingida" maxOccurs="99">
                                             <xs:annotation>
-                                                <xs:documentation>Parte do Corpo Atingida</xs:documentation>
+                                                <xs:documentation>Parte do corpo atingida.</xs:documentation>
+                                                <xs:documentation>DESCRICAO_COMPLETA:Detalhamento da(s) parte(s) atingida(s) pelo acidente de trabalho.</xs:documentation>
                                                 <xs:documentation>CHAVE_GRUPO: {codParteAting}</xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
@@ -300,8 +301,8 @@
                                                     <xs:element name="codParteAting">
                                                         <xs:simpleType>
                                                             <xs:annotation>
-                                                                <xs:documentation>Indicar a parte atingida, conforme tabela 13</xs:documentation>
-                                                                <xs:documentation>Validação: Deve ser um código existente na Tabela 13 - Parte do corpo atingida</xs:documentation>
+                                                                <xs:documentation>Preencher com o código correspondente a parte atingida.</xs:documentation>
+                                                                <xs:documentation>Validação: Deve ser um código válido e existente na Tabela 13.</xs:documentation>
                                                             </xs:annotation>
                                                             <xs:restriction base="xs:integer">
                                                                 <xs:pattern value="\d{9}" />
@@ -311,6 +312,7 @@
                                                     <xs:element name="lateralidade">
                                                         <xs:simpleType>
                                                             <xs:annotation>
+                                                                <xs:documentation>Lateralidade da(s) parte(s) atingida(s).</xs:documentation>
                                                                 <xs:documentation>Nos casos de órgãos bilaterais, ou seja, que se situam dos lados do corpo, assinalar o lado (direito ou esquerdo). Exemplo: no caso de o órgão atingido ser uma perna, apontar qual foi a atingida (se a perna direita, se a perna esquerda, ou se ambas). Se o órgão atingido é único (como, por exemplo, a cabeça), assinalar este campo como não aplicável.</xs:documentation>
                                                             </xs:annotation>
                                                             <xs:restriction base="xs:byte">
@@ -342,7 +344,8 @@
                                         </xs:element>
                                         <xs:element name="agenteCausador" maxOccurs="99">
                                             <xs:annotation>
-                                                <xs:documentation>Agente Causador</xs:documentation>
+                                                <xs:documentation>Agente causador.</xs:documentation>
+                                                <xs:documentation>DESCRICAO_COMPLETA:Detalhamento do(s) agente(s) causador(es) do acidente de trabalho.</xs:documentation>
                                                 <xs:documentation>CHAVE_GRUPO: {codAgntCausador}</xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
@@ -350,8 +353,8 @@
                                                     <xs:element name="codAgntCausador">
                                                         <xs:simpleType>
                                                             <xs:annotation>
-                                                                <xs:documentation>Agente causador do acidente, conforme tabelas 14 ou 15</xs:documentation>
-                                                                <xs:documentation>Validação: Deve ser um código válido, existente na Tabela 14 - Agente Causador do Acidente de Trabalho ou na Tabela 15 - Agente Causador / Situação Geradora de Doença Profissional.</xs:documentation>
+                                                                <xs:documentation>Preencher com o código correspondente ao agente causador do acidente.</xs:documentation>
+                                                                <xs:documentation>Validação: Deve ser um código válido e existente na Tabela 14 ou na Tabela 15.</xs:documentation>
                                                             </xs:annotation>
                                                             <xs:restriction base="xs:integer">
                                                                 <xs:pattern value="\d{9}" />
@@ -363,32 +366,32 @@
                                         </xs:element>
                                         <xs:element name="atestado" minOccurs="0">
                                             <xs:annotation>
-                                                <xs:documentation>Atestado Médico</xs:documentation>
+                                                <xs:documentation>Atestado médico.</xs:documentation>
                                                 <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>
                                                     <xs:element name="dtAtendimento" type="xs:date">
                                                         <xs:annotation>
-                                                            <xs:documentation>Data do atendimento</xs:documentation>
+                                                            <xs:documentation>Data do atendimento.</xs:documentation>
                                                             <xs:documentation>Validação: Deve ser uma data válida, igual ou anterior à data atual.</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
                                                     <xs:element name="hrAtendimento" type="TS_hora">
                                                         <xs:annotation>
-                                                            <xs:documentation>Hora do atendimento</xs:documentation>
+                                                            <xs:documentation>Hora do atendimento, no formato HHMM.</xs:documentation>
                                                             <xs:documentation>Validação: Deve estar no intervalo entre [0000] e [2359], criticando inclusive a segunda parte do número, que indica os minutos, que deve ser menor ou igual a 59.</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
                                                     <xs:element name="indInternacao" type="TS_sim_nao">
                                                         <xs:annotation>
-                                                            <xs:documentation>Indicativo de Internação</xs:documentation>
+                                                            <xs:documentation>Indicativo de internação.</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
                                                     <xs:element name="durTrat">
                                                         <xs:simpleType>
                                                             <xs:annotation>
-                                                                <xs:documentation>Duração estimada do tratamento, em dias</xs:documentation>
+                                                                <xs:documentation>Duração estimada do tratamento, em dias.</xs:documentation>
                                                             </xs:annotation>
                                                             <xs:restriction base="xs:integer">
                                                                 <xs:pattern value="\d{1,4}" />
@@ -397,15 +400,15 @@
                                                     </xs:element>
                                                     <xs:element name="indAfast" type="TS_sim_nao">
                                                         <xs:annotation>
-                                                            <xs:documentation>Indicativo do afastamento</xs:documentation>
-                                                            <xs:documentation>Validação: Se o campo {indCatObito} for igual a [S], o campo deve sempre ser preenchido com [N].</xs:documentation>
+                                                            <xs:documentation>Indicativo de afastamento do trabalho durante o tratamento.</xs:documentation>
+                                                            <xs:documentation>Validação: Se o campo {indCatObito}(../indCatObito) for igual a [S], o campo deve sempre ser preenchido com [N].</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
                                                     <xs:element name="dscLesao">
                                                         <xs:simpleType>
                                                             <xs:annotation>
-                                                                <xs:documentation>Preencher com a descrição da lesão, conforme tabela 17</xs:documentation>
-                                                                <xs:documentation>Validação: Deve ser um código existente na Tabela 17 - Descrição da Natureza da Lesão.</xs:documentation>
+                                                                <xs:documentation>Preencher com a descrição da natureza da lesão.</xs:documentation>
+                                                                <xs:documentation>Validação: Deve ser um código válido e existente na Tabela 17.</xs:documentation>
                                                             </xs:annotation>
                                                             <xs:restriction base="xs:integer">
                                                                 <xs:pattern value="\d{9}" />
@@ -415,7 +418,7 @@
                                                     <xs:element name="dscCompLesao" minOccurs="0">
                                                         <xs:simpleType>
                                                             <xs:annotation>
-                                                                <xs:documentation>Descrição complementar da lesão</xs:documentation>
+                                                                <xs:documentation>Descrição complementar da lesão.</xs:documentation>
                                                             </xs:annotation>
                                                             <xs:restriction base="xs:string">
                                                                 <xs:minLength value="1" />
@@ -426,14 +429,14 @@
                                                     </xs:element>
                                                     <xs:element name="diagProvavel" minOccurs="0" type="TS_texto_100">
                                                         <xs:annotation>
-                                                            <xs:documentation>Diagnóstico Provável</xs:documentation>
+                                                            <xs:documentation>Diagnóstico provável.</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
                                                     <xs:element name="codCID">
                                                         <xs:simpleType>
                                                             <xs:annotation>
-                                                                <xs:documentation>Código na Tabela CID</xs:documentation>
-                                                                <xs:documentation>Validação: Deve ser preenchido com caracteres alfanuméricos conforme opções constantes na tabela CID.</xs:documentation>
+                                                                <xs:documentation>Informar o código da tabela de Classificação Internacional de Doenças - CID.</xs:documentation>
+                                                                <xs:documentation>Validação: Deve ser preenchido com caracteres alfanuméricos, conforme opções constantes na tabela CID.</xs:documentation>
                                                             </xs:annotation>
                                                             <xs:restriction base="xs:string">
                                                                 <xs:minLength value="3" />
@@ -444,34 +447,34 @@
                                                     <xs:element name="observacao" minOccurs="0" type="TS_observacao" />
                                                     <xs:element name="emitente">
                                                         <xs:annotation>
-                                                            <xs:documentation>Médico/Dentista que emitiu o atestado</xs:documentation>
+                                                            <xs:documentation>Médico/Dentista que emitiu o atestado.</xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
                                                             <xs:sequence>
                                                                 <xs:element name="nmEmit" type="TS_nome">
                                                                     <xs:annotation>
-                                                                        <xs:documentation>Nome do médico/dentista que emitiu o atestado</xs:documentation>
+                                                                        <xs:documentation>Nome do médico/dentista que emitiu o atestado.</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
                                                                 <xs:element name="ideOC">
                                                                     <xs:simpleType>
                                                                         <xs:annotation>
-                                                                            <xs:documentation>Órgão de classe</xs:documentation>
+                                                                            <xs:documentation>Órgão de classe.</xs:documentation>
                                                                         </xs:annotation>
                                                                         <xs:restriction base="xs:byte">
                                                                             <xs:enumeration value="1">
                                                                                 <xs:annotation>
-                                                                                    <xs:documentation>Conselho Regional de Medicina (CRM)</xs:documentation>
+                                                                                    <xs:documentation>Conselho Regional de Medicina - CRM</xs:documentation>
                                                                                 </xs:annotation>
                                                                             </xs:enumeration>
                                                                             <xs:enumeration value="2">
                                                                                 <xs:annotation>
-                                                                                    <xs:documentation>Conselho Regional de Odontologia (CRO)</xs:documentation>
+                                                                                    <xs:documentation>Conselho Regional de Odontologia - CRO</xs:documentation>
                                                                                 </xs:annotation>
                                                                             </xs:enumeration>
                                                                             <xs:enumeration value="3">
                                                                                 <xs:annotation>
-                                                                                    <xs:documentation>Registro do Ministério da Saúde (RMS)</xs:documentation>
+                                                                                    <xs:documentation>Registro do Ministério da Saúde - RMS</xs:documentation>
                                                                                 </xs:annotation>
                                                                             </xs:enumeration>
                                                                         </xs:restriction>
@@ -480,7 +483,7 @@
                                                                 <xs:element name="nrOC">
                                                                     <xs:simpleType>
                                                                         <xs:annotation>
-                                                                            <xs:documentation>Número de Inscrição no órgão de classe</xs:documentation>
+                                                                            <xs:documentation>Número de inscrição no órgão de classe.</xs:documentation>
                                                                         </xs:annotation>
                                                                         <xs:restriction base="xs:string">
                                                                             <xs:minLength value="1" />
@@ -491,7 +494,7 @@
                                                                 </xs:element>
                                                                 <xs:element name="ufOC" type="TS_uf">
                                                                     <xs:annotation>
-                                                                        <xs:documentation>Sigla da UF do órgão de classe</xs:documentation>
+                                                                        <xs:documentation>Sigla da UF do órgão de classe.</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
                                                             </xs:sequence>
@@ -503,19 +506,19 @@
                                         <xs:element name="catOrigem" minOccurs="0">
                                             <xs:annotation>
                                                 <xs:documentation>CAT de origem</xs:documentation>
+                                                <xs:documentation>DESCRICAO_COMPLETA:Grupo que indica a CAT anterior, no caso de CAT de reabertura ou de comunicação de óbito.</xs:documentation>
                                                 <xs:documentation>CHAVE_GRUPO: {nrRecCatOrig}</xs:documentation>
-                                                <xs:documentation>CONDICAO_GRUPO: O (se {tpCat} for igual a [2, 3]); N (nos demais casos)</xs:documentation>
+                                                <xs:documentation>CONDICAO_GRUPO: O (se {tpCat}(../tpCat) for igual a [2, 3]); N (nos demais casos)</xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>
                                                     <xs:element name="nrRecCatOrig" type="TS_nrRecibo">
                                                         <xs:annotation>
-                                                            <xs:documentation>Número da CAT origem</xs:documentation>
                                                             <xs:documentation>Informar o número do recibo da última CAT referente ao mesmo acidente/doença relacionada ao trabalho, nos casos:</xs:documentation>
                                                             <xs:documentation>a) de CAT de reabertura;</xs:documentation>
                                                             <xs:documentation>b) de óbito, quando houver CAT anterior.</xs:documentation>
-                                                            <xs:documentation>Validação: Deve corresponder ao número do recibo do arquivo relativo à última CAT informada anteriormente, pertencente ao mesmo contrato, desde que {indCatObito} da última CAT informada seja igual a [N]. O sistema não efetuará a conferência da informação se {dtAcid} for anterior à data de transferência no evento de admissão.</xs:documentation>
-                                                            <xs:documentation>OBS: Quando {dtAcid} for anterior à data de obrigatoriedade do empregador ao envio deste evento, a CAT de reabertura e/ou de óbito não devem ser informadas ao eSocial, mantendo-se o procedimento realizado na emissão da CAT original.</xs:documentation>
+                                                            <xs:documentation>Validação: Deve corresponder ao número do recibo do arquivo relativo à última CAT informada anteriormente, pertencente ao mesmo contrato, desde que {indCatObito}(../indCatObito) da última CAT informada seja igual a [N]. O sistema não efetuará a conferência da informação se {dtAcid}(../dtAcid) for anterior à data de transferência no evento de admissão.</xs:documentation>
+                                                            <xs:documentation>OBS: Quando {dtAcid}(../dtAcid) for anterior à data de obrigatoriedade do empregador ao envio deste evento, a CAT de reabertura e/ou de óbito não devem ser informadas ao eSocial, mantendo-se o procedimento realizado na emissão da CAT original.</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
                                                 </xs:sequence>

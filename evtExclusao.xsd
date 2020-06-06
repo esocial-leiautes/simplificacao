@@ -10,7 +10,8 @@
             <xs:sequence>
                 <xs:element name="evtExclusao">
                     <xs:annotation>
-                        <xs:documentation>Evento de exclusão</xs:documentation>
+                        <xs:documentation>Evento Exclusão</xs:documentation>
+                        <xs:documentation>DESCRICAO_COMPLETA:Evento Exclusão de Eventos.</xs:documentation>
                         <xs:documentation>CHAVE_GRUPO: {Id}</xs:documentation>
                         <xs:documentation>REGRA:REGRA_ENVIO_PROC_FECHAMENTO</xs:documentation>
                         <xs:documentation>REGRA:REGRA_EVE_EXCLUSAO_VALIDA_NRRECIBO</xs:documentation>
@@ -24,13 +25,14 @@
                             <xs:element name="infoExclusao">
                                 <xs:annotation>
                                     <xs:documentation>Informação do evento que será excluído</xs:documentation>
+                                    <xs:documentation>DESCRICAO_COMPLETA:Grupo que identifica o evento objeto da exclusão.</xs:documentation>
                                 </xs:annotation>
                                 <xs:complexType>
                                     <xs:sequence>
                                         <xs:element name="tpEvento">
                                             <xs:simpleType>
                                                 <xs:annotation>
-                                                    <xs:documentation>Preencher com o tipo de evento, conforme Tabela 09.</xs:documentation>
+                                                    <xs:documentation>Preencher com o tipo de evento.</xs:documentation>
                                                     <xs:documentation>Validação: Deve existir na Tabela 09. Podem ser excluídos apenas os eventos relacionados abaixo:</xs:documentation>
                                                     <xs:documentation>a) Não periódicos (S-2190 a S-2420);</xs:documentation>
                                                     <xs:documentation>b) Periódicos (S-1200 a S-1280).</xs:documentation>
@@ -43,13 +45,14 @@
                                         <xs:element name="nrRecEvt" type="TS_nrRecibo">
                                             <xs:annotation>
                                                 <xs:documentation>Preencher com o número do recibo do evento que será excluído.</xs:documentation>
-                                                <xs:documentation>Validação: O recibo deve ser relativo ao mesmo tipo de evento indicado em {tpEvento} e o respectivo evento não deve constar como excluído ou retificado. Além disso, no caso de exclusão de eventos em que existe a identificação do trabalhador, o evento que está sendo excluído deve referir-se ao mesmo trabalhador identificado por {cpfTrab}.</xs:documentation>
+                                                <xs:documentation>Validação: O recibo deve ser relativo ao mesmo tipo de evento indicado em {tpEvento}(./tpEvento) e o respectivo evento não deve constar como excluído ou retificado. Além disso, no caso de exclusão de eventos em que existe a identificação do trabalhador, o evento que está sendo excluído deve referir-se ao mesmo trabalhador identificado por {cpfTrab}(./ideTrabalhador_cpfTrab).</xs:documentation>
                                             </xs:annotation>
                                         </xs:element>
                                         <xs:element name="ideTrabalhador" minOccurs="0">
                                             <xs:annotation>
-                                                <xs:documentation>Registro que identifica a qual trabalhador refere-se o evento a ser excluído</xs:documentation>
-                                                <xs:documentation>CONDICAO_GRUPO: O (Se {tpEvento} corresponder a um dos eventos não periódicos (S-2190 a S-2420) ou um dos eventos periódicos (S-1200 a S-1210); N (Nos demais casos)</xs:documentation>
+                                                <xs:documentation>Identificação do trabalhador a que se refere o evento a ser excluído</xs:documentation>
+                                                <xs:documentation>DESCRICAO_COMPLETA:Grupo que identifica a qual trabalhador se refere o evento a ser excluído.</xs:documentation>
+                                                <xs:documentation>CONDICAO_GRUPO: O (se {tpEvento}(../tpEvento) corresponder a um dos eventos não periódicos (S-2190 a S-2420) ou um dos eventos periódicos (S-1200 a S-1210); N (nos demais casos)</xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>
@@ -64,21 +67,22 @@
                                         </xs:element>
                                         <xs:element name="ideFolhaPagto" minOccurs="0">
                                             <xs:annotation>
-                                                <xs:documentation>Registro que identifica a qual folha de pagamento pertence o evento que será excluído</xs:documentation>
-                                                <xs:documentation>CONDICAO_GRUPO: O (se {tpEvento} corresponder a um dos eventos periódicos (S-1200 a S-1280)); N (nos demais casos)</xs:documentation>
+                                                <xs:documentation>Identificação do período de apuração a que se refere o evento que será excluído</xs:documentation>
+                                                <xs:documentation>DESCRICAO_COMPLETA:Grupo que identifica a qual período de apuração pertence o evento que será excluído.</xs:documentation>
+                                                <xs:documentation>CONDICAO_GRUPO: O (se {tpEvento}(../tpEvento) corresponder a um dos eventos periódicos (S-1200 a S-1280)); N (nos demais casos)</xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>
                                                     <xs:element name="indApuracao" minOccurs="0" type="TS_indApuracao">
                                                         <xs:annotation>
                                                             <xs:documentation>Indicativo de período de apuração.</xs:documentation>
-                                                            <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se {tpEvento} = [S-1200, S-1202, S-1207, S-1280].</xs:documentation>
+                                                            <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se {tpEvento}(../tpEvento) = [S-1200, S-1202, S-1207, S-1280].</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
                                                     <xs:element name="perApur" type="TS_perApur">
                                                         <xs:annotation>
                                                             <xs:documentation>Informar o mês/ano (formato AAAA-MM) ou apenas o ano (formato AAAA) de referência das informações.</xs:documentation>
-                                                            <xs:documentation>Validação: Deve ser um mês/ano ou ano válido, posterior à implementação do eSocial. Somente pode ser informado ano (formato AAAA) se {indApuracao} = [2].</xs:documentation>
+                                                            <xs:documentation>Validação: Deve ser um mês/ano ou ano válido, posterior à implementação do eSocial. Somente pode ser informado ano (formato AAAA) se {indApuracao}(./indApuracao) = [2].</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
                                                 </xs:sequence>
