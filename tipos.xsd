@@ -197,6 +197,10 @@
     <!-- Endereço no Brasil -->
 
     <xs:complexType name="T_endereco_brasil">
+        <xs:annotation>
+            <xs:documentation>Endereço no Brasil.</xs:documentation>
+            <xs:documentation>CONDICAO_GRUPO: O (se não informado o grupo {exterior}(../exterior)); N (nos demais casos)</xs:documentation>
+        </xs:annotation>
         <xs:sequence>
             <xs:element name="tpLograd" minOccurs="0" type="TS_tpLograd" />
             <xs:element name="dscLograd" type="TS_dscLograd" />
@@ -217,7 +221,8 @@
 
     <xs:complexType name="T_endereco_exterior">
         <xs:annotation>
-            <xs:documentation>Informações do Endereço no Exterior</xs:documentation>
+            <xs:documentation>Endereço no exterior.</xs:documentation>
+            <xs:documentation>CONDICAO_GRUPO: O (se não informado o grupo {brasil}(../brasil)); N (nos demais casos)</xs:documentation>
         </xs:annotation>
         <xs:sequence>
             <xs:element name="paisResid" type="TS_pais">
@@ -2259,6 +2264,13 @@
     <xs:simpleType name="TS_depIRRF">
         <xs:annotation>
             <xs:documentation>Informar se é dependente do trabalhador para fins de dedução de seu rendimento tributável pelo Imposto de Renda.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="TS_sim_nao" />
+    </xs:simpleType>
+
+    <xs:simpleType name="TS_depIRRF_Benef">
+        <xs:annotation>
+            <xs:documentation>Informar se é dependente do beneficiário para fins de dedução de seu rendimento tributável pelo Imposto de Renda.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="TS_sim_nao" />
     </xs:simpleType>

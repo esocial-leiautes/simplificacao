@@ -10,7 +10,8 @@
             <xs:sequence>
                 <xs:element name="evtCdBenefIn">
                     <xs:annotation>
-                        <xs:documentation>Evento de cadastro de beneficiário - Início</xs:documentation>
+                        <xs:documentation>Evento Cadastro de Beneficiário - Início</xs:documentation>
+                        <xs:documentation>DESCRICAO_COMPLETA:Evento Cadastro de Beneficiário - Entes Públicos - Início.</xs:documentation>
                         <xs:documentation>CHAVE_GRUPO: {Id}</xs:documentation>
                         <xs:documentation>REGRA:REGRA_ENVIO_PROC_FECHAMENTO</xs:documentation>
                         <xs:documentation>REGRA:REGRA_EVENTO_EXT_SEM_IMPACTO_FOPAG</xs:documentation>
@@ -25,7 +26,7 @@
                             <xs:element name="ideEmpregador" type="T_ideEmpregador_cnpj" />
                             <xs:element name="beneficiario">
                                 <xs:annotation>
-                                    <xs:documentation>Grupo de informações do beneficiário</xs:documentation>
+                                    <xs:documentation>Grupo de informações do beneficiário.</xs:documentation>
                                     <xs:documentation>CHAVE_GRUPO: {cpfBenef}</xs:documentation>
                                 </xs:annotation>
                                 <xs:complexType>
@@ -65,30 +66,21 @@
                                         </xs:element>
                                         <xs:element name="endereco">
                                             <xs:annotation>
-                                                <xs:documentation>Endereço do Trabalhador</xs:documentation>
+                                                <xs:documentation>Endereço do beneficiário.</xs:documentation>
+                                                <xs:documentation>DESCRICAO_COMPLETA:Grupo de informações do endereço do beneficiário.</xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>
                                                     <xs:choice>
-                                                        <xs:element name="brasil" type="T_endereco_brasil">
-                                                            <xs:annotation>
-                                                                <xs:documentation>Endereço no Brasil</xs:documentation>
-                                                                <xs:documentation>CONDICAO_GRUPO: O (se não informado o grupo {exterior}); N (nos demais casos)</xs:documentation>
-                                                            </xs:annotation>
-                                                        </xs:element>
-                                                        <xs:element name="exterior" type="T_endereco_exterior">
-                                                            <xs:annotation>
-                                                                <xs:documentation>Endereço no Exterior</xs:documentation>
-                                                                <xs:documentation>CONDICAO_GRUPO: O (se não informado o grupo {brasil}); N (nos demais casos)</xs:documentation>
-                                                            </xs:annotation>
-                                                        </xs:element>
+                                                        <xs:element name="brasil" type="T_endereco_brasil" />
+                                                        <xs:element name="exterior" type="T_endereco_exterior" />
                                                     </xs:choice>
                                                 </xs:sequence>
                                             </xs:complexType>
                                         </xs:element>
                                         <xs:element name="dependente" minOccurs="0" maxOccurs="99">
                                             <xs:annotation>
-                                                <xs:documentation>Informações dos dependentes</xs:documentation>
+                                                <xs:documentation>Informações dos dependentes.</xs:documentation>
                                                 <xs:documentation>CHAVE_GRUPO: {tpDep}, {nmDep}, {dtNascto}</xs:documentation>
                                                 <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
                                             </xs:annotation>
@@ -101,10 +93,10 @@
                                                     <xs:element name="sexoDep" minOccurs="0" type="TS_sexo">
                                                         <xs:annotation>
                                                             <xs:documentation>Sexo do dependente.</xs:documentation>
-                                                            <xs:documentation>Validação: Informação obrigatória se {dtInicio} for posterior ao início da obrigatoriedade dos eventos não periódicos para o ente público no eSocial.</xs:documentation>
+                                                            <xs:documentation>Validação: Informação obrigatória se {dtInicio}(../dtInicio) for posterior ao início da obrigatoriedade dos eventos não periódicos para o ente público no eSocial.</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
-                                                    <xs:element name="depIRRF" type="TS_depIRRF" />
+                                                    <xs:element name="depIRRF" type="TS_depIRRF_Benef" />
                                                     <xs:element name="incFisMen" type="TS_incFisMenDep" />
                                                 </xs:sequence>
                                             </xs:complexType>
