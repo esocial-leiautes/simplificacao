@@ -72,6 +72,41 @@
         </xs:sequence>
     </xs:complexType>
 
+    <xs:complexType name="T_ideEvento_retorno_trab">
+        <xs:annotation>
+            <xs:documentation>Identificação do evento de retorno.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="nrRecArqBase" type="TS_nrRecibo">
+                <xs:annotation>
+                    <xs:documentation>Preencher com o número do recibo do arquivo que deu origem ao presente arquivo de retorno ao empregador.</xs:documentation>
+                    <xs:documentation>Validação: Deve ser um recibo de entrega válido, correspondente ao arquivo que deu origem ao presente arquivo de retorno (S-1200, S-2299, S-2399 ou S-3000).</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="indApuracao" type="TS_indApuracao" />
+            <xs:element name="perApur" type="TS_perApur">
+                <xs:annotation>
+                    <xs:documentation>Informar o mês/ano (formato AAAA-MM) de referência das informações, se {indApuracao}(./indApuracao) for igual a [1], ou apenas o ano (formato AAAA), se {indApuracao} for igual a [2].</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="T_ideEvento_retorno_contrib">
+        <xs:annotation>
+            <xs:documentation>Identificação do evento de retorno.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="indApuracao" type="TS_indApuracao" />
+            <xs:element name="perApur" type="TS_perApur">
+                <xs:annotation>
+                    <xs:documentation>Informar o mês/ano (formato AAAA-MM) de referência das informações, se {indApuracao}(./indApuracao) for igual a [1], ou apenas o ano (formato AAAA), se {indApuracao} for igual a [2].</xs:documentation>
+                    <xs:documentation>Evento de origem: S-1299.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
     <!-- Grupo {ideEmpregador} -->
 
     <xs:complexType name="T_ideEmpregador">
@@ -1343,7 +1378,7 @@
     
     <xs:simpleType name="TS_perApur">
         <xs:annotation>
-            <xs:documentation>Informar o mês/ano (formato AAAA-MM) de referência das informações, se {indApuracao}(./indApuracao) for igual a [1], ou apenas o ano (formato AAAA), se {indApuracao}(./indApuracao) for igual a [2].</xs:documentation>
+            <xs:documentation>Informar o mês/ano (formato AAAA-MM) de referência das informações, se {indApuracao}(./indApuracao) for igual a [1], ou apenas o ano (formato AAAA), se {indApuracao} for igual a [2].</xs:documentation>
             <xs:documentation>Validação: Deve ser um mês/ano ou ano válido, igual ou posterior ao início da obrigatoriedade dos eventos periódicos para o empregador.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:string">
@@ -1398,6 +1433,14 @@
     <xs:simpleType name="TS_cpfTrab">
         <xs:annotation>
             <xs:documentation>Preencher com o número do CPF do trabalhador.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="TS_cpf" />
+    </xs:simpleType>
+    
+    <xs:simpleType name="TS_cpfRetorno">
+        <xs:annotation>
+            <xs:documentation>Preencher com o número do CPF do trabalhador.</xs:documentation>
+            <xs:documentation>Validação: Deve ser um CPF constante no arquivo gerado pelo empregador no evento de origem.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="TS_cpf" />
     </xs:simpleType>
@@ -2638,6 +2681,120 @@
                 </xs:annotation>
             </xs:enumeration>
         </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Campos {indIncid} e {indIncidE} -->
+
+    <xs:simpleType name="TS_indIncid">
+        <xs:annotation>
+            <xs:documentation>Indicativo de incidência de FGTS.</xs:documentation>
+            <xs:documentation>Validação: Se {codIncFGTS}(1010_infoRubrica_inclusao_dadosRubrica_codIncFGTS) em S-1010 for igual a [11, 12, 21], deve ser retornado [1].</xs:documentation>
+            <xs:documentation>Se {codIncFGTS}(1010_infoRubrica_inclusao_dadosRubrica_codIncFGTS) em S-1010 for igual a [91, 92, 93], deve ser retornado [9].</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:byte">
+            <xs:enumeration value="1">
+                <xs:annotation>
+                    <xs:documentation>Normal (incidência de FGTS)</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="9">
+                <xs:annotation>
+                    <xs:documentation>Incidência de FGTS suspensa em decorrência de decisão judicial</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Campo {tpValorE} -->
+
+    <xs:simpleType name="TS_tpValorE">
+        <xs:restriction base="xs:byte">
+            <xs:enumeration value="13">
+                <xs:annotation>
+                    <xs:documentation>FGTS dissídio mensal</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="14">
+                <xs:annotation>
+                    <xs:documentation>FGTS dissídio 13º salário</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="17">
+                <xs:annotation>
+                    <xs:documentation>FGTS dissídio mensal - Aprendiz/Contrato Verde e Amarelo</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="18">
+                <xs:annotation>
+                    <xs:documentation>FGTS dissídio 13º salário - Aprendiz/Contrato Verde e Amarelo</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="24">
+                <xs:annotation>
+                    <xs:documentation>FGTS dissídio mês da rescisão</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="25">
+                <xs:annotation>
+                    <xs:documentation>FGTS dissídio 13º salário rescisório</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="26">
+                <xs:annotation>
+                    <xs:documentation>FGTS dissídio aviso prévio indenizado</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="30">
+                <xs:annotation>
+                    <xs:documentation>FGTS dissídio mês da rescisão - Aprendiz/Contrato Verde e Amarelo</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="31">
+                <xs:annotation>
+                    <xs:documentation>FGTS dissídio 13° salário rescisório - Aprendiz/Contrato Verde e Amarelo</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="32">
+                <xs:annotation>
+                    <xs:documentation>FGTS dissídio aviso prévio indenizado - Aprendiz/Contrato Verde e Amarelo</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="43">
+                <xs:annotation>
+                    <xs:documentation>FGTS dissídio mensal - Indenização compensatória do empregado doméstico</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="44">
+                <xs:annotation>
+                    <xs:documentation>FGTS dissídio 13º salário - Indenização compensatória do empregado doméstico</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="48">
+                <xs:annotation>
+                    <xs:documentation>FGTS dissídio mês da rescisão - Indenização compensatória do empregado doméstico</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="49">
+                <xs:annotation>
+                    <xs:documentation>FGTS dissídio 13º salário rescisório - Indenização compensatória do empregado doméstico</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="50">
+                <xs:annotation>
+                    <xs:documentation>FGTS dissídio aviso prévio indenizado - Indenização compensatória do empregado doméstico</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Campo {nrRecArqBase} (S-5011 e S-5013) -->
+
+    <xs:simpleType name="TS_nrRecArqBase">
+        <xs:annotation>
+            <xs:documentation>Preencher com o número do recibo do arquivo que deu origem ao presente arquivo de retorno ao empregador.</xs:documentation>
+            <xs:documentation>Validação: Deve ser um recibo de entrega válido, correspondente ao arquivo que deu origem ao presente arquivo de retorno (S-1299).</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="TS_nrRecibo" />
     </xs:simpleType>
 
     <!-- Campo de período mensal -->

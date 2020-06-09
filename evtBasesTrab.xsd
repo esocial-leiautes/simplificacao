@@ -15,41 +15,16 @@
                     </xs:annotation>
                     <xs:complexType>
                         <xs:sequence>
-                            <xs:element name="ideEvento">
-                                <xs:annotation>
-                                    <xs:documentation>Identificação do evento de retorno</xs:documentation>
-                                </xs:annotation>
-                                <xs:complexType>
-                                    <xs:sequence>
-                                        <xs:element name="nrRecArqBase" type="TS_nrRecibo">
-                                            <xs:annotation>
-                                                <xs:documentation>Preencher com o número do recibo do arquivo que deu origem ao presente arquivo de retorno ao empregador.</xs:documentation>
-                                                <xs:documentation>Validação: Deve corresponder ao recibo de um arquivo com informações de remuneração de trabalhador vinculado a RGPS (S-1200, S-2299, S-2399 ou S-3000).</xs:documentation>
-                                            </xs:annotation>
-                                        </xs:element>
-                                        <xs:element name="indApuracao" type="TS_indApuracao" />
-                                        <xs:element name="perApur" type="TS_perApur">
-                                            <xs:annotation>
-                                                <xs:documentation>Informar o mês/ano (formato AAAA-MM) de referência das informações, se {indApuracao} for igual a [1], ou apenas o ano (formato AAAA), se {indApuracao} for igual a [2].</xs:documentation>
-                                            </xs:annotation>
-                                        </xs:element>
-                                    </xs:sequence>
-                                </xs:complexType>
-                            </xs:element>
+                            <xs:element name="ideEvento" type="T_ideEvento_retorno_trab" />
                             <xs:element name="ideEmpregador" type="T_ideEmpregador" />
                             <xs:element name="ideTrabalhador">
                                 <xs:annotation>
-                                    <xs:documentation>Identificação do Trabalhador</xs:documentation>
+                                    <xs:documentation>Identificação do trabalhador.</xs:documentation>
                                     <xs:documentation>CHAVE_GRUPO: {cpfTrab}</xs:documentation>
                                 </xs:annotation>
                                 <xs:complexType>
                                     <xs:sequence>
-                                        <xs:element name="cpfTrab" type="TS_cpf">
-                                            <xs:annotation>
-                                                <xs:documentation>Preencher com o número do CPF do trabalhador.</xs:documentation>
-                                                <xs:documentation>Validação: Deve ser um CPF constante no arquivo gerado pelo empregador no evento de origem.</xs:documentation>
-                                            </xs:annotation>
-                                        </xs:element>
+                                        <xs:element name="cpfTrab" type="TS_cpfRetorno" />
                                         <xs:element name="procJudTrab" minOccurs="0" maxOccurs="99">
                                             <xs:annotation>
                                                 <xs:documentation>Processos judiciais do trabalhador</xs:documentation>
