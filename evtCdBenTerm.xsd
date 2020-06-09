@@ -10,7 +10,8 @@
             <xs:sequence>
                 <xs:element name="evtCdBenTerm">
                     <xs:annotation>
-                        <xs:documentation>Evento de cadastro de benefício - Término</xs:documentation>
+                        <xs:documentation>Evento Cadastro de Benefício - Término</xs:documentation>
+                        <xs:documentation>DESCRICAO_COMPLETA:Evento Cadastro de Benefício - Entes Públicos - Término.</xs:documentation>
                         <xs:documentation>CHAVE_GRUPO: {Id}</xs:documentation>
                         <xs:documentation>REGRA:REGRA_BENEFICIO_ATIVO_NA_DTEVENTO</xs:documentation>
                         <xs:documentation>REGRA:REGRA_ENVIO_PROC_FECHAMENTO</xs:documentation>
@@ -27,7 +28,7 @@
                             <xs:element name="ideBeneficio" type="T_ideBeneficio" />
                             <xs:element name="infoBenTermino">
                                 <xs:annotation>
-                                    <xs:documentation>Informações da cessação do benefício</xs:documentation>
+                                    <xs:documentation>Informações da cessação do benefício.</xs:documentation>
                                     <xs:documentation>CHAVE_GRUPO: {dtTermBeneficio}</xs:documentation>
                                 </xs:annotation>
                                 <xs:complexType>
@@ -42,7 +43,7 @@
                                             <xs:simpleType>
                                                 <xs:annotation>
                                                     <xs:documentation>Motivo da cessação do benefício.</xs:documentation>
-                                                    <xs:documentation>Validação: Deve ser um código existente na Tabela 26.</xs:documentation>
+                                                    <xs:documentation>Validação: Deve ser um código válido e existente na Tabela 26.</xs:documentation>
                                                 </xs:annotation>
                                                 <xs:restriction base="xs:byte">
                                                     <xs:pattern value="\d{2}" />
@@ -52,14 +53,14 @@
                                         <xs:element name="cnpjOrgaoSuc" minOccurs="0" type="TS_cnpj">
                                             <xs:annotation>
                                                 <xs:documentation>Informar o CNPJ do órgão público sucessor.</xs:documentation>
-                                                <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se {mtvTermino} = [09].</xs:documentation>
+                                                <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se {mtvTermino}(./mtvTermino) = [09].</xs:documentation>
                                                 <xs:documentation>Deve ser um CNPJ válido e diferente da inscrição do declarante, considerando as particularidades aplicadas à informação de CNPJ de órgão público em S-1000. Além disso, deve possuir 14 (catorze) algarismos e ser diferente do CNPJ base do órgão público declarante e dos estabelecimentos informados através do evento S-1005.</xs:documentation>
                                             </xs:annotation>
                                         </xs:element>
                                         <xs:element name="novoCPF" minOccurs="0" type="TS_cpf">
                                             <xs:annotation>
                                                 <xs:documentation>Preencher com o novo CPF do beneficiário.</xs:documentation>
-                                                <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se {mtvTermino} = [10].</xs:documentation>
+                                                <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se {mtvTermino}(./mtvTermino) = [10].</xs:documentation>
                                                 <xs:documentation>Deve ser um CPF válido e diferente do antigo CPF do beneficiário.</xs:documentation>
                                             </xs:annotation>
                                         </xs:element>

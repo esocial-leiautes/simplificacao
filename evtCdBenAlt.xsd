@@ -10,7 +10,8 @@
             <xs:sequence>
                 <xs:element name="evtCdBenAlt">
                     <xs:annotation>
-                        <xs:documentation>Evento de cadastro de benefício - Início</xs:documentation>
+                        <xs:documentation>Evento Cadastro de Benefício - Alteração</xs:documentation>
+                        <xs:documentation>DESCRICAO_COMPLETA:Evento Cadastro de Benefício - Entes Públicos - Alteração.</xs:documentation>
                         <xs:documentation>CHAVE_GRUPO: {Id}</xs:documentation>
                         <xs:documentation>REGRA:REGRA_ALTERA_TIPO_BENEFICIO</xs:documentation>
                         <xs:documentation>REGRA:REGRA_BENEFICIO_ATIVO_NA_DTEVENTO</xs:documentation>
@@ -26,7 +27,7 @@
                             <xs:element name="ideBeneficio" type="T_ideBeneficio" />
                             <xs:element name="infoBenAlteracao">
                                 <xs:annotation>
-                                    <xs:documentation>Informações do benefício - Alteração</xs:documentation>
+                                    <xs:documentation>Informações do benefício - Alteração.</xs:documentation>
                                     <xs:documentation>CHAVE_GRUPO: {dtAltBeneficio}</xs:documentation>
                                 </xs:annotation>
                                 <xs:complexType>
@@ -39,21 +40,21 @@
                                         </xs:element>
                                         <xs:element name="dadosBeneficio">
                                             <xs:annotation>
-                                                <xs:documentation>Dados relativos ao benefício</xs:documentation>
+                                                <xs:documentation>Dados relativos ao benefício.</xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>
                                                     <xs:element name="tpBeneficio" type="TS_tpBeneficio">
                                                         <xs:annotation>
                                                             <xs:documentation>Tipo de benefício.</xs:documentation>
-                                                            <xs:documentation>Validação: Deve ser um código existente na Tabela 25. Se {cadIni} informado no evento S-2410 for igual a [N], não é permitido utilizar código do grupo [08] dessa tabela.</xs:documentation>
+                                                            <xs:documentation>Validação: Deve ser um código válido e existente na Tabela 25. Se {cadIni}(2410_infoBenInicio_cadIni) em S-2410 for igual a [N], não é permitido utilizar código do grupo [08] dessa tabela.</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
                                                     <xs:element name="tpPlanRP" type="TS_tpPlanRP" />
                                                     <xs:element name="dsc" minOccurs="0" type="TS_texto_255">
                                                         <xs:annotation>
                                                             <xs:documentation>Descrição do instrumento ou situação que originou o pagamento do benefício.</xs:documentation>
-                                                            <xs:documentation>Validação: Preenchimento obrigatório se {tpBeneficio} = [1009, 1101, 1109].</xs:documentation>
+                                                            <xs:documentation>Validação: Preenchimento obrigatório se {tpBeneficio}(./tpBeneficio) = [1009, 1101, 1109].</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
                                                     <xs:element name="indSuspensao" type="TS_sim_nao">
@@ -63,8 +64,8 @@
                                                     </xs:element>
                                                     <xs:element name="infoPenMorte" minOccurs="0">
                                                         <xs:annotation>
-                                                            <xs:documentation>Informações relativas à pensão por morte</xs:documentation>
-                                                            <xs:documentation>CONDICAO_GRUPO: O (se {tpBeneficio} pertencer ao grupo [06]); N (nos demais casos)</xs:documentation>
+                                                            <xs:documentation>Informações relativas à pensão por morte.</xs:documentation>
+                                                            <xs:documentation>CONDICAO_GRUPO: O (se {tpBeneficio}(../tpBeneficio) pertencer ao grupo [06]); N (nos demais casos)</xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
                                                             <xs:sequence>
@@ -74,8 +75,8 @@
                                                     </xs:element>
                                                     <xs:element name="suspensao" minOccurs="0">
                                                         <xs:annotation>
-                                                            <xs:documentation>Informações referentes à suspensão do benefício</xs:documentation>
-                                                            <xs:documentation>CONDICAO_GRUPO: O (se {indSuspensao} = [S]; N (se {indSuspensao} = [N]</xs:documentation>
+                                                            <xs:documentation>Informações referentes à suspensão do benefício.</xs:documentation>
+                                                            <xs:documentation>CONDICAO_GRUPO: O (se {indSuspensao}(../indSuspensao) = [S]; N (se {indSuspensao}(../indSuspensao) = [N]</xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
                                                             <xs:sequence>
@@ -101,7 +102,7 @@
                                                                 <xs:element name="dscSuspensao" minOccurs="0" type="TS_texto_255">
                                                                     <xs:annotation>
                                                                         <xs:documentation>Descrição do motivo da suspensão do benefício.</xs:documentation>
-                                                                        <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se {mtvSuspensao}= [99].</xs:documentation>
+                                                                        <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se {mtvSuspensao}(./mtvSuspensao) = [99].</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
                                                             </xs:sequence>
