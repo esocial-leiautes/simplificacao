@@ -38,9 +38,7 @@
                                         <xs:element name="dtVenc" minOccurs="0" type="xs:date">
                                             <xs:annotation>
                                                 <xs:documentation>Data de vencimento do FGTS mensal.</xs:documentation>
-                                                <xs:documentation>Validação: Preencher somente em uma das situações abaixo:</xs:documentation>
-                                                <xs:documentation>a) Caso tenha origem no evento S-2299 e {mtvDeslig} = [02, 03, 05, 06, 14, 17, 23, 26, 27, 33]; ou</xs:documentation>
-                                                <xs:documentation>b) Caso tenha origem no evento S-2399, {codCateg} = [721] e {mtvDesligTSV} = [01, 02, 04, 06].</xs:documentation>
+                                                <xs:documentation>Validação: Preencher somente se houver informação no grupo {infoBaseFGTS}(./ideEstab_infoTrabFGTS).</xs:documentation>
                                                 <xs:documentation>Se informada, deve corresponder ao dia 7 (sete) do mês subsequente ao indicado em {perApur}, se esse dia for útil. Caso não seja, deve corresponder ao dia útil imediatamente anterior.</xs:documentation>
                                                 <xs:documentation>Considera-se como dia não útil o sábado, o domingo e todo aquele constante do Calendário Nacional de feriados bancários divulgados pelo Banco Central do Brasil.</xs:documentation>
                                             </xs:annotation>
@@ -56,13 +54,17 @@
                                                     <xs:element name="tpInsc" type="TS_tpInsc_1_2_3_4">
                                                         <xs:annotation>
                                                             <xs:documentation>Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.</xs:documentation>
-                                                            <xs:documentation>Origem: a) {infoPerApur/ideEstabLot/tpInsc} ou {idePeriodo/ideEstabLot/tpInsc} do S-1200;</xs:documentation>
+                                                            <xs:documentation>Origem: a) {infoPerApur/ideEstabLot/tpInsc}(1200_dmDev_infoPerApur_ideEstabLot_tpInsc) ou {idePeriodo/ideEstabLot/tpInsc}(1200_dmDev_infoPerAnt_ideADC_idePeriodo_ideEstabLot_tpInsc) do S-1200;</xs:documentation>
+                                                            <xs:documentation>b) {infoPerApur/ideEstabLot/tpInsc}(2299_infoDeslig_verbasResc_dmDev_infoPerApur_ideEstabLot_tpInsc) ou {idePeriodo/ideEstabLot/tpInsc}(2299_infoDeslig_verbasResc_dmDev_infoPerAnt_ideADC_idePeriodo_ideEstabLot) do S-2299;</xs:documentation>
+                                                            <xs:documentation>c) {ideEstabLot/tpInsc}(2399_infoTSVTermino_verbasResc_dmDev_ideEstabLot_tpInsc) do S-2399.</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
                                                     <xs:element name="nrInsc" type="TS_nrInsc_11_12_14">
                                                         <xs:annotation>
-                                                            <xs:documentation>Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {tpInsc}.</xs:documentation>
-                                                            <xs:documentation>Evento de origem: S-1200, S-2299 ou S-2399.</xs:documentation>
+                                                            <xs:documentation>Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {ideEstabLot/tpInsc}(./tpInsc).</xs:documentation>
+                                                            <xs:documentation>Origem: a) {infoPerApur/ideEstabLot/nrInsc}(1200_dmDev_infoPerApur_ideEstabLot_nrInsc) ou {idePeriodo/ideEstabLot/nrInsc}(1200_dmDev_infoPerAnt_ideADC_idePeriodo_ideEstabLot_nrInsc) do S-1200;</xs:documentation>
+                                                            <xs:documentation>b) {infoPerApur/ideEstabLot/nrInsc}(2299_infoDeslig_verbasResc_dmDev_infoPerApur_ideEstabLot_nrInsc) ou {idePeriodo/ideEstabLot/nrInsc}(2299_infoDeslig_verbasResc_dmDev_infoPerAnt_ideADC_idePeriodo_ideEstabLot) do S-2299;</xs:documentation>
+                                                            <xs:documentation>c) {ideEstabLot/nrInsc}(2399_infoTSVTermino_verbasResc_dmDev_ideEstabLot_nrInsc) do S-2399.</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
                                                     <xs:element name="ideLotacao">
@@ -75,23 +77,33 @@
                                                                 <xs:element name="codLotacao" type="TS_codigo_esocial">
                                                                     <xs:annotation>
                                                                         <xs:documentation>Informar o código atribuído pela empresa para a lotação tributária.</xs:documentation>
-                                                                        <xs:documentation>Evento de origem: S-1200, S-2299 ou S-2399.</xs:documentation>
+                                                                        <xs:documentation>Origem: a) {infoPerApur/ideEstabLot/codLotacao}(1200_dmDev_infoPerApur_ideEstabLot_codLotacao) ou {idePeriodo/ideEstabLot/codLotacao}(1200_dmDev_infoPerAnt_ideADC_idePeriodo_ideEstabLot_codLotacao) do S-1200;</xs:documentation>
+                                                                        <xs:documentation>b) {infoPerApur/ideEstabLot/codLotacao}(2299_infoDeslig_verbasResc_dmDev_infoPerApur_ideEstabLot_codLotacao) ou {idePeriodo/ideEstabLot/codLotacao}(2299_infoDeslig_verbasResc_dmDev_infoPerAnt_ideADC_idePeriodo_ideEstabLot) do S-2299;</xs:documentation>
+                                                                        <xs:documentation>c) {ideEstabLot/codLotacao}(2399_infoTSVTermino_verbasResc_dmDev_ideEstabLot_codLotacao) do S-2399.</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
                                                                 <xs:element name="tpLotacao" type="TS_tpLotacao">
                                                                     <xs:annotation>
                                                                         <xs:documentation>Preencher com o código correspondente ao tipo de lotação, conforme Tabela 10.</xs:documentation>
+                                                                        <xs:documentation>Evento de origem: S-1020.</xs:documentation>
+                                                                        <xs:documentation>Validação: a) Se origem de {codLotacao}(./codLotacao) for {infoPerApur/ideEstabLot/codLotacao}(1200_dmDev_infoPerApur_ideEstabLot_codLotacao) do S-1200, {infoPerApur/ideEstabLot/codLotacao}(2299_infoDeslig_verbasResc_dmDev_infoPerApur_ideEstabLot_codLotacao) do S-2299 ou {ideEstabLot/codLotacao}(2399_infoTSVTermino_verbasResc_dmDev_ideEstabLot_codLotacao) do S-2399, retornar o tipo de lotação vigente em {perApur}(5003_ideEvento_perApur);</xs:documentation>
+                                                                        <xs:documentation>b) Se origem de {codLotacao}(./codLotacao) for {idePeriodo/ideEstabLot/codLotacao}(1200_dmDev_infoPerAnt_ideADC_idePeriodo_ideEstabLot_codLotacao) do S-1200 ou {idePeriodo/ideEstabLot/codLotacao}(2299_infoDeslig_verbasResc_dmDev_infoPerAnt_ideADC_idePeriodo_ideEstabLot) do S-2299, retornar o tipo de lotação vigente em {perRef} do evento de origem.</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
                                                                 <xs:element name="tpInsc" type="TS_tpInsc_1_2_4" minOccurs="0">
                                                                     <xs:annotation>
                                                                         <xs:documentation>Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.</xs:documentation>
                                                                         <xs:documentation>Evento de origem: S-1020.</xs:documentation>
+                                                                        <xs:documentation>Validação: a) Se origem de {codLotacao}(./codLotacao) for {infoPerApur/ideEstabLot/codLotacao}(1200_dmDev_infoPerApur_ideEstabLot_codLotacao) do S-1200, {infoPerApur/ideEstabLot/codLotacao}(2299_infoDeslig_verbasResc_dmDev_infoPerApur_ideEstabLot_codLotacao) do S-2299 ou {ideEstabLot/codLotacao}(2399_infoTSVTermino_verbasResc_dmDev_ideEstabLot_codLotacao) do S-2399, retornar o tipo de inscrição vigente em {perApur}(5003_ideEvento_perApur);</xs:documentation>
+                                                                        <xs:documentation>b) Se origem de {codLotacao}(./codLotacao) for {idePeriodo/ideEstabLot/codLotacao}(1200_dmDev_infoPerAnt_ideADC_idePeriodo_ideEstabLot_codLotacao) do S-1200 ou {idePeriodo/ideEstabLot/codLotacao}(2299_infoDeslig_verbasResc_dmDev_infoPerAnt_ideADC_idePeriodo_ideEstabLot) do S-2299, retornar o tipo de inscrição vigente em {perRef} do evento de origem.</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
                                                                 <xs:element name="nrInsc" type="TS_nrInsc_11_12_14" minOccurs="0">
                                                                     <xs:annotation>
                                                                         <xs:documentation>Preencher com o número de Inscrição (CNPJ, CPF, CNO) ao qual pertence a lotação tributária, conforme indicado na Tabela 10 - Tipos de Lotação Tributária.</xs:documentation>
+                                                                        <xs:documentation>Evento de origem: S-1020.</xs:documentation>
+                                                                        <xs:documentation>Validação: a) Se origem de {codLotacao}(./codLotacao) for {infoPerApur/ideEstabLot/codLotacao}(1200_dmDev_infoPerApur_ideEstabLot_codLotacao) do S-1200, {infoPerApur/ideEstabLot/codLotacao}(2299_infoDeslig_verbasResc_dmDev_infoPerApur_ideEstabLot_codLotacao) do S-2299 ou {ideEstabLot/codLotacao}(2399_infoTSVTermino_verbasResc_dmDev_ideEstabLot_codLotacao) do S-2399, retornar o número de inscrição vigente em {perApur}(5003_ideEvento_perApur);</xs:documentation>
+                                                                        <xs:documentation>b) Se origem de {codLotacao}(./codLotacao) for {idePeriodo/ideEstabLot/codLotacao}(1200_dmDev_infoPerAnt_ideADC_idePeriodo_ideEstabLot_codLotacao) do S-1200 ou {idePeriodo/ideEstabLot/codLotacao}(2299_infoDeslig_verbasResc_dmDev_infoPerAnt_ideADC_idePeriodo_ideEstabLot) do S-2299, retornar o número de inscrição vigente em {perRef} do evento de origem.</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
                                                             </xs:sequence>
@@ -99,7 +111,7 @@
                                                     </xs:element>
                                                     <xs:element name="infoTrabFGTS" maxOccurs="10">
                                                         <xs:annotation>
-                                                            <xs:documentation>Informações relativas à matrícula, categoria e incidências</xs:documentation>
+                                                            <xs:documentation>Informações relativas à matrícula e categoria do trabalhador.</xs:documentation>
                                                             <xs:documentation>CHAVE_GRUPO: {matricula}, {codCateg}</xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
