@@ -227,7 +227,7 @@ def embutir_links_tabelas(texto):
 def embutir_links(texto, chave, caminho_completo):
     texto = embutir_links_tabelas(texto)
 
-    for ocorrencia in set(re.findall(r'\{.*?\}', texto)):
+    for ocorrencia in re.findall(r'\{.*?\}', texto):
         tamanho_texto = len(texto)
 
         posicao_identificador = texto.find(ocorrencia)
@@ -254,7 +254,7 @@ def embutir_links(texto, chave, caminho_completo):
                     if caminho.group(0).startswith('(../'):
                         caminho_final = tratar_caminho_relativo(ocorrencia,  '(' + caminho.group(0)[4:], caminho_completo[0:caminho_completo[:-1].rfind('_') + 1])
 
-                    texto = texto.replace(ocorrencia, '<a href="#{}">{}</a>'.format(caminho_final, identificador)).replace(caminho.group(0), '')
+                    texto = texto.replace(ocorrencia, '<a href="#{}">{}</a>'.format(caminho_final, identificador), 1).replace(caminho.group(0), '')
 
     return texto.replace('Validação:', '<strong>Validação:</strong>')
 
