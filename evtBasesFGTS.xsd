@@ -45,17 +45,18 @@
                                                 <xs:documentation>Considera-se como dia não útil o sábado, o domingo e todo aquele constante do Calendário Nacional de feriados bancários divulgados pelo Banco Central do Brasil.</xs:documentation>
                                             </xs:annotation>
                                         </xs:element>
-                                        <xs:element name="ideEstabLot" maxOccurs="unbounded">
+                                        <xs:element name="ideEstab" maxOccurs="unbounded">
                                             <xs:annotation>
-                                                <xs:documentation>Identificação do estabelecimento e lotação</xs:documentation>
-                                                <xs:documentation>CHAVE_GRUPO: {tpInsc}, {nrInsc}, {codLotacao}</xs:documentation>
+                                                <xs:documentation>Identificação do estabelecimento</xs:documentation>
+                                                <xs:documentation>DESCRICAO_COMPLETA:Identificação do estabelecimento ou obra de construção civil.</xs:documentation>
+                                                <xs:documentation>CHAVE_GRUPO: {tpInsc}, {nrInsc}</xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>
                                                     <xs:element name="tpInsc" type="TS_tpInsc_1_2_3_4">
                                                         <xs:annotation>
                                                             <xs:documentation>Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.</xs:documentation>
-                                                            <xs:documentation>Evento de origem: S-1200, S-2299 ou S-2399.</xs:documentation>
+                                                            <xs:documentation>Origem: a) {infoPerApur/ideEstabLot/tpInsc} ou {idePeriodo/ideEstabLot/tpInsc} do S-1200;</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
                                                     <xs:element name="nrInsc" type="TS_nrInsc_11_12_14">
@@ -64,18 +65,19 @@
                                                             <xs:documentation>Evento de origem: S-1200, S-2299 ou S-2399.</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
-                                                    <xs:element name="codLotacao" type="TS_codigo_esocial">
+                                                    <xs:element name="ideLotacao">
                                                         <xs:annotation>
-                                                            <xs:documentation>Informar o código atribuído pela empresa para a lotação tributária.</xs:documentation>
-                                                            <xs:documentation>Evento de origem: S-1200, S-2299 ou S-2399.</xs:documentation>
-                                                        </xs:annotation>
-                                                    </xs:element>
-                                                    <xs:element name="dadosLotacao">
-                                                        <xs:annotation>
-                                                            <xs:documentation>Infomações da lotação</xs:documentation>
+                                                            <xs:documentation>Identificação da lotação tributária.</xs:documentation>
+                                                            <xs:documentation>CHAVE_GRUPO: {codLotacao}, {tpLotacao}, {tpInsc}, {nrInsc}</xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
                                                             <xs:sequence>
+                                                                <xs:element name="codLotacao" type="TS_codigo_esocial">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Informar o código atribuído pela empresa para a lotação tributária.</xs:documentation>
+                                                                        <xs:documentation>Evento de origem: S-1200, S-2299 ou S-2399.</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:element>
                                                                 <xs:element name="tpLotacao" type="TS_tpLotacao">
                                                                     <xs:annotation>
                                                                         <xs:documentation>Preencher com o código correspondente ao tipo de lotação, conforme Tabela 10.</xs:documentation>
