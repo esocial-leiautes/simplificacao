@@ -4,7 +4,7 @@
     <xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd" />
     <xs:element name="eSocial">
         <xs:annotation>
-            <xs:documentation>S-5001 - Informações das contribuições sociais por trabalhador</xs:documentation>
+            <xs:documentation>S-5001 - Informações das Contribuições Sociais por Trabalhador</xs:documentation>
         </xs:annotation>
         <xs:complexType>
             <xs:sequence>
@@ -123,6 +123,7 @@
                                             <xs:annotation>
                                                 <xs:documentation>Valor da contribuição do segurado, devida à Previdência Social, calculada segundo as regras da legislação em vigor, por CR.</xs:documentation>
                                                 <xs:documentation>Validação: 1. Se {indMV} do S-1200/S-2299/S-2399 = [3], {vrCpSeg} = 0, portanto não há CR;</xs:documentation>
+                                                <xs:documentation> </xs:documentation>
                                                 <xs:documentation>2. Se {indMV} do S-1200/S-2299/S-2399 = [1, 2], efetuar o somatório das ocorrências do campo {vlrRemunOE} e o somatório de {valor} quando {tpValor} = [11, 12, 13, 14, 19] do grupo {infoBaseCS}, resultando em [TotalRemun]. Este procedimento visa a identificação da(s) alíquota(s) aplicável(eis):</xs:documentation>
                                                 <xs:documentation>2.1. Se {indMV} do S-1200/S-2299/S-2399 = [1] aplicar a(s) alíquota(s) conforme a categoria do segurado sobre a remuneração paga pelo declarante (somatório de {valor} quando {tpValor} = [11, 12, 13, 14, 19], do grupo {infoBaseCS}), observando o limite máximo do salário de contribuição.</xs:documentation>
                                                 <xs:documentation>2.2. Se {indMV} do S-1200/S-2299/S-2399 = [2]:</xs:documentation>
@@ -130,6 +131,7 @@
                                                 <xs:documentation>b) se [TotalRemun] for inferior ao limite máximo do Salário de Contribuição:</xs:documentation>
                                                 <xs:documentation>b1) Para as categorias empregado/avulso/agente público: somar {vlrRemunOE} destas mesmas categorias com o somatório de {valor} quando {tpValor}=[11, 12, 13, 14, 19] do grupo {infoBaseCS} e aplicar a(s) alíquota(s). Para os períodos de apuração iguais ou posteriores a 03/2020, observar a(s) faixa(s) de remuneração já tributada(s) em outra(s) empresa(s) nas categorias empregado/avulso/agente público.</xs:documentation>
                                                 <xs:documentation>b2) Para categoria contribuinte individual: aplicar a alíquota sobre a remuneração paga pelo declarante (somatório de {valor} quando {tpValor}=[11, 12, 13, 14, 19], do grupo {infoBaseCS}).</xs:documentation>
+                                                <xs:documentation> </xs:documentation>
                                                 <xs:documentation>3. Se não informado o grupo {infoMV} do S-1200/S-2299/S-2399:</xs:documentation>
                                                 <xs:documentation>a) se o trabalhador presta serviço para a empresa declarante em apenas uma categoria {codCateg}, efetuar o somatório de {valor} quando {tpValor}=[11, 12, 13, 14, 19], do grupo {infoBaseCS} e aplicar a(s) alíquota(s) conforme a categoria.</xs:documentation>
                                                 <xs:documentation>b) se o trabalhador presta serviço para a empresa declarante em mais de uma categoria {codCateg}:</xs:documentation>
@@ -465,10 +467,12 @@
                                                                                     <xs:documentation>{tpValor} = [96]**, {codIncCP} = [95, 96, 97, 98] e ({grauExp} = [2]);</xs:documentation>
                                                                                     <xs:documentation>{tpValor} = [97]**, {codIncCP} = [95, 96, 97, 98] e ({grauExp} = [3]);</xs:documentation>
                                                                                     <xs:documentation>{tpValor} = [98]**, {codIncCP} = [95, 96, 97, 98] e ({grauExp} = [4]).</xs:documentation>
+                                                                                    <xs:documentation> </xs:documentation>
                                                                                     <xs:documentation>b) Somar os valores das rubricas cujo {tpRubr} em {S-1010} seja igual a [2, 4] e subtrair os valores das rubricas cujo {tpRubr} em {S-1010} seja igual a [1, 3], observando a tabela de relacionamento abaixo:</xs:documentation>
                                                                                     <xs:documentation>{tpValor} = [21], {codIncCP} = [31, 32];</xs:documentation>
                                                                                     <xs:documentation>{tpValor} = [22], {codIncCP} = [34];</xs:documentation>
                                                                                     <xs:documentation>{tpValor} = [23], {codIncCP} = [35].</xs:documentation>
+                                                                                    <xs:documentation> </xs:documentation>
                                                                                     <xs:documentation>* Caso {codIncCP} da rubrica em S-1010 seja igual a [91, 92, 93, 94] e {indSusp} do respectivo processo em S-1070 seja diferente de [90] (decisão definitiva), o valor também deverá ser computado na composição das bases do {tpValor} = [11, 12, 13, 14, 41, 42, 43, 44].</xs:documentation>
                                                                                     <xs:documentation>Se Categoria igual a 107 ou 108: caso {tpValor} = [11] seja maior que o limite do salário-base para essas categorias, então {tpValor} = [81] é igual a {tpValor}=[41] – ({tpValor}=[11] – {tpValor}=[91]). Se {tpValor} = [81] resultar negativo, informar zero. O mesmo se aplica para {tpValor} = [82, 83, 84].</xs:documentation>
                                                                                     <xs:documentation>** Caso {codindCP} da rubrica em S-1010 seja igual a [95, 96, 97, 98] e {indSusp} do respectivo processo em S-1070 seja diferente de [90] (decisão definitiva), o valor também deverá ser computado na composição das bases do {tpValor} = [15, 16, 17, 18, 45, 46, 47, 48].</xs:documentation>
@@ -639,10 +643,12 @@
                                                                                                 <xs:documentation>{tpValor} = 19, {codIncCP} = [15, 16];</xs:documentation>
                                                                                                 <xs:documentation>{tpValor} = 31, {codIncCP} = [51];</xs:documentation>
                                                                                                 <xs:documentation>{tpValor} = 32, {codIncCP} = [21, 22].</xs:documentation>
+                                                                                                <xs:documentation> </xs:documentation>
                                                                                                 <xs:documentation>b) Somar os valores das rubricas cujo {tpRubr} em S-1010 seja igual a [2, 4] e subtrair os valores das rubricas cujo {tpRubr} em S-1010 seja igual a [1, 3], observando a tabela de relacionamento abaixo:</xs:documentation>
                                                                                                 <xs:documentation>{tpValor} = 21, {codIncCP} = [31, 32];</xs:documentation>
                                                                                                 <xs:documentation>{tpValor} = 22, {codIncCP} = [34];</xs:documentation>
                                                                                                 <xs:documentation>{tpValor} = 23, {codIncCP} = [35].</xs:documentation>
+                                                                                                <xs:documentation> </xs:documentation>
                                                                                                 <xs:documentation>* Caso {codIncCP} da rubrica em S-1010 seja igual a [91, 92, 93, 94] e {indSusp} do respectivo processo em S-1070 seja diferente de [90] (decisão definitiva), o valor também deverá ser computado na composição das bases do {tpValor} = [11, 12, 13, 14].</xs:documentation>
                                                                                                 <xs:documentation>** Caso {codindCP} da rubrica em S-1010 seja igual a [95, 96, 97, 98] e {indSusp} do respectivo processo em S-1070 seja diferente de [90] (decisão definitiva), o valor também deverá ser computado na composição das bases do {tpValor} = [15, 16, 17, 18].</xs:documentation>
                                                                                                 <xs:documentation>*** Caso {indSusp} do respectivo processo em S-1070 seja igual a [90] (decisão definitiva), o valor não deve ser computado.</xs:documentation>
