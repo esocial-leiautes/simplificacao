@@ -95,6 +95,7 @@
     <xs:complexType name="T_ideEvento_retorno_contrib">
         <xs:annotation>
             <xs:documentation>Identificação do evento de retorno.</xs:documentation>
+            <xs:documentation>DESCRICAO_COMPLETA:Identificação do evento de retorno.</xs:documentation>
             <xs:documentation>Evento de origem: S-1299.</xs:documentation>
         </xs:annotation>
         <xs:sequence>
@@ -384,7 +385,7 @@
                 <xs:simpleType>
                     <xs:annotation>
                         <xs:documentation>Quantidade média de horas relativas à jornada semanal do trabalhador.</xs:documentation>
-                        <xs:documentation>Validação: Deve ser preenchida se {codCateg}(../codCateg) for diferente de [111]. Se informada, deve ser maior que zero.</xs:documentation>
+                        <xs:documentation>Validação: Deve ser preenchida se {codCateg}(../codCateg) for diferente de [111]. Se informada, deve ser maior que 0 (zero).</xs:documentation>
                     </xs:annotation>
                     <xs:restriction base="xs:decimal">
                         <xs:totalDigits value="4" />
@@ -1124,7 +1125,51 @@
         </xs:annotation>
         <xs:restriction base="TS_periodo_mensal" />
     </xs:simpleType>
-    
+        
+    <!-- Campo {indCoop} -->
+
+    <xs:simpleType name="TS_indCoop">
+        <xs:restriction base="xs:byte">
+            <xs:enumeration value="0">
+                <xs:annotation>
+                    <xs:documentation>Não é cooperativa</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="1">
+                <xs:annotation>
+                    <xs:documentation>Cooperativa de trabalho</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="2">
+                <xs:annotation>
+                    <xs:documentation>Cooperativa de produção</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="3">
+                <xs:annotation>
+                    <xs:documentation>Outras cooperativas</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+        
+    <!-- Campo {indConstr} -->
+
+    <xs:simpleType name="TS_indConstr">
+        <xs:restriction base="xs:byte">
+            <xs:enumeration value="0">
+                <xs:annotation>
+                    <xs:documentation>Não é construtora</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="1">
+                <xs:annotation>
+                    <xs:documentation>Empresa construtora</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
     <!-- Campo {cnaePrep} -->
 
     <xs:simpleType name="TS_cnae">
@@ -1251,6 +1296,23 @@
         </xs:restriction>
     </xs:simpleType>
 
+    <!-- Campo {indSubstPatrObra} -->
+
+    <xs:simpleType name="TS_indSubstPatrObra">
+        <xs:restriction base="xs:byte">
+            <xs:enumeration value="1">
+                <xs:annotation>
+                    <xs:documentation>Contribuição patronal substituída</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="2">
+                <xs:annotation>
+                    <xs:documentation>Contribuição patronal não substituída</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    
     <!-- Campos {codRubr}, {codLotacao}, {ideDmDev}, {matricula}, {matricAnt}, {matricOrig}, {matricCed} -->
 
     <xs:simpleType name="TS_codigo_esocial">
@@ -1307,7 +1369,7 @@
         </xs:restriction>
     </xs:simpleType>
 
-    <!-- Campo {codTercs} -->
+    <!-- Campos {codTercs}, {codTercsSusp} e {codTerc} -->
 
     <xs:simpleType name="TS_codTercs">
         <xs:restriction base="xs:string">
@@ -1498,7 +1560,7 @@
     <xs:simpleType name="TS_vlrRemunOE">
         <xs:annotation>
             <xs:documentation>Preencher com o valor da remuneração recebida pelo trabalhador na outra empresa/atividade, sobre a qual houve desconto/recolhimento da contribuição do segurado.</xs:documentation>
-            <xs:documentation>Validação: Deve ser maior que zero.</xs:documentation>
+            <xs:documentation>Validação: Deve ser maior que 0 (zero).</xs:documentation>
         </xs:annotation>
         <xs:restriction base="TS_valorMonetario_positivo" />
     </xs:simpleType>
@@ -1699,7 +1761,7 @@
         <xs:annotation>
             <xs:documentation>Informar a quantidade de referência para apuração (em horas, cotas, meses, percentual, etc.). Ex.: Quantidade de horas extras trabalhadas relacionada com uma rubrica de hora extra, quantidade de dias trabalhados relacionada com uma rubrica de salário, etc.</xs:documentation>
             <xs:documentation>Preenchimento obrigatório quando se tratar de rubrica relativa a faltas ou Descanso Semanal Remunerado - DSR sobre faltas (nesse caso, informar a quantidade de dias).</xs:documentation>
-            <xs:documentation>Validação: Deve ser maior que zero. Informação obrigatória se {codRubr}(./codRubr) tiver {natRubr}(1010_infoRubrica_inclusao_dadosRubrica_natRubr) em S-1010 igual a [9207, 9211].</xs:documentation>
+            <xs:documentation>Validação: Deve ser maior que 0 (zero). Informação obrigatória se {codRubr}(./codRubr) tiver {natRubr}(1010_infoRubrica_inclusao_dadosRubrica_natRubr) em S-1010 igual a [9207, 9211].</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:decimal">
             <xs:totalDigits value="6" />
@@ -1714,7 +1776,7 @@
     <xs:simpleType name="TS_fator">
         <xs:annotation>
             <xs:documentation>Informar o fator, percentual, etc, da rubrica, quando necessário. Ex.: Adicional de horas extras 50%, relacionado a uma rubrica de horas extras: Fator = 50.</xs:documentation>
-            <xs:documentation>Validação: Deve ser maior que zero.</xs:documentation>
+            <xs:documentation>Validação: Deve ser maior que 0 (zero).</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:decimal">
             <xs:totalDigits value="5" />
@@ -1729,7 +1791,7 @@
     <xs:simpleType name="TS_vrRubr">
         <xs:annotation>
             <xs:documentation>Valor total da rubrica.</xs:documentation>
-            <xs:documentation>Validação: Deve ser maior que zero.</xs:documentation>
+            <xs:documentation>Validação: Deve ser maior que 0 (zero).</xs:documentation>
         </xs:annotation>
         <xs:restriction base="TS_valorMonetario_positivo" />
     </xs:simpleType>
@@ -1831,6 +1893,55 @@
             <xs:minLength value="1" />
             <xs:maxLength value="20" />
             <xs:pattern value=".*[^\s].*" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Campo {indComerc} -->
+
+    <xs:simpleType name="TS_indComerc">
+        <xs:restriction base="xs:byte">
+            <xs:enumeration value="2">
+                <xs:annotation>
+                    <xs:documentation>Comercialização da produção efetuada diretamente no varejo a consumidor final ou a outro produtor rural pessoa física por produtor rural pessoa física, inclusive por segurado especial, ou por pessoa física não produtor rural</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="3">
+                <xs:annotation>
+                    <xs:documentation>Comercialização da produção por prod. rural PF/seg. especial - Vendas a PJ (exceto entidade inscrita no Programa de Aquisição de Alimentos - PAA) ou a intermediário PF</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="7">
+                <xs:annotation>
+                    <xs:documentation>Comercialização da produção isenta de acordo com a Lei 13.606/2018</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="8">
+                <xs:annotation>
+                    <xs:documentation>Comercialização da produção da pessoa física/segurado especial para entidade inscrita no PAA</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="9">
+                <xs:annotation>
+                    <xs:documentation>Comercialização da produção no mercado externo</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    <!-- Campo {indSubstPatr} -->
+
+    <xs:simpleType name="TS_indSubstPatr">
+        <xs:restriction base="xs:byte">
+            <xs:enumeration value="1">
+                <xs:annotation>
+                    <xs:documentation>Integralmente substituída</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="2">
+                <xs:annotation>
+                    <xs:documentation>Parcialmente substituída</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
         </xs:restriction>
     </xs:simpleType>
 
@@ -2674,7 +2785,7 @@
     <xs:simpleType name="TS_ind13">
         <xs:annotation>
             <xs:documentation>Indicativo de 13° salário.</xs:documentation>
-            <xs:documentation>Validação: Se {indApuracao} = [2], preencher com [1].</xs:documentation>
+            <xs:documentation>Validação: Se {indApuracao}(/ideEvento_perApur) = [2], preencher com [1].</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:byte">
             <xs:enumeration value="0">
@@ -2684,7 +2795,7 @@
             </xs:enumeration>
             <xs:enumeration value="1">
                 <xs:annotation>
-                    <xs:documentation>13° salário - {codIncCP} = [12, 14, 16, 22, 26, 32, 92, 94, 96, 98]</xs:documentation>
+                    <xs:documentation>13° salário ({codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 = [12, 14, 16, 22, 26, 32, 92, 94, 96, 98])</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
         </xs:restriction>

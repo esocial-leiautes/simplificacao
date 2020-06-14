@@ -69,44 +69,15 @@
                                                         </xs:annotation>
                                                         <xs:complexType>
                                                             <xs:sequence>
-                                                                <xs:element name="indComerc">
-                                                                    <xs:simpleType>
-                                                                        <xs:annotation>
-                                                                            <xs:documentation>Indicativo de comercialização.</xs:documentation>
-                                                                        </xs:annotation>
-                                                                        <xs:restriction base="xs:byte">
-                                                                            <xs:enumeration value="2">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Comercialização da produção efetuada diretamente no varejo a consumidor final ou a outro produtor rural pessoa física por produtor rural pessoa física, inclusive por segurado especial, ou por pessoa física não produtor rural</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:enumeration>
-                                                                            <xs:enumeration value="3">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Comercialização da produção por prod. rural PF/seg. especial - Vendas a PJ (exceto entidade inscrita no Programa de Aquisição de Alimentos - PAA) ou a intermediário PF</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:enumeration>
-                                                                            <xs:enumeration value="7">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Comercialização da produção isenta de acordo com a Lei 13.606/2018</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:enumeration>
-                                                                            <xs:enumeration value="8">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Comercialização da produção da pessoa física/segurado especial para entidade inscrita no PAA</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:enumeration>
-                                                                            <xs:enumeration value="9">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Comercialização da produção no mercado externo</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:enumeration>
-                                                                        </xs:restriction>
-                                                                    </xs:simpleType>
+                                                                <xs:element name="indComerc" type="TS_indComerc">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Indicativo de comercialização.</xs:documentation>
+                                                                    </xs:annotation>
                                                                 </xs:element>
                                                                 <xs:element name="vrTotCom" type="TS_valorMonetario_positivo">
                                                                     <xs:annotation>
                                                                         <xs:documentation>Preencher com o valor total da comercialização.</xs:documentation>
-                                                                        <xs:documentation>Validação: Deve ser maior que zero.</xs:documentation>
+                                                                        <xs:documentation>Validação: Deve ser maior que 0 (zero).</xs:documentation>
                                                                         <xs:documentation>Se {indComerc}(./indComerc) for igual a [3, 7], deve corresponder à soma do campo {vrComerc}(1260_infoComProd_ideEstabel_tpComerc_ideAdquir_vrComerc) dos registros vinculados.</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
@@ -133,7 +104,7 @@
                                                                             <xs:element name="vrComerc" type="TS_valorMonetario_positivo">
                                                                                 <xs:annotation>
                                                                                     <xs:documentation>Valor bruto da comercialização da produção.</xs:documentation>
-                                                                                    <xs:documentation>Validação: Deve ser maior que zero.</xs:documentation>
+                                                                                    <xs:documentation>Validação: Deve ser maior que 0 (zero).</xs:documentation>
                                                                                 </xs:annotation>
                                                                             </xs:element>
                                                                             <xs:element name="nfs" minOccurs="0" maxOccurs="999">
@@ -220,21 +191,21 @@
                                                                                 <xs:annotation>
                                                                                     <xs:documentation>Valor da contribuição previdenciária com exigibilidade suspensa.</xs:documentation>
                                                                                     <xs:documentation>Validação: Preenchimento obrigatório se {vrRatSusp}(./vrRatSusp) e {vrSenarSusp}(./vrSenarSusp) não tiverem sido preenchidos.</xs:documentation>
-                                                                                    <xs:documentation>Deve ser um valor maior que zero.</xs:documentation>
+                                                                                    <xs:documentation>Deve ser um valor maior que 0 (zero).</xs:documentation>
                                                                                 </xs:annotation>
                                                                             </xs:element>
                                                                             <xs:element name="vrRatSusp" minOccurs="0" type="TS_valorMonetario_positivo">
                                                                                 <xs:annotation>
                                                                                     <xs:documentation>Valor da contribuição para GILRAT com exigibilidade suspensa.</xs:documentation>
                                                                                     <xs:documentation>Validação: Preenchimento obrigatório se {vrCPSusp}(./vrCPSusp) e {vrSenarSusp}(./vrSenarSusp) não tiverem sido preenchidos.</xs:documentation>
-                                                                                    <xs:documentation>Deve ser um valor maior que zero.</xs:documentation>
+                                                                                    <xs:documentation>Deve ser um valor maior que 0 (zero).</xs:documentation>
                                                                                 </xs:annotation>
                                                                             </xs:element>
                                                                             <xs:element name="vrSenarSusp" minOccurs="0" type="TS_valorMonetario_positivo">
                                                                                 <xs:annotation>
                                                                                     <xs:documentation>Valor da contribuição para o SENAR com exigibilidade suspensa.</xs:documentation>
                                                                                     <xs:documentation>Validação: Preenchimento obrigatório se {vrCPSusp}(./vrCPSusp) e {vrRatSusp}(./vrRatSusp) não tiverem sido preenchidos.</xs:documentation>
-                                                                                    <xs:documentation>Deve ser um valor maior que zero.</xs:documentation>
+                                                                                    <xs:documentation>Deve ser um valor maior que 0 (zero).</xs:documentation>
                                                                                 </xs:annotation>
                                                                             </xs:element>
                                                                         </xs:sequence>

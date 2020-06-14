@@ -19,7 +19,8 @@
                             <xs:element name="ideEmpregador" type="T_ideEmpregador" />
                             <xs:element name="infoCS">
                                 <xs:annotation>
-                                    <xs:documentation>Informações relativas às Contribuições Sociais</xs:documentation>
+                                    <xs:documentation>Informações relativas às contribuições sociais</xs:documentation>
+                                    <xs:documentation>DESCRICAO_COMPLETA:Informações relativas às contribuições sociais devidas à Previdência Social e a Outras Entidades e Fundos.</xs:documentation>
                                 </xs:annotation>
                                 <xs:complexType>
                                     <xs:sequence>
@@ -37,12 +38,12 @@
                                                     </xs:enumeration>
                                                     <xs:enumeration value="2">
                                                         <xs:annotation>
-                                                            <xs:documentation>Há movimento porém sem apuração de contribuições sociais</xs:documentation>
+                                                            <xs:documentation>Há movimento, porém sem apuração de contribuições sociais</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:enumeration>
                                                     <xs:enumeration value="3">
                                                         <xs:annotation>
-                                                            <xs:documentation>Não há movimento no período informado em {perApur}</xs:documentation>
+                                                            <xs:documentation>Não há movimento no período informado em {perApur}(5011_ideEvento_perApur)</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:enumeration>
                                                 </xs:restriction>
@@ -50,7 +51,7 @@
                                         </xs:element>
                                         <xs:element name="infoCPSeg" minOccurs="0">
                                             <xs:annotation>
-                                                <xs:documentation>Informações de contribuição previdenciária do Segurado</xs:documentation>
+                                                <xs:documentation>Informações de contribuição previdenciária do segurado.</xs:documentation>
                                                 <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
@@ -58,13 +59,13 @@
                                                     <xs:element name="vrDescCP" type="TS_valorMonetario">
                                                         <xs:annotation>
                                                             <xs:documentation>Valor total da contribuição descontada dos segurados.</xs:documentation>
-                                                            <xs:documentation>Origem: campo {valor}, quando {tpValor} = [21] - Valor total descontado do trabalhador para recolhimento à Previdência Social, do grupo {infoBaseCS} no evento S-5001.</xs:documentation>
+                                                            <xs:documentation>Origem: campo {valor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_valor) de S-5001, quando {tpValor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor) em S-5001 = [21].</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
                                                     <xs:element name="vrCpSeg" type="TS_valorMonetario">
                                                         <xs:annotation>
                                                             <xs:documentation>Valor total calculado relativo à contribuição dos segurados.</xs:documentation>
-                                                            <xs:documentation>Origem: campo {vrCpSeg}, do grupo {infoCpCalc} no evento S-5001.</xs:documentation>
+                                                            <xs:documentation>Origem: campo {vrCpSeg}(5001_infoCpCalc_vrCpSeg) de S-5001.</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
                                                 </xs:sequence>
@@ -73,6 +74,7 @@
                                         <xs:element name="infoContrib">
                                             <xs:annotation>
                                                 <xs:documentation>Informações gerais do contribuinte</xs:documentation>
+                                                <xs:documentation>DESCRICAO_COMPLETA:Informações gerais do contribuinte necessárias à apuração das contribuições sociais.</xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>
@@ -90,104 +92,52 @@
                                                     <xs:element name="infoPJ" minOccurs="0">
                                                         <xs:annotation>
                                                             <xs:documentation>Informações exclusivas da PJ</xs:documentation>
-                                                            <xs:documentation>CONDICAO_GRUPO: O (Se {tpInsc} do Empregador = [1]); N dos demais casos</xs:documentation>
+                                                            <xs:documentation>DESCRICAO_COMPLETA:Informações complementares, exclusivas da Pessoa Jurídica.</xs:documentation>
+                                                            <xs:documentation>CONDICAO_GRUPO: O (se {ideEmpregador/tpInsc}(5011_ideEmpregador_tpInsc) = [1]); N (nos demais casos)</xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
                                                             <xs:sequence>
-                                                                <xs:element name="indCoop" minOccurs="0">
-                                                                    <xs:simpleType>
-                                                                        <xs:annotation>
-                                                                            <xs:documentation>Indicativo de Cooperativa.</xs:documentation>
-                                                                            <xs:documentation>Evento de origem: S-1000.</xs:documentation>
-                                                                        </xs:annotation>
-                                                                        <xs:restriction base="xs:byte">
-                                                                            <xs:enumeration value="0">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Não é cooperativa</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:enumeration>
-                                                                            <xs:enumeration value="1">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Cooperativa de Trabalho</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:enumeration>
-                                                                            <xs:enumeration value="2">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Cooperativa de Produção</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:enumeration>
-                                                                            <xs:enumeration value="3">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Outras Cooperativas</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:enumeration>
-                                                                        </xs:restriction>
-                                                                    </xs:simpleType>
+                                                                <xs:element name="indCoop" minOccurs="0" type="TS_indCoop">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Indicativo de cooperativa.</xs:documentation>
+                                                                        <xs:documentation>Evento de origem: S-1000.</xs:documentation>
+                                                                    </xs:annotation>
                                                                 </xs:element>
-                                                                <xs:element name="indConstr">
-                                                                    <xs:simpleType>
-                                                                        <xs:annotation>
-                                                                            <xs:documentation>Indicativo de Construtora.</xs:documentation>
-                                                                            <xs:documentation>Evento de origem: S-1000.</xs:documentation>
-                                                                        </xs:annotation>
-                                                                        <xs:restriction base="xs:byte">
-                                                                            <xs:enumeration value="0">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Não é Construtora</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:enumeration>
-                                                                            <xs:enumeration value="1">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Empresa Construtora</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:enumeration>
-                                                                        </xs:restriction>
-                                                                    </xs:simpleType>
+                                                                <xs:element name="indConstr" type="TS_indConstr">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Indicativo de construtora.</xs:documentation>
+                                                                        <xs:documentation>Evento de origem: S-1000.</xs:documentation>
+                                                                    </xs:annotation>
                                                                 </xs:element>
-                                                                <xs:element name="indSubstPatr" minOccurs="0">
-                                                                    <xs:simpleType>
-                                                                        <xs:annotation>
-                                                                            <xs:documentation>Indicativo de substituição da contribuição previdenciária patronal.</xs:documentation>
-                                                                        </xs:annotation>
-                                                                        <xs:restriction base="xs:byte">
-                                                                            <xs:enumeration value="1">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Integralmente substituída</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:enumeration>
-                                                                            <xs:enumeration value="2">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Parcialmente substituída</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:enumeration>
-                                                                        </xs:restriction>
-                                                                    </xs:simpleType>
+                                                                <xs:element name="indSubstPatr" minOccurs="0" type="TS_indSubstPatr">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Indicativo de substituição da contribuição previdenciária patronal.</xs:documentation>
+                                                                        <xs:documentation>Origem: campo {indSubstPatr}(1280_infoSubstPatr_indSubstPatr) de S-1280.</xs:documentation>
+                                                                    </xs:annotation>
                                                                 </xs:element>
                                                                 <xs:element name="percRedContrib" minOccurs="0" type="TS_percentual">
                                                                     <xs:annotation>
-                                                                        <xs:documentation>Percentual de redução da contribuição prevista na lei 12.546/2011.</xs:documentation>
-                                                                        <xs:documentation>Se {indSubstPatr} = 1, preencher com 0 (zero);</xs:documentation>
-                                                                        <xs:documentation>Se {indSubstPatr} = 2, preencher com o percentual correspondente a razão entre a receita de atividades não relacionadas nos artigos 7 e 8 da Lei 12.546/2011 e a receita bruta total.</xs:documentation>
-                                                                        <xs:documentation>Não preencher nos demais casos.</xs:documentation>
+                                                                        <xs:documentation>Percentual de redução da contribuição prevista na Lei 12.546/2011.</xs:documentation>
                                                                         <xs:documentation>Evento de origem: S-1280.</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
                                                                 <xs:element name="infoAtConc" minOccurs="0">
                                                                     <xs:annotation>
-                                                                        <xs:documentation>Informações de Atividades Concomitantes</xs:documentation>
-                                                                        <xs:documentation>CONDICAO_GRUPO: O (Se {classTrib} = [03]; N (Nos demais casos)</xs:documentation>
+                                                                        <xs:documentation>Informações de atividades concomitantes</xs:documentation>
+                                                                        <xs:documentation>DESCRICAO_COMPLETA:Informações prestadas por empresa enquadrada no regime de tributação Simples Nacional com tributação previdenciária substituída e não substituída.</xs:documentation>
+                                                                        <xs:documentation>CONDICAO_GRUPO: O (se {classTrib}(../../classTrib) = [03]; N (nos demais casos)</xs:documentation>
                                                                     </xs:annotation>
                                                                     <xs:complexType>
                                                                         <xs:sequence>
                                                                             <xs:element name="fatorMes" type="TS_percentual">
                                                                                 <xs:annotation>
-                                                                                    <xs:documentation>Informe o fator a ser utilizado para cálculo da contribuição patronal do mês dos trabalhadores envolvidos na execução das atividades enquadradas no Anexo IV em conjunto com as dos Anexos I a III e V da Lei Complementar nº 123/2006.</xs:documentation>
+                                                                                    <xs:documentation>Informe o fator a ser utilizado para cálculo da contribuição patronal do mês dos trabalhadores envolvidos na execução das atividades enquadradas no Anexo IV em conjunto com as dos Anexos I a III e V da Lei Complementar 123/2006.</xs:documentation>
                                                                                     <xs:documentation>Evento de origem: S-1280.</xs:documentation>
                                                                                 </xs:annotation>
                                                                             </xs:element>
                                                                             <xs:element name="fator13" type="TS_percentual">
                                                                                 <xs:annotation>
-                                                                                    <xs:documentation>Informe o fator a ser utilizado para cálculo da contribuição patronal do décimo terceiro dos trabalhadores envolvidos na execução das atividades enquadradas no Anexo IV em conjunto com as dos Anexos I a III e V da Lei Complementar nº 123/2006.</xs:documentation>
+                                                                                    <xs:documentation>Informe o fator a ser utilizado para cálculo da contribuição patronal do décimo terceiro dos trabalhadores envolvidos na execução das atividades enquadradas no Anexo IV em conjunto com as dos Anexos I a III e V da Lei Complementar 123/2006.</xs:documentation>
                                                                                     <xs:documentation>Evento de origem: S-1280.</xs:documentation>
                                                                                 </xs:annotation>
                                                                             </xs:element>
@@ -203,6 +153,7 @@
                                         <xs:element name="ideEstab" minOccurs="0" maxOccurs="unbounded">
                                             <xs:annotation>
                                                 <xs:documentation>Identificação do estabelecimento/obra</xs:documentation>
+                                                <xs:documentation>DESCRICAO_COMPLETA:Informações de identificação do estabelecimento ou obra de construção civil.</xs:documentation>
                                                 <xs:documentation>CHAVE_GRUPO: {tpInsc}, {nrInsc}</xs:documentation>
                                                 <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
                                             </xs:annotation>
@@ -211,14 +162,15 @@
                                                     <xs:element name="tpInsc" type="TS_tpInsc_1_2_3_4" />
                                                     <xs:element name="nrInsc" type="TS_nrInsc_11_12_14">
                                                         <xs:annotation>
-                                                            <xs:documentation>Número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {tpInsc}.</xs:documentation>
+                                                            <xs:documentation>Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {ideEstab/tpInsc}(./tpInsc).</xs:documentation>
                                                             <xs:documentation>Origem: S-1260, S-1270 ou S-5001.</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
                                                     <xs:element name="infoEstab" minOccurs="0">
                                                         <xs:annotation>
                                                             <xs:documentation>Informações do estabelecimento</xs:documentation>
-                                                            <xs:documentation>CONDICAO_GRUPO: O (Se {tpInsc} = [1]}; N (nos demais casos)</xs:documentation>
+                                                            <xs:documentation>DESCRICAO_COMPLETA:Informações relativas a cada estabelecimento, necessárias à apuração das contribuições sociais.</xs:documentation>
+                                                            <xs:documentation>CONDICAO_GRUPO: O (se {ideEmpregador/tpInsc}(5011_ideEmpregador_tpInsc) = [1]); N (nos demais casos)</xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
                                                             <xs:sequence>
@@ -230,7 +182,7 @@
                                                                 </xs:element>
                                                                 <xs:element name="aliqRat" type="TS_aliqRat">
                                                                     <xs:annotation>
-                                                                        <xs:documentation>Preencher com a alíquota definida na legislação vigente para a atividade (CNAE) preponderante.</xs:documentation>
+                                                                        <xs:documentation>Informar a alíquota RAT.</xs:documentation>
                                                                         <xs:documentation>Validação: Deve corresponder à alíquota declarada no evento S-1005. Caso não haja informação, retornar a alíquota definida na legislação vigente para o código CNAE informado.</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
@@ -244,6 +196,7 @@
                                                                     <xs:simpleType>
                                                                         <xs:annotation>
                                                                             <xs:documentation>Alíquota do RAT após ajuste pelo FAP.</xs:documentation>
+                                                                            <xs:documentation>Validação: Deve corresponder ao resultado da multiplicação dos campos {infoEstab/aliqRat}(./aliqRat) e {infoEstab/fap}(./fap).</xs:documentation>
                                                                         </xs:annotation>
                                                                         <xs:restriction base="xs:decimal">
                                                                             <xs:totalDigits value="5" />
@@ -256,28 +209,16 @@
                                                                 <xs:element name="infoComplObra" minOccurs="0">
                                                                     <xs:annotation>
                                                                         <xs:documentation>Informações complementares relativas a obras</xs:documentation>
-                                                                        <xs:documentation>CONDICAO_GRUPO: O (se {indConstr} = [1] e {tpInsc} do {ideEstab} = [4]); N (nos demais casos)</xs:documentation>
+                                                                        <xs:documentation>DESCRICAO_COMPLETA:Informações complementares relativas a obras de construção civil.</xs:documentation>
+                                                                        <xs:documentation>CONDICAO_GRUPO: O (se {indConstr}(5011_infoCS_infoContrib_infoPJ_indConstr) = [1] e {ideEstab/tpInsc}(../../tpInsc) = [4]); N (nos demais casos)</xs:documentation>
                                                                     </xs:annotation>
                                                                     <xs:complexType>
                                                                         <xs:sequence>
-                                                                            <xs:element name="indSubstPatrObra">
-                                                                                <xs:simpleType>
-                                                                                    <xs:annotation>
-                                                                                        <xs:documentation>Indicativo de Substituição da Contribuição Patronal de Obra de Construção Civil, conforme definido no evento S-1005, campo {indSubstPatrObra}.</xs:documentation>
-                                                                                    </xs:annotation>
-                                                                                    <xs:restriction base="xs:byte">
-                                                                                        <xs:enumeration value="1">
-                                                                                            <xs:annotation>
-                                                                                                <xs:documentation>Contribuição Patronal Substituída</xs:documentation>
-                                                                                            </xs:annotation>
-                                                                                        </xs:enumeration>
-                                                                                        <xs:enumeration value="2">
-                                                                                            <xs:annotation>
-                                                                                                <xs:documentation>Contribuição Patronal Não Substituída</xs:documentation>
-                                                                                            </xs:annotation>
-                                                                                        </xs:enumeration>
-                                                                                    </xs:restriction>
-                                                                                </xs:simpleType>
+                                                                            <xs:element name="indSubstPatrObra" type="TS_indSubstPatrObra">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Indicativo de substituição da contribuição patronal de obra de construção civil.</xs:documentation>
+                                                                                    <xs:documentation>Origem: campo {indSubstPatrObra}(1005_infoEstab_inclusao_infoObra_indSubstPatrObra) de S-1005.</xs:documentation>
+                                                                                </xs:annotation>
                                                                             </xs:element>
                                                                         </xs:sequence>
                                                                     </xs:complexType>
@@ -287,16 +228,16 @@
                                                     </xs:element>
                                                     <xs:element name="ideLotacao" minOccurs="0" maxOccurs="unbounded">
                                                         <xs:annotation>
-                                                            <xs:documentation>Identificação da lotação tributária</xs:documentation>
+                                                            <xs:documentation>Identificação da lotação tributária.</xs:documentation>
                                                             <xs:documentation>CHAVE_GRUPO: {codLotacao}</xs:documentation>
-                                                            <xs:documentation>CONDICAO_GRUPO: O (se existir informação em S-1200, S-1270, S-2299 ou S-2399 relativas ao estabelecimento identificado em {nrInsc}); N (nos demais casos)</xs:documentation>
+                                                            <xs:documentation>CONDICAO_GRUPO: O (se existir informação em S-1200, S-1270, S-2299 ou S-2399 relativas ao estabelecimento identificado em {ideEstab/nrInsc}(../tpInsc)); N (nos demais casos)</xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
                                                             <xs:sequence>
                                                                 <xs:element name="codLotacao" type="TS_codigo_esocial">
                                                                     <xs:annotation>
                                                                         <xs:documentation>Informar o código atribuído pela empresa para a lotação tributária.</xs:documentation>
-                                                                        <xs:documentation>Evento de origem: S-5001.</xs:documentation>
+                                                                        <xs:documentation>Evento de origem: S-1270 ou S-5001.</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
                                                                 <xs:element name="fpas" type="TS_fpas">
@@ -307,19 +248,20 @@
                                                                 </xs:element>
                                                                 <xs:element name="codTercs" type="TS_codTercs">
                                                                     <xs:annotation>
-                                                                        <xs:documentation>Preencher com o código de terceiros, conforme Tabela 04.</xs:documentation>
+                                                                        <xs:documentation>Preencher com o código de Terceiros, conforme Tabela 04.</xs:documentation>
                                                                         <xs:documentation>Evento de origem: S-1020.</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
                                                                 <xs:element name="codTercsSusp" minOccurs="0" type="TS_codTercs">
                                                                     <xs:annotation>
-                                                                        <xs:documentation>Informar o código combinado dos Terceiros para os quais o recolhimento está suspenso em virtude de processos Judiciais. Exemplo: Se o contribuinte possui decisões de processos para suspensão de recolhimentos ao Sesi (0008) e ao Sebrae (0064), deve informar o código combinado das duas entidades, ou seja, 0072.</xs:documentation>
+                                                                        <xs:documentation>Informar o código combinado dos Terceiros para os quais o recolhimento está suspenso em virtude de processos judiciais.</xs:documentation>
                                                                         <xs:documentation>Evento de origem: S-1020.</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
                                                                 <xs:element name="infoTercSusp" minOccurs="0" maxOccurs="15">
                                                                     <xs:annotation>
                                                                         <xs:documentation>Informações de suspensão de contribuição a Terceiros</xs:documentation>
+                                                                        <xs:documentation>DESCRICAO_COMPLETA:Informações de suspensão de contribuições destinadas a Outras Entidades e Fundos (Terceiros).</xs:documentation>
                                                                         <xs:documentation>CHAVE_GRUPO: {codTerc}</xs:documentation>
                                                                         <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
                                                                     </xs:annotation>
@@ -327,8 +269,8 @@
                                                                         <xs:sequence>
                                                                             <xs:element name="codTerc" type="TS_codTercs">
                                                                                 <xs:annotation>
-                                                                                    <xs:documentation>Informar o Código de Terceiro.</xs:documentation>
-                                                                                    <xs:documentation>Origem: campo {codTerc} do S-1020.</xs:documentation>
+                                                                                    <xs:documentation>Informar o código de Terceiro.</xs:documentation>
+                                                                                    <xs:documentation>Origem: campo {codTerc}(1020_infoLotacao_inclusao_fpasLotacao_infoProcJudTerceiros_procJudTerceiro_codTerc) de S-1020.</xs:documentation>
                                                                                 </xs:annotation>
                                                                             </xs:element>
                                                                         </xs:sequence>
@@ -337,23 +279,25 @@
                                                                 <xs:element name="infoEmprParcial" minOccurs="0">
                                                                     <xs:annotation>
                                                                         <xs:documentation>Informação complementar de obra de construção civil</xs:documentation>
-                                                                        <xs:documentation>CONDICAO_GRUPO: O (se {tpLotacao} em S-1020 relativa ao {codLotacao} acima for igual a [2]); N (nos demais casos)</xs:documentation>
+                                                                        <xs:documentation>DESCRICAO_COMPLETA:Informação complementar que apresenta identificação do contratante e do proprietário de obra de construção civil contratada sob regime de empreitada parcial ou subempreitada.</xs:documentation>
+                                                                        <xs:documentation>Evento de origem: S-1020.</xs:documentation>
+                                                                        <xs:documentation>CONDICAO_GRUPO: O (se {tpLotacao}(1020_infoLotacao_inclusao_dadosLotacao_tpLotacao) em S-1020 relativo a {codLotacao}(../codLotacao) for igual a [02]); N (nos demais casos)</xs:documentation>
                                                                     </xs:annotation>
                                                                     <xs:complexType>
                                                                         <xs:sequence>
                                                                             <xs:element name="tpInscContrat" type="TS_tpInsc_1_2">
                                                                                 <xs:annotation>
-                                                                                    <xs:documentation>Tipo de Inscrição do contratante.</xs:documentation>
+                                                                                    <xs:documentation>Tipo de inscrição do contratante.</xs:documentation>
                                                                                 </xs:annotation>
                                                                             </xs:element>
                                                                             <xs:element name="nrInscContrat" type="TS_nrInsc_11_14">
                                                                                 <xs:annotation>
-                                                                                    <xs:documentation>Número de Inscrição (CNPJ/CPF) do contratante.</xs:documentation>
+                                                                                    <xs:documentation>Número de inscrição (CNPJ/CPF) do contratante.</xs:documentation>
                                                                                 </xs:annotation>
                                                                             </xs:element>
                                                                             <xs:element name="tpInscProp" type="TS_tpInsc_1_2">
                                                                                 <xs:annotation>
-                                                                                    <xs:documentation>Tipo de Inscrição do proprietário do CNO.</xs:documentation>
+                                                                                    <xs:documentation>Tipo de inscrição do proprietário do CNO.</xs:documentation>
                                                                                 </xs:annotation>
                                                                             </xs:element>
                                                                             <xs:element name="nrInscProp" type="TS_nrInsc_11_14">
@@ -376,34 +320,34 @@
                                                                 </xs:element>
                                                                 <xs:element name="dadosOpPort" minOccurs="0">
                                                                     <xs:annotation>
-                                                                        <xs:documentation>Informações relativas ao operador portuário</xs:documentation>
-                                                                        <xs:documentation>CONDICAO_GRUPO: O (se {tpLotacao} = [08]); N (nos demais casos)</xs:documentation>
+                                                                        <xs:documentation>Informações relativas ao operador portuário.</xs:documentation>
+                                                                        <xs:documentation>CONDICAO_GRUPO: O (se {tpLotacao}(1020_infoLotacao_inclusao_dadosLotacao_tpLotacao) em S-1020 relativo a {codLotacao}(../codLotacao) for igual a [08]); N (nos demais casos)</xs:documentation>
                                                                     </xs:annotation>
                                                                     <xs:complexType>
                                                                         <xs:sequence>
                                                                             <xs:element name="cnpjOpPortuario" type="TS_cnpj">
                                                                                 <xs:annotation>
                                                                                     <xs:documentation>Preencher com o CNPJ do operador portuário.</xs:documentation>
-                                                                                    <xs:documentation>Origem: {dadosLotacao/nrInsc} do evento S-1020.</xs:documentation>
+                                                                                    <xs:documentation>Origem: campo {dadosLotacao/nrInsc}(1020_infoLotacao_inclusao_dadosLotacao_nrInsc) de S-1020.</xs:documentation>
                                                                                 </xs:annotation>
                                                                             </xs:element>
                                                                             <xs:element name="aliqRat" type="TS_aliqRat">
                                                                                 <xs:annotation>
-                                                                                    <xs:documentation>Preencher com a alíquota definida na legislação vigente para a atividade (CNAE) preponderante. A divergência só é permitida se existir o registro complementar com informações sobre o processo administrativo/judicial que permite a aplicação de alíquotas diferentes.</xs:documentation>
-                                                                                    <xs:documentation>Origem: {dadosOpPort/aliqRat} do evento S-1020.</xs:documentation>
+                                                                                    <xs:documentation>Informar a alíquota RAT.</xs:documentation>
+                                                                                    <xs:documentation>Origem: campo {dadosOpPort/aliqRat}(1020_infoLotacao_inclusao_dadosOpPort_aliqRat) de S-1020.</xs:documentation>
                                                                                 </xs:annotation>
                                                                             </xs:element>
                                                                             <xs:element name="fap" type="TS_fap">
                                                                                 <xs:annotation>
                                                                                     <xs:documentation>Fator Acidentário de Prevenção - FAP.</xs:documentation>
-                                                                                    <xs:documentation>Origem: {dadosOpPort/fap} do evento S-1020.</xs:documentation>
+                                                                                    <xs:documentation>Origem: campo {dadosOpPort/fap}(1020_infoLotacao_inclusao_dadosOpPort_fap) de S-1020.</xs:documentation>
                                                                                 </xs:annotation>
                                                                             </xs:element>
                                                                             <xs:element name="aliqRatAjust">
                                                                                 <xs:simpleType>
                                                                                     <xs:annotation>
                                                                                         <xs:documentation>Alíquota do RAT após ajuste pelo FAP.</xs:documentation>
-                                                                                        <xs:documentation>Validação: Deve corresponder ao resultado da multiplicação dos campos {aliqRat} e {fap}.</xs:documentation>
+                                                                                        <xs:documentation>Validação: Deve corresponder ao resultado da multiplicação dos campos {dadosOpPort/aliqRat}(./aliqRat) e {dadosOpPort/fap}(./fap).</xs:documentation>
                                                                                     </xs:annotation>
                                                                                     <xs:restriction base="xs:decimal">
                                                                                         <xs:totalDigits value="5" />
@@ -419,8 +363,9 @@
                                                                 <xs:element name="basesRemun" minOccurs="0" maxOccurs="99">
                                                                     <xs:annotation>
                                                                         <xs:documentation>Bases de cálculo por categoria</xs:documentation>
+                                                                        <xs:documentation>DESCRICAO_COMPLETA:Bases de cálculo da contribuição previdenciária incidente sobre remunerações, por categoria.</xs:documentation>
                                                                         <xs:documentation>CHAVE_GRUPO: {indIncid}, {codCateg}</xs:documentation>
-                                                                        <xs:documentation>CONDICAO_GRUPO: O (Se houver evento S-1200 ou S-2299/S-2399 com informações de remuneração válido na competência relativo ao estabelecimento identificado em {nrInsc}); N (Nas demais situações)</xs:documentation>
+                                                                        <xs:documentation>CONDICAO_GRUPO: O (se houver evento S-1200/S-2299/S-2399 com informações de remuneração válido na competência relativo ao estabelecimento identificado em {ideEstab/nrInsc}(../../tpInsc)); N (nos demais casos)</xs:documentation>
                                                                     </xs:annotation>
                                                                     <xs:complexType>
                                                                         <xs:sequence>
@@ -428,16 +373,16 @@
                                                                                 <xs:simpleType>
                                                                                     <xs:annotation>
                                                                                         <xs:documentation>Preencher com o código correspondente ao tipo de incidência para fins de apuração da contribuição previdenciária.</xs:documentation>
-                                                                                        <xs:documentation>Validação: a) Para empresas da {classTrib} = [01, 70, 80] todas as bases de cálculo devem ser totalizadas com {indIncid} igual a [9]</xs:documentation>
-                                                                                        <xs:documentation>b) Para empresas com {classTrib} igual a [03], considerar a informação prestada no campo {indSimples} do evento S-5001, conforme abaixo:</xs:documentation>
-                                                                                        <xs:documentation>- Se o {indSimples} for igual a [1] (contrib. Subst. Integralmente) a base de cálculo do respectivo trabalhador deve ser totalizada com {indIncid} igual a [9]</xs:documentation>
-                                                                                        <xs:documentation>- Se o {indSimples} for igual a [2] (contrib. não Substituída) a base de cálculo do respectivo trabalhador deve ser totalizada com {indIncid} igual a [1] (normal)</xs:documentation>
-                                                                                        <xs:documentation>- Se o {indSimples} for igual a [3] (ativ. concomitante) a base de cálculo do respectivo trabalhador deve ser totalizada com {indIncid} igual a [2]. c) Para empresas com {classTrib} igual a [10] (Sindicato de Avulsos Não Portuários), as bases de cálculo dos trabalhadores avulsos da categoria [202] devem ser totalizadas com {indIncid} igual a [9]</xs:documentation>
-                                                                                        <xs:documentation>d) Para {classTrib} igual a [22] (Segurado Especial), as bases de cálculo dos trabalhadores devem ser totalizadas com {indIncid} igual a [9], EXCETO para a categoria [104] (empregado doméstico), que deve ser totalizada com {indIncid} = [1]</xs:documentation>
-                                                                                        <xs:documentation>e) Para contribuinte com {classTrib} igual a [99] e com {indCoop} igual a [1] (cooperativa de trabalho), as remunerações dos cooperados (Categoria 731 e 734) cuja lotação esteja classificada com {tpLotacao} igual a [05, 06, 07] devem ser totalizadas com {indIncid} igual a [9]</xs:documentation>
-                                                                                        <xs:documentation>Nos demais casos, o {indIncid} deve ser igual a [1]</xs:documentation>
-                                                                                        <xs:documentation>f) Para contribuintes com {classTrib} igual a [11], as bases de cálculo dos trabalhadores devem ser totalizadas com {indIncid} igual a [9], EXCETO para as categorias de contribuinte individual, que devem ser totalizadas com {indIncid} = [1]</xs:documentation>
-                                                                                        <xs:documentation>g) Para {tpLotação} igual a [91], todas as bases de cálculo devem ser totalizadas com {indIncid} igual a [9].</xs:documentation>
+                                                                                        <xs:documentation>Validação: a) Para empresas com {classTrib}(5011_infoCS_infoContrib_classTrib) = [01, 70, 80], todas as bases de cálculo devem ser totalizadas com {indIncid}(./indincid) = [9].</xs:documentation>
+                                                                                        <xs:documentation>b) Para empresas com {classTrib}(5011_infoCS_infoContrib_classTrib) = [03], considerar a informação prestada no campo {indSimples}(5001_infoCp_ideEstabLot_infoCategIncid_indSimples) do evento S-5001, conforme abaixo:</xs:documentation>
+                                                                                        <xs:documentation>- Se o {indSimples}(5001_infoCp_ideEstabLot_infoCategIncid_indSimples) em S-5001 = [1] (contrib. subst. integralmente), a base de cálculo do respectivo trabalhador deve ser totalizada com {indIncid}(./indincid) = [9];</xs:documentation>
+                                                                                        <xs:documentation>- Se o {indSimples}(5001_infoCp_ideEstabLot_infoCategIncid_indSimples) em S-5001 = [2] (contrib. não substituída), a base de cálculo do respectivo trabalhador deve ser totalizada com {indIncid}(./indincid) = [1] (normal);</xs:documentation>
+                                                                                        <xs:documentation>- Se o {indSimples}(5001_infoCp_ideEstabLot_infoCategIncid_indSimples) em S-5001 = [3] (ativ. concomitante), a base de cálculo do respectivo trabalhador deve ser totalizada com {indIncid}(./indincid) = [2].</xs:documentation>
+                                                                                        <xs:documentation>c) Para empresas com {classTrib}(5011_infoCS_infoContrib_classTrib) = [10] (sindicato de avulsos não portuários), as bases de cálculo dos trabalhadores avulsos da categoria [202] devem ser totalizadas com {indIncid}(./indincid) = [9].</xs:documentation>
+                                                                                        <xs:documentation>d) Para {classTrib}(5011_infoCS_infoContrib_classTrib) = [22] (segurado especial), as bases de cálculo dos trabalhadores devem ser totalizadas com {indIncid}(./indincid) = [9], EXCETO para a categoria [104] (empregado doméstico), que deve ser totalizada com {indIncid}(./indincid) = [1].</xs:documentation>
+                                                                                        <xs:documentation>e) Para contribuinte com {classTrib}(5011_infoCS_infoContrib_classTrib) = [99] e com {indCoop}(5011_infoCS_infoContrib_infoPJ_indCoop) = [1] (cooperativa de trabalho), as remunerações dos cooperados (categoria [731, 734]) cuja lotação esteja classificada com {tpLotacao}(1020_infoLotacao_inclusao_dadosLotacao_tpLotacao) em S-1020 = [05, 06, 07] devem ser totalizadas com {indIncid}(./indincid) = [9]. Nos demais casos, o {indIncid}(./indincid) = [1].</xs:documentation>
+                                                                                        <xs:documentation>f) Para contribuintes com {classTrib}(5011_infoCS_infoContrib_classTrib) = [11], as bases de cálculo dos trabalhadores devem ser totalizadas com {indIncid}(./indincid) = [9], EXCETO para as categorias de contribuinte individual, que devem ser totalizadas com {indIncid}(./indincid) = [1].</xs:documentation>
+                                                                                        <xs:documentation>g) Para {tpLotacao}(1020_infoLotacao_inclusao_dadosLotacao_tpLotacao) em S-1020 = [91], todas as bases de cálculo devem ser totalizadas com {indIncid}(./indincid) = [9].</xs:documentation>
                                                                                     </xs:annotation>
                                                                                     <xs:restriction base="xs:byte">
                                                                                         <xs:enumeration value="1">
@@ -447,12 +392,12 @@
                                                                                         </xs:enumeration>
                                                                                         <xs:enumeration value="2">
                                                                                             <xs:annotation>
-                                                                                                <xs:documentation>Ativ. Concomitante</xs:documentation>
+                                                                                                <xs:documentation>Atividade concomitante</xs:documentation>
                                                                                             </xs:annotation>
                                                                                         </xs:enumeration>
                                                                                         <xs:enumeration value="9">
                                                                                             <xs:annotation>
-                                                                                                <xs:documentation>Substituída ou Isenta</xs:documentation>
+                                                                                                <xs:documentation>Substituída ou isenta</xs:documentation>
                                                                                             </xs:annotation>
                                                                                         </xs:enumeration>
                                                                                     </xs:restriction>
@@ -466,139 +411,141 @@
                                                                             <xs:element name="basesCp">
                                                                                 <xs:annotation>
                                                                                     <xs:documentation>Bases, contribuições do segurado e deduções da CP</xs:documentation>
+                                                                                    <xs:documentation>DESCRICAO_COMPLETA:Valores correspondentes às bases, contribuições do segurado e deduções da contribuição previdenciária.</xs:documentation>
                                                                                 </xs:annotation>
                                                                                 <xs:complexType>
                                                                                     <xs:sequence>
                                                                                         <xs:element name="vrBcCp00" type="TS_valorMonetario">
                                                                                             <xs:annotation>
-                                                                                                <xs:documentation>Origem dos valores apurados nesse campo:</xs:documentation>
-                                                                                                <xs:documentation>Para {codCateg} diferente de [104]: Somatório do campo {valor}, quando {tpValor} = [11, 15], do grupo {infoBaseCS} no evento S-5001. Para {codCateg} = [104]: Somatório do campo {valor}, quando {tpValor} = [11, 15], do grupo{infoBaseCS} no evento S-5001, limitado ao teto do salário de contribuição.</xs:documentation>
-                                                                                                <xs:documentation>OBS: A contribuição previdenciária patronal do empregador doméstico tem como base de cálculo o somatório do salário de contribuição de cada empregado.</xs:documentation>
+                                                                                                <xs:documentation>Preencher com a base de cálculo da contribuição previdenciária sobre a remuneração.</xs:documentation>
+                                                                                                <xs:documentation>Origem: para {codCateg}(../codCateg) diferente de [104]: somatório do campo {valor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_valor) de S-5001, quando {tpValor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor) em S-5001 = [11, 15]; para {codCateg}(../codCateg) = [104]: somatório do campo {valor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_valor) de S-5001, quando {tpValor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor) em S-5001 = [11, 15], limitado ao teto do salário de contribuição.</xs:documentation>
+                                                                                                <xs:documentation>OBS.: A contribuição previdenciária patronal do empregador doméstico tem como base de cálculo o somatório do salário de contribuição de cada empregado.</xs:documentation>
                                                                                             </xs:annotation>
                                                                                         </xs:element>
                                                                                         <xs:element name="vrBcCp15" type="TS_valorMonetario">
                                                                                             <xs:annotation>
                                                                                                 <xs:documentation>Preencher com a base de cálculo da contribuição adicional para o financiamento dos benefícios de aposentadoria especial após 15 anos de contribuição.</xs:documentation>
-                                                                                                <xs:documentation>Origem: campo {valor}, se {tpValor} = [12, 16] - Base de cálculo da Contribuição Previdenciária adicional para o financiamento dos benefícios de aposentadoria especial após 15 anos de contribuição, do grupo {infoBaseCS} no evento S-5001.</xs:documentation>
+                                                                                                <xs:documentation>Origem: campo {valor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_valor) de S-5001, se {tpValor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor) em S-5001 = [12, 16].</xs:documentation>
                                                                                             </xs:annotation>
                                                                                         </xs:element>
                                                                                         <xs:element name="vrBcCp20" type="TS_valorMonetario">
                                                                                             <xs:annotation>
                                                                                                 <xs:documentation>Preencher com a base de cálculo da contribuição adicional para o financiamento dos benefícios de aposentadoria especial após 20 anos de contribuição.</xs:documentation>
-                                                                                                <xs:documentation>Origem: campo {valor}, quando {tpValor} = [13, 17] - Base de cálculo da Contribuição Previdenciária adicional para o financiamento dos benefícios de aposentadoria especial após 20 anos de contribuição, do grupo {infoBaseCS} no evento S-5001.</xs:documentation>
+                                                                                                <xs:documentation>Origem: campo {valor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_valor) de S-5001, quando {tpValor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor) em S-5001 = [13, 17].</xs:documentation>
                                                                                             </xs:annotation>
                                                                                         </xs:element>
                                                                                         <xs:element name="vrBcCp25" type="TS_valorMonetario">
                                                                                             <xs:annotation>
                                                                                                 <xs:documentation>Preencher com a base de cálculo da contribuição adicional para o financiamento dos benefícios de aposentadoria especial após 25 anos de contribuição.</xs:documentation>
-                                                                                                <xs:documentation>Origem: campo {valor}, quando {tpValor} = [14, 18] - Base de cálculo da Contribuição Previdenciária adicional para o financiamento dos benefícios de aposentadoria especial após 25 anos de contribuição, do grupo {infoBaseCS} no evento S-5001.</xs:documentation>
+                                                                                                <xs:documentation>Origem: campo {valor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_valor) de S-5001, quando {tpValor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor) em S-5001 = [14, 18].</xs:documentation>
                                                                                             </xs:annotation>
                                                                                         </xs:element>
                                                                                         <xs:element name="vrSuspBcCp00" type="TS_valorMonetario">
                                                                                             <xs:annotation>
                                                                                                 <xs:documentation>Valor da BC com incidência suspensa em decorrência de decisão judicial.</xs:documentation>
-                                                                                                <xs:documentation>Origem: campo {valor} quando {tpValor} = [91, 95] - Incidência suspensa em decorrência de decisão judicial do grupo {infoBaseCS} no evento S-5001.</xs:documentation>
+                                                                                                <xs:documentation>Origem: campo {valor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_valor) de S-5001, quando {tpValor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor) em S-5001 = [91, 95].</xs:documentation>
                                                                                             </xs:annotation>
                                                                                         </xs:element>
                                                                                         <xs:element name="vrSuspBcCp15" type="TS_valorMonetario">
                                                                                             <xs:annotation>
                                                                                                 <xs:documentation>Valor da base de cálculo da contribuição previdenciária adicional correspondente a exposição a agente nocivo que dá ao trabalhador direito a aposentadoria especial aos 15 anos de trabalho, com incidência suspensa em decorrência de decisão judicial.</xs:documentation>
-                                                                                                <xs:documentation>Origem: campo {valor}, quando {tpValor} = [92, 96] - Incidência suspensa em decorrência de decisão judicial, do grupo {infoBaseCS} no evento S-5001.</xs:documentation>
+                                                                                                <xs:documentation>Origem: campo {valor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_valor) de S-5001, quando {tpValor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor) em S-5001 = [92, 96].</xs:documentation>
                                                                                             </xs:annotation>
                                                                                         </xs:element>
                                                                                         <xs:element name="vrSuspBcCp20" type="TS_valorMonetario">
                                                                                             <xs:annotation>
                                                                                                 <xs:documentation>Valor da base de cálculo da contribuição previdenciária adicional correspondente a exposição a agente nocivo que dá ao trabalhador expectativa de aposentadoria especial aos 20 anos de trabalho, com incidência suspensa em decorrência de decisão judicial.</xs:documentation>
-                                                                                                <xs:documentation>Origem: campo {valor}, quando {tpValor} = [93, 97] - Incidência suspensa em decorrência de decisão judicial, do grupo {infoBaseCS} no evento S-5001.</xs:documentation>
+                                                                                                <xs:documentation>Origem: campo {valor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_valor) de S-5001, quando {tpValor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor) em S-5001 = [93, 97].</xs:documentation>
                                                                                             </xs:annotation>
                                                                                         </xs:element>
                                                                                         <xs:element name="vrSuspBcCp25" type="TS_valorMonetario">
                                                                                             <xs:annotation>
                                                                                                 <xs:documentation>Valor da base de cálculo da contribuição previdenciária adicional correspondente a exposição a agente nocivo que dá ao trabalhador direito a aposentadoria especial aos 25 anos de trabalho, com incidência suspensa em decorrência de decisão judicial.</xs:documentation>
-                                                                                                <xs:documentation>Origem: campo {valor}, quando {tpValor} = [94, 98] - Incidência suspensa em decorrência de decisão judicial, do grupo {infoBaseCS} no evento S-5001.</xs:documentation>
+                                                                                                <xs:documentation>Origem: campo {valor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_valor) de S-5001, quando {tpValor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor) em S-5001 = [94, 98].</xs:documentation>
                                                                                             </xs:annotation>
                                                                                         </xs:element>
                                                                                         <xs:element name="vrBcCp00VA" minOccurs="0" type="TS_valorMonetario">
                                                                                             <xs:annotation>
-                                                                                                <xs:documentation>Origem dos valores apurados nesse campo: Preencher com o somatório do campo {valor}, quando {tpValor} = [41, 45], do grupo {infoBaseCS} no evento S-5001.</xs:documentation>
+                                                                                                <xs:documentation>Preencher com a base de cálculo da contribuição previdenciária sobre a remuneração - Contrato Verde e Amarelo.</xs:documentation>
+                                                                                                <xs:documentation>Origem: somatório do campo {valor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_valor) de S-5001, quando {tpValor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor) em S-5001 = [41, 45].</xs:documentation>
                                                                                             </xs:annotation>
                                                                                         </xs:element>
                                                                                         <xs:element name="vrBcCp15VA" minOccurs="0" type="TS_valorMonetario">
                                                                                             <xs:annotation>
-                                                                                                <xs:documentation>Preencher com a base de cálculo da contribuição adicional para o financiamento dos benefícios de aposentadoria especial após 15 anos de contribuição.</xs:documentation>
-                                                                                                <xs:documentation>Origem: campo {valor}, se {tpValor} = [42, 46] - Base de cálculo da Contribuição Previdenciária adicional para o financiamento dos benefícios de aposentadoria especial após 15 anos de contribuição, do grupo {infoBaseCS} no evento S-5001.</xs:documentation>
+                                                                                                <xs:documentation>Preencher com a base de cálculo da contribuição adicional para o financiamento dos benefícios de aposentadoria especial após 15 anos de contribuição - Contrato Verde e Amarelo.</xs:documentation>
+                                                                                                <xs:documentation>Origem: campo {valor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_valor) de S-5001, se {tpValor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor) em S-5001 = [42, 46].</xs:documentation>
                                                                                             </xs:annotation>
                                                                                         </xs:element>
                                                                                         <xs:element name="vrBcCp20VA" minOccurs="0" type="TS_valorMonetario">
                                                                                             <xs:annotation>
-                                                                                                <xs:documentation>Preencher com a base de cálculo da contribuição adicional para o financiamento dos benefícios de aposentadoria especial após 20 anos de contribuição.</xs:documentation>
-                                                                                                <xs:documentation>Origem: campo {valor}, quando {tpValor} = [43, 47] - Base de cálculo da Contribuição Previdenciária adicional para o financiamento dos benefícios de aposentadoria especial após 20 anos de contribuição, do grupo {infoBaseCS} no evento S-5001.</xs:documentation>
+                                                                                                <xs:documentation>Preencher com a base de cálculo da contribuição adicional para o financiamento dos benefícios de aposentadoria especial após 20 anos de contribuição - Contrato Verde e Amarelo.</xs:documentation>
+                                                                                                <xs:documentation>Origem: campo {valor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_valor) de S-5001, quando {tpValor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor) em S-5001 = [43, 47].</xs:documentation>
                                                                                             </xs:annotation>
                                                                                         </xs:element>
                                                                                         <xs:element name="vrBcCp25VA" minOccurs="0" type="TS_valorMonetario">
                                                                                             <xs:annotation>
-                                                                                                <xs:documentation>Preencher com a base de cálculo da contribuição adicional para o financiamento dos benefícios de aposentadoria especial após 25 anos de contribuição.</xs:documentation>
-                                                                                                <xs:documentation>Origem: campo {valor}, quando {tpValor} = [44, 48] - Base de cálculo da Contribuição Previdenciária adicional para o financiamento dos benefícios de aposentadoria especial após 20 anos de contribuição, do grupo {infoBaseCS} no evento S-5001.</xs:documentation>
+                                                                                                <xs:documentation>Preencher com a base de cálculo da contribuição adicional para o financiamento dos benefícios de aposentadoria especial após 25 anos de contribuição - Contrato Verde e Amarelo.</xs:documentation>
+                                                                                                <xs:documentation>Origem: campo {valor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_valor) de S-5001, quando {tpValor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor) em S-5001 = [44, 48].</xs:documentation>
                                                                                             </xs:annotation>
                                                                                         </xs:element>
                                                                                         <xs:element name="vrSuspBcCp00VA" minOccurs="0" type="TS_valorMonetario">
                                                                                             <xs:annotation>
-                                                                                                <xs:documentation>Valor da BC com incidência suspensa em decorrência de decisão judicial.</xs:documentation>
-                                                                                                <xs:documentation>Origem: campo {valor} quando {tpValor} = [81, 85] - Incidência suspensa em decorrência de decisão judicial do grupo {infoBaseCS} no evento S-5001.</xs:documentation>
+                                                                                                <xs:documentation>Valor da BC com incidência suspensa em decorrência de decisão judicial - Contrato Verde e Amarelo.</xs:documentation>
+                                                                                                <xs:documentation>Origem: campo {valor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_valor) de S-5001, quando {tpValor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor) em S-5001 = [81, 85].</xs:documentation>
                                                                                             </xs:annotation>
                                                                                         </xs:element>
                                                                                         <xs:element name="vrSuspBcCp15VA" minOccurs="0" type="TS_valorMonetario">
                                                                                             <xs:annotation>
-                                                                                                <xs:documentation>Valor da base de cálculo da contribuição previdenciária adicional correspondente a exposição a agente nocivo que dá ao trabalhador direito a aposentadoria especial aos 15 anos de trabalho, com incidência suspensa em decorrência de decisão judicial.</xs:documentation>
-                                                                                                <xs:documentation>Origem: campo {valor}, quando {tpValor} = [82, 86] - Incidência suspensa em decorrência de decisão judicial, do grupo {infoBaseCS} no evento S-5001.</xs:documentation>
+                                                                                                <xs:documentation>Valor da base de cálculo da contribuição previdenciária adicional correspondente a exposição a agente nocivo que dá ao trabalhador direito a aposentadoria especial aos 15 anos de trabalho, com incidência suspensa em decorrência de decisão judicial - Contrato Verde e Amarelo.</xs:documentation>
+                                                                                                <xs:documentation>Origem: campo {valor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_valor) de S-5001, quando {tpValor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor) em S-5001 = [82, 86].</xs:documentation>
                                                                                             </xs:annotation>
                                                                                         </xs:element>
                                                                                         <xs:element name="vrSuspBcCp20VA" minOccurs="0" type="TS_valorMonetario">
                                                                                             <xs:annotation>
-                                                                                                <xs:documentation>Valor da base de cálculo da contribuição previdenciária adicional correspondente a exposição a agente nocivo que dá ao trabalhador expectativa de aposentadoria especial aos 20 anos de trabalho, com incidência suspensa em decorrência de decisão judicial.</xs:documentation>
-                                                                                                <xs:documentation>Origem: campo {valor}, quando {tpValor} = [83, 87] - Incidência suspensa em decorrência de decisão judicial, do grupo {infoBaseCS} no evento S-5001.</xs:documentation>
+                                                                                                <xs:documentation>Valor da base de cálculo da contribuição previdenciária adicional correspondente a exposição a agente nocivo que dá ao trabalhador expectativa de aposentadoria especial aos 20 anos de trabalho, com incidência suspensa em decorrência de decisão judicial - Contrato Verde e Amarelo.</xs:documentation>
+                                                                                                <xs:documentation>Origem: campo {valor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_valor) de S-5001, quando {tpValor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor) em S-5001 = [83, 87].</xs:documentation>
                                                                                             </xs:annotation>
                                                                                         </xs:element>
                                                                                         <xs:element name="vrSuspBcCp25VA" minOccurs="0" type="TS_valorMonetario">
                                                                                             <xs:annotation>
-                                                                                                <xs:documentation>Valor da base de cálculo da contribuição previdenciária adicional correspondente a exposição a agente nocivo que dá ao trabalhador direito a aposentadoria especial aos 25 anos de trabalho, com incidência suspensa em decorrência de decisão judicial.</xs:documentation>
-                                                                                                <xs:documentation>Origem: campo {valor}, quando {tpValor} = [84, 88] - Incidência suspensa em decorrência de decisão judicial, do grupo {infoBaseCS} no evento S-5001.</xs:documentation>
+                                                                                                <xs:documentation>Valor da base de cálculo da contribuição previdenciária adicional correspondente a exposição a agente nocivo que dá ao trabalhador direito a aposentadoria especial aos 25 anos de trabalho, com incidência suspensa em decorrência de decisão judicial - Contrato Verde e Amarelo.</xs:documentation>
+                                                                                                <xs:documentation>Origem: campo {valor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_valor) de S-5001, quando {tpValor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor) em S-5001 = [84, 88].</xs:documentation>
                                                                                             </xs:annotation>
                                                                                         </xs:element>
                                                                                         <xs:element name="vrDescSest" type="TS_valorMonetario">
                                                                                             <xs:annotation>
-                                                                                                <xs:documentation>Valor total descontado do trabalhador para recolhimento ao Sest.</xs:documentation>
-                                                                                                <xs:documentation>Origem: campo {valor}, quando {tpValor} = [22] - Valor total descontado do trabalhador para recolhimento ao Sest, do grupo {infoBaseCS} no evento S-5001.</xs:documentation>
+                                                                                                <xs:documentation>Valor total descontado do trabalhador para recolhimento ao SEST.</xs:documentation>
+                                                                                                <xs:documentation>Origem: campo {valor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_valor) de S-5001, quando {tpValor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor) em S-5001 = [22].</xs:documentation>
                                                                                             </xs:annotation>
                                                                                         </xs:element>
                                                                                         <xs:element name="vrCalcSest" type="TS_valorMonetario">
                                                                                             <xs:annotation>
-                                                                                                <xs:documentation>Valor calculado relativo à contribuição devida pelo trabalhador para recolhimento ao Sest.</xs:documentation>
-                                                                                                <xs:documentation>Origem: campo {valor}, quando {codCR} = [1218-02] - Valor calculado do trabalhador para recolhimento ao Sest, do grupo {calcTerc} no evento S-5001, exceto se houver informação de processo judicial do trabalhador quando deve ser utilizado o valor apurado em {vrDescSest}.</xs:documentation>
+                                                                                                <xs:documentation>Valor calculado relativo à contribuição devida pelo trabalhador para recolhimento ao SEST.</xs:documentation>
+                                                                                                <xs:documentation>Origem: campo {vrCsSegTerc}(5001_infoCp_ideEstabLot_infoCategIncid_calcTerc_vrCsSegTerc) de S-5001, quando {calcTerc/tpCR}(5001_infoCp_ideEstabLot_infoCategIncid_calcTerc_tpCR) em S-5001 = [121802], exceto se houver informação de processo judicial do trabalhador, quando deve ser utilizado o valor apurado em {vrDescSest}(./vrDescSest).</xs:documentation>
                                                                                             </xs:annotation>
                                                                                         </xs:element>
                                                                                         <xs:element name="vrDescSenat" type="TS_valorMonetario">
                                                                                             <xs:annotation>
-                                                                                                <xs:documentation>Valor total descontado do trabalhador para recolhimento ao Senat.</xs:documentation>
-                                                                                                <xs:documentation>Origem: campo {valor}, quando {tpValor} = [23] - Valor total descontado do trabalhador para recolhimento ao Senat, do grupo {infoBaseCS} no evento S-5001.</xs:documentation>
+                                                                                                <xs:documentation>Valor total descontado do trabalhador para recolhimento ao SENAT.</xs:documentation>
+                                                                                                <xs:documentation>Origem: campo {valor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_valor) de S-5001, quando {tpValor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor) em S-5001 = [23].</xs:documentation>
                                                                                             </xs:annotation>
                                                                                         </xs:element>
                                                                                         <xs:element name="vrCalcSenat" type="TS_valorMonetario">
                                                                                             <xs:annotation>
-                                                                                                <xs:documentation>Valor calculado relativo à contribuição devida pelo trabalhador para recolhimento ao Senat.</xs:documentation>
-                                                                                                <xs:documentation>Origem: campo {valor}, quando {codCR} = [1221-02] - Valor calculado do trabalhador para recolhimento ao Senat, do grupo {calcTerc} no evento S-5001, exceto se houver informação de processo judicial do trabalhador quando deve ser utilizado o valor apurado em {vrDescSenat}.</xs:documentation>
+                                                                                                <xs:documentation>Valor calculado relativo à contribuição devida pelo trabalhador para recolhimento ao SENAT.</xs:documentation>
+                                                                                                <xs:documentation>Origem: campo {vrCsSegTerc}(5001_infoCp_ideEstabLot_infoCategIncid_calcTerc_vrCsSegTerc) de S-5001, quando {calcTerc/tpCR}(5001_infoCp_ideEstabLot_infoCategIncid_calcTerc_tpCR) em S-5001 = [122102], exceto se houver informação de processo judicial do trabalhador, quando deve ser utilizado o valor apurado em {vrDescSenat}(./vrDescSenat).</xs:documentation>
                                                                                             </xs:annotation>
                                                                                         </xs:element>
                                                                                         <xs:element name="vrSalFam" type="TS_valorMonetario">
                                                                                             <xs:annotation>
-                                                                                                <xs:documentation>Valor total do salário-família para a categoria indicada no registro superior.</xs:documentation>
-                                                                                                <xs:documentation>Origem: campo {valor}, quando {tpValor} = [31] - Valor pago ao trabalhador a título de salário-família, do grupo {infoBaseCS} no evento S-5001.</xs:documentation>
+                                                                                                <xs:documentation>Valor total do salário-família para a categoria indicada.</xs:documentation>
+                                                                                                <xs:documentation>Origem: campo {valor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_valor) de S-5001, quando {tpValor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor) em S-5001 = [31].</xs:documentation>
                                                                                             </xs:annotation>
                                                                                         </xs:element>
                                                                                         <xs:element name="vrSalMat" type="TS_valorMonetario">
                                                                                             <xs:annotation>
                                                                                                 <xs:documentation>Valor total do salário-maternidade para a categoria indicada.</xs:documentation>
-                                                                                                <xs:documentation>Origem: campo {valor}, quando {tpValor} = [32] - Valor pago ao trabalhador a título de salário-maternidade, do grupo {infoBaseCS} no evento S-5001.</xs:documentation>
+                                                                                                <xs:documentation>Origem: campo {valor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_valor) de S-5001, quando {tpValor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor) em S-5001 = [32].</xs:documentation>
                                                                                             </xs:annotation>
                                                                                         </xs:element>
                                                                                     </xs:sequence>
@@ -610,38 +557,46 @@
                                                                 <xs:element name="basesAvNPort" minOccurs="0">
                                                                     <xs:annotation>
                                                                         <xs:documentation>Contratação de avulsos não portuários</xs:documentation>
-                                                                        <xs:documentation>CONDICAO_GRUPO: O (Se houver evento S-1270 válido na competência relativo ao estabelecimento identificado em {nrInsc}); N (Nas demais situações)</xs:documentation>
+                                                                        <xs:documentation>DESCRICAO_COMPLETA:Informações de bases de cálculo relativas à contratação de trabalhadores avulsos não portuários.</xs:documentation>
+                                                                        <xs:documentation>Informações desse grupo conforme informado pelo contribuinte em S-1270.</xs:documentation>
+                                                                        <xs:documentation>CONDICAO_GRUPO: O (se houver evento S-1270 válido na competência relativo ao estabelecimento identificado em {ideEstab/nrInsc}(../../tpInsc)); N (nos demais casos)</xs:documentation>
                                                                     </xs:annotation>
                                                                     <xs:complexType>
                                                                         <xs:sequence>
                                                                             <xs:element name="vrBcCp00" type="TS_valorMonetario">
                                                                                 <xs:annotation>
-                                                                                    <xs:documentation>Origem: {vrBcCp00} do evento S-1270.</xs:documentation>
+                                                                                    <xs:documentation>Valor da base de cálculo da contribuição previdenciária sobre a remuneração dos trabalhadores avulsos não portuários.</xs:documentation>
+                                                                                    <xs:documentation>Origem: campo {vrBcCp00}(1270_remunAvNP_vrBcCp00) de S-1270.</xs:documentation>
                                                                                 </xs:annotation>
                                                                             </xs:element>
                                                                             <xs:element name="vrBcCp15" type="TS_valorMonetario">
                                                                                 <xs:annotation>
-                                                                                    <xs:documentation>Origem: {vrBcCp15} do evento S-1270.</xs:documentation>
+                                                                                    <xs:documentation>Valor da base de cálculo da contribuição adicional para o financiamento dos benefícios de aposentadoria especial após 15 anos de contribuição.</xs:documentation>
+                                                                                    <xs:documentation>Origem: campo {vrBcCp15}(1270_remunAvNP_vrBcCp15) de S-1270.</xs:documentation>
                                                                                 </xs:annotation>
                                                                             </xs:element>
                                                                             <xs:element name="vrBcCp20" type="TS_valorMonetario">
                                                                                 <xs:annotation>
-                                                                                    <xs:documentation>Origem: {vrBcCp20} do evento S-1270.</xs:documentation>
+                                                                                    <xs:documentation>Valor da base de cálculo da contribuição adicional para o financiamento dos benefícios de aposentadoria especial após 20 anos de contribuição.</xs:documentation>
+                                                                                    <xs:documentation>Origem: campo {vrBcCp20}(1270_remunAvNP_vrBcCp20) de S-1270.</xs:documentation>
                                                                                 </xs:annotation>
                                                                             </xs:element>
                                                                             <xs:element name="vrBcCp25" type="TS_valorMonetario">
                                                                                 <xs:annotation>
-                                                                                    <xs:documentation>Origem: {vrBcCp25} do evento S-1270.</xs:documentation>
+                                                                                    <xs:documentation>Valor da base de cálculo da contribuição adicional para o financiamento dos benefícios de aposentadoria especial após 25 anos de contribuição.</xs:documentation>
+                                                                                    <xs:documentation>Origem: campo {vrBcCp25}(1270_remunAvNP_vrBcCp25) de S-1270.</xs:documentation>
                                                                                 </xs:annotation>
                                                                             </xs:element>
                                                                             <xs:element name="vrBcCp13" type="TS_valorMonetario">
                                                                                 <xs:annotation>
-                                                                                    <xs:documentation>Origem: {vrBcCp13} do evento S-1270.</xs:documentation>
+                                                                                    <xs:documentation>Valor da base de cálculo da contribuição previdenciária sobre o 13° salário dos trabalhadores avulsos não portuários contratados.</xs:documentation>
+                                                                                    <xs:documentation>Origem: campo {vrBcCp13}(1270_remunAvNP_vrBcCp13) de S-1270.</xs:documentation>
                                                                                 </xs:annotation>
                                                                             </xs:element>
                                                                             <xs:element name="vrDescCP" type="TS_valorMonetario">
                                                                                 <xs:annotation>
-                                                                                    <xs:documentation>Origem: {vrDescCP} do evento S-1270.</xs:documentation>
+                                                                                    <xs:documentation>Preencher com o valor total da contribuição descontada dos trabalhadores avulsos não portuários.</xs:documentation>
+                                                                                    <xs:documentation>Origem: campo {vrDescCP}(1270_remunAvNP_vrDescCP) de S-1270.</xs:documentation>
                                                                                 </xs:annotation>
                                                                             </xs:element>
                                                                         </xs:sequence>
@@ -649,22 +604,16 @@
                                                                 </xs:element>
                                                                 <xs:element name="infoSubstPatrOpPort" minOccurs="0">
                                                                     <xs:annotation>
-                                                                        <xs:documentation>Inf. de substituição prevista na Lei 12546/2011</xs:documentation>
-                                                                        <xs:documentation>CHAVE_GRUPO: {codLotacao}</xs:documentation>
-                                                                        <xs:documentation>CONDICAO_GRUPO: OC (se {classTrib} = [09]; N (Nos demais casos)</xs:documentation>
+                                                                        <xs:documentation>Informação de substituição prevista na Lei 12.546/2011</xs:documentation>
+                                                                        <xs:documentation>DESCRICAO_COMPLETA:Grupo preenchido exclusivamente pelo Órgão Gestor de Mão de Obra - OGMO ({classTrib}(5011_infoCS_infoContrib_classTrib) = [09]), relativamente a operador portuário enquadrado nos arts. 7º a 9º da Lei 12.546/2011.</xs:documentation>
+                                                                        <xs:documentation>CONDICAO_GRUPO: OC (se {classTrib}(5011_infoCS_infoContrib_classTrib) = [09]; N (nos demais casos)</xs:documentation>
                                                                     </xs:annotation>
                                                                     <xs:complexType>
                                                                         <xs:sequence>
-                                                                            <xs:element name="codLotacao" type="TS_codigo_esocial">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Informar o código atribuído pela empresa para a lotação tributária.</xs:documentation>
-                                                                                    <xs:documentation>Origem: {codLotacao} do evento S-1280.</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:element>
                                                                             <xs:element name="cnpjOpPortuario" type="TS_cnpj">
                                                                                 <xs:annotation>
                                                                                     <xs:documentation>Preencher com o CNPJ do operador portuário.</xs:documentation>
-                                                                                    <xs:documentation>Origem: {dadosLotacao/nrInsc} do evento S-1020.</xs:documentation>
+                                                                                    <xs:documentation>Origem: campo {dadosLotacao/nrInsc}(1020_infoLotacao_inclusao_dadosLotacao_nrInsc) de S-1020 relativo a {codLotacao}(1280_infoSubstPatrOpPort_codLotacao) em S-1280.</xs:documentation>
                                                                                 </xs:annotation>
                                                                             </xs:element>
                                                                         </xs:sequence>
@@ -675,69 +624,42 @@
                                                     </xs:element>
                                                     <xs:element name="basesComerc" minOccurs="0" maxOccurs="5">
                                                         <xs:annotation>
-                                                            <xs:documentation>Informações da Comercialização da produção</xs:documentation>
+                                                            <xs:documentation>Informações da comercialização da produção</xs:documentation>
+                                                            <xs:documentation>DESCRICAO_COMPLETA:Informações de bases de cálculo relativas à comercialização da produção rural da Pessoa Física.</xs:documentation>
+                                                            <xs:documentation>Informações desse grupo conforme informado pelo contribuinte em S-1260.</xs:documentation>
                                                             <xs:documentation>CHAVE_GRUPO: {indComerc}</xs:documentation>
-                                                            <xs:documentation>CONDICAO_GRUPO: O (Se houver evento S-1260 válido na competência relativo ao estabelecimento identificado em {nrInsc}); N (Nas demais situações)</xs:documentation>
+                                                            <xs:documentation>CONDICAO_GRUPO: O (se houver evento S-1260 válido na competência relativo ao estabelecimento identificado em {ideEstab/nrInsc}(../tpInsc)); N (nos demais casos)</xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
                                                             <xs:sequence>
-                                                                <xs:element name="indComerc">
-                                                                    <xs:simpleType>
-                                                                        <xs:annotation>
-                                                                            <xs:documentation>Indicativo de Comercialização.</xs:documentation>
-                                                                            <xs:documentation>Origem: {indComerc} do S-1260.</xs:documentation>
-                                                                        </xs:annotation>
-                                                                        <xs:restriction base="xs:byte">
-                                                                            <xs:enumeration value="2">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Comercialização da Produção efetuada diretamente no varejo a consumidor final ou a outro produtor rural pessoa física por Produtor Rural Pessoa Física, inclusive por Segurado Especial ou por Pessoa Física não produtor rural</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:enumeration>
-                                                                            <xs:enumeration value="3">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Comercialização da Produção por Prod. Rural PF/Seg. Especial - Vendas a PJ (exceto Entidade inscrita no Programa de Aquisição de Alimentos - PAA) ou a Intermediário PF</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:enumeration>
-                                                                            <xs:enumeration value="7">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Comercialização da Produção Isenta de acordo com a Lei n° 13.606/2018</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:enumeration>
-                                                                            <xs:enumeration value="8">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Comercialização da Produção da Pessoa Física/Segurado Especial para Entidade inscrita no Programa de Aquisição de Alimentos - PAA</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:enumeration>
-                                                                            <xs:enumeration value="9">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Comercialização da Produção no Mercado Externo</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:enumeration>
-                                                                        </xs:restriction>
-                                                                    </xs:simpleType>
+                                                                <xs:element name="indComerc" type="TS_indComerc">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Indicativo de comercialização.</xs:documentation>
+                                                                        <xs:documentation>Origem: campo {indComerc}(1260_infoComProd_ideEstabel_tpComerc_indComerc) de S-1260.</xs:documentation>
+                                                                    </xs:annotation>
                                                                 </xs:element>
                                                                 <xs:element name="vrBcComPR" type="TS_valorMonetario">
                                                                     <xs:annotation>
-                                                                        <xs:documentation>Valor da Base de Cálculo da comercialização da produção rural do Produtor Rural PF/Segurado Especial a outra PF no varejo ou a outro Produtor Rural PF/Segurado Especial ou no mercado Externo, conforme {indComerc}.</xs:documentation>
-                                                                        <xs:documentation>Origem: {vrTotCom} do S-1260 conforme {indComerc}.</xs:documentation>
+                                                                        <xs:documentation>Valor da base de cálculo da comercialização da produção rural do produtor rural PF/segurado especial a outra PF no varejo ou a outro produtor rural PF/segurado especial ou no mercado externo, conforme {indComerc}(./indComerc).</xs:documentation>
+                                                                        <xs:documentation>Origem: campo {vrTotCom}(1260_infoComProd_ideEstabel_tpComerc_vrTotCom) de S-1260.</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
                                                                 <xs:element name="vrCPSusp" minOccurs="0" type="TS_valorMonetario">
                                                                     <xs:annotation>
-                                                                        <xs:documentation>Valor da Contribuição Previdenciária com exigibilidade suspensa.</xs:documentation>
-                                                                        <xs:documentation>Origem: {vrCPSusp} do S-1260.</xs:documentation>
+                                                                        <xs:documentation>Valor da contribuição previdenciária com exigibilidade suspensa.</xs:documentation>
+                                                                        <xs:documentation>Origem: campo {vrCPSusp}(1260_infoComProd_ideEstabel_tpComerc_infoProcJud_vrCPSusp) de S-1260.</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
                                                                 <xs:element name="vrRatSusp" minOccurs="0" type="TS_valorMonetario">
                                                                     <xs:annotation>
-                                                                        <xs:documentation>Valor da contribuição para Gilrat com exigibilidade suspensa.</xs:documentation>
-                                                                        <xs:documentation>Origem: {vrRatSusp} do S-1260.</xs:documentation>
+                                                                        <xs:documentation>Valor da contribuição para GILRAT com exigibilidade suspensa.</xs:documentation>
+                                                                        <xs:documentation>Origem: campo {vrRatSusp}(1260_infoComProd_ideEstabel_tpComerc_infoProcJud_vrRatSusp) de S-1260.</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
                                                                 <xs:element name="vrSenarSusp" minOccurs="0" type="TS_valorMonetario">
                                                                     <xs:annotation>
-                                                                        <xs:documentation>Valor da contribuição para o Senar com exigibilidade suspensa.</xs:documentation>
-                                                                        <xs:documentation>Origem: {vrSenarSusp} do S-1260.</xs:documentation>
+                                                                        <xs:documentation>Valor da contribuição para o SENAR com exigibilidade suspensa.</xs:documentation>
+                                                                        <xs:documentation>Origem: campo {vrSenarSusp}(1260_infoComProd_ideEstabel_tpComerc_infoProcJud_vrSenarSusp) de S-1260.</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
                                                             </xs:sequence>
@@ -745,7 +667,8 @@
                                                     </xs:element>
                                                     <xs:element name="infoCREstab" minOccurs="0" maxOccurs="99">
                                                         <xs:annotation>
-                                                            <xs:documentation>Códigos de Receita por Estabelecimento</xs:documentation>
+                                                            <xs:documentation>Códigos de Receita por estabelecimento</xs:documentation>
+                                                            <xs:documentation>DESCRICAO_COMPLETA:Informações das contribuições sociais devidas à Previdência Social e Outras Entidades e Fundos, consolidadas por estabelecimento e por Código de Receita - CR.</xs:documentation>
                                                             <xs:documentation>CHAVE_GRUPO: {tpCR}</xs:documentation>
                                                             <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
                                                         </xs:annotation>
@@ -764,14 +687,14 @@
                                                                 </xs:element>
                                                                 <xs:element name="vrCR" type="TS_valorMonetario_positivo">
                                                                     <xs:annotation>
-                                                                        <xs:documentation>Valor correspondente ao Código de Receita - CR apurado.</xs:documentation>
+                                                                        <xs:documentation>Valor correspondente ao CR apurado.</xs:documentation>
                                                                         <xs:documentation>Validação: Deve ser apurado de acordo com a legislação em vigor na competência.</xs:documentation>
                                                                         <xs:documentation>Deve ser maior que 0 (zero).</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
                                                                 <xs:element name="vrSuspCR" minOccurs="0" type="TS_valorMonetario">
                                                                     <xs:annotation>
-                                                                        <xs:documentation>Valor suspenso correspondente ao Código de Receita - CR apurado.</xs:documentation>
+                                                                        <xs:documentation>Valor suspenso correspondente ao CR apurado.</xs:documentation>
                                                                         <xs:documentation>Validação: Deve ser apurado de acordo com as informações de processos judiciais e administrativos.</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
@@ -784,6 +707,7 @@
                                         <xs:element name="infoCRContrib" minOccurs="0" maxOccurs="99">
                                             <xs:annotation>
                                                 <xs:documentation>Totalizador dos CT do contribuinte</xs:documentation>
+                                                <xs:documentation>DESCRICAO_COMPLETA:Informações consolidadas das contribuições sociais devidas à Previdência Social e Outras Entidades e Fundos, por Código de Receita - CR.</xs:documentation>
                                                 <xs:documentation>CHAVE_GRUPO: {tpCR}</xs:documentation>
                                                 <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
                                             </xs:annotation>
@@ -802,7 +726,7 @@
                                                     </xs:element>
                                                     <xs:element name="vrCR" type="TS_valorMonetario_positivo">
                                                         <xs:annotation>
-                                                            <xs:documentation>Valor correspondente ao Código de Receita - CR apurado.</xs:documentation>
+                                                            <xs:documentation>Valor correspondente ao CR apurado.</xs:documentation>
                                                             <xs:documentation>Validação: Deve ser apurado de acordo com a legislação em vigor na competência.</xs:documentation>
                                                             <xs:documentation>Deve ser maior que 0 (zero).</xs:documentation>
                                                         </xs:annotation>
