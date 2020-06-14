@@ -51,13 +51,14 @@ Se {tpAdmissao} = [2, 3, 4] e {indAdmissao} = [1], a data informada no campo {su
 </tr>
 <td><strong>REGRA_ADMISSAO_VALIDA_DT_ADM</strong></td>
 <td>A data de admissão do trabalhador, informada no campo {dtAdm}, não pode ser superior a 30 (trinta) dias a partir da data atual.<br />
-Para a categoria [103] (aprendiz), deve ser igual ou posterior a [20/12/2000].<br />
-Para a categoria [105] (contrato a termo firmado nos termos da Lei 9601/98), deve ser igual ou posterior a [22/01/1998].<br />
+Para a categoria [103] (aprendiz), deve ser igual ou posterior a 20/12/2000.<br />
+Para a categoria [105] (contrato a termo firmado nos termos da Lei 9.601/1998), deve ser igual ou posterior a 22/01/1998.<br />
+Para as categorias [107, 108], deve ser igual ou anterior a 20/04/2020.<br />
 A data de entrada em exercício pelo servidor, informada no campo {dtExercicio}, não pode ser superior a 30 (trinta) dias a partir da data atual.<br />
 Nos casos de sucessão, a data da transferência do trabalhador, informada no campo {sucessaoVinc/dtTransf}, não pode ser superior a 30 (trinta) dias a partir da data atual.</strong></td>
 </tr>
 <td><strong>REGRA_ADMISSAO_VALIDA_DURACAO_CONTRATO</strong></td>
-<td>Se {tpContr} for igual a [2] e a categoria do trabalhador for igual a [102], a {dtTerm} não pode ser superior a 60 (sessenta) dias em relação a data de admissão.</strong></td>
+<td>Se {tpContr} for igual a [2] e a categoria do trabalhador for igual a [102], {dtTerm} não pode ser superior a 60 (sessenta) dias em relação a data de admissão.</strong></td>
 </tr>
 <td><strong>REGRA_AFASTAMENTO</strong></td>
 <td>Não é permitido o envio de mais de um afastamento com mesma data de início e/ou fim para o mesmo CPF e matrícula (ou CPF e categoria, no caso de TSVE sem informação de matrícula no evento S-2300).</strong></td>
@@ -121,14 +122,14 @@ d) cujo {codCateg} = [401, 410] e {tpRegPrev} = [2].</strong></td>
 <td>Para cada demonstrativo do evento:<br />
 1) O somatório dos vencimentos deve ser maior ou igual ao somatório dos descontos.<br />
 2) No caso dos eventos S-1200, S-2299 e S-2399:<br />
-2.1) Para as rubricas cujo {codIncCP} = [31, 32, 34, 35] e {codIncIRRF} = [31, 32, 33, 34], o somatório do valor das rubricas cujo {tpRubr} = [2, 4] deverá ser maior ou igual ao somatório do valor das rubricas cujo {tpRubr} = [1, 3], considerando cada {codIncCP} e {codIncIRRF} individualmente.<br />
-2.2) É possível utilizar rubrica constante da <a href="tabelas.html#Tabela 29">Tabela 29</a> - Tabela de Rubricas Padrão. Nessa situação, {ideTabRubr} deve ser igual a [1]. Se não for utilizada rubrica dessa tabela, {codRubr} e {ideTabRubr} devem constar conjuntamente na Tabela S-1010. As rubricas informadas devem estar vigentes nos períodos mencionados nos itens 2.3 e 2.4 abaixo.<br />
+2.1) Para as rubricas cujo {codIncCP} em S-1010 = [31, 32, 34, 35] e {codIncIRRF} em S-1010 = [31, 32, 33, 34], o somatório do valor das rubricas cujo {tpRubr} em S-1010 = [2, 4] deverá ser maior ou igual ao somatório do valor das rubricas cujo {tpRubr} em S-1010 = [1, 3], considerando cada {codIncCP} e {codIncIRRF} individualmente.<br />
+2.2) É possível utilizar rubrica constante da <a href="tabelas.html#Tabela 29">Tabela 29</a>. Nessa situação, {ideTabRubr} deve ser igual a [1]. Se não for utilizada rubrica dessa tabela, {codRubr} e {ideTabRubr} devem constar conjuntamente na Tabela S-1010. As rubricas informadas devem estar vigentes nos períodos mencionados nos itens 2.3 e 2.4 abaixo.<br />
 2.3) Para os eventos S-1200 e S-2299, as informações dos campos {ideEstabLot/nrInsc} (se {ideEstabLot/tpInsc} = [1, 3, 4]) e {codLotacao} devem constar nas Tabelas S-1005 e S-1020, respectivamente, vigentes em:<br />
 a) {perApur} (ou mês/ano de {dtDeslig}, para S-2299), se pertencerem ao grupo {infoPerApur};<br />
 b) {perRef}, se pertencerem ao grupo {infoPerAnt}.<br />
 2.4) Para o evento S-2399, as informações dos campos {ideEstabLot/nrInsc} e {codLotacao} devem constar nas Tabelas S-1005 e S-1020, respectivamente, vigentes no mês/ano de {dtTerm}.<br />
 3) No caso dos eventos S-1202 e S-1207:<br />
-3.1) Para as rubricas cujo {codIncCPRP} = [31] e {codIncIRRF} = [31, 32, 33, 34], o somatório do valor das rubricas cujo ({tpRubr} = [2, 4]) deverá ser maior ou igual ao somatório do valor das rubricas cujo ({tpRubr} = [1, 3]), considerando o {codIncCPRP} e cada {codIncIRRF} individualmente.<br />
+3.1) Para as rubricas cujo {codIncCPRP} em S-1010 = [31] e {codIncIRRF} em S-1010 = [31, 32, 33, 34], o somatório do valor das rubricas cujo {tpRubr} em S-1010 = [2, 4] deverá ser maior ou igual ao somatório do valor das rubricas cujo {tpRubr} em S-1010 = [1, 3], considerando o {codIncCPRP} e cada {codIncIRRF} individualmente.<br />
 3.2) As informações dos campos {codRubr} e {ideTabRubr} devem constar conjuntamente na Tabela S-1010, com o campo {codIncCPRP} preenchido, vigentes nos períodos mencionados no item 3.3 abaixo.<br />
 3.3) As informações dos campos {ideEstab/nrInsc} devem constar na Tabela S-1005, vigentes em:<br />
 a) {perApur}, se pertencerem ao grupo {infoPerApur};<br />
@@ -317,7 +318,7 @@ b1) O campo {dtAdm} informado no evento S-2190 deve ser idêntico ao respectivo 
 b2) O campo {tpRegTrab} deve ser igual a [1] e o campo {tpRegPrev} deve ser igual a [1, 3].<br />
 c) No caso de transmissão do evento S-2300:<br />
 c1) O campo {dtAdm} informado no evento S-2190 deve ser idêntico ao campo {dtInicio} do evento S-2300;<br />
-c2) Se {codCateg} = [401], o campo {infoDirigenteSindical/tpRegTrab} deve ser igual a [1] e o campo {infoDirigenteSindical/tpRegPrev} deve ser igual a [1, 3];<br />
+c2) Se {codCateg} = [401], o campo {infoDirigenteSindical/tpRegTrab} deve ser igual a [1] ou não deve ser informado, e o campo {infoDirigenteSindical/tpRegPrev} deve ser igual a [1, 3];<br />
 c3) Se {codCateg} = [410], o campo {infoTrabCedido/tpRegTrab} deve ser igual a [1] e o campo {infoTrabCedido/tpRegPrev} deve ser igual a [1, 3].<br />
 2) Caso exista evento S-2190 pendente (sem o correspondente evento S-2200 ou S-2300) para o mesmo trabalhador, mas com matrícula diferente, retornar "alerta".<br />
 3) As informações prestadas nos eventos S-2200/S-2300 substituirão os dados do evento S-2190 no Registro de Eventos Trabalhistas - RET, mesmo quando houver conteúdo diferente.</strong></td>
@@ -336,7 +337,7 @@ b) Se houver informação no grupo {infoPerAnt}, deve haver evento S-2410 para C
 <td>A categoria indicada no evento de remuneração deve ser compatível com o tipo de lotação (indicado na Tabela de Lotações Tributárias) da lotação informada no registro {ideEstabLot}, conforme <a href="tabelas.html#Tabela 11">Tabela 11</a>. Caso não seja compatível, retornar "alerta".</strong></td>
 </tr>
 <td><strong>REGRA_REMUN_CATEG_EXISTENTE_RET</strong></td>
-<td>A categoria indicada no registro de remuneração de trabalhadores sujeitos ao Registro de Eventos Trabalhistas - RET, ou seja, "Empregado" ([101, 102, 103, 104, 105, 106, 107, 108, 111]), algumas categorias de "Agente Público" ([301, 302, 303, 304, 305, 306, 307, 308, 309, 310, 312]), "Avulso" ([201,202]), "Cessão" ([401, 410]) ou algumas categorias de "Contribuinte Individual" ([721, 722, 723, 731, 734, 738, 761, 771]) e de "Bolsista" ([901, 902]) deve ser igual àquela existente no RET para o referido vínculo (matrícula) ou categoria, para o caso de Trabalhador Sem Vínculo de Emprego/Estatutário - TSVE.<br />
+<td>A categoria indicada no registro de remuneração de trabalhadores sujeitos ao Registro de Eventos Trabalhistas - RET, ou seja, "Empregado" ([101, 102, 103, 104, 105, 106, 107, 108, 111]), algumas categorias de "Agente Público" ([301, 302, 303, 304, 305, 306, 307, 308, 309, 310, 312]), "Avulso" ([201, 202]), "Cessão" ([401, 410]) ou algumas categorias de "Contribuinte Individual" ([721, 722, 723, 731, 734, 738, 761, 771]) e de "Bolsista" ([901, 902]) deve ser igual àquela existente no RET para o referido vínculo (matrícula) ou categoria, para o caso de Trabalhador Sem Vínculo de Emprego/Estatutário - TSVE.<br />
 Esta regra não se aplica para remunerações a trabalhadores nos casos em que {remunSuc} = [S].</strong></td>
 </tr>
 <td><strong>REGRA_REMUN_IND_RETIFICACAO</strong></td>
@@ -348,7 +349,7 @@ d) no caso de desligamento ou término de TSVE (S-2299 e S-2399), o evento retif
 </tr>
 <td><strong>REGRA_REMUN_JA_EXISTE_DESLIGAMENTO</strong></td>
 <td>Se existir no Registro de Eventos Trabalhistas - RET evento de Desligamento ou de TSVE - Término para trabalhador com {codCateg} = [721] cujo mês/ano da data de desligamento (ou de término) seja igual ou anterior ao período de apuração ({perApur}), não deve haver remuneração (S-1200 ou S-1202). Também não deve haver remuneração (S-1200 ou S-1202) se existir no RET evento de TSVE - Término para o trabalhador com {codCateg} diferente de [721] com mês/ano da data de término anterior a {perApur}. As exceções para esse caso são:<br />
-a) Remuneração de PLR em {remunPerApur}. Para tanto, deve haver ao menos uma rubrica cujo {tpRubr} = [1] e {codIncIRRF} = [14];<br />
+a) Remuneração de PLR em {remunPerApur}. Para tanto, deve haver ao menos uma rubrica cujo {tpRubr} em S-1010 = [1] e {codIncIRRF} em S-1010 = [14];<br />
 b) Remuneração em {remunPerApur} para trabalhador que esteja em "quarentena", ou seja, o grupo {quarentena} tiver sido preenchido no respectivo evento de Desligamento/Término de TSVE, e a {dtFimQuar} for superior ou igual ao período de apuração indicado no evento de remuneração;<br />
 c) Remuneração em {remunPerApur} pelo exercício de opção de compra de ações da empresa (stock option). Para tanto, deve haver ao menos uma rubrica cuja {natRubr} seja igual a [1080];<br />
 d) Remuneração relativa a competência anual ({indApuracao} = [2]);<br />
@@ -379,7 +380,7 @@ Caso seja informada em {remunPerAnt} remuneração posterior ao mês/ano da data
 <td>Se o grupo de "informações complementares" ({infoComplem}) for preenchido, as informações de Nome e Data de Nascimento devem ser validadas na base do CPF.</strong></td>
 </tr>
 <td><strong>REGRA_RETIFICA_DT_ACIDENTE</strong></td>
-<td>Em caso de retificação do evento de Comunicação de Acidente de Trabalho - CAT para alterar a {dtAcid}, verificar a existência de evento subsequente de afastamento em decorrência de acidente de trabalho, de forma a evitar inconsistência na cronologia dos eventos (ex: acidente em jan/201x, afastamento em jan/201x por acidente de trabalho, depois tenta alterar a data do acidente do evento para mar/201x). Neste caso, se houver evento de afastamento temporário por acidente de trabalho, a {dtAcid} somente pode ser retificada para uma data anterior à data de afastamento.</strong></td>
+<td>Em caso de retificação do evento de Comunicação de Acidente de Trabalho - CAT para alterar a {dtAcid}, verificar a existência de evento subsequente de afastamento em decorrência de acidente de trabalho, de forma a evitar inconsistência na cronologia dos eventos (ex: acidente em jan/2021, afastamento em jan/2021 por acidente de trabalho, depois tenta alterar a data do acidente do evento para mar/2021). Neste caso, se houver evento de afastamento temporário por acidente de trabalho, a {dtAcid} somente pode ser retificada para uma data anterior à data de afastamento.</strong></td>
 </tr>
 <td><strong>REGRA_RETIFICA_MESMO_BENEFICIO</strong></td>
 <td>Em caso de retificação, o evento retificador deve se referir ao mesmo beneficiário (CPF) e número do benefício.</strong></td>
@@ -393,25 +394,25 @@ b) referir-se ao mesmo contrato (CPF + matrícula; ou CPF + categoria, no caso d
 4) No caso de retificação do evento de TSVE - Início (S-2300) sem informação de matrícula, a categoria não pode ser objeto de retificação por integrar a chave de identificação para este tipo de evento. Caso tenha sido informada incorretamente, o evento de início deve ser excluído e um novo evento com a categoria correta deve ser enviado.</strong></td>
 </tr>
 <td><strong>REGRA_RUBRICA_COMPATIVEL_CATEGORIA</strong></td>
-<td>Com base na categoria indicada no registro superior ao qual a rubrica está vinculada, observar o que segue:<br />
-1) Se for relativa a segurado empregado ou avulso não é permitida a inclusão de registro cujo {codRubr} classificada na Tabela de Rubricas com {codIncCP} seja igual a [34,35];<br />
-2) Se for relativa a contribuinte individual [701,711,712,721,722,723, 731,734,738,741,751,761,771,781], não podem ser utilizados códigos de rubrica cujos {codIncCP} e {codIncIRRF} da Tabela de Rubricas correspondente seja específica de segurados empregados. Portanto, não são aceitas rubricas cujo:<br />
-2a) {codIncCP} classificado como: [12, 21, 22, 32, 51, 92, 93, 94], exceto se categoria de trabalhador = [771];<br />
-2b) {codIncIRRF} classificado como: [12,13,32,33,42,43,47,52,53,62,63,64,71,92,93], exceto se categoria de trabalhador = [771];<br />
-2c) {codIncCP} seja igual a [34,35] se a categoria do respectivo trabalhador for diferente de [711,712,734];<br />
-2d) {codIncCP} classificado como [31] se {classTrib} do contribuinte for igual a [21,22] (Pessoa Física) e {codCateg} = Contribuinte individual (7XX), pois não existe previsão legal de desconto de contribuição do segurado contribuinte individual que é contratado por outro contribuinte individual, exceto se {tpInsc} do respectivo estabelecimento = [4] (CNO);<br />
-2e) {codIncIRRF} classificado como: [14,34,54,94], exceto se categoria de trabalhador = [721,722,723,731,734,738,761,771];<br />
-3) Se for relativa a dirigente sindical, observar a "categoria de origem" (informada no evento de início) para determinar se o mesmo é empregado ou contribuinte individual e aplicar uma das duas regras anteriores;<br />
-4) Se for relativa ao estagiário, não podem ser aceitas rubricas cujo {codIncCP} seja diferente de [00, 01] ou {codIncFGTS} seja diferente de [00].<br />
+<td>Com base na categoria do trabalhador, observar o que segue:<br />
+1) Se for relativa aos grupos "Empregado" (1XX) ou "Avulso" (2XX), não é permitida a inclusão de registro cujo {codRubr} tenha {codIncCP} em S-1010 = [34, 35];<br />
+2) Se for relativa ao grupo "Contribuinte Individual" (7XX), não podem ser utilizados códigos de rubrica cujos {codIncCP} e {codIncIRRF} em S-1010 sejam específicos de segurados empregados. Portanto, não são aceitas rubricas cujo:<br />
+2a) {codIncCP} em S-1010 = [12, 21, 22, 32, 51, 92, 93, 94], exceto se categoria de trabalhador = [771];<br />
+2b) {codIncIRRF} em S-1010 = [12, 13, 32, 33, 42, 43, 47, 52, 53, 62, 63, 64, 71, 92, 93], exceto se categoria de trabalhador = [771];<br />
+2c) {codIncCP} em S-1010 = [34, 35] se a categoria do trabalhador for diferente de [711, 712, 734];<br />
+2d) {codIncCP} em S-1010 = [31] se {classTrib} em S-1000 = [21, 22] (Pessoa Física) e a categoria do trabalhador pertencer ao grupo "Contribuinte Individual" (7XX), pois não existe previsão legal de desconto de contribuição do segurado contribuinte individual que é contratado por outro contribuinte individual, exceto se {ideEstab/tpInsc} em S-1005 = [4] (CNO);<br />
+2e) {codIncIRRF} em S-1010 = [14, 34, 54, 94], exceto se categoria de trabalhador = [721, 722, 723, 731, 734, 738, 761, 771];<br />
+3) Se for relativa a dirigente sindical ({codCateg} = [401]), observar a categoria de origem (informada no evento S-2300) para determinar se o trabalhador é empregado ou contribuinte individual, e aplicar uma das duas regras anteriores;<br />
+4) Se for relativa a estagiário ({codCateg} = [901]), não podem ser aceitas rubricas cujo {codIncCP} em S-1010 seja diferente de [00, 01] ou {codIncFGTS} em S-1010 seja diferente de [00].<br />
 Caso algum item acima não seja atendido, retornar "alerta".</strong></td>
 </tr>
 <td><strong>REGRA_RUBRICA_COMPATIVEL_DECTERCEIRO</strong></td>
 <td>Se {indApuracao} for igual a [2] (décimo terceiro salário):<br />
-a) No caso do evento S-1200, são permitidas apenas as rubricas cujo {codIncCP} da Tabela de Rubricas seja igual a [00, 01, 12, 14, 16, 22, 26, 32, 92, 94, 96, 98], cujo {codIncIRRF} seja igual a [0, 1, 9, 12, 14, 32, 42, 47, 52, 62, 64, 71, 77, 81, 82, 83, 92] e cujo {codIncFGTS} seja igual a [00, 12, 92]. Caso sejam informadas rubricas com {codIncCP}, {codIncIRRF} e/ou {codIncFGTS} diferentes dos valores acima citados, retornar "alerta";<br />
-b) Nos casos dos eventos S-1202 e S-1207, são permitidas apenas as rubricas cujo {codIncCPRP} da Tabela de Rubricas seja igual a [00, 12, 32, 91] e cujo {codIncIRRF} seja igual a [0, 1, 9, 12, 14, 32, 42, 47, 52, 62, 64, 71, 77, 81, 82, 83, 92].</strong></td>
+a) No caso do evento S-1200, são permitidas apenas as rubricas cujo {codIncCP} em S-1010 seja igual a [00, 01, 12, 14, 16, 22, 26, 32, 92, 94, 96, 98], cujo {codIncIRRF} em S-1010 seja igual a [0, 1, 9, 12, 14, 32, 42, 47, 52, 62, 64, 71, 77, 81, 82, 83, 92] e cujo {codIncFGTS} em S-1010 seja igual a [00, 12, 92]. Caso sejam informadas rubricas com {codIncCP}, {codIncIRRF} e/ou {codIncFGTS} diferentes dos valores acima citados, retornar "alerta";<br />
+b) Nos casos dos eventos S-1202 e S-1207, são permitidas apenas as rubricas cujo {codIncCPRP} em S-1010 seja igual a [00, 12, 32, 91] e cujo {codIncIRRF} em S-1010 seja igual a [0, 1, 9, 12, 14, 32, 42, 47, 52, 62, 64, 71, 77, 81, 82, 83, 92].</strong></td>
 </tr>
 <td><strong>REGRA_RUBRICA_COMPATIVEL_RESC</strong></td>
-<td>O {codIncFGTS} = [21] só pode ser utilizado no evento S-2299 - Desligamento e S-2399 - Trabalhador sem Vinculo - Término, ou ainda no evento S-1200 no grupo {remunPerAnt}.<br />
+<td>Rubrica com {codIncFGTS} em S-1010 = [21] só pode ser utilizada nos eventos Desligamento (S-2299) e TSVE - Término (S-2399), ou ainda no grupo {remunPerAnt} do evento Remuneração RGPS (S-1200).<br />
 Caso esta regra não seja atendida, retornar "alerta".</strong></td>
 </tr>
 <td><strong>REGRA_TABESTAB_VALIDA_ESTABELECIMENTO</strong></td>
@@ -469,7 +470,7 @@ c) Não pode estar anulado ou cancelado.</strong></td>
 <td>As informações de tabela não podem ser enviadas com data de início ou de fim de validade posterior à data de envio do evento.</strong></td>
 </tr>
 <td><strong>REGRA_VALIDA_DT_PGTO</strong></td>
-<td>Se {tpPgto} = [1,5,6], a data de pagamento não pode ser anterior a {perRef} informado no grupo {infoPgto}, considerando-se {perRef} anual como igual a "AAAA-12";<br />
+<td>Se {tpPgto} = [1, 5, 6], a data de pagamento não pode ser anterior a {perRef} informado no grupo {infoPgto}, considerando-se {perRef} anual como igual a "AAAA-12";<br />
 Se {tpPgto} = [2], a data de pagamento não pode ser menor que o mês anterior da data informada em {dtDeslig} informada no evento S-2299;<br />
 Se {tpPgto} = [3], a data de pagamento não pode ser menor que o mês anterior da data informada em {dtTerm} informada no evento S-2399.</strong></td>
 </tr>
@@ -484,18 +485,18 @@ b) no mês/ano do período de apuração de evento periódico.</strong></td>
 a) Não deve existir evento de Registro Preliminar (S-2190) sem o correspondente evento de Admissão (S-2200) ou TSVE - Início (S-2300) cujo mês/ano da "data de admissão" ou da "data de início" seja anterior ou igual ao período de apuração da folha de pagamento. Em caso de não existência, deve ser gerado um "alerta" para o empregador (ou seja, embora a situação seja irregular, não há impedimento para o fechamento dos eventos periódicos).<br />
 b) Validar a integridade entre os eventos de remuneração recepcionados e os empregados e agentes públicos "ativos" do Registro de Eventos Trabalhistas - RET, da seguinte forma:<br />
 b1) Todos os trabalhadores admitidos (S-2190 ou S-2200) em período igual ou anterior ao período de apuração que não estejam desligados ou cujo desligamento seja posterior ao período de apuração devem possuir o respectivo evento de remuneração (S-1200, S-1202 ou S-2299 para trabalhadores com {tpRegTrab} = [1] e S-1200 ou S-1202 para trabalhadores com {tpRegTrab} = [2]) já encaminhado para o mesmo período de apuração, exceto:<br />
- - se o trabalhador estiver afastado durante todo o período de apuração em um dos seguintes códigos de afastamento [03,05,06,07,11,12,13,21,23,25,27,28,30,31,36,37]; ou<br />
- - se o trabalhador estiver afastado durante todo o período de apuração pelo código de motivo de afastamento [14] com {infOnus} = [2], ou cedido/em exercício em outro órgão durante todo o período de apuração com {respRemun} = [N]); ou<br />
- - se o trabalhador estiver afastado durante todo o período de apuração pelo código de motivo de afastamento [24] com {infOnusRemun} = [2]; ou<br />
- - se o trabalhador estiver afastado durante todo o período de apuração pelo código de motivo de afastamento [22] com {indRemunCargo} = [N]; ou<br />
- - se o código da categoria do trabalhador for igual a [111, 310] em todo o período de apuração; ou<br />
- - se, para trabalhador admitido com {tpAdmissao} = [2, 3, 4, 5, 6] ou {tpProv} = [5, 8, 10], o período de apuração for menor que o mês/ano informado no campo {sucessaoVinc/dtTransf}, {transfDom/dtTransf} ou {mudancaCPF/dtAltCPF}, todos do S-2200; ou<br />
- - se {indApuracao} = [2] e o código da categoria do trabalhador for igual a [107, 108] em todo o ano.<br />
+- se o trabalhador estiver afastado durante todo o período de apuração em um dos seguintes códigos de afastamento [03, 05, 06, 07, 11, 12, 13, 21, 23, 25, 27, 28, 30, 31, 36, 37]; ou<br />
+- se o trabalhador estiver afastado durante todo o período de apuração pelo código de motivo de afastamento [14] com {infOnus} = [2], ou cedido/em exercício em outro órgão durante todo o período de apuração com {respRemun} = [N]); ou<br />
+- se o trabalhador estiver afastado durante todo o período de apuração pelo código de motivo de afastamento [24] com {infOnusRemun} = [2]; ou<br />
+- se o trabalhador estiver afastado durante todo o período de apuração pelo código de motivo de afastamento [22] com {indRemunCargo} = [N]; ou<br />
+- se o código da categoria do trabalhador for igual a [111, 310] em todo o período de apuração; ou<br />
+- se, para trabalhador admitido com {tpAdmissao} = [2, 3, 4, 5, 6] ou {tpProv} = [5, 8, 10], o período de apuração for menor que o mês/ano informado no campo {sucessaoVinc/dtTransf}, {transfDom/dtTransf} ou {mudancaCPF/dtAltCPF}, todos do S-2200; ou<br />
+- se {indApuracao} = [2] e o código da categoria do trabalhador for igual a [107, 108] em todo o ano.<br />
 Em caso de não existência do evento de remuneração para o período de apuração e não se tratando das exceções acima listadas, deve ser gerado um "alerta" para o empregador (ou seja, embora a situação seja irregular, não há impedimento para o fechamento dos eventos periódicos).<br />
-b2) Para o fechamento da folha de pessoa física em que todos os trabalhadores de código de categoria [104] tenham remuneração enviada, não deve haver eventos de remuneração (S-1200) para trabalhadores com código de categoria diferente de [104] em período de apuração anterior ao início da respectiva obrigatoriedade dos eventos periódicos.<br />
+b2) Para o fechamento da folha de pessoa física em que todos os trabalhadores de código de categoria [104] tenham remuneração enviada, não deve haver eventos de Remuneração RGPS (S-1200) para trabalhadores com código de categoria diferente de [104] em período de apuração anterior ao início da respectiva obrigatoriedade dos eventos periódicos.<br />
 b3) Todos os benefícios com início igual ou anterior ao período de apuração que não estejam cessados (inclusive benefícios reativados em mês/ano igual ou anterior ao período de apuração) ou cujo término seja posterior ao período de apuração devem possuir o evento S-1207 encaminhado para o mesmo período de apuração, exceto:<br />
 - se o período de apuração for menor que o mês/ano do campo {dtPublic} do S-2410, caso seja informado; ou<br />
- - se, para benefício com {indSitBenef} = [2, 3], o período de apuração for menor que o mês/ano informado no campo {dtTransf} ou {dtAltCPF}, respectivamente, do S-2410.<br />
+- se, para benefício com {indSitBenef} = [2, 3], o período de apuração for menor que o mês/ano informado no campo {dtTransf} ou {dtAltCPF}, respectivamente, do S-2410.<br />
 Em caso de benefício ativo no período de apuração sem o correspondente evento S-1207 (inclusive se o período de apuração for posterior à cessação do benefício e anterior a sua reativação, caso existente), retornar "alerta". Retornar "alerta" específico no caso de benefício ativo suspenso (S-2416 com o campo {indSuspensao} = [S]) em todo o período de apuração e sem o correspondente evento S-1207.<br />
 c) Existindo um ou mais trabalhadores "TSVE" ativos (S-2190 ou S-2300) no período de apuração da folha de pagamento e para os quais não tenha sido enviado o respectivo evento de remuneração, o evento de fechamento é aceito como válido, no entanto, são gerados "alertas" contendo o Nome, CPF, código de categoria e matrícula dos trabalhadores para os quais não foi prestada a informação de remuneração.</strong></td>
 </tr>
