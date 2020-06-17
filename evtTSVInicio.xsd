@@ -293,6 +293,35 @@
                                                         </xs:annotation>
                                                         <xs:complexType>
                                                             <xs:sequence>
+                                                                <xs:element name="categOrig" type="TS_codCateg">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Preencher com o código correspondente à categoria de origem do trabalhador cedido.</xs:documentation>
+                                                                        <xs:documentation>Validação: Deve ser um código válido e existente na Tabela 01, diferente de [410].</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:element>
+                                                                <xs:element name="cnpjCednt" type="TS_cnpj">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Informar o CNPJ do empregador/órgão público cedente/de origem.</xs:documentation>
+                                                                        <xs:documentation>Validação: Deve ser um CNPJ diferente do CNPJ do empregador/órgão público e diferente dos estabelecimentos informados através do evento S-1005.</xs:documentation>
+                                                                        <xs:documentation>REGRA:REGRA_VALIDA_CNPJ</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:element>
+                                                                <xs:element name="matricCed" type="TS_codigo_esocial">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Preencher com a matrícula do trabalhador no empregador/órgão público cedente/de origem.</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:element>
+                                                                <xs:element name="dtAdmCed">
+                                                                    <xs:simpleType>
+                                                                        <xs:annotation>
+                                                                            <xs:documentation>Preencher com a data de admissão (ou de exercício) do trabalhador no empregador/órgão público cedente/de origem.</xs:documentation>
+                                                                            <xs:documentation>Validação: Deve ser uma data anterior a {dtInicio}(2300_infoTSVInicio_dtInicio) e igual ou posterior a 01/01/1890.</xs:documentation>
+                                                                        </xs:annotation>
+                                                                        <xs:restriction base="xs:date">
+                                                                            <xs:minInclusive value="1890-01-01" />
+                                                                        </xs:restriction>
+                                                                    </xs:simpleType>
+                                                                </xs:element>
                                                                 <xs:element name="tpRegTrab" type="TS_tpRegTrab">
                                                                     <xs:annotation>
                                                                         <xs:documentation>Tipo de regime trabalhista.</xs:documentation>
@@ -301,47 +330,8 @@
                                                                 <xs:element name="tpRegPrev" type="TS_tpRegPrev">
                                                                     <xs:annotation>
                                                                         <xs:documentation>Tipo de regime previdenciário ou regime dos militares.</xs:documentation>
-                                                                        <xs:documentation>Validação: Se houver {infoTrabCedido/categOrig}(./categOrig) (grupo inferior) relativa a "Empregado", não pode ser preenchido com [2].</xs:documentation>
+                                                                        <xs:documentation>Validação: Se {infoTrabCedido/categOrig}(./categOrig) for relativa a "Empregado", não pode ser preenchido com [2].</xs:documentation>
                                                                     </xs:annotation>
-                                                                </xs:element>
-                                                                <xs:element name="infoOrigem" maxOccurs="9">
-                                                                    <xs:annotation>
-                                                                        <xs:documentation>Informações referentes ao vínculo de origem do trabalhador cedido.</xs:documentation>
-                                                                        <xs:documentation>CHAVE_GRUPO: {cnpjCednt}, {matricCed}</xs:documentation>
-                                                                    </xs:annotation>
-                                                                    <xs:complexType>
-                                                                        <xs:sequence>
-                                                                            <xs:element name="categOrig" type="TS_codCateg">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Preencher com o código correspondente à categoria de origem do trabalhador cedido.</xs:documentation>
-                                                                                    <xs:documentation>Validação: Deve ser um código válido e existente na Tabela 01, diferente de [410].</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:element>
-                                                                            <xs:element name="cnpjCednt" type="TS_cnpj">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Informar o CNPJ do empregador/órgão público cedente/de origem.</xs:documentation>
-                                                                                    <xs:documentation>Validação: Deve ser um CNPJ diferente do CNPJ do empregador/órgão público e diferente dos estabelecimentos informados através do evento S-1005.</xs:documentation>
-                                                                                    <xs:documentation>REGRA:REGRA_VALIDA_CNPJ</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:element>
-                                                                            <xs:element name="matricCed" type="TS_codigo_esocial">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Preencher com a matrícula do trabalhador no empregador/órgão público cedente/de origem.</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:element>
-                                                                            <xs:element name="dtAdmCed">
-                                                                                <xs:simpleType>
-                                                                                    <xs:annotation>
-                                                                                        <xs:documentation>Preencher com a data de admissão (ou de exercício) do trabalhador no empregador/órgão público cedente/de origem.</xs:documentation>
-                                                                                        <xs:documentation>Validação: Deve ser uma data anterior à data de início informada no evento. A data deve ser igual ou posterior a 01/01/1890.</xs:documentation>
-                                                                                    </xs:annotation>
-                                                                                    <xs:restriction base="xs:date">
-                                                                                        <xs:minInclusive value="1890-01-01" />
-                                                                                    </xs:restriction>
-                                                                                </xs:simpleType>
-                                                                            </xs:element>
-                                                                        </xs:sequence>
-                                                                    </xs:complexType>
                                                                 </xs:element>
                                                             </xs:sequence>
                                                         </xs:complexType>
