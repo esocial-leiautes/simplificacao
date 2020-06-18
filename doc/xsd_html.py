@@ -326,7 +326,6 @@ def imprimir_descricao(elemento_annotation, resumo, caminho_completo):
                     if identificador_regra not in regras:
                         raise Exception('{} não definida'.format(identificador_regra))
 
-
                     if numero_regras == 0:
                         descricao += '<br />\n__ROTULO__'
 
