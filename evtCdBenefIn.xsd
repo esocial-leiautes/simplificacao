@@ -23,7 +23,28 @@
                     <xs:complexType>
                         <xs:sequence>
                             <xs:element name="ideEvento" type="T_ideEvento_trab" />
-                            <xs:element name="ideEmpregador" type="T_ideEmpregador_cnpj" />
+                            <xs:element name="ideEmpregador">
+                                <xs:annotation>
+                                    <xs:documentation>Informações de identificação do empregador.</xs:documentation>
+                                    <xs:documentation>CHAVE_GRUPO: {tpInsc}, {nrInsc}</xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="tpInsc" type="TS_tpInsc_1" />
+                                        <xs:element name="nrInsc">
+                                            <xs:simpleType>
+                                                <xs:annotation>
+                                                    <xs:documentation>Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {ideEmpregador/tpInsc}(./tpInsc) e conforme informado em S-1000.</xs:documentation>
+                                                    <xs:documentation>Validação: A natureza jurídica relativa ao número de inscrição informado deve ser Administração Pública (grupo [1]).</xs:documentation>
+                                                </xs:annotation>
+                                                <xs:restriction base="xs:string">
+                                                    <xs:pattern value="\d{8}|\d{14}" />
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
                             <xs:element name="beneficiario">
                                 <xs:annotation>
                                     <xs:documentation>Grupo de informações do beneficiário.</xs:documentation>
