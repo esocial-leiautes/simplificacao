@@ -54,7 +54,7 @@
                                                     <xs:element name="tpInsc" minOccurs="0" type="TS_tpInsc_1_2_3_4">
                                                         <xs:annotation>
                                                             <xs:documentation>Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.</xs:documentation>
-                                                            <xs:documentation>Origem: Campo {ideEstabLot/tpInsc} de:</xs:documentation>
+                                                            <xs:documentation>Origem: campo {ideEstabLot/tpInsc} de:</xs:documentation>
                                                             <xs:documentation>a) {infoPerApur}(1200_dmDev_infoPerApur) ou {idePeriodo}(1200_dmDev_infoPerAnt_ideADC_idePeriodo) do S-1200;</xs:documentation>
                                                             <xs:documentation>b) {infoPerApur}(2299_infoDeslig_verbasResc_dmDev_infoPerApur) ou {idePeriodo}(2299_infoDeslig_verbasResc_dmDev_infoPerAnt_ideADC_idePeriodo) do S-2299;</xs:documentation>
                                                             <xs:documentation>c) {dmDev}(2399_infoTSVTermino_verbasResc_dmDev) do S-2399.</xs:documentation>
@@ -63,7 +63,7 @@
                                                     <xs:element name="nrInsc" minOccurs="0" type="TS_nrInsc_11_12_14">
                                                         <xs:annotation>
                                                             <xs:documentation>Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {ideEstab/tpInsc}(./tpInsc).</xs:documentation>
-                                                            <xs:documentation>Origem: Campo {ideEstabLot/nrInsc} de:</xs:documentation>
+                                                            <xs:documentation>Origem: campo {ideEstabLot/nrInsc} de:</xs:documentation>
                                                             <xs:documentation>a) {infoPerApur}(1200_dmDev_infoPerApur) ou {idePeriodo}(1200_dmDev_infoPerAnt_ideADC_idePeriodo) do S-1200;</xs:documentation>
                                                             <xs:documentation>b) {infoPerApur}(2299_infoDeslig_verbasResc_dmDev_infoPerApur) ou {idePeriodo}(2299_infoDeslig_verbasResc_dmDev_infoPerAnt_ideADC_idePeriodo) do S-2299;</xs:documentation>
                                                             <xs:documentation>c) {dmDev}(2399_infoTSVTermino_verbasResc_dmDev) do S-2399.</xs:documentation>
@@ -79,7 +79,7 @@
                                                                 <xs:element name="codLotacao" minOccurs="0" type="TS_codigo_esocial">
                                                                     <xs:annotation>
                                                                         <xs:documentation>Informar o código atribuído pela empresa para a lotação tributária.</xs:documentation>
-                                                                        <xs:documentation>Origem: Campo {ideEstabLot/codLotacao} de:</xs:documentation>
+                                                                        <xs:documentation>Origem: campo {ideEstabLot/codLotacao} de:</xs:documentation>
                                                                         <xs:documentation>a) {infoPerApur}(1200_dmDev_infoPerApur) ou {idePeriodo}(1200_dmDev_infoPerAnt_ideADC_idePeriodo) do S-1200;</xs:documentation>
                                                                         <xs:documentation>b) {infoPerApur}(2299_infoDeslig_verbasResc_dmDev_infoPerApur) ou {idePeriodo}(2299_infoDeslig_verbasResc_dmDev_infoPerAnt_ideADC_idePeriodo) do S-2299;</xs:documentation>
                                                                         <xs:documentation>c) {dmDev}(2399_infoTSVTermino_verbasResc_dmDev) do S-2399.</xs:documentation>
@@ -129,6 +129,12 @@
                                                                                 <xs:annotation>
                                                                                     <xs:documentation>Preencher com o código da categoria do trabalhador, conforme Tabela 01.</xs:documentation>
                                                                                     <xs:documentation>Validação: Se o evento de origem for S-1200, retornar o código de categoria informado nesse evento. Se o evento de origem for S-2299 ou S-2399, retornar o código de categoria existente no Registro de Eventos Trabalhistas - RET.</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:element>
+                                                                            <xs:element name="categOrig" minOccurs="0" type="TS_codCateg">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Preencher com o código correspondente à categoria de origem do dirigente sindical ou do trabalhador cedido.</xs:documentation>
+                                                                                    <xs:documentation>Origem: campo {infoDirigenteSindical/categOrig}(2300_infoTSVInicio_infoComplementares_infoDirigenteSindical_categOrig) ou campo {infoTrabCedido/categOrig}(2300_infoTSVInicio_infoComplementares_infoTrabCedido_categOrig) de S-2300.</xs:documentation>
                                                                                 </xs:annotation>
                                                                             </xs:element>
                                                                             <xs:element name="tpRegTrab" minOccurs="0" type="TS_tpRegTrab">
@@ -209,7 +215,7 @@
                                                                                 <xs:annotation>
                                                                                     <xs:documentation>Bases de cálculo e valores do FGTS</xs:documentation>
                                                                                     <xs:documentation>DESCRICAO_COMPLETA:Informações referentes a bases de cálculo e valores do FGTS.</xs:documentation>
-                                                                                    <xs:documentation>CONDICAO_GRUPO: OC ((se {codCateg}(../codCateg) for relativo a "Empregado", "Cessão" ou igual a [301, 302, 303, 304, 306, 307, 309, 310, 312] com {tpRegTrab}(../tpRegTrab) = [1] ou não informado) OU (se {codCateg}(../codCateg) = [201, 202, 721])); N (nos demais casos)</xs:documentation>
+                                                                                    <xs:documentation>CONDICAO_GRUPO: OC ((se {codCateg}(../codCateg) = [1XX, 301, 302, 303, 304, 306, 307, 309, 310, 312] com {tpRegTrab}(../tpRegTrab) = [1] ou não informado) OU (se {codCateg}(../codCateg) = [201, 202, 721]) OU (se {codCateg}(../codCateg) = [401, 410] com {categOrig}(../categOrig) = [1XX, 301, 302, 303, 304, 306, 307, 309, 310, 312] ou não informada e com {tpRegTrab}(../tpRegTrab) = [1] ou não informado)); N (nos demais casos)</xs:documentation>
                                                                                 </xs:annotation>
                                                                                 <xs:complexType>
                                                                                     <xs:sequence>
