@@ -6264,7 +6264,7 @@ Nos demais casos (<a href="#1000_infoEmpregador_inclusao_infoCadastro_classTrib"
 <td style="text-align:center">-</td>
 <td style="text-align:left">Quantidade de dias trabalhados no mês pelo trabalhador avulso no tomador de serviços identificado em <a href="#1200_dmDev_infoPerApur_ideEstabLot_codLotacao">ideEstabLot/codLotacao</a>. Cada dia, total ou parcial, em que o trabalhador tenha prestado serviços ao tomador deve ser considerado. Ex.: Se, em um mesmo mês, o trabalhador prestou serviços durante uma hora em um dia e durante mais uma hora em outro dia, deve-se informar a quantidade de 2 dias.<br />
 <strong>Validação:</strong> Informação obrigatória e exclusiva se <a href="#1200_dmDev_infoPerApur_ideEstabLot_codLotacao">ideEstabLot/codLotacao</a> possuir <a href="#1020_infoLotacao_inclusao_dadosLotacao_tpLotacao">tpLotacao</a> em S-1020 = [08, 09] em <a href="#1200_ideEvento_perApur">perApur</a>.<br />
-Se informado, deve ser um número maior que 0 (zero).</td>
+Se informado, deve ser um número entre 1 e 31, de acordo com o calendário anual.</td>
 </tr>
 <tr>
 <td style="text-align:center; cursor:copy" onclick="copiarCaminho('1200_dmDev_infoPerApur_ideEstabLot_remunPerApur')"><span class="has-tooltip-right" data-tooltip="1200_dmDev_infoPerApur_ideEstabLot_remunPerApur" id="1200_dmDev_infoPerApur_ideEstabLot_remunPerApur">48</span></td>
@@ -6713,7 +6713,7 @@ b) <a href="#1000_infoEmpregador_inclusao_infoCadastro_classTrib">classTrib</a> 
 <td style="text-align:center">1-2</td>
 <td style="text-align:center">-</td>
 <td style="text-align:left">Informação prestada exclusivamente pelo segurado especial em caso de contratação de contribuinte individual, indicando a quantidade de dias trabalhados pelo mesmo.<br />
-<strong>Validação:</strong> Preenchimento obrigatório e exclusivo se <a href="#1000_infoEmpregador_inclusao_infoCadastro_classTrib">classTrib</a> em S-1000 = [22] e <a href="#1200_dmDev_infoComplCont_natAtividade">natAtividade</a> = [2]. Neste caso, preencher com um número entre 1 e 31.</td>
+<strong>Validação:</strong> Preenchimento obrigatório e exclusivo se <a href="#1000_infoEmpregador_inclusao_infoCadastro_classTrib">classTrib</a> em S-1000 = [22] e <a href="#1200_dmDev_infoComplCont_natAtividade">natAtividade</a> = [2]. Neste caso, preencher com um número entre 1 e 31, de acordo com o calendário anual.</td>
 </tr>
 </tbody>
 </table>
@@ -28391,21 +28391,57 @@ O (nos demais casos)</td>
 <td style="text-align:center">OC</td>
 </tr>
 <tr>
-<td style="text-align:center"><span id='resumo_evtBasesTrab:infoperref'><a href="#evtBasesTrab:infoperref">infoPerRef</a></span></td>
+<td style="text-align:center"><span id='resumo_evtBasesTrab:infocompl'><a href="#evtBasesTrab:infocompl">infoCompl</a></span></td>
 <td style="text-align:center"><a href="#resumo_evtBasesTrab:infocategincid">infoCategIncid</a></td>
 <td style="text-align:center">6</td>
+<td>Informações complementares do trabalhador e do contrato</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">O</td>
+</tr>
+<tr>
+<td style="text-align:center"><span id='resumo_evtBasesTrab:infointerm'><a href="#evtBasesTrab:infointerm">infoInterm</a></span></td>
+<td style="text-align:center"><a href="#resumo_evtBasesTrab:infocompl">infoCompl</a></td>
+<td style="text-align:center">7</td>
+<td>Informações relativas ao trabalho intermitente</td>
+<td style="text-align:center">0-31</td>
+<td style="text-align:center"><a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoInterm_dia">dia</a></td>
+<td style="text-align:center">OC</td>
+</tr>
+<tr>
+<td style="text-align:center"><span id='resumo_evtBasesTrab:infocomplcont'><a href="#evtBasesTrab:infocomplcont">infoComplCont</a></span></td>
+<td style="text-align:center"><a href="#resumo_evtBasesTrab:infocompl">infoCompl</a></td>
+<td style="text-align:center">7</td>
+<td>Informações complementares contratuais do trabalhador</td>
+<td style="text-align:center">0-10</td>
+<td style="text-align:center"><a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoComplCont_codCBO">codCBO</a>, <a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoComplCont_natAtividade">natAtividade</a>, <a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoComplCont_qtdDiasTrab">qtdDiasTrab</a></td>
+<td style="text-align:center">OC</td>
+</tr>
+<tr>
+<td style="text-align:center"><span id='resumo_evtBasesTrab:infoperref'><a href="#evtBasesTrab:infoperref">infoPerRef</a></span></td>
+<td style="text-align:center"><a href="#resumo_evtBasesTrab:infocompl">infoCompl</a></td>
+<td style="text-align:center">7</td>
 <td>Informações de remuneração por período de referência</td>
 <td style="text-align:center">1-N</td>
-<td style="text-align:center"><a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoPerRef_perRef">perRef</a></td>
+<td style="text-align:center"><a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoPerRef_perRef">perRef</a></td>
 <td style="text-align:center">O</td>
+</tr>
+<tr>
+<td style="text-align:center"><span id='resumo_evtBasesTrab:ideadc'><a href="#evtBasesTrab:ideadc">ideADC</a></span></td>
+<td style="text-align:center"><a href="#resumo_evtBasesTrab:infoperref">infoPerRef</a></td>
+<td style="text-align:center">8</td>
+<td>Instrumento ou situação ensejadora da remuneração em períodos anteriores</td>
+<td style="text-align:center">0-N</td>
+<td style="text-align:center"><a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoPerRef_ideADC_dtAcConv">dtAcConv</a>, <a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoPerRef_ideADC_tpAcConv">tpAcConv</a></td>
+<td style="text-align:center">OC</td>
 </tr>
 <tr>
 <td style="text-align:center"><span id='resumo_evtBasesTrab:detinfoperref'><a href="#evtBasesTrab:detinfoperref">detInfoPerRef</a></span></td>
 <td style="text-align:center"><a href="#resumo_evtBasesTrab:infoperref">infoPerRef</a></td>
-<td style="text-align:center">7</td>
+<td style="text-align:center">8</td>
 <td>Detalhamento das informações de remuneração por período de referência</td>
 <td style="text-align:center">1-99</td>
-<td style="text-align:center"><a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoPerRef_detInfoPerRef_ind13">ind13</a>, <a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoPerRef_detInfoPerRef_tpVrPerRef">tpVrPerRef</a></td>
+<td style="text-align:center"><a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoPerRef_detInfoPerRef_ind13">ind13</a>, <a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoPerRef_detInfoPerRef_tpVrPerRef">tpVrPerRef</a></td>
 <td style="text-align:center">O</td>
 </tr>
 </tbody>
@@ -28988,9 +29024,91 @@ OBS.: No período de 04/2020 a 06/2020, as alíquotas devem ser 0,75% para o SES
 <td style="text-align:left">Valor efetivamente descontado do segurado, correspondente a <a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [22, 23], do correspondente <a href="#5001_infoCp_ideEstabLot_infoCategIncid_calcTerc_tpCR">calcTerc/tpCR</a>.</td>
 </tr>
 <tr>
-<td style="text-align:center; cursor:copy" onclick="copiarCaminho('5001_infoCp_ideEstabLot_infoCategIncid_infoPerRef')"><span class="has-tooltip-right" data-tooltip="5001_infoCp_ideEstabLot_infoCategIncid_infoPerRef" id="5001_infoCp_ideEstabLot_infoCategIncid_infoPerRef">37</span></td>
-<td style="text-align:center"><span data-tipo="grupo" id='evtBasesTrab:infoperref'><a href="#resumo_evtBasesTrab:infoperref">infoPerRef</a></span></td>
+<td style="text-align:center; cursor:copy" onclick="copiarCaminho('5001_infoCp_ideEstabLot_infoCategIncid_infoCompl')"><span class="has-tooltip-right" data-tooltip="5001_infoCp_ideEstabLot_infoCategIncid_infoCompl" id="5001_infoCp_ideEstabLot_infoCategIncid_infoCompl">37</span></td>
+<td style="text-align:center"><span data-tipo="grupo" id='evtBasesTrab:infocompl'><a href="#resumo_evtBasesTrab:infocompl">infoCompl</a></span></td>
 <td style="text-align:center"><a href="#resumo_evtBasesTrab:infocategincid">infoCategIncid</a></td>
+<td style="text-align:center">G</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">-</td>
+<td style="text-align:left">Informações complementares do trabalhador e do contrato.</td>
+</tr>
+<tr>
+<td style="text-align:center; cursor:copy" onclick="copiarCaminho('5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoInterm')"><span class="has-tooltip-right" data-tooltip="5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoInterm" id="5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoInterm">38</span></td>
+<td style="text-align:center"><span data-tipo="grupo" id='evtBasesTrab:infointerm'><a href="#resumo_evtBasesTrab:infointerm">infoInterm</a></span></td>
+<td style="text-align:center"><a href="#resumo_evtBasesTrab:infocompl">infoCompl</a></td>
+<td style="text-align:center">G</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">0-31</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">-</td>
+<td style="text-align:left">Informações relativas ao trabalho intermitente.<br />
+Evento de origem: S-1200 ou S-2299.</td>
+</tr>
+<tr>
+<td style="text-align:center; cursor:copy" onclick="copiarCaminho('5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoInterm_dia')"><span class="has-tooltip-right" data-tooltip="5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoInterm_dia" id="5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoInterm_dia">39</span></td>
+<td style="text-align:center"><span id='evtBasesTrab:dia'>dia</span></td>
+<td style="text-align:center"><a href="#resumo_evtBasesTrab:infointerm">infoInterm</a></td>
+<td style="text-align:center">E</td>
+<td style="text-align:center">N</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1-2</td>
+<td style="text-align:center">-</td>
+<td style="text-align:left">Dia do mês efetivamente trabalhado pelo empregado com contrato de trabalho intermitente.</td>
+</tr>
+<tr>
+<td style="text-align:center; cursor:copy" onclick="copiarCaminho('5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoComplCont')"><span class="has-tooltip-right" data-tooltip="5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoComplCont" id="5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoComplCont">40</span></td>
+<td style="text-align:center"><span data-tipo="grupo" id='evtBasesTrab:infocomplcont'><a href="#resumo_evtBasesTrab:infocomplcont">infoComplCont</a></span></td>
+<td style="text-align:center"><a href="#resumo_evtBasesTrab:infocompl">infoCompl</a></td>
+<td style="text-align:center">G</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">0-10</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">-</td>
+<td style="text-align:left">Informações complementares contratuais do trabalhador.<br />
+Evento de origem: S-1200.</td>
+</tr>
+<tr>
+<td style="text-align:center; cursor:copy" onclick="copiarCaminho('5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoComplCont_codCBO')"><span class="has-tooltip-right" data-tooltip="5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoComplCont_codCBO" id="5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoComplCont_codCBO">41</span></td>
+<td style="text-align:center"><span id='evtBasesTrab:codcbo'>codCBO</span></td>
+<td style="text-align:center"><a href="#resumo_evtBasesTrab:infocomplcont">infoComplCont</a></td>
+<td style="text-align:center">E</td>
+<td style="text-align:center">C</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">6</td>
+<td style="text-align:center">-</td>
+<td style="text-align:left">Classificação Brasileira de Ocupações - CBO.</td>
+</tr>
+<tr>
+<td style="text-align:center; cursor:copy" onclick="copiarCaminho('5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoComplCont_natAtividade')"><span class="has-tooltip-right" data-tooltip="5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoComplCont_natAtividade" id="5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoComplCont_natAtividade">42</span></td>
+<td style="text-align:center"><span id='evtBasesTrab:natatividade'>natAtividade</span></td>
+<td style="text-align:center"><a href="#resumo_evtBasesTrab:infocomplcont">infoComplCont</a></td>
+<td style="text-align:center">E</td>
+<td style="text-align:center">N</td>
+<td style="text-align:center">0-1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">-</td>
+<td style="text-align:left">Natureza da atividade.<br />
+<strong>Valores válidos:</strong><br />
+<strong>1</strong> - Trabalho urbano<br />
+<strong>2</strong> - Trabalho rural</td>
+</tr>
+<tr>
+<td style="text-align:center; cursor:copy" onclick="copiarCaminho('5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoComplCont_qtdDiasTrab')"><span class="has-tooltip-right" data-tooltip="5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoComplCont_qtdDiasTrab" id="5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoComplCont_qtdDiasTrab">43</span></td>
+<td style="text-align:center"><span id='evtBasesTrab:qtddiastrab'>qtdDiasTrab</span></td>
+<td style="text-align:center"><a href="#resumo_evtBasesTrab:infocomplcont">infoComplCont</a></td>
+<td style="text-align:center">E</td>
+<td style="text-align:center">N</td>
+<td style="text-align:center">0-1</td>
+<td style="text-align:center">1-2</td>
+<td style="text-align:center">-</td>
+<td style="text-align:left">Informação prestada exclusivamente pelo segurado especial em caso de contratação de contribuinte individual, indicando a quantidade de dias trabalhados pelo mesmo.</td>
+</tr>
+<tr>
+<td style="text-align:center; cursor:copy" onclick="copiarCaminho('5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoPerRef')"><span class="has-tooltip-right" data-tooltip="5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoPerRef" id="5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoPerRef">44</span></td>
+<td style="text-align:center"><span data-tipo="grupo" id='evtBasesTrab:infoperref'><a href="#resumo_evtBasesTrab:infoperref">infoPerRef</a></span></td>
+<td style="text-align:center"><a href="#resumo_evtBasesTrab:infocompl">infoCompl</a></td>
 <td style="text-align:center">G</td>
 <td style="text-align:center">-</td>
 <td style="text-align:center">1-N</td>
@@ -28999,7 +29117,7 @@ OBS.: No período de 04/2020 a 06/2020, as alíquotas devem ser 0,75% para o SES
 <td style="text-align:left">Informações de remuneração por período de referência.</td>
 </tr>
 <tr>
-<td style="text-align:center; cursor:copy" onclick="copiarCaminho('5001_infoCp_ideEstabLot_infoCategIncid_infoPerRef_perRef')"><span class="has-tooltip-right" data-tooltip="5001_infoCp_ideEstabLot_infoCategIncid_infoPerRef_perRef" id="5001_infoCp_ideEstabLot_infoCategIncid_infoPerRef_perRef">38</span></td>
+<td style="text-align:center; cursor:copy" onclick="copiarCaminho('5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoPerRef_perRef')"><span class="has-tooltip-right" data-tooltip="5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoPerRef_perRef" id="5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoPerRef_perRef">45</span></td>
 <td style="text-align:center"><span id='evtBasesTrab:perref'>perRef</span></td>
 <td style="text-align:center"><a href="#resumo_evtBasesTrab:infoperref">infoPerRef</a></td>
 <td style="text-align:center">E</td>
@@ -29011,7 +29129,49 @@ OBS.: No período de 04/2020 a 06/2020, as alíquotas devem ser 0,75% para o SES
 Origem: <a href="#5001_ideEvento_perApur">perApur</a> ou campo {perRef} de S-1200/S-2299.</td>
 </tr>
 <tr>
-<td style="text-align:center; cursor:copy" onclick="copiarCaminho('5001_infoCp_ideEstabLot_infoCategIncid_infoPerRef_detInfoPerRef')"><span class="has-tooltip-right" data-tooltip="5001_infoCp_ideEstabLot_infoCategIncid_infoPerRef_detInfoPerRef" id="5001_infoCp_ideEstabLot_infoCategIncid_infoPerRef_detInfoPerRef">39</span></td>
+<td style="text-align:center; cursor:copy" onclick="copiarCaminho('5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoPerRef_ideADC')"><span class="has-tooltip-right" data-tooltip="5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoPerRef_ideADC" id="5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoPerRef_ideADC">46</span></td>
+<td style="text-align:center"><span data-tipo="grupo" id='evtBasesTrab:ideadc'><a href="#resumo_evtBasesTrab:ideadc">ideADC</a></span></td>
+<td style="text-align:center"><a href="#resumo_evtBasesTrab:infoperref">infoPerRef</a></td>
+<td style="text-align:center">G</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">0-N</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">-</td>
+<td style="text-align:left">Identificação do instrumento ou situação ensejadora da remuneração relativa a períodos de apuração anteriores.<br />
+Evento de origem: S-1200 ou S-2299.</td>
+</tr>
+<tr>
+<td style="text-align:center; cursor:copy" onclick="copiarCaminho('5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoPerRef_ideADC_dtAcConv')"><span class="has-tooltip-right" data-tooltip="5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoPerRef_ideADC_dtAcConv" id="5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoPerRef_ideADC_dtAcConv">47</span></td>
+<td style="text-align:center"><span id='evtBasesTrab:dtacconv'>dtAcConv</span></td>
+<td style="text-align:center"><a href="#resumo_evtBasesTrab:ideadc">ideADC</a></td>
+<td style="text-align:center">E</td>
+<td style="text-align:center">D</td>
+<td style="text-align:center">0-1</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">-</td>
+<td style="text-align:left">Data da assinatura do acordo, convenção coletiva, sentença normativa ou da conversão da licença saúde em acidente de trabalho.</td>
+</tr>
+<tr>
+<td style="text-align:center; cursor:copy" onclick="copiarCaminho('5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoPerRef_ideADC_tpAcConv')"><span class="has-tooltip-right" data-tooltip="5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoPerRef_ideADC_tpAcConv" id="5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoPerRef_ideADC_tpAcConv">48</span></td>
+<td style="text-align:center"><span id='evtBasesTrab:tpacconv'>tpAcConv</span></td>
+<td style="text-align:center"><a href="#resumo_evtBasesTrab:ideadc">ideADC</a></td>
+<td style="text-align:center">E</td>
+<td style="text-align:center">C</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">-</td>
+<td style="text-align:left">Tipo do instrumento ou situação ensejadora da remuneração relativa a períodos de apuração anteriores.<br />
+<strong>Valores válidos:</strong><br />
+<strong>A</strong> - Acordo Coletivo de Trabalho<br />
+<strong>B</strong> - Legislação federal, estadual, municipal ou distrital<br />
+<strong>C</strong> - Convenção Coletiva de Trabalho<br />
+<strong>D</strong> - Sentença normativa - Dissídio<br />
+<strong>E</strong> - Conversão de licença saúde em acidente de trabalho<br />
+<strong>F</strong> - Outras verbas de natureza salarial ou não salarial devidas após o desligamento<br />
+<strong>G</strong> - Antecipação de diferenças de acordo, convenção ou dissídio coletivo</td>
+</tr>
+<tr>
+<td style="text-align:center; cursor:copy" onclick="copiarCaminho('5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoPerRef_detInfoPerRef')"><span class="has-tooltip-right" data-tooltip="5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoPerRef_detInfoPerRef" id="5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoPerRef_detInfoPerRef">49</span></td>
 <td style="text-align:center"><span data-tipo="grupo" id='evtBasesTrab:detinfoperref'><a href="#resumo_evtBasesTrab:detinfoperref">detInfoPerRef</a></span></td>
 <td style="text-align:center"><a href="#resumo_evtBasesTrab:infoperref">infoPerRef</a></td>
 <td style="text-align:center">G</td>
@@ -29022,7 +29182,7 @@ Origem: <a href="#5001_ideEvento_perApur">perApur</a> ou campo {perRef} de S-120
 <td style="text-align:left">Detalhamento das informações de remuneração por período de referência. Deve ser preenchido com informações de {infoPerApur} e {infoPerAnt} do S-1200 e S-2299, e de {dmDev} do S-2399, quando houver.</td>
 </tr>
 <tr>
-<td style="text-align:center; cursor:copy" onclick="copiarCaminho('5001_infoCp_ideEstabLot_infoCategIncid_infoPerRef_detInfoPerRef_ind13')"><span class="has-tooltip-right" data-tooltip="5001_infoCp_ideEstabLot_infoCategIncid_infoPerRef_detInfoPerRef_ind13" id="5001_infoCp_ideEstabLot_infoCategIncid_infoPerRef_detInfoPerRef_ind13">40</span></td>
+<td style="text-align:center; cursor:copy" onclick="copiarCaminho('5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoPerRef_detInfoPerRef_ind13')"><span class="has-tooltip-right" data-tooltip="5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoPerRef_detInfoPerRef_ind13" id="5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoPerRef_detInfoPerRef_ind13">50</span></td>
 <td style="text-align:center"><span id='evtBasesTrab:ind13'>ind13</span></td>
 <td style="text-align:center"><a href="#resumo_evtBasesTrab:detinfoperref">detInfoPerRef</a></td>
 <td style="text-align:center">E</td>
@@ -29037,7 +29197,7 @@ Origem: <a href="#5001_ideEvento_perApur">perApur</a> ou campo {perRef} de S-120
 <strong>Validação:</strong> Se <a href="#5001_ideEvento_perApur">indApuracao</a> = [2], preencher com [1].</td>
 </tr>
 <tr>
-<td style="text-align:center; cursor:copy" onclick="copiarCaminho('5001_infoCp_ideEstabLot_infoCategIncid_infoPerRef_detInfoPerRef_tpVrPerRef')"><span class="has-tooltip-right" data-tooltip="5001_infoCp_ideEstabLot_infoCategIncid_infoPerRef_detInfoPerRef_tpVrPerRef" id="5001_infoCp_ideEstabLot_infoCategIncid_infoPerRef_detInfoPerRef_tpVrPerRef">41</span></td>
+<td style="text-align:center; cursor:copy" onclick="copiarCaminho('5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoPerRef_detInfoPerRef_tpVrPerRef')"><span class="has-tooltip-right" data-tooltip="5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoPerRef_detInfoPerRef_tpVrPerRef" id="5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoPerRef_detInfoPerRef_tpVrPerRef">51</span></td>
 <td style="text-align:center"><span id='evtBasesTrab:tpvrperref'>tpVrPerRef</span></td>
 <td style="text-align:center"><a href="#resumo_evtBasesTrab:detinfoperref">detInfoPerRef</a></td>
 <td style="text-align:center">E</td>
@@ -29063,7 +29223,7 @@ Origem: <a href="#5001_ideEvento_perApur">perApur</a> ou campo {perRef} de S-120
 <strong>32</strong> - Valor pago ao trabalhador a título de salário-maternidade</td>
 </tr>
 <tr>
-<td style="text-align:center; cursor:copy" onclick="copiarCaminho('5001_infoCp_ideEstabLot_infoCategIncid_infoPerRef_detInfoPerRef_vrPerRef')"><span class="has-tooltip-right" data-tooltip="5001_infoCp_ideEstabLot_infoCategIncid_infoPerRef_detInfoPerRef_vrPerRef" id="5001_infoCp_ideEstabLot_infoCategIncid_infoPerRef_detInfoPerRef_vrPerRef">42</span></td>
+<td style="text-align:center; cursor:copy" onclick="copiarCaminho('5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoPerRef_detInfoPerRef_vrPerRef')"><span class="has-tooltip-right" data-tooltip="5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoPerRef_detInfoPerRef_vrPerRef" id="5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoPerRef_detInfoPerRef_vrPerRef">52</span></td>
 <td style="text-align:center"><span id='evtBasesTrab:vrperref'>vrPerRef</span></td>
 <td style="text-align:center"><a href="#resumo_evtBasesTrab:detinfoperref">detInfoPerRef</a></td>
 <td style="text-align:center">E</td>
@@ -29071,29 +29231,29 @@ Origem: <a href="#5001_ideEvento_perApur">perApur</a> ou campo {perRef} de S-120
 <td style="text-align:center">1</td>
 <td style="text-align:center">1-14</td>
 <td style="text-align:center">2</td>
-<td style="text-align:left">Valor da base de cálculo, dedução ou desconto da contribuição social, conforme definido no campo <a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoPerRef_detInfoPerRef_tpVrPerRef">tpVrPerRef</a>.<br />
+<td style="text-align:left">Valor da base de cálculo, dedução ou desconto da contribuição social, conforme definido no campo <a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoPerRef_detInfoPerRef_tpVrPerRef">tpVrPerRef</a>.<br />
 <strong>Validação:</strong> Deve ser maior que 0 (zero).<br />
 Deve corresponder ao somatório dos valores informados no campo {vrRubr} em S-1200 e S-2299 (grupos {infoPerApur} e {infoPerAnt}), e também em S-2399, obedecendo ao que segue:<br />
 a) Somar os valores das rubricas cujo <a href="#1010_infoRubrica_inclusao_dadosRubrica_tpRubr">tpRubr</a> em S-1010 seja igual a [1, 3] e subtrair os valores das rubricas cujo <a href="#1010_infoRubrica_inclusao_dadosRubrica_tpRubr">tpRubr</a> em S-1010 seja igual a [2, 4], observando a tabela de relacionamento abaixo:<br />
-<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoPerRef_detInfoPerRef_tpVrPerRef">tpVrPerRef</a> = [11]*, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [11, 12, 21, 22] e ({grauExp} em S-1200/S-2299 = [1] ou não informado);<br />
-<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoPerRef_detInfoPerRef_tpVrPerRef">tpVrPerRef</a> = [12]*, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [11, 12, 21, 22] e {grauExp} em S-1200/S-2299 = [2];<br />
-<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoPerRef_detInfoPerRef_tpVrPerRef">tpVrPerRef</a> = [13]*, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [11, 12, 21, 22] e {grauExp} em S-1200/S-2299 = [3];<br />
-<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoPerRef_detInfoPerRef_tpVrPerRef">tpVrPerRef</a> = [14]*, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [11, 12, 21, 22] e {grauExp} em S-1200/S-2299 = [4];<br />
-<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoPerRef_detInfoPerRef_tpVrPerRef">tpVrPerRef</a> = [15]**, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [13, 14, 25, 26] e ({grauExp} em S-1200/S-2299 = [1] ou não informado);<br />
-<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoPerRef_detInfoPerRef_tpVrPerRef">tpVrPerRef</a> = [16]**, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [13, 14] e {grauExp} em S-1200/S-2299 = [2];<br />
-<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoPerRef_detInfoPerRef_tpVrPerRef">tpVrPerRef</a> = [17]**, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [13, 14] e {grauExp} em S-1200/S-2299 = [3];<br />
-<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoPerRef_detInfoPerRef_tpVrPerRef">tpVrPerRef</a> = [18]**, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [13, 14] e {grauExp} em S-1200/S-2299 = [4];<br />
-<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoPerRef_detInfoPerRef_tpVrPerRef">tpVrPerRef</a> = [19], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [15, 16];<br />
-<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoPerRef_detInfoPerRef_tpVrPerRef">tpVrPerRef</a> = [31], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [51];<br />
-<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoPerRef_detInfoPerRef_tpVrPerRef">tpVrPerRef</a> = [32], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [21, 22].<br />
+<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoPerRef_detInfoPerRef_tpVrPerRef">tpVrPerRef</a> = [11]*, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [11, 12, 21, 22] e ({grauExp} em S-1200/S-2299 = [1] ou não informado);<br />
+<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoPerRef_detInfoPerRef_tpVrPerRef">tpVrPerRef</a> = [12]*, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [11, 12, 21, 22] e {grauExp} em S-1200/S-2299 = [2];<br />
+<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoPerRef_detInfoPerRef_tpVrPerRef">tpVrPerRef</a> = [13]*, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [11, 12, 21, 22] e {grauExp} em S-1200/S-2299 = [3];<br />
+<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoPerRef_detInfoPerRef_tpVrPerRef">tpVrPerRef</a> = [14]*, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [11, 12, 21, 22] e {grauExp} em S-1200/S-2299 = [4];<br />
+<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoPerRef_detInfoPerRef_tpVrPerRef">tpVrPerRef</a> = [15]**, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [13, 14, 25, 26] e ({grauExp} em S-1200/S-2299 = [1] ou não informado);<br />
+<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoPerRef_detInfoPerRef_tpVrPerRef">tpVrPerRef</a> = [16]**, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [13, 14] e {grauExp} em S-1200/S-2299 = [2];<br />
+<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoPerRef_detInfoPerRef_tpVrPerRef">tpVrPerRef</a> = [17]**, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [13, 14] e {grauExp} em S-1200/S-2299 = [3];<br />
+<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoPerRef_detInfoPerRef_tpVrPerRef">tpVrPerRef</a> = [18]**, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [13, 14] e {grauExp} em S-1200/S-2299 = [4];<br />
+<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoPerRef_detInfoPerRef_tpVrPerRef">tpVrPerRef</a> = [19], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [15, 16];<br />
+<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoPerRef_detInfoPerRef_tpVrPerRef">tpVrPerRef</a> = [31], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [51];<br />
+<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoPerRef_detInfoPerRef_tpVrPerRef">tpVrPerRef</a> = [32], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [21, 22].<br />
  <br />
 b) Somar os valores das rubricas cujo <a href="#1010_infoRubrica_inclusao_dadosRubrica_tpRubr">tpRubr</a> em S-1010 seja igual a [2, 4] e subtrair os valores das rubricas cujo <a href="#1010_infoRubrica_inclusao_dadosRubrica_tpRubr">tpRubr</a> em S-1010 seja igual a [1, 3], observando a tabela de relacionamento abaixo:<br />
-<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoPerRef_detInfoPerRef_tpVrPerRef">tpVrPerRef</a> = [21], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [31, 32];<br />
-<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoPerRef_detInfoPerRef_tpVrPerRef">tpVrPerRef</a> = [22], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [34];<br />
-<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoPerRef_detInfoPerRef_tpVrPerRef">tpVrPerRef</a> = [23], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [35].<br />
+<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoPerRef_detInfoPerRef_tpVrPerRef">tpVrPerRef</a> = [21], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [31, 32];<br />
+<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoPerRef_detInfoPerRef_tpVrPerRef">tpVrPerRef</a> = [22], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [34];<br />
+<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoPerRef_detInfoPerRef_tpVrPerRef">tpVrPerRef</a> = [23], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [35].<br />
  <br />
-* Caso <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> da rubrica em S-1010 seja igual a [91, 92, 93, 94] e <a href="#1070_infoProcesso_inclusao_infoSusp_indSusp">indSusp</a> do respectivo processo em S-1070 seja diferente de [90] (decisão definitiva), o valor também deverá ser computado na composição das bases do <a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoPerRef_detInfoPerRef_tpVrPerRef">tpVrPerRef</a> = [11, 12, 13, 14].<br />
-** Caso <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> da rubrica em S-1010 seja igual a [95, 96, 97, 98] e <a href="#1070_infoProcesso_inclusao_infoSusp_indSusp">indSusp</a> do respectivo processo em S-1070 seja diferente de [90] (decisão definitiva), o valor também deverá ser computado na composição das bases do <a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoPerRef_detInfoPerRef_tpVrPerRef">tpVrPerRef</a> = [15, 16, 17, 18].<br />
+* Caso <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> da rubrica em S-1010 seja igual a [91, 92, 93, 94] e <a href="#1070_infoProcesso_inclusao_infoSusp_indSusp">indSusp</a> do respectivo processo em S-1070 seja diferente de [90] (decisão definitiva), o valor também deverá ser computado na composição das bases do <a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoPerRef_detInfoPerRef_tpVrPerRef">tpVrPerRef</a> = [11, 12, 13, 14].<br />
+** Caso <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> da rubrica em S-1010 seja igual a [95, 96, 97, 98] e <a href="#1070_infoProcesso_inclusao_infoSusp_indSusp">indSusp</a> do respectivo processo em S-1070 seja diferente de [90] (decisão definitiva), o valor também deverá ser computado na composição das bases do <a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoCompl_infoPerRef_detInfoPerRef_tpVrPerRef">tpVrPerRef</a> = [15, 16, 17, 18].<br />
 *** Caso <a href="#1070_infoProcesso_inclusao_infoSusp_indSusp">indSusp</a> do respectivo processo em S-1070 seja igual a [90] (decisão definitiva), o valor não deve ser computado.</td>
 </tr>
 </tbody>
@@ -30076,7 +30236,7 @@ Evento de origem: S-1200, S-2299 ou S-2399.</td>
 <td style="text-align:center">3</td>
 <td style="text-align:center">-</td>
 <td style="text-align:left">Preencher com o código correspondente à categoria de origem do dirigente sindical ou do trabalhador cedido.<br />
-Origem: campo <a href="#2300_infoTSVInicio_infoComplementares_infoDirigenteSindical_categOrig">infoDirigenteSindical/categOrig</a> ou campo <a href="#2300_infoTSVInicio_infoComplementares_infoTrabCedido_categOrig">infoTrabCedido/categOrig</a> de S-2300.</td>
+Origem: campo <a href="#2300_infoTSVInicio_infoComplementares_infoDirigenteSindical_categOrig">infoDirigenteSindical/categOrig</a> ou <a href="#2300_infoTSVInicio_infoComplementares_infoTrabCedido_categOrig">infoTrabCedido/categOrig</a> de S-2300.</td>
 </tr>
 <tr>
 <td style="text-align:center; cursor:copy" onclick="copiarCaminho('5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_tpRegTrab')"><span class="has-tooltip-right" data-tooltip="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_tpRegTrab" id="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_tpRegTrab">27</span></td>
