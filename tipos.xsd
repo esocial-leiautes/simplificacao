@@ -195,8 +195,19 @@
                 </xs:annotation>
             </xs:element>
             <xs:element name="ideTabRubr" type="TS_ideTabRubr" />
-            <xs:element name="qtdRubr" minOccurs="0" type="TS_qtdRubr" />
-            <xs:element name="fatorRubr" minOccurs="0" type="TS_fator" />
+            <xs:element name="qtdRubr" minOccurs="0" type="TS_qtdRubr">
+                <xs:annotation>
+                    <xs:documentation>Informar a quantidade de referência para apuração (em horas, cotas, meses, etc.).</xs:documentation>
+                    <xs:documentation>Preenchimento obrigatório quando se tratar de rubrica relativa a faltas ou Descanso Semanal Remunerado - DSR sobre faltas (nesse caso, informar a quantidade de dias).</xs:documentation>
+                    <xs:documentation>Validação: Deve ser maior que 0 (zero). Informação obrigatória se {codRubr}(./codRubr) tiver {natRubr}(1010_infoRubrica_inclusao_dadosRubrica_natRubr) em S-1010 igual a [9207, 9211].</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="fatorRubr" minOccurs="0" type="TS_fator">
+                <xs:annotation>
+                    <xs:documentation>Informar o fator, percentual, etc. da rubrica, quando necessário.</xs:documentation>
+                    <xs:documentation>Validação: Deve ser maior que 0 (zero).</xs:documentation>
+                </xs:annotation>
+            </xs:element>
             <xs:element name="vrRubr" type="TS_vrRubr" />
             <xs:element name="indApurIR" type="TS_indApurIR">
                 <xs:annotation>
@@ -1759,7 +1770,7 @@
 
     <xs:simpleType name="TS_qtdRubr">
         <xs:annotation>
-            <xs:documentation>Informar a quantidade de referência para apuração (em horas, cotas, meses, percentual, etc.). Ex.: Quantidade de horas extras trabalhadas relacionada com uma rubrica de hora extra, quantidade de dias trabalhados relacionada com uma rubrica de salário, etc.</xs:documentation>
+            <xs:documentation>Informar a quantidade de referência para apuração (em horas, cotas, meses, etc.). Ex.: Quantidade de horas extras trabalhadas relacionada com uma rubrica de hora extra, quantidade de dias trabalhados relacionada com uma rubrica de salário, etc.</xs:documentation>
             <xs:documentation>Preenchimento obrigatório quando se tratar de rubrica relativa a faltas ou Descanso Semanal Remunerado - DSR sobre faltas (nesse caso, informar a quantidade de dias).</xs:documentation>
             <xs:documentation>Validação: Deve ser maior que 0 (zero). Informação obrigatória se {codRubr}(./codRubr) tiver {natRubr}(1010_infoRubrica_inclusao_dadosRubrica_natRubr) em S-1010 igual a [9207, 9211].</xs:documentation>
         </xs:annotation>
@@ -1775,7 +1786,7 @@
 
     <xs:simpleType name="TS_fator">
         <xs:annotation>
-            <xs:documentation>Informar o fator, percentual, etc, da rubrica, quando necessário. Ex.: Adicional de horas extras 50%, relacionado a uma rubrica de horas extras: Fator = 50.</xs:documentation>
+            <xs:documentation>Informar o fator, percentual, etc. da rubrica, quando necessário. Ex.: Adicional de horas extras 50%, relacionado a uma rubrica de horas extras: Fator = 50.</xs:documentation>
             <xs:documentation>Validação: Deve ser maior que 0 (zero).</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:decimal">
