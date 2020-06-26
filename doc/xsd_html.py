@@ -258,7 +258,9 @@ def embutir_links(texto, chave, caminho_completo):
                 else:
                     texto = texto.replace(ocorrencia, '[[[{}]]]'.format(ocorrencia[1:-1]), 1)
 
-    return texto.replace('Validação:', '<strong>Validação:</strong>').replace('[[[', '{').replace(']]]', '}')
+    texto = re.sub('(Validação:|Origem:|Evento de origem:)', r'<strong>\1</strong>', texto)
+
+    return texto.replace('[[[', '{').replace(']]]', '}')
 
 
 def tratar_caminho_relativo(rotulo, caminho, caminho_completo):
