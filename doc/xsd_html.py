@@ -476,7 +476,7 @@ molde_completo = '<tr>\n<td style="text-align:center; cursor:copy" onclick="copi
 
 molde_regra_modal = '<div class="modal" id="{identificador}">\n<div class="modal-background"></div>\n<div class="modal-card">\n<header class="modal-card-head">\n<p class="modal-card-title">{identificador}</p>\n<button class="delete" aria-label="close"></button>\n</header>\n<section class="modal-card-body">\n<p>{texto}</p>\n</section>\n</div>\n</div>\n'
 
-molde_regra = '<td><strong>{identificador}</strong></td>\n<td>{texto}</strong></td>\n</tr>\n'
+molde_regra = '<td id={id}><strong>{identificador}</strong></td>\n<td>{texto}</strong></td>\n</tr>\n'
 
 tipos_include = {}
 
@@ -740,7 +740,7 @@ with io.open('doc\\regras.html', 'w', encoding='utf8') as f:
     f.write('<table class="table is-fullwidth is-bordered">\n<thead>\n<tr><th style="text-align:center">Nome</th>\n<th style="text-align:center">Descrição</th>\n</tr>\n</thead>\n<tbody>\n')
 
     for regra in regras:
-        f.write(molde_regra.format(identificador=regra, texto=embutir_links_tabelas(regras[regra].replace('\n', '<br />\n'))))
+        f.write(molde_regra.format(id=regra.lower(), identificador=regra, texto=embutir_links_tabelas(regras[regra].replace('\n', '<br />\n'))))
 
     f.write('</tbody>\n</table>\n')
 
