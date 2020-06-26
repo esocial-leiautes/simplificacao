@@ -862,7 +862,7 @@ b) Se houver informação no grupo {infoPerAnt}, deve haver evento S-2410 para C
 </header>
 <section class="modal-card-body">
 <p>A categoria indicada no registro de remuneração de trabalhadores sujeitos ao Registro de Eventos Trabalhistas - RET, ou seja, "Empregado" ([101, 102, 103, 104, 105, 106, 107, 108, 111]), algumas categorias de "Agente Público" ([301, 302, 303, 304, 305, 306, 307, 308, 309, 310, 312]), "Avulso" ([201, 202]), "Cessão" ([401, 410]) ou algumas categorias de "Contribuinte Individual" ([721, 722, 723, 731, 734, 738, 761, 771]) e de "Bolsista" ([901, 902]) deve ser igual àquela existente no RET para o referido vínculo (matrícula) ou categoria, para o caso de Trabalhador Sem Vínculo de Emprego/Estatutário - TSVE.<br />
-Esta regra não se aplica para remunerações a trabalhadores nos casos em que {remunSuc} = [S].</p>
+Esta regra não se aplica para remunerações a trabalhadores nos casos em que {remunSuc} (ou {remunOrgSuc}) = [S].</p>
 </section>
 </div>
 </div>
@@ -931,9 +931,9 @@ a) Se a categoria de trabalhador indicar "Empregado" ([101, 102, 103, 104, 105, 
 b) Se a categoria indicar um dos tipos de trabalhador sujeito ao evento "Trabalhador Sem Vínculo de Emprego/Estatutário - TSVE", a saber: "Avulso" ([201, 202]), as categorias do grupo "Agente Público" [304, 305, 308], "Cessão" ([401, 410]), as categorias do grupo "Contribuinte Individual" [721, 722, 723, 731, 734, 738, 761, 771] ou "Bolsista" [901, 902], aplicar a <a href="#regra_tsv_ativo_na_dtevento">REGRA_TSV_ATIVO_NA_DTEVENTO</a>.<br />
 Caso seja informada em {remunPerApur} remuneração posterior ao mês/ano da data de desligamento (ou de término), retornar "alerta". No caso do evento S-1200, também retornar "alerta" se a remuneração informada em {remunPerApur} for referente a contrato informado pelo evento Registro Preliminar de Trabalhador (S-2190) sem o correspondente evento de Admissão (S-2200) ou TSVE - Início (S-2300).<br />
 2) Se houver remuneração no registro {remunPerAnt}, obedecer ao que segue:<br />
-a) Se a categoria for relativa a "Empregado" ou as categorias do grupo "Agente Público" [301, 302, 303, 306, 307, 309, 310, 312] e se {remunSuc} = [N], executar a <a href="#regra_existe_vinculo">REGRA_EXISTE_VINCULO</a>. Em caso de existência, {perRef} deve ser igual ou posterior ao mês/ano da data de admissão/exercício, bem como igual ou anterior ao mês/ano da data de desligamento do vínculo (exceto se houver reintegração com data posterior ao desligamento ou se, no caso do evento S-1200, {tpAcConv} = [F]).<br />
-b) Se a categoria for relativa a "Avulso", "Cessão" ou igual a [304, 305, 308, 721, 722, 901] e se {remunSuc} = [N], executar a <a href="#regra_existe_evento_tsv_inicio">REGRA_EXISTE_EVENTO_TSV_INICIO</a>. Em caso de existência, {perRef} deve ser igual ou posterior ao mês/ano da data de início, bem como igual ou anterior ao mês/ano da data de término (exceto se, no caso do evento S-1200, {tpAcConv} = [F]).<br />
-c) Se a categoria for relativa a "Empregado" ou as categorias do grupo "Agente Público" [301, 302, 303, 304, 305, 306, 307, 308, 309, 310, 312] e se {remunSuc} = [S], {perRef} deve ser igual ou posterior ao mês/ano da data de admissão/exercício.<br />
+a) Se a categoria for relativa a "Empregado" ou as categorias do grupo "Agente Público" [301, 302, 303, 306, 307, 309, 310, 312] e se {remunSuc} (ou {remunOrgSuc}) = [N], executar a <a href="#regra_existe_vinculo">REGRA_EXISTE_VINCULO</a>. Em caso de existência, {perRef} deve ser igual ou posterior ao mês/ano da data de admissão/exercício, bem como igual ou anterior ao mês/ano da data de desligamento do vínculo (exceto se houver reintegração com data posterior ao desligamento ou se, no caso do evento S-1200, {tpAcConv} = [F]).<br />
+b) Se a categoria for relativa a "Avulso", "Cessão" ou igual a [304, 305, 308, 721, 722, 901] e se {remunSuc} (ou {remunOrgSuc}) = [N], executar a <a href="#regra_existe_evento_tsv_inicio">REGRA_EXISTE_EVENTO_TSV_INICIO</a>. Em caso de existência, {perRef} deve ser igual ou posterior ao mês/ano da data de início, bem como igual ou anterior ao mês/ano da data de término (exceto se, no caso do evento S-1200, {tpAcConv} = [F]).<br />
+c) Se a categoria for relativa a "Empregado" ou as categorias do grupo "Agente Público" [301, 302, 303, 304, 305, 306, 307, 308, 309, 310, 312] e se {remunSuc} (ou {remunOrgSuc}) = [S], {perRef} deve ser igual ou posterior ao mês/ano da data de admissão/exercício.<br />
 Caso seja informada em {remunPerAnt} remuneração posterior ao mês/ano da data de desligamento (ou de término) e não se trate de uma das exceções acima listadas, retornar "alerta". No caso do evento S-1200, também retornar "alerta" se a remuneração informada em {remunPerAnt} for referente a contrato informado pelo evento Registro Preliminar de Trabalhador (S-2190) sem o correspondente evento de Admissão (S-2200) ou TSVE - Início (S-2300).</p>
 </section>
 </div>
@@ -2872,7 +2872,7 @@ Preenchimento obrigatório somente no caso de dispensa, ainda que parcial, de co
 <td style="text-align:center">14</td>
 <td style="text-align:center">-</td>
 <td style="text-align:left">Informar o número de inscrição da entidade educativa ou de prática desportiva.<br />
-<strong>Validação:</strong> Deve ser um número de CNPJ válido, com 14 (catorze) algarismos.</td>
+<strong>Validação:</strong> Deve ser um número de CNPJ válido, com 14 (catorze) algarismos. Se o empregador for pessoa jurídica, a raiz do CNPJ informado deve ser diferente de <a href="#1005_ideEmpregador_nrInsc">ideEmpregador/nrInsc</a>.</td>
 </tr>
 <tr>
 <td style="text-align:center; cursor:copy" onclick="copiarCaminho('1005_infoEstab_inclusao_infoTrab_infoPCD')"><span class="has-tooltip-right" data-tooltip="1005_infoEstab_inclusao_infoTrab_infoPCD" id="1005_infoEstab_inclusao_infoTrab_infoPCD">40</span></td>
