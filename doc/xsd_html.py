@@ -480,6 +480,10 @@ molde_regra = '<td id={id}><strong>{identificador}</strong></td>\n<td>{texto}</s
 
 tipos_include = {}
 
+larguras_resumo = [14, 14, 14, 14, 14, 14, 14]
+
+larguras_completo = [11, 11, 11, 11, 11, 11, 11, 11, 11]
+
 ns = {'base': 'http://www.w3.org/2001/XMLSchema'}
 raiz_include = ET.parse(caminho_projeto + 'tipos.xsd').getroot()
 for tipo in raiz_include.findall('base:simpleType', ns):
@@ -682,13 +686,13 @@ for evento in eventos:
     tabela.append('</thead>\n')
     tabela.append('<tbody>\n')
     tabela.append('<tr class="grupo">\n')
-    tabela.append('<td style="text-align:center"><strong>Grupo</strong></td>\n')
-    tabela.append('<td style="text-align:center"><strong>Pai</strong></td>\n')
-    tabela.append('<td style="text-align:center"><strong>Nível</strong></td>\n')
-    tabela.append('<td style="text-align:center"><strong>Descrição</strong></td>\n')
-    tabela.append('<td style="text-align:center"><strong>Ocorrência</strong></td>\n')
-    tabela.append('<td style="text-align:center"><strong>Chave</strong></td>\n')
-    tabela.append('<td style="text-align:center"><strong>Condição</strong></td>\n')
+    tabela.append('<td style="text-align:center; width: {}%;"><strong>Grupo</strong></td>\n'.format(larguras_resumo[0]))
+    tabela.append('<td style="text-align:center; width: {}%;"><strong>Pai</strong></td>\n'.format(larguras_resumo[1]))
+    tabela.append('<td style="text-align:center; width: {}%;"><strong>Nível</strong></td>\n'.format(larguras_resumo[2]))
+    tabela.append('<td style="text-align:center; width: {}%;"><strong>Descrição</strong></td>\n'.format(larguras_resumo[3]))
+    tabela.append('<td style="text-align:center; width: {}%;"><strong>Ocorrência</strong></td>\n'.format(larguras_resumo[4]))
+    tabela.append('<td style="text-align:center; width: {}%;"><strong>Chave</strong></td>\n'.format(larguras_resumo[5]))
+    tabela.append('<td style="text-align:center; width: {}%;"><strong>Condição</strong></td>\n'.format(larguras_resumo[6]))
     tabela.append('</tr>\n')
     tabela += (conteudo)
     tabela.append('</tbody>\n')
@@ -700,15 +704,15 @@ for evento in eventos:
     tabela.append('<table class="table is-fullwidth is-bordered">\n')
     tabela.append('<thead>\n')
     tabela.append('<tr>\n')
-    tabela.append('<th style="text-align:center">#</th>\n')
-    tabela.append('<th style="text-align:center">Grupo/Campo</th>\n')
-    tabela.append('<th style="text-align:center">Pai</th>\n')
-    tabela.append('<th style="text-align:center">Elemento</th>\n')
-    tabela.append('<th style="text-align:center">Tipo</th>\n')
-    tabela.append('<th style="text-align:center">Ocorrência</th>\n')
-    tabela.append('<th style="text-align:center">Tamanho</th>\n')
-    tabela.append('<th style="text-align:center">Decimais</th>\n')
-    tabela.append('<th style="text-align:center">Descrição</th>\n')
+    tabela.append('<th style="text-align:center; width: {}%;">#</th>\n'.format(larguras_completo[0]))
+    tabela.append('<th style="text-align:center; width: {}%;">Grupo/Campo</th>\n'.format(larguras_completo[1]))
+    tabela.append('<th style="text-align:center; width: {}%;">Pai</th>\n'.format(larguras_completo[2]))
+    tabela.append('<th style="text-align:center; width: {}%;">Elemento</th>\n'.format(larguras_completo[3]))
+    tabela.append('<th style="text-align:center; width: {}%;">Tipo</th>\n'.format(larguras_completo[4]))
+    tabela.append('<th style="text-align:center; width: {}%;">Ocorrência</th>\n'.format(larguras_completo[5]))
+    tabela.append('<th style="text-align:center; width: {}%;">Tamanho</th>\n'.format(larguras_completo[6]))
+    tabela.append('<th style="text-align:center; width: {}%;">Decimais</th>\n'.format(larguras_completo[7]))
+    tabela.append('<th style="text-align:center; width: {}%;">Descrição</th>\n'.format(larguras_completo[8]))
     tabela.append('</tr>\n')
     tabela.append('</thead>\n')
     tabela.append('<tbody>\n')
