@@ -480,9 +480,9 @@ molde_regra = '<td id={id}><strong>{identificador}</strong></td>\n<td>{texto}</s
 
 tipos_include = {}
 
-larguras_resumo = [14, 14, 4, 27, 4, 13, 23.9]
+larguras_resumo = [14, 14, 4, 26.59, 6.5, 12, 22.9]
 
-larguras_completo = [3, 14, 14, 5, 5, 5, 7, 5, 41.9]
+larguras_completo = [5, 14, 14, 4, 4, 6.5, 6.5, 4, 41.99]
 
 ns = {'base': 'http://www.w3.org/2001/XMLSchema'}
 raiz_include = ET.parse(caminho_projeto + 'tipos.xsd').getroot()

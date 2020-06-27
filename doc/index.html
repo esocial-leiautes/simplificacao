@@ -931,9 +931,12 @@ a) Se a categoria de trabalhador indicar "Empregado" ([101, 102, 103, 104, 105, 
 b) Se a categoria indicar um dos tipos de trabalhador sujeito ao evento "Trabalhador Sem Vínculo de Emprego/Estatutário - TSVE", a saber: "Avulso" ([201, 202]), as categorias do grupo "Agente Público" [304, 305, 308], "Cessão" ([401, 410]), as categorias do grupo "Contribuinte Individual" [721, 722, 723, 731, 734, 738, 761, 771] ou "Bolsista" [901, 902], aplicar a <a href="#regra_tsv_ativo_na_dtevento">REGRA_TSV_ATIVO_NA_DTEVENTO</a>.<br />
 Caso seja informada em {remunPerApur} remuneração posterior ao mês/ano da data de desligamento (ou de término), retornar "alerta". No caso do evento S-1200, também retornar "alerta" se a remuneração informada em {remunPerApur} for referente a contrato informado pelo evento Registro Preliminar de Trabalhador (S-2190) sem o correspondente evento de Admissão (S-2200) ou TSVE - Início (S-2300).<br />
 2) Se houver remuneração no registro {remunPerAnt}, obedecer ao que segue:<br />
-a) Se a categoria for relativa a "Empregado" ou as categorias do grupo "Agente Público" [301, 302, 303, 306, 307, 309, 310, 312] e se {remunSuc} (ou {remunOrgSuc}) = [N], executar a <a href="#regra_existe_vinculo">REGRA_EXISTE_VINCULO</a>. Em caso de existência, {perRef} deve ser igual ou posterior ao mês/ano da data de admissão/exercício, bem como igual ou anterior ao mês/ano da data de desligamento do vínculo (exceto se houver reintegração com data posterior ao desligamento ou se, no caso do evento S-1200, {tpAcConv} = [F]).<br />
-b) Se a categoria for relativa a "Avulso", "Cessão" ou igual a [304, 305, 308, 721, 722, 901] e se {remunSuc} (ou {remunOrgSuc}) = [N], executar a <a href="#regra_existe_evento_tsv_inicio">REGRA_EXISTE_EVENTO_TSV_INICIO</a>. Em caso de existência, {perRef} deve ser igual ou posterior ao mês/ano da data de início, bem como igual ou anterior ao mês/ano da data de término (exceto se, no caso do evento S-1200, {tpAcConv} = [F]).<br />
-c) Se a categoria for relativa a "Empregado" ou as categorias do grupo "Agente Público" [301, 302, 303, 304, 305, 306, 307, 308, 309, 310, 312] e se {remunSuc} (ou {remunOrgSuc}) = [S], {perRef} deve ser igual ou posterior ao mês/ano da data de admissão/exercício.<br />
+a) Se a categoria for relativa a "Empregado" ou as categorias do grupo "Agente Público" [301, 302, 303, 306, 307, 309, 310, 312] e se {remunSuc} (ou {remunOrgSuc}) = [N], executar a <a href="#regra_existe_vinculo">REGRA_EXISTE_VINCULO</a>. Além disso, {perRef} deve ser igual ou anterior ao mês/ano da data de desligamento do vínculo (exceto se houver reintegração com data posterior ao desligamento ou se, no caso do evento S-1200, {tpAcConv} = [F]), bem como igual ou posterior ao mês/ano da data de admissão/exercício.<br />
+b) Se a categoria for relativa a "Avulso", "Cessão" ou igual a [304, 305, 308, 721, 722, 901] e se {remunSuc} (ou {remunOrgSuc}) = [N], executar a <a href="#regra_existe_evento_tsv_inicio">REGRA_EXISTE_EVENTO_TSV_INICIO</a>. Além disso, {perRef} deve ser igual ou anterior ao mês/ano da data de término (exceto se, no caso do evento S-1200, {tpAcConv} = [F]), bem como igual ou posterior ao mês/ano da data de início.<br />
+c) Caso {remunSuc} (ou {remunOrgSuc}) = [S]:<br />
+c1) {perRef} deve ser igual ou posterior ao mês/ano de {sucessaoVinc/dtAdm} (ou {sucessaoVinc/dtExercicio});<br />
+c2) Se o trabalhador possuir vínculo (evento S-2200) informado no declarante, {perRef} deve ser anterior ao mês/ano da data de admissão/exercício desse vínculo;<br />
+c3) Se {perRef} for igual ou posterior ao mês/ano da data de início da obrigatoriedade dos eventos não periódicos para o empregador/órgão público sucedido (informado no grupo {sucessaoVinc}), o trabalhador deve possuir vínculo (evento S-2200) informado nesse empregador/órgão público anterior. Além disso, {perRef} deve ser igual ou anterior ao mês/ano da data de desligamento do vínculo (exceto se, no caso do evento S-1200, {tpAcConv} = [F]), bem como igual ou posterior ao mês/ano da data de admissão/exercício.<br />
 Caso seja informada em {remunPerAnt} remuneração posterior ao mês/ano da data de desligamento (ou de término) e não se trate de uma das exceções acima listadas, retornar "alerta". No caso do evento S-1200, também retornar "alerta" se a remuneração informada em {remunPerAnt} for referente a contrato informado pelo evento Registro Preliminar de Trabalhador (S-2190) sem o correspondente evento de Admissão (S-2200) ou TSVE - Início (S-2300).</p>
 </section>
 </div>
@@ -1003,10 +1006,10 @@ b) referir-se ao mesmo contrato (CPF + matrícula; ou CPF + categoria, no caso d
 1) Se for relativa aos grupos "Empregado" (1XX) ou "Avulso" (2XX), não é permitida a inclusão de registro cujo {codRubr} tenha {codIncCP} em S-1010 = [34, 35];<br />
 2) Se for relativa ao grupo "Contribuinte Individual" (7XX), não podem ser utilizados códigos de rubrica cujos {codIncCP} e {codIncIRRF} em S-1010 sejam específicos de segurados empregados. Portanto, não são aceitas rubricas cujo:<br />
 2a) {codIncCP} em S-1010 = [12, 21, 22, 32, 51, 92, 93, 94], exceto se categoria de trabalhador = [771];<br />
-2b) {codIncIRRF} em S-1010 = [12, 13, 32, 33, 42, 43, 47, 52, 53, 62, 63, 64, 71, 92, 93], exceto se categoria de trabalhador = [771];<br />
+2b) {codIncIRRF} em S-1010 = [12, 13, 32, 33, 42, 43, 47, 48, 52, 53, 62, 63, 64, 65, 66, 71, 76, 77, 92, 93, 9012, 9013, 9032, 9033, 9042, 9043, 9047, 9048, 9052, 9053, 9062, 9063, 9064, 9065, 9066, 9832, 9833], exceto se categoria de trabalhador = [771];<br />
 2c) {codIncCP} em S-1010 = [34, 35] se a categoria do trabalhador for diferente de [711, 712, 734];<br />
 2d) {codIncCP} em S-1010 = [31] se {classTrib} em S-1000 = [21, 22] (Pessoa Física) e a categoria do trabalhador pertencer ao grupo "Contribuinte Individual" (7XX), pois não existe previsão legal de desconto de contribuição do segurado contribuinte individual que é contratado por outro contribuinte individual, exceto se {ideEstab/tpInsc} em S-1005 = [4] (CNO);<br />
-2e) {codIncIRRF} em S-1010 = [14, 34, 54, 94], exceto se categoria de trabalhador = [721, 722, 723, 731, 734, 738, 761, 771];<br />
+2e) {codIncIRRF} em S-1010 = [14, 34, 54, 94, 9014, 9034, 9054, 9834], exceto se categoria de trabalhador = [721, 722, 723, 731, 734, 738, 761, 771];<br />
 3) Se for relativa a dirigente sindical ({codCateg} = [401]), observar a categoria de origem (informada no evento S-2300) para determinar se o trabalhador é empregado ou contribuinte individual, e aplicar uma das duas regras anteriores;<br />
 4) Se for relativa a estagiário ({codCateg} = [901]), não podem ser aceitas rubricas cujo {codIncCP} em S-1010 seja diferente de [00, 01] ou {codIncFGTS} em S-1010 seja diferente de [00].<br />
 Caso algum item acima não seja atendido, retornar "alerta".</p>
@@ -1022,8 +1025,8 @@ Caso algum item acima não seja atendido, retornar "alerta".</p>
 </header>
 <section class="modal-card-body">
 <p>Se {indApuracao} for igual a [2] (décimo terceiro salário):<br />
-a) No caso do evento S-1200, são permitidas apenas as rubricas cujo {codIncCP} em S-1010 seja igual a [00, 01, 12, 14, 16, 22, 26, 32, 92, 94, 96, 98], cujo {codIncIRRF} em S-1010 seja igual a [0, 1, 9, 12, 14, 32, 42, 47, 52, 62, 64, 71, 77, 81, 82, 83, 92] e cujo {codIncFGTS} em S-1010 seja igual a [00, 12, 92]. Caso sejam informadas rubricas com {codIncCP}, {codIncIRRF} e/ou {codIncFGTS} diferentes dos valores acima citados, retornar "alerta";<br />
-b) Nos casos dos eventos S-1202 e S-1207, são permitidas apenas as rubricas cujo {codIncCPRP} em S-1010 seja igual a [00, 12, 32, 91] e cujo {codIncIRRF} em S-1010 seja igual a [0, 1, 9, 12, 14, 32, 42, 47, 52, 62, 64, 71, 77, 81, 82, 83, 92].</p>
+a) No caso do evento S-1200, são permitidas apenas as rubricas cujo {codIncCP} em S-1010 seja igual a [00, 01, 12, 14, 16, 22, 26, 32, 92, 94, 96, 98], cujo {codIncIRRF} em S-1010 seja igual a [0, 1, 9, 12, 14, 32, 34, 42, 47, 52, 54, 62, 64, 71, 77, 81, 82, 83, 92, 94, 9014, 9034, 9054, 9834] e cujo {codIncFGTS} em S-1010 seja igual a [00, 12, 92]. Caso sejam informadas rubricas com {codIncCP}, {codIncIRRF} e/ou {codIncFGTS} diferentes dos valores acima citados, retornar "alerta";<br />
+b) Nos casos dos eventos S-1202 e S-1207, são permitidas apenas as rubricas cujo {codIncCPRP} em S-1010 seja igual a [00, 12, 32, 91] e cujo {codIncIRRF} em S-1010 seja igual a [0, 1, 9, 12, 14, 32, 34, 42, 47, 52, 54, 62, 64, 71, 77, 81, 82, 83, 92, 94, 9014, 9034, 9054, 9834].</p>
 </section>
 </div>
 </div>
@@ -1394,10 +1397,10 @@ No caso do evento S-2299, se houver remuneração informada no registro {infoPer
 <td style="text-align:center; width: 14%;"><strong>Grupo</strong></td>
 <td style="text-align:center; width: 14%;"><strong>Grupo Pai</strong></td>
 <td style="text-align:center; width: 4%;"><strong>Nível</strong></td>
-<td style="text-align:center; width: 27%;"><strong>Descrição</strong></td>
-<td style="text-align:center; width: 4%;"><strong>Ocor.</strong></td>
-<td style="text-align:center; width: 13%;"><strong>Chave</strong></td>
-<td style="text-align:center; width: 23.9%;"><strong>Condição</strong></td>
+<td style="text-align:center; width: 26.59%;"><strong>Descrição</strong></td>
+<td style="text-align:center; width: 6.5%;"><strong>Ocor.</strong></td>
+<td style="text-align:center; width: 12%;"><strong>Chave</strong></td>
+<td style="text-align:center; width: 22.9%;"><strong>Condição</strong></td>
 </tr>
 <tr>
 <td style="text-align:center"><span id='resumo_evtInfoEmpregador:esocial'><a href="#evtInfoEmpregador:esocial">eSocial</a></span></td>
@@ -1560,15 +1563,15 @@ N (nos demais casos)</td>
 <table class="table is-fullwidth is-bordered">
 <thead>
 <tr>
-<th style="text-align:center; width: 3%;">#</th>
+<th style="text-align:center; width: 5%;">#</th>
 <th style="text-align:center; width: 14%;">Grupo/Campo</th>
 <th style="text-align:center; width: 14%;">Grupo Pai</th>
-<th style="text-align:center; width: 5%;">Elem.</th>
-<th style="text-align:center; width: 5%;">Tipo</th>
-<th style="text-align:center; width: 5%;">Ocor.</th>
-<th style="text-align:center; width: 7%;">Tamanho</th>
-<th style="text-align:center; width: 5%;">Dec.</th>
-<th style="text-align:center; width: 41.9%;">Descrição</th>
+<th style="text-align:center; width: 4%;">Elem.</th>
+<th style="text-align:center; width: 4%;">Tipo</th>
+<th style="text-align:center; width: 6.5%;">Ocor.</th>
+<th style="text-align:center; width: 6.5%;">Tamanho</th>
+<th style="text-align:center; width: 4%;">Dec.</th>
+<th style="text-align:center; width: 41.99%;">Descrição</th>
 </tr>
 </thead>
 <tbody>
@@ -2141,10 +2144,10 @@ Informação validada no cadastro do CNPJ da RFB.</td>
 <td style="text-align:center; width: 14%;"><strong>Grupo</strong></td>
 <td style="text-align:center; width: 14%;"><strong>Grupo Pai</strong></td>
 <td style="text-align:center; width: 4%;"><strong>Nível</strong></td>
-<td style="text-align:center; width: 27%;"><strong>Descrição</strong></td>
-<td style="text-align:center; width: 4%;"><strong>Ocor.</strong></td>
-<td style="text-align:center; width: 13%;"><strong>Chave</strong></td>
-<td style="text-align:center; width: 23.9%;"><strong>Condição</strong></td>
+<td style="text-align:center; width: 26.59%;"><strong>Descrição</strong></td>
+<td style="text-align:center; width: 6.5%;"><strong>Ocor.</strong></td>
+<td style="text-align:center; width: 12%;"><strong>Chave</strong></td>
+<td style="text-align:center; width: 22.9%;"><strong>Condição</strong></td>
 </tr>
 <tr>
 <td style="text-align:center"><span id='resumo_evtTabEstab:esocial'><a href="#evtTabEstab:esocial">eSocial</a></span></td>
@@ -2370,15 +2373,15 @@ N (nos demais casos)</td>
 <table class="table is-fullwidth is-bordered">
 <thead>
 <tr>
-<th style="text-align:center; width: 3%;">#</th>
+<th style="text-align:center; width: 5%;">#</th>
 <th style="text-align:center; width: 14%;">Grupo/Campo</th>
 <th style="text-align:center; width: 14%;">Grupo Pai</th>
-<th style="text-align:center; width: 5%;">Elem.</th>
-<th style="text-align:center; width: 5%;">Tipo</th>
-<th style="text-align:center; width: 5%;">Ocor.</th>
-<th style="text-align:center; width: 7%;">Tamanho</th>
-<th style="text-align:center; width: 5%;">Dec.</th>
-<th style="text-align:center; width: 41.9%;">Descrição</th>
+<th style="text-align:center; width: 4%;">Elem.</th>
+<th style="text-align:center; width: 4%;">Tipo</th>
+<th style="text-align:center; width: 6.5%;">Ocor.</th>
+<th style="text-align:center; width: 6.5%;">Tamanho</th>
+<th style="text-align:center; width: 4%;">Dec.</th>
+<th style="text-align:center; width: 41.99%;">Descrição</th>
 </tr>
 </thead>
 <tbody>
@@ -3036,10 +3039,10 @@ Preenchimento obrigatório somente no caso de dispensa, ainda que parcial, de co
 <td style="text-align:center; width: 14%;"><strong>Grupo</strong></td>
 <td style="text-align:center; width: 14%;"><strong>Grupo Pai</strong></td>
 <td style="text-align:center; width: 4%;"><strong>Nível</strong></td>
-<td style="text-align:center; width: 27%;"><strong>Descrição</strong></td>
-<td style="text-align:center; width: 4%;"><strong>Ocor.</strong></td>
-<td style="text-align:center; width: 13%;"><strong>Chave</strong></td>
-<td style="text-align:center; width: 23.9%;"><strong>Condição</strong></td>
+<td style="text-align:center; width: 26.59%;"><strong>Descrição</strong></td>
+<td style="text-align:center; width: 6.5%;"><strong>Ocor.</strong></td>
+<td style="text-align:center; width: 12%;"><strong>Chave</strong></td>
+<td style="text-align:center; width: 22.9%;"><strong>Condição</strong></td>
 </tr>
 <tr>
 <td style="text-align:center"><span id='resumo_evtTabRubrica:esocial'><a href="#evtTabRubrica:esocial">eSocial</a></span></td>
@@ -3212,15 +3215,15 @@ N (nos demais casos)</td>
 <table class="table is-fullwidth is-bordered">
 <thead>
 <tr>
-<th style="text-align:center; width: 3%;">#</th>
+<th style="text-align:center; width: 5%;">#</th>
 <th style="text-align:center; width: 14%;">Grupo/Campo</th>
 <th style="text-align:center; width: 14%;">Grupo Pai</th>
-<th style="text-align:center; width: 5%;">Elem.</th>
-<th style="text-align:center; width: 5%;">Tipo</th>
-<th style="text-align:center; width: 5%;">Ocor.</th>
-<th style="text-align:center; width: 7%;">Tamanho</th>
-<th style="text-align:center; width: 5%;">Dec.</th>
-<th style="text-align:center; width: 41.9%;">Descrição</th>
+<th style="text-align:center; width: 4%;">Elem.</th>
+<th style="text-align:center; width: 4%;">Tipo</th>
+<th style="text-align:center; width: 6.5%;">Ocor.</th>
+<th style="text-align:center; width: 6.5%;">Tamanho</th>
+<th style="text-align:center; width: 4%;">Dec.</th>
+<th style="text-align:center; width: 41.99%;">Descrição</th>
 </tr>
 </thead>
 <tbody>
@@ -3877,10 +3880,10 @@ Para utilização de código [9X] ou [9XXX], é necessária a existência de gru
 <td style="text-align:center; width: 14%;"><strong>Grupo</strong></td>
 <td style="text-align:center; width: 14%;"><strong>Grupo Pai</strong></td>
 <td style="text-align:center; width: 4%;"><strong>Nível</strong></td>
-<td style="text-align:center; width: 27%;"><strong>Descrição</strong></td>
-<td style="text-align:center; width: 4%;"><strong>Ocor.</strong></td>
-<td style="text-align:center; width: 13%;"><strong>Chave</strong></td>
-<td style="text-align:center; width: 23.9%;"><strong>Condição</strong></td>
+<td style="text-align:center; width: 26.59%;"><strong>Descrição</strong></td>
+<td style="text-align:center; width: 6.5%;"><strong>Ocor.</strong></td>
+<td style="text-align:center; width: 12%;"><strong>Chave</strong></td>
+<td style="text-align:center; width: 22.9%;"><strong>Condição</strong></td>
 </tr>
 <tr>
 <td style="text-align:center"><span id='resumo_evtTabLotacao:esocial'><a href="#evtTabLotacao:esocial">eSocial</a></span></td>
@@ -4071,15 +4074,15 @@ N (nos demais casos)</td>
 <table class="table is-fullwidth is-bordered">
 <thead>
 <tr>
-<th style="text-align:center; width: 3%;">#</th>
+<th style="text-align:center; width: 5%;">#</th>
 <th style="text-align:center; width: 14%;">Grupo/Campo</th>
 <th style="text-align:center; width: 14%;">Grupo Pai</th>
-<th style="text-align:center; width: 5%;">Elem.</th>
-<th style="text-align:center; width: 5%;">Tipo</th>
-<th style="text-align:center; width: 5%;">Ocor.</th>
-<th style="text-align:center; width: 7%;">Tamanho</th>
-<th style="text-align:center; width: 5%;">Dec.</th>
-<th style="text-align:center; width: 41.9%;">Descrição</th>
+<th style="text-align:center; width: 4%;">Elem.</th>
+<th style="text-align:center; width: 4%;">Tipo</th>
+<th style="text-align:center; width: 6.5%;">Ocor.</th>
+<th style="text-align:center; width: 6.5%;">Tamanho</th>
+<th style="text-align:center; width: 4%;">Dec.</th>
+<th style="text-align:center; width: 41.99%;">Descrição</th>
 </tr>
 </thead>
 <tbody>
@@ -4658,10 +4661,10 @@ Deve haver um processo em <a href="#1020_infoLotacao_inclusao_fpasLotacao_infoPr
 <td style="text-align:center; width: 14%;"><strong>Grupo</strong></td>
 <td style="text-align:center; width: 14%;"><strong>Grupo Pai</strong></td>
 <td style="text-align:center; width: 4%;"><strong>Nível</strong></td>
-<td style="text-align:center; width: 27%;"><strong>Descrição</strong></td>
-<td style="text-align:center; width: 4%;"><strong>Ocor.</strong></td>
-<td style="text-align:center; width: 13%;"><strong>Chave</strong></td>
-<td style="text-align:center; width: 23.9%;"><strong>Condição</strong></td>
+<td style="text-align:center; width: 26.59%;"><strong>Descrição</strong></td>
+<td style="text-align:center; width: 6.5%;"><strong>Ocor.</strong></td>
+<td style="text-align:center; width: 12%;"><strong>Chave</strong></td>
+<td style="text-align:center; width: 22.9%;"><strong>Condição</strong></td>
 </tr>
 <tr>
 <td style="text-align:center"><span id='resumo_evtTabProcesso:esocial'><a href="#evtTabProcesso:esocial">eSocial</a></span></td>
@@ -4824,15 +4827,15 @@ N (nos demais casos)</td>
 <table class="table is-fullwidth is-bordered">
 <thead>
 <tr>
-<th style="text-align:center; width: 3%;">#</th>
+<th style="text-align:center; width: 5%;">#</th>
 <th style="text-align:center; width: 14%;">Grupo/Campo</th>
 <th style="text-align:center; width: 14%;">Grupo Pai</th>
-<th style="text-align:center; width: 5%;">Elem.</th>
-<th style="text-align:center; width: 5%;">Tipo</th>
-<th style="text-align:center; width: 5%;">Ocor.</th>
-<th style="text-align:center; width: 7%;">Tamanho</th>
-<th style="text-align:center; width: 5%;">Dec.</th>
-<th style="text-align:center; width: 41.9%;">Descrição</th>
+<th style="text-align:center; width: 4%;">Elem.</th>
+<th style="text-align:center; width: 4%;">Tipo</th>
+<th style="text-align:center; width: 6.5%;">Ocor.</th>
+<th style="text-align:center; width: 6.5%;">Tamanho</th>
+<th style="text-align:center; width: 4%;">Dec.</th>
+<th style="text-align:center; width: 41.99%;">Descrição</th>
 </tr>
 </thead>
 <tbody>
@@ -5373,10 +5376,10 @@ Se <a href="#1070_infoProcesso_inclusao_infoSusp_indSusp">indSusp</a> = [02, 03]
 <td style="text-align:center; width: 14%;"><strong>Grupo</strong></td>
 <td style="text-align:center; width: 14%;"><strong>Grupo Pai</strong></td>
 <td style="text-align:center; width: 4%;"><strong>Nível</strong></td>
-<td style="text-align:center; width: 27%;"><strong>Descrição</strong></td>
-<td style="text-align:center; width: 4%;"><strong>Ocor.</strong></td>
-<td style="text-align:center; width: 13%;"><strong>Chave</strong></td>
-<td style="text-align:center; width: 23.9%;"><strong>Condição</strong></td>
+<td style="text-align:center; width: 26.59%;"><strong>Descrição</strong></td>
+<td style="text-align:center; width: 6.5%;"><strong>Ocor.</strong></td>
+<td style="text-align:center; width: 12%;"><strong>Chave</strong></td>
+<td style="text-align:center; width: 22.9%;"><strong>Condição</strong></td>
 </tr>
 <tr>
 <td style="text-align:center"><span id='resumo_evtRemun:esocial'><a href="#evtRemun:esocial">eSocial</a></span></td>
@@ -5620,15 +5623,15 @@ N (nos demais casos)</td>
 <table class="table is-fullwidth is-bordered">
 <thead>
 <tr>
-<th style="text-align:center; width: 3%;">#</th>
+<th style="text-align:center; width: 5%;">#</th>
 <th style="text-align:center; width: 14%;">Grupo/Campo</th>
 <th style="text-align:center; width: 14%;">Grupo Pai</th>
-<th style="text-align:center; width: 5%;">Elem.</th>
-<th style="text-align:center; width: 5%;">Tipo</th>
-<th style="text-align:center; width: 5%;">Ocor.</th>
-<th style="text-align:center; width: 7%;">Tamanho</th>
-<th style="text-align:center; width: 5%;">Dec.</th>
-<th style="text-align:center; width: 41.9%;">Descrição</th>
+<th style="text-align:center; width: 4%;">Elem.</th>
+<th style="text-align:center; width: 4%;">Tipo</th>
+<th style="text-align:center; width: 6.5%;">Ocor.</th>
+<th style="text-align:center; width: 6.5%;">Tamanho</th>
+<th style="text-align:center; width: 4%;">Dec.</th>
+<th style="text-align:center; width: 41.99%;">Descrição</th>
 </tr>
 </thead>
 <tbody>
@@ -6707,10 +6710,10 @@ b) <a href="#1000_infoEmpregador_inclusao_infoCadastro_classTrib">classTrib</a> 
 <td style="text-align:center; width: 14%;"><strong>Grupo</strong></td>
 <td style="text-align:center; width: 14%;"><strong>Grupo Pai</strong></td>
 <td style="text-align:center; width: 4%;"><strong>Nível</strong></td>
-<td style="text-align:center; width: 27%;"><strong>Descrição</strong></td>
-<td style="text-align:center; width: 4%;"><strong>Ocor.</strong></td>
-<td style="text-align:center; width: 13%;"><strong>Chave</strong></td>
-<td style="text-align:center; width: 23.9%;"><strong>Condição</strong></td>
+<td style="text-align:center; width: 26.59%;"><strong>Descrição</strong></td>
+<td style="text-align:center; width: 6.5%;"><strong>Ocor.</strong></td>
+<td style="text-align:center; width: 12%;"><strong>Chave</strong></td>
+<td style="text-align:center; width: 22.9%;"><strong>Condição</strong></td>
 </tr>
 <tr>
 <td style="text-align:center"><span id='resumo_evtRmnRPPS:esocial'><a href="#evtRmnRPPS:esocial">eSocial</a></span></td>
@@ -6877,15 +6880,15 @@ OC (nos demais casos)</td>
 <table class="table is-fullwidth is-bordered">
 <thead>
 <tr>
-<th style="text-align:center; width: 3%;">#</th>
+<th style="text-align:center; width: 5%;">#</th>
 <th style="text-align:center; width: 14%;">Grupo/Campo</th>
 <th style="text-align:center; width: 14%;">Grupo Pai</th>
-<th style="text-align:center; width: 5%;">Elem.</th>
-<th style="text-align:center; width: 5%;">Tipo</th>
-<th style="text-align:center; width: 5%;">Ocor.</th>
-<th style="text-align:center; width: 7%;">Tamanho</th>
-<th style="text-align:center; width: 5%;">Dec.</th>
-<th style="text-align:center; width: 41.9%;">Descrição</th>
+<th style="text-align:center; width: 4%;">Elem.</th>
+<th style="text-align:center; width: 4%;">Tipo</th>
+<th style="text-align:center; width: 6.5%;">Ocor.</th>
+<th style="text-align:center; width: 6.5%;">Tamanho</th>
+<th style="text-align:center; width: 4%;">Dec.</th>
+<th style="text-align:center; width: 41.99%;">Descrição</th>
 </tr>
 </thead>
 <tbody>
@@ -7515,10 +7518,10 @@ Deve ser informado no formato AAAA-MM.</td>
 <td style="text-align:center; width: 14%;"><strong>Grupo</strong></td>
 <td style="text-align:center; width: 14%;"><strong>Grupo Pai</strong></td>
 <td style="text-align:center; width: 4%;"><strong>Nível</strong></td>
-<td style="text-align:center; width: 27%;"><strong>Descrição</strong></td>
-<td style="text-align:center; width: 4%;"><strong>Ocor.</strong></td>
-<td style="text-align:center; width: 13%;"><strong>Chave</strong></td>
-<td style="text-align:center; width: 23.9%;"><strong>Condição</strong></td>
+<td style="text-align:center; width: 26.59%;"><strong>Descrição</strong></td>
+<td style="text-align:center; width: 6.5%;"><strong>Ocor.</strong></td>
+<td style="text-align:center; width: 12%;"><strong>Chave</strong></td>
+<td style="text-align:center; width: 22.9%;"><strong>Condição</strong></td>
 </tr>
 <tr>
 <td style="text-align:center"><span id='resumo_evtBenPrRP:esocial'><a href="#evtBenPrRP:esocial">eSocial</a></span></td>
@@ -7645,15 +7648,15 @@ OC (nos demais casos)</td>
 <table class="table is-fullwidth is-bordered">
 <thead>
 <tr>
-<th style="text-align:center; width: 3%;">#</th>
+<th style="text-align:center; width: 5%;">#</th>
 <th style="text-align:center; width: 14%;">Grupo/Campo</th>
 <th style="text-align:center; width: 14%;">Grupo Pai</th>
-<th style="text-align:center; width: 5%;">Elem.</th>
-<th style="text-align:center; width: 5%;">Tipo</th>
-<th style="text-align:center; width: 5%;">Ocor.</th>
-<th style="text-align:center; width: 7%;">Tamanho</th>
-<th style="text-align:center; width: 5%;">Dec.</th>
-<th style="text-align:center; width: 41.9%;">Descrição</th>
+<th style="text-align:center; width: 4%;">Elem.</th>
+<th style="text-align:center; width: 4%;">Tipo</th>
+<th style="text-align:center; width: 6.5%;">Ocor.</th>
+<th style="text-align:center; width: 6.5%;">Tamanho</th>
+<th style="text-align:center; width: 4%;">Dec.</th>
+<th style="text-align:center; width: 41.99%;">Descrição</th>
 </tr>
 </thead>
 <tbody>
@@ -8109,10 +8112,10 @@ Preenchimento obrigatório quando se tratar de rubrica relativa a faltas ou Desc
 <td style="text-align:center; width: 14%;"><strong>Grupo</strong></td>
 <td style="text-align:center; width: 14%;"><strong>Grupo Pai</strong></td>
 <td style="text-align:center; width: 4%;"><strong>Nível</strong></td>
-<td style="text-align:center; width: 27%;"><strong>Descrição</strong></td>
-<td style="text-align:center; width: 4%;"><strong>Ocor.</strong></td>
-<td style="text-align:center; width: 13%;"><strong>Chave</strong></td>
-<td style="text-align:center; width: 23.9%;"><strong>Condição</strong></td>
+<td style="text-align:center; width: 26.59%;"><strong>Descrição</strong></td>
+<td style="text-align:center; width: 6.5%;"><strong>Ocor.</strong></td>
+<td style="text-align:center; width: 12%;"><strong>Chave</strong></td>
+<td style="text-align:center; width: 22.9%;"><strong>Condição</strong></td>
 </tr>
 <tr>
 <td style="text-align:center"><span id='resumo_evtPgtos:esocial'><a href="#evtPgtos:esocial">eSocial</a></span></td>
@@ -8174,15 +8177,15 @@ Preenchimento obrigatório quando se tratar de rubrica relativa a faltas ou Desc
 <table class="table is-fullwidth is-bordered">
 <thead>
 <tr>
-<th style="text-align:center; width: 3%;">#</th>
+<th style="text-align:center; width: 5%;">#</th>
 <th style="text-align:center; width: 14%;">Grupo/Campo</th>
 <th style="text-align:center; width: 14%;">Grupo Pai</th>
-<th style="text-align:center; width: 5%;">Elem.</th>
-<th style="text-align:center; width: 5%;">Tipo</th>
-<th style="text-align:center; width: 5%;">Ocor.</th>
-<th style="text-align:center; width: 7%;">Tamanho</th>
-<th style="text-align:center; width: 5%;">Dec.</th>
-<th style="text-align:center; width: 41.9%;">Descrição</th>
+<th style="text-align:center; width: 4%;">Elem.</th>
+<th style="text-align:center; width: 4%;">Tipo</th>
+<th style="text-align:center; width: 6.5%;">Ocor.</th>
+<th style="text-align:center; width: 6.5%;">Tamanho</th>
+<th style="text-align:center; width: 4%;">Dec.</th>
+<th style="text-align:center; width: 41.99%;">Descrição</th>
 </tr>
 </thead>
 <tbody>
@@ -8483,10 +8486,10 @@ Se <a href="#1210_ideBenef_infoPgto_tpPgto">tpPgto</a> = [5], em S-1207.</td>
 <td style="text-align:center; width: 14%;"><strong>Grupo</strong></td>
 <td style="text-align:center; width: 14%;"><strong>Grupo Pai</strong></td>
 <td style="text-align:center; width: 4%;"><strong>Nível</strong></td>
-<td style="text-align:center; width: 27%;"><strong>Descrição</strong></td>
-<td style="text-align:center; width: 4%;"><strong>Ocor.</strong></td>
-<td style="text-align:center; width: 13%;"><strong>Chave</strong></td>
-<td style="text-align:center; width: 23.9%;"><strong>Condição</strong></td>
+<td style="text-align:center; width: 26.59%;"><strong>Descrição</strong></td>
+<td style="text-align:center; width: 6.5%;"><strong>Ocor.</strong></td>
+<td style="text-align:center; width: 12%;"><strong>Chave</strong></td>
+<td style="text-align:center; width: 22.9%;"><strong>Condição</strong></td>
 </tr>
 <tr>
 <td style="text-align:center"><span id='resumo_evtComProd:esocial'><a href="#evtComProd:esocial">eSocial</a></span></td>
@@ -8585,15 +8588,15 @@ N (nos demais casos)</td>
 <table class="table is-fullwidth is-bordered">
 <thead>
 <tr>
-<th style="text-align:center; width: 3%;">#</th>
+<th style="text-align:center; width: 5%;">#</th>
 <th style="text-align:center; width: 14%;">Grupo/Campo</th>
 <th style="text-align:center; width: 14%;">Grupo Pai</th>
-<th style="text-align:center; width: 5%;">Elem.</th>
-<th style="text-align:center; width: 5%;">Tipo</th>
-<th style="text-align:center; width: 5%;">Ocor.</th>
-<th style="text-align:center; width: 7%;">Tamanho</th>
-<th style="text-align:center; width: 5%;">Dec.</th>
-<th style="text-align:center; width: 41.9%;">Descrição</th>
+<th style="text-align:center; width: 4%;">Elem.</th>
+<th style="text-align:center; width: 4%;">Tipo</th>
+<th style="text-align:center; width: 6.5%;">Ocor.</th>
+<th style="text-align:center; width: 6.5%;">Tamanho</th>
+<th style="text-align:center; width: 4%;">Dec.</th>
+<th style="text-align:center; width: 41.99%;">Descrição</th>
 </tr>
 </thead>
 <tbody>
@@ -9086,10 +9089,10 @@ Deve ser um valor maior que 0 (zero).</td>
 <td style="text-align:center; width: 14%;"><strong>Grupo</strong></td>
 <td style="text-align:center; width: 14%;"><strong>Grupo Pai</strong></td>
 <td style="text-align:center; width: 4%;"><strong>Nível</strong></td>
-<td style="text-align:center; width: 27%;"><strong>Descrição</strong></td>
-<td style="text-align:center; width: 4%;"><strong>Ocor.</strong></td>
-<td style="text-align:center; width: 13%;"><strong>Chave</strong></td>
-<td style="text-align:center; width: 23.9%;"><strong>Condição</strong></td>
+<td style="text-align:center; width: 26.59%;"><strong>Descrição</strong></td>
+<td style="text-align:center; width: 6.5%;"><strong>Ocor.</strong></td>
+<td style="text-align:center; width: 12%;"><strong>Chave</strong></td>
+<td style="text-align:center; width: 22.9%;"><strong>Condição</strong></td>
 </tr>
 <tr>
 <td style="text-align:center"><span id='resumo_evtContratAvNP:esocial'><a href="#evtContratAvNP:esocial">eSocial</a></span></td>
@@ -9142,15 +9145,15 @@ Deve ser um valor maior que 0 (zero).</td>
 <table class="table is-fullwidth is-bordered">
 <thead>
 <tr>
-<th style="text-align:center; width: 3%;">#</th>
+<th style="text-align:center; width: 5%;">#</th>
 <th style="text-align:center; width: 14%;">Grupo/Campo</th>
 <th style="text-align:center; width: 14%;">Grupo Pai</th>
-<th style="text-align:center; width: 5%;">Elem.</th>
-<th style="text-align:center; width: 5%;">Tipo</th>
-<th style="text-align:center; width: 5%;">Ocor.</th>
-<th style="text-align:center; width: 7%;">Tamanho</th>
-<th style="text-align:center; width: 5%;">Dec.</th>
-<th style="text-align:center; width: 41.9%;">Descrição</th>
+<th style="text-align:center; width: 4%;">Elem.</th>
+<th style="text-align:center; width: 4%;">Tipo</th>
+<th style="text-align:center; width: 6.5%;">Ocor.</th>
+<th style="text-align:center; width: 6.5%;">Tamanho</th>
+<th style="text-align:center; width: 4%;">Dec.</th>
+<th style="text-align:center; width: 41.99%;">Descrição</th>
 </tr>
 </thead>
 <tbody>
@@ -9467,10 +9470,10 @@ Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo
 <td style="text-align:center; width: 14%;"><strong>Grupo</strong></td>
 <td style="text-align:center; width: 14%;"><strong>Grupo Pai</strong></td>
 <td style="text-align:center; width: 4%;"><strong>Nível</strong></td>
-<td style="text-align:center; width: 27%;"><strong>Descrição</strong></td>
-<td style="text-align:center; width: 4%;"><strong>Ocor.</strong></td>
-<td style="text-align:center; width: 13%;"><strong>Chave</strong></td>
-<td style="text-align:center; width: 23.9%;"><strong>Condição</strong></td>
+<td style="text-align:center; width: 26.59%;"><strong>Descrição</strong></td>
+<td style="text-align:center; width: 6.5%;"><strong>Ocor.</strong></td>
+<td style="text-align:center; width: 12%;"><strong>Chave</strong></td>
+<td style="text-align:center; width: 22.9%;"><strong>Condição</strong></td>
 </tr>
 <tr>
 <td style="text-align:center"><span id='resumo_evtInfoComplPer:esocial'><a href="#evtInfoComplPer:esocial">eSocial</a></span></td>
@@ -9544,15 +9547,15 @@ N (nos demais casos)</td>
 <table class="table is-fullwidth is-bordered">
 <thead>
 <tr>
-<th style="text-align:center; width: 3%;">#</th>
+<th style="text-align:center; width: 5%;">#</th>
 <th style="text-align:center; width: 14%;">Grupo/Campo</th>
 <th style="text-align:center; width: 14%;">Grupo Pai</th>
-<th style="text-align:center; width: 5%;">Elem.</th>
-<th style="text-align:center; width: 5%;">Tipo</th>
-<th style="text-align:center; width: 5%;">Ocor.</th>
-<th style="text-align:center; width: 7%;">Tamanho</th>
-<th style="text-align:center; width: 5%;">Dec.</th>
-<th style="text-align:center; width: 41.9%;">Descrição</th>
+<th style="text-align:center; width: 4%;">Elem.</th>
+<th style="text-align:center; width: 4%;">Tipo</th>
+<th style="text-align:center; width: 6.5%;">Ocor.</th>
+<th style="text-align:center; width: 6.5%;">Tamanho</th>
+<th style="text-align:center; width: 4%;">Dec.</th>
+<th style="text-align:center; width: 41.99%;">Descrição</th>
 </tr>
 </thead>
 <tbody>
@@ -9851,10 +9854,10 @@ Informar 0 (zero) se <a href="#1280_infoSubstPatr_indSubstPatr">indSubstPatr</a>
 <td style="text-align:center; width: 14%;"><strong>Grupo</strong></td>
 <td style="text-align:center; width: 14%;"><strong>Grupo Pai</strong></td>
 <td style="text-align:center; width: 4%;"><strong>Nível</strong></td>
-<td style="text-align:center; width: 27%;"><strong>Descrição</strong></td>
-<td style="text-align:center; width: 4%;"><strong>Ocor.</strong></td>
-<td style="text-align:center; width: 13%;"><strong>Chave</strong></td>
-<td style="text-align:center; width: 23.9%;"><strong>Condição</strong></td>
+<td style="text-align:center; width: 26.59%;"><strong>Descrição</strong></td>
+<td style="text-align:center; width: 6.5%;"><strong>Ocor.</strong></td>
+<td style="text-align:center; width: 12%;"><strong>Chave</strong></td>
+<td style="text-align:center; width: 22.9%;"><strong>Condição</strong></td>
 </tr>
 <tr>
 <td style="text-align:center"><span id='resumo_evtReabreEvPer:esocial'><a href="#evtReabreEvPer:esocial">eSocial</a></span></td>
@@ -9898,15 +9901,15 @@ Informar 0 (zero) se <a href="#1280_infoSubstPatr_indSubstPatr">indSubstPatr</a>
 <table class="table is-fullwidth is-bordered">
 <thead>
 <tr>
-<th style="text-align:center; width: 3%;">#</th>
+<th style="text-align:center; width: 5%;">#</th>
 <th style="text-align:center; width: 14%;">Grupo/Campo</th>
 <th style="text-align:center; width: 14%;">Grupo Pai</th>
-<th style="text-align:center; width: 5%;">Elem.</th>
-<th style="text-align:center; width: 5%;">Tipo</th>
-<th style="text-align:center; width: 5%;">Ocor.</th>
-<th style="text-align:center; width: 7%;">Tamanho</th>
-<th style="text-align:center; width: 5%;">Dec.</th>
-<th style="text-align:center; width: 41.9%;">Descrição</th>
+<th style="text-align:center; width: 4%;">Elem.</th>
+<th style="text-align:center; width: 4%;">Tipo</th>
+<th style="text-align:center; width: 6.5%;">Ocor.</th>
+<th style="text-align:center; width: 6.5%;">Tamanho</th>
+<th style="text-align:center; width: 4%;">Dec.</th>
+<th style="text-align:center; width: 41.99%;">Descrição</th>
 </tr>
 </thead>
 <tbody>
@@ -10082,10 +10085,10 @@ Informar 0 (zero) se <a href="#1280_infoSubstPatr_indSubstPatr">indSubstPatr</a>
 <td style="text-align:center; width: 14%;"><strong>Grupo</strong></td>
 <td style="text-align:center; width: 14%;"><strong>Grupo Pai</strong></td>
 <td style="text-align:center; width: 4%;"><strong>Nível</strong></td>
-<td style="text-align:center; width: 27%;"><strong>Descrição</strong></td>
-<td style="text-align:center; width: 4%;"><strong>Ocor.</strong></td>
-<td style="text-align:center; width: 13%;"><strong>Chave</strong></td>
-<td style="text-align:center; width: 23.9%;"><strong>Condição</strong></td>
+<td style="text-align:center; width: 26.59%;"><strong>Descrição</strong></td>
+<td style="text-align:center; width: 6.5%;"><strong>Ocor.</strong></td>
+<td style="text-align:center; width: 12%;"><strong>Chave</strong></td>
+<td style="text-align:center; width: 22.9%;"><strong>Condição</strong></td>
 </tr>
 <tr>
 <td style="text-align:center"><span id='resumo_evtFechaEvPer:esocial'><a href="#evtFechaEvPer:esocial">eSocial</a></span></td>
@@ -10138,15 +10141,15 @@ Informar 0 (zero) se <a href="#1280_infoSubstPatr_indSubstPatr">indSubstPatr</a>
 <table class="table is-fullwidth is-bordered">
 <thead>
 <tr>
-<th style="text-align:center; width: 3%;">#</th>
+<th style="text-align:center; width: 5%;">#</th>
 <th style="text-align:center; width: 14%;">Grupo/Campo</th>
 <th style="text-align:center; width: 14%;">Grupo Pai</th>
-<th style="text-align:center; width: 5%;">Elem.</th>
-<th style="text-align:center; width: 5%;">Tipo</th>
-<th style="text-align:center; width: 5%;">Ocor.</th>
-<th style="text-align:center; width: 7%;">Tamanho</th>
-<th style="text-align:center; width: 5%;">Dec.</th>
-<th style="text-align:center; width: 41.9%;">Descrição</th>
+<th style="text-align:center; width: 4%;">Elem.</th>
+<th style="text-align:center; width: 4%;">Tipo</th>
+<th style="text-align:center; width: 6.5%;">Ocor.</th>
+<th style="text-align:center; width: 6.5%;">Tamanho</th>
+<th style="text-align:center; width: 4%;">Dec.</th>
+<th style="text-align:center; width: 41.99%;">Descrição</th>
 </tr>
 </thead>
 <tbody>
@@ -10393,10 +10396,10 @@ Informar 0 (zero) se <a href="#1280_infoSubstPatr_indSubstPatr">indSubstPatr</a>
 <td style="text-align:center; width: 14%;"><strong>Grupo</strong></td>
 <td style="text-align:center; width: 14%;"><strong>Grupo Pai</strong></td>
 <td style="text-align:center; width: 4%;"><strong>Nível</strong></td>
-<td style="text-align:center; width: 27%;"><strong>Descrição</strong></td>
-<td style="text-align:center; width: 4%;"><strong>Ocor.</strong></td>
-<td style="text-align:center; width: 13%;"><strong>Chave</strong></td>
-<td style="text-align:center; width: 23.9%;"><strong>Condição</strong></td>
+<td style="text-align:center; width: 26.59%;"><strong>Descrição</strong></td>
+<td style="text-align:center; width: 6.5%;"><strong>Ocor.</strong></td>
+<td style="text-align:center; width: 12%;"><strong>Chave</strong></td>
+<td style="text-align:center; width: 22.9%;"><strong>Condição</strong></td>
 </tr>
 <tr>
 <td style="text-align:center"><span id='resumo_evtAdmPrelim:esocial'><a href="#evtAdmPrelim:esocial">eSocial</a></span></td>
@@ -10459,15 +10462,15 @@ N (nos demais casos)</td>
 <table class="table is-fullwidth is-bordered">
 <thead>
 <tr>
-<th style="text-align:center; width: 3%;">#</th>
+<th style="text-align:center; width: 5%;">#</th>
 <th style="text-align:center; width: 14%;">Grupo/Campo</th>
 <th style="text-align:center; width: 14%;">Grupo Pai</th>
-<th style="text-align:center; width: 5%;">Elem.</th>
-<th style="text-align:center; width: 5%;">Tipo</th>
-<th style="text-align:center; width: 5%;">Ocor.</th>
-<th style="text-align:center; width: 7%;">Tamanho</th>
-<th style="text-align:center; width: 5%;">Dec.</th>
-<th style="text-align:center; width: 41.9%;">Descrição</th>
+<th style="text-align:center; width: 4%;">Elem.</th>
+<th style="text-align:center; width: 4%;">Tipo</th>
+<th style="text-align:center; width: 6.5%;">Ocor.</th>
+<th style="text-align:center; width: 6.5%;">Tamanho</th>
+<th style="text-align:center; width: 4%;">Dec.</th>
+<th style="text-align:center; width: 41.99%;">Descrição</th>
 </tr>
 </thead>
 <tbody>
@@ -10819,10 +10822,10 @@ Se <a href="#2190_infoRegPrelim_codCateg">codCateg</a> = [104], deve ser preench
 <td style="text-align:center; width: 14%;"><strong>Grupo</strong></td>
 <td style="text-align:center; width: 14%;"><strong>Grupo Pai</strong></td>
 <td style="text-align:center; width: 4%;"><strong>Nível</strong></td>
-<td style="text-align:center; width: 27%;"><strong>Descrição</strong></td>
-<td style="text-align:center; width: 4%;"><strong>Ocor.</strong></td>
-<td style="text-align:center; width: 13%;"><strong>Chave</strong></td>
-<td style="text-align:center; width: 23.9%;"><strong>Condição</strong></td>
+<td style="text-align:center; width: 26.59%;"><strong>Descrição</strong></td>
+<td style="text-align:center; width: 6.5%;"><strong>Ocor.</strong></td>
+<td style="text-align:center; width: 12%;"><strong>Chave</strong></td>
+<td style="text-align:center; width: 22.9%;"><strong>Condição</strong></td>
 </tr>
 <tr>
 <td style="text-align:center"><span id='resumo_evtAdmissao:esocial'><a href="#evtAdmissao:esocial">eSocial</a></span></td>
@@ -11209,15 +11212,15 @@ OC (nos demais casos)</td>
 <table class="table is-fullwidth is-bordered">
 <thead>
 <tr>
-<th style="text-align:center; width: 3%;">#</th>
+<th style="text-align:center; width: 5%;">#</th>
 <th style="text-align:center; width: 14%;">Grupo/Campo</th>
 <th style="text-align:center; width: 14%;">Grupo Pai</th>
-<th style="text-align:center; width: 5%;">Elem.</th>
-<th style="text-align:center; width: 5%;">Tipo</th>
-<th style="text-align:center; width: 5%;">Ocor.</th>
-<th style="text-align:center; width: 7%;">Tamanho</th>
-<th style="text-align:center; width: 5%;">Dec.</th>
-<th style="text-align:center; width: 41.9%;">Descrição</th>
+<th style="text-align:center; width: 4%;">Elem.</th>
+<th style="text-align:center; width: 4%;">Tipo</th>
+<th style="text-align:center; width: 6.5%;">Ocor.</th>
+<th style="text-align:center; width: 6.5%;">Tamanho</th>
+<th style="text-align:center; width: 4%;">Dec.</th>
+<th style="text-align:center; width: 41.99%;">Descrição</th>
 </tr>
 </thead>
 <tbody>
@@ -13295,10 +13298,10 @@ c) Se <a href="#2200_vinculo_cadIni">cadIni</a> = [N], deve ser anterior à data
 <td style="text-align:center; width: 14%;"><strong>Grupo</strong></td>
 <td style="text-align:center; width: 14%;"><strong>Grupo Pai</strong></td>
 <td style="text-align:center; width: 4%;"><strong>Nível</strong></td>
-<td style="text-align:center; width: 27%;"><strong>Descrição</strong></td>
-<td style="text-align:center; width: 4%;"><strong>Ocor.</strong></td>
-<td style="text-align:center; width: 13%;"><strong>Chave</strong></td>
-<td style="text-align:center; width: 23.9%;"><strong>Condição</strong></td>
+<td style="text-align:center; width: 26.59%;"><strong>Descrição</strong></td>
+<td style="text-align:center; width: 6.5%;"><strong>Ocor.</strong></td>
+<td style="text-align:center; width: 12%;"><strong>Chave</strong></td>
+<td style="text-align:center; width: 22.9%;"><strong>Condição</strong></td>
 </tr>
 <tr>
 <td style="text-align:center"><span id='resumo_evtAltCadastral:esocial'><a href="#evtAltCadastral:esocial">eSocial</a></span></td>
@@ -13435,15 +13438,15 @@ N (nos demais casos)</td>
 <table class="table is-fullwidth is-bordered">
 <thead>
 <tr>
-<th style="text-align:center; width: 3%;">#</th>
+<th style="text-align:center; width: 5%;">#</th>
 <th style="text-align:center; width: 14%;">Grupo/Campo</th>
 <th style="text-align:center; width: 14%;">Grupo Pai</th>
-<th style="text-align:center; width: 5%;">Elem.</th>
-<th style="text-align:center; width: 5%;">Tipo</th>
-<th style="text-align:center; width: 5%;">Ocor.</th>
-<th style="text-align:center; width: 7%;">Tamanho</th>
-<th style="text-align:center; width: 5%;">Dec.</th>
-<th style="text-align:center; width: 41.9%;">Descrição</th>
+<th style="text-align:center; width: 4%;">Elem.</th>
+<th style="text-align:center; width: 4%;">Tipo</th>
+<th style="text-align:center; width: 6.5%;">Ocor.</th>
+<th style="text-align:center; width: 6.5%;">Tamanho</th>
+<th style="text-align:center; width: 4%;">Dec.</th>
+<th style="text-align:center; width: 41.99%;">Descrição</th>
 </tr>
 </thead>
 <tbody>
@@ -14312,10 +14315,10 @@ c) Não pode haver mais de um dependente com o mesmo número de CPF.</td>
 <td style="text-align:center; width: 14%;"><strong>Grupo</strong></td>
 <td style="text-align:center; width: 14%;"><strong>Grupo Pai</strong></td>
 <td style="text-align:center; width: 4%;"><strong>Nível</strong></td>
-<td style="text-align:center; width: 27%;"><strong>Descrição</strong></td>
-<td style="text-align:center; width: 4%;"><strong>Ocor.</strong></td>
-<td style="text-align:center; width: 13%;"><strong>Chave</strong></td>
-<td style="text-align:center; width: 23.9%;"><strong>Condição</strong></td>
+<td style="text-align:center; width: 26.59%;"><strong>Descrição</strong></td>
+<td style="text-align:center; width: 6.5%;"><strong>Ocor.</strong></td>
+<td style="text-align:center; width: 12%;"><strong>Chave</strong></td>
+<td style="text-align:center; width: 22.9%;"><strong>Condição</strong></td>
 </tr>
 <tr>
 <td style="text-align:center"><span id='resumo_evtAltContratual:esocial'><a href="#evtAltContratual:esocial">eSocial</a></span></td>
@@ -14530,15 +14533,15 @@ OC (nos demais casos)</td>
 <table class="table is-fullwidth is-bordered">
 <thead>
 <tr>
-<th style="text-align:center; width: 3%;">#</th>
+<th style="text-align:center; width: 5%;">#</th>
 <th style="text-align:center; width: 14%;">Grupo/Campo</th>
 <th style="text-align:center; width: 14%;">Grupo Pai</th>
-<th style="text-align:center; width: 5%;">Elem.</th>
-<th style="text-align:center; width: 5%;">Tipo</th>
-<th style="text-align:center; width: 5%;">Ocor.</th>
-<th style="text-align:center; width: 7%;">Tamanho</th>
-<th style="text-align:center; width: 5%;">Dec.</th>
-<th style="text-align:center; width: 41.9%;">Descrição</th>
+<th style="text-align:center; width: 4%;">Elem.</th>
+<th style="text-align:center; width: 4%;">Tipo</th>
+<th style="text-align:center; width: 6.5%;">Ocor.</th>
+<th style="text-align:center; width: 6.5%;">Tamanho</th>
+<th style="text-align:center; width: 4%;">Dec.</th>
+<th style="text-align:center; width: 41.99%;">Descrição</th>
 </tr>
 </thead>
 <tbody>
@@ -15529,10 +15532,10 @@ Se não houver número a ser informado, preencher com &quot;S/N&quot;.</td>
 <td style="text-align:center; width: 14%;"><strong>Grupo</strong></td>
 <td style="text-align:center; width: 14%;"><strong>Grupo Pai</strong></td>
 <td style="text-align:center; width: 4%;"><strong>Nível</strong></td>
-<td style="text-align:center; width: 27%;"><strong>Descrição</strong></td>
-<td style="text-align:center; width: 4%;"><strong>Ocor.</strong></td>
-<td style="text-align:center; width: 13%;"><strong>Chave</strong></td>
-<td style="text-align:center; width: 23.9%;"><strong>Condição</strong></td>
+<td style="text-align:center; width: 26.59%;"><strong>Descrição</strong></td>
+<td style="text-align:center; width: 6.5%;"><strong>Ocor.</strong></td>
+<td style="text-align:center; width: 12%;"><strong>Chave</strong></td>
+<td style="text-align:center; width: 22.9%;"><strong>Condição</strong></td>
 </tr>
 <tr>
 <td style="text-align:center"><span id='resumo_evtCAT:esocial'><a href="#evtCAT:esocial">eSocial</a></span></td>
@@ -15659,15 +15662,15 @@ N (nos demais casos)</td>
 <table class="table is-fullwidth is-bordered">
 <thead>
 <tr>
-<th style="text-align:center; width: 3%;">#</th>
+<th style="text-align:center; width: 5%;">#</th>
 <th style="text-align:center; width: 14%;">Grupo/Campo</th>
 <th style="text-align:center; width: 14%;">Grupo Pai</th>
-<th style="text-align:center; width: 5%;">Elem.</th>
-<th style="text-align:center; width: 5%;">Tipo</th>
-<th style="text-align:center; width: 5%;">Ocor.</th>
-<th style="text-align:center; width: 7%;">Tamanho</th>
-<th style="text-align:center; width: 5%;">Dec.</th>
-<th style="text-align:center; width: 41.9%;">Descrição</th>
+<th style="text-align:center; width: 4%;">Elem.</th>
+<th style="text-align:center; width: 4%;">Tipo</th>
+<th style="text-align:center; width: 6.5%;">Ocor.</th>
+<th style="text-align:center; width: 6.5%;">Tamanho</th>
+<th style="text-align:center; width: 4%;">Dec.</th>
+<th style="text-align:center; width: 41.99%;">Descrição</th>
 </tr>
 </thead>
 <tbody>
@@ -16542,10 +16545,10 @@ OBS.: Quando <a href="#2210_cat_dtAcid">dtAcid</a> for anterior à data de obrig
 <td style="text-align:center; width: 14%;"><strong>Grupo</strong></td>
 <td style="text-align:center; width: 14%;"><strong>Grupo Pai</strong></td>
 <td style="text-align:center; width: 4%;"><strong>Nível</strong></td>
-<td style="text-align:center; width: 27%;"><strong>Descrição</strong></td>
-<td style="text-align:center; width: 4%;"><strong>Ocor.</strong></td>
-<td style="text-align:center; width: 13%;"><strong>Chave</strong></td>
-<td style="text-align:center; width: 23.9%;"><strong>Condição</strong></td>
+<td style="text-align:center; width: 26.59%;"><strong>Descrição</strong></td>
+<td style="text-align:center; width: 6.5%;"><strong>Ocor.</strong></td>
+<td style="text-align:center; width: 12%;"><strong>Chave</strong></td>
+<td style="text-align:center; width: 22.9%;"><strong>Condição</strong></td>
 </tr>
 <tr>
 <td style="text-align:center"><span id='resumo_evtMonit:esocial'><a href="#evtMonit:esocial">eSocial</a></span></td>
@@ -16643,15 +16646,15 @@ OBS.: Quando <a href="#2210_cat_dtAcid">dtAcid</a> for anterior à data de obrig
 <table class="table is-fullwidth is-bordered">
 <thead>
 <tr>
-<th style="text-align:center; width: 3%;">#</th>
+<th style="text-align:center; width: 5%;">#</th>
 <th style="text-align:center; width: 14%;">Grupo/Campo</th>
 <th style="text-align:center; width: 14%;">Grupo Pai</th>
-<th style="text-align:center; width: 5%;">Elem.</th>
-<th style="text-align:center; width: 5%;">Tipo</th>
-<th style="text-align:center; width: 5%;">Ocor.</th>
-<th style="text-align:center; width: 7%;">Tamanho</th>
-<th style="text-align:center; width: 5%;">Dec.</th>
-<th style="text-align:center; width: 41.9%;">Descrição</th>
+<th style="text-align:center; width: 4%;">Elem.</th>
+<th style="text-align:center; width: 4%;">Tipo</th>
+<th style="text-align:center; width: 6.5%;">Ocor.</th>
+<th style="text-align:center; width: 6.5%;">Tamanho</th>
+<th style="text-align:center; width: 4%;">Dec.</th>
+<th style="text-align:center; width: 41.99%;">Descrição</th>
 </tr>
 </thead>
 <tbody>
@@ -17124,10 +17127,10 @@ Informar somente no caso de TSVE sem informação de matrícula no evento S-2300
 <td style="text-align:center; width: 14%;"><strong>Grupo</strong></td>
 <td style="text-align:center; width: 14%;"><strong>Grupo Pai</strong></td>
 <td style="text-align:center; width: 4%;"><strong>Nível</strong></td>
-<td style="text-align:center; width: 27%;"><strong>Descrição</strong></td>
-<td style="text-align:center; width: 4%;"><strong>Ocor.</strong></td>
-<td style="text-align:center; width: 13%;"><strong>Chave</strong></td>
-<td style="text-align:center; width: 23.9%;"><strong>Condição</strong></td>
+<td style="text-align:center; width: 26.59%;"><strong>Descrição</strong></td>
+<td style="text-align:center; width: 6.5%;"><strong>Ocor.</strong></td>
+<td style="text-align:center; width: 12%;"><strong>Chave</strong></td>
+<td style="text-align:center; width: 22.9%;"><strong>Condição</strong></td>
 </tr>
 <tr>
 <td style="text-align:center"><span id='resumo_evtAfastTemp:esocial'><a href="#evtAfastTemp:esocial">eSocial</a></span></td>
@@ -17259,15 +17262,15 @@ OC (nos demais casos)</td>
 <table class="table is-fullwidth is-bordered">
 <thead>
 <tr>
-<th style="text-align:center; width: 3%;">#</th>
+<th style="text-align:center; width: 5%;">#</th>
 <th style="text-align:center; width: 14%;">Grupo/Campo</th>
 <th style="text-align:center; width: 14%;">Grupo Pai</th>
-<th style="text-align:center; width: 5%;">Elem.</th>
-<th style="text-align:center; width: 5%;">Tipo</th>
-<th style="text-align:center; width: 5%;">Ocor.</th>
-<th style="text-align:center; width: 7%;">Tamanho</th>
-<th style="text-align:center; width: 5%;">Dec.</th>
-<th style="text-align:center; width: 41.9%;">Descrição</th>
+<th style="text-align:center; width: 4%;">Elem.</th>
+<th style="text-align:center; width: 4%;">Tipo</th>
+<th style="text-align:center; width: 6.5%;">Ocor.</th>
+<th style="text-align:center; width: 6.5%;">Tamanho</th>
+<th style="text-align:center; width: 4%;">Dec.</th>
+<th style="text-align:center; width: 41.99%;">Descrição</th>
 </tr>
 </thead>
 <tbody>
@@ -17828,10 +17831,10 @@ c) Se <a href="#2230_infoAfastamento_infoRetif_tpProc">tpProc</a> = [3], deve po
 <td style="text-align:center; width: 14%;"><strong>Grupo</strong></td>
 <td style="text-align:center; width: 14%;"><strong>Grupo Pai</strong></td>
 <td style="text-align:center; width: 4%;"><strong>Nível</strong></td>
-<td style="text-align:center; width: 27%;"><strong>Descrição</strong></td>
-<td style="text-align:center; width: 4%;"><strong>Ocor.</strong></td>
-<td style="text-align:center; width: 13%;"><strong>Chave</strong></td>
-<td style="text-align:center; width: 23.9%;"><strong>Condição</strong></td>
+<td style="text-align:center; width: 26.59%;"><strong>Descrição</strong></td>
+<td style="text-align:center; width: 6.5%;"><strong>Ocor.</strong></td>
+<td style="text-align:center; width: 12%;"><strong>Chave</strong></td>
+<td style="text-align:center; width: 22.9%;"><strong>Condição</strong></td>
 </tr>
 <tr>
 <td style="text-align:center"><span id='resumo_evtCessao:esocial'><a href="#evtCessao:esocial">eSocial</a></span></td>
@@ -17913,15 +17916,15 @@ N (nos demais casos)</td>
 <table class="table is-fullwidth is-bordered">
 <thead>
 <tr>
-<th style="text-align:center; width: 3%;">#</th>
+<th style="text-align:center; width: 5%;">#</th>
 <th style="text-align:center; width: 14%;">Grupo/Campo</th>
 <th style="text-align:center; width: 14%;">Grupo Pai</th>
-<th style="text-align:center; width: 5%;">Elem.</th>
-<th style="text-align:center; width: 5%;">Tipo</th>
-<th style="text-align:center; width: 5%;">Ocor.</th>
-<th style="text-align:center; width: 7%;">Tamanho</th>
-<th style="text-align:center; width: 5%;">Dec.</th>
-<th style="text-align:center; width: 41.9%;">Descrição</th>
+<th style="text-align:center; width: 4%;">Elem.</th>
+<th style="text-align:center; width: 4%;">Tipo</th>
+<th style="text-align:center; width: 6.5%;">Ocor.</th>
+<th style="text-align:center; width: 6.5%;">Tamanho</th>
+<th style="text-align:center; width: 4%;">Dec.</th>
+<th style="text-align:center; width: 41.99%;">Descrição</th>
 </tr>
 </thead>
 <tbody>
@@ -18226,10 +18229,10 @@ b) Não pode ser posterior à data atual.</td>
 <td style="text-align:center; width: 14%;"><strong>Grupo</strong></td>
 <td style="text-align:center; width: 14%;"><strong>Grupo Pai</strong></td>
 <td style="text-align:center; width: 4%;"><strong>Nível</strong></td>
-<td style="text-align:center; width: 27%;"><strong>Descrição</strong></td>
-<td style="text-align:center; width: 4%;"><strong>Ocor.</strong></td>
-<td style="text-align:center; width: 13%;"><strong>Chave</strong></td>
-<td style="text-align:center; width: 23.9%;"><strong>Condição</strong></td>
+<td style="text-align:center; width: 26.59%;"><strong>Descrição</strong></td>
+<td style="text-align:center; width: 6.5%;"><strong>Ocor.</strong></td>
+<td style="text-align:center; width: 12%;"><strong>Chave</strong></td>
+<td style="text-align:center; width: 22.9%;"><strong>Condição</strong></td>
 </tr>
 <tr>
 <td style="text-align:center"><span id='resumo_evtExpRisco:esocial'><a href="#evtExpRisco:esocial">eSocial</a></span></td>
@@ -18365,15 +18368,15 @@ N (nos demais casos)</td>
 <table class="table is-fullwidth is-bordered">
 <thead>
 <tr>
-<th style="text-align:center; width: 3%;">#</th>
+<th style="text-align:center; width: 5%;">#</th>
 <th style="text-align:center; width: 14%;">Grupo/Campo</th>
 <th style="text-align:center; width: 14%;">Grupo Pai</th>
-<th style="text-align:center; width: 5%;">Elem.</th>
-<th style="text-align:center; width: 5%;">Tipo</th>
-<th style="text-align:center; width: 5%;">Ocor.</th>
-<th style="text-align:center; width: 7%;">Tamanho</th>
-<th style="text-align:center; width: 5%;">Dec.</th>
-<th style="text-align:center; width: 41.9%;">Descrição</th>
+<th style="text-align:center; width: 4%;">Elem.</th>
+<th style="text-align:center; width: 4%;">Tipo</th>
+<th style="text-align:center; width: 6.5%;">Ocor.</th>
+<th style="text-align:center; width: 6.5%;">Tamanho</th>
+<th style="text-align:center; width: 4%;">Dec.</th>
+<th style="text-align:center; width: 41.99%;">Descrição</th>
 </tr>
 </thead>
 <tbody>
@@ -19134,10 +19137,10 @@ b) Se <a href="#2240_infoExpRisco_infoAmb_localAmb">localAmb</a> = [2], deve ser
 <td style="text-align:center; width: 14%;"><strong>Grupo</strong></td>
 <td style="text-align:center; width: 14%;"><strong>Grupo Pai</strong></td>
 <td style="text-align:center; width: 4%;"><strong>Nível</strong></td>
-<td style="text-align:center; width: 27%;"><strong>Descrição</strong></td>
-<td style="text-align:center; width: 4%;"><strong>Ocor.</strong></td>
-<td style="text-align:center; width: 13%;"><strong>Chave</strong></td>
-<td style="text-align:center; width: 23.9%;"><strong>Condição</strong></td>
+<td style="text-align:center; width: 26.59%;"><strong>Descrição</strong></td>
+<td style="text-align:center; width: 6.5%;"><strong>Ocor.</strong></td>
+<td style="text-align:center; width: 12%;"><strong>Chave</strong></td>
+<td style="text-align:center; width: 22.9%;"><strong>Condição</strong></td>
 </tr>
 <tr>
 <td style="text-align:center"><span id='resumo_evtReintegr:esocial'><a href="#evtReintegr:esocial">eSocial</a></span></td>
@@ -19208,15 +19211,15 @@ b) Se <a href="#2240_infoExpRisco_infoAmb_localAmb">localAmb</a> = [2], deve ser
 <table class="table is-fullwidth is-bordered">
 <thead>
 <tr>
-<th style="text-align:center; width: 3%;">#</th>
+<th style="text-align:center; width: 5%;">#</th>
 <th style="text-align:center; width: 14%;">Grupo/Campo</th>
 <th style="text-align:center; width: 14%;">Grupo Pai</th>
-<th style="text-align:center; width: 5%;">Elem.</th>
-<th style="text-align:center; width: 5%;">Tipo</th>
-<th style="text-align:center; width: 5%;">Ocor.</th>
-<th style="text-align:center; width: 7%;">Tamanho</th>
-<th style="text-align:center; width: 5%;">Dec.</th>
-<th style="text-align:center; width: 41.9%;">Descrição</th>
+<th style="text-align:center; width: 4%;">Elem.</th>
+<th style="text-align:center; width: 4%;">Tipo</th>
+<th style="text-align:center; width: 6.5%;">Ocor.</th>
+<th style="text-align:center; width: 6.5%;">Tamanho</th>
+<th style="text-align:center; width: 4%;">Dec.</th>
+<th style="text-align:center; width: 41.99%;">Descrição</th>
 </tr>
 </thead>
 <tbody>
@@ -19546,10 +19549,10 @@ Preenchimento exclusivo em caso de trabalhador que tenha sido afastado em data a
 <td style="text-align:center; width: 14%;"><strong>Grupo</strong></td>
 <td style="text-align:center; width: 14%;"><strong>Grupo Pai</strong></td>
 <td style="text-align:center; width: 4%;"><strong>Nível</strong></td>
-<td style="text-align:center; width: 27%;"><strong>Descrição</strong></td>
-<td style="text-align:center; width: 4%;"><strong>Ocor.</strong></td>
-<td style="text-align:center; width: 13%;"><strong>Chave</strong></td>
-<td style="text-align:center; width: 23.9%;"><strong>Condição</strong></td>
+<td style="text-align:center; width: 26.59%;"><strong>Descrição</strong></td>
+<td style="text-align:center; width: 6.5%;"><strong>Ocor.</strong></td>
+<td style="text-align:center; width: 12%;"><strong>Chave</strong></td>
+<td style="text-align:center; width: 22.9%;"><strong>Condição</strong></td>
 </tr>
 <tr>
 <td style="text-align:center"><span id='resumo_evtDeslig:esocial'><a href="#evtDeslig:esocial">eSocial</a></span></td>
@@ -19827,15 +19830,15 @@ OC (nos demais casos)</td>
 <table class="table is-fullwidth is-bordered">
 <thead>
 <tr>
-<th style="text-align:center; width: 3%;">#</th>
+<th style="text-align:center; width: 5%;">#</th>
 <th style="text-align:center; width: 14%;">Grupo/Campo</th>
 <th style="text-align:center; width: 14%;">Grupo Pai</th>
-<th style="text-align:center; width: 5%;">Elem.</th>
-<th style="text-align:center; width: 5%;">Tipo</th>
-<th style="text-align:center; width: 5%;">Ocor.</th>
-<th style="text-align:center; width: 7%;">Tamanho</th>
-<th style="text-align:center; width: 5%;">Dec.</th>
-<th style="text-align:center; width: 41.9%;">Descrição</th>
+<th style="text-align:center; width: 4%;">Elem.</th>
+<th style="text-align:center; width: 4%;">Tipo</th>
+<th style="text-align:center; width: 6.5%;">Ocor.</th>
+<th style="text-align:center; width: 6.5%;">Tamanho</th>
+<th style="text-align:center; width: 4%;">Dec.</th>
+<th style="text-align:center; width: 41.99%;">Descrição</th>
 </tr>
 </thead>
 <tbody>
@@ -20896,10 +20899,10 @@ O grupo deve ser preenchido apenas no caso do trabalhador que recebe remuneraç�
 <td style="text-align:center; width: 14%;"><strong>Grupo</strong></td>
 <td style="text-align:center; width: 14%;"><strong>Grupo Pai</strong></td>
 <td style="text-align:center; width: 4%;"><strong>Nível</strong></td>
-<td style="text-align:center; width: 27%;"><strong>Descrição</strong></td>
-<td style="text-align:center; width: 4%;"><strong>Ocor.</strong></td>
-<td style="text-align:center; width: 13%;"><strong>Chave</strong></td>
-<td style="text-align:center; width: 23.9%;"><strong>Condição</strong></td>
+<td style="text-align:center; width: 26.59%;"><strong>Descrição</strong></td>
+<td style="text-align:center; width: 6.5%;"><strong>Ocor.</strong></td>
+<td style="text-align:center; width: 12%;"><strong>Chave</strong></td>
+<td style="text-align:center; width: 22.9%;"><strong>Condição</strong></td>
 </tr>
 <tr>
 <td style="text-align:center"><span id='resumo_evtTSVInicio:esocial'><a href="#evtTSVInicio:esocial">eSocial</a></span></td>
@@ -21173,15 +21176,15 @@ OC (nos demais casos)</td>
 <table class="table is-fullwidth is-bordered">
 <thead>
 <tr>
-<th style="text-align:center; width: 3%;">#</th>
+<th style="text-align:center; width: 5%;">#</th>
 <th style="text-align:center; width: 14%;">Grupo/Campo</th>
 <th style="text-align:center; width: 14%;">Grupo Pai</th>
-<th style="text-align:center; width: 5%;">Elem.</th>
-<th style="text-align:center; width: 5%;">Tipo</th>
-<th style="text-align:center; width: 5%;">Ocor.</th>
-<th style="text-align:center; width: 7%;">Tamanho</th>
-<th style="text-align:center; width: 5%;">Dec.</th>
-<th style="text-align:center; width: 41.9%;">Descrição</th>
+<th style="text-align:center; width: 4%;">Elem.</th>
+<th style="text-align:center; width: 4%;">Tipo</th>
+<th style="text-align:center; width: 6.5%;">Ocor.</th>
+<th style="text-align:center; width: 6.5%;">Tamanho</th>
+<th style="text-align:center; width: 4%;">Dec.</th>
+<th style="text-align:center; width: 41.99%;">Descrição</th>
 </tr>
 </thead>
 <tbody>
@@ -22867,10 +22870,10 @@ b) Deve ser anterior à data de início da obrigatoriedade dos eventos não peri
 <td style="text-align:center; width: 14%;"><strong>Grupo</strong></td>
 <td style="text-align:center; width: 14%;"><strong>Grupo Pai</strong></td>
 <td style="text-align:center; width: 4%;"><strong>Nível</strong></td>
-<td style="text-align:center; width: 27%;"><strong>Descrição</strong></td>
-<td style="text-align:center; width: 4%;"><strong>Ocor.</strong></td>
-<td style="text-align:center; width: 13%;"><strong>Chave</strong></td>
-<td style="text-align:center; width: 23.9%;"><strong>Condição</strong></td>
+<td style="text-align:center; width: 26.59%;"><strong>Descrição</strong></td>
+<td style="text-align:center; width: 6.5%;"><strong>Ocor.</strong></td>
+<td style="text-align:center; width: 12%;"><strong>Chave</strong></td>
+<td style="text-align:center; width: 22.9%;"><strong>Condição</strong></td>
 </tr>
 <tr>
 <td style="text-align:center"><span id='resumo_evtTSVAltContr:esocial'><a href="#evtTSVAltContr:esocial">eSocial</a></span></td>
@@ -23029,15 +23032,15 @@ N (nos demais casos)</td>
 <table class="table is-fullwidth is-bordered">
 <thead>
 <tr>
-<th style="text-align:center; width: 3%;">#</th>
+<th style="text-align:center; width: 5%;">#</th>
 <th style="text-align:center; width: 14%;">Grupo/Campo</th>
 <th style="text-align:center; width: 14%;">Grupo Pai</th>
-<th style="text-align:center; width: 5%;">Elem.</th>
-<th style="text-align:center; width: 5%;">Tipo</th>
-<th style="text-align:center; width: 5%;">Ocor.</th>
-<th style="text-align:center; width: 7%;">Tamanho</th>
-<th style="text-align:center; width: 5%;">Dec.</th>
-<th style="text-align:center; width: 41.9%;">Descrição</th>
+<th style="text-align:center; width: 4%;">Elem.</th>
+<th style="text-align:center; width: 4%;">Tipo</th>
+<th style="text-align:center; width: 6.5%;">Ocor.</th>
+<th style="text-align:center; width: 6.5%;">Tamanho</th>
+<th style="text-align:center; width: 4%;">Dec.</th>
+<th style="text-align:center; width: 41.99%;">Descrição</th>
 </tr>
 </thead>
 <tbody>
@@ -23753,10 +23756,10 @@ Se não houver número a ser informado, preencher com &quot;S/N&quot;.<br />
 <td style="text-align:center; width: 14%;"><strong>Grupo</strong></td>
 <td style="text-align:center; width: 14%;"><strong>Grupo Pai</strong></td>
 <td style="text-align:center; width: 4%;"><strong>Nível</strong></td>
-<td style="text-align:center; width: 27%;"><strong>Descrição</strong></td>
-<td style="text-align:center; width: 4%;"><strong>Ocor.</strong></td>
-<td style="text-align:center; width: 13%;"><strong>Chave</strong></td>
-<td style="text-align:center; width: 23.9%;"><strong>Condição</strong></td>
+<td style="text-align:center; width: 26.59%;"><strong>Descrição</strong></td>
+<td style="text-align:center; width: 6.5%;"><strong>Ocor.</strong></td>
+<td style="text-align:center; width: 12%;"><strong>Chave</strong></td>
+<td style="text-align:center; width: 22.9%;"><strong>Condição</strong></td>
 </tr>
 <tr>
 <td style="text-align:center"><span id='resumo_evtTSVTermino:esocial'><a href="#evtTSVTermino:esocial">eSocial</a></span></td>
@@ -23911,15 +23914,15 @@ N (nos demais casos)</td>
 <table class="table is-fullwidth is-bordered">
 <thead>
 <tr>
-<th style="text-align:center; width: 3%;">#</th>
+<th style="text-align:center; width: 5%;">#</th>
 <th style="text-align:center; width: 14%;">Grupo/Campo</th>
 <th style="text-align:center; width: 14%;">Grupo Pai</th>
-<th style="text-align:center; width: 5%;">Elem.</th>
-<th style="text-align:center; width: 5%;">Tipo</th>
-<th style="text-align:center; width: 5%;">Ocor.</th>
-<th style="text-align:center; width: 7%;">Tamanho</th>
-<th style="text-align:center; width: 5%;">Dec.</th>
-<th style="text-align:center; width: 41.9%;">Descrição</th>
+<th style="text-align:center; width: 4%;">Elem.</th>
+<th style="text-align:center; width: 4%;">Tipo</th>
+<th style="text-align:center; width: 6.5%;">Ocor.</th>
+<th style="text-align:center; width: 6.5%;">Tamanho</th>
+<th style="text-align:center; width: 4%;">Dec.</th>
+<th style="text-align:center; width: 41.99%;">Descrição</th>
 </tr>
 </thead>
 <tbody>
@@ -24623,10 +24626,10 @@ O grupo deve ser preenchido apenas no caso do trabalhador que recebe remuneraç�
 <td style="text-align:center; width: 14%;"><strong>Grupo</strong></td>
 <td style="text-align:center; width: 14%;"><strong>Grupo Pai</strong></td>
 <td style="text-align:center; width: 4%;"><strong>Nível</strong></td>
-<td style="text-align:center; width: 27%;"><strong>Descrição</strong></td>
-<td style="text-align:center; width: 4%;"><strong>Ocor.</strong></td>
-<td style="text-align:center; width: 13%;"><strong>Chave</strong></td>
-<td style="text-align:center; width: 23.9%;"><strong>Condição</strong></td>
+<td style="text-align:center; width: 26.59%;"><strong>Descrição</strong></td>
+<td style="text-align:center; width: 6.5%;"><strong>Ocor.</strong></td>
+<td style="text-align:center; width: 12%;"><strong>Chave</strong></td>
+<td style="text-align:center; width: 22.9%;"><strong>Condição</strong></td>
 </tr>
 <tr>
 <td style="text-align:center"><span id='resumo_evtCdBenefIn:esocial'><a href="#evtCdBenefIn:esocial">eSocial</a></span></td>
@@ -24717,15 +24720,15 @@ N (nos demais casos)</td>
 <table class="table is-fullwidth is-bordered">
 <thead>
 <tr>
-<th style="text-align:center; width: 3%;">#</th>
+<th style="text-align:center; width: 5%;">#</th>
 <th style="text-align:center; width: 14%;">Grupo/Campo</th>
 <th style="text-align:center; width: 14%;">Grupo Pai</th>
-<th style="text-align:center; width: 5%;">Elem.</th>
-<th style="text-align:center; width: 5%;">Tipo</th>
-<th style="text-align:center; width: 5%;">Ocor.</th>
-<th style="text-align:center; width: 7%;">Tamanho</th>
-<th style="text-align:center; width: 5%;">Dec.</th>
-<th style="text-align:center; width: 41.9%;">Descrição</th>
+<th style="text-align:center; width: 4%;">Elem.</th>
+<th style="text-align:center; width: 4%;">Tipo</th>
+<th style="text-align:center; width: 6.5%;">Ocor.</th>
+<th style="text-align:center; width: 6.5%;">Tamanho</th>
+<th style="text-align:center; width: 4%;">Dec.</th>
+<th style="text-align:center; width: 41.99%;">Descrição</th>
 </tr>
 </thead>
 <tbody>
@@ -25345,10 +25348,10 @@ b) Não pode haver mais de um dependente com o mesmo número de CPF.</td>
 <td style="text-align:center; width: 14%;"><strong>Grupo</strong></td>
 <td style="text-align:center; width: 14%;"><strong>Grupo Pai</strong></td>
 <td style="text-align:center; width: 4%;"><strong>Nível</strong></td>
-<td style="text-align:center; width: 27%;"><strong>Descrição</strong></td>
-<td style="text-align:center; width: 4%;"><strong>Ocor.</strong></td>
-<td style="text-align:center; width: 13%;"><strong>Chave</strong></td>
-<td style="text-align:center; width: 23.9%;"><strong>Condição</strong></td>
+<td style="text-align:center; width: 26.59%;"><strong>Descrição</strong></td>
+<td style="text-align:center; width: 6.5%;"><strong>Ocor.</strong></td>
+<td style="text-align:center; width: 12%;"><strong>Chave</strong></td>
+<td style="text-align:center; width: 22.9%;"><strong>Condição</strong></td>
 </tr>
 <tr>
 <td style="text-align:center"><span id='resumo_evtCdBenefAlt:esocial'><a href="#evtCdBenefAlt:esocial">eSocial</a></span></td>
@@ -25457,15 +25460,15 @@ N (nos demais casos)</td>
 <table class="table is-fullwidth is-bordered">
 <thead>
 <tr>
-<th style="text-align:center; width: 3%;">#</th>
+<th style="text-align:center; width: 5%;">#</th>
 <th style="text-align:center; width: 14%;">Grupo/Campo</th>
 <th style="text-align:center; width: 14%;">Grupo Pai</th>
-<th style="text-align:center; width: 5%;">Elem.</th>
-<th style="text-align:center; width: 5%;">Tipo</th>
-<th style="text-align:center; width: 5%;">Ocor.</th>
-<th style="text-align:center; width: 7%;">Tamanho</th>
-<th style="text-align:center; width: 5%;">Dec.</th>
-<th style="text-align:center; width: 41.9%;">Descrição</th>
+<th style="text-align:center; width: 4%;">Elem.</th>
+<th style="text-align:center; width: 4%;">Tipo</th>
+<th style="text-align:center; width: 6.5%;">Ocor.</th>
+<th style="text-align:center; width: 6.5%;">Tamanho</th>
+<th style="text-align:center; width: 4%;">Dec.</th>
+<th style="text-align:center; width: 41.99%;">Descrição</th>
 </tr>
 </thead>
 <tbody>
@@ -26080,10 +26083,10 @@ b) Não pode haver mais de um dependente com o mesmo número de CPF.</td>
 <td style="text-align:center; width: 14%;"><strong>Grupo</strong></td>
 <td style="text-align:center; width: 14%;"><strong>Grupo Pai</strong></td>
 <td style="text-align:center; width: 4%;"><strong>Nível</strong></td>
-<td style="text-align:center; width: 27%;"><strong>Descrição</strong></td>
-<td style="text-align:center; width: 4%;"><strong>Ocor.</strong></td>
-<td style="text-align:center; width: 13%;"><strong>Chave</strong></td>
-<td style="text-align:center; width: 23.9%;"><strong>Condição</strong></td>
+<td style="text-align:center; width: 26.59%;"><strong>Descrição</strong></td>
+<td style="text-align:center; width: 6.5%;"><strong>Ocor.</strong></td>
+<td style="text-align:center; width: 12%;"><strong>Chave</strong></td>
+<td style="text-align:center; width: 22.9%;"><strong>Condição</strong></td>
 </tr>
 <tr>
 <td style="text-align:center"><span id='resumo_evtCdBenIn:esocial'><a href="#evtCdBenIn:esocial">eSocial</a></span></td>
@@ -26204,15 +26207,15 @@ N (nos demais casos)</td>
 <table class="table is-fullwidth is-bordered">
 <thead>
 <tr>
-<th style="text-align:center; width: 3%;">#</th>
+<th style="text-align:center; width: 5%;">#</th>
 <th style="text-align:center; width: 14%;">Grupo/Campo</th>
 <th style="text-align:center; width: 14%;">Grupo Pai</th>
-<th style="text-align:center; width: 5%;">Elem.</th>
-<th style="text-align:center; width: 5%;">Tipo</th>
-<th style="text-align:center; width: 5%;">Ocor.</th>
-<th style="text-align:center; width: 7%;">Tamanho</th>
-<th style="text-align:center; width: 5%;">Dec.</th>
-<th style="text-align:center; width: 41.9%;">Descrição</th>
+<th style="text-align:center; width: 4%;">Elem.</th>
+<th style="text-align:center; width: 4%;">Tipo</th>
+<th style="text-align:center; width: 6.5%;">Ocor.</th>
+<th style="text-align:center; width: 6.5%;">Tamanho</th>
+<th style="text-align:center; width: 4%;">Dec.</th>
+<th style="text-align:center; width: 41.99%;">Descrição</th>
 </tr>
 </thead>
 <tbody>
@@ -26798,10 +26801,10 @@ c) Se <a href="#2410_infoBenInicio_indSitBenef">indSitBenef</a> = [2], deve ser 
 <td style="text-align:center; width: 14%;"><strong>Grupo</strong></td>
 <td style="text-align:center; width: 14%;"><strong>Grupo Pai</strong></td>
 <td style="text-align:center; width: 4%;"><strong>Nível</strong></td>
-<td style="text-align:center; width: 27%;"><strong>Descrição</strong></td>
-<td style="text-align:center; width: 4%;"><strong>Ocor.</strong></td>
-<td style="text-align:center; width: 13%;"><strong>Chave</strong></td>
-<td style="text-align:center; width: 23.9%;"><strong>Condição</strong></td>
+<td style="text-align:center; width: 26.59%;"><strong>Descrição</strong></td>
+<td style="text-align:center; width: 6.5%;"><strong>Ocor.</strong></td>
+<td style="text-align:center; width: 12%;"><strong>Chave</strong></td>
+<td style="text-align:center; width: 22.9%;"><strong>Condição</strong></td>
 </tr>
 <tr>
 <td style="text-align:center"><span id='resumo_evtCdBenAlt:esocial'><a href="#evtCdBenAlt:esocial">eSocial</a></span></td>
@@ -26892,15 +26895,15 @@ N (se <a href="#2416_infoBenAlteracao_dadosBeneficio_indSuspensao">indSuspensao<
 <table class="table is-fullwidth is-bordered">
 <thead>
 <tr>
-<th style="text-align:center; width: 3%;">#</th>
+<th style="text-align:center; width: 5%;">#</th>
 <th style="text-align:center; width: 14%;">Grupo/Campo</th>
 <th style="text-align:center; width: 14%;">Grupo Pai</th>
-<th style="text-align:center; width: 5%;">Elem.</th>
-<th style="text-align:center; width: 5%;">Tipo</th>
-<th style="text-align:center; width: 5%;">Ocor.</th>
-<th style="text-align:center; width: 7%;">Tamanho</th>
-<th style="text-align:center; width: 5%;">Dec.</th>
-<th style="text-align:center; width: 41.9%;">Descrição</th>
+<th style="text-align:center; width: 4%;">Elem.</th>
+<th style="text-align:center; width: 4%;">Tipo</th>
+<th style="text-align:center; width: 6.5%;">Ocor.</th>
+<th style="text-align:center; width: 6.5%;">Tamanho</th>
+<th style="text-align:center; width: 4%;">Dec.</th>
+<th style="text-align:center; width: 41.99%;">Descrição</th>
 </tr>
 </thead>
 <tbody>
@@ -27261,10 +27264,10 @@ Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo
 <td style="text-align:center; width: 14%;"><strong>Grupo</strong></td>
 <td style="text-align:center; width: 14%;"><strong>Grupo Pai</strong></td>
 <td style="text-align:center; width: 4%;"><strong>Nível</strong></td>
-<td style="text-align:center; width: 27%;"><strong>Descrição</strong></td>
-<td style="text-align:center; width: 4%;"><strong>Ocor.</strong></td>
-<td style="text-align:center; width: 13%;"><strong>Chave</strong></td>
-<td style="text-align:center; width: 23.9%;"><strong>Condição</strong></td>
+<td style="text-align:center; width: 26.59%;"><strong>Descrição</strong></td>
+<td style="text-align:center; width: 6.5%;"><strong>Ocor.</strong></td>
+<td style="text-align:center; width: 12%;"><strong>Chave</strong></td>
+<td style="text-align:center; width: 22.9%;"><strong>Condição</strong></td>
 </tr>
 <tr>
 <td style="text-align:center"><span id='resumo_evtReativBen:esocial'><a href="#evtReativBen:esocial">eSocial</a></span></td>
@@ -27326,15 +27329,15 @@ Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo
 <table class="table is-fullwidth is-bordered">
 <thead>
 <tr>
-<th style="text-align:center; width: 3%;">#</th>
+<th style="text-align:center; width: 5%;">#</th>
 <th style="text-align:center; width: 14%;">Grupo/Campo</th>
 <th style="text-align:center; width: 14%;">Grupo Pai</th>
-<th style="text-align:center; width: 5%;">Elem.</th>
-<th style="text-align:center; width: 5%;">Tipo</th>
-<th style="text-align:center; width: 5%;">Ocor.</th>
-<th style="text-align:center; width: 7%;">Tamanho</th>
-<th style="text-align:center; width: 5%;">Dec.</th>
-<th style="text-align:center; width: 41.9%;">Descrição</th>
+<th style="text-align:center; width: 4%;">Elem.</th>
+<th style="text-align:center; width: 4%;">Tipo</th>
+<th style="text-align:center; width: 6.5%;">Ocor.</th>
+<th style="text-align:center; width: 6.5%;">Tamanho</th>
+<th style="text-align:center; width: 4%;">Dec.</th>
+<th style="text-align:center; width: 41.99%;">Descrição</th>
 </tr>
 </thead>
 <tbody>
@@ -27582,10 +27585,10 @@ Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo
 <td style="text-align:center; width: 14%;"><strong>Grupo</strong></td>
 <td style="text-align:center; width: 14%;"><strong>Grupo Pai</strong></td>
 <td style="text-align:center; width: 4%;"><strong>Nível</strong></td>
-<td style="text-align:center; width: 27%;"><strong>Descrição</strong></td>
-<td style="text-align:center; width: 4%;"><strong>Ocor.</strong></td>
-<td style="text-align:center; width: 13%;"><strong>Chave</strong></td>
-<td style="text-align:center; width: 23.9%;"><strong>Condição</strong></td>
+<td style="text-align:center; width: 26.59%;"><strong>Descrição</strong></td>
+<td style="text-align:center; width: 6.5%;"><strong>Ocor.</strong></td>
+<td style="text-align:center; width: 12%;"><strong>Chave</strong></td>
+<td style="text-align:center; width: 22.9%;"><strong>Condição</strong></td>
 </tr>
 <tr>
 <td style="text-align:center"><span id='resumo_evtCdBenTerm:esocial'><a href="#evtCdBenTerm:esocial">eSocial</a></span></td>
@@ -27647,15 +27650,15 @@ Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo
 <table class="table is-fullwidth is-bordered">
 <thead>
 <tr>
-<th style="text-align:center; width: 3%;">#</th>
+<th style="text-align:center; width: 5%;">#</th>
 <th style="text-align:center; width: 14%;">Grupo/Campo</th>
 <th style="text-align:center; width: 14%;">Grupo Pai</th>
-<th style="text-align:center; width: 5%;">Elem.</th>
-<th style="text-align:center; width: 5%;">Tipo</th>
-<th style="text-align:center; width: 5%;">Ocor.</th>
-<th style="text-align:center; width: 7%;">Tamanho</th>
-<th style="text-align:center; width: 5%;">Dec.</th>
-<th style="text-align:center; width: 41.9%;">Descrição</th>
+<th style="text-align:center; width: 4%;">Elem.</th>
+<th style="text-align:center; width: 4%;">Tipo</th>
+<th style="text-align:center; width: 6.5%;">Ocor.</th>
+<th style="text-align:center; width: 6.5%;">Tamanho</th>
+<th style="text-align:center; width: 4%;">Dec.</th>
+<th style="text-align:center; width: 41.99%;">Descrição</th>
 </tr>
 </thead>
 <tbody>
@@ -27928,10 +27931,10 @@ Deve ser um CPF válido e diferente do antigo CPF do beneficiário.</td>
 <td style="text-align:center; width: 14%;"><strong>Grupo</strong></td>
 <td style="text-align:center; width: 14%;"><strong>Grupo Pai</strong></td>
 <td style="text-align:center; width: 4%;"><strong>Nível</strong></td>
-<td style="text-align:center; width: 27%;"><strong>Descrição</strong></td>
-<td style="text-align:center; width: 4%;"><strong>Ocor.</strong></td>
-<td style="text-align:center; width: 13%;"><strong>Chave</strong></td>
-<td style="text-align:center; width: 23.9%;"><strong>Condição</strong></td>
+<td style="text-align:center; width: 26.59%;"><strong>Descrição</strong></td>
+<td style="text-align:center; width: 6.5%;"><strong>Ocor.</strong></td>
+<td style="text-align:center; width: 12%;"><strong>Chave</strong></td>
+<td style="text-align:center; width: 22.9%;"><strong>Condição</strong></td>
 </tr>
 <tr>
 <td style="text-align:center"><span id='resumo_evtExclusao:esocial'><a href="#evtExclusao:esocial">eSocial</a></span></td>
@@ -28004,15 +28007,15 @@ N (nos demais casos)</td>
 <table class="table is-fullwidth is-bordered">
 <thead>
 <tr>
-<th style="text-align:center; width: 3%;">#</th>
+<th style="text-align:center; width: 5%;">#</th>
 <th style="text-align:center; width: 14%;">Grupo/Campo</th>
 <th style="text-align:center; width: 14%;">Grupo Pai</th>
-<th style="text-align:center; width: 5%;">Elem.</th>
-<th style="text-align:center; width: 5%;">Tipo</th>
-<th style="text-align:center; width: 5%;">Ocor.</th>
-<th style="text-align:center; width: 7%;">Tamanho</th>
-<th style="text-align:center; width: 5%;">Dec.</th>
-<th style="text-align:center; width: 41.9%;">Descrição</th>
+<th style="text-align:center; width: 4%;">Elem.</th>
+<th style="text-align:center; width: 4%;">Tipo</th>
+<th style="text-align:center; width: 6.5%;">Ocor.</th>
+<th style="text-align:center; width: 6.5%;">Tamanho</th>
+<th style="text-align:center; width: 4%;">Dec.</th>
+<th style="text-align:center; width: 41.99%;">Descrição</th>
 </tr>
 </thead>
 <tbody>
@@ -28260,10 +28263,10 @@ b) Periódicos (S-1200 a S-1280).</td>
 <td style="text-align:center; width: 14%;"><strong>Grupo</strong></td>
 <td style="text-align:center; width: 14%;"><strong>Grupo Pai</strong></td>
 <td style="text-align:center; width: 4%;"><strong>Nível</strong></td>
-<td style="text-align:center; width: 27%;"><strong>Descrição</strong></td>
-<td style="text-align:center; width: 4%;"><strong>Ocor.</strong></td>
-<td style="text-align:center; width: 13%;"><strong>Chave</strong></td>
-<td style="text-align:center; width: 23.9%;"><strong>Condição</strong></td>
+<td style="text-align:center; width: 26.59%;"><strong>Descrição</strong></td>
+<td style="text-align:center; width: 6.5%;"><strong>Ocor.</strong></td>
+<td style="text-align:center; width: 12%;"><strong>Chave</strong></td>
+<td style="text-align:center; width: 22.9%;"><strong>Condição</strong></td>
 </tr>
 <tr>
 <td style="text-align:center"><span id='resumo_evtBasesTrab:esocial'><a href="#evtBasesTrab:esocial">eSocial</a></span></td>
@@ -28434,15 +28437,15 @@ O (nos demais casos)</td>
 <table class="table is-fullwidth is-bordered">
 <thead>
 <tr>
-<th style="text-align:center; width: 3%;">#</th>
+<th style="text-align:center; width: 5%;">#</th>
 <th style="text-align:center; width: 14%;">Grupo/Campo</th>
 <th style="text-align:center; width: 14%;">Grupo Pai</th>
-<th style="text-align:center; width: 5%;">Elem.</th>
-<th style="text-align:center; width: 5%;">Tipo</th>
-<th style="text-align:center; width: 5%;">Ocor.</th>
-<th style="text-align:center; width: 7%;">Tamanho</th>
-<th style="text-align:center; width: 5%;">Dec.</th>
-<th style="text-align:center; width: 41.9%;">Descrição</th>
+<th style="text-align:center; width: 4%;">Elem.</th>
+<th style="text-align:center; width: 4%;">Tipo</th>
+<th style="text-align:center; width: 6.5%;">Ocor.</th>
+<th style="text-align:center; width: 6.5%;">Tamanho</th>
+<th style="text-align:center; width: 4%;">Dec.</th>
+<th style="text-align:center; width: 41.99%;">Descrição</th>
 </tr>
 </thead>
 <tbody>
@@ -29254,10 +29257,10 @@ b) Somar os valores das rubricas cujo <a href="#1010_infoRubrica_inclusao_dadosR
 <td style="text-align:center; width: 14%;"><strong>Grupo</strong></td>
 <td style="text-align:center; width: 14%;"><strong>Grupo Pai</strong></td>
 <td style="text-align:center; width: 4%;"><strong>Nível</strong></td>
-<td style="text-align:center; width: 27%;"><strong>Descrição</strong></td>
-<td style="text-align:center; width: 4%;"><strong>Ocor.</strong></td>
-<td style="text-align:center; width: 13%;"><strong>Chave</strong></td>
-<td style="text-align:center; width: 23.9%;"><strong>Condição</strong></td>
+<td style="text-align:center; width: 26.59%;"><strong>Descrição</strong></td>
+<td style="text-align:center; width: 6.5%;"><strong>Ocor.</strong></td>
+<td style="text-align:center; width: 12%;"><strong>Chave</strong></td>
+<td style="text-align:center; width: 22.9%;"><strong>Condição</strong></td>
 </tr>
 <tr>
 <td style="text-align:center"><span id='resumo_evtIrrfBenef:esocial'><a href="#evtIrrfBenef:esocial">eSocial</a></span></td>
@@ -29328,15 +29331,15 @@ b) Somar os valores das rubricas cujo <a href="#1010_infoRubrica_inclusao_dadosR
 <table class="table is-fullwidth is-bordered">
 <thead>
 <tr>
-<th style="text-align:center; width: 3%;">#</th>
+<th style="text-align:center; width: 5%;">#</th>
 <th style="text-align:center; width: 14%;">Grupo/Campo</th>
 <th style="text-align:center; width: 14%;">Grupo Pai</th>
-<th style="text-align:center; width: 5%;">Elem.</th>
-<th style="text-align:center; width: 5%;">Tipo</th>
-<th style="text-align:center; width: 5%;">Ocor.</th>
-<th style="text-align:center; width: 7%;">Tamanho</th>
-<th style="text-align:center; width: 5%;">Dec.</th>
-<th style="text-align:center; width: 41.9%;">Descrição</th>
+<th style="text-align:center; width: 4%;">Elem.</th>
+<th style="text-align:center; width: 4%;">Tipo</th>
+<th style="text-align:center; width: 6.5%;">Ocor.</th>
+<th style="text-align:center; width: 6.5%;">Tamanho</th>
+<th style="text-align:center; width: 4%;">Dec.</th>
+<th style="text-align:center; width: 41.99%;">Descrição</th>
 </tr>
 </thead>
 <tbody>
@@ -29717,10 +29720,10 @@ b) Somar os valores das rubricas cujo <a href="#1010_infoRubrica_inclusao_dadosR
 <td style="text-align:center; width: 14%;"><strong>Grupo</strong></td>
 <td style="text-align:center; width: 14%;"><strong>Grupo Pai</strong></td>
 <td style="text-align:center; width: 4%;"><strong>Nível</strong></td>
-<td style="text-align:center; width: 27%;"><strong>Descrição</strong></td>
-<td style="text-align:center; width: 4%;"><strong>Ocor.</strong></td>
-<td style="text-align:center; width: 13%;"><strong>Chave</strong></td>
-<td style="text-align:center; width: 23.9%;"><strong>Condição</strong></td>
+<td style="text-align:center; width: 26.59%;"><strong>Descrição</strong></td>
+<td style="text-align:center; width: 6.5%;"><strong>Ocor.</strong></td>
+<td style="text-align:center; width: 12%;"><strong>Chave</strong></td>
+<td style="text-align:center; width: 22.9%;"><strong>Condição</strong></td>
 </tr>
 <tr>
 <td style="text-align:center"><span id='resumo_evtBasesFGTS:esocial'><a href="#evtBasesFGTS:esocial">eSocial</a></span></td>
@@ -29885,15 +29888,15 @@ N (nos demais casos)</td>
 <table class="table is-fullwidth is-bordered">
 <thead>
 <tr>
-<th style="text-align:center; width: 3%;">#</th>
+<th style="text-align:center; width: 5%;">#</th>
 <th style="text-align:center; width: 14%;">Grupo/Campo</th>
 <th style="text-align:center; width: 14%;">Grupo Pai</th>
-<th style="text-align:center; width: 5%;">Elem.</th>
-<th style="text-align:center; width: 5%;">Tipo</th>
-<th style="text-align:center; width: 5%;">Ocor.</th>
-<th style="text-align:center; width: 7%;">Tamanho</th>
-<th style="text-align:center; width: 5%;">Dec.</th>
-<th style="text-align:center; width: 41.9%;">Descrição</th>
+<th style="text-align:center; width: 4%;">Elem.</th>
+<th style="text-align:center; width: 4%;">Tipo</th>
+<th style="text-align:center; width: 6.5%;">Ocor.</th>
+<th style="text-align:center; width: 6.5%;">Tamanho</th>
+<th style="text-align:center; width: 4%;">Dec.</th>
+<th style="text-align:center; width: 41.99%;">Descrição</th>
 </tr>
 </thead>
 <tbody>
@@ -30667,10 +30670,10 @@ c) Se <a href="#5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_info
 <td style="text-align:center; width: 14%;"><strong>Grupo</strong></td>
 <td style="text-align:center; width: 14%;"><strong>Grupo Pai</strong></td>
 <td style="text-align:center; width: 4%;"><strong>Nível</strong></td>
-<td style="text-align:center; width: 27%;"><strong>Descrição</strong></td>
-<td style="text-align:center; width: 4%;"><strong>Ocor.</strong></td>
-<td style="text-align:center; width: 13%;"><strong>Chave</strong></td>
-<td style="text-align:center; width: 23.9%;"><strong>Condição</strong></td>
+<td style="text-align:center; width: 26.59%;"><strong>Descrição</strong></td>
+<td style="text-align:center; width: 6.5%;"><strong>Ocor.</strong></td>
+<td style="text-align:center; width: 12%;"><strong>Chave</strong></td>
+<td style="text-align:center; width: 22.9%;"><strong>Condição</strong></td>
 </tr>
 <tr>
 <td style="text-align:center"><span id='resumo_evtCS:esocial'><a href="#evtCS:esocial">eSocial</a></span></td>
@@ -30896,15 +30899,15 @@ N (nos demais casos)</td>
 <table class="table is-fullwidth is-bordered">
 <thead>
 <tr>
-<th style="text-align:center; width: 3%;">#</th>
+<th style="text-align:center; width: 5%;">#</th>
 <th style="text-align:center; width: 14%;">Grupo/Campo</th>
 <th style="text-align:center; width: 14%;">Grupo Pai</th>
-<th style="text-align:center; width: 5%;">Elem.</th>
-<th style="text-align:center; width: 5%;">Tipo</th>
-<th style="text-align:center; width: 5%;">Ocor.</th>
-<th style="text-align:center; width: 7%;">Tamanho</th>
-<th style="text-align:center; width: 5%;">Dec.</th>
-<th style="text-align:center; width: 41.9%;">Descrição</th>
+<th style="text-align:center; width: 4%;">Elem.</th>
+<th style="text-align:center; width: 4%;">Tipo</th>
+<th style="text-align:center; width: 6.5%;">Ocor.</th>
+<th style="text-align:center; width: 6.5%;">Tamanho</th>
+<th style="text-align:center; width: 4%;">Dec.</th>
+<th style="text-align:center; width: 41.99%;">Descrição</th>
 </tr>
 </thead>
 <tbody>
@@ -32172,10 +32175,10 @@ Deve ser maior que 0 (zero).</td>
 <td style="text-align:center; width: 14%;"><strong>Grupo</strong></td>
 <td style="text-align:center; width: 14%;"><strong>Grupo Pai</strong></td>
 <td style="text-align:center; width: 4%;"><strong>Nível</strong></td>
-<td style="text-align:center; width: 27%;"><strong>Descrição</strong></td>
-<td style="text-align:center; width: 4%;"><strong>Ocor.</strong></td>
-<td style="text-align:center; width: 13%;"><strong>Chave</strong></td>
-<td style="text-align:center; width: 23.9%;"><strong>Condição</strong></td>
+<td style="text-align:center; width: 26.59%;"><strong>Descrição</strong></td>
+<td style="text-align:center; width: 6.5%;"><strong>Ocor.</strong></td>
+<td style="text-align:center; width: 12%;"><strong>Chave</strong></td>
+<td style="text-align:center; width: 22.9%;"><strong>Condição</strong></td>
 </tr>
 <tr>
 <td style="text-align:center"><span id='resumo_evtFGTS:esocial'><a href="#evtFGTS:esocial">eSocial</a></span></td>
@@ -32282,15 +32285,15 @@ Deve ser maior que 0 (zero).</td>
 <table class="table is-fullwidth is-bordered">
 <thead>
 <tr>
-<th style="text-align:center; width: 3%;">#</th>
+<th style="text-align:center; width: 5%;">#</th>
 <th style="text-align:center; width: 14%;">Grupo/Campo</th>
 <th style="text-align:center; width: 14%;">Grupo Pai</th>
-<th style="text-align:center; width: 5%;">Elem.</th>
-<th style="text-align:center; width: 5%;">Tipo</th>
-<th style="text-align:center; width: 5%;">Ocor.</th>
-<th style="text-align:center; width: 7%;">Tamanho</th>
-<th style="text-align:center; width: 5%;">Dec.</th>
-<th style="text-align:center; width: 41.9%;">Descrição</th>
+<th style="text-align:center; width: 4%;">Elem.</th>
+<th style="text-align:center; width: 4%;">Tipo</th>
+<th style="text-align:center; width: 6.5%;">Ocor.</th>
+<th style="text-align:center; width: 6.5%;">Tamanho</th>
+<th style="text-align:center; width: 4%;">Dec.</th>
+<th style="text-align:center; width: 41.99%;">Descrição</th>
 </tr>
 </thead>
 <tbody>
@@ -32858,7 +32861,9 @@ Deve corresponder ao somatório dos valores informados no campo <a href="#5003_i
                 item.parentElement.parentElement.setAttribute("class", "grupo-choice")
             }
 
-            $("a[href^='#regra_']").on('click', function(e) { $(".is-active").removeClass("is-active"); $("#" + $(this).text()).addClass('is-active'); $("html").addClass("is-clipped"); })
+            titulo = document.querySelector('title').text
+
+            $("a[href^='#regra_']").on('click', function(e) { if (titulo != 'Regras') { $(".is-active").removeClass("is-active"); $("#" + $(this).text()).addClass('is-active'); $("html").addClass("is-clipped"); }})
             $(".delete").on('click', function(e) { $("html").removeClass("is-clipped"); $(".is-active").removeClass("is-active") })
 
             function copiarCaminho(caminho) {
