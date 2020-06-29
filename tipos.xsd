@@ -836,6 +836,29 @@
         </xs:sequence>
     </xs:complexType>
 
+    <!-- Grupo {sucessaoVinc} (S-5001 e S_5003) -->
+
+    <xs:complexType name="T_sucessaoVinc">
+        <xs:sequence>
+            <xs:element name="tpInsc" type="TS_tpInsc_1_2" />
+            <xs:element name="nrInsc" type="TS_nrInsc_11_14">
+                <xs:annotation>
+                    <xs:documentation>Informar o número de inscrição do empregador anterior, de acordo com o tipo de inscrição indicado no campo {sucessaoVinc/tpInsc}(./tpInsc).</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="matricAnt" minOccurs="0" type="TS_codigo_esocial">
+                <xs:annotation>
+                    <xs:documentation>Matrícula do trabalhador no empregador anterior.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="dtAdm" type="xs:date">
+                <xs:annotation>
+                    <xs:documentation>Preencher com a data de admissão do trabalhador. No caso de transferência do empregado, deve ser preenchida a data inicial do vínculo no primeiro empregador (data de início do vínculo).</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
     <!-- Campo {Id} -->
 
     <xs:simpleType name="TS_Id">
@@ -1908,6 +1931,15 @@
                 </xs:annotation>
             </xs:enumeration>
         </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Campo {dsc} -->
+
+    <xs:simpleType name="TS_dsc">
+        <xs:annotation>
+            <xs:documentation>Descrição do instrumento ou situação que originou o pagamento das verbas relativas a períodos anteriores.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="TS_texto_255" />
     </xs:simpleType>
 
     <!-- Campo CBO -->
