@@ -567,7 +567,7 @@ with io.open('doc\\tabelas.html', 'w', encoding='utf8') as f:
             texto_largura_fixa = False
 
             for indice_linha, linha in enumerate(arquivo_tabela):
-                if '__' in linha:
+                if '__' in linha or '##' in linha:
                     linha = aplicar_formatacao(linha)
 
                 itens_linha = []
