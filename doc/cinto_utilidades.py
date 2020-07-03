@@ -75,8 +75,11 @@ def resolver_referencias(texto, item):
             endereco = endereco.replace('/', item.leiaute.codigo[2:] + '_')
 
         elif endereco.startswith('./'):
-            endereco = '_'.join(
-                (item.pai.obter_caminho_encurtado(), endereco[2:]))
+            if item.categoria.agrupadora():
+                prefixo = item.obter_caminho_encurtado()
+            else:
+                prefixo = item.pai.obter_caminho_encurtado()
+            endereco = '_'.join((prefixo, endereco[2:]))
 
         texto = texto.replace(
             '{{{}}}({})'.format(nome, ocorrencia[1]),
