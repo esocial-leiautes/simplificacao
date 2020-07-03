@@ -106,9 +106,9 @@ for tabela in sorted(os.listdir(caminho_tabelas.replace('{}', ''))):
 
         for indice_linha, linha in enumerate(arquivo_tabela):
             if '__' in linha:
-                linha = re.sub('__(.*?)__', '<i>\\1</i>', linha)
+                linha = re.sub('__(.*?)__', '<em>\\1</em>', linha)
             if '##' in linha:
-                linha = re.sub('##(.*?)##', '<b>\\1</b>', linha)
+                linha = re.sub('##(.*?)##', '<strong>\\1</strong>', linha)
 
             itens_linha = []
 
@@ -240,7 +240,6 @@ arquivo.write(fim)
 arquivo.close()
 
 # VERIFICAÇÃO DE LINKS
-# TODO - Consolidar aspas
 
 links = []
 regex = (
@@ -262,12 +261,10 @@ ids = []
 regex = (
     # id="1000_Id"
     r'id="(\d{4}_\S+)"'
-    # id='evtInfoEmpregador:esocial'
-    r"|id='(evt\S+)'"
     # id="evtInfoEmpregador"
     r'|id="(evt\S+)"'
-    # id='resumo_evtInfoEmpregador:esocial'
-    r"|id='(resumo_evt\S+)'")
+    # id="resumo_evtInfoEmpregador:esocial"
+    r'|id="(resumo_evt\S+)"')
 
 for itens in re.findall(regex, html):
     [ids.append(item) for item in itens if item != '' and item not in ids]

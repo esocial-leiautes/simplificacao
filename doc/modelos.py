@@ -70,7 +70,7 @@ class Resumo:
     LINHA = (
             '<tr>\n'
             '<td style="text-align:center">'
-            '<span id=\'resumo_{identificador_evento}:{id_nome}\'>'
+            '<span id="resumo_{identificador_evento}:{id_nome}">'
             '<a href="#{identificador_evento}:{id_nome}">{nome}</a>'
             '</span></td>\n'
             '<td style="text-align:center">{pai}</td>\n'
@@ -134,7 +134,7 @@ class Completo:
             ' id="{caminho}">{indice}</span>'
             '</td>\n'
             '<td style="text-align:center">'
-            '<span{marcador_grupo} id=\'{evento}:{id}\'>'
+            '<span{marcador_grupo} id="{evento}:{id}">'
             '{nome}'
             '</span></td>\n'
             '<td style="text-align:center">{pai}</td>\n'

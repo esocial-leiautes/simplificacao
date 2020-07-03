@@ -621,16 +621,6 @@ class ItemLeiaute:
         descricao = '<br />\n'.join([cinto.resolver_referencias(
             descricao, self) for descricao in descricoes])
 
-        if self.origem:
-            descricao += rotulo.format('Origem:') + ' '
-            descricao += '<br />\n'.join([cinto.resolver_referencias(
-                origem, self) for origem in self.origem])
-
-        if self.evento_origem:
-            descricao += rotulo.format('Evento de origem:') + ' '
-            descricao += '<br />\n'.join([cinto.resolver_referencias(
-                origem, self) for origem in self.evento_origem])
-
         if self.valores_validos:
             descricao += rotulo.format('Valores válidos:')
             linha_cabecalho = ''
@@ -648,6 +638,16 @@ class ItemLeiaute:
                     descricao += ' {},'.format(chave)
 
             descricao = descricao.rstrip(',')
+
+        if self.origem:
+            descricao += rotulo.format('Origem:') + ' '
+            descricao += '<br />\n'.join([cinto.resolver_referencias(
+                origem, self) for origem in self.origem])
+
+        if self.evento_origem:
+            descricao += rotulo.format('Evento de origem:') + ' '
+            descricao += '<br />\n'.join([cinto.resolver_referencias(
+                origem, self) for origem in self.evento_origem])
 
         if self.validacao:
             descricao += rotulo.format('Validação:') + ' '
