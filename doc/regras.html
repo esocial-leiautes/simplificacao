@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
@@ -44,10 +44,12 @@
 </tr>
 </thead>
 <tbody>
+<tr>
 <td id=regra_admissao_posterior_inicio_atividades><strong>REGRA_ADMISSAO_POSTERIOR_INICIO_ATIVIDADES</strong></td>
 <td>Se {tpAdmissao} = [1] e {indAdmissao} = [1], a data informada no campo {dtAdm} deve ser igual ou posterior à data de abertura da empresa ou à data do primeiro vínculo (esta última se constar na base de CNPJ).<br />
-Se {tpAdmissao} = [2, 3, 4] e {indAdmissao} = [1], a data informada no campo {sucessaoVinc/dtTransf} deve ser igual ou posterior à data de abertura da empresa ou à data do primeiro vínculo (esta última se constar na base de CNPJ).</strong></td>
+Se {tpAdmissao} = [2, 3, 4] e {indAdmissao} = [1], a data informada no campo {sucessaoVinc/dtTransf} deve ser igual ou posterior à data de abertura da empresa ou à data do primeiro vínculo (esta última se constar na base de CNPJ).</td>
 </tr>
+<tr>
 <td id=regra_admissao_valida_dt_adm><strong>REGRA_ADMISSAO_VALIDA_DT_ADM</strong></td>
 <td>1) No caso dos eventos S-2190 e S-2200, a data de admissão do trabalhador, informada no campo {dtAdm}:<br />
 a) Não pode ser posterior a 30 (trinta) dias da data atual.<br />
@@ -56,50 +58,61 @@ c) Para a categoria [105] (contrato a termo firmado nos termos da Lei 9.601/1998
 d) Para as categorias [107, 108], deve ser igual ou anterior a 20/04/2020.<br />
 2) No caso do evento S-2200:<br />
 a) A data de entrada em exercício pelo servidor, informada no campo {dtExercicio}, não pode ser posterior a 30 (trinta) dias da data atual.<br />
-b) Nos casos de sucessão, a data da transferência do trabalhador, informada no campo {sucessaoVinc/dtTransf}, não pode ser posterior a 30 (trinta) dias da data atual.</strong></td>
+b) Nos casos de sucessão, a data da transferência do trabalhador, informada no campo {sucessaoVinc/dtTransf}, não pode ser posterior a 30 (trinta) dias da data atual.</td>
 </tr>
+<tr>
 <td id=regra_admissao_valida_duracao_contrato><strong>REGRA_ADMISSAO_VALIDA_DURACAO_CONTRATO</strong></td>
-<td>Se {tpContr} for igual a [2] e a categoria do trabalhador for igual a [102], {dtTerm} não pode ser superior a 60 (sessenta) dias em relação à data de admissão.</strong></td>
+<td>Se {tpContr} for igual a [2] e a categoria do trabalhador for igual a [102], {dtTerm} não pode ser superior a 60 (sessenta) dias em relação à data de admissão.</td>
 </tr>
+<tr>
 <td id=regra_afastamento><strong>REGRA_AFASTAMENTO</strong></td>
-<td>Não é permitido o envio de mais de um afastamento com mesma data de início e/ou fim para o mesmo CPF e matrícula (ou CPF e categoria, no caso de TSVE sem informação de matrícula no evento S-2300).</strong></td>
+<td>Não é permitido o envio de mais de um afastamento com mesma data de início e/ou fim para o mesmo CPF e matrícula (ou CPF e categoria, no caso de TSVE sem informação de matrícula no evento S-2300).</td>
 </tr>
+<tr>
 <td id=regra_altera_categ><strong>REGRA_ALTERA_CATEG</strong></td>
-<td>Só é permitida alteração de categoria de trabalhadores de [102, 103, 105, 106, 107, 108, 111] para [101] ou de [101, 103] para [111]. Não pode ser alterada nos demais casos.</strong></td>
+<td>Só é permitida alteração de categoria de trabalhadores de [102, 103, 105, 106, 107, 108, 111] para [101] ou de [101, 103] para [111]. Não pode ser alterada nos demais casos.</td>
 </tr>
+<tr>
 <td id=regra_altera_tipo_beneficio><strong>REGRA_ALTERA_TIPO_BENEFICIO</strong></td>
 <td>Somente é permitida a alteração de tipo de benefício dentro do mesmo grupo (de grupo [01] para grupo [01], de grupo [02] para [02], etc.) ou nas seguintes situações:<br />
 a) Grupo [01]: pode ser alterado para tipo de benefício dos grupos [02, 03];<br />
 b) Grupo [02]: pode ser alterado para tipo de benefício dos grupos [01, 03];<br />
 c) Grupo [03]: pode ser alterado para tipo de benefício dos grupos [01, 02];<br />
 d) Grupo [04]: pode ser alterado para tipo de benefício do grupo [05];<br />
-e) Grupo [05]: pode ser alterado para tipo de benefício do grupo [04].</strong></td>
+e) Grupo [05]: pode ser alterado para tipo de benefício do grupo [04].</td>
 </tr>
+<tr>
 <td id=regra_beneficio_ativo_na_dtevento><strong>REGRA_BENEFICIO_ATIVO_NA_DTEVENTO</strong></td>
-<td>O benefício identificado por CPF + número do benefício deve estar ativo na data do evento, ou seja, a data do evento deve ser igual ou posterior à data de início do benefício (no caso de sucessão ou mudança de CPF, igual ou posterior à data da transferência ou à data de alteração do CPF, respectivamente) e igual ou anterior à data de cessação.</strong></td>
+<td>O benefício identificado por CPF + número do benefício deve estar ativo na data do evento, ou seja, a data do evento deve ser igual ou posterior à data de início do benefício (no caso de sucessão ou mudança de CPF, igual ou posterior à data da transferência ou à data de alteração do CPF, respectivamente) e igual ou anterior à data de cessação.</td>
 </tr>
+<tr>
 <td id=regra_beneficio_valida_numero><strong>REGRA_BENEFICIO_VALIDA_NUMERO</strong></td>
-<td>A chave de identificação de cada benefício é seu número. Não pode existir no RET, para o mesmo órgão público (identificado em S-1000), dois benefícios com o mesmo número (o último evento é recusado).</strong></td>
+<td>A chave de identificação de cada benefício é seu número. Não pode existir no RET, para o mesmo órgão público (identificado em S-1000), dois benefícios com o mesmo número (o último evento é recusado).</td>
 </tr>
+<tr>
 <td id=regra_bloqueia_uso_cpf_empregador><strong>REGRA_BLOQUEIA_USO_CPF_EMPREGADOR</strong></td>
-<td>Em eventos de Admissão e de Remuneração gerados por empregador pessoa física, o CPF do trabalhador indicado no arquivo não pode ser o mesmo CPF do empregador.</strong></td>
+<td>Em eventos de Admissão e de Remuneração gerados por empregador pessoa física, o CPF do trabalhador indicado no arquivo não pode ser o mesmo CPF do empregador.</td>
 </tr>
+<tr>
 <td id=regra_caractere_especial><strong>REGRA_CARACTERE_ESPECIAL</strong></td>
 <td>O preenchimento do campo deve observar o que segue:<br />
 1) Pode conter exclusivamente caracteres presentes na lista abaixo, incluindo o espaço simples:<br />
 ! " # $ % & ' ( ) * + , - . / 0 1 2 3 4 5 6 7 8 9 : ; < = > ? @ A B C D E F G H I J K L M N O P Q R S T U V W X Y Z [ \ ] ^ _ ` a b c d e f g h i j k l m n o p q r s t u v w x y z { | } ~ ¡ ¢ £ ¥ § © ª « ¬ ® ¯ ° ± ² ³ µ ¶ · ¹ º » À Á Â Ã Ä Å Æ Ç È É Ê Ë Ì Í Î Ï Ð Ñ Ò Ó Ô Õ Ö × Ø Ù Ú Û Ü Ý Þ ß à á â ã ä å æ ç è é ê ë ì í î ï ð ñ ò ó ô õ ö ÷ ø ù ú û ü ý þ ÿ<br />
 2) Não pode conter qualquer espaço no início ou no final.<br />
 3) Não pode conter &lt;tab&gt;, &lt;enter&gt; e &lt;espaço sem quebra visível&gt;.<br />
-Obs: A presente regra não se aplica a eventos retificadores, periódicos e não periódicos, com data de ocorrência ou período de apuração anterior a 01/07/2019.</strong></td>
+Obs: A presente regra não se aplica a eventos retificadores, periódicos e não periódicos, com data de ocorrência ou período de apuração anterior a 01/07/2019.</td>
 </tr>
+<tr>
 <td id=regra_compatibilidade_categoria_classtrib><strong>REGRA_COMPATIBILIDADE_CATEGORIA_CLASSTRIB</strong></td>
-<td>A categoria do trabalhador deve ser compatível com a classificação tributária do contribuinte (informada no evento S-1000), conforme <a href="tabelas.html#Tabela 11">Tabela 11</a>.<br />
-No caso dos eventos S-1200 e S-1202, retornar "alerta" caso não seja compatível.</strong></td>
+<td>A categoria do trabalhador deve ser compatível com a classificação tributária do contribuinte (informada no evento S-1000), conforme Tabela 11.<br />
+No caso dos eventos S-1200 e S-1202, retornar "alerta" caso não seja compatível.</td>
 </tr>
+<tr>
 <td id=regra_compatib_categ_evento><strong>REGRA_COMPATIB_CATEG_EVENTO</strong></td>
 <td>A utilização do evento S-2200 só é permitida para as categorias de trabalhadores [101, 102, 103, 104, 105, 106, 107, 108, 111, 301, 302, 303, 306, 307, 309, 310, 312].<br />
-O evento S-2300 é permitido apenas para as categorias de trabalhadores [201, 202, 304, 305, 308, 311, 313, 401, 410, 701, 711, 712, 721, 722, 723, 731, 734, 738, 741, 751, 761, 771, 781, 901, 902, 903, 904].</strong></td>
+O evento S-2300 é permitido apenas para as categorias de trabalhadores [201, 202, 304, 305, 308, 311, 313, 401, 410, 701, 711, 712, 721, 722, 723, 731, 734, 738, 741, 751, 761, 771, 781, 901, 902, 903, 904].</td>
 </tr>
+<tr>
 <td id=regra_compatib_regime_prev><strong>REGRA_COMPATIB_REGIME_PREV</strong></td>
 <td>O evento S-1200 só é permitido para informação de remuneração relativa a trabalhador cujo contrato de trabalho esteja vinculado ao Regime Geral de Previdência Social - RGPS ou por Regime de Previdência Social no Exterior.<br />
 O evento S-1202 só é permitido para informação de remuneração relativa a trabalhador amparado por Regime Próprio de Previdência Social ou por Regime de Previdência Social no Exterior.<br />
@@ -114,11 +127,13 @@ e) cujo {codCateg} = [401, 410] e {tpRegPrev} = [1, 3] ou não existente.<br />
 a) cujo {codCateg} = [301, 302, 303, 304, 306, 307, 309, 310, 312] e {tpRegPrev} = [2] ou não existente;<br />
 b) cujo {codCateg} = [308, 311, 313];<br />
 c) cujo {codCateg} = [305] e ({perApur} >= [2021-09] (se {indApuracao} = [1]) ou {perApur} >= [2021] (se {indApuracao} = [2]));<br />
-d) cujo {codCateg} = [401, 410] e {tpRegPrev} = [2].</strong></td>
+d) cujo {codCateg} = [401, 410] e {tpRegPrev} = [2].</td>
 </tr>
+<tr>
 <td id=regra_controle_duplicidade><strong>REGRA_CONTROLE_DUPLICIDADE</strong></td>
-<td>A chave de identificação dos eventos S-1200, S-1202, S-1207 e S-1210 é o CPF do trabalhador (ou do beneficiário), não sendo possível a existência de dois eventos válidos do mesmo declarante para o mesmo CPF de trabalhador (ou de beneficiário) no mesmo período de apuração. Para "substituição" do evento de um determinado trabalhador (ou beneficiário), é necessária a "exclusão" do evento anterior, ou que o novo evento venha com o indicativo de "retificação" e referência ao evento encaminhado anteriormente.</strong></td>
+<td>A chave de identificação dos eventos S-1200, S-1202, S-1207 e S-1210 é o CPF do trabalhador (ou do beneficiário), não sendo possível a existência de dois eventos válidos do mesmo declarante para o mesmo CPF de trabalhador (ou de beneficiário) no mesmo período de apuração. Para "substituição" do evento de um determinado trabalhador (ou beneficiário), é necessária a "exclusão" do evento anterior, ou que o novo evento venha com o indicativo de "retificação" e referência ao evento encaminhado anteriormente.</td>
 </tr>
+<tr>
 <td id=regra_demonstrativo><strong>REGRA_DEMONSTRATIVO</strong></td>
 <td>Para cada demonstrativo do evento:<br />
 1) O somatório dos vencimentos deve ser maior ou igual ao somatório dos descontos.<br />
@@ -134,33 +149,40 @@ b) {perRef}, se pertencerem ao grupo {infoPerAnt}.<br />
 3.2) As informações dos campos {codRubr} e {ideTabRubr} devem constar conjuntamente na Tabela S-1010, com o campo {codIncCPRP} preenchido, vigentes nos períodos mencionados no item 3.3 abaixo.<br />
 3.3) As informações dos campos {ideEstab/nrInsc} devem constar na Tabela S-1005, vigentes em:<br />
 a) {perApur}, se pertencerem ao grupo {infoPerApur};<br />
-b) {perRef}, se pertencerem ao grupo {infoPerAnt}.</strong></td>
+b) {perRef}, se pertencerem ao grupo {infoPerAnt}.</td>
 </tr>
+<tr>
 <td id=regra_deslig_exclui_desligamento_reinteg><strong>REGRA_DESLIG_EXCLUI_DESLIGAMENTO_REINTEG</strong></td>
-<td>Não é permitida a exclusão de evento de Desligamento se existir evento de Reintegração para o mesmo vínculo com data posterior à data de desligamento.</strong></td>
+<td>Não é permitida a exclusão de evento de Desligamento se existir evento de Reintegração para o mesmo vínculo com data posterior à data de desligamento.</td>
 </tr>
+<tr>
 <td id=regra_deslig_exclusao_evento><strong>REGRA_DESLIG_EXCLUSAO_EVENTO</strong></td>
-<td>Em caso de exclusão do evento de Desligamento, o vínculo volta à condição de ativo.</strong></td>
+<td>Em caso de exclusão do evento de Desligamento, o vínculo volta à condição de ativo.</td>
 </tr>
+<tr>
 <td id=regra_deslig_existe_evento_posterior><strong>REGRA_DESLIG_EXISTE_EVENTO_POSTERIOR</strong></td>
 <td>Não deve existir qualquer evento não periódico para o vínculo indicado no evento de Desligamento com data posterior a {dtDeslig}, {dtProjFimAPI} ou {dtFimQuar} (maior data entre elas), uma vez que o desligamento põe termo ao vínculo trabalhista. Também não deve existir qualquer evento periódico para o vínculo indicado no evento de Desligamento com período de apuração igual ou posterior ao mês/ano de {dtDeslig}.<br />
 As exceções a essa regra se restringem a alguns tipos de remuneração (S-1200 ou S-1202), conforme definidos na <a href="#regra_remun_ja_existe_desligamento">REGRA_REMUN_JA_EXISTE_DESLIGAMENTO</a>, Pagamentos (S-1210), Comunicação de Acidente de Trabalho (S-2210), Monitoramento de Saúde do Trabalhador (S-2220), Reintegração (S-2298) e Alteração Contratual (S-2206), quando {dtEf} desse evento for igual ou anterior a {dtDeslig}, {dtProjFimAPI} ou {dtFimQuar} (maior data entre elas).<br />
-Caso seja informado evento de Remuneração (S-1200 ou S-1202) em período de apuração posterior ao mês/ano de {dtDeslig} e não se trate de uma das exceções da <a href="#regra_remun_ja_existe_desligamento">REGRA_REMUN_JA_EXISTE_DESLIGAMENTO</a>, retornar "alerta".</strong></td>
+Caso seja informado evento de Remuneração (S-1200 ou S-1202) em período de apuração posterior ao mês/ano de {dtDeslig} e não se trate de uma das exceções da <a href="#regra_remun_ja_existe_desligamento">REGRA_REMUN_JA_EXISTE_DESLIGAMENTO</a>, retornar "alerta".</td>
 </tr>
+<tr>
 <td id=regra_deslig_trabalhador_afastado><strong>REGRA_DESLIG_TRABALHADOR_AFASTADO</strong></td>
-<td>Somente é permitido o envio de evento de Desligamento para trabalhador afastado temporariamente ou cedido/em exercício em outro órgão se o motivo de desligamento for igual a (10, 11, 12, 13, 14, 16, 21, 22, 23, 24, 25, 26, 29, 30, 32, 34, 36, 37, 38, 39, 40).</strong></td>
+<td>Somente é permitido o envio de evento de Desligamento para trabalhador afastado temporariamente ou cedido/em exercício em outro órgão se o motivo de desligamento for igual a (10, 11, 12, 13, 14, 16, 21, 22, 23, 24, 25, 26, 29, 30, 32, 34, 36, 37, 38, 39, 40).</td>
 </tr>
+<tr>
 <td id=regra_envio_proc_fechamento><strong>REGRA_ENVIO_PROC_FECHAMENTO</strong></td>
 <td>Durante o processamento do fechamento dos eventos periódicos (evento S-1299), somente é possível transmitir:<br />
 a) Tabelas, se o início de validade do evento for posterior ao período de apuração objeto do fechamento (em caso de preenchimento do grupo {novaValidade}, o novo início de validade também deve ser posterior ao período de apuração);<br />
 b) Eventos S-2205, S-2210, S-2220, S-2240, S-2400 e S-2405 (inclusive S-3000 referente a esses eventos), independentemente da data de ocorrência do evento;<br />
 c) Demais eventos não periódicos (inclusive S-3000 referente a esses eventos), se o mês/ano da data de ocorrência do evento for posterior ao período de apuração objeto do fechamento (em caso de retificação, devem ser observadas as datas de ocorrência dos eventos original e retificado);<br />
-d) Eventos periódicos, exceto S-1299 (inclusive S-3000 referente a esses eventos, quando cabível), se o período de apuração for diferente do período de apuração objeto do fechamento.</strong></td>
+d) Eventos periódicos, exceto S-1299 (inclusive S-3000 referente a esses eventos, quando cabível), se o período de apuração for diferente do período de apuração objeto do fechamento.</td>
 </tr>
+<tr>
 <td id=regra_evento_posterior_cat_obito><strong>REGRA_EVENTO_POSTERIOR_CAT_OBITO</strong></td>
 <td>Não deve existir qualquer evento não periódico para o trabalhador indicado no evento de CAT com {indCatObito} = [S], com data de ocorrência posterior a {dtObito}. Também não deve existir qualquer evento periódico para o trabalhador indicado no evento com período de apuração igual ou posterior ao mês/ano de {dtObito}. As exceções a essa regra se restringem a alguns tipos de remuneração (S-1200 ou S-1202), conforme definidos na <a href="#regra_remun_ja_existe_desligamento">REGRA_REMUN_JA_EXISTE_DESLIGAMENTO</a>, Pagamentos (S-1210) e Alteração Contratual (S-2206), quando {dtEf} desse evento for igual ou anterior a {dtObito}.<br />
-Caso seja informado evento de Remuneração (S-1200 ou S-1202) em período de apuração posterior ao mês/ano de {dtObito} e não se trate de uma das exceções da <a href="#regra_remun_ja_existe_desligamento">REGRA_REMUN_JA_EXISTE_DESLIGAMENTO</a>, retornar "alerta".</strong></td>
+Caso seja informado evento de Remuneração (S-1200 ou S-1202) em período de apuração posterior ao mês/ano de {dtObito} e não se trate de uma das exceções da <a href="#regra_remun_ja_existe_desligamento">REGRA_REMUN_JA_EXISTE_DESLIGAMENTO</a>, retornar "alerta".</td>
 </tr>
+<tr>
 <td id=regra_eventos_extemp><strong>REGRA_EVENTOS_EXTEMP</strong></td>
 <td>O evento é considerado extemporâneo quando a data de seu envio for posterior à data de sua ocorrência E outro evento com data de ocorrência posterior já tiver sido recepcionado (no caso de evento periódico, considera-se como data de ocorrência seu período de apuração).<br />
 O envio de evento extemporâneo deve observar o que segue:<br />
@@ -170,11 +192,13 @@ b1) Às regras de validação do fechamento das folhas de todo o período afetad
 b2) Às regras <a href="#regra_remun_ja_existe_desligamento">REGRA_REMUN_JA_EXISTE_DESLIGAMENTO</a> e <a href="#regra_remun_trab_existente_ret">REGRA_REMUN_TRAB_EXISTENTE_RET</a> e à condição do grupo {infoComplCont} do evento S-1200 (no caso de TSVE sem informação de matrícula no evento S-2300) de todo o período afetado, se o evento extemporâneo excluir trabalhador (ou reduzir no RET o seu período de contrato ativo);<br />
 b3) À <a href="#regra_remun_beneficio_existente_ret">REGRA_REMUN_BENEFICIO_EXISTENTE_RET</a> de todo o período afetado, se o evento extemporâneo excluir benefício (ou reduzir no RET o seu período ativo).<br />
 Período Afetado: Meses em que a alteração pode tornar as informações do RET incompatíveis com as regras de validação do fechamento da folha ou com as regras mencionadas no item b2). Exemplos: inclusão ou exclusão de evento de Admissão, retificação de data de admissão, envio/retificação de evento de Desligamento, etc.);<br />
-c) A retificação ou exclusão extemporânea de evento remuneratório (S-1200/S-1202/S-1207/S-2299/S-2399) exigirá a exclusão prévia do correspondente evento S-1210, quando existente.</strong></td>
+c) A retificação ou exclusão extemporânea de evento remuneratório (S-1200/S-1202/S-1207/S-2299/S-2399) exigirá a exclusão prévia do correspondente evento S-1210, quando existente.</td>
 </tr>
+<tr>
 <td id=regra_evento_ext_sem_impacto_fopag><strong>REGRA_EVENTO_EXT_SEM_IMPACTO_FOPAG</strong></td>
-<td>A integridade dos eventos periódicos cujo movimento esteja fechado não é afetada com envio (mesmo extemporâneo) do evento.</strong></td>
+<td>A integridade dos eventos periódicos cujo movimento esteja fechado não é afetada com envio (mesmo extemporâneo) do evento.</td>
 </tr>
+<tr>
 <td id=regra_evetrab_valida_opcao_fgts><strong>REGRA_EVETRAB_VALIDA_OPCAO_FGTS</strong></td>
 <td>A data de opção do trabalhador pelo FGTS deve ser uma data igual ou posterior à data de admissão do empregado ou data de início do TSVE, observando o que segue:<br />
 1) Se a data de admissão/data de início é entre 01/01/1967 e 04/10/1988, a data de opção deve ser entre a data de admissão/data de início e 05/10/1988, exceto categorias [104] e [721];<br />
@@ -182,8 +206,9 @@ c) A retificação ou exclusão extemporânea de evento remuneratório (S-1200/S
 3) Para a categoria [104] (doméstico):<br />
 a) Se a data de admissão é entre 01/03/2000 e 30/09/2015, a data de opção deve ser entre a data de admissão e 01/10/2015;<br />
 b) Se a data de admissão é anterior a 01/03/2000, a data de opção deve ser entre 01/03/2000 e 01/10/2015.<br />
-4) Para a categoria [721] (diretor não empregado, com FGTS), a data de opção deve ser igual ou posterior à data de início e nunca anterior a 02/06/1981.</strong></td>
+4) Para a categoria [721] (diretor não empregado, com FGTS), a data de opção deve ser igual ou posterior à data de início e nunca anterior a 02/06/1981.</td>
 </tr>
+<tr>
 <td id=regra_eve_exclusao_valida_nrrecibo><strong>REGRA_EVE_EXCLUSAO_VALIDA_NRRECIBO</strong></td>
 <td>1) É permitida a exclusão apenas de eventos não periódicos, na faixa de S-2190 a S-2420 e periódicos, na faixa de S-1200 a S-1280.<br />
 2) A exclusão dos eventos periódicos, com exceção do S-1210, sujeita-se às seguintes regras:<br />
@@ -192,70 +217,90 @@ b) A exclusão de eventos periódicos individualizados após o envio do evento d
 3) A exclusão de alguns eventos não periódicos pode ser rejeitada em situações específicas, as quais constam nas regras do próprio evento (por exemplo, não é possível excluir um evento de admissão se já houver outro evento trabalhista posterior para o mesmo vínculo).<br />
 4) O {nrRecEvt} indicado deve existir no Registro de Eventos Trabalhistas - RET, não pode estar marcado como "excluído" e o tipo do evento deve ser o mesmo indicado em {tpEvento}.<br />
 5) Em caso de exclusão de qualquer evento periódico ou não periódico, o CPF do trabalhador indicado no evento de exclusão deve ser o mesmo que consta no evento objeto de exclusão.<br />
-6) Em caso de exclusão de qualquer evento periódico, as informações de {indApuracao} (no caso dos eventos S-1200, S-1202, S-1207 e S-1280) e de {perApur} indicadas no evento de exclusão devem ser as mesmas que constam no evento objeto de exclusão.</strong></td>
+6) Em caso de exclusão de qualquer evento periódico, as informações de {indApuracao} (no caso dos eventos S-1200, S-1202, S-1207 e S-1280) e de {perApur} indicadas no evento de exclusão devem ser as mesmas que constam no evento objeto de exclusão.</td>
 </tr>
+<tr>
 <td id=regra_eve_fopag_comerc_prod><strong>REGRA_EVE_FOPAG_COMERC_PROD</strong></td>
-<td>Não é permitido o envio de mais de um evento no mesmo período de apuração pelo mesmo CAEPF.</strong></td>
+<td>Não é permitido o envio de mais de um evento no mesmo período de apuração pelo mesmo CAEPF.</td>
 </tr>
+<tr>
 <td id=regra_eve_fopag_ind_retificacao><strong>REGRA_EVE_FOPAG_IND_RETIFICACAO</strong></td>
 <td>Se {indRetif} = [2], observar o que segue:<br />
 a) o número do recibo do evento a ser retificado indicado em {nrRecibo} deve referir-se a um evento válido (ainda não excluído ou retificado);<br />
 b) o evento "retificador" deve ser do mesmo tipo e do mesmo período de apuração indicado no evento "retificado";<br />
-c) caso o evento que está sendo retificado seja relativo a um período já encerrado, a retificação só é aceita se enviada após o evento específico de "reabertura" (S-1298).</strong></td>
+c) caso o evento que está sendo retificado seja relativo a um período já encerrado, a retificação só é aceita se enviada após o evento específico de "reabertura" (S-1298).</td>
 </tr>
+<tr>
 <td id=regra_eve_fopag_info_compat_classtrib><strong>REGRA_EVE_FOPAG_INFO_COMPAT_CLASSTRIB</strong></td>
 <td>Verificar compatibilidade entre o tipo de evento e a classificação tributária do contribuinte, conforme segue:<br />
 a) O evento S-1260 é permitido apenas se {classTrib} = [21, 22];<br />
-b) O evento S-1280 é permitido apenas se {classTrib} = [03, 09] ou ({classTrib} = [02, 99] e {indDesFolha} = [1]).</strong></td>
+b) O evento S-1280 é permitido apenas se {classTrib} = [03, 09] ou ({classTrib} = [02, 99] e {indDesFolha} = [1]).</td>
 </tr>
+<tr>
 <td id=regra_eve_fopag_permite_exclusao><strong>REGRA_EVE_FOPAG_PERMITE_EXCLUSAO</strong></td>
-<td>Se o evento a ser excluído seja relativo a período de apuração para o qual já exista encerramento das informações, o evento de exclusão só é aceito se encaminhado após o evento de "reabertura" das informações (S-1298).</strong></td>
+<td>Se o evento a ser excluído seja relativo a período de apuração para o qual já exista encerramento das informações, o evento de exclusão só é aceito se encaminhado após o evento de "reabertura" das informações (S-1298).</td>
 </tr>
+<tr>
 <td id=regra_exclui_evento_afastamento><strong>REGRA_EXCLUI_EVENTO_AFASTAMENTO</strong></td>
-<td>Não é permitida exclusão de evento de início de afastamento quando já existir evento de fim do mesmo afastamento.</strong></td>
+<td>Não é permitida exclusão de evento de início de afastamento quando já existir evento de fim do mesmo afastamento.</td>
 </tr>
+<tr>
 <td id=regra_exclui_evento_cat><strong>REGRA_EXCLUI_EVENTO_CAT</strong></td>
-<td>Não é permitida exclusão ou retificação do evento de CAT que estiver sendo referenciado por uma CAT de reabertura ou de comunicação de óbito (campo {nrRecCatOrig} de outro evento CAT).</strong></td>
+<td>Não é permitida exclusão ou retificação do evento de CAT que estiver sendo referenciado por uma CAT de reabertura ou de comunicação de óbito (campo {nrRecCatOrig} de outro evento CAT).</td>
 </tr>
+<tr>
 <td id=regra_exclui_evento_cessao><strong>REGRA_EXCLUI_EVENTO_CESSAO</strong></td>
-<td>Não é permitida a exclusão de evento de início de cessão/exercício em outro órgão quando já existir evento de fim da mesma cessão/exercício em outro órgão.</strong></td>
+<td>Não é permitida a exclusão de evento de início de cessão/exercício em outro órgão quando já existir evento de fim da mesma cessão/exercício em outro órgão.</td>
 </tr>
+<tr>
 <td id=regra_exclusao_admissao_preliminar><strong>REGRA_EXCLUSAO_ADMISSAO_PRELIMINAR</strong></td>
-<td>Não é permitida exclusão de evento de Registro Preliminar se houver evento de Admissão ou TSVE - Início "definitivo" (S-2200 ou S-2300). A exclusão só é aceita se, primeiramente, houver exclusão do respectivo evento de Admissão ou TSVE - Início "definitivo".</strong></td>
+<td>Não é permitida exclusão de evento de Registro Preliminar se houver evento de Admissão ou TSVE - Início "definitivo" (S-2200 ou S-2300). A exclusão só é aceita se, primeiramente, houver exclusão do respectivo evento de Admissão ou TSVE - Início "definitivo".</td>
 </tr>
+<tr>
 <td id=regra_existe_cat_origem><strong>REGRA_EXISTE_CAT_ORIGEM</strong></td>
-<td>Se {nrRecCatOrig} for informado, deve existir no Registro de Eventos Trabalhistas - RET e ser relativo ao trabalhador (CPF + matrícula; ou CPF + categoria, no caso de TSVE sem informação de matrícula no evento S-2300).</strong></td>
+<td>Se {nrRecCatOrig} for informado, deve existir no Registro de Eventos Trabalhistas - RET e ser relativo ao trabalhador (CPF + matrícula; ou CPF + categoria, no caso de TSVE sem informação de matrícula no evento S-2300).</td>
 </tr>
+<tr>
 <td id=regra_existe_evento_afastamento><strong>REGRA_EXISTE_EVENTO_AFASTAMENTO</strong></td>
-<td>O trabalhador deve estar afastado no mesmo contrato na data definida no campo {dtTermAfast}, no caso de término do afastamento.</strong></td>
+<td>O trabalhador deve estar afastado no mesmo contrato na data definida no campo {dtTermAfast}, no caso de término do afastamento.</td>
 </tr>
+<tr>
 <td id=regra_existe_evento_beneficio_termino><strong>REGRA_EXISTE_EVENTO_BENEFICIO_TERMINO</strong></td>
-<td>Para aceitação do evento de "Reativação de Benefício" (S-2418), é necessária a existência de evento de "Cadastro de Benefício - Término" (S-2420) ou de "Cadastro de Benefício - Início" (S-2410) com preenchimento do campo {dtTermBeneficio}. Esse evento anterior (S-2420 ou S-2410) deve se referir ao mesmo vínculo.</strong></td>
+<td>Para aceitação do evento de "Reativação de Benefício" (S-2418), é necessária a existência de evento de "Cadastro de Benefício - Término" (S-2420) ou de "Cadastro de Benefício - Início" (S-2410) com preenchimento do campo {dtTermBeneficio}. Esse evento anterior (S-2420 ou S-2410) deve se referir ao mesmo vínculo.</td>
 </tr>
+<tr>
 <td id=regra_existe_evento_cessao><strong>REGRA_EXISTE_EVENTO_CESSAO</strong></td>
-<td>O trabalhador deve estar cedido/em exercício em outro órgão (evento S-2231 com {dtIniCessao}) na data definida no campo {dtTermCessao} para o vínculo identificado.</strong></td>
+<td>O trabalhador deve estar cedido/em exercício em outro órgão (evento S-2231 com {dtIniCessao}) na data definida no campo {dtTermCessao} para o vínculo identificado.</td>
 </tr>
+<tr>
 <td id=regra_existe_evento_desligamento><strong>REGRA_EXISTE_EVENTO_DESLIGAMENTO</strong></td>
-<td>Para aceitação do evento de Reintegração, é necessária a existência de evento de Desligamento (S-2299), com {mtvDeslig} diferente de [10, 11, 12, 13, 28, 29, 30, 34, 36, 37, 40], ou de Admissão (S-2200) com preenchimento do campo {dtDeslig}. Esse evento anterior (S-2299 ou S-2200) deve se referir ao mesmo vínculo.</strong></td>
+<td>Para aceitação do evento de Reintegração, é necessária a existência de evento de Desligamento (S-2299), com {mtvDeslig} diferente de [10, 11, 12, 13, 28, 29, 30, 34, 36, 37, 40], ou de Admissão (S-2200) com preenchimento do campo {dtDeslig}. Esse evento anterior (S-2299 ou S-2200) deve se referir ao mesmo vínculo.</td>
 </tr>
+<tr>
 <td id=regra_existe_evento_tsv_inicio><strong>REGRA_EXISTE_EVENTO_TSV_INICIO</strong></td>
-<td>O contrato identificado por CPF + matrícula (ou CPF + categoria, no caso de TSVE sem informação de matrícula no evento S-2300) deve existir na base de dados do Registro de Eventos Trabalhistas - RET.</strong></td>
+<td>O contrato identificado por CPF + matrícula (ou CPF + categoria, no caso de TSVE sem informação de matrícula no evento S-2300) deve existir na base de dados do Registro de Eventos Trabalhistas - RET.</td>
 </tr>
+<tr>
 <td id=regra_existe_info_empregador><strong>REGRA_EXISTE_INFO_EMPREGADOR</strong></td>
-<td>Para aceitação do evento é necessária existência de Informações do Empregador (S-1000) vigentes na data do evento.</strong></td>
+<td>Para aceitação do evento é necessária existência de Informações do Empregador (S-1000) vigentes na data do evento.</td>
 </tr>
+<tr>
 <td id=regra_existe_trabalhador><strong>REGRA_EXISTE_TRABALHADOR</strong></td>
-<td>O CPF do trabalhador informado no evento de Alteração de Dados Cadastrais (S-2205) deve existir na base do RET para o empregador,bem como deve haver prévio envio do evento de Admissão (S-2200) ou de TSVE - Início (S-2300). Além disso, a data da alteração cadastral deve estar compreendida no período entre a admissão e o desligamento (no caso de empregado), entre a data da transferência e o desligamento (no caso de empregado sucedido), entre a data da alteração do CPF e o desligamento (no caso de mudança de CPF do empregado), entre o início e o término do contrato (no caso de TSVE) ou entre a data da alteração do CPF e o término do contrato (no caso de mudança de CPF do TSVE).</strong></td>
+<td>O CPF do trabalhador informado no evento de Alteração de Dados Cadastrais (S-2205) deve existir na base do RET para o empregador,bem como deve haver prévio envio do evento de Admissão (S-2200) ou de TSVE - Início (S-2300). Além disso, a data da alteração cadastral deve estar compreendida no período entre a admissão e o desligamento (no caso de empregado), entre a data da transferência e o desligamento (no caso de empregado sucedido), entre a data da alteração do CPF e o desligamento (no caso de mudança de CPF do empregado), entre o início e o término do contrato (no caso de TSVE) ou entre a data da alteração do CPF e o término do contrato (no caso de mudança de CPF do TSVE).</td>
 </tr>
+<tr>
 <td id=regra_existe_vinculo><strong>REGRA_EXISTE_VINCULO</strong></td>
-<td>O vínculo identificado por CPF + matrícula deve existir na base de dados do Registro de Eventos Trabalhistas - RET.</strong></td>
+<td>O vínculo identificado por CPF + matrícula deve existir na base de dados do Registro de Eventos Trabalhistas - RET.</td>
 </tr>
+<tr>
 <td id=regra_extemp_reativacao><strong>REGRA_EXTEMP_REATIVACAO</strong></td>
-<td>Quando houver término e reativação de um benefício, o novo período do benefício preserva o número de benefício do período anterior; contudo, os eventos de um período não podem ter suas datas de ocorrência retificadas, de modo que sejam deslocados do período anterior à cessação ao período posterior à reativação e vice-versa, ainda que sejam atendidos aos requisitos da <a href="#regra_eventos_extemp">REGRA_EVENTOS_EXTEMP</a>.</strong></td>
+<td>Quando houver término e reativação de um benefício, o novo período do benefício preserva o número de benefício do período anterior; contudo, os eventos de um período não podem ter suas datas de ocorrência retificadas, de modo que sejam deslocados do período anterior à cessação ao período posterior à reativação e vice-versa, ainda que sejam atendidos aos requisitos da <a href="#regra_eventos_extemp">REGRA_EVENTOS_EXTEMP</a>.</td>
 </tr>
+<tr>
 <td id=regra_extemp_reintegracao><strong>REGRA_EXTEMP_REINTEGRACAO</strong></td>
-<td>Quando houver demissão e reintegração de um empregado, o novo período contratual preserva a matrícula do período anterior; contudo, os eventos de um período não podem ter suas datas de ocorrência retificadas, de modo que sejam deslocados do período anterior ao desligamento ao período posterior à reintegração e vice-versa, ainda que sejam atendidos aos requisitos da <a href="#regra_eventos_extemp">REGRA_EVENTOS_EXTEMP</a>.</strong></td>
+<td>Quando houver demissão e reintegração de um empregado, o novo período contratual preserva a matrícula do período anterior; contudo, os eventos de um período não podem ter suas datas de ocorrência retificadas, de modo que sejam deslocados do período anterior ao desligamento ao período posterior à reintegração e vice-versa, ainda que sejam atendidos aos requisitos da <a href="#regra_eventos_extemp">REGRA_EVENTOS_EXTEMP</a>.</td>
 </tr>
+<tr>
 <td id=regra_geral_valida_dados_tabcontrib><strong>REGRA_GERAL_VALIDA_DADOS_TABCONTRIB</strong></td>
 <td>A validação de informações relativas às tabelas considera a existência de informações vigentes:<br />
 a) na data de obrigatoriedade dos eventos não periódicos no caso do S-2200 ou do S-2300 com {cadIni} = [S];<br />
@@ -263,19 +308,23 @@ b) na data de ocorrência dos eventos não periódicos, nos demais casos;<br />
 c) no período de apuração para o grupo {infoPerApur} dos eventos remuneratórios, considerando para os eventos S-2299 e S-2399 como {perApur} o mês/ano da {dtDeslig} e da {dtTerm}, respectivamente;<br />
 d) no período de referência para o grupo {infoPerAnt} dos eventos remuneratórios quando igual ou posterior à obrigatoriedade dos eventos de tabela ou, se anterior, na data de obrigatoriedade dos eventos de tabela. No caso de transferência, considerar as informações vigentes no mês/ano da data de abertura da empresa sucessora quando o período de referência for anterior a essa abertura.<br />
 Nos casos de transferência ou mudança de CPF do trabalhador, considera-se a data de transferência ({dtTransf}) ou a data da alteração do CPF ({dtAltCPF}), respectivamente, como data de ocorrência.<br />
-No caso dos eventos S-2299 e S-2399, por serem eventos não periódicos com informações remuneratórias, aplica-se, com relação às informações remuneratórias, a alínea "c" ou "d"; para as demais informações, a alínea "b".</strong></td>
+No caso dos eventos S-2299 e S-2399, por serem eventos não periódicos com informações remuneratórias, aplica-se, com relação às informações remuneratórias, a alínea "c" ou "d"; para as demais informações, a alínea "b".</td>
 </tr>
+<tr>
 <td id=regra_info_emp_periodo_conflitante><strong>REGRA_INFO_EMP_PERIODO_CONFLITANTE</strong></td>
-<td>Em caso de {inclusao} ou {alteracao}, não pode haver outro registro cujo período seja conflitante com a inclusão ou alteração.</strong></td>
+<td>Em caso de {inclusao} ou {alteracao}, não pode haver outro registro cujo período seja conflitante com a inclusão ou alteração.</td>
 </tr>
+<tr>
 <td id=regra_info_emp_valida_classtrib_natjurid><strong>REGRA_INFO_EMP_VALIDA_CLASSTRIB_NATJURID</strong></td>
 <td>a) A classificação tributária [70] somente pode ser utilizada se {tpInsc} = [1] e {nrInsc} = [07752497].<br />
 b) A classificação tributária [85] somente pode ser utilizada se a natureza jurídica do declarante for Administração Pública (grupo [1]).<br />
-c) Não é permitido informar {tpInsc} = [1] (CNPJ) se a natureza jurídica do declarante for igual a [4022, 4120].</strong></td>
+c) Não é permitido informar {tpInsc} = [1] (CNPJ) se a natureza jurídica do declarante for igual a [4022, 4120].</td>
 </tr>
+<tr>
 <td id=regra_info_emp_valida_dtinicial><strong>REGRA_INFO_EMP_VALIDA_DTINICIAL</strong></td>
-<td>Em caso de arquivo gerado por Pessoa Jurídica, {iniValid} deve ser sempre igual ou posterior à data de início das atividades da empresa constante na base de dados do CNPJ ou à "data do primeiro vínculo", se existente no cadastro do CNPJ na RFB.</strong></td>
+<td>Em caso de arquivo gerado por Pessoa Jurídica, {iniValid} deve ser sempre igual ou posterior à data de início das atividades da empresa constante na base de dados do CNPJ ou à "data do primeiro vínculo", se existente no cadastro do CNPJ na RFB.</td>
 </tr>
+<tr>
 <td id=regra_mudanca_cpf><strong>REGRA_MUDANCA_CPF</strong></td>
 <td>1) No caso de mudança de CPF de empregado (novo S-2200, com grupo {mudancaCPF} preenchido):<br />
 a) A nova admissão somente deve ser permitida se houver um Desligamento (S-2299) com {mtvDeslig} = [36]. Nesse evento S-2299:<br />
@@ -297,20 +346,25 @@ b) Os seguintes campos do novo evento S-2410 devem ser idênticos aos existentes
 c) Após o envio do evento S-2420 com {mtvTermino} = [10], os campos citados na alínea "b" acima não podem ser retificados de forma extemporânea para o CPF antigo, ainda que sejam atendidos os requisitos da <a href="#regra_eventos_extemp">REGRA_EVENTOS_EXTEMP</a>.<br />
 4) Não é permitida a exclusão ou a retificação do motivo de desligamento de evento de Desligamento (S-2299) com {mtvDeslig} = [36] se existir novo evento S-2200 para o novo CPF com {tpAdmissao) = [6].<br />
 5) Não é permitida a exclusão ou a retificação do motivo do término de evento de TSVE - Término (S-2399) com {mtvDesligTSV} = [07] se existir novo evento S-2300 para o novo CPF com o grupo {mudancaCPF} preenchido.<br />
-6) Não é permitida a exclusão ou a retificação do motivo de cessação de evento Cadastro de Benefício - Término (S-2420) com {mtvTermino} = [10] se existir novo evento S-2410 para o novo CPF com {indSitBenef) = [3].</strong></td>
+6) Não é permitida a exclusão ou a retificação do motivo de cessação de evento Cadastro de Benefício - Término (S-2420) com {mtvTermino} = [10] se existir novo evento S-2410 para o novo CPF com {indSitBenef) = [3].</td>
 </tr>
+<tr>
 <td id=regra_pagto_ind_retificacao><strong>REGRA_PAGTO_IND_RETIFICACAO</strong></td>
-<td>Se {indRetif} = [2], o evento correspondente ao número de recibo original informado em {nrRecibo} deve referir-se ao mesmo beneficiário indicado no evento retificador. Caso o erro que deu origem à retificação tenha ocorrido em relação à identificação do beneficiário, o evento incorreto deve ser "excluído", através do evento específico de exclusão, e um novo evento com a correta identificação de beneficiário deve ser transmitido como "original".</strong></td>
+<td>Se {indRetif} = [2], o evento correspondente ao número de recibo original informado em {nrRecibo} deve referir-se ao mesmo beneficiário indicado no evento retificador. Caso o erro que deu origem à retificação tenha ocorrido em relação à identificação do beneficiário, o evento incorreto deve ser "excluído", através do evento específico de exclusão, e um novo evento com a correta identificação de beneficiário deve ser transmitido como "original".</td>
 </tr>
+<tr>
 <td id=regra_permite_alt_excl_codsusp><strong>REGRA_PERMITE_ALT_EXCL_CODSUSP</strong></td>
-<td>Não pode haver alteração ou exclusão de {nrProc} + {codSusp} que esteja sendo utilizado em outro evento.</strong></td>
+<td>Não pode haver alteração ou exclusão de {nrProc} + {codSusp} que esteja sendo utilizado em outro evento.</td>
 </tr>
+<tr>
 <td id=regra_reabertura_valida_periodo_apuracao><strong>REGRA_REABERTURA_VALIDA_PERIODO_APURACAO</strong></td>
-<td>Para recepção do evento de Reabertura, é necessária existência de evento válido de encerramento para o período de apuração indicado no evento.</strong></td>
+<td>Para recepção do evento de Reabertura, é necessária existência de evento válido de encerramento para o período de apuração indicado no evento.</td>
 </tr>
+<tr>
 <td id=regra_reativacao_exclusao_evento><strong>REGRA_REATIVACAO_EXCLUSAO_EVENTO</strong></td>
-<td>Em caso de exclusão do evento de reativação, o benefício é reconsiderado encerrado desde a data da cessação.</strong></td>
+<td>Em caso de exclusão do evento de reativação, o benefício é reconsiderado encerrado desde a data da cessação.</td>
 </tr>
+<tr>
 <td id=regra_registro_preliminar><strong>REGRA_REGISTRO_PRELIMINAR</strong></td>
 <td>1) Caso tenha sido enviado o evento S-2190 para o mesmo contrato de trabalho (CPF + matrícula) e se {indRetif} do evento S-2200/S-2300 for igual a [1]:<br />
 a) Os campos {codCateg} e {natAtividade} informados no evento S-2190 devem ser idênticos aos respectivos campos do evento S-2200/S-2300.<br />
@@ -322,32 +376,39 @@ c1) O campo {dtAdm} informado no evento S-2190 deve ser idêntico ao campo {dtIn
 c2) Se {codCateg} = [401], o campo {infoDirigenteSindical/tpRegTrab} deve ser igual a [1] ou não deve ser informado, e o campo {infoDirigenteSindical/tpRegPrev} deve ser igual a [1, 3];<br />
 c3) Se {codCateg} = [410], o campo {infoTrabCedido/tpRegTrab} deve ser igual a [1] e o campo {infoTrabCedido/tpRegPrev} deve ser igual a [1, 3].<br />
 2) Caso exista evento S-2190 pendente (sem o correspondente evento S-2200 ou S-2300) para o mesmo trabalhador, mas com matrícula diferente, retornar "alerta".<br />
-3) As informações prestadas nos eventos S-2200/S-2300 substituirão os dados do evento S-2190 no Registro de Eventos Trabalhistas - RET, mesmo quando houver conteúdo diferente.</strong></td>
+3) As informações prestadas nos eventos S-2200/S-2300 substituirão os dados do evento S-2190 no Registro de Eventos Trabalhistas - RET, mesmo quando houver conteúdo diferente.</td>
 </tr>
+<tr>
 <td id=regra_reinteg_exclusao_evento><strong>REGRA_REINTEG_EXCLUSAO_EVENTO</strong></td>
-<td>Em caso de exclusão do evento de reintegração, o vínculo é reconsiderado encerrado desde a data do desligamento, data projetada para o término do aviso prévio indenizado ou data final da quarentena (a maior data entre elas).</strong></td>
+<td>Em caso de exclusão do evento de reintegração, o vínculo é reconsiderado encerrado desde a data do desligamento, data projetada para o término do aviso prévio indenizado ou data final da quarentena (a maior data entre elas).</td>
 </tr>
+<tr>
 <td id=regra_remun_anual_dezembro><strong>REGRA_REMUN_ANUAL_DEZEMBRO</strong></td>
-<td>Evento relativo a remuneração anual ({perApur} = [AAAA]) só pode ser enviado em data igual ou posterior ao dia 1º de dezembro do ano informado em {perApur}.</strong></td>
+<td>Evento relativo a remuneração anual ({perApur} = [AAAA]) só pode ser enviado em data igual ou posterior ao dia 1º de dezembro do ano informado em {perApur}.</td>
 </tr>
+<tr>
 <td id=regra_remun_beneficio_existente_ret><strong>REGRA_REMUN_BENEFICIO_EXISTENTE_RET</strong></td>
 <td>a) Se houver informação no grupo {infoPerApur}, o benefício identificado por CPF + número do benefício deve estar ativo no período de apuração, ou seja, {perApur} deve ser igual ou posterior ao mês/ano da data de início do benefício (indicada em S-2410) e, se não existir reativação (S-2418) com data posterior à cessação, igual ou anterior ao mês/ano da data de cessação (indicada em S-2420).<br />
-b) Se houver informação no grupo {infoPerAnt}, deve haver evento S-2410 para CPF + número do benefício. Em caso de existência, {perRef} deve ser igual ou posterior ao mês/ano da data de início do benefício (indicada em S-2410) e, se não existir reativação (S-2418) com data posterior à cessação, igual ou anterior ao mês/ano da data de cessação (indicada em S-2420).</strong></td>
+b) Se houver informação no grupo {infoPerAnt}, deve haver evento S-2410 para CPF + número do benefício. Em caso de existência, {perRef} deve ser igual ou posterior ao mês/ano da data de início do benefício (indicada em S-2410) e, se não existir reativação (S-2418) com data posterior à cessação, igual ou anterior ao mês/ano da data de cessação (indicada em S-2420).</td>
 </tr>
+<tr>
 <td id=regra_remun_categ_compativel_tplotacao><strong>REGRA_REMUN_CATEG_COMPATIVEL_TPLOTACAO</strong></td>
-<td>A categoria indicada no evento de remuneração deve ser compatível com o tipo de lotação (indicado na Tabela de Lotações Tributárias) da lotação informada no registro {ideEstabLot}, conforme <a href="tabelas.html#Tabela 11">Tabela 11</a>. Caso não seja compatível, retornar "alerta".</strong></td>
+<td>A categoria indicada no evento de remuneração deve ser compatível com o tipo de lotação (indicado na Tabela de Lotações Tributárias) da lotação informada no registro {ideEstabLot}, conforme Tabela 11. Caso não seja compatível, retornar "alerta".</td>
 </tr>
+<tr>
 <td id=regra_remun_categ_existente_ret><strong>REGRA_REMUN_CATEG_EXISTENTE_RET</strong></td>
 <td>A categoria indicada no registro de remuneração de trabalhadores sujeitos ao Registro de Eventos Trabalhistas - RET, ou seja, "Empregado" ([101, 102, 103, 104, 105, 106, 107, 108, 111]), algumas categorias de "Agente Público" ([301, 302, 303, 304, 305, 306, 307, 308, 309, 310, 312]), "Avulso" ([201, 202]), "Cessão" ([401, 410]) ou algumas categorias de "Contribuinte Individual" ([721, 722, 723, 731, 734, 738, 761, 771]) e de "Bolsista" ([901, 902]) deve ser igual àquela existente no RET para o referido vínculo (matrícula) ou categoria, para o caso de Trabalhador Sem Vínculo de Emprego/Estatutário - TSVE.<br />
-Esta regra não se aplica para remunerações a trabalhadores nos casos em que {remunSuc} (ou {remunOrgSuc}) = [S].</strong></td>
+Esta regra não se aplica para remunerações a trabalhadores nos casos em que {remunSuc} (ou {remunOrgSuc}) = [S].</td>
 </tr>
+<tr>
 <td id=regra_remun_ind_retificacao><strong>REGRA_REMUN_IND_RETIFICACAO</strong></td>
 <td>Se {indRetif} = [2], observar o que segue:<br />
 a) o número do recibo do evento a ser retificado, informado em {nrRecibo} deve referir-se a um evento válido (ainda não excluído ou retificado);<br />
 b) se o evento a ser retificado for relativo a um período já encerrado, a retificação só é aceita se enviada após o evento específico de reabertura (S-1298);<br />
 c) no caso de remuneração (S-1200, S-1202 e S-1207), o evento retificador deve se referir ao mesmo trabalhador (CPF) e ao mesmo período de apuração indicado no evento original;<br />
-d) no caso de desligamento ou término de TSVE (S-2299 e S-2399), o evento retificador deve se referir ao mesmo "vínculo" (CPF + matrícula, no caso de empregado; ou CPF + categoria, no caso de TSVE), e possuir data de desligamento (S-2299) ou de término (S-2399) no mesmo mês/ano indicado no evento original.</strong></td>
+d) no caso de desligamento ou término de TSVE (S-2299 e S-2399), o evento retificador deve se referir ao mesmo "vínculo" (CPF + matrícula, no caso de empregado; ou CPF + categoria, no caso de TSVE), e possuir data de desligamento (S-2299) ou de término (S-2399) no mesmo mês/ano indicado no evento original.</td>
 </tr>
+<tr>
 <td id=regra_remun_ja_existe_desligamento><strong>REGRA_REMUN_JA_EXISTE_DESLIGAMENTO</strong></td>
 <td>Se existir no Registro de Eventos Trabalhistas - RET evento de Desligamento ou de TSVE - Término para trabalhador com {codCateg} = [721] cujo mês/ano da data de desligamento (ou de término) seja igual ou anterior ao período de apuração ({perApur}), não deve haver remuneração (S-1200 ou S-1202). Também não deve haver remuneração (S-1200 ou S-1202) se existir no RET evento de TSVE - Término para o trabalhador com {codCateg} diferente de [721] com mês/ano da data de término anterior a {perApur}. As exceções para esse caso são:<br />
 a) Remuneração de PLR em {remunPerApur}. Para tanto, deve haver ao menos uma rubrica cujo {tpRubr} em S-1010 = [1] e {codIncIRRF} em S-1010 = [14];<br />
@@ -359,13 +420,15 @@ f) Se o desligamento não implicar rescisão do contrato de trabalho ({mtvDeslig
 g) Remuneração em {remunPerApur} pela retirada ou pró-labore a diretores. Para tanto, deve haver ao menos uma rubrica cuja {natRubr} seja igual [3505] ou [3506];<br />
 h) Remuneração em {remunPerApur} para empregado reintegrado.<br />
 i) Se o desligamento for de vínculo estatutário ({tpRegTrab} indicado no evento S-2200 = [2]), pode existir remuneração no evento S-1200 ou S-1202 no período de apuração {perApur} correspondente à data de desligamento {dtDeslig}.<br />
-Caso seja informada em {perApur} remuneração posterior ao mês/ano da data de desligamento (ou de término) e não se trate de uma das exceções acima, retornar "alerta".</strong></td>
+Caso seja informada em {perApur} remuneração posterior ao mês/ano da data de desligamento (ou de término) e não se trate de uma das exceções acima, retornar "alerta".</td>
 </tr>
+<tr>
 <td id=regra_remun_permite_exclusao><strong>REGRA_REMUN_PERMITE_EXCLUSAO</strong></td>
 <td>Para aceitação da exclusão dos eventos de remuneração (S-1200, S-1202 e S-1207) e de desligamento (S-2299 e S-2399), observar as seguintes regras:<br />
 a) A exclusão não é permitida se houver pagamento informado através do evento S-1210 relacionado ao evento que se pretende excluir;<br />
-b) Se o evento que está sendo excluído for relativo a período de apuração para o qual já exista encerramento (S-1299), o evento de exclusão somente é aceito se encaminhado após o evento de "reabertura" (S-1298).</strong></td>
+b) Se o evento que está sendo excluído for relativo a período de apuração para o qual já exista encerramento (S-1299), o evento de exclusão somente é aceito se encaminhado após o evento de "reabertura" (S-1298).</td>
 </tr>
+<tr>
 <td id=regra_remun_trab_existente_ret><strong>REGRA_REMUN_TRAB_EXISTENTE_RET</strong></td>
 <td>1) Se houver remuneração no registro {remunPerApur}, obedecer ao que segue:<br />
 a) Se a categoria de trabalhador indicar "Empregado" ([101, 102, 103, 104, 105, 106, 107, 108, 111]) ou as categorias do grupo "Agente Público" [301, 302, 303, 306, 307, 309, 310, 312], aplicar a <a href="#regra_vinculo_ativo_na_dtevento">REGRA_VINCULO_ATIVO_NA_DTEVENTO</a>.<br />
@@ -378,25 +441,30 @@ c) Caso {remunSuc} (ou {remunOrgSuc}) = [S]:<br />
 c1) {perRef} deve ser igual ou posterior ao mês/ano de {sucessaoVinc/dtAdm} (ou {sucessaoVinc/dtExercicio});<br />
 c2) Se o trabalhador possuir vínculo (evento S-2200) informado no declarante, {perRef} deve ser anterior ao mês/ano da data de admissão/exercício desse vínculo;<br />
 c3) Se {perRef} for igual ou posterior ao mês/ano da data de início da obrigatoriedade dos eventos não periódicos para o empregador/órgão público sucedido (informado no grupo {sucessaoVinc}), o trabalhador deve possuir vínculo (evento S-2200) informado nesse empregador/órgão público anterior. Além disso, {perRef} deve ser igual ou anterior ao mês/ano da data de desligamento do vínculo (exceto se, no caso do evento S-1200, {tpAcConv} = [F]), bem como igual ou posterior ao mês/ano da data de admissão/exercício.<br />
-Caso seja informada em {remunPerAnt} remuneração posterior ao mês/ano da data de desligamento (ou de término) e não se trate de uma das exceções acima listadas, retornar "alerta". No caso do evento S-1200, também retornar "alerta" se a remuneração informada em {remunPerAnt} for referente a contrato informado pelo evento Registro Preliminar de Trabalhador (S-2190) sem o correspondente evento de Admissão (S-2200) ou TSVE - Início (S-2300).</strong></td>
+Caso seja informada em {remunPerAnt} remuneração posterior ao mês/ano da data de desligamento (ou de término) e não se trate de uma das exceções acima listadas, retornar "alerta". No caso do evento S-1200, também retornar "alerta" se a remuneração informada em {remunPerAnt} for referente a contrato informado pelo evento Registro Preliminar de Trabalhador (S-2190) sem o correspondente evento de Admissão (S-2200) ou TSVE - Início (S-2300).</td>
 </tr>
+<tr>
 <td id=regra_remun_valida_info_complementar><strong>REGRA_REMUN_VALIDA_INFO_COMPLEMENTAR</strong></td>
-<td>Se o grupo de "informações complementares" ({infoComplem}) for preenchido, as informações de Nome e Data de Nascimento devem ser validadas na base do CPF.</strong></td>
+<td>Se o grupo de "informações complementares" ({infoComplem}) for preenchido, as informações de Nome e Data de Nascimento devem ser validadas na base do CPF.</td>
 </tr>
+<tr>
 <td id=regra_retifica_dt_acidente><strong>REGRA_RETIFICA_DT_ACIDENTE</strong></td>
-<td>Em caso de retificação do evento de Comunicação de Acidente de Trabalho - CAT para alterar a {dtAcid}, verificar a existência de evento subsequente de afastamento em decorrência de acidente de trabalho, de forma a evitar inconsistência na cronologia dos eventos (por exemplo, acidente em 01/2021, afastamento em 01/2021 por acidente de trabalho, depois tenta retificar a data do acidente do evento para 03/2021). Neste caso, se houver evento de afastamento temporário por acidente de trabalho, a {dtAcid} somente pode ser retificada para uma data anterior à data de afastamento.</strong></td>
+<td>Em caso de retificação do evento de Comunicação de Acidente de Trabalho - CAT para alterar a {dtAcid}, verificar a existência de evento subsequente de afastamento em decorrência de acidente de trabalho, de forma a evitar inconsistência na cronologia dos eventos (por exemplo, acidente em 01/2021, afastamento em 01/2021 por acidente de trabalho, depois tenta retificar a data do acidente do evento para 03/2021). Neste caso, se houver evento de afastamento temporário por acidente de trabalho, a {dtAcid} somente pode ser retificada para uma data anterior à data de afastamento.</td>
 </tr>
+<tr>
 <td id=regra_retifica_mesmo_beneficio><strong>REGRA_RETIFICA_MESMO_BENEFICIO</strong></td>
-<td>Em caso de retificação, o evento retificador deve se referir ao mesmo beneficiário (CPF) e número do benefício.</strong></td>
+<td>Em caso de retificação, o evento retificador deve se referir ao mesmo beneficiário (CPF) e número do benefício.</td>
 </tr>
+<tr>
 <td id=regra_retifica_mesmo_vinculo><strong>REGRA_RETIFICA_MESMO_VINCULO</strong></td>
 <td>1) Em caso de retificação, o evento retificador deve:<br />
 a) ser do mesmo tipo indicado no evento original, exceto quando se tratar de retificação de Cadastramento Inicial (S-2100) para Cadastramento Inicial/Admissão (S-2200) de empregado doméstico;<br />
 b) referir-se ao mesmo contrato (CPF + matrícula; ou CPF + categoria, no caso de TSVE sem informação de matrícula no S-2300 de origem) do evento original.<br />
 2) Somente é possível retificar o evento Registro Preliminar de Trabalhador (S-2190) caso não haja o correspondente evento de Admissão (S-2200) ou TSVE - Início (S-2300) completo.<br />
 3) No caso de retificação de Desligamento (S-2299) ou de TSVE - Término (S-2399), o evento retificador deve possuir data de desligamento (S-2299) ou de término (S-2399) no mesmo mês/ano indicado no evento original.<br />
-4) No caso de retificação do evento de TSVE - Início (S-2300) sem informação de matrícula, a categoria não pode ser objeto de retificação por integrar a chave de identificação para este tipo de evento. Caso tenha sido informada incorretamente, o evento de início deve ser excluído e um novo evento com a categoria correta deve ser enviado.</strong></td>
+4) No caso de retificação do evento de TSVE - Início (S-2300) sem informação de matrícula, a categoria não pode ser objeto de retificação por integrar a chave de identificação para este tipo de evento. Caso tenha sido informada incorretamente, o evento de início deve ser excluído e um novo evento com a categoria correta deve ser enviado.</td>
 </tr>
+<tr>
 <td id=regra_rubrica_compativel_categoria><strong>REGRA_RUBRICA_COMPATIVEL_CATEGORIA</strong></td>
 <td>Com base na categoria do trabalhador, observar o que segue:<br />
 1) Se for relativa aos grupos "Empregado" (1XX) ou "Avulso" (2XX), não é permitida a inclusão de registro cujo {codRubr} tenha {codIncCP} em S-1010 = [34, 35];<br />
@@ -408,82 +476,101 @@ b) referir-se ao mesmo contrato (CPF + matrícula; ou CPF + categoria, no caso d
 2e) {codIncIRRF} em S-1010 = [14, 34, 54, 94, 9014, 9034, 9054, 9834], exceto se categoria de trabalhador = [721, 722, 723, 731, 734, 738, 761, 771];<br />
 3) Se for relativa a dirigente sindical ({codCateg} = [401]), observar a categoria de origem (informada no evento S-2300) para determinar se o trabalhador é empregado ou contribuinte individual, e aplicar uma das duas regras anteriores;<br />
 4) Se for relativa a estagiário ({codCateg} = [901]), não podem ser aceitas rubricas cujo {codIncCP} em S-1010 seja diferente de [00, 01] ou {codIncFGTS} em S-1010 seja diferente de [00].<br />
-Caso algum item acima não seja atendido, retornar "alerta".</strong></td>
+Caso algum item acima não seja atendido, retornar "alerta".</td>
 </tr>
+<tr>
 <td id=regra_rubrica_compativel_decterceiro><strong>REGRA_RUBRICA_COMPATIVEL_DECTERCEIRO</strong></td>
 <td>Se {indApuracao} for igual a [2] (décimo terceiro salário):<br />
 a) No caso do evento S-1200, são permitidas apenas as rubricas cujo {codIncCP} em S-1010 seja igual a [00, 01, 12, 14, 16, 22, 26, 32, 92, 94, 96, 98], cujo {codIncIRRF} em S-1010 seja igual a [0, 1, 9, 12, 14, 32, 34, 42, 47, 52, 54, 62, 64, 71, 77, 81, 82, 83, 92, 94, 9014, 9034, 9054, 9834] e cujo {codIncFGTS} em S-1010 seja igual a [00, 12, 92]. Caso sejam informadas rubricas com {codIncCP}, {codIncIRRF} e/ou {codIncFGTS} diferentes dos valores acima citados, retornar "alerta";<br />
-b) Nos casos dos eventos S-1202 e S-1207, são permitidas apenas as rubricas cujo {codIncCPRP} em S-1010 seja igual a [00, 12, 32, 91] e cujo {codIncIRRF} em S-1010 seja igual a [0, 1, 9, 12, 14, 32, 34, 42, 47, 52, 54, 62, 64, 71, 77, 81, 82, 83, 92, 94, 9014, 9034, 9054, 9834].</strong></td>
+b) Nos casos dos eventos S-1202 e S-1207, são permitidas apenas as rubricas cujo {codIncCPRP} em S-1010 seja igual a [00, 12, 32, 91] e cujo {codIncIRRF} em S-1010 seja igual a [0, 1, 9, 12, 14, 32, 34, 42, 47, 52, 54, 62, 64, 71, 77, 81, 82, 83, 92, 94, 9014, 9034, 9054, 9834].</td>
 </tr>
+<tr>
 <td id=regra_rubrica_compativel_resc><strong>REGRA_RUBRICA_COMPATIVEL_RESC</strong></td>
 <td>Rubrica com {codIncFGTS} em S-1010 = [21] só pode ser utilizada nos eventos Desligamento (S-2299) e TSVE - Término (S-2399), ou ainda no grupo {remunPerAnt} do evento Remuneração RGPS (S-1200).<br />
-Caso esta regra não seja atendida, retornar "alerta".</strong></td>
+Caso esta regra não seja atendida, retornar "alerta".</td>
 </tr>
+<tr>
 <td id=regra_tabestab_valida_estabelecimento><strong>REGRA_TABESTAB_VALIDA_ESTABELECIMENTO</strong></td>
-<td>Órgão Público da Administração Direta, Autárquica ou Fundacional (natureza jurídica pertencente ao grupo [1]) pode cadastrar estabelecimento com CNPJ de raiz igual ou diferente da inscrição do órgão público informada em S-1000. No caso de CNPJ de raiz diferente, o estabelecimento deve pertencer ao mesmo EFR - Ente Federativo Responsável do Órgão Público (definido em S-1000).</strong></td>
+<td>Órgão Público da Administração Direta, Autárquica ou Fundacional (natureza jurídica pertencente ao grupo [1]) pode cadastrar estabelecimento com CNPJ de raiz igual ou diferente da inscrição do órgão público informada em S-1000. No caso de CNPJ de raiz diferente, o estabelecimento deve pertencer ao mesmo EFR - Ente Federativo Responsável do Órgão Público (definido em S-1000).</td>
 </tr>
+<tr>
 <td id=regra_tabestab_valida_info_cno><strong>REGRA_TABESTAB_VALIDA_INFO_CNO</strong></td>
 <td>O preenchimento do grupo {infoObra} somente pode ser efetuado em estabelecimento CNO. A informação prestada no campo {indSubstPatrObra} é validada em função da data de início da obra, constante no cadastro do CNO, da seguinte forma:<br />
 1) Para obras iniciadas até 31/03/2013, deve ser igual a [2] (contribuição patronal não substituída);<br />
 2) Para obras iniciadas entre 01/04/2013 e 31/05/2013, deve ser igual a [1] (contribuição patronal integralmente substituída);<br />
 3) Para obras iniciadas entre 01/06/2013 e 31/10/2013, pode ser igual a [1] ou [2];<br />
 4) Para obras iniciadas entre 01/11/2013 e 30/11/2015, deve ser igual [1];<br />
-5) Para obras iniciadas a partir de 01/12/2015, pode ser igual a [1] ou [2].</strong></td>
+5) Para obras iniciadas a partir de 01/12/2015, pode ser igual a [1] ou [2].</td>
 </tr>
+<tr>
 <td id=regra_tabgeral_alteracao_periodo_conflitante><strong>REGRA_TABGERAL_ALTERACAO_PERIODO_CONFLITANTE</strong></td>
-<td>Em caso de alteração de período de validade das informações, não deve existir outro registro na tabela com o mesmo código de identificação (chave) em período de vigência conflitante com o novo período de validade informado.</strong></td>
+<td>Em caso de alteração de período de validade das informações, não deve existir outro registro na tabela com o mesmo código de identificação (chave) em período de vigência conflitante com o novo período de validade informado.</td>
 </tr>
+<tr>
 <td id=regra_tabgeral_existe_registro_alterado><strong>REGRA_TABGERAL_EXISTE_REGISTRO_ALTERADO</strong></td>
-<td>Em caso de alteração, deve existir registro na tabela com o mesmo código e período de validade informados no evento.</strong></td>
+<td>Em caso de alteração, deve existir registro na tabela com o mesmo código e período de validade informados no evento.</td>
 </tr>
+<tr>
 <td id=regra_tabgeral_existe_registro_excluido><strong>REGRA_TABGERAL_EXISTE_REGISTRO_EXCLUIDO</strong></td>
-<td>Em caso de exclusão, deve existir o registro na tabela com o mesmo código e período de validade informados no evento.</strong></td>
+<td>Em caso de exclusão, deve existir o registro na tabela com o mesmo código e período de validade informados no evento.</td>
 </tr>
+<tr>
 <td id=regra_tabgeral_inclusao_periodo_conflitante><strong>REGRA_TABGERAL_INCLUSAO_PERIODO_CONFLITANTE</strong></td>
-<td>Em caso de inclusão, não deve existir outro registro na tabela com o mesmo código de identificação (chave) em período de vigência conflitante com o período informado no registro atual.</strong></td>
+<td>Em caso de inclusão, não deve existir outro registro na tabela com o mesmo código de identificação (chave) em período de vigência conflitante com o período informado no registro atual.</td>
 </tr>
+<tr>
 <td id=regra_tablotacao_valida_fpasterceiros><strong>REGRA_TABLOTACAO_VALIDA_FPASTERCEIROS</strong></td>
-<td>O FPAS indicado deve ser compatível com a classificação tributária do contribuinte, conforme <a href="tabelas.html#Tabela 22">Tabela 22</a>. Para o tipo de lotação [08], os códigos de FPAS e de Terceiros indicados no registro devem ser iguais a [680] e [0131], respectivamente.</strong></td>
+<td>O FPAS indicado deve ser compatível com a classificação tributária do contribuinte, conforme Tabela 22. Para o tipo de lotação [08], os códigos de FPAS e de Terceiros indicados no registro devem ser iguais a [680] e [0131], respectivamente.</td>
 </tr>
+<tr>
 <td id=regra_tabrubr_inclusao><strong>REGRA_TABRUBR_INCLUSAO</strong></td>
-<td>A inclusão de novo período de validade de uma rubrica vigente não pode ter todos os atributos idênticos ao período imediatamente anterior.</strong></td>
+<td>A inclusão de novo período de validade de uma rubrica vigente não pode ter todos os atributos idênticos ao período imediatamente anterior.</td>
 </tr>
+<tr>
 <td id=regra_tab_permite_exclusao><strong>REGRA_TAB_PERMITE_EXCLUSAO</strong></td>
-<td>Em caso de {exclusao}, o registro identificado pelo período de validade deve existir e o registro somente pode ser excluído se não houver outros arquivos de eventos enviados anteriormente que façam referência ao mesmo.</strong></td>
+<td>Em caso de {exclusao}, o registro identificado pelo período de validade deve existir e o registro somente pode ser excluído se não houver outros arquivos de eventos enviados anteriormente que façam referência ao mesmo.</td>
 </tr>
+<tr>
 <td id=regra_tsv_ativo_na_dtevento><strong>REGRA_TSV_ATIVO_NA_DTEVENTO</strong></td>
 <td>O contrato identificado por CPF + matrícula (ou CPF + categoria, no caso de TSVE sem informação de matrícula no evento S-2300) deve estar ativo na data do evento, ou seja, a data do evento deve ser igual ou posterior à data de início (no caso de mudança de CPF, igual ou posterior à data de alteração do CPF) e igual ou anterior à data de término.<br />
 Quanto aos eventos S-2230, S-2306 e S-2399, deve existir prévio envio do evento de TSVE - Início (S-2300) para o contrato.<br />
-No caso dos eventos S-1200 e S-1202, o período de apuração deve ser igual ou posterior ao mês/ano da data de início (no caso de mudança de CPF, igual ou posterior à data de alteração do CPF) e igual ou anterior ao mês/ano da data de término.</strong></td>
+No caso dos eventos S-1200 e S-1202, o período de apuração deve ser igual ou posterior ao mês/ano da data de início (no caso de mudança de CPF, igual ou posterior à data de alteração do CPF) e igual ou anterior ao mês/ano da data de término.</td>
 </tr>
+<tr>
 <td id=regra_tsv_verifica_duplicidade><strong>REGRA_TSV_VERIFICA_DUPLICIDADE</strong></td>
-<td>Não é possível o envio de dois eventos de TSVE - Início (S-2300) para o mesmo trabalhador (CPF) e categoria, exceto se já houver respectivo evento de "término" anterior ao envio do segundo evento ou se houver informação de matrícula em pelo menos um dos eventos.</strong></td>
+<td>Não é possível o envio de dois eventos de TSVE - Início (S-2300) para o mesmo trabalhador (CPF) e categoria, exceto se já houver respectivo evento de "término" anterior ao envio do segundo evento ou se houver informação de matrícula em pelo menos um dos eventos.</td>
 </tr>
+<tr>
 <td id=regra_valida_admissao_preliminar><strong>REGRA_VALIDA_ADMISSAO_PRELIMINAR</strong></td>
 <td>Para aceitação do evento Registro Preliminar de Trabalhador (S-2190):<br />
 a) O CPF indicado no evento deve existir na base de dados do CPF (verificar CPF + data de nascimento);<br />
-b) Para cada evento S-2190 pode haver apenas um evento de Admissão ou TSVE - Início completo (S-2200 ou S-2300), na relação de 1 para 1. Enquanto não houver o correspondente evento S-2200 ou S-2300 completo, o evento S-2190 fica pendente.</strong></td>
+b) Para cada evento S-2190 pode haver apenas um evento de Admissão ou TSVE - Início completo (S-2200 ou S-2300), na relação de 1 para 1. Enquanto não houver o correspondente evento S-2200 ou S-2300 completo, o evento S-2190 fica pendente.</td>
 </tr>
+<tr>
 <td id=regra_valida_cnpj><strong>REGRA_VALIDA_CNPJ</strong></td>
 <td>O CNPJ deve existir na base da RFB e obedecer às seguintes condições:<br />
 a) Não pode pertencer a pessoa jurídica Inapta (situação=4) pelo motivo de Inexistência de Fato (motivo=15);<br />
 b) Caso esteja baixado, a data de ocorrência do evento (em caso de evento inicial ou não periódico) deve ser igual ou anterior a data da baixa. Em caso de evento periódico mensal, o período de apuração deve ser anterior ou igual ao mês/ano da baixa;<br />
-c) Não pode estar anulado ou cancelado.</strong></td>
+c) Não pode estar anulado ou cancelado.</td>
 </tr>
+<tr>
 <td id=regra_valida_dt_futura><strong>REGRA_VALIDA_DT_FUTURA</strong></td>
-<td>As informações de tabela não podem ser enviadas com data de início ou de fim de validade posterior à data de envio do evento.</strong></td>
+<td>As informações de tabela não podem ser enviadas com data de início ou de fim de validade posterior à data de envio do evento.</td>
 </tr>
+<tr>
 <td id=regra_valida_dt_pgto><strong>REGRA_VALIDA_DT_PGTO</strong></td>
 <td>Se {tpPgto} = [1, 4, 5], o mês/ano da data de pagamento não pode ser anterior a {perRef} informado no grupo {infoPgto}, considerando-se {perRef} anual como igual a "AAAA-12";<br />
 Se {tpPgto} = [2], a data de pagamento não pode ser menor que o mês anterior da data informada em {dtDeslig} informada no evento S-2299;<br />
-Se {tpPgto} = [3], a data de pagamento não pode ser menor que o mês anterior da data informada em {dtTerm} informada no evento S-2399.</strong></td>
+Se {tpPgto} = [3], a data de pagamento não pode ser menor que o mês anterior da data informada em {dtTerm} informada no evento S-2399.</td>
 </tr>
+<tr>
 <td id=regra_valida_empregador><strong>REGRA_VALIDA_EMPREGADOR</strong></td>
 <td>Se {tpInsc} do empregador for igual a [1] (CNPJ), aplicar <a href="#regra_valida_cnpj">REGRA_VALIDA_CNPJ</a> para o CNPJ informado em {nrInsc}.<br />
 Se {tpInsc} do empregador for igual a [2] (CPF), o CPF indicado no campo {nrInsc} não pode estar anulado. O CPF também não pode estar cancelado:<br />
 a) em data anterior à data de ocorrência de evento não periódico;<br />
-b) no mês/ano do período de apuração de evento periódico.</strong></td>
+b) no mês/ano do período de apuração de evento periódico.</td>
 </tr>
+<tr>
 <td id=regra_valida_fechamento_fopag><strong>REGRA_VALIDA_FECHAMENTO_FOPAG</strong></td>
 <td>Para aceitação do evento de fechamento, efetuar as seguintes verificações:<br />
 a) Não deve existir evento de Registro Preliminar (S-2190) sem o correspondente evento de Admissão (S-2200) ou TSVE - Início (S-2300) cujo mês/ano da "data de admissão" ou da "data de início" seja anterior ou igual ao período de apuração da folha de pagamento. Em caso de não existência, deve ser gerado um "alerta" para o empregador (ou seja, embora a situação seja irregular, não há impedimento para o fechamento dos eventos periódicos).<br />
@@ -502,8 +589,9 @@ b3) Todos os benefícios com início igual ou anterior ao período de apuração
 - se o período de apuração for menor que o mês/ano do campo {dtPublic} do S-2410, caso seja informado; ou<br />
 - se, para benefício com {indSitBenef} = [2, 3], o período de apuração for menor que o mês/ano informado no campo {dtTransf} ou {dtAltCPF}, respectivamente, do S-2410.<br />
 Em caso de benefício ativo no período de apuração sem o correspondente evento S-1207 (inclusive se o período de apuração for posterior à cessação do benefício e anterior a sua reativação, caso existente), retornar "alerta". Retornar "alerta" específico no caso de benefício ativo suspenso (S-2416 com o campo {indSuspensao} = [S]) em todo o período de apuração e sem o correspondente evento S-1207.<br />
-c) Existindo um ou mais trabalhadores "TSVE" ativos (S-2190 ou S-2300) no período de apuração da folha de pagamento e para os quais não tenha sido enviado o respectivo evento de remuneração, o evento de fechamento é aceito como válido, no entanto, são gerados "alertas" contendo o Nome, CPF, código de categoria e matrícula dos trabalhadores para os quais não foi prestada a informação de remuneração.</strong></td>
+c) Existindo um ou mais trabalhadores "TSVE" ativos (S-2190 ou S-2300) no período de apuração da folha de pagamento e para os quais não tenha sido enviado o respectivo evento de remuneração, o evento de fechamento é aceito como válido, no entanto, são gerados "alertas" contendo o Nome, CPF, código de categoria e matrícula dos trabalhadores para os quais não foi prestada a informação de remuneração.</td>
 </tr>
+<tr>
 <td id=regra_valida_id_evento><strong>REGRA_VALIDA_ID_EVENTO</strong></td>
 <td>A identificação única do evento (Id) é composta por 36 caracteres, conforme o que segue:<br />
 IDTNNNNNNNNNNNNNNAAAAMMDDHHMMSSQQQQQ<br />
@@ -513,27 +601,33 @@ NNNNNNNNNNNNNN - Número do CNPJ ou CPF do empregador - Completar com zeros à d
 AAAAMMDD - Ano, mês e dia da geração do evento;<br />
 HHMMSS - Hora, minuto e segundo da geração do evento;<br />
 QQQQQ - Número sequencial da chave. Incrementar somente quando ocorrer geração de eventos na mesma data/hora, completando com zeros à esquerda.<br />
-OBS.: No caso de pessoas jurídicas, o CNPJ informado deverá conter 8 ou 14 posições de acordo com o enquadramento do contribuinte para preenchimento do campo {ideEmpregador/nrInsc} do evento S-1000, completando-se com zeros à direita, se necessário.</strong></td>
+OBS.: No caso de pessoas jurídicas, o CNPJ informado deverá conter 8 ou 14 posições de acordo com o enquadramento do contribuinte para preenchimento do campo {ideEmpregador/nrInsc} do evento S-1000, completando-se com zeros à direita, se necessário.</td>
 </tr>
+<tr>
 <td id=regra_valida_matricula><strong>REGRA_VALIDA_MATRICULA</strong></td>
-<td>A chave de identificação de cada contrato de trabalho é a matrícula, que é atribuída pelo Empregador. Não pode existir no Registro de Eventos Trabalhistas - RET para o mesmo empregador (identificado em S-1000), trabalhador com a mesma matrícula (o evento é recusado).</strong></td>
+<td>A chave de identificação de cada contrato de trabalho é a matrícula, que é atribuída pelo Empregador. Não pode existir no Registro de Eventos Trabalhistas - RET para o mesmo empregador (identificado em S-1000), trabalhador com a mesma matrícula (o evento é recusado).</td>
 </tr>
+<tr>
 <td id=regra_valida_periodo_apuracao><strong>REGRA_VALIDA_PERIODO_APURACAO</strong></td>
 <td>No caso de remuneração (S-1200, S-1202 e S-1207):<br />
 a) Se {indApuracao} = [1] (mensal), o evento periódico só é permitido se o mês/ano do período de apuração for igual ou anterior ao mês/ano corrente. Se {indApuracao} for igual a [2] (décimo terceiro), o evento periódico é permitido se ano do período de apuração for igual ou anterior ao ano corrente;<br />
 b) Se já existe para o período de apuração indicado no evento, evento de encerramento (S-1299), a aceitação do evento fica condicionada ao envio do evento de Reabertura (S-1298).<br />
-No caso de desligamento (S-2299 e S-2399), se já existir evento de fechamento (S-1299) para o período que compreende {dtDeslig} (indicada no S-2299) ou {dtTerm} (indicada no S-2399), a aceitação do evento fica condicionada ao envio do evento de reabertura (S-1298).</strong></td>
+No caso de desligamento (S-2299 e S-2399), se já existir evento de fechamento (S-1299) para o período que compreende {dtDeslig} (indicada no S-2299) ou {dtTerm} (indicada no S-2399), a aceitação do evento fica condicionada ao envio do evento de reabertura (S-1298).</td>
 </tr>
+<tr>
 <td id=regra_valida_per_apur_pgto><strong>REGRA_VALIDA_PER_APUR_PGTO</strong></td>
-<td>O evento de pagamento somente pode ser enviado se o mês/ano do período de apuração {perApur} for igual ou anterior ao mês/ano corrente, exceto se {procEmi} = [2, 4], situação em que {perApur} poderá ser até 2 meses posteriores à data atual.</strong></td>
+<td>O evento de pagamento somente pode ser enviado se o mês/ano do período de apuração {perApur} for igual ou anterior ao mês/ano corrente, exceto se {procEmi} = [2, 4], situação em que {perApur} poderá ser até 2 meses posteriores à data atual.</td>
 </tr>
+<tr>
 <td id=regra_valida_processo><strong>REGRA_VALIDA_PROCESSO</strong></td>
-<td>Se {tpProc} = [2] e {indMatProc} = [1], o processo não pode ser originário do Conselho Nacional de Justiça, Justiça do Trabalho, Justiça Eleitoral, Justiça Militar da União e Justiça Militar Estadual. Estes tipos de processo não podem ser utilizados para suspensão de débitos tributários perante a RFB e estão identificados no número do processo, na 14ª posição a qual não pode ser igual a [2, 5, 6, 7, 9].</strong></td>
+<td>Se {tpProc} = [2] e {indMatProc} = [1], o processo não pode ser originário do Conselho Nacional de Justiça, Justiça do Trabalho, Justiça Eleitoral, Justiça Militar da União e Justiça Militar Estadual. Estes tipos de processo não podem ser utilizados para suspensão de débitos tributários perante a RFB e estão identificados no número do processo, na 14ª posição a qual não pode ser igual a [2, 5, 6, 7, 9].</td>
 </tr>
+<tr>
 <td id=regra_valida_trabalhador_base_cpf><strong>REGRA_VALIDA_TRABALHADOR_BASE_CPF</strong></td>
 <td>As informações de identificação do trabalhador (CPF, nome e data de nascimento) são validadas na base de dados do CPF para evitar erro de identificação do trabalhador. No caso dos eventos S-2206 e S-2306, será validado apenas o CPF. No caso dos eventos S-2205 e S-2405, a data de nascimento é buscada no Registro de Eventos Trabalhistas - RET.<br />
-OBS.: Nos eventos de Admissão (S-2200) e TSVE - Início (S-2300), não efetuar a validação de nome e data de nascimento quando o grupo {afastamento} estiver preenchido e {dtIniAfast} for anterior à obrigatoriedade dos eventos não periódicos para o empregador.</strong></td>
+OBS.: Nos eventos de Admissão (S-2200) e TSVE - Início (S-2300), não efetuar a validação de nome e data de nascimento quando o grupo {afastamento} estiver preenchido e {dtIniAfast} for anterior à obrigatoriedade dos eventos não periódicos para o empregador.</td>
 </tr>
+<tr>
 <td id=regra_vinculo_ativo_na_dtevento><strong>REGRA_VINCULO_ATIVO_NA_DTEVENTO</strong></td>
 <td>O vínculo identificado por CPF + matrícula deve estar ativo na data do evento, ou seja, a data do evento deve ser igual ou posterior à data de admissão/data de exercício (no caso de sucessão ou mudança de CPF, igual ou posterior à data da transferência ou à data de alteração do CPF, respectivamente) e igual ou anterior à data de desligamento.<br />
 Quanto aos eventos S-2206, S-2230, S-2231 e S-2299, deve existir prévio envio do evento de Admissão (S-2200) para o vínculo.<br />
@@ -543,7 +637,7 @@ b) considerar como data de desligamento a maior data entre {dtDeslig}, {dtProjFi
 No caso do evento S-2210, quando {tpCat} = [2, 3], considerar vínculo ativo a partir da {dtAdm}, mesmo no caso de sucessão ou mudança de CPF.<br />
 No caso dos eventos S-2210 e S-2230, considerar como data de desligamento a maior data entre {dtDeslig} e {dtProjFimAPI} do evento S-2299.<br />
 No caso dos eventos S-1200 e S-1202, {perApur} deve ser igual ou posterior ao mês/ano da data de admissão/data de exercício (no caso de sucessão ou mudança de CPF, igual ou posterior ao mês/ano da data da transferência ou da data de alteração do CPF, respectivamente) e igual ou anterior ao mês/ano da data de desligamento.<br />
-No caso do evento S-2299, se houver remuneração informada no registro {infoPerAnt}, o mês/ano do evento (aqui considerado o período ao qual se refere a remuneração, indicado em {perRef}) deve ser igual ou posterior ao mês/ano da data de admissão.</strong></td>
+No caso do evento S-2299, se houver remuneração informada no registro {infoPerAnt}, o mês/ano do evento (aqui considerado o período ao qual se refere a remuneração, indicado em {perRef}) deve ser igual ou posterior ao mês/ano da data de admissão.</td>
 </tr>
 </tbody>
 </table>
@@ -552,7 +646,7 @@ No caso do evento S-2299, se houver remuneração informada no registro {infoPer
         <nav id="navbarBottom" class="navbar is-fixed-bottom has-shadow">
             <div class="navbar-brand">
                 <a class="navbar-item" href="index.html">
-                    <img src="https://portal.esocial.gov.br/imagens/esocial-vertical" height="50">
+                    <img src="esocial-vertical.jpg" height="50">
                 </a>
             </div>
             <div id="navbarExample" class="navbar-menu">
