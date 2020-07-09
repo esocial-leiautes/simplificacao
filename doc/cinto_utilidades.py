@@ -69,16 +69,16 @@ def resolver_referencias(texto, item):
                 item_final = item_final.pai
 
             endereco = endereco.replace(
-                '../' * saltos, item_final.obter_caminho_encurtado() + '_')
+                '../' * saltos, item_final.caminho + '_')
 
         elif endereco.startswith('/'):
             endereco = endereco.replace('/', item.leiaute.codigo[2:] + '_')
 
         elif endereco.startswith('./'):
             if item.categoria.agrupadora():
-                prefixo = item.obter_caminho_encurtado()
+                prefixo = item.caminho
             else:
-                prefixo = item.pai.obter_caminho_encurtado()
+                prefixo = item.pai.caminho
             endereco = '_'.join((prefixo, endereco[2:]))
 
         texto = texto.replace(
@@ -86,4 +86,6 @@ def resolver_referencias(texto, item):
             Geral.LINK.format(endereco, nome))
 
     return re.sub(
-        r'(Tabela \d{2})', '<a href="tabelas.html#\\1">\\1</a>', texto)
+        r'Tabela (\d{2})',
+        '<a href="tabelas.html#\\1">Tabela \\1</a>',
+        texto)

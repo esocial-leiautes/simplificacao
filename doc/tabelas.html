@@ -1,80 +1,102 @@
 ﻿<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Tabelas</title>
-        <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@creativebulma/bulma-tooltip@1.0.2/dist/bulma-tooltip.min.css">
-        <script src="https://cdn.jsdelivr.net/npm/zepto@1.2.0/dist/zepto.min.js"></script>
-        <style>
-            th {
-                background-color: #999;
-            }
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tabelas</title>
+<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+<style>
+th { background-color: #999; }
 
-            td[colspan] {
-                text-align: center!important;
-            }
+table.tabela { margin-top: 48px; }
+table.tabela tr.grupo td { text-align: center; font-weight: bold; }
+table.tabela thead th { text-align: center!important; }
 
-            td[rowspan]{
-                vertical-align: middle;
-            }
+table.completo th:nth-child(1) { width: 5%; }
+table.completo th:nth-child(2) { width: 14%; }
+table.completo th:nth-child(3) { width: 14%; }
+table.completo th:nth-child(4) { width: 4%; }
+table.completo th:nth-child(5) { width: 4%; }
+table.completo th:nth-child(6) { width: 6.5%; }
+table.completo th:nth-child(7) { width: 6.5%; }
+table.completo th:nth-child(8) { width: 4%; }
+table.completo th:nth-child(9) { width: 41.99%; }
 
-            .grupo {
-                background-color: #ccc;
-            }
+table.resumo tr.grupo td:nth-child(1) { width: 14%; }
+table.resumo tr.grupo td:nth-child(2) { width: 14%; }
+table.resumo tr.grupo td:nth-child(3) { width: 4%; }
+table.resumo tr.grupo td:nth-child(4) { width: 26.59%; }
+table.resumo tr.grupo td:nth-child(5) { width: 6.5%; }
+table.resumo tr.grupo td:nth-child(6) { width: 12%; }
+table.resumo tr.grupo td:nth-child(7) { width: 22.9%; }
 
-            .grupo-choice {
-                background-color: #999;
-            }
+td[colspan],
+table.resumo th,
+table.completo th,
+table.resumo td,
+table.completo td,
+table.regras th { text-align: center!important; }
 
-            .message-body p {
-                margin: .5em 0;
-            }
-        </style>
-    </head>
-    <body>
-        <section class="section">
-            <div class="container is-fluid">
+table.completo td:first-child { cursor: default; }
+
+table.resumo tr:not(.grupo) td:nth-child(4),
+table.completo td:last-child { text-align: left!important; }
+
+td[rowspan]{ vertical-align: middle; }
+
+.grupo { background-color: #ccc; }
+
+.grupo-choice { background-color: #999; }
+
+.message-body p { margin: .5em 0; }
+</style>
+</head>
+<body>
+<section class="section">
+<div class="container is-fluid">
 <h1 class="title has-text-centered is-1">Tabelas</h1>
 <ul>
-<li><a href="#Tabela 01">Tabela 01 - Categorias de Trabalhadores</a></li>
-<li><a href="#Tabela 02">Tabela 02 - Financiamento da Aposentadoria Especial e Redução do Tempo de Contribuição</a></li>
-<li><a href="#Tabela 03">Tabela 03 - Natureza das Rubricas da Folha de Pagamento</a></li>
-<li><a href="#Tabela 04">Tabela 04 - Códigos e Alíquotas de FPAS/Terceiros</a></li>
-<li><a href="#Tabela 05">Tabela 05 - Tipos de Inscrição</a></li>
-<li><a href="#Tabela 06">Tabela 06 - Países</a></li>
-<li><a href="#Tabela 07">Tabela 07 - Tipos de Dependente</a></li>
-<li><a href="#Tabela 08">Tabela 08 - Classificação Tributária</a></li>
-<li><a href="#Tabela 09">Tabela 09 - Tipos de Arquivo do eSocial</a></li>
-<li><a href="#Tabela 10">Tabela 10 - Tipos de Lotação Tributária</a></li>
-<li><a href="#Tabela 11">Tabela 11 - Compatibilidade entre Categoria de Trabalhadores, Classif. Tributária e Tipos de Lotação</a></li>
-<li><a href="#Tabela 12">Tabela 12 - Compatibilidade entre Tipos de Lotação e Classificação Tributária</a></li>
-<li><a href="#Tabela 13">Tabela 13 - Parte do corpo atingida</a></li>
-<li><a href="#Tabela 14">Tabela 14 - Agente Causador do Acidente de Trabalho</a></li>
-<li><a href="#Tabela 15">Tabela 15 - Agente Causador / Situação Geradora de Doença Profissional</a></li>
-<li><a href="#Tabela 16">Tabela 16 - Situação Geradora do Acidente de Trabalho</a></li>
-<li><a href="#Tabela 17">Tabela 17 - Descrição da Natureza da Lesão</a></li>
-<li><a href="#Tabela 18">Tabela 18 - Motivos de Afastamento</a></li>
-<li><a href="#Tabela 19">Tabela 19 - Motivos de Desligamento</a></li>
-<li><a href="#Tabela 20">Tabela 20 - Tipos de Logradouro</a></li>
-<li><a href="#Tabela 21">Tabela 21 - Códigos de Incidência Tributária da Rubrica para o IRRF</a></li>
-<li><a href="#Tabela 22">Tabela 22 - Compatibilidade entre FPAS e Classificação Tributária</a></li>
-<li><a href="#Tabela 23">Tabela 23 - Relacionamento entre Tipo de Valor do FGTS, Categoria, Origem, Código de Incidência do FGTS e Condição</a></li>
-<li><a href="#Tabela 24">Tabela 24 - Agentes Nocivos e Atividades - Aposentadoria Especial</a></li>
-<li><a href="#Tabela 25">Tabela 25 - Tipos de Benefícios</a></li>
-<li><a href="#Tabela 26">Tabela 26 - Motivos de Cessação de Benefícios</a></li>
-<li><a href="#Tabela 27">Tabela 27 - Procedimentos Diagnósticos</a></li>
-<li><a href="#Tabela 28">Tabela 28 - Treinamentos, Capacitações, Exercícios Simulados e Outras Anotações</a></li>
+<li><a href="#01">Tabela 01 - Categorias de Trabalhadores</a></li>
+<li><a href="#02">Tabela 02 - Financiamento da Aposentadoria Especial e Redução do Tempo de Contribuição</a></li>
+<li><a href="#03">Tabela 03 - Natureza das Rubricas da Folha de Pagamento</a></li>
+<li><a href="#04">Tabela 04 - Códigos e Alíquotas de FPAS/Terceiros</a></li>
+<li><a href="#05">Tabela 05 - Tipos de Inscrição</a></li>
+<li><a href="#06">Tabela 06 - Países</a></li>
+<li><a href="#07">Tabela 07 - Tipos de Dependente</a></li>
+<li><a href="#08">Tabela 08 - Classificação Tributária</a></li>
+<li><a href="#09">Tabela 09 - Tipos de Arquivo do eSocial</a></li>
+<li><a href="#10">Tabela 10 - Tipos de Lotação Tributária</a></li>
+<li><a href="#11">Tabela 11 - Compatibilidade entre Categoria de Trabalhadores, Classif. Tributária e Tipos de Lotação</a></li>
+<li><a href="#12">Tabela 12 - Compatibilidade entre Tipos de Lotação e Classificação Tributária</a></li>
+<li><a href="#13">Tabela 13 - Parte do corpo atingida</a></li>
+<li><a href="#14">Tabela 14 - Agente Causador do Acidente de Trabalho</a></li>
+<li><a href="#15">Tabela 15 - Agente Causador / Situação Geradora de Doença Profissional</a></li>
+<li><a href="#16">Tabela 16 - Situação Geradora do Acidente de Trabalho</a></li>
+<li><a href="#17">Tabela 17 - Descrição da Natureza da Lesão</a></li>
+<li><a href="#18">Tabela 18 - Motivos de Afastamento</a></li>
+<li><a href="#19">Tabela 19 - Motivos de Desligamento</a></li>
+<li><a href="#20">Tabela 20 - Tipos de Logradouro</a></li>
+<li><a href="#21">Tabela 21 - Códigos de Incidência Tributária da Rubrica para o IRRF</a></li>
+<li><a href="#22">Tabela 22 - Compatibilidade entre FPAS e Classificação Tributária</a></li>
+<li><a href="#23">Tabela 23 - Relacionamento entre Tipo de Valor do FGTS, Categoria, Origem, Código de Incidência do FGTS e Condição</a></li>
+<li><a href="#24">Tabela 24 - Agentes Nocivos e Atividades - Aposentadoria Especial</a></li>
+<li><a href="#25">Tabela 25 - Tipos de Benefícios</a></li>
+<li><a href="#26">Tabela 26 - Motivos de Cessação de Benefícios</a></li>
+<li><a href="#27">Tabela 27 - Procedimentos Diagnósticos</a></li>
+<li><a href="#28">Tabela 28 - Treinamentos, Capacitações, Exercícios Simulados e Outras Anotações</a></li>
 </ul>
-<table id="Tabela 01" style="margin-top: 48px;" class="table is-fullwidth is-bordered">
-<thead><tr><th style="text-align: center" colspan="3">Tabela 01 - Categorias de Trabalhadores</th></tr></thead>
+<table id="01" class="table is-fullwidth is-bordered tabela">
+<thead>
+<tr>
+<th colspan="3">Tabela 01 - Categorias de Trabalhadores</th>
+</tr>
+</thead>
 <tbody>
 <tr class="grupo">
-<td class="grupo" style="text-align: center; font-weight: bold;">GRUPO</td>
-<td class="grupo" style="text-align: center; font-weight: bold;">CÓDIGO</td>
-<td class="grupo" style="text-align: center; font-weight: bold;">DESCRIÇÃO</td>
+<td>GRUPO</td>
+<td>CÓDIGO</td>
+<td>DESCRIÇÃO</td>
 </tr>
 <tr>
 <td rowspan="9">Empregado e Trabalhador Temporário</td>
@@ -260,12 +282,16 @@
 </tr>
 </tbody>
 </table>
-<table id="Tabela 02" style="margin-top: 48px;" class="table is-fullwidth is-bordered">
-<thead><tr><th style="text-align: center" colspan="2">Tabela 02 - Financiamento da Aposentadoria Especial e Redução do Tempo de Contribuição</th></tr></thead>
+<table id="02" class="table is-fullwidth is-bordered tabela">
+<thead>
+<tr>
+<th colspan="2">Tabela 02 - Financiamento da Aposentadoria Especial e Redução do Tempo de Contribuição</th>
+</tr>
+</thead>
 <tbody>
 <tr class="grupo">
-<td class="grupo" style="text-align: center; font-weight: bold;">CÓDIGO</td>
-<td class="grupo" style="text-align: center; font-weight: bold;">DESCRIÇÃO</td>
+<td>CÓDIGO</td>
+<td>DESCRIÇÃO</td>
 </tr>
 <tr>
 <td>1</td>
@@ -285,15 +311,19 @@
 </tr>
 </tbody>
 </table>
-<table id="Tabela 03" style="margin-top: 48px;" class="table is-fullwidth is-bordered">
-<thead><tr><th style="text-align: center" colspan="5">Tabela 03 - Natureza das Rubricas da Folha de Pagamento</th></tr></thead>
+<table id="03" class="table is-fullwidth is-bordered tabela">
+<thead>
+<tr>
+<th colspan="5">Tabela 03 - Natureza das Rubricas da Folha de Pagamento</th>
+</tr>
+</thead>
 <tbody>
 <tr class="grupo">
-<td class="grupo" style="text-align: center; font-weight: bold;">CÓDIGO</td>
-<td class="grupo" style="text-align: center; font-weight: bold;">NOME DA NATUREZA DA RUBRICA</td>
-<td class="grupo" style="text-align: center; font-weight: bold;">DESCRIÇÃO DA NATUREZA DA RUBRICA</td>
-<td class="grupo" style="text-align: center; font-weight: bold;">INÍCIO</td>
-<td class="grupo" style="text-align: center; font-weight: bold;">TÉRMINO</td>
+<td>CÓDIGO</td>
+<td>NOME DA NATUREZA DA RUBRICA</td>
+<td>DESCRIÇÃO DA NATUREZA DA RUBRICA</td>
+<td>INÍCIO</td>
+<td>TÉRMINO</td>
 </tr>
 <tr>
 <td>1000</td>
@@ -360,8 +390,8 @@
 </tr>
 <tr>
 <td>1010</td>
-<td>Salário <em>in natura</em> - Pagos em bens ou serviços</td>
-<td>Salário <em>in natura</em>, também conhecido por salário utilidade, correspondente a remunerações pagas em bens ou serviços</td>
+<td>Salário <i>in natura</i> - Pagos em bens ou serviços</td>
+<td>Salário <i>in natura</i>, também conhecido por salário utilidade, correspondente a remunerações pagas em bens ou serviços</td>
 <td>01/01/2014</td>
 <td>-</td>
 </tr>
@@ -430,7 +460,7 @@
 </tr>
 <tr>
 <td>1080</td>
-<td><em>Stock option</em></td>
+<td><i>Stock option</i></td>
 <td>Remuneração pelo exercício de opção de compra de ações da empresa</td>
 <td>01/01/2014</td>
 <td>-</td>
@@ -941,8 +971,8 @@
 </tr>
 <tr>
 <td>3510</td>
-<td>Gratificação (<em>jeton</em>)</td>
-<td>Valor correspondente a gratificação (<em>jeton</em>) por comparecimento a sessões ou reuniões</td>
+<td>Gratificação (<i>jeton</i>)</td>
+<td>Valor correspondente a gratificação (<i>jeton</i>) por comparecimento a sessões ou reuniões</td>
 <td>01/03/2021</td>
 <td>-</td>
 </tr>
@@ -1662,21 +1692,25 @@
 </tr>
 </tbody>
 </table>
-<table id="Tabela 04" style="margin-top: 48px;" class="table is-fullwidth is-bordered">
-<thead><tr><th style="text-align: center" colspan="6">Tabela 04 - Códigos e Alíquotas de FPAS/Terceiros</th></tr></thead>
+<table id="04" class="table is-fullwidth is-bordered tabela">
+<thead>
+<tr>
+<th colspan="6">Tabela 04 - Códigos e Alíquotas de FPAS/Terceiros</th>
+</tr>
+</thead>
 <tbody>
 <tr class="grupo">
-<td class="grupo" style="text-align: center; font-weight: bold;">CÓDIGO FPAS</td>
-<td class="grupo" style="text-align: center; font-weight: bold;">DESCRIÇÃO DE ATIVIDADES</td>
-<td class="grupo" style="text-align: center; font-weight: bold;">BASE DE CÁLCULO</td>
-<td class="grupo" style="text-align: center; font-weight: bold;">TERCEIROS</td>
-<td class="grupo" style="text-align: center; font-weight: bold;">CÓDIGO DE TERCEIROS</td>
-<td class="grupo" style="text-align: center; font-weight: bold;">ALÍQUOTA</td>
+<td>CÓDIGO FPAS</td>
+<td>DESCRIÇÃO DE ATIVIDADES</td>
+<td>BASE DE CÁLCULO</td>
+<td>TERCEIROS</td>
+<td>CÓDIGO DE TERCEIROS</td>
+<td>ALÍQUOTA</td>
 </tr>
 <tr>
 <td rowspan="13">507</td>
 <td rowspan="13">INDÚSTRIA - TRANSPORTE FERROVIÁRIO e de CARRIS URBANOS (inclusive cabos aéreos) EMPRESA METROVIÁRIA - EMPRESA DE TELECOMUNICAÇÕES - OFICINA GRÁFICA DE EMPRESA JORNALÍSTICA - Oficinas mecânicas de manutenção e reparação de veículos e máquinas, inclusive de concessionárias - ESCRITÓRIO E DEPÓSITO DE EMPRESA INDUSTRIAL - INDÚSTRIA DA CONSTRUÇÃO CIVIL - ARMAZÉNS GERAIS - SOCIEDADE COOPERATIVA (estabelecimento no qual explora atividade econômica relacionada neste código) - TOMADOR DE SERVIÇO DE TRABALHADOR AVULSO - contribuição sobre a remuneração de trabalhador avulso vinculado à indústria.<br /><br />INDÚSTRIA DE CARNES E DERIVADOS (frigorífico) de animal de qualquer espécie, inclusive o setor industrial das agroindústrias de piscicultura, carcinicultura, suinocultura e avicultura (exceto quanto aos empregados envolvidos diretamente com o abate - FPAS 531).<br /><br />SETOR INDUSTRIAL DA AGROINDÚSTRIA de florestamento e reflorestamento quando não aplicável a substituição, na forma do art. 22-A da Lei 8.212/1991.<br /><br />ESTALEIRO - setor de fabricação e desmontagem de embarcações navais.</td>
-<td colspan="4"><strong>EMPRESAS</strong></td>
+<td colspan="4"><b>EMPRESAS</b></td>
 </tr>
 <tr>
 <td rowspan="6">Remuneração dos segurados</td>
@@ -1690,12 +1724,12 @@
 <td>0,2%</td>
 </tr>
 <tr>
-<td>+ SENAI<strong>*</strong></td>
+<td>+ SENAI<b>*</b></td>
 <td>0004</td>
 <td>1,0%</td>
 </tr>
 <tr>
-<td>+ SESI<strong>*</strong></td>
+<td>+ SESI<b>*</b></td>
 <td>0008</td>
 <td>1,5%</td>
 </tr>
@@ -1705,12 +1739,12 @@
 <td>0,6%</td>
 </tr>
 <tr>
-<td><strong>TOTAL</strong></td>
-<td><strong>0079</strong></td>
-<td><strong>5,8%</strong></td>
+<td><b>TOTAL</b></td>
+<td><b>0079</b></td>
+<td><b>5,8%</b></td>
 </tr>
 <tr>
-<td colspan="4"><strong>COOPERATIVAS</strong></td>
+<td colspan="4"><b>COOPERATIVAS</b></td>
 </tr>
 <tr>
 <td rowspan="5">Remuneração dos segurados</td>
@@ -1734,14 +1768,14 @@
 <td>2,5%</td>
 </tr>
 <tr>
-<td><strong>TOTAL</strong></td>
-<td><strong>4163</strong></td>
-<td><strong>5,8%</strong></td>
+<td><b>TOTAL</b></td>
+<td><b>4163</b></td>
+<td><b>5,8%</b></td>
 </tr>
 <tr>
 <td rowspan="13">515</td>
-<td rowspan="13">COMÉRCIO ATACADISTA - COMÉRCIO VAREJISTA - AGENTE AUTÔNOMO DO COMÉRCIO - COMÉRCIO ARMAZENADOR - TURISMO E HOSPITALIDADE (inclusive salão de barbeiro, instituto de beleza, empresa de compra, venda, locação e administração de imóvel, engraxate, empresa de asseio e conservação, sociedade beneficente e religiosa etc.) - ESTABELECIMENTO DE SERVIÇO DE SAÚDE (hospital, clínica, casa de saúde, laboratório de pesquisas e análises clínicas, cooperativa de serviço médico, banco de sangue, estabelecimento de ducha, massagem e fisioterapia e empresa de prótese) - COMÉRCIO TRANSPORTADOR, REVENDEDOR, RETALHISTA DE ÓLEO DIESEL, ÓLEO COMBUSTÍVEL E QUEROSENE (exceto quanto aos empregados envolvidos diretamente na atividade de transporte - Decreto 1.092/1994 - FPAS 612) - EMPRESA E SERVIÇOS DE PROCESSAMENTO DE DADOS - ESCRITÓRIO, CONSULTÓRIO OU LABORATÓRIO DE PROFISSIONAIS LIBERAIS (pessoa jurídica) - CONSÓRCIO - AUTOESCOLA - CURSO LIVRE - LOCAÇÕES DIVERSAS - PARTIDO POLÍTICO - EMPRESA DE TRABALHO TEMPORÁRIO (contribuição sobre a folha de salário de seus empregados) - SOCIEDADE COOPERATIVA (estabelecimento no qual explora atividade econômica relacionada neste código) - TOMADOR DE SERVIÇO DE TRABALHADOR AVULSO - contribuição sobre a remuneração de trabalhador avulso vinculado ao comércio - EMPRESAS DE <em>FACTORING</em>.</td>
-<td colspan="4"><strong>EMPRESAS</strong></td>
+<td rowspan="13">COMÉRCIO ATACADISTA - COMÉRCIO VAREJISTA - AGENTE AUTÔNOMO DO COMÉRCIO - COMÉRCIO ARMAZENADOR - TURISMO E HOSPITALIDADE (inclusive salão de barbeiro, instituto de beleza, empresa de compra, venda, locação e administração de imóvel, engraxate, empresa de asseio e conservação, sociedade beneficente e religiosa etc.) - ESTABELECIMENTO DE SERVIÇO DE SAÚDE (hospital, clínica, casa de saúde, laboratório de pesquisas e análises clínicas, cooperativa de serviço médico, banco de sangue, estabelecimento de ducha, massagem e fisioterapia e empresa de prótese) - COMÉRCIO TRANSPORTADOR, REVENDEDOR, RETALHISTA DE ÓLEO DIESEL, ÓLEO COMBUSTÍVEL E QUEROSENE (exceto quanto aos empregados envolvidos diretamente na atividade de transporte - Decreto 1.092/1994 - FPAS 612) - EMPRESA E SERVIÇOS DE PROCESSAMENTO DE DADOS - ESCRITÓRIO, CONSULTÓRIO OU LABORATÓRIO DE PROFISSIONAIS LIBERAIS (pessoa jurídica) - CONSÓRCIO - AUTOESCOLA - CURSO LIVRE - LOCAÇÕES DIVERSAS - PARTIDO POLÍTICO - EMPRESA DE TRABALHO TEMPORÁRIO (contribuição sobre a folha de salário de seus empregados) - SOCIEDADE COOPERATIVA (estabelecimento no qual explora atividade econômica relacionada neste código) - TOMADOR DE SERVIÇO DE TRABALHADOR AVULSO - contribuição sobre a remuneração de trabalhador avulso vinculado ao comércio - EMPRESAS DE <i>FACTORING</i>.</td>
+<td colspan="4"><b>EMPRESAS</b></td>
 </tr>
 <tr>
 <td rowspan="6">Remuneração dos segurados</td>
@@ -1770,12 +1804,12 @@
 <td>0,6%</td>
 </tr>
 <tr>
-<td><strong>TOTAL</strong></td>
-<td><strong>0115</strong></td>
-<td><strong>5,8%</strong></td>
+<td><b>TOTAL</b></td>
+<td><b>0115</b></td>
+<td><b>5,8%</b></td>
 </tr>
 <tr>
-<td colspan="4"><strong>COOPERATIVAS</strong></td>
+<td colspan="4"><b>COOPERATIVAS</b></td>
 </tr>
 <tr>
 <td rowspan="5">Remuneração dos segurados</td>
@@ -1799,9 +1833,9 @@
 <td>2,5%</td>
 </tr>
 <tr>
-<td><strong>TOTAL</strong></td>
-<td><strong>4163</strong></td>
-<td><strong>5,8%</strong></td>
+<td><b>TOTAL</b></td>
+<td><b>4163</b></td>
+<td><b>5,8%</b></td>
 </tr>
 <tr>
 <td rowspan="3">523</td>
@@ -1817,9 +1851,9 @@
 <td>0,2%</td>
 </tr>
 <tr>
-<td><strong>TOTAL</strong></td>
-<td><strong>0003</strong></td>
-<td><strong>2,7%</strong></td>
+<td><b>TOTAL</b></td>
+<td><b>0003</b></td>
+<td><b>2,7%</b></td>
 </tr>
 <tr>
 <td rowspan="3">531</td>
@@ -1835,9 +1869,9 @@
 <td>2,7%</td>
 </tr>
 <tr>
-<td><strong>TOTAL</strong></td>
-<td><strong>0003</strong></td>
-<td><strong>5,2%</strong></td>
+<td><b>TOTAL</b></td>
+<td><b>0003</b></td>
+<td><b>5,2%</b></td>
 </tr>
 <tr>
 <td rowspan="4">540</td>
@@ -1858,9 +1892,9 @@
 <td>2,5%</td>
 </tr>
 <tr>
-<td><strong>TOTAL</strong></td>
-<td><strong>0131</strong></td>
-<td><strong>5,2%</strong></td>
+<td><b>TOTAL</b></td>
+<td><b>0131</b></td>
+<td><b>5,2%</b></td>
 </tr>
 <tr>
 <td rowspan="4">558</td>
@@ -1881,14 +1915,14 @@
 <td>2,5%</td>
 </tr>
 <tr>
-<td><strong>TOTAL</strong></td>
-<td><strong>0259</strong></td>
-<td><strong>5,2%</strong></td>
+<td><b>TOTAL</b></td>
+<td><b>0259</b></td>
+<td><b>5,2%</b></td>
 </tr>
 <tr>
 <td rowspan="12">566</td>
 <td rowspan="12">EMPRESA DE COMUNICAÇÃO - EMPRESA DE PUBLICIDADE - EMPRESA JORNALÍSTICA - EMPRESA DE DIFUSÃO CULTURAL E ARTÍSTICA - ESTABELECIMENTO DE CULTURA FÍSICA - ESTABELECIMENTO HÍPICO - ESCRITÓRIO, CONSULTÓRIO DE PROFISSIONAL LIBERAL (pessoa física) - SINDICATO OU ASSOCIAÇÃO DE PROFISSIONAL, EMPREGADO OU EMPREGADOR, PERTENCENTE A ATIVIDADE OUTRORA VINCULADA AO ex-IAPC - CONDOMÍNIO - CRECHE - ASSOCIAÇÕES DESPORTIVAS (exceto clubes de futebol profissional - FPAS 647 e 779) - ENTIDADES RECREATIVAS, CULTURAIS, DE ORIENTAÇÃO E FORMAÇÃO PROFISSIONAL E DE ASSISTÊNCIA SOCIAL - SOCIEDADE COOPERATIVA (estabelecimento no qual explora atividade econômica relacionada neste código).</td>
-<td colspan="4"><strong>EMPRESAS</strong></td>
+<td colspan="4"><b>EMPRESAS</b></td>
 </tr>
 <tr>
 <td rowspan="5">Remuneração dos segurados</td>
@@ -1912,12 +1946,12 @@
 <td>0,3%</td>
 </tr>
 <tr>
-<td><strong>TOTAL</strong></td>
-<td><strong>0099</strong></td>
-<td><strong>4,5%</strong></td>
+<td><b>TOTAL</b></td>
+<td><b>0099</b></td>
+<td><b>4,5%</b></td>
 </tr>
 <tr>
-<td colspan="4"><strong>COOPERATIVAS</strong></td>
+<td colspan="4"><b>COOPERATIVAS</b></td>
 </tr>
 <tr>
 <td rowspan="5">Remuneração dos segurados</td>
@@ -1941,14 +1975,14 @@
 <td>2,5%</td>
 </tr>
 <tr>
-<td><strong>TOTAL</strong></td>
-<td><strong>4163</strong></td>
-<td><strong>5,5%</strong></td>
+<td><b>TOTAL</b></td>
+<td><b>4163</b></td>
+<td><b>5,5%</b></td>
 </tr>
 <tr>
 <td rowspan="12">574</td>
 <td rowspan="12">ESTABELECIMENTO DE ENSINO - SOCIEDADE COOPERATIVA (estabelecimento no qual explora atividade econômica relacionada neste código).</td>
-<td colspan="4"><strong>EMPRESAS</strong></td>
+<td colspan="4"><b>EMPRESAS</b></td>
 </tr>
 <tr>
 <td rowspan="5">Remuneração dos segurados</td>
@@ -1972,12 +2006,12 @@
 <td>0,3%</td>
 </tr>
 <tr>
-<td><strong>TOTAL</strong></td>
-<td><strong>0099</strong></td>
-<td><strong>4,5%</strong></td>
+<td><b>TOTAL</b></td>
+<td><b>0099</b></td>
+<td><b>4,5%</b></td>
 </tr>
 <tr>
-<td colspan="4"><strong>COOPERATIVAS</strong></td>
+<td colspan="4"><b>COOPERATIVAS</b></td>
 </tr>
 <tr>
 <td rowspan="5">Remuneração dos segurados</td>
@@ -2001,36 +2035,36 @@
 <td>2,5%</td>
 </tr>
 <tr>
-<td><strong>TOTAL</strong></td>
-<td><strong>4163</strong></td>
-<td><strong>5,5%</strong></td>
+<td><b>TOTAL</b></td>
+<td><b>4163</b></td>
+<td><b>5,5%</b></td>
 </tr>
 <tr>
 <td>582</td>
 <td>ÓRGÃO DO PODER PÚBLICO (União, Estado, Distrito Federal e Município, inclusive suas respectivas Autarquias e as Fundações com personalidade jurídica de direito público.) - ORGANISMO OFICIAL BRASILEIRO E INTERNACIONAL do qual o Brasil seja membro efetivo e mantenha, no exterior, brasileiro civil que trabalhe para a união ainda que lá domiciliado e contratado - REPARTIÇÃO DIPLOMÁTICA BRASILEIRA sediada no exterior que contrata auxiliares locais - MISSÃO DIPLOMÁTICA OU REPARTIÇÃO CONSULAR de carreira estrangeira e órgão a ela subordinado no Brasil, ou a membro dessa missão ou repartição, observadas as exclusões legais (Decreto-Lei 2.253/1985) - ORDEM DOS ADVOGADOS DO BRASIL - CONSELHO DE FISCALIZAÇÃO DE PROFISSÃO REGULAMENTADA.<br /><br />Nota: Não se incluem no FPAS 582 as MISSÕES DIPLOMÁTICAS E OUTROS ORGANISMOS A ELAS EQUIPARADOS, INCLUSIVE SEUS MEMBROS, que sejam partícipes de acordo internacional de isenção reconhecido pelo Brasil, os quais deverão se enquadrar no FPAS 876.</td>
 <td></td>
 <td></td>
-<td><strong>0000</strong></td>
-<td><strong>0,00%</strong></td>
+<td><b>0000</b></td>
+<td><b>0,00%</b></td>
 </tr>
 <tr>
 <td rowspan="2">590</td>
 <td>CARTÓRIO, TABELIONATO, oficializados ou não.</td>
 <td>Remuneração dos segurados</td>
-<td><strong>SALÁRIO EDUCAÇÃO</strong></td>
-<td><strong>0001</strong></td>
-<td><strong>2,5%</strong></td>
+<td><b>SALÁRIO EDUCAÇÃO</b></td>
+<td><b>0001</b></td>
+<td><b>2,5%</b></td>
 </tr>
 <tr>
 <td>Brasileiros contratados no Brasil e transferidos para prestarem serviços no exterior, conforme disposto no art. 11 da Lei 7.064/1982.<br /><br />Trabalhadores estrangeiros vinculados a previdência social do exterior e contratados para prestarem serviços no Brasil, desde que haja acordo internacional de previdência social entre ambos os países.</td>
 <td></td>
 <td></td>
-<td><strong>0000</strong></td>
-<td><strong>0%</strong></td>
+<td><b>0000</b></td>
+<td><b>0%</b></td>
 </tr>
 <tr>
 <td rowspan="3">604</td>
-<td rowspan="3">PRODUTOR RURAL PESSOA FÍSICA, contribuinte individual (com recolhimento sobre a comercialização da produção rural) e segurado especial, nos termos da Lei 11.718/2008.<br /><br />PRODUTOR RURAL PESSOA JURÍDICA, inclusive na atividade de criação de pescado em cativeiro, em relação a todos os seus empregados (com recolhimento sobre a comercialização da produção rural).<br /><br />CONSORCIO SIMPLIFICADO DE PRODUTORES RURAIS.<br /><br />AGROINDÚSTRIA não relacionada no <em>caput</em> do Decreto Lei 1.146/1970, relativamente aos segurados e envolvidos no processo de produção própria, setor rural, exceto as agroindústrias de piscicultura, carcinicultura, suinocultura, avicultura e florestamento e reflorestamento, nos termos da Lei 10.684/2003.<br /><br />SOCIEDADE COOPERATIVA DE PRODUÇÃO RURAL, relativamente em relação aos segurados contratados para a colheita da produção de seus cooperados.<br /><br />Exclui-se deste código a prestação de serviços a terceiros, nos termos da Lei 10.256/2001.</td>
+<td rowspan="3">PRODUTOR RURAL PESSOA FÍSICA, contribuinte individual (com recolhimento sobre a comercialização da produção rural) e segurado especial, nos termos da Lei 11.718/2008.<br /><br />PRODUTOR RURAL PESSOA JURÍDICA, inclusive na atividade de criação de pescado em cativeiro, em relação a todos os seus empregados (com recolhimento sobre a comercialização da produção rural).<br /><br />CONSORCIO SIMPLIFICADO DE PRODUTORES RURAIS.<br /><br />AGROINDÚSTRIA não relacionada no <i>caput</i> do Decreto Lei 1.146/1970, relativamente aos segurados e envolvidos no processo de produção própria, setor rural, exceto as agroindústrias de piscicultura, carcinicultura, suinocultura, avicultura e florestamento e reflorestamento, nos termos da Lei 10.684/2003.<br /><br />SOCIEDADE COOPERATIVA DE PRODUÇÃO RURAL, relativamente em relação aos segurados contratados para a colheita da produção de seus cooperados.<br /><br />Exclui-se deste código a prestação de serviços a terceiros, nos termos da Lei 10.256/2001.</td>
 <td rowspan="3">Remuneração dos segurados</td>
 <td>SALÁRIO EDUCAÇÃO</td>
 <td>0001</td>
@@ -2042,14 +2076,14 @@
 <td>0,2%</td>
 </tr>
 <tr>
-<td><strong>TOTAL</strong></td>
-<td><strong>0003</strong></td>
-<td><strong>2,7%</strong></td>
+<td><b>TOTAL</b></td>
+<td><b>0003</b></td>
+<td><b>2,7%</b></td>
 </tr>
 <tr>
 <td rowspan="13">612</td>
 <td rowspan="13">EMPRESA DE TRANSPORTE RODOVIÁRIO - EMPRESA DE TRANSPORTE DE VALORES - EMPRESA DE LOCAÇÃO DE VEÍCULO - EMPRESA DE DISTRIBUIÇÃO DE PETRÓLEO (exclusivamente em relação à folha de pagamento dos empregados envolvidos diretamente na atividade de transporte) - SOCIEDADE COOPERATIVA (estabelecimento no qual explora atividade econômica relacionada neste código).</td>
-<td colspan="4"><strong>EMPRESAS</strong></td>
+<td colspan="4"><b>EMPRESAS</b></td>
 </tr>
 <tr>
 <td rowspan="6">Remuneração dos segurados</td>
@@ -2078,12 +2112,12 @@
 <td>1,0%</td>
 </tr>
 <tr>
-<td><strong>TOTAL</strong></td>
-<td><strong>3139</strong></td>
-<td><strong>5,8%</strong></td>
+<td><b>TOTAL</b></td>
+<td><b>3139</b></td>
+<td><b>5,8%</b></td>
 </tr>
 <tr>
-<td colspan="4"><strong>COOPERATIVAS</strong></td>
+<td colspan="4"><b>COOPERATIVAS</b></td>
 </tr>
 <tr>
 <td rowspan="5">Remuneração dos segurados</td>
@@ -2107,9 +2141,9 @@
 <td>2,5%</td>
 </tr>
 <tr>
-<td><strong>TOTAL</strong></td>
-<td><strong>4163</strong></td>
-<td><strong>5,8%</strong></td>
+<td><b>TOTAL</b></td>
+<td><b>4163</b></td>
+<td><b>5,8%</b></td>
 </tr>
 <tr>
 <td rowspan="3">620</td>
@@ -2125,17 +2159,17 @@
 <td>1,0%</td>
 </tr>
 <tr>
-<td><strong>TOTAL</strong></td>
-<td><strong>3072</strong></td>
-<td><strong>2,5%</strong></td>
+<td><b>TOTAL</b></td>
+<td><b>3072</b></td>
+<td><b>2,5%</b></td>
 </tr>
 <tr>
 <td>639</td>
 <td>ENTIDADE BENEFICENTE DE ASSISTÊNCIA SOCIAL, com isenção requerida e concedida pela Previdência Social, inclusive aquela transformada em entidade de fins econômicos na forma do art. 7° da Lei 9.131/1995, no período de pagamento parcial das contribuições patronais, nos termos do art. 13 da Lei 11.096/2005.</td>
 <td></td>
 <td></td>
-<td><strong>0000</strong></td>
-<td><strong>0,00%</strong></td>
+<td><b>0000</b></td>
+<td><b>0,00%</b></td>
 </tr>
 <tr>
 <td rowspan="5">647</td>
@@ -2161,17 +2195,17 @@
 <td>0,3%</td>
 </tr>
 <tr>
-<td><strong>TOTAL</strong></td>
-<td><strong>0099</strong></td>
-<td><strong>4,5%</strong></td>
+<td><b>TOTAL</b></td>
+<td><b>0099</b></td>
+<td><b>4,5%</b></td>
 </tr>
 <tr>
 <td>655</td>
 <td>EMPRESA DE TRABALHO TEMPORÁRIO (Lei 6.019/1974) - contribuição sobre a remuneração do trabalhador temporário.</td>
 <td>Remuneração dos segurados</td>
-<td><strong>SALÁRIO EDUCAÇÃO</strong></td>
-<td><strong>0001</strong></td>
-<td><strong>2,50%</strong></td>
+<td><b>SALÁRIO EDUCAÇÃO</b></td>
+<td><b>0001</b></td>
+<td><b>2,50%</b></td>
 </tr>
 <tr>
 <td rowspan="4">680</td>
@@ -2192,9 +2226,9 @@
 <td>2,5%</td>
 </tr>
 <tr>
-<td><strong>TOTAL</strong></td>
-<td><strong>0131</strong></td>
-<td><strong>5,2%</strong></td>
+<td><b>TOTAL</b></td>
+<td><b>0131</b></td>
+<td><b>5,2%</b></td>
 </tr>
 <tr>
 <td rowspan="3">736</td>
@@ -2210,14 +2244,14 @@
 <td>0,2%</td>
 </tr>
 <tr>
-<td><strong>TOTAL</strong></td>
-<td><strong>0003</strong></td>
-<td><strong>2,7%</strong></td>
+<td><b>TOTAL</b></td>
+<td><b>0003</b></td>
+<td><b>2,7%</b></td>
 </tr>
 <tr>
 <td rowspan="10">744</td>
 <td rowspan="10">EMPRESA ADQUIRENTE, CONSUMIDORA, CONSIGNATÁRIA OU COOPERATIVA que adquire produção rural de produtor pessoa física.<br /><br />PRODUTOR RURAL PESSOA FÍSICA (contribuinte individual e segurado especial), quando venderem seus produtos a outro produtor rural pessoa física, consumidor pessoa física, destinatário incerto ou não comprovar formalmente o destino da produção ou a adquirente domiciliado no exterior.<br /><br />PRODUTOR RURAL PESSOA JURÍDICA E AGROINDÚSTRIA (exceto as agroindústrias de piscicultura, carcinicultura, suinocultura, avicultura, florestamento e reflorestamento, nos termos da Lei 10.684/2003).</td>
-<td colspan="4"><strong>PESSOA FÍSICA</strong></td>
+<td colspan="4"><b>PESSOA FÍSICA</b></td>
 </tr>
 <tr>
 <td rowspan="4">Receita bruta da produção</td>
@@ -2234,11 +2268,11 @@
 <td>0,2%</td>
 </tr>
 <tr>
-<td><strong>TOTAL</strong></td>
-<td><strong>1,5%</strong></td>
+<td><b>TOTAL</b></td>
+<td><b>1,5%</b></td>
 </tr>
 <tr>
-<td colspan="4"><strong>PESSOA JURÍDICA E AGROINDÚSTRIA</strong></td>
+<td colspan="4"><b>PESSOA JURÍDICA E AGROINDÚSTRIA</b></td>
 </tr>
 <tr>
 <td rowspan="4">Receita bruta da produção</td>
@@ -2255,21 +2289,21 @@
 <td>0,25%</td>
 </tr>
 <tr>
-<td><strong>TOTAL</strong></td>
-<td><strong>2,05%</strong></td>
+<td><b>TOTAL</b></td>
+<td><b>2,05%</b></td>
 </tr>
 <tr>
 <td>779</td>
 <td>ASSOCIAÇÃO DESPORTIVA QUE MANTÉM EQUIPE DE FUTEBOL PROFISSIONAL - contribuição de 5% da receita bruta, decorrente de espetáculo desportivo de que participe em todo território nacional em qualquer modalidade, inclusive jogos internacionais, a ser recolhida pela ENTIDADE PROMOTORA DO EVENTO (federação ou confederação), e de QUALQUER FORMA DE PATROCÍNIO, LICENCIAMENTO DE USO DE MARCAS E SÍMBOLOS, PUBLICIDADE, PROPAGANDA E TRANSMISSÃO DE ESPETÁCULOS DESPORTIVOS, a ser recolhida pela empresa ou entidade patrocinadora.</td>
 <td></td>
 <td></td>
-<td><strong>0000</strong></td>
-<td><strong>0%</strong></td>
+<td><b>0000</b></td>
+<td><b>0%</b></td>
 </tr>
 <tr>
 <td rowspan="10">787</td>
 <td rowspan="10">SINDICATO, FEDERAÇÃO E CONFEDERAÇÃO PATRONAL RURAL.<br /><br />ATIVIDADE COOPERATIVISTA RURAL (cooperativa rural) não relacionada no Decreto-Lei 1.146/1970 (com ou sem produção própria), somente em relação aos empregados que atuem diretamente na produção primária de origem animal ou vegetal.<br /><br />AGROINDUSTRIAS de piscicultura, carcinicultura, suinocultura, avicultura, florestamento e reflorestamento, nos termos da Lei 10.684/2003, somente em relação aos empregados que atuem diretamente na produção primária de origem animal ou vegetal.<br /><br />PRESTADOR DE MÃO-DE-OBRA RURAL legalmente constituído como pessoa jurídica.<br /><br />PRODUTOR RURAL PESSOA JURÍDICA na prestação de serviços rurais (atividade não autônoma).<br /><br />AGROINDÚSTRIA (nos termos da Lei 10.256/2001) na prestação de serviços rurais ou agroindustriais a terceiros.<br /><br />PRODUTOR RURAL PESSOA JURÍDICA que exerce outra atividade econômica autônoma, somente em relação aos empregados que atuem diretamente na produção primária de origem animal ou vegetal.<br /><br />PRODUTOR RURAL PESSOA FÍSICA, contribuinte individual (empregador) e PRODUTOR RURAL PESSOA JURÍDICA, com recolhimento sobre a folha de salários.<br /><br />SOCIEDADE COOPERATIVA DE CRÉDITO, conforme art. 10 da Lei 11.524/2007.</td>
-<td colspan="4"><strong>TODAS AS ATIVIDADES, EXCETO COOPERATIVISTA</strong></td>
+<td colspan="4"><b>TODAS AS ATIVIDADES, EXCETO COOPERATIVISTA</b></td>
 </tr>
 <tr>
 <td rowspan="4">Remuneração dos segurados</td>
@@ -2288,12 +2322,12 @@
 <td>2,5%</td>
 </tr>
 <tr>
-<td><strong>TOTAL</strong></td>
-<td><strong>0515</strong></td>
-<td><strong>5,2%</strong></td>
+<td><b>TOTAL</b></td>
+<td><b>0515</b></td>
+<td><b>5,2%</b></td>
 </tr>
 <tr>
-<td colspan="4"><strong>COOPERATIVAS</strong></td>
+<td colspan="4"><b>COOPERATIVAS</b></td>
 </tr>
 <tr>
 <td rowspan="4">Remuneração dos segurados</td>
@@ -2312,13 +2346,13 @@
 <td>2,5%</td>
 </tr>
 <tr>
-<td><strong>TOTAL</strong></td>
-<td><strong>4099</strong></td>
-<td><strong>5,2%</strong></td>
+<td><b>TOTAL</b></td>
+<td><b>4099</b></td>
+<td><b>5,2%</b></td>
 </tr>
 <tr>
 <td rowspan="4">795</td>
-<td rowspan="4">ESTABELECIMENTOS RURAL E INDUSTRIAL DA SOCIEDADE COOPERATIVA relacionada no art. 2°, <em>caput</em>, do Decreto-Lei 1.146/1970.</td>
+<td rowspan="4">ESTABELECIMENTOS RURAL E INDUSTRIAL DA SOCIEDADE COOPERATIVA relacionada no art. 2°, <i>caput</i>, do Decreto-Lei 1.146/1970.</td>
 <td rowspan="4">Remuneração dos segurados</td>
 <td>SALÁRIO EDUCAÇÃO</td>
 <td>0001</td>
@@ -2335,13 +2369,13 @@
 <td>2,5%</td>
 </tr>
 <tr>
-<td><strong>TOTAL</strong></td>
-<td><strong>4099</strong></td>
-<td><strong>7,7%</strong></td>
+<td><b>TOTAL</b></td>
+<td><b>4099</b></td>
+<td><b>7,7%</b></td>
 </tr>
 <tr>
 <td rowspan="3">825</td>
-<td rowspan="3">AGROINDÚSTRIA relacionada no <em>caput</em> do art. 2º do Decreto-Lei 1.146/1970, a partir da competência 11/2001.<br /><br />TOMADOR DE SERVIÇO DE TRABALHADOR AVULSO - contribuição sobre a remuneração de trabalhador avulso vinculado à agroindústria relacionada no <em>caput</em> do art. 2º do Decreto-Lei 1.146/1970.<br /><br />Exclui-se deste código a prestação de serviços a terceiros, nos termos da Lei 10.256/2001.</td>
+<td rowspan="3">AGROINDÚSTRIA relacionada no <i>caput</i> do art. 2º do Decreto-Lei 1.146/1970, a partir da competência 11/2001.<br /><br />TOMADOR DE SERVIÇO DE TRABALHADOR AVULSO - contribuição sobre a remuneração de trabalhador avulso vinculado à agroindústria relacionada no <i>caput</i> do art. 2º do Decreto-Lei 1.146/1970.<br /><br />Exclui-se deste código a prestação de serviços a terceiros, nos termos da Lei 10.256/2001.</td>
 <td rowspan="3">Remuneração dos segurados</td>
 <td>SALÁRIO EDUCAÇÃO</td>
 <td>0001</td>
@@ -2353,14 +2387,14 @@
 <td>2,7%</td>
 </tr>
 <tr>
-<td><strong>TOTAL</strong></td>
-<td><strong>0003</strong></td>
-<td><strong>5,2%</strong></td>
+<td><b>TOTAL</b></td>
+<td><b>0003</b></td>
+<td><b>5,2%</b></td>
 </tr>
 <tr>
 <td rowspan="13">833</td>
-<td rowspan="13">SETOR INDUSTRIAL DA AGROINDÚSTRIA não relacionada no <em>caput</em> do art. 2º do Decreto-Lei 1.146/1970, a partir da competência 11/2001, exceto as agroindústrias de piscicultura, carcinicultura, suinocultura e avicultura, inclusive sob a forma de cooperativa.<br /><br />SETOR INDUSTRIAL DA AGROINDÚSTRIA de florestamento e reflorestamento quando aplicável a substituição, na forma do art. 22-A da Lei 8.212/1991.<br /><br />TOMADOR DE SERVIÇO DE TRABALHADOR AVULSO - contribuição sobre a remuneração de trabalhador avulso vinculado à agroindústria não relacionada no <em>caput</em> do art. 2º do Decreto-Lei 1.146/1970.<br /><br />Exclui-se deste código a prestação de serviços a terceiros.</td>
-<td colspan="4"><strong>EMPRESAS</strong></td>
+<td rowspan="13">SETOR INDUSTRIAL DA AGROINDÚSTRIA não relacionada no <i>caput</i> do art. 2º do Decreto-Lei 1.146/1970, a partir da competência 11/2001, exceto as agroindústrias de piscicultura, carcinicultura, suinocultura e avicultura, inclusive sob a forma de cooperativa.<br /><br />SETOR INDUSTRIAL DA AGROINDÚSTRIA de florestamento e reflorestamento quando aplicável a substituição, na forma do art. 22-A da Lei 8.212/1991.<br /><br />TOMADOR DE SERVIÇO DE TRABALHADOR AVULSO - contribuição sobre a remuneração de trabalhador avulso vinculado à agroindústria não relacionada no <i>caput</i> do art. 2º do Decreto-Lei 1.146/1970.<br /><br />Exclui-se deste código a prestação de serviços a terceiros.</td>
+<td colspan="4"><b>EMPRESAS</b></td>
 </tr>
 <tr>
 <td rowspan="6">Remuneração dos segurados</td>
@@ -2374,12 +2408,12 @@
 <td>0,2%</td>
 </tr>
 <tr>
-<td>+ SENAI<strong>*</strong></td>
+<td>+ SENAI<b>*</b></td>
 <td>0004</td>
 <td>1,0%</td>
 </tr>
 <tr>
-<td>+ SESI<strong>*</strong></td>
+<td>+ SESI<b>*</b></td>
 <td>0008</td>
 <td>1,5%</td>
 </tr>
@@ -2389,12 +2423,12 @@
 <td>0,6%</td>
 </tr>
 <tr>
-<td><strong>TOTAL</strong></td>
-<td><strong>0079</strong></td>
-<td><strong>5,8%</strong></td>
+<td><b>TOTAL</b></td>
+<td><b>0079</b></td>
+<td><b>5,8%</b></td>
 </tr>
 <tr>
-<td colspan="4"><strong>COOPERATIVAS</strong></td>
+<td colspan="4"><b>COOPERATIVAS</b></td>
 </tr>
 <tr>
 <td rowspan="5">Remuneração dos segurados</td>
@@ -2418,38 +2452,38 @@
 <td>2,5%</td>
 </tr>
 <tr>
-<td><strong>TOTAL</strong></td>
-<td><strong>4163</strong></td>
-<td><strong>5,8%</strong></td>
+<td><b>TOTAL</b></td>
+<td><b>4163</b></td>
+<td><b>5,8%</b></td>
 </tr>
 <tr>
 <td>868</td>
 <td>EMPREGADOR DOMÉSTICO - instituído para possibilitar o depósito do FGTS.</td>
 <td></td>
 <td></td>
-<td><strong>0000</strong></td>
-<td><strong>0%</strong></td>
+<td><b>0000</b></td>
+<td><b>0%</b></td>
 </tr>
 <tr>
 <td>876</td>
 <td>MISSÕES DIPLOMÁTICAS E OUTROS ORGANISMOS A ELAS EQUIPARADOS, INCLUSIVE SEUS MEMBROS, que sejam partícipes de acordo internacional de isenção reconhecido pelo Brasil.</td>
 <td></td>
 <td></td>
-<td><strong>0000</strong></td>
-<td><strong>0%</strong></td>
+<td><b>0000</b></td>
+<td><b>0%</b></td>
 </tr>
 </tbody>
 </table>
-<article class="message is-small">
+<div class="message is-small">
 <div class="message-body">
-<p><strong>* Havendo recolhimento direto ao SESI e/ou ao SENAI por meio de convênio, o código da entidade para o qual é efetuado o recolhimento direto deve ser deduzido do código a ser informado no campo do Código de Terceiros, conforme demonstrado no quadro abaixo:</strong></p>
-<pre><strong>Situação do contribuinte</strong>  | <strong>Combinação dos códigos de Terceiros</strong> | <strong>Código de Terceiros</strong> | <strong>Alíquota</strong>
+<p><b>* Havendo recolhimento direto ao SESI e/ou ao SENAI por meio de convênio, o código da entidade para o qual é efetuado o recolhimento direto deve ser deduzido do código a ser informado no campo do Código de Terceiros, conforme demonstrado no quadro abaixo:</b></p>
+<pre><b>Situação do contribuinte</b>  | <b>Combinação dos códigos de Terceiros</b> | <b>Código de Terceiros</b> | <b>Alíquota</b>
 Com convênio SESI + SENAI | 0001+0002+0064                      |         0067        |   3,3%
 Com convênio SESI         | 0001+0002+0004+0064                 |         0071        |   4,3%
 Com convênio SENAI        | 0001+0002+0008+0064                 |         0075        |   4,8%
 Sem convênio              | 0001+0002+0004+0008+0064            |         0079        |   5,8%
 </pre>
-<p><strong>NOTAS:</strong><br /><br /></p>
+<p><b>NOTAS:</b><br /><br /></p>
 <p>1 - Cabe à pessoa jurídica, para fins de recolhimento da contribuição devida a terceiros, classificar a atividade por ela desenvolvida e atribuir-lhe o código FPAS correspondente. A classificação deverá ser de acordo com o Quadro de Atividades e Profissões a que se refere o art. 577 do Decreto-Lei 5.452/1943 (CLT).<br /><br /></p>
 <p>2 - Na hipótese de a pessoa jurídica desenvolver mais de uma atividade, prevalecerá, para fins de classificação, a atividade preponderante, assim considerada a que representa objeto social da empresa, ou a unidade de produto, para qual convergem as demais em regime de conexão funcional (CLT, art. 581, § 2º). Se nenhuma das atividades desenvolvidas pela pessoa jurídica se caracterizar como preponderante, classificar-se-á cada uma delas no seu respectivo código FPAS.<br /><br /></p>
 <p>3 - Para fins de recolhimento da contribuição devida a terceiros, a associação desportiva e a sociedade empresária que mantém equipe de futebol profissional, observarão as seguintes regras:</p>
@@ -2468,13 +2502,17 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 <p>SENAR - 1,25% sobre a folha de pagamento, 0,125% sobre a receita bruta da produção de pessoa jurídica e agroindústria, e 0,1% sobre a receita bruta da produção de pessoa física;</p>
 <p>SESCOOP - 1,25%.</p>
 </div>
-</article>
-<table id="Tabela 05" style="margin-top: 48px;" class="table is-fullwidth is-bordered">
-<thead><tr><th style="text-align: center" colspan="2">Tabela 05 - Tipos de Inscrição</th></tr></thead>
+</div>
+<table id="05" class="table is-fullwidth is-bordered tabela">
+<thead>
+<tr>
+<th colspan="2">Tabela 05 - Tipos de Inscrição</th>
+</tr>
+</thead>
 <tbody>
 <tr class="grupo">
-<td class="grupo" style="text-align: center; font-weight: bold;">CÓDIGO</td>
-<td class="grupo" style="text-align: center; font-weight: bold;">DESCRIÇÃO</td>
+<td>CÓDIGO</td>
+<td>DESCRIÇÃO</td>
 </tr>
 <tr>
 <td>1</td>
@@ -2502,14 +2540,18 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 </tbody>
 </table>
-<table id="Tabela 06" style="margin-top: 48px;" class="table is-fullwidth is-bordered">
-<thead><tr><th style="text-align: center" colspan="4">Tabela 06 - Países</th></tr></thead>
+<table id="06" class="table is-fullwidth is-bordered tabela">
+<thead>
+<tr>
+<th colspan="4">Tabela 06 - Países</th>
+</tr>
+</thead>
 <tbody>
 <tr class="grupo">
-<td class="grupo" style="text-align: center; font-weight: bold;">CÓDIGO</td>
-<td class="grupo" style="text-align: center; font-weight: bold;">NOME</td>
-<td class="grupo" style="text-align: center; font-weight: bold;">DATA DE CRIAÇÃO *</td>
-<td class="grupo" style="text-align: center; font-weight: bold;">DATA DE EXTINÇÃO **</td>
+<td>CÓDIGO</td>
+<td>NOME</td>
+<td>DATA DE CRIAÇÃO *</td>
+<td>DATA DE EXTINÇÃO **</td>
 </tr>
 <tr>
 <td>008</td>
@@ -4199,18 +4241,22 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 </tbody>
 </table>
-<article class="message is-small">
+<div class="message is-small">
 <div class="message-body">
 <p>* Data de Criação: Os países que já existem há mais de 100 anos estão com a data de criação não definida.</p>
 <p>** Data de Extinção: Data em que o país deixou de existir.</p>
 </div>
-</article>
-<table id="Tabela 07" style="margin-top: 48px;" class="table is-fullwidth is-bordered">
-<thead><tr><th style="text-align: center" colspan="2">Tabela 07 - Tipos de Dependente</th></tr></thead>
+</div>
+<table id="07" class="table is-fullwidth is-bordered tabela">
+<thead>
+<tr>
+<th colspan="2">Tabela 07 - Tipos de Dependente</th>
+</tr>
+</thead>
 <tbody>
 <tr class="grupo">
-<td class="grupo" style="text-align: center; font-weight: bold;">CÓDIGO</td>
-<td class="grupo" style="text-align: center; font-weight: bold;">DESCRIÇÃO</td>
+<td>CÓDIGO</td>
+<td>DESCRIÇÃO</td>
 </tr>
 <tr>
 <td>01</td>
@@ -4258,12 +4304,16 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 </tbody>
 </table>
-<table id="Tabela 08" style="margin-top: 48px;" class="table is-fullwidth is-bordered">
-<thead><tr><th style="text-align: center" colspan="2">Tabela 08 - Classificação Tributária</th></tr></thead>
+<table id="08" class="table is-fullwidth is-bordered tabela">
+<thead>
+<tr>
+<th colspan="2">Tabela 08 - Classificação Tributária</th>
+</tr>
+</thead>
 <tbody>
 <tr class="grupo">
-<td class="grupo" style="text-align: center; font-weight: bold;">CÓDIGO</td>
-<td class="grupo" style="text-align: center; font-weight: bold;">DESCRIÇÃO</td>
+<td>CÓDIGO</td>
+<td>DESCRIÇÃO</td>
 </tr>
 <tr>
 <td>01</td>
@@ -4343,14 +4393,18 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 </tbody>
 </table>
-<table id="Tabela 09" style="margin-top: 48px;" class="table is-fullwidth is-bordered">
-<thead><tr><th style="text-align: center" colspan="4">Tabela 09 - Tipos de Arquivo do eSocial</th></tr></thead>
+<table id="09" class="table is-fullwidth is-bordered tabela">
+<thead>
+<tr>
+<th colspan="4">Tabela 09 - Tipos de Arquivo do eSocial</th>
+</tr>
+</thead>
 <tbody>
 <tr class="grupo">
-<td class="grupo" style="text-align: center; font-weight: bold;">CÓDIGO</td>
-<td class="grupo" style="text-align: center; font-weight: bold;">DESCRIÇÃO</td>
-<td class="grupo" style="text-align: center; font-weight: bold;">INÍCIO</td>
-<td class="grupo" style="text-align: center; font-weight: bold;">TÉRMINO</td>
+<td>CÓDIGO</td>
+<td>DESCRIÇÃO</td>
+<td>INÍCIO</td>
+<td>TÉRMINO</td>
 </tr>
 <tr>
 <td>S-1000</td>
@@ -4594,13 +4648,17 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 </tbody>
 </table>
-<table id="Tabela 10" style="margin-top: 48px;" class="table is-fullwidth is-bordered">
-<thead><tr><th style="text-align: center" colspan="3">Tabela 10 - Tipos de Lotação Tributária</th></tr></thead>
+<table id="10" class="table is-fullwidth is-bordered tabela">
+<thead>
+<tr>
+<th colspan="3">Tabela 10 - Tipos de Lotação Tributária</th>
+</tr>
+</thead>
 <tbody>
 <tr class="grupo">
-<td class="grupo" style="text-align: center; font-weight: bold;">CÓDIGO</td>
-<td class="grupo" style="text-align: center; font-weight: bold;">DESCRIÇÃO</td>
-<td class="grupo" style="text-align: center; font-weight: bold;">PREENCHIMENTO DO CAMPO {nrInsc}</td>
+<td>CÓDIGO</td>
+<td>DESCRIÇÃO</td>
+<td>PREENCHIMENTO DO CAMPO {nrInsc}</td>
 </tr>
 <tr>
 <td>01</td>
@@ -4674,13 +4732,17 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 </tbody>
 </table>
-<table id="Tabela 11" style="margin-top: 48px;" class="table is-fullwidth is-bordered">
-<thead><tr><th style="text-align: center" colspan="16">Tabela 11 - Compatibilidade entre Categoria de Trabalhadores, Classif. Tributária e Tipos de Lotação</th></tr></thead>
+<table id="11" class="table is-fullwidth is-bordered tabela">
+<thead>
+<tr>
+<th colspan="16">Tabela 11 - Compatibilidade entre Categoria de Trabalhadores, Classif. Tributária e Tipos de Lotação</th>
+</tr>
+</thead>
 <tbody>
 <tr class="grupo">
-<td class="grupo" style="text-align: center; font-weight: bold;" rowspan="2">CÓD. CATEG.</td>
-<td class="grupo" style="text-align: center; font-weight: bold;" rowspan="2">CLASSIFICAÇÃO TRIBUTÁRIA</td>
-<td class="grupo" style="text-align: center; font-weight: bold;" colspan="14">TIPO DE LOTAÇÃO TRIBUTÁRIA</td>
+<td rowspan="2">CÓD. CATEG.</td>
+<td rowspan="2">CLASSIFICAÇÃO TRIBUTÁRIA</td>
+<td colspan="14">TIPO DE LOTAÇÃO TRIBUTÁRIA</td>
 </tr>
 <tr>
 <td>01</td>
@@ -5492,12 +5554,16 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 </tbody>
 </table>
-<table id="Tabela 12" style="margin-top: 48px;" class="table is-fullwidth is-bordered">
-<thead><tr><th style="text-align: center" colspan="20">Tabela 12 - Compatibilidade entre Tipos de Lotação e Classificação Tributária</th></tr></thead>
+<table id="12" class="table is-fullwidth is-bordered tabela">
+<thead>
+<tr>
+<th colspan="20">Tabela 12 - Compatibilidade entre Tipos de Lotação e Classificação Tributária</th>
+</tr>
+</thead>
 <tbody>
 <tr class="grupo">
-<td class="grupo" style="text-align: center; font-weight: bold;" rowspan="2">TIPO DE LOTAÇÃO</td>
-<td class="grupo" style="text-align: center; font-weight: bold;" colspan="19">CLASSIFICAÇÃO TRIBUTÁRIA</td>
+<td rowspan="2">TIPO DE LOTAÇÃO</td>
+<td colspan="19">CLASSIFICAÇÃO TRIBUTÁRIA</td>
 </tr>
 <tr>
 <td>01</td>
@@ -5830,12 +5896,16 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 </tbody>
 </table>
-<table id="Tabela 13" style="margin-top: 48px;" class="table is-fullwidth is-bordered">
-<thead><tr><th style="text-align: center" colspan="2">Tabela 13 - Parte do corpo atingida</th></tr></thead>
+<table id="13" class="table is-fullwidth is-bordered tabela">
+<thead>
+<tr>
+<th colspan="2">Tabela 13 - Parte do corpo atingida</th>
+</tr>
+</thead>
 <tbody>
 <tr class="grupo">
-<td class="grupo" style="text-align: center; font-weight: bold;">CÓDIGO</td>
-<td class="grupo" style="text-align: center; font-weight: bold;">DESCRIÇÃO</td>
+<td>CÓDIGO</td>
+<td>DESCRIÇÃO</td>
 </tr>
 <tr>
 <td>753030000</td>
@@ -6019,12 +6089,16 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 </tbody>
 </table>
-<table id="Tabela 14" style="margin-top: 48px;" class="table is-fullwidth is-bordered">
-<thead><tr><th style="text-align: center" colspan="2">Tabela 14 - Agente Causador do Acidente de Trabalho</th></tr></thead>
+<table id="14" class="table is-fullwidth is-bordered tabela">
+<thead>
+<tr>
+<th colspan="2">Tabela 14 - Agente Causador do Acidente de Trabalho</th>
+</tr>
+</thead>
 <tbody>
 <tr class="grupo">
-<td class="grupo" style="text-align: center; font-weight: bold;">CÓDIGO</td>
-<td class="grupo" style="text-align: center; font-weight: bold;">DESCRIÇÃO</td>
+<td>CÓDIGO</td>
+<td>DESCRIÇÃO</td>
 </tr>
 <tr>
 <td>302010200</td>
@@ -7020,12 +7094,16 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 </tbody>
 </table>
-<table id="Tabela 15" style="margin-top: 48px;" class="table is-fullwidth is-bordered">
-<thead><tr><th style="text-align: center" colspan="2">Tabela 15 - Agente Causador / Situação Geradora de Doença Profissional</th></tr></thead>
+<table id="15" class="table is-fullwidth is-bordered tabela">
+<thead>
+<tr>
+<th colspan="2">Tabela 15 - Agente Causador / Situação Geradora de Doença Profissional</th>
+</tr>
+</thead>
 <tbody>
 <tr class="grupo">
-<td class="grupo" style="text-align: center; font-weight: bold;">CÓDIGO</td>
-<td class="grupo" style="text-align: center; font-weight: bold;">DESCRIÇÃO</td>
+<td>CÓDIGO</td>
+<td>DESCRIÇÃO</td>
 </tr>
 <tr>
 <td>200004300</td>
@@ -7265,12 +7343,16 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 </tbody>
 </table>
-<table id="Tabela 16" style="margin-top: 48px;" class="table is-fullwidth is-bordered">
-<thead><tr><th style="text-align: center" colspan="2">Tabela 16 - Situação Geradora do Acidente de Trabalho</th></tr></thead>
+<table id="16" class="table is-fullwidth is-bordered tabela">
+<thead>
+<tr>
+<th colspan="2">Tabela 16 - Situação Geradora do Acidente de Trabalho</th>
+</tr>
+</thead>
 <tbody>
 <tr class="grupo">
-<td class="grupo" style="text-align: center; font-weight: bold;">CÓDIGO</td>
-<td class="grupo" style="text-align: center; font-weight: bold;">DESCRIÇÃO</td>
+<td>CÓDIGO</td>
+<td>DESCRIÇÃO</td>
 </tr>
 <tr>
 <td>200004300</td>
@@ -7510,12 +7592,16 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 </tbody>
 </table>
-<table id="Tabela 17" style="margin-top: 48px;" class="table is-fullwidth is-bordered">
-<thead><tr><th style="text-align: center" colspan="2">Tabela 17 - Descrição da Natureza da Lesão</th></tr></thead>
+<table id="17" class="table is-fullwidth is-bordered tabela">
+<thead>
+<tr>
+<th colspan="2">Tabela 17 - Descrição da Natureza da Lesão</th>
+</tr>
+</thead>
 <tbody>
 <tr class="grupo">
-<td class="grupo" style="text-align: center; font-weight: bold;">CÓDIGO</td>
-<td class="grupo" style="text-align: center; font-weight: bold;">DESCRIÇÃO</td>
+<td>CÓDIGO</td>
+<td>DESCRIÇÃO</td>
 </tr>
 <tr>
 <td>702000000</td>
@@ -7635,14 +7721,18 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 </tbody>
 </table>
-<table id="Tabela 18" style="margin-top: 48px;" class="table is-fullwidth is-bordered">
-<thead><tr><th style="text-align: center" colspan="4">Tabela 18 - Motivos de Afastamento</th></tr></thead>
+<table id="18" class="table is-fullwidth is-bordered tabela">
+<thead>
+<tr>
+<th colspan="4">Tabela 18 - Motivos de Afastamento</th>
+</tr>
+</thead>
 <tbody>
 <tr class="grupo">
-<td class="grupo" style="text-align: center; font-weight: bold;">CÓDIGO</td>
-<td class="grupo" style="text-align: center; font-weight: bold;">DESCRIÇÃO</td>
-<td class="grupo" style="text-align: center; font-weight: bold;">INÍCIO</td>
-<td class="grupo" style="text-align: center; font-weight: bold;">TÉRMINO</td>
+<td>CÓDIGO</td>
+<td>DESCRIÇÃO</td>
+<td>INÍCIO</td>
+<td>TÉRMINO</td>
 </tr>
 <tr>
 <td>01</td>
@@ -7874,15 +7964,19 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 </tbody>
 </table>
-<table id="Tabela 19" style="margin-top: 48px;" class="table is-fullwidth is-bordered">
-<thead><tr><th style="text-align: center" colspan="5">Tabela 19 - Motivos de Desligamento</th></tr></thead>
+<table id="19" class="table is-fullwidth is-bordered tabela">
+<thead>
+<tr>
+<th colspan="5">Tabela 19 - Motivos de Desligamento</th>
+</tr>
+</thead>
 <tbody>
 <tr class="grupo">
-<td class="grupo" style="text-align: center; font-weight: bold;">CÓDIGO</td>
-<td class="grupo" style="text-align: center; font-weight: bold;">DESCRIÇÃO</td>
-<td class="grupo" style="text-align: center; font-weight: bold;">INÍCIO</td>
-<td class="grupo" style="text-align: center; font-weight: bold;">TÉRMINO</td>
-<td class="grupo" style="text-align: center; font-weight: bold;">CÓD. CATEG.</td>
+<td>CÓDIGO</td>
+<td>DESCRIÇÃO</td>
+<td>INÍCIO</td>
+<td>TÉRMINO</td>
+<td>CÓD. CATEG.</td>
 </tr>
 <tr>
 <td>01</td>
@@ -8229,12 +8323,16 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 </tbody>
 </table>
-<table id="Tabela 20" style="margin-top: 48px;" class="table is-fullwidth is-bordered">
-<thead><tr><th style="text-align: center" colspan="2">Tabela 20 - Tipos de Logradouro</th></tr></thead>
+<table id="20" class="table is-fullwidth is-bordered tabela">
+<thead>
+<tr>
+<th colspan="2">Tabela 20 - Tipos de Logradouro</th>
+</tr>
+</thead>
 <tbody>
 <tr class="grupo">
-<td class="grupo" style="text-align: center; font-weight: bold;">CÓDIGO</td>
-<td class="grupo" style="text-align: center; font-weight: bold;">DESCRIÇÃO</td>
+<td>CÓDIGO</td>
+<td>DESCRIÇÃO</td>
 </tr>
 <tr>
 <td>A</td>
@@ -8966,14 +9064,18 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 </tbody>
 </table>
-<table id="Tabela 21" style="margin-top: 48px;" class="table is-fullwidth is-bordered">
-<thead><tr><th style="text-align: center" colspan="4">Tabela 21 - Códigos de Incidência Tributária da Rubrica para o IRRF</th></tr></thead>
+<table id="21" class="table is-fullwidth is-bordered tabela">
+<thead>
+<tr>
+<th colspan="4">Tabela 21 - Códigos de Incidência Tributária da Rubrica para o IRRF</th>
+</tr>
+</thead>
 <tbody>
 <tr class="grupo">
-<td class="grupo" style="text-align: center; font-weight: bold;">CÓDIGO</td>
-<td class="grupo" style="text-align: center; font-weight: bold;">DESCRIÇÃO</td>
-<td class="grupo" style="text-align: center; font-weight: bold;">INÍCIO</td>
-<td class="grupo" style="text-align: center; font-weight: bold;">TÉRMINO</td>
+<td>CÓDIGO</td>
+<td>DESCRIÇÃO</td>
+<td>INÍCIO</td>
+<td>TÉRMINO</td>
 </tr>
 <tr>
 <td>0</td>
@@ -9502,12 +9604,16 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 </tbody>
 </table>
-<table id="Tabela 22" style="margin-top: 48px;" class="table is-fullwidth is-bordered">
-<thead><tr><th style="text-align: center" colspan="20">Tabela 22 - Compatibilidade entre FPAS e Classificação Tributária</th></tr></thead>
+<table id="22" class="table is-fullwidth is-bordered tabela">
+<thead>
+<tr>
+<th colspan="20">Tabela 22 - Compatibilidade entre FPAS e Classificação Tributária</th>
+</tr>
+</thead>
 <tbody>
 <tr class="grupo">
-<td class="grupo" style="text-align: center; font-weight: bold;" rowspan="2">FPAS</td>
-<td class="grupo" style="text-align: center; font-weight: bold;" colspan="19">CLASSIFICAÇÃO TRIBUTÁRIA</td>
+<td rowspan="2">FPAS</td>
+<td colspan="19">CLASSIFICAÇÃO TRIBUTÁRIA</td>
 </tr>
 <tr>
 <td>01</td>
@@ -10104,15 +10210,19 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 </tbody>
 </table>
-<table id="Tabela 23" style="margin-top: 48px;" class="table is-fullwidth is-bordered">
-<thead><tr><th style="text-align: center" colspan="5">Tabela 23 - Relacionamento entre Tipo de Valor do FGTS, Categoria, Origem, Código de Incidência do FGTS e Condição</th></tr></thead>
+<table id="23" class="table is-fullwidth is-bordered tabela">
+<thead>
+<tr>
+<th colspan="5">Tabela 23 - Relacionamento entre Tipo de Valor do FGTS, Categoria, Origem, Código de Incidência do FGTS e Condição</th>
+</tr>
+</thead>
 <tbody>
 <tr class="grupo">
-<td class="grupo" style="text-align: center; font-weight: bold;">TIPO DE VALOR ({tpValor} ou {tpValorE})</td>
-<td class="grupo" style="text-align: center; font-weight: bold;">{codCateg}</td>
-<td class="grupo" style="text-align: center; font-weight: bold;">ORIGEM</td>
-<td class="grupo" style="text-align: center; font-weight: bold;">{codIncFGTS} EM S-1010</td>
-<td class="grupo" style="text-align: center; font-weight: bold;">CONDIÇÃO</td>
+<td>TIPO DE VALOR ({tpValor} ou {tpValorE})</td>
+<td>{codCateg}</td>
+<td>ORIGEM</td>
+<td>{codIncFGTS} EM S-1010</td>
+<td>CONDIÇÃO</td>
 </tr>
 <tr>
 <td rowspan="5">11</td>
@@ -10460,18 +10570,22 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 </tbody>
 </table>
-<article class="message is-small">
+<div class="message is-small">
 <div class="message-body">
 <p>OBS.: Se {dtDeslig} (ou {dtTerm}) acrescida de 10 dias não for dia útil, deverá ser considerado o dia útil imediatamente anterior.</p>
 <p>Considera-se como dia não útil o sábado, o domingo e todo aquele constante do Calendário Nacional de feriados bancários divulgados pelo Banco Central do Brasil.</p>
 </div>
-</article>
-<table id="Tabela 24" style="margin-top: 48px;" class="table is-fullwidth is-bordered">
-<thead><tr><th style="text-align: center" colspan="2">Tabela 24 - Agentes Nocivos e Atividades - Aposentadoria Especial</th></tr></thead>
+</div>
+<table id="24" class="table is-fullwidth is-bordered tabela">
+<thead>
+<tr>
+<th colspan="2">Tabela 24 - Agentes Nocivos e Atividades - Aposentadoria Especial</th>
+</tr>
+</thead>
 <tbody>
 <tr class="grupo">
-<td class="grupo" style="text-align: center; font-weight: bold;">CÓDIGO</td>
-<td class="grupo" style="text-align: center; font-weight: bold;">AGENTE NOCIVO</td>
+<td>CÓDIGO</td>
+<td>AGENTE NOCIVO</td>
 </tr>
 <tr>
 <td colspan="2">QUÍMICOS</td>
@@ -10941,12 +11055,16 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 </tbody>
 </table>
-<table id="Tabela 25" style="margin-top: 48px;" class="table is-fullwidth is-bordered">
-<thead><tr><th style="text-align: center" colspan="2">Tabela 25 - Tipos de Benefícios</th></tr></thead>
+<table id="25" class="table is-fullwidth is-bordered tabela">
+<thead>
+<tr>
+<th colspan="2">Tabela 25 - Tipos de Benefícios</th>
+</tr>
+</thead>
 <tbody>
 <tr class="grupo">
-<td class="grupo" style="text-align: center; font-weight: bold;">CÓDIGO</td>
-<td class="grupo" style="text-align: center; font-weight: bold;">DESCRIÇÃO DO BENEFÍCIO</td>
+<td>CÓDIGO</td>
+<td>DESCRIÇÃO DO BENEFÍCIO</td>
 </tr>
 <tr>
 <td colspan="2">Grupo 01 - Aposentadoria por Idade e Tempo de Contribuição</td>
@@ -11207,12 +11325,16 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 </tbody>
 </table>
-<table id="Tabela 26" style="margin-top: 48px;" class="table is-fullwidth is-bordered">
-<thead><tr><th style="text-align: center" colspan="2">Tabela 26 - Motivos de Cessação de Benefícios</th></tr></thead>
+<table id="26" class="table is-fullwidth is-bordered tabela">
+<thead>
+<tr>
+<th colspan="2">Tabela 26 - Motivos de Cessação de Benefícios</th>
+</tr>
+</thead>
 <tbody>
 <tr class="grupo">
-<td class="grupo" style="text-align: center; font-weight: bold;">CÓDIGO</td>
-<td class="grupo" style="text-align: center; font-weight: bold;">DESCRIÇÃO</td>
+<td>CÓDIGO</td>
+<td>DESCRIÇÃO</td>
 </tr>
 <tr>
 <td>01</td>
@@ -11256,12 +11378,16 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 </tbody>
 </table>
-<table id="Tabela 27" style="margin-top: 48px;" class="table is-fullwidth is-bordered">
-<thead><tr><th style="text-align: center" colspan="2">Tabela 27 - Procedimentos Diagnósticos</th></tr></thead>
+<table id="27" class="table is-fullwidth is-bordered tabela">
+<thead>
+<tr>
+<th colspan="2">Tabela 27 - Procedimentos Diagnósticos</th>
+</tr>
+</thead>
 <tbody>
 <tr class="grupo">
-<td class="grupo" style="text-align: center; font-weight: bold;">CÓDIGO</td>
-<td class="grupo" style="text-align: center; font-weight: bold;">PROCEDIMENTO</td>
+<td>CÓDIGO</td>
+<td>PROCEDIMENTO</td>
 </tr>
 <tr>
 <td>0001</td>
@@ -11529,11 +11655,11 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0065</td>
-<td><em>Absidia</em> (pesquisa)</td>
+<td><i>Absidia</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0066</td>
-<td><em>Acanthamoeba</em> (pesquisa)</td>
+<td><i>Acanthamoeba</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0067</td>
@@ -11845,15 +11971,15 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0142</td>
-<td><em>Actinobacillus</em> (pesquisa)</td>
+<td><i>Actinobacillus</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0143</td>
-<td><em>Actinomadura</em> (pesquisa)</td>
+<td><i>Actinomadura</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0144</td>
-<td><em>Actinomyces</em> (pesquisa)</td>
+<td><i>Actinomyces</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0145</td>
@@ -11937,15 +12063,15 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0165</td>
-<td>Agente do tremor epizoótico (<em>scrapie disease</em>) (pesquisa)</td>
+<td>Agente do tremor epizoótico (<i>scrapie disease</i>) (pesquisa)</td>
 </tr>
 <tr>
 <td>0166</td>
-<td>Agente do tremor epizoótico (<em>scrapie disease</em>) atípico (pesquisa)</td>
+<td>Agente do tremor epizoótico (<i>scrapie disease</i>) atípico (pesquisa)</td>
 </tr>
 <tr>
 <td>0167</td>
-<td><em>Ajellomyces</em> (pesquisa)</td>
+<td><i>Ajellomyces</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0168</td>
@@ -11957,7 +12083,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0170</td>
-<td><em>Alcaligenes</em> (pesquisa)</td>
+<td><i>Alcaligenes</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0171</td>
@@ -12049,7 +12175,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0193</td>
-<td><em>Ancylostoma</em> (pesquisa)</td>
+<td><i>Ancylostoma</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0194</td>
@@ -12061,7 +12187,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0196</td>
-<td><em>Angiostrongylus</em> (pesquisa)</td>
+<td><i>Angiostrongylus</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0197</td>
@@ -12077,7 +12203,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0200</td>
-<td><em>Anisakis</em> (pesquisa)</td>
+<td><i>Anisakis</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0201</td>
@@ -12125,7 +12251,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0212</td>
-<td>Anticorpo anti <em>saccharamyces</em> - ASCA</td>
+<td>Anticorpo anti <i>saccharamyces</i> - ASCA</td>
 </tr>
 <tr>
 <td>0213</td>
@@ -12353,7 +12479,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0270</td>
-<td><em>Arcanobacterium</em> (pesquisa)</td>
+<td><i>Arcanobacterium</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0271</td>
@@ -12377,7 +12503,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0276</td>
-<td><em>Ascaris</em> (pesquisa)</td>
+<td><i>Ascaris</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0277</td>
@@ -12385,11 +12511,11 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0278</td>
-<td><em>Aspergillus</em> (pesquisa)</td>
+<td><i>Aspergillus</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0279</td>
-<td><em>Aspergilus</em>, reação sorológica</td>
+<td><i>Aspergilus</i>, reação sorológica</td>
 </tr>
 <tr>
 <td>0280</td>
@@ -12485,11 +12611,11 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0303</td>
-<td><em>Babesia</em> (pesquisa)</td>
+<td><i>Babesia</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0304</td>
-<td><em>Bacillus</em> (pesquisa)</td>
+<td><i>Bacillus</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0305</td>
@@ -12497,11 +12623,11 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0306</td>
-<td><em>Bacteroides</em> (pesquisa)</td>
+<td><i>Bacteroides</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0307</td>
-<td><em>Balantidium</em> (pesquisa)</td>
+<td><i>Balantidium</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0308</td>
@@ -12517,7 +12643,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0311</td>
-<td><em>Bartonella</em> (pesquisa)</td>
+<td><i>Bartonella</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0312</td>
@@ -12577,7 +12703,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0326</td>
-<td><em>Blastocystis</em> (pesquisa)</td>
+<td><i>Blastocystis</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0327</td>
@@ -12585,7 +12711,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0328</td>
-<td><em>Blastomyces</em> (pesquisa)</td>
+<td><i>Blastomyces</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0329</td>
@@ -12597,11 +12723,11 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0331</td>
-<td><em>Borrelia</em> (pesquisa)</td>
+<td><i>Borrelia</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0332</td>
-<td><em>Brachispira</em> (pesquisa)</td>
+<td><i>Brachispira</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0333</td>
@@ -12629,11 +12755,11 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0339</td>
-<td><em>Brucella</em> (pesquisa)</td>
+<td><i>Brucella</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0340</td>
-<td><em>Brugia</em> (pesquisa)</td>
+<td><i>Brugia</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0341</td>
@@ -12641,7 +12767,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0342</td>
-<td><em>Burkholderia</em> (pesquisa)</td>
+<td><i>Burkholderia</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0343</td>
@@ -12697,15 +12823,15 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0356</td>
-<td><em>Campylobacter</em> (pesquisa)</td>
+<td><i>Campylobacter</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0357</td>
-<td><em>Campylobacter</em> (pesquisa)</td>
+<td><i>Campylobacter</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0358</td>
-<td><em>Candida</em> (pesquisa)</td>
+<td><i>Candida</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0359</td>
@@ -12713,7 +12839,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0360</td>
-<td><em>Capillaria</em> (pesquisa)</td>
+<td><i>Capillaria</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0362</td>
@@ -12733,7 +12859,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0365</td>
-<td><em>Cardiobacterium</em> (pesquisa)</td>
+<td><i>Cardiobacterium</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0366</td>
@@ -12801,7 +12927,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0382</td>
-<td><em>Chlamydophila</em> (pesquisa)</td>
+<td><i>Chlamydophila</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0383</td>
@@ -12857,7 +12983,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0396</td>
-<td>Citomegalovírus - <em>shell vial</em></td>
+<td>Citomegalovírus - <i>shell vial</i></td>
 </tr>
 <tr>
 <td>0397</td>
@@ -12869,11 +12995,11 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0399</td>
-<td><em>Cladophialophora</em> (pesquisa)</td>
+<td><i>Cladophialophora</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0400</td>
-<td><em>Cladosporium</em> (pesquisa)</td>
+<td><i>Cladosporium</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0401</td>
@@ -12905,7 +13031,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0408</td>
-<td><em>Clonorchis</em> (pesquisa)</td>
+<td><i>Clonorchis</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0409</td>
@@ -12925,11 +13051,11 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0413</td>
-<td><em>Clostridium</em> (pesquisa)</td>
+<td><i>Clostridium</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0414</td>
-<td><em>Clostridium difficile</em>, toxina A</td>
+<td><i>Clostridium difficile</i>, toxina A</td>
 </tr>
 <tr>
 <td>0415</td>
@@ -12957,7 +13083,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0421</td>
-<td><em>Coccidioides</em> (pesquisa)</td>
+<td><i>Coccidioides</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0422</td>
@@ -13025,7 +13151,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0438</td>
-<td><em>Contracaecum</em> (pesquisa)</td>
+<td><i>Contracaecum</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0439</td>
@@ -13101,7 +13227,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0452</td>
-<td><em>Corynebacterium</em> (pesquisa)</td>
+<td><i>Corynebacterium</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0453</td>
@@ -13109,7 +13235,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0454</td>
-<td><em>Coxiella</em> (pesquisa)</td>
+<td><i>Coxiella</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0455</td>
@@ -13169,11 +13295,11 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0469</td>
-<td><em>Cryptococcus</em> (pesquisa)</td>
+<td><i>Cryptococcus</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0470</td>
-<td><em>Cryptosporidium</em> (pesquisa)</td>
+<td><i>Cryptosporidium</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0471</td>
@@ -13201,7 +13327,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0476</td>
-<td>Cultura para <em>mycobacterium</em></td>
+<td>Cultura para <i>mycobacterium</i></td>
 </tr>
 <tr>
 <td>0477</td>
@@ -13217,7 +13343,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0480</td>
-<td><em>Cyclospora</em> (pesquisa)</td>
+<td><i>Cyclospora</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0481</td>
@@ -13285,7 +13411,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0497</td>
-<td><em>Dicrocoelium</em> (pesquisa)</td>
+<td><i>Dicrocoelium</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0498</td>
@@ -13293,7 +13419,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0499</td>
-<td><em>Dientamoeba</em> (pesquisa)</td>
+<td><i>Dientamoeba</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0500</td>
@@ -13377,11 +13503,11 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0520</td>
-<td><em>Dipetalonema</em> (pesquisa)</td>
+<td><i>Dipetalonema</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0521</td>
-<td><em>Diphyllobothrium</em> (pesquisa)</td>
+<td><i>Diphyllobothrium</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0522</td>
@@ -13409,7 +13535,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0528</td>
-<td><em>Dracunculus</em> (pesquisa)</td>
+<td><i>Dracunculus</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0529</td>
@@ -13425,7 +13551,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0532</td>
-<td><em>Echinococcus</em> (pesquisa)</td>
+<td><i>Echinococcus</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0533</td>
@@ -13437,7 +13563,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0535</td>
-<td><em>Edwardsiella</em> (pesquisa)</td>
+<td><i>Edwardsiella</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0536</td>
@@ -13445,11 +13571,11 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0537</td>
-<td><em>Ehrlichia</em> (pesquisa)</td>
+<td><i>Ehrlichia</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0538</td>
-<td><em>Eikenella</em> (pesquisa)</td>
+<td><i>Eikenella</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0540</td>
@@ -13477,11 +13603,11 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0545</td>
-<td><em>Elizabethkingia</em> (pesquisa)</td>
+<td><i>Elizabethkingia</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0546</td>
-<td><em>Emmonsia</em> (pesquisa)</td>
+<td><i>Emmonsia</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0547</td>
@@ -13489,7 +13615,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0548</td>
-<td><em>Encephalitozoon</em> (pesquisa)</td>
+<td><i>Encephalitozoon</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0549</td>
@@ -13505,23 +13631,23 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0552</td>
-<td><em>Entamoeba</em> (pesquisa)</td>
+<td><i>Entamoeba</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0553</td>
-<td><em>Enterobacter</em> (pesquisa)</td>
+<td><i>Enterobacter</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0554</td>
-<td><em>Enterobius</em> (pesquisa)</td>
+<td><i>Enterobius</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0555</td>
-<td><em>Enterococcus</em> (pesquisa)</td>
+<td><i>Enterococcus</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0556</td>
-<td><em>Enterocytozoon</em> (pesquisa)</td>
+<td><i>Enterocytozoon</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0557</td>
@@ -13537,7 +13663,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0560</td>
-<td><em>Epidermophyton</em> (pesquisa)</td>
+<td><i>Epidermophyton</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0561</td>
@@ -13553,7 +13679,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0564</td>
-<td><em>Erysipelothrix</em> (pesquisa)</td>
+<td><i>Erysipelothrix</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0565</td>
@@ -13561,11 +13687,11 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0566</td>
-<td><em>Escherichia</em> (pesquisa)</td>
+<td><i>Escherichia</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0567</td>
-<td><em>Escherichia coli</em> (pesquisa)</td>
+<td><i>Escherichia coli</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0568</td>
@@ -13641,7 +13767,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0586</td>
-<td><em>Exophiala</em> (pesquisa)</td>
+<td><i>Exophiala</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0587</td>
@@ -13649,11 +13775,11 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0588</td>
-<td><em>Fasciola</em> (pesquisa)</td>
+<td><i>Fasciola</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0589</td>
-<td><em>Fasciolopsis</em> (pesquisa)</td>
+<td><i>Fasciolopsis</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0590</td>
@@ -13761,11 +13887,11 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0617</td>
-<td><em>Filobasidiella</em> (pesquisa)</td>
+<td><i>Filobasidiella</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0618</td>
-<td><em>Flavobacterium</em> (pesquisa)</td>
+<td><i>Flavobacterium</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0619</td>
@@ -13793,7 +13919,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0625</td>
-<td><em>Fluoribacter</em> (pesquisa)</td>
+<td><i>Fluoribacter</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0626</td>
@@ -13801,7 +13927,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0627</td>
-<td><em>Fonsecaea</em> (pesquisa)</td>
+<td><i>Fonsecaea</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0628</td>
@@ -13849,7 +13975,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0639</td>
-<td><em>Francisella</em> (pesquisa)</td>
+<td><i>Francisella</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>1404</td>
@@ -13873,11 +13999,11 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0644</td>
-<td><em>Fusarium</em> (pesquisa)</td>
+<td><i>Fusarium</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0645</td>
-<td><em>Fusobacterium</em> (pesquisa)</td>
+<td><i>Fusobacterium</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0646</td>
@@ -13909,7 +14035,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0653</td>
-<td><em>Gardnerella</em> (pesquisa)</td>
+<td><i>Gardnerella</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0654</td>
@@ -13917,15 +14043,15 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0655</td>
-<td><em>Geotrichum</em> (pesquisa)</td>
+<td><i>Geotrichum</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0656</td>
-<td><em>Giardia</em> (pesquisa)</td>
+<td><i>Giardia</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0657</td>
-<td><em>Giardia</em> (sorologia)</td>
+<td><i>Giardia</i> (sorologia)</td>
 </tr>
 <tr>
 <td>0658</td>
@@ -13993,7 +14119,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0674</td>
-<td><em>Haemophilus</em> (pesquisa)</td>
+<td><i>Haemophilus</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0675</td>
@@ -14017,19 +14143,19 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0680</td>
-<td><em>Helicobacter</em> (pesquisa)</td>
+<td><i>Helicobacter</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0681</td>
-<td><em>Helicobacter pylori</em> - IgA</td>
+<td><i>Helicobacter pylori</i> - IgA</td>
 </tr>
 <tr>
 <td>0682</td>
-<td><em>Helicobacter pylori</em> - IgG</td>
+<td><i>Helicobacter pylori</i> - IgG</td>
 </tr>
 <tr>
 <td>0683</td>
-<td><em>Helicobacter pylori</em> - IgM</td>
+<td><i>Helicobacter pylori</i> - IgM</td>
 </tr>
 <tr>
 <td>0684</td>
@@ -14073,7 +14199,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0694</td>
-<td><em>Hemophilus (bordetella) pertussis</em> (pesquisa)</td>
+<td><i>Hemophilus (bordetella) pertussis</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0695</td>
@@ -14173,7 +14299,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0717</td>
-<td><em>Heterophyes</em> (pesquisa)</td>
+<td><i>Heterophyes</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0718</td>
@@ -14225,7 +14351,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0730</td>
-<td><em>Histoplasma</em> (pesquisa)</td>
+<td><i>Histoplasma</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0731</td>
@@ -14281,7 +14407,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0744</td>
-<td><em>Hymenolepis</em> (pesquisa)</td>
+<td><i>Hymenolepis</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0745</td>
@@ -14437,11 +14563,11 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0783</td>
-<td><em>Isospora</em> (pesquisa)</td>
+<td><i>Isospora</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0784</td>
-<td><em>Isospora</em> (sorologia)</td>
+<td><i>Isospora</i> (sorologia)</td>
 </tr>
 <tr>
 <td>0785</td>
@@ -14453,7 +14579,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0787</td>
-<td><em>Klebsiella</em> (pesquisa)</td>
+<td><i>Klebsiella</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0788</td>
@@ -14489,7 +14615,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0796</td>
-<td><em>Leishmania</em> (pesquisa)</td>
+<td><i>Leishmania</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0797</td>
@@ -14533,7 +14659,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0807</td>
-<td><em>Lichtheimia</em> (pesquisa)</td>
+<td><i>Lichtheimia</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0808</td>
@@ -14573,7 +14699,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0817</td>
-<td><em>Listeria</em> (pesquisa)</td>
+<td><i>Listeria</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0818</td>
@@ -14589,7 +14715,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0821</td>
-<td><em>Loa</em> (pesquisa)</td>
+<td><i>Loa</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0822</td>
@@ -14617,7 +14743,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0828</td>
-<td><em>Madurella</em> (pesquisa)</td>
+<td><i>Madurella</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0829</td>
@@ -14633,7 +14759,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0832</td>
-<td><em>Malassezia</em> (pesquisa)</td>
+<td><i>Malassezia</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0833</td>
@@ -14653,7 +14779,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0837</td>
-<td><em>Mansonella</em> (pesquisa)</td>
+<td><i>Mansonella</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0838</td>
@@ -14713,7 +14839,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0852</td>
-<td><em>Metagonimus</em> (pesquisa)</td>
+<td><i>Metagonimus</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0853</td>
@@ -14909,7 +15035,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0896</td>
-<td><em>Microsporum</em> (pesquisa)</td>
+<td><i>Microsporum</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0897</td>
@@ -14961,7 +15087,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0909</td>
-<td><em>Moraxella</em> (pesquisa)</td>
+<td><i>Moraxella</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0910</td>
@@ -14969,7 +15095,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0911</td>
-<td><em>Morganella</em> (pesquisa)</td>
+<td><i>Morganella</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0912</td>
@@ -14985,19 +15111,19 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0915</td>
-<td><em>Mycobacterium</em> (pesquisa)</td>
+<td><i>Mycobacterium</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0916</td>
-<td><em>Mycoplasma</em> (pesquisa)</td>
+<td><i>Mycoplasma</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0891</td>
-<td><em>Mycoplasma pneumoniae</em> - IgG</td>
+<td><i>Mycoplasma pneumoniae</i> - IgG</td>
 </tr>
 <tr>
 <td>0892</td>
-<td><em>Mycoplasma pneumoniae</em> - IgM</td>
+<td><i>Mycoplasma pneumoniae</i> - IgM</td>
 </tr>
 <tr>
 <td>0917</td>
@@ -15041,7 +15167,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0927</td>
-<td><em>Naegleria</em> (pesquisa)</td>
+<td><i>Naegleria</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0928</td>
@@ -15061,15 +15187,15 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0932</td>
-<td><em>Necator</em> (pesquisa)</td>
+<td><i>Necator</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0933</td>
-<td><em>Neisseria</em> (pesquisa)</td>
+<td><i>Neisseria</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0934</td>
-<td><em>Neotestudina</em> (pesquisa)</td>
+<td><i>Neotestudina</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0935</td>
@@ -15117,7 +15243,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0946</td>
-<td><em>Nocardia</em> (pesquisa)</td>
+<td><i>Nocardia</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0947</td>
@@ -15141,11 +15267,11 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0952</td>
-<td><em>Onchocerca</em> (pesquisa)</td>
+<td><i>Onchocerca</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0953</td>
-<td><em>Opisthorchis</em> (pesquisa)</td>
+<td><i>Opisthorchis</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0954</td>
@@ -15209,7 +15335,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0969</td>
-<td><em>Paracoccidioides</em> (pesquisa)</td>
+<td><i>Paracoccidioides</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0970</td>
@@ -15217,7 +15343,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0971</td>
-<td><em>Paragonimus</em> (pesquisa)</td>
+<td><i>Paragonimus</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0972</td>
@@ -15261,7 +15387,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0981</td>
-<td><em>Pasteurella</em> (pesquisa)</td>
+<td><i>Pasteurella</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0982</td>
@@ -15293,7 +15419,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0989</td>
-<td><em>Penicillium</em> (pesquisa)</td>
+<td><i>Penicillium</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0990</td>
@@ -15321,7 +15447,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>0996</td>
-<td><em>Peptostreptococcus</em> (pesquisa)</td>
+<td><i>Peptostreptococcus</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>0997</td>
@@ -15365,7 +15491,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>1007</td>
-<td><em>Plasmodium</em> (pesquisa)</td>
+<td><i>Plasmodium</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>1008</td>
@@ -15373,11 +15499,11 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>1009</td>
-<td><em>Plesiomonas</em> (pesquisa)</td>
+<td><i>Plesiomonas</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>1010</td>
-<td><em>Pneumocysti carinii</em> (pesquisa)</td>
+<td><i>Pneumocysti carinii</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>1011</td>
@@ -15421,7 +15547,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>1021</td>
-<td><em>Porphyromonas</em> (pesquisa)</td>
+<td><i>Porphyromonas</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>1022</td>
@@ -15453,7 +15579,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>1029</td>
-<td><em>Prevotella</em> (pesquisa)</td>
+<td><i>Prevotella</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>1030</td>
@@ -15541,7 +15667,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>1051</td>
-<td><em>Proteus</em> (pesquisa)</td>
+<td><i>Proteus</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>1052</td>
@@ -15589,19 +15715,19 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>1062</td>
-<td><em>Providencia</em> (pesquisa)</td>
+<td><i>Providencia</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>1063</td>
-<td><em>Pseudallescheria</em> (pesquisa)</td>
+<td><i>Pseudallescheria</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>1064</td>
-<td><em>Pseudomonas</em> (pesquisa)</td>
+<td><i>Pseudomonas</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>1065</td>
-<td><em>Pseudoterranova</em> (pesquisa)</td>
+<td><i>Pseudoterranova</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>1066</td>
@@ -15697,23 +15823,23 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>1088</td>
-<td><em>Rhinocladiella</em> (pesquisa)</td>
+<td><i>Rhinocladiella</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>1089</td>
-<td><em>Rhizomucor</em> (pesquisa)</td>
+<td><i>Rhizomucor</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>1090</td>
-<td><em>Rhizopus</em> (pesquisa)</td>
+<td><i>Rhizopus</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>1091</td>
-<td><em>Rhodococcus</em> (pesquisa)</td>
+<td><i>Rhodococcus</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>1092</td>
-<td><em>Rickettsia</em> (pesquisa)</td>
+<td><i>Rickettsia</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>1093</td>
@@ -15725,7 +15851,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>1095</td>
-<td><em>Rochalimaea</em> (pesquisa)</td>
+<td><i>Rochalimaea</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>1096</td>
@@ -15757,7 +15883,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>1103</td>
-<td><em>Saksenaea</em> (pesquisa)</td>
+<td><i>Saksenaea</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>1104</td>
@@ -15781,31 +15907,31 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>1110</td>
-<td><em>Sarcocystis</em> (pesquisa)</td>
+<td><i>Sarcocystis</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>1111</td>
-<td><em>Sarcoptes scabei</em> (pesquisa)</td>
+<td><i>Sarcoptes scabei</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>1112</td>
-<td><em>Scedosporium</em> (pesquisa)</td>
+<td><i>Scedosporium</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>1113</td>
-<td><em>Schistosoma</em> (pesquisa)</td>
+<td><i>Schistosoma</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>1114</td>
-<td><em>Schistosomose</em>/Esquistossomose - IgG</td>
+<td><i>Schistosomose</i>/Esquistossomose - IgG</td>
 </tr>
 <tr>
 <td>1115</td>
-<td><em>Schistosomose</em>/Esquistossomose - IgM</td>
+<td><i>Schistosomose</i>/Esquistossomose - IgM</td>
 </tr>
 <tr>
 <td>1116</td>
-<td><em>Scopulariopsis</em> (pesquisa)</td>
+<td><i>Scopulariopsis</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>1117</td>
@@ -15817,11 +15943,11 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>1119</td>
-<td><em>Serpulina</em> (pesquisa)</td>
+<td><i>Serpulina</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>1120</td>
-<td><em>Shigella</em> (pesquisa)</td>
+<td><i>Shigella</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>1121</td>
@@ -15865,19 +15991,19 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>1131</td>
-<td><em>Sporothrix</em> (pesquisa)</td>
+<td><i>Sporothrix</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>1132</td>
-<td><em>Staphylococcus</em> (pesquisa)</td>
+<td><i>Staphylococcus</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>1133</td>
-<td><em>Streptococcus</em> (pesquisa)</td>
+<td><i>Streptococcus</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>1134</td>
-<td><em>Strongyloides</em> (pesquisa)</td>
+<td><i>Strongyloides</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>1135</td>
@@ -15933,11 +16059,11 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>1147</td>
-<td><em>Taenia saginata</em> (pesquisa)</td>
+<td><i>Taenia saginata</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>1148</td>
-<td><em>Taenia solium</em> (pesquisa)</td>
+<td><i>Taenia solium</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>1149</td>
@@ -16133,15 +16259,15 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>1196</td>
-<td><em>Toxocara</em> (pesquisa)</td>
+<td><i>Toxocara</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>1197</td>
-<td><em>Toxocara canis</em> - IgG</td>
+<td><i>Toxocara canis</i> - IgG</td>
 </tr>
 <tr>
 <td>1198</td>
-<td><em>Toxocara canis</em> - IgM</td>
+<td><i>Toxocara canis</i> - IgM</td>
 </tr>
 <tr>
 <td>1199</td>
@@ -16177,7 +16303,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>1207</td>
-<td><em>Treponema</em> (pesquisa)</td>
+<td><i>Treponema</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>1208</td>
@@ -16189,23 +16315,23 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>1210</td>
-<td><em>Trichinella</em> (pesquisa)</td>
+<td><i>Trichinella</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>1211</td>
-<td><em>Trichomonas</em> (pesquisa)</td>
+<td><i>Trichomonas</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>1212</td>
-<td><em>Trichosporon</em> (pesquisa)</td>
+<td><i>Trichosporon</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>1213</td>
-<td><em>Trichostrongylus</em> (pesquisa)</td>
+<td><i>Trichostrongylus</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>1214</td>
-<td><em>Trichuris</em> (pesquisa)</td>
+<td><i>Trichuris</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>1215</td>
@@ -16229,7 +16355,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>1220</td>
-<td><em>Tricophyton</em> (pesquisa)</td>
+<td><i>Tricophyton</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>1221</td>
@@ -16261,7 +16387,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>1228</td>
-<td><em>Trypanosoma</em> (pesquisa)</td>
+<td><i>Trypanosoma</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>1229</td>
@@ -16309,7 +16435,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>1240</td>
-<td><em>Ureaplasma</em> (pesquisa)</td>
+<td><i>Ureaplasma</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>1241</td>
@@ -16345,7 +16471,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>1249</td>
-<td><em>Vibrio</em> (pesquisa)</td>
+<td><i>Vibrio</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>1251</td>
@@ -16881,11 +17007,11 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>1381</td>
-<td><em>Western blot</em> (anticorpos anti-HIV)</td>
+<td><i>Western blot</i> (anticorpos anti-HIV)</td>
 </tr>
 <tr>
 <td>1382</td>
-<td><em>Western blot</em> (anticorpos anti-HTV-I ou HTLV-II)</td>
+<td><i>Western blot</i> (anticorpos anti-HTV-I ou HTLV-II)</td>
 </tr>
 <tr>
 <td>1383</td>
@@ -16893,7 +17019,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>1384</td>
-<td><em>Wuchereria</em> (pesquisa)</td>
+<td><i>Wuchereria</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>1385</td>
@@ -16909,15 +17035,15 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>1388</td>
-<td><em>Xylohypha</em> (pesquisa)</td>
+<td><i>Xylohypha</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>1389</td>
-<td><em>Yersinia</em> (pesquisa)</td>
+<td><i>Yersinia</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>1390</td>
-<td><em>Yersinia pestis</em> (pesquisa)</td>
+<td><i>Yersinia pestis</i> (pesquisa)</td>
 </tr>
 <tr>
 <td>1391</td>
@@ -16969,7 +17095,7 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 <tr>
 <td>1997</td>
-<td>Detecção de agentes infecciosos não especificados anteriormente por <em>western blot</em></td>
+<td>Detecção de agentes infecciosos não especificados anteriormente por <i>western blot</i></td>
 </tr>
 <tr>
 <td>1998</td>
@@ -16981,12 +17107,16 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 </tbody>
 </table>
-<table id="Tabela 28" style="margin-top: 48px;" class="table is-fullwidth is-bordered">
-<thead><tr><th style="text-align: center" colspan="2">Tabela 28 - Treinamentos, Capacitações, Exercícios Simulados e Outras Anotações</th></tr></thead>
+<table id="28" class="table is-fullwidth is-bordered tabela">
+<thead>
+<tr>
+<th colspan="2">Tabela 28 - Treinamentos, Capacitações, Exercícios Simulados e Outras Anotações</th>
+</tr>
+</thead>
 <tbody>
 <tr class="grupo">
-<td class="grupo" style="text-align: center; font-weight: bold;">CÓDIGO</td>
-<td class="grupo" style="text-align: center; font-weight: bold;">TREINAMENTO/CAPACITAÇÃO/EXERCÍCIO SIMULADO</td>
+<td>CÓDIGO</td>
+<td>TREINAMENTO/CAPACITAÇÃO/EXERCÍCIO SIMULADO</td>
 </tr>
 <tr>
 <td colspan="2">TREINAMENTOS, CAPACITAÇÕES E EXERCÍCIOS SIMULADOS - REGISTRO OBRIGATÓRIO</td>
@@ -17080,118 +17210,116 @@ Sem convênio              | 0001+0002+0004+0008+0064            |         0079 
 </tr>
 </tbody>
 </table>
-            </div>
-        </section>
-        <nav id="navbarBottom" class="navbar is-fixed-bottom has-shadow">
-            <div class="navbar-brand">
-                <a class="navbar-item" href="index.html">
-                    <img src="esocial-vertical.jpg" height="50">
-                </a>
-            </div>
-            <div id="navbarExample" class="navbar-menu">
-                <div class="navbar-start">
-                    <div class="navbar-item has-dropdown has-dropdown-up is-hoverable">
-                        <a class="navbar-link" href="">Tabelas</a>
-                        <div class="navbar-dropdown">
-                            <a class="navbar-item" href="index.html#evtInfoEmpregador">S-1000 - Informações do Empregador/Contribuinte/Órgão Público</a>
-                            <a class="navbar-item" href="index.html#evtTabEstab">S-1005 - Tabela de Estabelecimentos, Obras ou Unidades de Órgãos Públicos</a>
-                            <a class="navbar-item" href="index.html#evtTabRubrica">S-1010 - Tabela de Rubricas</a>
-                            <a class="navbar-item" href="index.html#evtTabLotacao">S-1020 - Tabela de Lotações Tributárias</a>
-                            <a class="navbar-item" href="index.html#evtTabProcesso">S-1070 - Tabela de Processos Administrativos/Judiciais</a>
-                        </div>
-                    </div>
-                    <div class="navbar-item has-dropdown has-dropdown-up is-hoverable">
-                        <a class="navbar-link" href="">Periódicos</a>
-                        <div class="navbar-dropdown">
-                            <a class="navbar-item" href="index.html#evtRemun">S-1200 - Remuneração de Trabalhador vinculado ao Regime Geral de Previd. Social</a>
-                            <a class="navbar-item" href="index.html#evtRmnRPPS">S-1202 - Remuneração de Servidor vinculado ao Regime Próprio de Previd. Social</a>
-                            <a class="navbar-item" href="index.html#evtBenPrRP">S-1207 - Benefícios - Entes públicos</a>
-                            <a class="navbar-item" href="index.html#evtPgtos">S-1210 - Pagamentos de Rendimentos do Trabalho</a>
-                            <a class="navbar-item" href="index.html#evtComProd">S-1260 - Comercialização da Produção Rural Pessoa Física</a>
-                            <a class="navbar-item" href="index.html#evtContratAvNP">S-1270 - Contratação de Trabalhadores Avulsos Não Portuários</a>
-                            <a class="navbar-item" href="index.html#evtInfoComplPer">S-1280 - Informações Complementares aos Eventos Periódicos</a>
-                            <a class="navbar-item" href="index.html#evtReabreEvPer">S-1298 - Reabertura dos Eventos Periódicos</a>
-                            <a class="navbar-item" href="index.html#evtFechaEvPer">S-1299 - Fechamento dos Eventos Periódicos</a>
-                        </div>
-                    </div>
-                    <div class="navbar-item has-dropdown has-dropdown-up is-hoverable">
-                        <a class="navbar-link" href="">Não Periódicos</a>
-                        <div class="navbar-dropdown">
-                            <a class="navbar-item" href="index.html#evtAdmPrelim">S-2190 - Registro Preliminar de Trabalhador</a>
-                            <a class="navbar-item" href="index.html#evtAdmissao">S-2200 - Cadastramento Inicial do Vínculo e Admissão/Ingresso de Trabalhador</a>
-                            <a class="navbar-item" href="index.html#evtAltCadastral">S-2205 - Alteração de Dados Cadastrais do Trabalhador</a>
-                            <a class="navbar-item" href="index.html#evtAltContratual">S-2206 - Alteração de Contrato de Trabalho/Relação Estatutária</a>
-                            <a class="navbar-item" href="index.html#evtCAT">S-2210 - Comunicação de Acidente de Trabalho</a>
-                            <a class="navbar-item" href="index.html#evtMonit">S-2220 - Monitoramento da Saúde do Trabalhador</a>
-                            <a class="navbar-item" href="index.html#evtAfastTemp">S-2230 - Afastamento Temporário</a>
-                            <a class="navbar-item" href="index.html#evtCessao">S-2231 - Cessão/Exercício em Outro Órgão</a>
-                            <a class="navbar-item" href="index.html#evtExpRisco">S-2240 - Condições Ambientais do Trabalho - Agentes Nocivos</a>
-                            <a class="navbar-item" href="index.html#evtReintegr">S-2298 - Reintegração/Outros Provimentos</a>
-                            <a class="navbar-item" href="index.html#evtDeslig">S-2299 - Desligamento</a>
-                            <a class="navbar-item" href="index.html#evtTSVInicio">S-2300 - Trabalhador Sem Vínculo de Emprego/Estatutário - Início</a>
-                            <a class="navbar-item" href="index.html#evtTSVAltContr">S-2306 - Trabalhador Sem Vínculo de Emprego/Estatutário - Alteração Contratual</a>
-                            <a class="navbar-item" href="index.html#evtTSVTermino">S-2399 - Trabalhador Sem Vínculo de Emprego/Estatutário - Término</a>
-                            <a class="navbar-item" href="index.html#evtExclusao">S-3000 - Exclusão de Eventos</a>
-                        </div>
-                    </div>
-                    <div class="navbar-item has-dropdown has-dropdown-up is-hoverable">
-                        <a class="navbar-link" href="">Benefícios</a>
-                        <div class="navbar-dropdown">
-                            <a class="navbar-item" href="index.html#evtCdBenefIn">S-2400 - Cadastro de Beneficiário - Entes Públicos - Início</a>
-                            <a class="navbar-item" href="index.html#evtCdBenefAlt">S-2405 - Cadastro de Beneficiário - Entes Públicos - Alteração</a>
-                            <a class="navbar-item" href="index.html#evtCdBenIn">S-2410 - Cadastro de Benefício - Entes Públicos - Início</a>
-                            <a class="navbar-item" href="index.html#evtCdBenAlt">S-2416 - Cadastro de Benefício - Entes Públicos - Alteração</a>
-                            <a class="navbar-item" href="index.html#evtReativBen">S-2418 - Reativação de Benefício - Entes Públicos</a>
-                            <a class="navbar-item" href="index.html#evtCdBenTerm">S-2420 - Cadastro de Benefício - Entes Públicos - Término</a>
-                        </div>
-                    </div>
-                    <div class="navbar-item has-dropdown has-dropdown-up is-hoverable">
-                        <a class="navbar-link" href="">Totalizadores</a>
-                        <div class="navbar-dropdown">
-                            <a class="navbar-item" href="index.html#evtBasesTrab">S-5001 - Informações das contribuições sociais por trabalhador</a>
-                            <a class="navbar-item" href="index.html#evtIrrfBenef">S-5002 - Imposto de Renda Retido na Fonte por trabalhador</a>
-                            <a class="navbar-item" href="index.html#evtBasesFGTS">S-5003 - Informações do FGTS por trabalhador</a>
-                            <a class="navbar-item" href="index.html#evtCS">S-5011 - Informações das contribuições sociais consolidadas por contribuinte</a>
-                            <a class="navbar-item" href="index.html#evtFGTS">S-5013 - Informações do FGTS consolidadas por contribuinte</a>
-                        </div>
-                    </div>
-                    <div class="navbar-item">
-                        <a href="regras.html">Regras</a>
-                    </div>
-                    <div class="navbar-item">
-                        <a href="tabelas.html">Tabelas</a>
-                    </div>
-                </div>
-            </div>
-        </nav>
-        <input id="copiador" type="text" />
-        <script>
-            var grupos = document.querySelectorAll("[data-tipo=grupo]");
-            grupos.forEach(destacarGrupo);
+</div>
+</section>
+<nav id="navbarBottom" class="navbar is-fixed-bottom has-shadow">
+<div class="navbar-brand">
+<a class="navbar-item" href="index.html">
+<img alt="Logomarca do eSocial" src="esocial-vertical.jpg" height="50">
+</a>
+</div>
+<div id="navbarExample" class="navbar-menu">
+<div class="navbar-start">
+<div class="navbar-item has-dropdown has-dropdown-up is-hoverable">
+<a class="navbar-link" href="">Tabelas</a>
+<div class="navbar-dropdown">
+<a class="navbar-item" href="index.html#evtInfoEmpregador">S-1000 - Informações do Empregador/Contribuinte/Órgão Público</a>
+<a class="navbar-item" href="index.html#evtTabEstab">S-1005 - Tabela de Estabelecimentos, Obras ou Unidades de Órgãos Públicos</a>
+<a class="navbar-item" href="index.html#evtTabRubrica">S-1010 - Tabela de Rubricas</a>
+<a class="navbar-item" href="index.html#evtTabLotacao">S-1020 - Tabela de Lotações Tributárias</a>
+<a class="navbar-item" href="index.html#evtTabProcesso">S-1070 - Tabela de Processos Administrativos/Judiciais</a>
+</div>
+</div>
+<div class="navbar-item has-dropdown has-dropdown-up is-hoverable">
+<a class="navbar-link" href="">Periódicos</a>
+<div class="navbar-dropdown">
+<a class="navbar-item" href="index.html#evtRemun">S-1200 - Remuneração de Trabalhador vinculado ao Regime Geral de Previd. Social</a>
+<a class="navbar-item" href="index.html#evtRmnRPPS">S-1202 - Remuneração de Servidor vinculado ao Regime Próprio de Previd. Social</a>
+<a class="navbar-item" href="index.html#evtBenPrRP">S-1207 - Benefícios - Entes públicos</a>
+<a class="navbar-item" href="index.html#evtPgtos">S-1210 - Pagamentos de Rendimentos do Trabalho</a>
+<a class="navbar-item" href="index.html#evtComProd">S-1260 - Comercialização da Produção Rural Pessoa Física</a>
+<a class="navbar-item" href="index.html#evtContratAvNP">S-1270 - Contratação de Trabalhadores Avulsos Não Portuários</a>
+<a class="navbar-item" href="index.html#evtInfoComplPer">S-1280 - Informações Complementares aos Eventos Periódicos</a>
+<a class="navbar-item" href="index.html#evtReabreEvPer">S-1298 - Reabertura dos Eventos Periódicos</a>
+<a class="navbar-item" href="index.html#evtFechaEvPer">S-1299 - Fechamento dos Eventos Periódicos</a>
+</div>
+</div>
+<div class="navbar-item has-dropdown has-dropdown-up is-hoverable">
+<a class="navbar-link" href="">Não Periódicos</a>
+<div class="navbar-dropdown">
+<a class="navbar-item" href="index.html#evtAdmPrelim">S-2190 - Registro Preliminar de Trabalhador</a>
+<a class="navbar-item" href="index.html#evtAdmissao">S-2200 - Cadastramento Inicial do Vínculo e Admissão/Ingresso de Trabalhador</a>
+<a class="navbar-item" href="index.html#evtAltCadastral">S-2205 - Alteração de Dados Cadastrais do Trabalhador</a>
+<a class="navbar-item" href="index.html#evtAltContratual">S-2206 - Alteração de Contrato de Trabalho/Relação Estatutária</a>
+<a class="navbar-item" href="index.html#evtCAT">S-2210 - Comunicação de Acidente de Trabalho</a>
+<a class="navbar-item" href="index.html#evtMonit">S-2220 - Monitoramento da Saúde do Trabalhador</a>
+<a class="navbar-item" href="index.html#evtAfastTemp">S-2230 - Afastamento Temporário</a>
+<a class="navbar-item" href="index.html#evtCessao">S-2231 - Cessão/Exercício em Outro Órgão</a>
+<a class="navbar-item" href="index.html#evtExpRisco">S-2240 - Condições Ambientais do Trabalho - Agentes Nocivos</a>
+<a class="navbar-item" href="index.html#evtReintegr">S-2298 - Reintegração/Outros Provimentos</a>
+<a class="navbar-item" href="index.html#evtDeslig">S-2299 - Desligamento</a>
+<a class="navbar-item" href="index.html#evtTSVInicio">S-2300 - Trabalhador Sem Vínculo de Emprego/Estatutário - Início</a>
+<a class="navbar-item" href="index.html#evtTSVAltContr">S-2306 - Trabalhador Sem Vínculo de Emprego/Estatutário - Alteração Contratual</a>
+<a class="navbar-item" href="index.html#evtTSVTermino">S-2399 - Trabalhador Sem Vínculo de Emprego/Estatutário - Término</a>
+<a class="navbar-item" href="index.html#evtExclusao">S-3000 - Exclusão de Eventos</a>
+</div>
+</div>
+<div class="navbar-item has-dropdown has-dropdown-up is-hoverable">
+<a class="navbar-link" href="">Benefícios</a>
+<div class="navbar-dropdown">
+<a class="navbar-item" href="index.html#evtCdBenefIn">S-2400 - Cadastro de Beneficiário - Entes Públicos - Início</a>
+<a class="navbar-item" href="index.html#evtCdBenefAlt">S-2405 - Cadastro de Beneficiário - Entes Públicos - Alteração</a>
+<a class="navbar-item" href="index.html#evtCdBenIn">S-2410 - Cadastro de Benefício - Entes Públicos - Início</a>
+<a class="navbar-item" href="index.html#evtCdBenAlt">S-2416 - Cadastro de Benefício - Entes Públicos - Alteração</a>
+<a class="navbar-item" href="index.html#evtReativBen">S-2418 - Reativação de Benefício - Entes Públicos</a>
+<a class="navbar-item" href="index.html#evtCdBenTerm">S-2420 - Cadastro de Benefício - Entes Públicos - Término</a>
+</div>
+</div>
+<div class="navbar-item has-dropdown has-dropdown-up is-hoverable">
+<a class="navbar-link" href="">Totalizadores</a>
+<div class="navbar-dropdown">
+<a class="navbar-item" href="index.html#evtBasesTrab">S-5001 - Informações das contribuições sociais por trabalhador</a>
+<a class="navbar-item" href="index.html#evtIrrfBenef">S-5002 - Imposto de Renda Retido na Fonte por trabalhador</a>
+<a class="navbar-item" href="index.html#evtBasesFGTS">S-5003 - Informações do FGTS por trabalhador</a>
+<a class="navbar-item" href="index.html#evtCS">S-5011 - Informações das contribuições sociais consolidadas por contribuinte</a>
+<a class="navbar-item" href="index.html#evtFGTS">S-5013 - Informações do FGTS consolidadas por contribuinte</a>
+</div>
+</div>
+<div class="navbar-item">
+<a href="regras.html">Regras</a>
+</div>
+<div class="navbar-item">
+<a href="tabelas.html">Tabelas</a>
+</div>
+</div>
+</div>
+</nav>
+<input id="copiador" type="text" />
+<script>
+document.querySelectorAll("a[href^='#REGRA_']").forEach(element => {
+    element.onclick = function() {
+        var modal_atual = document.querySelector("div[class~='is-active']")
+        if (modal_atual != null) {
+            modal_atual.classList.remove('is-active')
+        }
 
-            function destacarGrupo(item, indice) {
-                item.parentElement.parentElement.setAttribute("class", "grupo")
+        var modal = document.querySelector("div[id='" + element.getAttribute('href').substr(1) + "']")
+        if (modal != null) {
+            modal.classList.add("is-active")
+            modal.querySelector("button.delete").onclick = function() {
+                document.querySelector("div[class~='is-active']").classList.remove('is-active')
             }
+        }
+    }
+});
 
-            var grupos_choice = document.querySelectorAll("[data-tipo=grupo-choice]");
-            grupos_choice.forEach(destacarGrupoChoice);
-
-            function destacarGrupoChoice(item, indice) {
-                item.parentElement.parentElement.setAttribute("class", "grupo-choice")
-            }
-
-            titulo = document.querySelector('title').text
-
-            $("a[href^='#regra_']").on('click', function(e) { if (titulo != 'Regras') { $(".is-active").removeClass("is-active"); $("#" + $(this).text()).addClass('is-active'); $("html").addClass("is-clipped"); }})
-            $(".delete").on('click', function(e) { $("html").removeClass("is-clipped"); $(".is-active").removeClass("is-active") })
-
-            function copiarCaminho(caminho) {
-                var copiador = document.getElementById("copiador");
-                copiador.value = caminho;
-                copiador.select();
-                copiador.setSelectionRange(0, 99999);
-                document.execCommand("copy");
-            }
-        </script>
-    </body>
+function copiarCaminho() {
+    var copiador = document.getElementById("copiador");
+    copiador.value = this.attributes["id"].value;
+    copiador.select();
+    copiador.setSelectionRange(0, 99999);
+    document.execCommand("copy");
+}
+</script>
+</body>
 </html>

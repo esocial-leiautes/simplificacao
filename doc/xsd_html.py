@@ -1,6 +1,7 @@
 import os
 import re
 import sys
+from time import perf_counter
 from xml.etree.ElementTree import parse
 sys.dont_write_bytecode = True
 from leiaute import Leiaute
@@ -8,6 +9,8 @@ from modelos import Regra
 from modelos import Geral
 from modelos import Tabela
 import cinto_utilidades as cinto
+
+# TODO estrutura _saida _assets
 
 if 'doc' in os.getcwd():
     os.chdir('../')
@@ -36,24 +39,28 @@ for linha in arquivo.readlines():
 
             for regra in set(re.findall(r'(REGRA_\w+)', texto)):
                 texto = texto.replace(
-                    regra, Geral.LINK.format(regra.lower(), regra))
+                    regra, Geral.LINK.format(regra, regra))
 
             regras[id].append(texto)
 arquivo.close()
 
-arquivo = cinto.obter_arquivo(caminho_doc.format('regras.html'), 'w')
-arquivo.write(inicio.replace('SUBTITULO', 'Regras de Validação')
-              .replace('TITULO', 'Regras'))
-arquivo.write(Regra.CABECALHO)
+inicio_tempo = perf_counter()
+
+conteudo = inicio.replace('SUBTITULO', 'Regras de Validação').replace(
+    'TITULO', 'Regras')
+
+conteudo += Regra.CABECALHO
 
 for regra in regras:
     texto = '<br />\n'.join(regras[regra])
-    arquivo.write(
-        Regra.LINHA.format(id=regra.lower(), nome=regra, texto=texto))
+    conteudo += Regra.LINHA.format(
+        id=regra, nome=regra, texto=texto)
 
-arquivo.write(Geral.RODAPE_TABELA)
-arquivo.write(fim)
-arquivo.close()
+conteudo += Geral.RODAPE_TABELA
+conteudo += fim
+
+with cinto.obter_arquivo(caminho_doc.format('regras.html'), 'w') as f:
+    f.write(conteudo)
 
 # LEIAUTES
 leiautes = []
@@ -68,31 +75,28 @@ for identificador in identificadores:
 
 leiautes.sort(key=lambda item: item.codigo)
 
-arquivo = cinto.obter_arquivo(caminho_doc.format('index.html'), 'w')
-arquivo.write(inicio.replace('SUBTITULO', 'Leiautes')
-              .replace('TITULO', 'Leiautes'))
+conteudo = inicio.replace('SUBTITULO', 'Leiautes').replace(
+    'TITULO', 'Leiautes')
 
+html = ''
 for regra in regras:
     texto = '<br />\n'.join(regras[regra])
-    arquivo.write(Regra.LINHA_MODAL.format(nome=regra, texto=texto))
+    html += Regra.LINHA_MODAL.format(nome=regra, texto=texto)
 
-html = ''.join([item.gerar_html() for item in leiautes])
+html += ''.join([item.gerar_html() for item in leiautes])
 
-arquivo.writelines(html)
-arquivo.write(fim)
-arquivo.close()
+conteudo += html
+conteudo += fim
+
+with cinto.obter_arquivo(caminho_doc.format('index.html'), 'w') as f:
+    f.write(conteudo)
 
 # TABELAS
 tabelas = []
-
-arquivo = cinto.obter_arquivo(caminho_doc.format('tabelas.html'), 'w')
-arquivo.write(inicio.replace('SUBTITULO', 'Tabelas')
-              .replace('TITULO', 'Tabelas'))
-
-conteudo = ''
+conteudo_tabela = ''
 conteudo_indice = ''
 
-caminho_tabelas = caminho_doc = os.path.join(os.getcwd(), 'tabelas', '{}')
+caminho_tabelas = os.path.join(os.getcwd(), 'tabelas', '{}')
 
 for tabela in sorted(os.listdir(caminho_tabelas.replace('{}', ''))):
     texto_tabela = []
@@ -106,9 +110,9 @@ for tabela in sorted(os.listdir(caminho_tabelas.replace('{}', ''))):
 
         for indice_linha, linha in enumerate(arquivo_tabela):
             if '__' in linha:
-                linha = re.sub('__(.*?)__', '<em>\\1</em>', linha)
+                linha = re.sub('__(.*?)__', '<i>\\1</i>', linha)
             if '##' in linha:
-                linha = re.sub('##(.*?)##', '<strong>\\1</strong>', linha)
+                linha = re.sub('##(.*?)##', '<b>\\1</b>', linha)
 
             itens_linha = []
 
@@ -127,7 +131,8 @@ for tabela in sorted(os.listdir(caminho_tabelas.replace('{}', ''))):
                     if texto_largura_fixa:
                         texto_largura_fixa = False
                         anexos_tabela.append('</pre>')
-                    anexos_tabela.append('<p>{}</p>'.format(linha.rstrip()))
+                    anexos_tabela.append(
+                        '<p>{}</p>'.format(linha.rstrip()))
                 continue
             elif indice_linha == 0:
                 titulo = linha.rstrip()
@@ -205,74 +210,61 @@ for tabela in sorted(os.listdir(caminho_tabelas.replace('{}', ''))):
                     rowspan_linha[i] + 1))
                 texto_tabela[indice_linha - rowspan_linha[i] - 1][i] = texto
 
-        conteudo += Tabela.CABECALHO.format(
+        conteudo_tabela += Tabela.CABECALHO.format(
             tabela[:-4], indice_item + 1, tabela[:-4], titulo)
 
         for indice_linha, linha in enumerate(texto_tabela):
             if 'class="grupo"' in linha[0]:
-                conteudo += '<tr class="grupo">\n'
+                conteudo_tabela += '<tr class="grupo">\n'
             else:
-                conteudo += '<tr>\n'
+                conteudo_tabela += '<tr>\n'
 
             for item in linha:
                 if item != '':
-                    conteudo += item.replace(
-                        ' rowspan=""', '').replace(' colspan=""', '') + '\n'
+                    conteudo_tabela += item.replace(
+                        ' class="grupo"', '').replace(
+                        ' rowspan=""', '').replace(' colspan=""', '')
 
-            conteudo += '</tr>\n'
+            conteudo_tabela += '</tr>\n'
 
-        conteudo += Geral.RODAPE_TABELA
+        conteudo_tabela += Geral.RODAPE_TABELA
 
         if len(anexos_tabela) > 0:
-            conteudo += Tabela.ANEXO.format(
+            conteudo_tabela += Tabela.ANEXO.format(
                 ''.join([anexo + '\n' for anexo in anexos_tabela]))
 
-        conteudo_indice += Tabela.LINHA_INDICE.format(
-            numero=tabela[:-4], titulo=titulo)
+    conteudo_indice += Tabela.LINHA_INDICE.format(
+        numero=tabela[:-4], titulo=titulo)
 
-    tabelas.append('Tabela {}'.format(tabela[:-4]))
+    tabelas.append(tabela[:-4])
 
-arquivo.write('\n<ul>\n')
-arquivo.write(conteudo_indice)
-arquivo.write('</ul>\n')
-arquivo.write(conteudo)
-arquivo.write(fim)
-arquivo.close()
+
+conteudo = inicio.replace('SUBTITULO', 'Tabelas').replace(
+    'TITULO', 'Tabelas')
+conteudo += '<ul>\n'
+conteudo += conteudo_indice
+conteudo += '</ul>\n'
+conteudo += conteudo_tabela
+conteudo += fim
+
+with cinto.obter_arquivo(caminho_doc.format('tabelas.html'), 'w') as f:
+    f.write(conteudo)
 
 # VERIFICAÇÃO DE LINKS
 
 links = []
-regex = (
-    # href="#1000_Id"
-    r'"\#(\d{4}_\S+)"'
-    # href="#resumo_evtInfoEmpregador:esocial"
-    r'|"\#(resumo_evt\S+)"'
-    # href="#evtInfoEmpregador:esocial"
-    r'|"\#(evt\S+)"'
-    # href="regra_remun_ja_existe_desligamento"
-    r'|"\#(regra\S+)"'
-    # href="tabelas.html#Tabela 05"
-    r'|\#(Tabela \d{2})')
-
-for itens in re.findall(regex, html):
-    [links.append(item) for item in itens if item != '' and item not in links]
+[links.append(item)
+    for item in re.findall(r'"\#(\S+)"', html) if item not in links]
 
 ids = []
-regex = (
-    # id="1000_Id"
-    r'id="(\d{4}_\S+)"'
-    # id="evtInfoEmpregador"
-    r'|id="(evt\S+)"'
-    # id="resumo_evtInfoEmpregador:esocial"
-    r'|id="(resumo_evt\S+)"')
-
-for itens in re.findall(regex, html):
-    [ids.append(item) for item in itens if item != '' and item not in ids]
-
-ids = ids + [id.lower() for id in regras.keys()] + tabelas
+[ids.append(item)
+    for item in re.findall(r'id="(\S+)"', html) if item not in ids]
+ids = ids + tabelas
 
 ausentes = [link for link in links if link not in ids]
 
 if ausentes:
     print('Links quebrados:')
     [print(link) for link in ausentes]
+
+print('Tempo de execução: ', perf_counter() - inicio_tempo)

@@ -105,21 +105,16 @@ class Leiaute:
         Returns:
             str: Representação do Leiaute em HTML.
         """
-        larguras_resumo = [14, 14, 4, 26.59, 6.5, 12, 22.9]
-
         html = (
             Resumo.CABECALHO.format(
-                self.nome, self.codigo, self.descricao, *larguras_resumo)
+                self.nome, self.codigo, self.descricao)
             + self.raiz.gerar_html_resumo()
             + Geral.RODAPE_TABELA)
-
-        larguras_completo = [5, 14, 14, 4, 4, 6.5, 6.5, 4, 41.99]
 
         self.ultimo_numero = itertools.count(1)
 
         html += (
-            Completo.CABECALHO.format(
-                self.codigo, self.descricao, *larguras_completo)
+            Completo.CABECALHO.format(self.codigo, self.descricao)
             + self.raiz.gerar_html_completo()
             + Geral.RODAPE_TABELA)
 
@@ -178,8 +173,10 @@ class ItemLeiaute:
             self.filhos = []
 
             if nivel == 1:
-                self.caminho = self.nome
+                self.caminho = '_'.join((self.leiaute.codigo[2:], self.nome))
                 self.descricao = [self.nome]
+            elif nivel == 2:
+                self.caminho = self.leiaute.codigo[2:]
             else:
                 self.caminho = '_'.join([self.pai.caminho, self.nome])
 
@@ -486,16 +483,6 @@ class ItemLeiaute:
             self.rotulo_tipo = '-'
             self.decimais = '-'
 
-    def obter_caminho_encurtado(self):
-        """Obtém o caminho do item com as duas partes iniciais substituídas
-            pela parte numérica do código do leiaute.
-
-        Returns:
-            str: Caminho encurtado do item.
-        """
-        return self.caminho.replace(
-            self.leiaute.raiz.filhos[0].caminho, self.leiaute.codigo[2:])
-
     def gerar_html_completo(self, modelo_linha=Completo.LINHA,
                             modelo_referencia=Completo.REFERENCIA):
         """Gera a representação do item em HTML para a visão completa.
@@ -509,28 +496,23 @@ class ItemLeiaute:
             str: Representação do item em HTML.
         """
         marcador_grupo = ''
-        if self.categoria == CategoriaItem.GRUPO:
-            marcador_grupo = ' data-tipo="grupo"'
-        elif self.categoria == CategoriaItem.CHOICE:
-            marcador_grupo = ' data-tipo="grupo-choice"'
-
         nome = self.nome
-        id = nome.lower()
+        id = nome
 
         if self.categoria.agrupadora():
-            if self.referencia is not None and self.referencia != self:
-                id = '_'.join((self.pai.nome.lower(), id))
+            marcador_grupo = ' class="grupo"'
+            if self.categoria == CategoriaItem.CHOICE:
+                marcador_grupo = ' class="grupo-choice"'
 
-            nome = Geral.LINK.format(
-                'resumo_{}:{}'.format(self.leiaute.nome, id),
-                self.nome)
+            if self.referencia is not None and self.referencia != self:
+                id = '_'.join((self.pai.nome, id))
+
+            nome = Geral.LINK.format('r_{}'.format(self.caminho), self.nome)
 
         html = modelo_linha.format(
             indice=next(self.leiaute.ultimo_numero),
-            caminho=self.obter_caminho_encurtado(),
+            caminho=self.caminho,
             marcador_grupo=marcador_grupo,
-            evento=self.leiaute.nome,
-            id=id,
             nome=nome,
             pai=self.gerar_link_pai(),
             tipo_elemento=self.categoria.value,
@@ -543,12 +525,10 @@ class ItemLeiaute:
 
         if self.referencia is not None and self.referencia != self:
             html += modelo_referencia.format(
-                caminho='',
-                identificador_evento=self.leiaute.nome,
-                id=self.referencia.nome.lower(),
                 nome=self.referencia.nome,
-                id_pai=self.referencia.pai.nome.lower(),
+                id=self.referencia.caminho,
                 nome_pai=self.referencia.pai.nome,
+                id_pai=self.referencia.pai.caminho
             )
             return html
 
@@ -569,12 +549,13 @@ class ItemLeiaute:
         Returns:
             str: Representação do item em HTML.
         """
-        identificador = self.nome.lower()
+        identificador = self.nome
 
         if self.referencia is not None:
-            identificador = '_'.join((self.pai.nome.lower(), identificador))
+            identificador = '_'.join((self.pai.nome, identificador))
 
         html = modelo_linha.format(
+            link_completo=self.caminho,
             identificador_evento=self.leiaute.nome,
             id_nome=identificador,
             nome=self.nome,
@@ -594,11 +575,10 @@ class ItemLeiaute:
                         modelo_linha, modelo_referencia)
                 else:
                     html += modelo_referencia.format(
-                        identificador_evento=self.leiaute.nome,
-                        id=self.referencia.nome.lower(),
                         nome=self.referencia.nome,
-                        id_pai=self.referencia.pai.nome.lower(),
                         nome_pai=self.referencia.pai.nome,
+                        id_pai=self.referencia.pai.caminho,
+                        id=self.referencia.caminho
                     )
 
                     break
@@ -661,7 +641,7 @@ class ItemLeiaute:
 
             for regra in self.regras:
                 descricao += '<br />\n' + \
-                    Geral.LINK.format(regra.lower(), regra)
+                    Geral.LINK.format(regra, regra)
 
         return descricao
 
@@ -687,9 +667,9 @@ class ItemLeiaute:
         """
         if self.chaves:
             if self.referencia is None:
-                caminho = self.obter_caminho_encurtado()
+                caminho = self.caminho
             else:
-                caminho = self.referencia.obter_caminho_encurtado()
+                caminho = self.referencia.caminho
 
             return ', '.join([
                 Geral.LINK.format('{}_{}'.format(caminho, chave), chave)
@@ -743,7 +723,5 @@ class ItemLeiaute:
             return ''
         else:
             return Geral.LINK.format(
-                'resumo_{}:{}'.format(
-                    self.leiaute.nome,
-                    self.pai.nome.lower()),
+                'r_{}'.format(self.pai.caminho),
                 self.pai.nome)

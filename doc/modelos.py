@@ -1,35 +1,35 @@
 class Geral:
     RODAPE_TABELA = (
-            '</tbody>\n'
-            '</table>\n')
+        '</tbody>\n'
+        '</table>\n')
 
     LINK = '<a href="#{}">{}</a>'
 
 
 class Tabela:
-    CELULA = '<td rowspan="" colspan="">{}</td>'
+    CELULA = '<td rowspan="" colspan="">{}</td>\n'
 
     CELULA_CABECALHO = (
-        '<td class="grupo" style="text-align: center; font-weight: bold;"'
-        ' rowspan="" colspan="">{}</td>')
+        '<td class="grupo" rowspan="" colspan="">{}</td>\n')
 
     ANEXO = (
-        '<article class="message is-small">\n'
-        '<div class="message-body">\n{}</div>\n'
-        '</article>\n')
+        '<div class="message is-small">\n'
+        '<div class="message-body">\n{}'
+        '</div>\n'
+        '</div>\n')
 
     LINHA_INDICE = (
         '<li>'
-        '<a href="#Tabela {numero}">Tabela {numero} - {titulo}</a>'
+        '<a href="#{numero}">Tabela {numero} - {titulo}</a>'
         '</li>\n')
 
     CABECALHO = (
-        '<table id="Tabela {}" style="margin-top: 48px;"'
-        ' class="table is-fullwidth is-bordered">\n'
-        '<thead>'
-        '<tr>'
-        '<th style="text-align: center" colspan="{}">Tabela {} - {}</th>'
-        '</tr>'
+        '<table id="{}"'
+        ' class="table is-fullwidth is-bordered tabela">\n'
+        '<thead>\n'
+        '<tr>\n'
+        '<th colspan="{}">Tabela {} - {}</th>\n'
+        '</tr>\n'
         '</thead>\n'
         '<tbody>\n')
 
@@ -37,7 +37,7 @@ class Tabela:
 class Regra:
     LINHA = (
         '<tr>\n'
-        '<td id={id}><strong>{nome}</strong></td>\n'
+        '<td id="{id}"><strong>{nome}</strong></td>\n'
         '<td>{texto}</td>\n'
         '</tr>\n')
 
@@ -49,18 +49,18 @@ class Regra:
         '<p class="modal-card-title">{nome}</p>\n'
         '<button class="delete" aria-label="close"></button>\n'
         '</header>\n'
-        '<section class="modal-card-body">\n'
+        '<div class="modal-card-body">\n'
         '<p>{texto}</p>\n'
-        '</section>\n'
+        '</div>\n'
         '</div>\n'
         '</div>\n')
 
     CABECALHO = (
-        '<table class="table is-fullwidth is-bordered">\n'
+        '<table class="table is-fullwidth is-bordered regras">\n'
         '<thead>\n'
-        '<tr>'
-        '<th style="text-align:center">Nome</th>\n'
-        '<th style="text-align:center">Descrição</th>\n'
+        '<tr>\n'
+        '<th>Nome</th>\n'
+        '<th>Descrição</th>\n'
         '</tr>\n'
         '</thead>\n'
         '<tbody>\n')
@@ -68,117 +68,111 @@ class Regra:
 
 class Resumo:
     LINHA = (
-            '<tr>\n'
-            '<td style="text-align:center">'
-            '<span id="resumo_{identificador_evento}:{id_nome}">'
-            '<a href="#{identificador_evento}:{id_nome}">{nome}</a>'
-            '</span></td>\n'
-            '<td style="text-align:center">{pai}</td>\n'
-            '<td style="text-align:center">{nivel}</td>\n'
-            '<td>{descricao}</td>\n'
-            '<td style="text-align:center">{ocorrencia}</td>\n'
-            '<td style="text-align:center">{chave}</td>\n'
-            '<td style="text-align:center">{condicao}</td>\n'
-            '</tr>\n')
+        '<tr>\n'
+        '<td id="r_{link_completo}">'
+        '<a href="#{link_completo}">{nome}</a>'
+        '</td>\n'
+        '<td>{pai}</td>\n'
+        '<td>{nivel}</td>\n'
+        '<td>{descricao}</td>\n'
+        '<td>{ocorrencia}</td>\n'
+        '<td>{chave}</td>\n'
+        '<td>{condicao}</td>\n'
+        '</tr>\n')
 
     REFERENCIA = (
-            '<tr>\n'
-            '<td style="text-align:center">...</td>\n'
-            '<td style="text-align:center"></td>\n'
-            '<td style="text-align:center"></td>\n'
-            '<td><strong>Ver:</strong> '
-            '<a href="#resumo_{identificador_evento}:{id_pai}">'
-            '{nome_pai}</a> &gt; '
-            '<a href="#resumo_{identificador_evento}:{id}">'
-            '{nome}</a></td>\n'
-            '<td style="text-align:center"></td>\n'
-            '<td style="text-align:center"></td>\n'
-            '<td style="text-align:center"></td>\n'
-            '</tr>\n')
+        '<tr>\n'
+        '<td>...</td>\n'
+        '<td></td>\n'
+        '<td></td>\n'
+        '<td><strong>Ver:</strong> '
+        '<a href="#r_{id_pai}">'
+        '{nome_pai}</a> &gt; '
+        '<a href="#r_{id}">'
+        '{nome}</a></td>\n'
+        '<td></td>\n'
+        '<td></td>\n'
+        '<td></td>\n'
+        '</tr>\n')
 
     CABECALHO = (
-            '<h3 id="{}" class="title has-text-centered">'
-            '{} - {}</h3>\n'
-            '<table class="table is-fullwidth is-bordered">\n'
-            '<thead>\n'
-            '<tr>\n'
-            '<th style="text-align:center" colspan="7">Tabela de Resumo dos '
-            'Registros</th>\n'
-            '</tr>\n'
-            '</thead>\n'
-            '<tbody>\n'
-            '<tr class="grupo">\n'
-            '<td style="text-align:center; width: {}%;">'
-            '<strong>Grupo</strong></td>\n'
-            '<td style="text-align:center; width: {}%;">'
-            '<strong>Grupo Pai</strong></td>\n'
-            '<td style="text-align:center; width: {}%;">'
-            '<strong>Nível</strong></td>\n'
-            '<td style="text-align:center; width: {}%;">'
-            '<strong>Descrição</strong></td>\n'
-            '<td style="text-align:center; width: {}%;">'
-            '<strong>Ocor.</strong></td>\n'
-            '<td style="text-align:center; width: {}%;">'
-            '<strong>Chave</strong></td>\n'
-            '<td style="text-align:center; width: {}%;">'
-            '<strong>Condição</strong></td>\n'
-            '</tr>\n')
+        '\n'
+        '<h3 id="{}" class="title has-text-centered">{} - {}</h3>\n'
+        '<table class="table is-fullwidth is-bordered resumo">\n'
+        '<thead>\n'
+        '<tr>\n'
+        '<th colspan="7">Tabela de Resumo dos '
+        'Registros</th>\n'
+        '</tr>\n'
+        '</thead>\n'
+        '<tbody>\n'
+        '<tr class="grupo">\n'
+        '<td>'
+        '<strong>Grupo</strong></td>\n'
+        '<td>'
+        '<strong>Grupo Pai</strong></td>\n'
+        '<td>'
+        '<strong>Nível</strong></td>\n'
+        '<td>'
+        '<strong>Descrição</strong></td>\n'
+        '<td>'
+        '<strong>Ocor.</strong></td>\n'
+        '<td>'
+        '<strong>Chave</strong></td>\n'
+        '<td>'
+        '<strong>Condição</strong></td>\n'
+        '</tr>\n')
 
 
 class Completo:
     LINHA = (
-            '<tr>\n'
-            '<td style="text-align:center; cursor:copy"'
-            ' onclick="copiarCaminho(\'{caminho}\')">'
-            '<span class="has-tooltip-right" data-tooltip="{caminho}"'
-            ' id="{caminho}">{indice}</span>'
-            '</td>\n'
-            '<td style="text-align:center">'
-            '<span{marcador_grupo} id="{evento}:{id}">'
-            '{nome}'
-            '</span></td>\n'
-            '<td style="text-align:center">{pai}</td>\n'
-            '<td style="text-align:center">{tipo_elemento}</td>\n'
-            '<td style="text-align:center">{tipo}</td>\n'
-            '<td style="text-align:center">{ocorrencia}</td>\n'
-            '<td style="text-align:center">{tamanho}</td>\n'
-            '<td style="text-align:center">{decimais}</td>\n'
-            '<td style="text-align:left">{descricao}</td>\n'
-            '</tr>\n')
+        '<tr{marcador_grupo}>\n'
+        '<td onclick="copiarCaminho.call(this)"'
+        ' title="{caminho}"'
+        ' id="{caminho}">{indice}</td>\n'
+        '<td>'
+        '{nome}'
+        '</td>\n'
+        '<td>{pai}</td>\n'
+        '<td>{tipo_elemento}</td>\n'
+        '<td>{tipo}</td>\n'
+        '<td>{ocorrencia}</td>\n'
+        '<td>{tamanho}</td>\n'
+        '<td>{decimais}</td>\n'
+        '<td>{descricao}</td>\n'
+        '</tr>\n')
 
     REFERENCIA = (
-            '<tr>\n'
-            '<td style="text-align:center; cursor:copy"'
-            ' onclick="copiarCaminho(\'{caminho}\')">'
-            '<span class="has-tooltip-right" data-tooltip="{caminho}"'
-            ' id="{caminho}">...</span></td>\n'
-            '<td style="text-align:center"></td>\n'
-            '<td style="text-align:center"></td>\n'
-            '<td style="text-align:center"></td>\n'
-            '<td style="text-align:center"></td>\n'
-            '<td style="text-align:center"></td>\n'
-            '<td style="text-align:center"></td>\n'
-            '<td style="text-align:center"></td>\n'
-            '<td style="text-align:left"><strong>Ver:</strong> '
-            '<a href="#{identificador_evento}:{id_pai}">{nome_pai}</a> &gt; '
-            '<a href="#{identificador_evento}:{id}">{nome}</a></td>\n'
-            '</tr>\n')
+        '<tr>\n'
+        '<td>...</td>\n'
+        '<td></td>\n'
+        '<td></td>\n'
+        '<td></td>\n'
+        '<td></td>\n'
+        '<td></td>\n'
+        '<td></td>\n'
+        '<td></td>\n'
+        '<td><strong>Ver:</strong> '
+        '<a href="#{id_pai}">{nome_pai}</a> &gt; '
+        '<a href="#{id}">{nome}</a></td>\n'
+        '</tr>\n')
 
     CABECALHO = (
-            '<h4 class="subtitle has-text-centered">'
-            'Registros do evento {} - {}</h4>\n'
-            '<table class="table is-fullwidth is-bordered">\n'
-            '<thead>\n'
-            '<tr>\n'
-            '<th style="text-align:center; width: {}%;">#</th>\n'
-            '<th style="text-align:center; width: {}%;">Grupo/Campo</th>\n'
-            '<th style="text-align:center; width: {}%;">Grupo Pai</th>\n'
-            '<th style="text-align:center; width: {}%;">Elem.</th>\n'
-            '<th style="text-align:center; width: {}%;">Tipo</th>\n'
-            '<th style="text-align:center; width: {}%;">Ocor.</th>\n'
-            '<th style="text-align:center; width: {}%;">Tamanho</th>\n'
-            '<th style="text-align:center; width: {}%;">Dec.</th>\n'
-            '<th style="text-align:center; width: {}%;">Descrição</th>\n'
-            '</tr>\n'
-            '</thead>\n'
-            '<tbody>\n')
+        '\n'
+        '<h4 class="subtitle has-text-centered">'
+        'Registros do evento {} - {}</h4>\n'
+        '<table class="table is-fullwidth is-bordered completo">\n'
+        '<thead>\n'
+        '<tr>\n'
+        '<th>#</th>\n'
+        '<th>Grupo/Campo</th>\n'
+        '<th>Grupo Pai</th>\n'
+        '<th>Elem.</th>\n'
+        '<th>Tipo</th>\n'
+        '<th>Ocor.</th>\n'
+        '<th>Tamanho</th>\n'
+        '<th>Dec.</th>\n'
+        '<th>Descrição</th>\n'
+        '</tr>\n'
+        '</thead>\n'
+        '<tbody>\n')
