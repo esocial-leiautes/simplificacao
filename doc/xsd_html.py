@@ -107,6 +107,7 @@ for tabela in sorted(os.listdir(caminho_tabelas.replace('{}', ''))):
 
         fim_da_tabela = False
         texto_largura_fixa = False
+        indices_texto = []
 
         for indice_linha, linha in enumerate(arquivo_tabela):
             if '__' in linha:
@@ -135,7 +136,12 @@ for tabela in sorted(os.listdir(caminho_tabelas.replace('{}', ''))):
                         '<p>{}</p>'.format(linha.rstrip()))
                 continue
             elif indice_linha == 0:
-                titulo = linha.rstrip()
+                if '#' in linha:
+                    titulo, dimensoes = linha.rstrip().split('#')
+                    dimensoes = dimensoes.split(' ')
+                else:
+                    titulo = linha.rstrip()
+                    dimensoes = None
                 continue
             else:
                 extensao_colspan = 0
@@ -148,8 +154,18 @@ for tabela in sorted(os.listdir(caminho_tabelas.replace('{}', ''))):
                             itens_linha.append('')
                             extensao_colspan += 1
                         else:
+                            if '<' in item:
+                                item = item[1:]
+                                indices_texto.append(indice_item)
+
+                            if dimensoes is not None:
+                                dimensao = ' width="{}%"'.format(dimensoes[indice_item])
+                            else:
+                                dimensao = ''
                             itens_linha.append(
-                                Tabela.CELULA_CABECALHO.format(item))
+                                Tabela.CELULA_CABECALHO.format(
+                                    dimensao=dimensao,
+                                    conteudo=item))
                     else:
                         if item.startswith('^'):
                             itens_linha.append('')
@@ -193,7 +209,13 @@ for tabela in sorted(os.listdir(caminho_tabelas.replace('{}', ''))):
 
                             rowspan_linha[indice_item] = 0
 
-                            itens_linha.append(Tabela.CELULA.format(item))
+                            classe = ''
+                            if indice_item in indices_texto:
+                                classe = ' class="texto"'
+
+                            itens_linha.append(Tabela.CELULA.format(
+                                classe=classe,
+                                conteudo=item))
 
                 if extensao_colspan > 0:
                     item = itens_linha[indice_item - extensao_colspan]

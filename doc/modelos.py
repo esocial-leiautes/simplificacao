@@ -7,13 +7,13 @@ class Geral:
 
 
 class Tabela:
-    CELULA = '<td rowspan="" colspan="">{}</td>\n'
+    CELULA = '<td rowspan="" colspan=""{classe}>{conteudo}</td>\n'
 
     CELULA_CABECALHO = (
-        '<td class="grupo" rowspan="" colspan="">{}</td>\n')
+        '<td class="grupo" rowspan="" colspan=""{dimensao}>{conteudo}</td>\n')
 
     ANEXO = (
-        '<div class="message is-small">\n'
+        '<div class="message">\n'
         '<div class="message-body">\n{}'
         '</div>\n'
         '</div>\n')
