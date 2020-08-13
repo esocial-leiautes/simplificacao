@@ -13,7 +13,7 @@ class Tabela:
         '<td class="grupo" rowspan="" colspan=""{dimensao}>{conteudo}</td>\n')
 
     ANEXO = (
-        '<div class="message">\n'
+        '<div class="message" style="font-size: .8em">\n'
         '<div class="message-body">\n{}'
         '</div>\n'
         '</div>\n')
