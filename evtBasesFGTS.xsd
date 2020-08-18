@@ -387,15 +387,7 @@
                                                                                                             <xs:documentation>c) Se {tpValor}(./tpValor) = [41, 42, 43, 44, 45, 46, 47, 48, 49, 50], alíquota de 3,2%.</xs:documentation>
                                                                                                         </xs:annotation>
                                                                                                     </xs:element>
-                                                                                                    <xs:element name="ideProcessoFGTS" minOccurs="0" maxOccurs="unbounded" type="T_ideProcessoFGTS">
-                                                                                                        <xs:annotation>
-                                                                                                            <xs:documentation>Identificação de processo - Incidência de FGTS</xs:documentation>
-                                                                                                            <xs:documentation>DESCRICAO_COMPLETA:Processo(s) judicial(is) com decisão/sentença favorável, determinando a não incidência de FGTS.</xs:documentation>
-                                                                                                            <xs:documentation>Evento de origem: S-1010.</xs:documentation>
-                                                                                                            <xs:documentation>CHAVE_GRUPO: {nrProc}</xs:documentation>
-                                                                                                            <xs:documentation>CONDICAO_GRUPO: O (se {indIncid}(../indIncid) = [9]); N (nos demais casos)</xs:documentation>
-                                                                                                        </xs:annotation>
-                                                                                                    </xs:element>
+                                                                                                    <xs:element name="detRubrSusp" minOccurs="0" maxOccurs="unbounded" type="T_detRubrSusp" />
                                                                                                 </xs:sequence>
                                                                                             </xs:complexType>
                                                                                         </xs:element>
@@ -446,15 +438,7 @@
                                                                                                                         <xs:documentation>c) Se {tpValorE}(./tpValorE) = [43, 44, 48, 49, 50], alíquota de 3,2%.</xs:documentation>
                                                                                                                     </xs:annotation>
                                                                                                                 </xs:element>
-                                                                                                                <xs:element name="ideProcessoFGTS" minOccurs="0" maxOccurs="unbounded" type="T_ideProcessoFGTS">
-                                                                                                                    <xs:annotation>
-                                                                                                                        <xs:documentation>Identificação de processo - Incidência de FGTS</xs:documentation>
-                                                                                                                        <xs:documentation>DESCRICAO_COMPLETA:Processo(s) judicial(is) com decisão/sentença favorável, determinando a não incidência de FGTS.</xs:documentation>
-                                                                                                                        <xs:documentation>Evento de origem: S-1010.</xs:documentation>
-                                                                                                                        <xs:documentation>CHAVE_GRUPO: {nrProc}</xs:documentation>
-                                                                                                                        <xs:documentation>CONDICAO_GRUPO: O (se {indIncidE}(../indIncidE) = [9]); N (nos demais casos)</xs:documentation>
-                                                                                                                    </xs:annotation>
-                                                                                                                </xs:element>
+                                                                                                                <xs:element name="detRubrSusp" minOccurs="0" maxOccurs="unbounded" type="T_detRubrSusp" />
                                                                                                             </xs:sequence>
                                                                                                         </xs:complexType>
                                                                                                     </xs:element>
@@ -501,12 +485,49 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    <xs:complexType name="T_ideProcessoFGTS">
+    <xs:complexType name="T_detRubrSusp">
+        <xs:annotation>
+            <xs:documentation>Detalhamento da(s) rubrica(s) com incidência de FGTS suspensa</xs:documentation>
+            <xs:documentation>DESCRICAO_COMPLETA:Detalhamento da(s) rubrica(s) com incidência de FGTS suspensa em decorrência de decisão judicial.</xs:documentation>
+            <xs:documentation>CHAVE_GRUPO: {codRubr}, {ideTabRubr}</xs:documentation>
+            <xs:documentation>CONDICAO_GRUPO: O (se {indIncid}(../indIncid) = [9]); N (nos demais casos)</xs:documentation>
+        </xs:annotation>
         <xs:sequence>
-            <xs:element name="nrProc" type="TS_nrProcJud">
+            <xs:element name="codRubr" type="TS_codigo_esocial">
                 <xs:annotation>
-                    <xs:documentation>Informar o número do processo.</xs:documentation>
+                    <xs:documentation>Informar o código atribuído pelo empregador que identifica a rubrica em sua folha de pagamento.</xs:documentation>
+                    <xs:documentation>Evento de origem: S-1200, S-2299 ou S-2399.</xs:documentation>
                 </xs:annotation>
+            </xs:element>
+            <xs:element name="ideTabRubr" type="TS_ideTabRubr">
+                <xs:annotation>
+                    <xs:documentation>Preencher com o identificador da Tabela de Rubricas para a rubrica definida em {codRubr}(./codRubr).</xs:documentation>
+                    <xs:documentation>Evento de origem: S-1200, S-2299 ou S-2399.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="vrRubr" type="TS_vrRubr">
+                <xs:annotation>
+                    <xs:documentation>Valor total da rubrica.</xs:documentation>
+                    <xs:documentation>Evento de origem: S-1200, S-2299 ou S-2399.</xs:documentation>
+                    <xs:documentation>Validação: Deve corresponder ao somatório dos valores informados no campo {vrRubr} dos eventos de origem para a respectiva rubrica.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ideProcessoFGTS" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>Identificação de processo - Incidência de FGTS</xs:documentation>
+                    <xs:documentation>DESCRICAO_COMPLETA:Processo(s) judicial(is) com decisão/sentença favorável, determinando a não incidência de FGTS.</xs:documentation>
+                    <xs:documentation>Evento de origem: S-1010.</xs:documentation>
+                    <xs:documentation>CHAVE_GRUPO: {nrProc}</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="nrProc" type="TS_nrProcJud">
+                            <xs:annotation>
+                                <xs:documentation>Informar o número do processo.</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
             </xs:element>
         </xs:sequence>
     </xs:complexType>
