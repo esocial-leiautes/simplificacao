@@ -123,13 +123,19 @@
                                                                             <xs:element name="matricula" minOccurs="0" type="TS_codigo_esocial">
                                                                                 <xs:annotation>
                                                                                     <xs:documentation>Matrícula atribuída ao trabalhador pela empresa ou, no caso de servidor público, a matrícula constante no Sistema de Administração de Recursos Humanos do órgão.</xs:documentation>
-                                                                                    <xs:documentation>Evento de origem: S-1200, S-2299 ou S-2399.</xs:documentation>
+                                                                                    <xs:documentation>Evento de origem: S-1200, S-2299, S-2399 ou S-3000.</xs:documentation>
+                                                                                    <xs:documentation>Validação: a) Se o evento de origem for S-1200/S-2299/S-2399, retornar a matrícula informada nesse evento;</xs:documentation>
+                                                                                    <xs:documentation>b) Se o evento de origem for S-3000, retornar a matrícula informada no evento objeto da exclusão.</xs:documentation>
                                                                                 </xs:annotation>
                                                                             </xs:element>
                                                                             <xs:element name="codCateg" type="TS_codCateg">
                                                                                 <xs:annotation>
                                                                                     <xs:documentation>Preencher com o código da categoria do trabalhador, conforme Tabela 01.</xs:documentation>
-                                                                                    <xs:documentation>Validação: Se o evento de origem for S-1200, retornar o código de categoria informado nesse evento. Se o evento de origem for S-2299 ou S-2399, retornar o código de categoria existente no Registro de Eventos Trabalhistas - RET.</xs:documentation>
+                                                                                    <xs:documentation>Evento de origem: S-1200, S-2299, S-2399 ou S-3000.</xs:documentation>
+                                                                                    <xs:documentation>Validação: a) Se o evento de origem for S-1200, retornar o código de categoria informado nesse evento;</xs:documentation>
+                                                                                    <xs:documentation>b) Se o evento de origem for S-2299 ou S-2399, retornar o código de categoria existente no Registro de Eventos Trabalhistas - RET;</xs:documentation>
+                                                                                    <xs:documentation>c) Se o evento de origem for S-3000 (referente a exclusão de S-1200), retornar o código de categoria informado no evento S-1200 (objeto da exclusão);</xs:documentation>
+                                                                                    <xs:documentation>d) Se o evento de origem for S-3000 (referente a exclusão de S-2299 ou S-2399), retornar o código de categoria existente no RET relativo ao contrato informado em S-2299 ou S-2399 (objeto da exclusão).</xs:documentation>
                                                                                 </xs:annotation>
                                                                             </xs:element>
                                                                             <xs:element name="categOrig" minOccurs="0" type="TS_codCateg">
