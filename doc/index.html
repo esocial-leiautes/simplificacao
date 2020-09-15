@@ -1291,7 +1291,7 @@ b1) Todos os trabalhadores admitidos (S-2190 ou S-2200) em período igual ou ant
 - se o trabalhador estiver afastado durante todo o período de apuração em um dos seguintes códigos de afastamento [03, 05, 06, 07, 11, 12, 13, 21, 23, 25, 27, 28, 30, 31, 36, 37]; ou<br />
 - se o trabalhador estiver afastado durante todo o período de apuração pelo código de motivo de afastamento [14] com {infOnus} = [2], ou cedido/em exercício em outro órgão durante todo o período de apuração com {respRemun} = [N]); ou<br />
 - se o trabalhador estiver afastado durante todo o período de apuração pelo código de motivo de afastamento [24] com {infOnusRemun} = [2]; ou<br />
-- se o trabalhador estiver afastado durante todo o período de apuração pelo código de motivo de afastamento [22] com {indRemunCargo} = [N]; ou<br />
+- se o trabalhador estiver afastado durante todo o período de apuração pelo código de motivo de afastamento [22] com {indRemunCargo} = [N] ou não existente; ou<br />
 - se o código da categoria do trabalhador for igual a [111, 310] em todo o período de apuração; ou<br />
 - se, para trabalhador admitido com {tpAdmissao} = [2, 3, 4, 5, 6] ou {tpProv} = [5, 8, 10], o período de apuração for menor que o mês/ano informado no campo {sucessaoVinc/dtTransf}, {transfDom/dtTransf} ou {mudancaCPF/dtAltCPF}, todos do S-2200; ou<br />
 - se {indApuracao} = [2] e o código da categoria do trabalhador for igual a [107, 108] em todo o ano.<br />
@@ -12696,7 +12696,7 @@ c) Se <a href="#2200_vinculo_cadIni">cadIni</a> = [N], deve ser igual ou anterio
 <strong>Valores válidos:</strong><br />
 <strong>S</strong> - Sim<br />
 <strong>N</strong> - Não<br />
-<strong>Validação:</strong> Preenchimento obrigatório se <a href="#2200_vinculo_cadIni">cadIni</a> = [N] e se a natureza jurídica do declarante for igual a 1XX-X, 201-1, 203-8.</td>
+<strong>Validação:</strong> Preenchimento obrigatório se <a href="#2200_vinculo_cadIni">cadIni</a> = [N] e se a natureza jurídica do declarante for igual a 1XX-X, 201-1 ou 203-8.</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="2200_vinculo_infoContrato_codCateg" id="2200_vinculo_infoContrato_codCateg">108</td>
@@ -15142,7 +15142,7 @@ b) Se <a href="#2206_altContratual_vinculo_infoRegimeTrab_infoCeletista_aprend_t
 <strong>Valores válidos:</strong><br />
 <strong>S</strong> - Sim<br />
 <strong>N</strong> - Não<br />
-<strong>Validação:</strong> Preenchimento obrigatório se a natureza jurídica do declarante for igual a 1XX-X, 201-1, 203-8.</td>
+<strong>Validação:</strong> Preenchimento obrigatório se a natureza jurídica do declarante for igual a 1XX-X, 201-1 ou 203-8.</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="2206_altContratual_vinculo_infoContrato_codCateg" id="2206_altContratual_vinculo_infoContrato_codCateg">43</td>
@@ -17296,7 +17296,7 @@ N (nos demais casos)</td>
 <td>Informações complementares - Afastamento para exercício de mandato eletivo</td>
 <td>0-1</td>
 <td>-</td>
-<td>O (se <a href="#2230_infoAfastamento_iniAfastamento_codMotAfast">codMotAfast</a> = [22]);<br />
+<td>O (se <a href="#2230_infoAfastamento_iniAfastamento_codMotAfast">codMotAfast</a> = [22] e se a natureza jurídica do declarante for igual a 1XX-X, 201-1 ou 203-8);<br />
 N (nos demais casos)</td>
 </tr>
 <tr>
@@ -17779,7 +17779,7 @@ Informar o campo somente se o período aquisitivo for diferente de 1 ano.<br />
 <td>1</td>
 <td>14</td>
 <td>-</td>
-<td>CNPJ do órgão no qual o servidor exercerá o mandato eletivo.<br />
+<td>CNPJ do órgão no qual o trabalhador exercerá o mandato eletivo.<br />
 <strong>Validação:</strong> Deve ser um CNPJ diferente do CNPJ base do empregador e diferente dos informados na Tabela de Estabelecimentos (S-1005).<br />
 <strong>Regra de validação:</strong><br />
 <a href="#REGRA_VALIDA_CNPJ">REGRA_VALIDA_CNPJ</a></td>
@@ -17790,13 +17790,14 @@ Informar o campo somente se o período aquisitivo for diferente de 1 ano.<br />
 <td><a href="#r_2230_infoAfastamento_iniAfastamento_infoMandElet">infoMandElet</a></td>
 <td>E</td>
 <td>C</td>
-<td>1</td>
+<td>0-1</td>
 <td>1</td>
 <td>-</td>
 <td>Indicar se o servidor optou pela remuneração do cargo efetivo.<br />
 <strong>Valores válidos:</strong><br />
 <strong>S</strong> - Sim<br />
-<strong>N</strong> - Não</td>
+<strong>N</strong> - Não<br />
+<strong>Validação:</strong> Informação obrigatória e exclusiva se o código de categoria no Registro de Eventos Trabalhistas - RET for igual a [301].</td>
 </tr>
 <tr class="grupo">
 <td onclick="copiarCaminho.call(this)" title="2230_infoAfastamento_infoRetif" id="2230_infoAfastamento_infoRetif">36</td>
