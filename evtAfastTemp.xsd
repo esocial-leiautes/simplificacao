@@ -221,20 +221,21 @@
                                                     <xs:element name="infoMandElet" minOccurs="0">
                                                         <xs:annotation>
                                                             <xs:documentation>Informações complementares - Afastamento para exercício de mandato eletivo.</xs:documentation>
-                                                            <xs:documentation>CONDICAO_GRUPO: O (se {codMotAfast}(../codMotAfast) = [22]); N (nos demais casos)</xs:documentation>
+                                                            <xs:documentation>CONDICAO_GRUPO: O (se {codMotAfast}(../codMotAfast) = [22] e se a natureza jurídica do declarante for igual a 1XX-X, 201-1 ou 203-8); N (nos demais casos)</xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
                                                             <xs:sequence>
                                                                 <xs:element name="cnpjMandElet" type="TS_cnpj">
                                                                     <xs:annotation>
-                                                                        <xs:documentation>CNPJ do órgão no qual o servidor exercerá o mandato eletivo.</xs:documentation>
+                                                                        <xs:documentation>CNPJ do órgão no qual o trabalhador exercerá o mandato eletivo.</xs:documentation>
                                                                         <xs:documentation>Validação: Deve ser um CNPJ diferente do CNPJ base do empregador e diferente dos informados na Tabela de Estabelecimentos (S-1005).</xs:documentation>
                                                                         <xs:documentation>REGRA:REGRA_VALIDA_CNPJ</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
-                                                                <xs:element name="indRemunCargo" type="TS_sim_nao">
+                                                                <xs:element name="indRemunCargo" minOccurs="0" type="TS_sim_nao">
                                                                     <xs:annotation>
                                                                         <xs:documentation>Indicar se o servidor optou pela remuneração do cargo efetivo.</xs:documentation>
+                                                                        <xs:documentation>Validação: Informação obrigatória e exclusiva se o código de categoria no Registro de Eventos Trabalhistas - RET for igual a [301].</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
                                                             </xs:sequence>
