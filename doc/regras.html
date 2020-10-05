@@ -192,7 +192,7 @@ Caso seja informado evento de Remuneração (S-1200 ou S-1202) em período de ap
 </tr>
 <tr>
 <td id="REGRA_DESLIG_TRABALHADOR_AFASTADO"><strong>REGRA_DESLIG_TRABALHADOR_AFASTADO</strong></td>
-<td>Somente é permitido o envio de evento de Desligamento para trabalhador afastado temporariamente ou cedido/em exercício em outro órgão se o motivo de desligamento for igual a (10, 11, 12, 13, 14, 16, 21, 22, 23, 24, 25, 26, 29, 30, 32, 34, 36, 37, 38, 39, 40).</td>
+<td>Somente é permitido o envio de evento de Desligamento para trabalhador afastado temporariamente ou cedido/em exercício em outro órgão se o motivo de desligamento for igual a (10, 11, 12, 13, 14, 16, 21, 22, 23, 24, 25, 26, 29, 30, 32, 34, 36, 37, 38, 39, 40). Para essa regra, considerar como data de desligamento a maior data entre {dtDeslig} e {dtProjFimAPI} do evento S-2299.</td>
 </tr>
 <tr>
 <td id="REGRA_ENVIO_PROC_FECHAMENTO"><strong>REGRA_ENVIO_PROC_FECHAMENTO</strong></td>
@@ -661,7 +661,8 @@ Exclusivamente na recepção do evento S-2206:<br />
 a) considerar como data do evento a informação prestada no campo {dtEf} se este estiver preenchido (nessa situação, a data do evento deve ser igual ou posterior à data de admissão); caso contrário, considerar a informação do campo {dtAlteracao};<br />
 b) considerar como data de desligamento a maior data entre {dtDeslig}, {dtProjFimAPI} e {dtFimQuar} do evento S-2299.<br />
 No caso do evento S-2210, quando {tpCat} = [2, 3], considerar vínculo ativo a partir da {dtAdm}, mesmo no caso de sucessão, transferência de titularidade do empregado doméstico ou mudança de CPF.<br />
-No caso dos eventos S-2210 e S-2230, considerar como data de desligamento a maior data entre {dtDeslig} e {dtProjFimAPI} do evento S-2299.<br />
+No caso dos eventos S-2210, S-2230 e S-2231, considerar como data de desligamento a maior data entre {dtDeslig} e {dtProjFimAPI} do evento S-2299.<br />
+No caso do evento S-2230 (ou S-2231), se houver afastamento (ou cessão/exercício em outro órgão) com início em data igual ou posterior a {dtDeslig} do evento S-2299, a data de término do afastamento (ou da cessão) deve ser igual ou anterior a {dtProjFimAPI} do S-2299. Se {dtProjFimAPI} não existir, a data de término do afastamento (ou da cessão) deve ser igual a {dtDeslig}.<br />
 No caso dos eventos S-1200 e S-1202, {perApur} deve ser igual ou posterior ao mês/ano da data de admissão/data de exercício (no caso de transferência ou mudança de CPF, igual ou posterior ao mês/ano de {sucessaoVinc/dtTransf}, {transfDom/dtTransf} ou {dtAltCPF} do evento S-2200, conforme o caso) e igual ou anterior ao mês/ano da data de desligamento.<br />
 No caso do evento S-2299, se houver remuneração informada no registro {infoPerAnt}, o mês/ano do evento (aqui considerado o período ao qual se refere a remuneração, indicado em {perRef}) deve ser igual ou posterior ao mês/ano da data de admissão.</td>
 </tr>
