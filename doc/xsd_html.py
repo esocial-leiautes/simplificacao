@@ -47,7 +47,7 @@ arquivo.close()
 inicio_tempo = perf_counter()
 
 conteudo = inicio.replace('SUBTITULO', 'eSocial versão S-1.0 RC - Regras de Validação').replace(
-    'TITULO', 'eSocial versão S-1.0 RC - Regras de Validação')
+    'TITULO', 'eSocial versão S-1.0 RC - Regras')
 
 conteudo += Regra.CABECALHO
 
