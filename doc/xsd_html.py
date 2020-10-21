@@ -46,8 +46,8 @@ arquivo.close()
 
 inicio_tempo = perf_counter()
 
-conteudo = inicio.replace('SUBTITULO', 'Regras de Validação').replace(
-    'TITULO', 'Regras')
+conteudo = inicio.replace('SUBTITULO', 'eSocial versão S-1.0 RC - Regras de Validação').replace(
+    'TITULO', 'eSocial versão S-1.0 RC - Regras de Validação')
 
 conteudo += Regra.CABECALHO
 
@@ -75,8 +75,8 @@ for identificador in identificadores:
 
 leiautes.sort(key=lambda item: item.codigo)
 
-conteudo = inicio.replace('SUBTITULO', 'Leiautes').replace(
-    'TITULO', 'Leiautes')
+conteudo = inicio.replace('SUBTITULO', 'eSocial versão S-1.0 RC - Leiautes').replace(
+    'TITULO', 'eSocial versão S-1.0 RC - Leiautes')
 
 html = ''
 for regra in regras:
@@ -261,8 +261,8 @@ for tabela in sorted(os.listdir(caminho_tabelas.replace('{}', ''))):
     tabelas.append(tabela[:-4])
 
 
-conteudo = inicio.replace('SUBTITULO', 'Tabelas').replace(
-    'TITULO', 'Tabelas')
+conteudo = inicio.replace('SUBTITULO', 'eSocial versão S-1.0 RC - Tabelas').replace(
+    'TITULO', 'eSocial versão S-1.0 RC - Tabelas')
 conteudo += '<ul>\n'
 conteudo += conteudo_indice
 conteudo += '</ul>\n'
