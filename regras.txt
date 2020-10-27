@@ -452,9 +452,12 @@ Se {tpPgto} = [3], a data de pagamento não pode ser menor que o mês anterior d
 
 REGRA_VALIDA_EMPREGADOR
 Se {tpInsc} do empregador for igual a [1] (CNPJ), aplicar REGRA_VALIDA_CNPJ para o CNPJ informado em {nrInsc}.
-Se {tpInsc} do empregador for igual a [2] (CPF), o CPF indicado no campo {nrInsc} não pode estar anulado. O CPF também não pode estar cancelado:
-a) em data anterior à data de ocorrência de evento não periódico;
-b) no mês/ano do período de apuração de evento periódico.
+Se {tpInsc} do empregador for igual a [2] (CPF), o CPF indicado no campo {nrInsc} deve existir na base da RFB e obedecer às seguintes condições:
+a) Não pode estar anulado;
+b) Se estiver com a situação cadastral "cancelada" ou "titular falecido":
+b1) No caso de evento de tabela, {fimValid} deve ser igual ou anterior ao mês/ano da data da situação cadastral (se {fimValid} não estiver informado, o mês/ano corrente deve ser igual ou anterior ao mês/ano da data da situação cadastral);
+b2) No caso de evento não periódico, a data de ocorrência do evento deve ser igual ou anterior à data da situação cadastral;
+b3) No caso de evento periódico, {perApur} deve ser igual ou anterior ao mês/ano da data da situação cadastral.
 
 REGRA_VALIDA_FECHAMENTO_FOPAG
 Para aceitação do evento de fechamento, efetuar as seguintes verificações:
