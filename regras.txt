@@ -451,13 +451,14 @@ Se {tpPgto} = [2], a data de pagamento não pode ser menor que o mês anterior d
 Se {tpPgto} = [3], a data de pagamento não pode ser menor que o mês anterior da data informada em {dtTerm} informada no evento S-2399.
 
 REGRA_VALIDA_EMPREGADOR
-Se {tpInsc} do empregador for igual a [1] (CNPJ), aplicar REGRA_VALIDA_CNPJ para o CNPJ informado em {nrInsc}.
-Se {tpInsc} do empregador for igual a [2] (CPF), o CPF indicado no campo {nrInsc} deve existir na base da RFB e obedecer às seguintes condições:
+1) Se {tpInsc} do empregador for igual a [1] (CNPJ), aplicar REGRA_VALIDA_CNPJ para o CNPJ informado em {nrInsc}.
+2) Se {tpInsc} do empregador for igual a [2] (CPF), o CPF indicado no campo {nrInsc} deve existir na base da RFB e obedecer às seguintes condições:
 a) Não pode estar anulado;
 b) Se estiver com a situação cadastral "cancelada" ou "titular falecido":
 b1) No caso de evento de tabela, {fimValid} deve ser igual ou anterior ao mês/ano da data da situação cadastral (se {fimValid} não estiver informado, o mês/ano corrente deve ser igual ou anterior ao mês/ano da data da situação cadastral);
 b2) No caso de evento não periódico, a data de ocorrência do evento deve ser igual ou anterior à data da situação cadastral;
 b3) No caso de evento periódico, {perApur} deve ser igual ou anterior ao mês/ano da data da situação cadastral.
+OBS.: A alínea "b" não deve ser executada quando se tratar dos eventos S-1298 e S-3000.
 
 REGRA_VALIDA_FECHAMENTO_FOPAG
 Para aceitação do evento de fechamento, efetuar as seguintes verificações:
