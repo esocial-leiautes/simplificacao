@@ -29789,6 +29789,24 @@ Rendimento não tributável ou isento do IRRF:<br />
 <strong>700</strong> - Auxílio moradia<br />
 <strong>701</strong> - Parte não tributável do valor de serviço de transporte de passageiros ou cargas<br />
 <strong>79</strong> - Outras isenções<br />
+<strong>7900</strong> - Verba transitada pela folha de pagamento de natureza diversa de rendimento ou retenção/isenção/dedução de IR (exemplo: desconto de convênio farmácia, desconto de consignações, etc.)<br />
+<br />
+Códigos para compatibilidade de versões anteriores:<br />
+<strong>7950</strong> - Rendimento não tributável<br />
+<strong>7951</strong> - Rendimento não tributável em função de acordos internacionais de bitributação<br />
+<strong>7952</strong> - Rendimento tributável - RRA<br />
+<strong>7953</strong> - Retenção de IR - RRA<br />
+<strong>7954</strong> - Previdência Social Oficial - RRA<br />
+<strong>7955</strong> - Pensão alimentícia - RRA<br />
+<strong>7956</strong> - Valores pagos a titular ou sócio de microempresa ou empresa de pequeno porte, exceto pró-labore e aluguéis<br />
+<strong>7957</strong> - Depósito judicial<br />
+<strong>7958</strong> - Compensação judicial do ano-calendário<br />
+<strong>7959</strong> - Compensação judicial de anos anteriores<br />
+<strong>7960</strong> - Exigibilidade suspensa - Remuneração mensal<br />
+<strong>7961</strong> - Exigibilidade suspensa - 13º salário<br />
+<strong>7962</strong> - Exigibilidade suspensa - Férias<br />
+<strong>7963</strong> - Exigibilidade suspensa - PLR<br />
+<strong>7964</strong> - Exigibilidade suspensa - RRA<br />
 <br />
 Exigibilidade suspensa - Rendimento tributável (base de cálculo do IR):<br />
 <strong>9011</strong> - Remuneração mensal<br />
@@ -29831,7 +29849,7 @@ Compensação judicial:<br />
 <td>1-14</td>
 <td>2</td>
 <td>Composição do valor do rendimento tributável, não tributável, retenção, dedução ou isenção do IRRF, de acordo com a classificação apresentada no campo <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a>.<br />
-<strong>Validação:</strong> Deve ser maior que 0 (zero).<br />
+<strong>Validação:</strong> Se o somatório abaixo resultar valor negativo, retornar 0 (zero).<br />
 Deve corresponder ao somatório dos valores informados nas rubricas (campo {vrRubr}) dos eventos de origem do S-1210 (grupos {infoPerApur} e {infoPerAnt} do S-1200, S-1202, S-1207 e S-2299, e grupo {verbasResc} do S-2399), desde que o campo {indApurIR} vinculado às respectivas rubricas seja igual a [0] ou não informado, obedecendo ao que segue:<br />
 a) Somar os valores das rubricas cujo <a href="#1010_infoRubrica_inclusao_dadosRubrica_tpRubr">tpRubr</a> em S-1010 seja igual a [1, 3] e subtrair os valores das rubricas cujo <a href="#1010_infoRubrica_inclusao_dadosRubrica_tpRubr">tpRubr</a> em S-1010 seja igual a [2, 4], observando a tabela de relacionamento abaixo:<br />
 <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [11], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF">codIncIRRF</a> em S-1010 = [11, 13];<br />
@@ -29848,6 +29866,16 @@ a) Somar os valores das rubricas cujo <a href="#1010_infoRubrica_inclusao_dadosR
 <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [700], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF">codIncIRRF</a> em S-1010 = [700];<br />
 <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [701], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF">codIncIRRF</a> em S-1010 = [701];<br />
 <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [79], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF">codIncIRRF</a> em S-1010 = [79];<br />
+<a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [7900], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF">codIncIRRF</a> em S-1010 = [9];<br />
+<a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [7950], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF">codIncIRRF</a> em S-1010 = [0];<br />
+<a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [7951], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF">codIncIRRF</a> em S-1010 = [1];<br />
+<a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [7952], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF">codIncIRRF</a> em S-1010 = [15];<br />
+<a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [7956], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF">codIncIRRF</a> em S-1010 = [78];<br />
+<a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [7960], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF">codIncIRRF</a> em S-1010 = [91];<br />
+<a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [7961], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF">codIncIRRF</a> em S-1010 = [92];<br />
+<a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [7962], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF">codIncIRRF</a> em S-1010 = [93];<br />
+<a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [7963], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF">codIncIRRF</a> em S-1010 = [94];<br />
+<a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [7964], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF">codIncIRRF</a> em S-1010 = [95];<br />
 <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [9011], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF">codIncIRRF</a> em S-1010 = [9011, 9013];<br />
 <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [9012], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF">codIncIRRF</a> em S-1010 = [9012];<br />
 <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [9014], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF">codIncIRRF</a> em S-1010 = [9014].<br />
@@ -29868,6 +29896,12 @@ b) Somar os valores das rubricas cujo <a href="#1010_infoRubrica_inclusao_dadosR
 <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [63], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF">codIncIRRF</a> em S-1010 = [63, 65];<br />
 <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [64], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF">codIncIRRF</a> em S-1010 = [64];<br />
 <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [67], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF">codIncIRRF</a> em S-1010 = [67];<br />
+<a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [7953], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF">codIncIRRF</a> em S-1010 = [35];<br />
+<a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [7954], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF">codIncIRRF</a> em S-1010 = [44];<br />
+<a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [7955], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF">codIncIRRF</a> em S-1010 = [55];<br />
+<a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [7957], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF">codIncIRRF</a> em S-1010 = [81];<br />
+<a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [7958], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF">codIncIRRF</a> em S-1010 = [82];<br />
+<a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [7959], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF">codIncIRRF</a> em S-1010 = [83];<br />
 <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [9031], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF">codIncIRRF</a> em S-1010 = [9031, 9033];<br />
 <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [9032], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF">codIncIRRF</a> em S-1010 = [9032];<br />
 <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [9034], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF">codIncIRRF</a> em S-1010 = [9034];<br />
