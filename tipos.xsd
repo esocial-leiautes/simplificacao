@@ -1724,12 +1724,11 @@
     <xs:simpleType name="TS_tpInsc_EstabLot">
         <xs:annotation>
             <xs:documentation>Preencher com o código correspondente ao tipo de inscrição do estabelecimento, de acordo com as opções da Tabela 05.</xs:documentation>
-            <xs:documentation>Validação: Se {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [21], deve ser igual a [3, 4], exceto se empregador doméstico.</xs:documentation>
-            <xs:documentation>Se {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [22], caso não seja empregador doméstico, deve ser igual a [3, 4] e, se for igual a [3], o CAEPF deve constar na Tabela S-1005 como sendo de segurado especial.</xs:documentation>
-            <xs:documentation>Se empregador doméstico (trabalhador com código de categoria = [104]), deve ser igual a [2].</xs:documentation>
+            <xs:documentation>Validação: Se {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [21], deve ser igual a [3, 4].</xs:documentation>
+            <xs:documentation>Se {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [22], deve ser igual a [3, 4] e, se for igual a [3] e não se tratar de empregado doméstico, o CAEPF deve constar na Tabela S-1005 como sendo de segurado especial.</xs:documentation>
             <xs:documentation>Nos demais casos ({classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 diferente de [21, 22]), deve ser igual a [1, 4].</xs:documentation>
         </xs:annotation>
-        <xs:restriction base="TS_tpInsc_1_2_3_4" />
+        <xs:restriction base="TS_tpInsc_1_3_4" />
     </xs:simpleType>
 
     <xs:simpleType name="TS_tpInsc_EstabLot_1_4">
@@ -1755,9 +1754,9 @@
     <xs:simpleType name="TS_nrInsc_EstabLot">
         <xs:annotation>
             <xs:documentation>Informar o número de inscrição do estabelecimento do contribuinte de acordo com o tipo de inscrição indicado no campo {ideEstabLot/tpInsc}(./tpInsc).</xs:documentation>
-            <xs:documentation>Validação: A inscrição informada deve ser compatível com {ideEstabLot/tpInsc}(./tpInsc). Se {ideEstabLot/tpInsc}(./tpInsc) = [2], informar o CPF do empregador doméstico.</xs:documentation>
+            <xs:documentation>Validação: A inscrição informada deve ser compatível com {ideEstabLot/tpInsc}(./tpInsc).</xs:documentation>
         </xs:annotation>
-        <xs:restriction base="TS_nrInsc_11_12_14" />
+        <xs:restriction base="TS_nrInsc_12_14" />
     </xs:simpleType>
 
     <!-- Campo {ideEstabLot/codLotacao} -->
