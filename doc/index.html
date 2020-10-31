@@ -338,6 +338,18 @@ Caso seja informado evento de Remuneração (S-1200 ou S-1202) em período de ap
 </div>
 </div>
 </div>
+<div class="modal" id="REGRA_EMPREGADO_DOMESTICO">
+<div class="modal-background"></div>
+<div class="modal-card">
+<header class="modal-card-head">
+<p class="modal-card-title">REGRA_EMPREGADO_DOMESTICO</p>
+<button class="delete" aria-label="close"></button>
+</header>
+<div class="modal-card-body">
+<p>Somente é permitido o envio de informações referentes a empregado doméstico se {procEmi} = [2, 22].</p>
+</div>
+</div>
+</div>
 <div class="modal" id="REGRA_ENVIO_PROC_FECHAMENTO">
 <div class="modal-background"></div>
 <div class="modal-card">
@@ -383,6 +395,29 @@ c) A retificação ou exclusão extemporânea de evento remuneratório (S-1200/S
 </header>
 <div class="modal-card-body">
 <p>A integridade dos eventos periódicos cujo movimento esteja fechado não é afetada com envio (mesmo extemporâneo) do evento.</p>
+</div>
+</div>
+</div>
+<div class="modal" id="REGRA_EVENTO_IMPACTO_FOPAG">
+<div class="modal-background"></div>
+<div class="modal-card">
+<header class="modal-card-head">
+<p class="modal-card-title">REGRA_EVENTO_IMPACTO_FOPAG</p>
+<button class="delete" aria-label="close"></button>
+</header>
+<div class="modal-card-body">
+<p>1) Se {classTrib} em S-1000 = [22]:<br />
+a) Evento com {procEmi} = [2, 22] somente deve ser permitido se não existirem eventos S-1200, S-1210, S-1260 e S-2299 enviados com {procEmi} = [1, 3] no período impactado.<br />
+b) Retornar alerta caso seja transmitido evento com {procEmi} = [1, 3] e existir evento S-1200, S-1210, S-1260 ou S-2299 enviado com {procEmi} = [2, 22] no período impactado.<br />
+2) No caso de empregador Pessoa Jurídica:<br />
+a) Evento com {procEmi} = [4] somente deve ser permitido se não existirem eventos S-1200, S-1210, S-2299 e S-2399 enviados com {procEmi} = [1, 3] no período impactado.<br />
+b) Retornar alerta caso seja transmitido evento com {procEmi} = [1, 3] e existir evento S-1200, S-1210, S-2299 ou S-2399 enviado com {procEmi} = [4] no período impactado.<br />
+OBS.: Entende-se por período impactado:<br />
+- Eventos S-2190, S-2200, S-2298 e S-2300: período compreendido entre o mês/ano da data de admissão/início de TSVE e o mês/ano da data de desligamento/término de TSVE (para trabalhador desligado) ou o mês/ano da data corrente (para trabalhador ativo);<br />
+- Eventos S-2230 (somente início do afastamento ou início e término) e S-2231 (somente início da cessão): período compreendido entre o mês/ano da data de início do afastamento/cessão e o mês/ano da data corrente (caso não haja informação do término do afastamento) ou o mês/ano da data de término do afastamento (caso o término do afastamento seja informado);<br />
+- Eventos S-2230 (somente término do afastamento) e S-2231 (somente término da cessão): período compreendido entre o mês/ano da data de início do afastamento/cessão e o mês/ano da data corrente;<br />
+- Eventos S-2299 e S-2399: período compreendido entre o mês/ano da data de desligamento/término de TSVE e o mês/ano da data corrente.<br />
+No caso de evento de período de apuração anual, considerar {perApur} = "AAAA-12".</p>
 </div>
 </div>
 </div>
@@ -486,6 +521,24 @@ b) O evento S-1280 é permitido apenas se {classTrib} = [03, 09] ou ({classTrib}
 </header>
 <div class="modal-card-body">
 <p>Se o evento a ser excluído seja relativo a período de apuração para o qual já exista encerramento das informações, o evento de exclusão só é aceito se encaminhado após o evento de "reabertura" das informações (S-1298).</p>
+</div>
+</div>
+</div>
+<div class="modal" id="REGRA_EVE_FOPAG_SIMPLIFICADO">
+<div class="modal-background"></div>
+<div class="modal-card">
+<header class="modal-card-head">
+<p class="modal-card-title">REGRA_EVE_FOPAG_SIMPLIFICADO</p>
+<button class="delete" aria-label="close"></button>
+</header>
+<div class="modal-card-body">
+<p>1) O campo {indGuia} somente pode ser informado se o empregador for Pessoa Física, nas seguintes situações:<br />
+a) Caso {classTrib} em S-1000 = [21], somente deve ser preenchido se {procEmi} = [2, 22];<br />
+b) Caso {classTrib} em S-1000 = [22], sempre deve ser preenchido.<br />
+2) Se {classTrib} em S-1000 = [22]:<br />
+a) Todos os eventos periódicos e desligamentos de um mesmo período de apuração (mês/ano do desligamento, no caso do S-2299) devem possuir ou {procEmi} = [1, 3] ou {procEmi} = [2, 22], exceto quando houver empregado doméstico ativo ou desligado no período de apuração, situação em que todos os eventos periódicos e desligamentos devem possuir {procEmi} = [2, 22];<br />
+b) No caso do S-1200, cada evento somente pode haver remuneração de uma única matrícula/categoria.<br />
+3) No caso de empregador Pessoa Jurídica, todos os eventos periódicos e desligamentos/términos de TSVE de um mesmo período de apuração (mês/ano do desligamento ou do término de TSVE no caso do S-2299 ou do S-2399, respectivamente) devem possuir ou {procEmi} = [1, 3] ou {procEmi} = [4].</p>
 </div>
 </div>
 </div>
@@ -738,6 +791,22 @@ c) Não é permitido informar {tpInsc} = [1] (CNPJ) se a natureza jurídica do d
 </header>
 <div class="modal-card-body">
 <p>Em caso de arquivo gerado por Pessoa Jurídica, {iniValid} deve ser sempre igual ou posterior à data de início das atividades da empresa constante na base de dados do CNPJ ou à "data do primeiro vínculo", se existente no cadastro do CNPJ na RFB.</p>
+</div>
+</div>
+</div>
+<div class="modal" id="REGRA_MESMO_PROCEMI">
+<div class="modal-background"></div>
+<div class="modal-card">
+<header class="modal-card-head">
+<p class="modal-card-title">REGRA_MESMO_PROCEMI</p>
+<button class="delete" aria-label="close"></button>
+</header>
+<div class="modal-card-body">
+<p>Somente é permitido retificar ou excluir evento não periódico ou periódico com o mesmo {procEmi} do evento original, exceto:<br />
+a) Evento com {procEmi} = [1] pode ser retificado ou excluído por evento com {procEmi} = [3];<br />
+b) Evento com {procEmi} = [3] pode ser retificado ou excluído por evento com {procEmi} = [1];<br />
+c) Evento S-2230 de férias ({codMotAfast} = [15]) com {procEmi} = [1, 3] pode ser retificado por evento com {procEmi} = [2, 4, 22];<br />
+d) Evento com {procEmi} = [91] pode ser retificado ou excluído por evento com qualquer {procEmi}.</p>
 </div>
 </div>
 </div>
