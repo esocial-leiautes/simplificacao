@@ -24,6 +24,23 @@
             <xs:element name="nrRecibo" minOccurs="0" type="TS_nrRecibo" />
             <xs:element name="indApuracao" type="TS_indApuracao" />
             <xs:element name="perApur" type="TS_perApur" />
+            <xs:element name="indGuia" minOccurs="0" type="TS_indGuia" />
+            <xs:element name="tpAmb" type="TS_tpAmb" />
+            <xs:element name="procEmi" type="TS_procEmi" />
+            <xs:element name="verProc" type="TS_verProc" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="T_ideEvento_folha_opp">
+        <xs:annotation>
+            <xs:documentation>Informações de identificação do evento.</xs:documentation>
+            <xs:documentation>CHAVE_GRUPO: {indApuracao}, {perApur}</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="indRetif" type="TS_indRetif" />
+            <xs:element name="nrRecibo" minOccurs="0" type="TS_nrRecibo" />
+            <xs:element name="indApuracao" type="TS_indApuracao" />
+            <xs:element name="perApur" type="TS_perApur" />
             <xs:element name="tpAmb" type="TS_tpAmb" />
             <xs:element name="procEmi" type="TS_procEmi" />
             <xs:element name="verProc" type="TS_verProc" />
@@ -39,6 +56,7 @@
             <xs:element name="indRetif" type="TS_indRetif" />
             <xs:element name="nrRecibo" minOccurs="0" type="TS_nrRecibo" />
             <xs:element name="perApur" type="TS_perApur_mensal" />
+            <xs:element name="indGuia" minOccurs="0" type="TS_indGuia" />
             <xs:element name="tpAmb" type="TS_tpAmb" />
             <xs:element name="procEmi" type="TS_procEmi" />
             <xs:element name="verProc" type="TS_verProc" />
@@ -53,6 +71,7 @@
         <xs:sequence>
             <xs:element name="indApuracao" type="TS_indApuracao" />
             <xs:element name="perApur" type="TS_perApur" />
+            <xs:element name="indGuia" minOccurs="0" type="TS_indGuia" />
             <xs:element name="tpAmb" type="TS_tpAmb" />
             <xs:element name="procEmi" type="TS_procEmi" />
             <xs:element name="verProc" type="TS_verProc" />
@@ -66,6 +85,20 @@
         <xs:sequence>
             <xs:element name="indRetif" type="TS_indRetif" />
             <xs:element name="nrRecibo" minOccurs="0" type="TS_nrRecibo" />
+            <xs:element name="tpAmb" type="TS_tpAmb" />
+            <xs:element name="procEmi" type="TS_procEmi" />
+            <xs:element name="verProc" type="TS_verProc" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="T_ideEvento_trab_indGuia">
+        <xs:annotation>
+            <xs:documentation>Informações de identificação do evento.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="indRetif" type="TS_indRetif" />
+            <xs:element name="nrRecibo" minOccurs="0" type="TS_nrRecibo" />
+            <xs:element name="indGuia" minOccurs="0" type="TS_indGuia" />
             <xs:element name="tpAmb" type="TS_tpAmb" />
             <xs:element name="procEmi" type="TS_procEmi" />
             <xs:element name="verProc" type="TS_verProc" />
@@ -1506,6 +1539,21 @@
             <xs:documentation>Validação: Deve ser um mês/ano válido, igual ou posterior ao início da obrigatoriedade dos eventos periódicos para o empregador.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="TS_periodo_mensal" />
+    </xs:simpleType>
+   
+    <!-- Campo {indGuia} -->
+
+    <xs:simpleType name="TS_indGuia">
+        <xs:annotation>
+            <xs:documentation>Indicativo do tipo de guia.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:byte">
+            <xs:enumeration value="1">
+                <xs:annotation>
+                    <xs:documentation>Documento de Arrecadação do eSocial - DAE</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
     </xs:simpleType>
 
     <!-- Campo CPF -->
