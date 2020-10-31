@@ -114,10 +114,6 @@ b) Eventos S-2205, S-2210, S-2220, S-2240, S-2400 e S-2405 (inclusive S-3000 ref
 c) Demais eventos não periódicos (inclusive S-3000 referente a esses eventos), se o mês/ano da data de ocorrência do evento for posterior ao período de apuração objeto do fechamento (em caso de retificação, devem ser observadas as datas de ocorrência dos eventos original e retificado);
 d) Eventos periódicos, exceto S-1299 (inclusive S-3000 referente a esses eventos, quando cabível), se o período de apuração for diferente do período de apuração objeto do fechamento.
 
-REGRA_EVENTO_POSTERIOR_CAT_OBITO
-Não deve existir qualquer evento não periódico para o trabalhador indicado no evento de CAT com {indCatObito} = [S], com data de ocorrência posterior a {dtObito}. Também não deve existir qualquer evento periódico para o trabalhador indicado no evento com período de apuração igual ou posterior ao mês/ano de {dtObito}. As exceções a essa regra se restringem a alguns tipos de remuneração (S-1200 ou S-1202), conforme definidos na REGRA_REMUN_JA_EXISTE_DESLIGAMENTO, Pagamentos (S-1210) e Alteração Contratual (S-2206), quando {dtEf} desse evento for igual ou anterior a {dtObito}.
-Caso seja informado evento de Remuneração (S-1200 ou S-1202) em período de apuração posterior ao mês/ano de {dtObito} e não se trate de uma das exceções da REGRA_REMUN_JA_EXISTE_DESLIGAMENTO, retornar "alerta".
-
 REGRA_EVENTOS_EXTEMP
 O evento é considerado extemporâneo quando a data de seu envio for posterior à data de sua ocorrência E outro evento com data de ocorrência posterior já tiver sido recepcionado (no caso de evento periódico, considera-se como data de ocorrência seu período de apuração).
 O envio de evento extemporâneo deve observar o que segue:
@@ -131,6 +127,10 @@ c) A retificação ou exclusão extemporânea de evento remuneratório (S-1200/S
 
 REGRA_EVENTO_EXT_SEM_IMPACTO_FOPAG
 A integridade dos eventos periódicos cujo movimento esteja fechado não é afetada com envio (mesmo extemporâneo) do evento.
+
+REGRA_EVENTO_POSTERIOR_CAT_OBITO
+Não deve existir qualquer evento não periódico para o trabalhador indicado no evento de CAT com {indCatObito} = [S], com data de ocorrência posterior a {dtObito}. Também não deve existir qualquer evento periódico para o trabalhador indicado no evento com período de apuração igual ou posterior ao mês/ano de {dtObito}. As exceções a essa regra se restringem a alguns tipos de remuneração (S-1200 ou S-1202), conforme definidos na REGRA_REMUN_JA_EXISTE_DESLIGAMENTO, Pagamentos (S-1210) e Alteração Contratual (S-2206), quando {dtEf} desse evento for igual ou anterior a {dtObito}.
+Caso seja informado evento de Remuneração (S-1200 ou S-1202) em período de apuração posterior ao mês/ano de {dtObito} e não se trate de uma das exceções da REGRA_REMUN_JA_EXISTE_DESLIGAMENTO, retornar "alerta".
 
 REGRA_EVETRAB_VALIDA_OPCAO_FGTS
 A data de opção do trabalhador pelo FGTS deve ser uma data igual ou posterior à data de admissão do empregado ou data de início do TSVE, observando o que segue:
