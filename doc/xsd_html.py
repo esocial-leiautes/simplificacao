@@ -55,8 +55,9 @@ inicio_tempo = perf_counter()
 conteudo = inicio.replace(
     'SUBTITULO', 'eSocial versão S-1.0 - Regras de Validação').replace(
     'TITULO', 'eSocial versão S-1.0 - Regras').replace(
-    'TEXTO_CAPA_1', 'ANEXO II DOS LEIAUTES DO eSOCIAL<br />REGRAS DE VALIDAÇÃO').replace(
-    'TEXTO_CAPA_2', '{}'.format(versao))
+    'TEXTO_1', '<h1 class="title has-text-centered is-3">ANEXO II DOS LEIAUTES DO eSOCIAL<br />REGRAS DE VALIDAÇÃO</h1>').replace(
+    'TEXTO_2', '<h1 class="title has-text-centered is-3">{}</h1>'.format(
+        versao))
 
 conteudo += Regra.CABECALHO
 
@@ -89,9 +90,16 @@ leiautes.sort(key=lambda item: item.codigo)
 conteudo = inicio.replace(
     'SUBTITULO', 'eSocial versão S-1.0 - Leiautes').replace(
     'TITULO', 'eSocial versão S-1.0 - Leiautes').replace(
-    'TEXTO_CAPA_1', 'LEIAUTES DO eSOCIAL').replace(
-    'TEXTO_CAPA_2', '{}<br /><br />{}'.format(
-        versao, datetime.date.today().strftime('%B de %Y').capitalize()))
+    'TEXTO_1', (
+        '<h1 class="title has-text-centered is-3">LEIAUTES DO eSOCIAL'
+        '<br /><br />'
+        '{}</h1>'
+        '<h2 class="title has-text-centered is-4">(aprovada pela Portaria Conjunta nº XX, de XX/11/2020 – DOU de XX/11/2020)</h2>'
+        '<p class="has-text-centered">Observações: 1) Implantação no ambiente de produção: 10/05/2021'
+        '<br />'
+        '2) Período de convivência de versões (2.5 e S-1.0): 10/05/2021 a 09/11/2021</p>'.format(versao))).replace(
+    'TEXTO_2', '<h1 class="title has-text-centered is-3">{}</h1>'.format(
+        datetime.date.today().strftime('%B de %Y').capitalize()))
 
 html = ''
 for regra in regras:
@@ -287,8 +295,9 @@ for tabela in sorted(os.listdir(caminho_tabelas.replace('{}', ''))):
 conteudo = inicio.replace(
     'SUBTITULO', 'eSocial versão S-1.0 - Tabelas').replace(
     'TITULO', 'eSocial versão S-1.0 - Tabelas').replace(
-    'TEXTO_CAPA_1', 'ANEXO I DOS LEIAUTES DO eSOCIAL<br />TABELAS').replace(
-    'TEXTO_CAPA_2', '{}'.format(versao))
+    'TEXTO_1', '<h1 class="title has-text-centered is-3">ANEXO I DOS LEIAUTES DO eSOCIAL<br />TABELAS</h1>').replace(
+    'TEXTO_2', '<h1 class="title has-text-centered is-3">{}</h1>'.format(
+        versao))
 
 conteudo += '<ul>\n'
 conteudo += conteudo_indice
