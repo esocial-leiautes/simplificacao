@@ -52,7 +52,9 @@ conteudo = inicio.replace('SUBTITULO', 'eSocial versão S-1.0 - Regras de Valida
 conteudo += Regra.CABECALHO
 
 for regra in regras:
-    texto = '<br />\n'.join(regras[regra])
+    texto = '<p>' + '<br />\n'.join(regras[regra]) + '</p>'
+    texto = texto.replace('<br />\n---<br />\n', '</p>\n<p>')
+
     conteudo += Regra.LINHA.format(
         id=regra, nome=regra, texto=texto)
 
@@ -81,6 +83,7 @@ conteudo = inicio.replace('SUBTITULO', 'eSocial versão S-1.0 - Leiautes').repla
 html = ''
 for regra in regras:
     texto = '<br />\n'.join(regras[regra])
+    texto = texto.replace('<br />\n---<br />\n', '<br />\n')
     html += Regra.LINHA_MODAL.format(nome=regra, texto=texto)
 
 html += ''.join([item.gerar_html() for item in leiautes])
@@ -159,7 +162,8 @@ for tabela in sorted(os.listdir(caminho_tabelas.replace('{}', ''))):
                                 indices_texto.append(indice_item)
 
                             if dimensoes is not None:
-                                dimensao = ' style="width: {}%"'.format(dimensoes[indice_item])
+                                dimensao = ' style="width: {}%"'.format(
+                                    dimensoes[indice_item])
                             else:
                                 dimensao = ''
                             itens_linha.append(
