@@ -236,7 +236,13 @@ for tabela in sorted(os.listdir(caminho_tabelas.replace('{}', ''))):
                     rowspan_linha[i] + 1))
                 texto_tabela[indice_linha - rowspan_linha[i] - 1][i] = texto
 
-        conteudo_tabela += Tabela.CABECALHO.format(
+        cabecalho = Tabela.CABECALHO
+
+        if tabela[:-4] == '04':
+            cabecalho = Tabela.CABECALHO.replace(
+                'thead', 'thead style="display: table-row-group;"', 1,)
+
+        conteudo_tabela += cabecalho.format(
             tabela[:-4], indice_item + 1, tabela[:-4], titulo)
 
         for indice_linha, linha in enumerate(texto_tabela):
