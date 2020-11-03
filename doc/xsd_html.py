@@ -159,7 +159,7 @@ for tabela in sorted(os.listdir(caminho_tabelas.replace('{}', ''))):
                                 indices_texto.append(indice_item)
 
                             if dimensoes is not None:
-                                dimensao = ' width="{}%"'.format(dimensoes[indice_item])
+                                dimensao = ' style="width: {}%"'.format(dimensoes[indice_item])
                             else:
                                 dimensao = ''
                             itens_linha.append(

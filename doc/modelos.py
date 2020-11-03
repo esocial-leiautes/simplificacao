@@ -104,8 +104,6 @@ class Resumo:
         '<th colspan="7">Tabela de Resumo dos '
         'Registros</th>\n'
         '</tr>\n'
-        '</thead>\n'
-        '<tbody>\n'
         '<tr class="grupo">\n'
         '<td>'
         '<strong>Grupo</strong></td>\n'
@@ -121,7 +119,9 @@ class Resumo:
         '<strong>Chave</strong></td>\n'
         '<td>'
         '<strong>Condição</strong></td>\n'
-        '</tr>\n')
+        '</tr>\n'
+        '</thead>\n'
+        '<tbody>\n')
 
 
 class Completo:
