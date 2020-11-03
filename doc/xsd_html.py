@@ -1,16 +1,22 @@
-import os
-import re
-import sys
-from time import perf_counter
-from xml.etree.ElementTree import parse
-sys.dont_write_bytecode = True
 from leiaute import Leiaute
 from modelos import Regra
 from modelos import Geral
 from modelos import Tabela
 import cinto_utilidades as cinto
 
+import locale
+import os
+import re
+import sys
+import datetime
+from time import perf_counter
+from xml.etree.ElementTree import parse
+sys.dont_write_bytecode = True
+locale.setlocale(locale.LC_TIME, "pt_BR")
+
 # TODO estrutura _saida _assets
+
+versao = 'Versão S-1.0'
 
 if 'doc' in os.getcwd():
     os.chdir('../')
@@ -46,8 +52,11 @@ arquivo.close()
 
 inicio_tempo = perf_counter()
 
-conteudo = inicio.replace('SUBTITULO', 'eSocial versão S-1.0 - Regras de Validação').replace(
-    'TITULO', 'eSocial versão S-1.0 - Regras')
+conteudo = inicio.replace(
+    'SUBTITULO', 'eSocial versão S-1.0 - Regras de Validação').replace(
+    'TITULO', 'eSocial versão S-1.0 - Regras').replace(
+    'TEXTO_CAPA_1', 'ANEXO II DOS LEIAUTES DO eSOCIAL<br />REGRAS DE VALIDAÇÃO').replace(
+    'TEXTO_CAPA_2', '{}'.format(versao))
 
 conteudo += Regra.CABECALHO
 
@@ -77,8 +86,12 @@ for identificador in identificadores:
 
 leiautes.sort(key=lambda item: item.codigo)
 
-conteudo = inicio.replace('SUBTITULO', 'eSocial versão S-1.0 - Leiautes').replace(
-    'TITULO', 'eSocial versão S-1.0 - Leiautes')
+conteudo = inicio.replace(
+    'SUBTITULO', 'eSocial versão S-1.0 - Leiautes').replace(
+    'TITULO', 'eSocial versão S-1.0 - Leiautes').replace(
+    'TEXTO_CAPA_1', 'LEIAUTES DO eSOCIAL').replace(
+    'TEXTO_CAPA_2', '{}<br /><br />{}'.format(
+        versao, datetime.date.today().strftime('%B de %Y').capitalize()))
 
 html = ''
 for regra in regras:
@@ -236,7 +249,13 @@ for tabela in sorted(os.listdir(caminho_tabelas.replace('{}', ''))):
                     rowspan_linha[i] + 1))
                 texto_tabela[indice_linha - rowspan_linha[i] - 1][i] = texto
 
-        conteudo_tabela += Tabela.CABECALHO.format(
+        cabecalho = Tabela.CABECALHO
+
+        if tabela[:-4] == '04':
+            cabecalho = Tabela.CABECALHO.replace(
+                'thead', 'thead style="display: table-row-group;"', 1,)
+
+        conteudo_tabela += cabecalho.format(
             tabela[:-4], indice_item + 1, tabela[:-4], titulo)
 
         for indice_linha, linha in enumerate(texto_tabela):
@@ -265,8 +284,12 @@ for tabela in sorted(os.listdir(caminho_tabelas.replace('{}', ''))):
     tabelas.append(tabela[:-4])
 
 
-conteudo = inicio.replace('SUBTITULO', 'eSocial versão S-1.0 - Tabelas').replace(
-    'TITULO', 'eSocial versão S-1.0 - Tabelas')
+conteudo = inicio.replace(
+    'SUBTITULO', 'eSocial versão S-1.0 - Tabelas').replace(
+    'TITULO', 'eSocial versão S-1.0 - Tabelas').replace(
+    'TEXTO_CAPA_1', 'ANEXO I DOS LEIAUTES DO eSOCIAL<br />TABELAS').replace(
+    'TEXTO_CAPA_2', '{}'.format(versao))
+
 conteudo += '<ul>\n'
 conteudo += conteudo_indice
 conteudo += '</ul>\n'
