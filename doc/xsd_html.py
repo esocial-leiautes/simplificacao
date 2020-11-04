@@ -63,9 +63,7 @@ conteudo = inicio.replace(
 conteudo += Regra.CABECALHO
 
 for regra in regras:
-    texto = '<p>' + '<br />\n'.join(regras[regra]) + '</p>'
-    texto = texto.replace('<br />\n---<br />\n', '</p>\n<p>')
-
+    texto = '<br />\n'.join(regras[regra])
     conteudo += Regra.LINHA.format(
         id=regra, nome=regra, texto=texto)
 
@@ -115,7 +113,6 @@ conteudo += '</ul>\n'
 html = ''
 for regra in regras:
     texto = '<br />\n'.join(regras[regra])
-    texto = texto.replace('<br />\n---<br />\n', '<br />\n')
     html += Regra.LINHA_MODAL.format(nome=regra, texto=texto)
 
 html += ''.join([item.gerar_html() for item in leiautes])
