@@ -2,6 +2,7 @@ from leiaute import Leiaute
 from modelos import Regra
 from modelos import Geral
 from modelos import Tabela
+from modelos import Resumo
 import cinto_utilidades as cinto
 
 import locale
@@ -15,7 +16,6 @@ sys.dont_write_bytecode = True
 locale.setlocale(locale.LC_TIME, "pt_BR")
 
 # TODO estrutura _saida _assets
-# TODO tentar remover classe tabela dos elementos table na página de tabelas
 
 versao = 'Versão S-1.0'
 
@@ -101,6 +101,16 @@ conteudo = inicio.replace(
         '2) Período de convivência de versões (2.5 e S-1.0): 10/05/2021 a 09/11/2021</p>'.format(versao))).replace(
     'TEXTO_2', '<h1 class="title has-text-centered is-3">{}</h1>'.format(
         datetime.date.today().strftime('%B de %Y').capitalize()))
+
+conteudo_indice = ''
+for leiaute in leiautes:
+    conteudo_indice += Resumo.LINHA_INDICE.format(
+        nome=leiaute.nome, codigo=leiaute.codigo, descricao=leiaute.descricao)
+
+conteudo += '<h2 class="title has-text-centered is-3">Sumário</h2>\n'
+conteudo += '<ul class="quebra-posterior sumario">\n'
+conteudo += conteudo_indice
+conteudo += '</ul>\n'
 
 html = ''
 for regra in regras:
@@ -292,7 +302,6 @@ for tabela in sorted(os.listdir(caminho_tabelas.replace('{}', ''))):
 
     tabelas.append(tabela[:-4])
 
-
 conteudo = inicio.replace(
     'SUBTITULO', 'eSocial versão S-1.0 - Tabelas').replace(
     'TITULO', 'eSocial versão S-1.0 - Tabelas').replace(
@@ -301,7 +310,7 @@ conteudo = inicio.replace(
         versao))
 
 conteudo += '<h2 class="title has-text-centered is-3">Sumário</h2>\n'
-conteudo += '<ul>\n'
+conteudo += '<ul class="sumario">\n'
 conteudo += conteudo_indice
 conteudo += '</ul>\n'
 conteudo += conteudo_tabela

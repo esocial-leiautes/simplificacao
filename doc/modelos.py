@@ -80,6 +80,11 @@ class Resumo:
         '<td>{condicao}</td>\n'
         '</tr>\n')
 
+    LINHA_INDICE = (
+        '<li>'
+        '<a href="#{nome}">{codigo} - {descricao}</a>'
+        '</li>\n')
+
     REFERENCIA = (
         '<tr>\n'
         '<td>...</td>\n'
