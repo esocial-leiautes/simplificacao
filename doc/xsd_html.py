@@ -15,6 +15,7 @@ sys.dont_write_bytecode = True
 locale.setlocale(locale.LC_TIME, "pt_BR")
 
 # TODO estrutura _saida _assets
+# TODO tentar remover classe tabela dos elementos table na página de tabelas
 
 versao = 'Versão S-1.0'
 
@@ -299,6 +300,7 @@ conteudo = inicio.replace(
     'TEXTO_2', '<h1 class="title has-text-centered is-3">{}</h1>'.format(
         versao))
 
+conteudo += '<h2 class="title has-text-centered is-3">Sumário</h2>\n'
 conteudo += '<ul>\n'
 conteudo += conteudo_indice
 conteudo += '</ul>\n'

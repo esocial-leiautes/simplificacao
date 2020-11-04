@@ -25,7 +25,7 @@ class Tabela:
 
     CABECALHO = (
         '<table id="{}"'
-        ' class="table is-fullwidth is-bordered tabela">\n'
+        ' class="table is-fullwidth is-bordered tabela quebra-anterior">\n'
         '<thead>\n'
         '<tr>\n'
         '<th colspan="{}">Tabela {} - {}</th>\n'
