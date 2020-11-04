@@ -30,6 +30,9 @@ class Tabela:
         '<tr>\n'
         '<th colspan="{}">Tabela {} - {}</th>\n'
         '</tr>\n'
+        '<tr class="grupo">\n'
+        '{}'
+        '</tr>\n'
         '</thead>\n'
         '<tbody>\n')
 

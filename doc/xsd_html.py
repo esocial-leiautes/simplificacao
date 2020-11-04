@@ -136,6 +136,8 @@ caminho_tabelas = os.path.join(os.getcwd(), 'tabelas', '{}')
 for tabela in sorted(os.listdir(caminho_tabelas.replace('{}', ''))):
     texto_tabela = []
     anexos_tabela = []
+    itens_cabecalho = []
+    linhas_cabecalho = 1
 
     with cinto.obter_arquivo(caminho_tabelas.format(tabela)) as arquivo_tabela:
         rowspan_linha = {}
@@ -145,6 +147,9 @@ for tabela in sorted(os.listdir(caminho_tabelas.replace('{}', ''))):
         indices_texto = []
 
         for indice_linha, linha in enumerate(arquivo_tabela):
+            if indice_linha == 2 and linha.startswith('^'):
+                linhas_cabecalho = 2
+
             if '__' in linha:
                 linha = re.sub('__(.*?)__', '<i>\\1</i>', linha)
             if '##' in linha:
@@ -259,6 +264,9 @@ for tabela in sorted(os.listdir(caminho_tabelas.replace('{}', ''))):
                         extensao_colspan + 1))
                     itens_linha[indice_item - extensao_colspan] = item
 
+                if indice_linha <= linhas_cabecalho:
+                    itens_cabecalho.append(itens_linha)
+
             texto_tabela.append(itens_linha)
 
         for i in range(indice_item):
@@ -272,12 +280,22 @@ for tabela in sorted(os.listdir(caminho_tabelas.replace('{}', ''))):
 
         if tabela[:-4] == '04':
             cabecalho = Tabela.CABECALHO.replace(
-                'thead', 'thead style="display: table-row-group;"', 1,)
+                'thead', 'thead style="display: table-row-group;"', 1)
+
+        conteudo_cabecalho = []
+
+        for itens in itens_cabecalho:
+            conteudo_cabecalho.append(''.join(itens).replace(
+                        ' class="grupo"', '').replace(
+                        ' rowspan=""', '').replace(' colspan=""', ''))
+
+        linha_cabecalho = '</tr>\n<tr>\n'.join(
+            conteudo_cabecalho)
 
         conteudo_tabela += cabecalho.format(
-            tabela[:-4], indice_item + 1, tabela[:-4], titulo)
+            tabela[:-4], indice_item + 1, tabela[:-4], titulo, linha_cabecalho)
 
-        for indice_linha, linha in enumerate(texto_tabela):
+        for indice_linha, linha in enumerate(texto_tabela[linhas_cabecalho:]):
             if 'class="grupo"' in linha[0]:
                 conteudo_tabela += '<tr class="grupo">\n'
             else:
