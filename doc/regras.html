@@ -197,8 +197,8 @@ b) {perRef}, se a remuneração for preenchida no grupo {infoPerAnt}.</p></td>
 2.3) Para os eventos S-1200 e S-2299, as informações dos campos {ideEstabLot/nrInsc} (se {ideEstabLot/tpInsc} = [1, 3, 4]) e {codLotacao} devem constar nas Tabelas S-1005 e S-1020, respectivamente, vigentes em:<br />
 a) {perApur} (ou mês/ano de {dtDeslig}, para S-2299), se pertencerem ao grupo {infoPerApur};<br />
 b) {perRef}, se pertencerem ao grupo {infoPerAnt}.<br />
-2.4) Para o evento S-2399, as informações dos campos {ideEstabLot/nrInsc} e {codLotacao} devem constar nas Tabelas S-1005 e S-1020, respectivamente, vigentes no mês/ano de {dtTerm}.</p>
-<p>3) No caso dos eventos S-1202 e S-1207:<br />
+2.4) Para o evento S-2399, as informações dos campos {ideEstabLot/nrInsc} e {codLotacao} devem constar nas Tabelas S-1005 e S-1020, respectivamente, vigentes no mês/ano de {dtTerm}.<br />
+3) No caso dos eventos S-1202 e S-1207:<br />
 3.1) Para as rubricas cujo {codIncCPRP} em S-1010 = [31] e {codIncIRRF} em S-1010 = [31, 32, 33, 34], o somatório do valor das rubricas cujo {tpRubr} em S-1010 = [2, 4] deverá ser maior ou igual ao somatório do valor das rubricas cujo {tpRubr} em S-1010 = [1, 3], considerando o {codIncCPRP} e cada {codIncIRRF} individualmente.<br />
 3.2) As informações dos campos {codRubr} e {ideTabRubr} devem constar conjuntamente na Tabela S-1010, com o campo {codIncCPRP} preenchido, vigentes nos períodos mencionados no item 3.3 abaixo.<br />
 3.3) As informações dos campos {ideEstab/nrInsc} devem constar na Tabela S-1005, vigentes em:<br />
@@ -232,8 +232,8 @@ Caso seja informado evento de Remuneração (S-1200 ou S-1202) em período de ap
 <td><p>Durante o processamento do fechamento dos eventos periódicos (evento S-1299), somente é possível transmitir:<br />
 a) Tabelas, se o início de validade do evento for posterior ao período de apuração objeto do fechamento (em caso de preenchimento do grupo {novaValidade}, o novo início de validade também deve ser posterior ao período de apuração);<br />
 b) Eventos S-2205, S-2210, S-2220, S-2240, S-2400 e S-2405 (inclusive S-3000 referente a esses eventos), independentemente da data de ocorrência do evento;<br />
-c) Demais eventos não periódicos (inclusive S-3000 referente a esses eventos), se o mês/ano da data de ocorrência do evento for posterior ao período de apuração objeto do fechamento (em caso de retificação, devem ser observadas as datas de ocorrência dos eventos original e retificado);<br />
-d) Eventos periódicos, exceto S-1299 (inclusive S-3000 referente a esses eventos, quando cabível), se o período de apuração for diferente do período de apuração objeto do fechamento.</p></td>
+c) Demais eventos não periódicos (inclusive S-3000 referente a esses eventos), se o mês/ano da data de ocorrência do evento for posterior ao período de apuração objeto do fechamento (em caso de retificação, devem ser observadas as datas de ocorrência dos eventos original e retificado);</p>
+<p>d) Eventos periódicos, exceto S-1299 (inclusive S-3000 referente a esses eventos, quando cabível), se o período de apuração for diferente do período de apuração objeto do fechamento.</p></td>
 </tr>
 <tr>
 <td id="REGRA_EVENTOS_EXTEMP"><strong>REGRA_EVENTOS_EXTEMP</strong></td>
@@ -242,8 +242,8 @@ O envio de evento extemporâneo deve observar o que segue:<br />
 a) O evento não periódico extemporâneo só será recepcionado após validação com os eventos não periódicos anteriores e com o primeiro posterior de cada tipo (ex.: primeiro afastamento posterior, primeira alteração cadastral, primeira alteração contratual, primeiro desligamento, primeira CAT, etc.);<br />
 b) Quando validada pela regra do item "a", serão recepcionados apenas os eventos não periódicos extemporâneos que atenderem:<br />
 b1) Às regras de validação do fechamento das folhas de todo o período afetado cujo movimento já esteja fechado se o evento extemporâneo incluir trabalhador (ou ampliar no Registro de Eventos Trabalhistas - RET o seu período de contrato ativo) ou incluir benefício (ou ampliar no RET o seu período ativo);<br />
-b2) Às regras <a href="#REGRA_REMUN_JA_EXISTE_DESLIGAMENTO">REGRA_REMUN_JA_EXISTE_DESLIGAMENTO</a> e <a href="#REGRA_REMUN_TRAB_EXISTENTE_RET">REGRA_REMUN_TRAB_EXISTENTE_RET</a> e à condição do grupo {infoComplCont} do evento S-1200 (no caso de TSVE sem informação de matrícula no evento S-2300) de todo o período afetado, se o evento extemporâneo excluir trabalhador (ou reduzir no RET o seu período de contrato ativo);<br />
-b3) À <a href="#REGRA_REMUN_BENEFICIO_EXISTENTE_RET">REGRA_REMUN_BENEFICIO_EXISTENTE_RET</a> de todo o período afetado, se o evento extemporâneo excluir benefício (ou reduzir no RET o seu período ativo).<br />
+b2) Às regras <a href="#REGRA_REMUN_JA_EXISTE_DESLIGAMENTO">REGRA_REMUN_JA_EXISTE_DESLIGAMENTO</a> e <a href="#REGRA_REMUN_TRAB_EXISTENTE_RET">REGRA_REMUN_TRAB_EXISTENTE_RET</a> e à condição do grupo {infoComplCont} do evento S-1200 (no caso de TSVE sem informação de matrícula no evento S-2300) de todo o período afetado, se o evento extemporâneo excluir trabalhador (ou reduzir no RET o seu período de contrato ativo);</p>
+<p>b3) À <a href="#REGRA_REMUN_BENEFICIO_EXISTENTE_RET">REGRA_REMUN_BENEFICIO_EXISTENTE_RET</a> de todo o período afetado, se o evento extemporâneo excluir benefício (ou reduzir no RET o seu período ativo).<br />
 Período Afetado: Meses em que a alteração pode tornar as informações do RET incompatíveis com as regras de validação do fechamento da folha ou com as regras mencionadas no item "b2". Exemplos: inclusão ou exclusão de evento de Admissão, retificação de data de admissão, envio/retificação de evento de Desligamento, etc.);<br />
 c) A retificação ou exclusão extemporânea de evento remuneratório (S-1200/S-1202/S-1207/S-2299/S-2399) exigirá a exclusão prévia do correspondente evento S-1210, quando existente.</p></td>
 </tr>
