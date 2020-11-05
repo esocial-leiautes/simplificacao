@@ -94,7 +94,7 @@ conteudo = inicio.replace(
         '<br /><br />'
         '{}</h1>'
         '<h2 class="title has-text-centered is-5">(aprovada pela Portaria Conjunta nº XX, de XX/11/2020 – DOU de XX/11/2020)</h2>'
-        '<h2 class="title has-text-centered is-5">Observações: 1) Implantação no ambiente de produção: 10/05/2021'
+        '<h2 class="title has-text-centered is-5" style="font-weight: normal">Observações: 1) Implantação no ambiente de produção: 10/05/2021'
         '<br />'
         '2) Período de convivência de versões (2.5 e S-1.0): 10/05/2021 a 09/11/2021</h2>'.format(versao))).replace(
     'TEXTO_2', '<h1 class="title has-text-centered is-3">{}</h1>'.format(
