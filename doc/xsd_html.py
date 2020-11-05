@@ -106,7 +106,7 @@ for leiaute in leiautes:
         nome=leiaute.nome, codigo=leiaute.codigo, descricao=leiaute.descricao)
 
 conteudo += '<h2 class="title has-text-centered is-3">Sumário</h2>\n'
-conteudo += '<ul class="quebra-posterior sumario">\n'
+conteudo += '<ul class="sumario">\n'
 conteudo += conteudo_indice
 conteudo += '</ul>\n'
 

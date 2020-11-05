@@ -103,9 +103,9 @@ class Resumo:
 
     CABECALHO = (
         '\n'
-        '<h3 id="{}" class="title has-text-centered">{} - {}</h3>\n'
+        '<h3 id="{}" class="title has-text-centered quebra-anterior">{} - {}</h3>\n'
         '<table class="table is-fullwidth is-bordered resumo">\n'
-        '<thead>\n'
+        '<tbody>\n'
         '<tr>\n'
         '<th colspan="7">Tabela de Resumo dos '
         'Registros</th>\n'
@@ -125,9 +125,7 @@ class Resumo:
         '<strong>Chave</strong></td>\n'
         '<td>'
         '<strong>Condição</strong></td>\n'
-        '</tr>\n'
-        '</thead>\n'
-        '<tbody>\n')
+        '</tr>\n')
 
 
 class Completo:
@@ -168,7 +166,7 @@ class Completo:
         '<h4 class="subtitle has-text-centered">'
         'Registros do evento {} - {}</h4>\n'
         '<table class="table is-fullwidth is-bordered completo">\n'
-        '<thead>\n'
+        '<tbody>\n'
         '<tr>\n'
         '<th>#</th>\n'
         '<th>Grupo/Campo</th>\n'
@@ -179,6 +177,4 @@ class Completo:
         '<th>Tamanho</th>\n'
         '<th>Dec.</th>\n'
         '<th>Descrição</th>\n'
-        '</tr>\n'
-        '</thead>\n'
-        '<tbody>\n')
+        '</tr>\n')
