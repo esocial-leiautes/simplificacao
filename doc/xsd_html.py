@@ -299,6 +299,11 @@ for tabela in sorted(os.listdir(caminho_tabelas.replace('{}', ''))):
                 conteudo_tabela += '<tr>\n'
 
             for item in linha:
+                if '--C3--' in item:
+                    item = item.replace(
+                        '--C3--', '').replace(
+                            '<td', '<td class="sub-cabecalho"')
+
                 if item != '':
                     conteudo_tabela += item.replace(
                         ' class="grupo"', '').replace(
