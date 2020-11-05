@@ -60,13 +60,11 @@ class Regra:
 
     CABECALHO = (
         '<table class="table is-fullwidth is-bordered regras">\n'
-        '<thead>\n'
+        '<tbody>\n'
         '<tr>\n'
         '<th>Nome</th>\n'
         '<th>Descrição</th>\n'
-        '</tr>\n'
-        '</thead>\n'
-        '<tbody>\n')
+        '</tr>\n')
 
 
 class Resumo:
