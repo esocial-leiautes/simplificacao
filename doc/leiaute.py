@@ -398,6 +398,9 @@ class ItemLeiaute:
                             if len(descricoes) == 1:
                                 valor = cinto.resolver_referencias(
                                         descricoes[0].text, self)
+                                valor = valor.replace(
+                                    '^^', '<sup>', 1).replace(
+                                        '^^', '</sup>', 1)
                             else:
                                 self.valores_validos[descricoes[0].text] = ''
 
