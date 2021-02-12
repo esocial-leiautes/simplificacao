@@ -396,16 +396,16 @@ class ItemLeiaute:
                             descricoes = annotation.getchildren()
 
                             if len(descricoes) == 1:
-                                valor = cinto.resolver_referencias(
-                                        descricoes[0].text, self)
-                                valor = valor.replace(
-                                    '^^', '<sup>', 1).replace(
-                                        '^^', '</sup>', 1)
+                                valor = cinto.codificar_sobrescrito(
+                                    cinto.resolver_referencias(
+                                        descricoes[0].text, self))
+
                             else:
                                 self.valores_validos[descricoes[0].text] = ''
 
-                                valor = cinto.resolver_referencias(
-                                        descricoes[1].text, self)
+                                valor = cinto.codificar_sobrescrito(
+                                    cinto.resolver_referencias(
+                                        descricoes[1].text, self))
                         else:
                             valor = None
 

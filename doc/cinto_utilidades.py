@@ -5,6 +5,21 @@ RES = 'base:restriction'
 NS = {'base': 'http://www.w3.org/2001/XMLSchema'}
 
 
+def codificar_sobrescrito(texto):
+    """Codifica a marcação de sobrescrito em um texto.
+
+    Args:
+        texto (str): O texto com a marcação.
+
+    Returns:
+        str: O texto com a marcação codificada.
+    """
+    if '^^' in texto:
+        return re.sub(r'\^\^(.*?)\^\^', '<sup>\\1</sup>', texto)
+    else:
+        return texto
+
+
 def obter_arquivo(caminho, modo='r'):
     """Obtém o stream de um arquivo.
 
