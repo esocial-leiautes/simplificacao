@@ -314,14 +314,15 @@ Em caso de exclusão do evento de reativação, o benefício é reconsiderado en
 
 REGRA_REGISTRO_PRELIMINAR
 1) Caso tenha sido enviado o evento S-2190 para o mesmo contrato de trabalho (CPF + matrícula) e se {indRetif} do evento S-2200/S-2300 for igual a [1]:
-a) Os campos {codCateg} e {natAtividade} informados no evento S-2190 devem ser idênticos aos respectivos campos do evento S-2200/S-2300.
-b) No caso de transmissão do evento S-2200:
-b1) O campo {dtAdm} informado no evento S-2190 deve ser idêntico ao respectivo campo do evento S-2200;
-b2) O campo {tpRegTrab} deve ser igual a [1] e o campo {tpRegPrev} deve ser igual a [1, 3].
-c) No caso de transmissão do evento S-2300:
-c1) O campo {dtAdm} informado no evento S-2190 deve ser idêntico ao campo {dtInicio} do evento S-2300;
-c2) Se {codCateg} = [401], o campo {infoDirigenteSindical/tpRegTrab} deve ser igual a [1] ou não deve ser informado, e o campo {infoDirigenteSindical/tpRegPrev} deve ser igual a [1, 3];
-c3) Se {codCateg} = [410], o campo {infoTrabCedido/tpRegTrab} deve ser igual a [1] e o campo {infoTrabCedido/tpRegPrev} deve ser igual a [1, 3].
+a) O evento S-2190 deve ter sido enviado na versão S-1.0 do leaiute ou posterior (retornar mensagem de erro específica caso o S-2190 tenha sido transmitido em versão anterior).
+b) Os campos {codCateg} e {natAtividade} informados no evento S-2190 devem ser idênticos aos respectivos campos do evento S-2200/S-2300.
+c) No caso de transmissão do evento S-2200:
+c1) O campo {dtAdm} informado no evento S-2190 deve ser idêntico ao respectivo campo do evento S-2200;
+c2) O campo {tpRegTrab} deve ser igual a [1] e o campo {tpRegPrev} deve ser igual a [1, 3].
+d) No caso de transmissão do evento S-2300:
+d1) O campo {dtAdm} informado no evento S-2190 deve ser idêntico ao campo {dtInicio} do evento S-2300;
+d2) Se {codCateg} = [401], o campo {infoDirigenteSindical/tpRegTrab} deve ser igual a [1] ou não deve ser informado, e o campo {infoDirigenteSindical/tpRegPrev} deve ser igual a [1, 3];
+d3) Se {codCateg} = [410], o campo {infoTrabCedido/tpRegTrab} deve ser igual a [1] e o campo {infoTrabCedido/tpRegPrev} deve ser igual a [1, 3].
 2) Caso exista evento S-2190 pendente (sem o correspondente evento S-2200 ou S-2300) para o mesmo trabalhador, mas com matrícula diferente, retornar "alerta".
 3) As informações prestadas nos eventos S-2200/S-2300 substituirão os dados do evento S-2190 no Registro de Eventos Trabalhistas - RET, mesmo quando houver conteúdo diferente.
 
