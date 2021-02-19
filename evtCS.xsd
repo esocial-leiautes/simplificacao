@@ -622,6 +622,120 @@
                                                             </xs:sequence>
                                                         </xs:complexType>
                                                     </xs:element>
+                                                    <xs:element name="basesAquis" minOccurs="0" maxOccurs="6">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Informações sobre aquisição rural</xs:documentation>
+                                                            <xs:documentation>DESCRICAO_COMPLETA:Informações de bases de cálculo relativas à aquisição de produção rural.</xs:documentation>
+                                                            <xs:documentation>Evento de origem: S-1250 (existente até a versão 2.5 do leiaute).</xs:documentation>
+                                                            <xs:documentation>CHAVE_GRUPO: {indAquis}</xs:documentation>
+                                                            <xs:documentation>CONDICAO_GRUPO: O (se existir informação em S-1250 relativa ao estabelecimento identificado em {ideEstab/nrInsc}(../nrInsc) e se não houver informação de {indExcApur1250} em S-1299); N (nos demais casos)</xs:documentation>
+                                                        </xs:annotation>
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:element name="indAquis">
+                                                                    <xs:simpleType>
+                                                                        <xs:annotation>
+                                                                            <xs:documentation>Indicativo da aquisição.</xs:documentation>
+                                                                            <xs:documentation>Origem: campo {indAquis} de S-1250.</xs:documentation>
+                                                                        </xs:annotation>
+                                                                        <xs:restriction base="xs:byte">
+                                                                            <xs:enumeration value="1">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Aquisição da produção de produtor rural pessoa física ou segurado especial em geral</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="2">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Aquisição da produção de produtor rural pessoa física ou segurado especial em geral por entidade do PAA</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="3">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Aquisição da produção de produtor rural pessoa jurídica por entidade do PAA</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="4">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Aquisição da produção de produtor rural pessoa física ou segurado especial em geral - Produção isenta (Lei 13.606/2018)</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="5">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Aquisição da produção de produtor rural pessoa física ou segurado especial em geral por entidade do PAA - Produção isenta (Lei 13.606/2018)</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="6">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Aquisição da produção de produtor rural pessoa jurídica por entidade do PAA - Produção isenta (Lei 13.606/2018)</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                        </xs:restriction>
+                                                                    </xs:simpleType>
+                                                                </xs:element>
+                                                                <xs:element name="vlrAquis" type="TS_valorMonetario">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Valor total da aquisição de produção rural de produtor rural.</xs:documentation>
+                                                                        <xs:documentation>Origem: campo {vlrTotAquis} de S-1250.</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:element>
+                                                                <xs:element name="vrCPDescPR" type="TS_valorMonetario">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Preencher com o valor da contribuição previdenciária descontada pelo adquirente de produção de produtor rural - sub-rogação.</xs:documentation>
+                                                                        <xs:documentation>Origem: somatório do campo {vrCpDescPR} de S-1250.</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:element>
+                                                                <xs:element name="vrCPNRet" type="TS_valorMonetario">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Valor da contribuição previdenciária que deixou de ser retida pelo declarante em decorrência de decisão/sentença judicial.</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:element>
+                                                                <xs:element name="vrRatNRet" type="TS_valorMonetario">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Valor da GILRAT, incidente sobre a aquisição de produção rural de produtor rural, cuja retenção deixou de ser efetuada em decorrência de decisão/sentença judicial.</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:element>
+                                                                <xs:element name="vrSenarNRet" type="TS_valorMonetario">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Valor da contribuição destinada ao SENAR, incidente sobre a aquisição de produção rural de produtor rural pessoa física/segurado especial, que deixou de ser retida em decorrência de decisão/sentença judicial.</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:element>
+                                                                <xs:element name="vrCPCalcPR" type="TS_valorMonetario">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Valor calculado relativo à contribuição previdenciária do produtor rural, de acordo com {indAquis}, conforme segue:</xs:documentation>
+                                                                        <xs:documentation>a) {indAquis} = [1, 2]: {vlrAquis} x 1,2%;</xs:documentation>
+                                                                        <xs:documentation>b) {indAquis} = [3]: {vlrAquis} x 1,7%;</xs:documentation>
+                                                                        <xs:documentation>c) {indAquis} = [4, 5, 6]: 0 (zero).</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:element>
+                                                                <xs:element name="vrRatDescPR" type="TS_valorMonetario">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Valor da contribuição destinada ao financiamento dos benefícios concedidos em razão do grau de incidência da incapacidade laborativa decorrente dos riscos ambientais do trabalho, incidente sobre a aquisição de produção rural de produtor rural.</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:element>
+                                                                <xs:element name="vrRatCalcPR" type="TS_valorMonetario">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Valor calculado relativo à contribuição GILRAT devida pelo produtor rural, de acordo com {indAquis}, conforme segue:</xs:documentation>
+                                                                        <xs:documentation>a) {indAquis} = [1, 2, 3]: {vlrAquis} x 0,1%;</xs:documentation>
+                                                                        <xs:documentation>b) {indAquis} = [4, 5, 6]: 0 (zero).</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:element>
+                                                                <xs:element name="vrSenarDesc" type="TS_valorMonetario">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Valor da contribuição destinada ao SENAR, incidente sobre a aquisição de produção rural de produtor rural pessoa física/segurado especial.</xs:documentation>
+                                                                        <xs:documentation>Origem: campo {vrSenarDesc} de S-1250.</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:element>
+                                                                <xs:element name="vrSenarCalc" type="TS_valorMonetario">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Valor calculado da contribuição devida pelo produtor rural ao SENAR, conforme segue:</xs:documentation>
+                                                                        <xs:documentation>a) {indAquis} = [1, 2, 4, 5]: {vlrAquis} x 0,2%;</xs:documentation>
+                                                                        <xs:documentation>b) {indAquis} = [3, 6]: 0 (zero).</xs:documentation>
+                                                                        <xs:documentation>OBS.: No período de 04/2020 a 06/2020, a alíquota deve ser 0,1%.</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:element>
+                                                            </xs:sequence>
+                                                        </xs:complexType>
+                                                    </xs:element>
                                                     <xs:element name="basesComerc" minOccurs="0" maxOccurs="5">
                                                         <xs:annotation>
                                                             <xs:documentation>Informações da comercialização da produção</xs:documentation>
