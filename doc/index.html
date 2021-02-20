@@ -146,6 +146,30 @@ e) Grupo [05]: pode ser alterado para tipo de benefício do grupo [04].</p>
 </div>
 </div>
 </div>
+<div class="modal" id="REGRA_BAIXA_JUDICIAL">
+<div class="modal-background"></div>
+<div class="modal-card">
+<header class="modal-card-head">
+<p class="modal-card-title">REGRA_BAIXA_JUDICIAL</p>
+<button class="delete" aria-label="close"></button>
+</header>
+<div class="modal-card-body">
+<p>Para recepção do evento de Baixa Judicial, não pode existir evento de Desligamento (S-2299) para o vínculo identificado por CPF + matrícula.</p>
+</div>
+</div>
+</div>
+<div class="modal" id="REGRA_BAIXA_TRABALHADOR_AFASTADO">
+<div class="modal-background"></div>
+<div class="modal-card">
+<header class="modal-card-head">
+<p class="modal-card-title">REGRA_BAIXA_TRABALHADOR_AFASTADO</p>
+<button class="delete" aria-label="close"></button>
+</header>
+<div class="modal-card-body">
+<p>É permitido o envio de evento de Baixa Judicial para trabalhador afastado temporariamente, independentemente do motivo de afastamento.</p>
+</div>
+</div>
+</div>
 <div class="modal" id="REGRA_BENEFICIO_ATIVO_NA_DTEVENTO">
 <div class="modal-background"></div>
 <div class="modal-card">
@@ -326,6 +350,18 @@ b) {perRef}, se pertencerem ao grupo {infoPerAnt}.</p>
 <p>Não deve existir qualquer evento não periódico para o vínculo indicado no evento de Desligamento com data posterior a {dtDeslig}, {dtProjFimAPI} ou {dtFimQuar} (maior data entre elas), uma vez que o desligamento põe termo ao vínculo trabalhista. Também não deve existir qualquer evento periódico para o vínculo indicado no evento de Desligamento com período de apuração igual ou posterior ao mês/ano de {dtDeslig}.<br />
 As exceções a essa regra se restringem a alguns tipos de remuneração (S-1200 ou S-1202), conforme definidos na <a href="#REGRA_REMUN_JA_EXISTE_DESLIGAMENTO">REGRA_REMUN_JA_EXISTE_DESLIGAMENTO</a>, Pagamentos (S-1210), Comunicação de Acidente de Trabalho (S-2210), Monitoramento de Saúde do Trabalhador (S-2220), Reintegração (S-2298) e Alteração Contratual (S-2206), quando {dtEf} desse evento for igual ou anterior a {dtDeslig}, {dtProjFimAPI} ou {dtFimQuar} (maior data entre elas).<br />
 Caso seja informado evento de Remuneração (S-1200 ou S-1202) em período de apuração posterior ao mês/ano de {dtDeslig} e não se trate de uma das exceções da <a href="#REGRA_REMUN_JA_EXISTE_DESLIGAMENTO">REGRA_REMUN_JA_EXISTE_DESLIGAMENTO</a>, retornar "alerta".</p>
+</div>
+</div>
+</div>
+<div class="modal" id="REGRA_DESLIG_JA_EXISTE_BAIXA">
+<div class="modal-background"></div>
+<div class="modal-card">
+<header class="modal-card-head">
+<p class="modal-card-title">REGRA_DESLIG_JA_EXISTE_BAIXA</p>
+<button class="delete" aria-label="close"></button>
+</header>
+<div class="modal-card-body">
+<p>Se já existir evento de Baixa Judicial (S-8299) para o vínculo, o evento S-2299 só será recepcionado quando houver identidade entre os seguintes campos: {dtDeslig}, {mtvDeslig} e, se for o caso, {dtProjFimAPI}.</p>
 </div>
 </div>
 </div>
@@ -33534,7 +33570,6 @@ Deve corresponder ao somatório dos valores informados no campo <a href="#5003_i
 <a href="#REGRA_ENVIO_PROC_FECHAMENTO">REGRA_ENVIO_PROC_FECHAMENTO</a><br />
 <a href="#REGRA_EVENTOS_EXTEMP">REGRA_EVENTOS_EXTEMP</a><br />
 <a href="#REGRA_EXISTE_INFO_EMPREGADOR">REGRA_EXISTE_INFO_EMPREGADOR</a><br />
-<a href="#REGRA_PROCEMI_EXCLUSIVO">REGRA_PROCEMI_EXCLUSIVO</a><br />
 <a href="#REGRA_RETIFICA_MESMO_VINCULO">REGRA_RETIFICA_MESMO_VINCULO</a><br />
 <a href="#REGRA_VINCULO_ATIVO_NA_DTEVENTO">REGRA_VINCULO_ATIVO_NA_DTEVENTO</a></td>
 </tr>

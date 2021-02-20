@@ -61,6 +61,14 @@ d) Grupo [04]: pode ser alterado para tipo de benefício do grupo [05];<br />
 e) Grupo [05]: pode ser alterado para tipo de benefício do grupo [04].</td>
 </tr>
 <tr>
+<td id="REGRA_BAIXA_JUDICIAL"><strong>REGRA_BAIXA_JUDICIAL</strong></td>
+<td>Para recepção do evento de Baixa Judicial, não pode existir evento de Desligamento (S-2299) para o vínculo identificado por CPF + matrícula.</td>
+</tr>
+<tr>
+<td id="REGRA_BAIXA_TRABALHADOR_AFASTADO"><strong>REGRA_BAIXA_TRABALHADOR_AFASTADO</strong></td>
+<td>É permitido o envio de evento de Baixa Judicial para trabalhador afastado temporariamente, independentemente do motivo de afastamento.</td>
+</tr>
+<tr>
 <td id="REGRA_BENEFICIO_ATIVO_NA_DTEVENTO"><strong>REGRA_BENEFICIO_ATIVO_NA_DTEVENTO</strong></td>
 <td>O benefício identificado por CPF + número do benefício deve estar ativo na data do evento, ou seja, a data do evento deve ser igual ou posterior à data de início do benefício (no caso de sucessão ou mudança de CPF, igual ou posterior à data da transferência ou à data de alteração do CPF, respectivamente) e igual ou anterior à data de cessação.</td>
 </tr>
@@ -146,6 +154,10 @@ b) {perRef}, se pertencerem ao grupo {infoPerAnt}.</td>
 <td>Não deve existir qualquer evento não periódico para o vínculo indicado no evento de Desligamento com data posterior a {dtDeslig}, {dtProjFimAPI} ou {dtFimQuar} (maior data entre elas), uma vez que o desligamento põe termo ao vínculo trabalhista. Também não deve existir qualquer evento periódico para o vínculo indicado no evento de Desligamento com período de apuração igual ou posterior ao mês/ano de {dtDeslig}.<br />
 As exceções a essa regra se restringem a alguns tipos de remuneração (S-1200 ou S-1202), conforme definidos na <a href="#REGRA_REMUN_JA_EXISTE_DESLIGAMENTO">REGRA_REMUN_JA_EXISTE_DESLIGAMENTO</a>, Pagamentos (S-1210), Comunicação de Acidente de Trabalho (S-2210), Monitoramento de Saúde do Trabalhador (S-2220), Reintegração (S-2298) e Alteração Contratual (S-2206), quando {dtEf} desse evento for igual ou anterior a {dtDeslig}, {dtProjFimAPI} ou {dtFimQuar} (maior data entre elas).<br />
 Caso seja informado evento de Remuneração (S-1200 ou S-1202) em período de apuração posterior ao mês/ano de {dtDeslig} e não se trate de uma das exceções da <a href="#REGRA_REMUN_JA_EXISTE_DESLIGAMENTO">REGRA_REMUN_JA_EXISTE_DESLIGAMENTO</a>, retornar "alerta".</td>
+</tr>
+<tr>
+<td id="REGRA_DESLIG_JA_EXISTE_BAIXA"><strong>REGRA_DESLIG_JA_EXISTE_BAIXA</strong></td>
+<td>Se já existir evento de Baixa Judicial (S-8299) para o vínculo, o evento S-2299 só será recepcionado quando houver identidade entre os seguintes campos: {dtDeslig}, {mtvDeslig} e, se for o caso, {dtProjFimAPI}.</td>
 </tr>
 <tr>
 <td id="REGRA_DESLIG_TRABALHADOR_AFASTADO"><strong>REGRA_DESLIG_TRABALHADOR_AFASTADO</strong></td>
