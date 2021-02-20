@@ -3,6 +3,17 @@
 
     <!-- Grupo {ideEvento} -->
 
+    <xs:complexType name="T_ideEvento_evtTab_inicial">
+        <xs:annotation>
+            <xs:documentation>Informações de identificação do evento.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="tpAmb" type="TS_tpAmb" />
+            <xs:element name="procEmi" type="TS_procEmi_sem_8" />
+            <xs:element name="verProc" type="TS_verProc" />
+        </xs:sequence>
+    </xs:complexType>
+
     <xs:complexType name="T_ideEvento_evtTab">
         <xs:annotation>
             <xs:documentation>Informações de identificação do evento.</xs:documentation>
@@ -42,7 +53,7 @@
             <xs:element name="indApuracao" type="TS_indApuracao" />
             <xs:element name="perApur" type="TS_perApur" />
             <xs:element name="tpAmb" type="TS_tpAmb" />
-            <xs:element name="procEmi" type="TS_procEmi" />
+            <xs:element name="procEmi" type="TS_procEmi_PJ" />
             <xs:element name="verProc" type="TS_verProc" />
         </xs:sequence>
     </xs:complexType>
@@ -63,6 +74,22 @@
         </xs:sequence>
     </xs:complexType>
 
+    <xs:complexType name="T_ideEvento_folha_mensal_PF">
+        <xs:annotation>
+            <xs:documentation>Informações de identificação do evento.</xs:documentation>
+            <xs:documentation>CHAVE_GRUPO: {perApur}, {indGuia}</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="indRetif" type="TS_indRetif" />
+            <xs:element name="nrRecibo" minOccurs="0" type="TS_nrRecibo" />
+            <xs:element name="perApur" type="TS_perApur_mensal" />
+            <xs:element name="indGuia" minOccurs="0" type="TS_indGuia" />
+            <xs:element name="tpAmb" type="TS_tpAmb" />
+            <xs:element name="procEmi" type="TS_procEmi_PF" />
+            <xs:element name="verProc" type="TS_verProc" />
+        </xs:sequence>
+    </xs:complexType>
+
     <xs:complexType name="T_ideEvento_folha_sem_retificacao">
         <xs:annotation>
             <xs:documentation>Informações de identificação do evento.</xs:documentation>
@@ -74,6 +101,19 @@
             <xs:element name="indGuia" minOccurs="0" type="TS_indGuia" />
             <xs:element name="tpAmb" type="TS_tpAmb" />
             <xs:element name="procEmi" type="TS_procEmi" />
+            <xs:element name="verProc" type="TS_verProc" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="T_ideEvento_trab_admissao">
+        <xs:annotation>
+            <xs:documentation>Informações de identificação do evento.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="indRetif" type="TS_indRetif" />
+            <xs:element name="nrRecibo" minOccurs="0" type="TS_nrRecibo" />
+            <xs:element name="tpAmb" type="TS_tpAmb" />
+            <xs:element name="procEmi" type="TS_procEmi_sem_8" />
             <xs:element name="verProc" type="TS_verProc" />
         </xs:sequence>
     </xs:complexType>
@@ -91,6 +131,19 @@
         </xs:sequence>
     </xs:complexType>
 
+    <xs:complexType name="T_ideEvento_trab_PJ">
+        <xs:annotation>
+            <xs:documentation>Informações de identificação do evento.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="indRetif" type="TS_indRetif" />
+            <xs:element name="nrRecibo" minOccurs="0" type="TS_nrRecibo" />
+            <xs:element name="tpAmb" type="TS_tpAmb" />
+            <xs:element name="procEmi" type="TS_procEmi_PJ" />
+            <xs:element name="verProc" type="TS_verProc" />
+        </xs:sequence>
+    </xs:complexType>
+
     <xs:complexType name="T_ideEvento_trab_indGuia">
         <xs:annotation>
             <xs:documentation>Informações de identificação do evento.</xs:documentation>
@@ -101,6 +154,30 @@
             <xs:element name="indGuia" minOccurs="0" type="TS_indGuia" />
             <xs:element name="tpAmb" type="TS_tpAmb" />
             <xs:element name="procEmi" type="TS_procEmi" />
+            <xs:element name="verProc" type="TS_verProc" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="T_ideEvento_exclusao">
+        <xs:annotation>
+            <xs:documentation>Informações de identificação do evento.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="tpAmb" type="TS_tpAmb" />
+            <xs:element name="procEmi" type="TS_procEmi_todos" />
+            <xs:element name="verProc" type="TS_verProc" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="T_ideEvento_trab_jud">
+        <xs:annotation>
+            <xs:documentation>Informações de identificação do evento.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="indRetif" type="TS_indRetif" />
+            <xs:element name="nrRecibo" minOccurs="0" type="TS_nrRecibo" />
+            <xs:element name="tpAmb" type="TS_tpAmb" />
+            <xs:element name="procEmi" type="TS_procEmi_8" />
             <xs:element name="verProc" type="TS_verProc" />
         </xs:sequence>
     </xs:complexType>
@@ -909,7 +986,7 @@
         <xs:restriction base="TS_Id" />
     </xs:simpleType>
 
-    <!-- Campos do grupo {ideEvento} -->
+    <!-- Campo {indRetif} -->
 
     <xs:simpleType name="TS_indRetif">
         <xs:annotation>
@@ -929,6 +1006,8 @@
         </xs:restriction>
     </xs:simpleType>
 
+    <!-- Campo {nrRecibo} -->
+
     <xs:simpleType name="TS_nrRecibo">
         <xs:annotation>
             <xs:documentation>Preencher com o número do recibo do arquivo a ser retificado.</xs:documentation>
@@ -940,6 +1019,8 @@
             <xs:length value="23" />
         </xs:restriction>
     </xs:simpleType>
+
+    <!-- Campo {tpAmb} -->
 
     <xs:simpleType name="TS_tpAmb">
         <xs:annotation>
@@ -974,7 +1055,9 @@
         </xs:restriction>
     </xs:simpleType>
 
-    <xs:simpleType name="TS_procEmi">
+    <!-- Campo {procEmi} -->
+
+    <xs:simpleType name="TS_procEmi_todos">
         <xs:annotation>
             <xs:documentation>Processo de emissão do evento.</xs:documentation>
         </xs:annotation>
@@ -1016,6 +1099,143 @@
             </xs:enumeration>
         </xs:restriction>
     </xs:simpleType>
+
+    <xs:simpleType name="TS_procEmi">
+        <xs:annotation>
+            <xs:documentation>Processo de emissão do evento.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:byte">
+            <xs:enumeration value="1">
+                <xs:annotation>
+                    <xs:documentation>Aplicativo do empregador</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="2">
+                <xs:annotation>
+                    <xs:documentation>Aplicativo governamental - Simplificado Pessoa Física</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="3">
+                <xs:annotation>
+                    <xs:documentation>Aplicativo governamental - Web Geral</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="4">
+                <xs:annotation>
+                    <xs:documentation>Aplicativo governamental - Simplificado Pessoa Jurídica</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="22">
+                <xs:annotation>
+                    <xs:documentation>Aplicativo governamental para dispositivos móveis - Empregador Doméstico</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="TS_procEmi_sem_8">
+        <xs:annotation>
+            <xs:documentation>Processo de emissão do evento.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:byte">
+            <xs:enumeration value="1">
+                <xs:annotation>
+                    <xs:documentation>Aplicativo do empregador</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="2">
+                <xs:annotation>
+                    <xs:documentation>Aplicativo governamental - Simplificado Pessoa Física</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="3">
+                <xs:annotation>
+                    <xs:documentation>Aplicativo governamental - Web Geral</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="4">
+                <xs:annotation>
+                    <xs:documentation>Aplicativo governamental - Simplificado Pessoa Jurídica</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="9">
+                <xs:annotation>
+                    <xs:documentation>Aplicativo governamental - Integração com a Junta Comercial</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="22">
+                <xs:annotation>
+                    <xs:documentation>Aplicativo governamental para dispositivos móveis - Empregador Doméstico</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="TS_procEmi_PJ">
+        <xs:annotation>
+            <xs:documentation>Processo de emissão do evento.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:byte">
+            <xs:enumeration value="1">
+                <xs:annotation>
+                    <xs:documentation>Aplicativo do empregador</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="3">
+                <xs:annotation>
+                    <xs:documentation>Aplicativo governamental - Web Geral</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="4">
+                <xs:annotation>
+                    <xs:documentation>Aplicativo governamental - Simplificado Pessoa Jurídica</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="TS_procEmi_PF">
+        <xs:annotation>
+            <xs:documentation>Processo de emissão do evento.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:byte">
+            <xs:enumeration value="1">
+                <xs:annotation>
+                    <xs:documentation>Aplicativo do empregador</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="2">
+                <xs:annotation>
+                    <xs:documentation>Aplicativo governamental - Simplificado Pessoa Física</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="3">
+                <xs:annotation>
+                    <xs:documentation>Aplicativo governamental - Web Geral</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="22">
+                <xs:annotation>
+                    <xs:documentation>Aplicativo governamental para dispositivos móveis - Empregador Doméstico</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="TS_procEmi_8">
+        <xs:annotation>
+            <xs:documentation>Processo de emissão do evento.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:byte">
+            <xs:enumeration value="8">
+                <xs:annotation>
+                    <xs:documentation>Aplicativo governamental para envio de eventos pelo Judiciário</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Campo {verProc} -->
 
     <xs:simpleType name="TS_verProc">
         <xs:annotation>
