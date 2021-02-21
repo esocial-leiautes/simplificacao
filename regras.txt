@@ -106,7 +106,7 @@ REGRA_DESLIG_EXCLUSAO_EVENTO
 Em caso de exclusão do evento de Desligamento, o vínculo volta à condição de ativo.
 
 REGRA_DESLIG_EXISTE_EVENTO_POSTERIOR
-Não deve existir qualquer evento não periódico para o vínculo indicado no evento de Desligamento com data posterior a {dtDeslig}, {dtProjFimAPI} ou {dtFimQuar} (maior data entre elas), uma vez que o desligamento põe termo ao vínculo trabalhista. Também não deve existir qualquer evento periódico para o vínculo indicado no evento de Desligamento com período de apuração igual ou posterior ao mês/ano de {dtDeslig}.
+Não deve existir qualquer evento não periódico para o vínculo indicado no evento de Desligamento ou de Baixa Judicial com data posterior a {dtDeslig}, {dtProjFimAPI} ou {dtFimQuar} (maior data entre elas), uma vez que põem termo ao vínculo trabalhista. Também não deve existir qualquer evento periódico para o vínculo indicado no evento de Desligamento ou de Baixa Judicial com período de apuração igual ou posterior ao mês/ano de {dtDeslig}.
 As exceções a essa regra se restringem a alguns tipos de remuneração (S-1200 ou S-1202), conforme definidos na REGRA_REMUN_JA_EXISTE_DESLIGAMENTO, Pagamentos (S-1210), Comunicação de Acidente de Trabalho (S-2210), Monitoramento de Saúde do Trabalhador (S-2220), Reintegração (S-2298) e Alteração Contratual (S-2206), quando {dtEf} desse evento for igual ou anterior a {dtDeslig}, {dtProjFimAPI} ou {dtFimQuar} (maior data entre elas).
 Caso seja informado evento de Remuneração (S-1200 ou S-1202) em período de apuração posterior ao mês/ano de {dtDeslig} e não se trate de uma das exceções da REGRA_REMUN_JA_EXISTE_DESLIGAMENTO, retornar "alerta".
 
@@ -230,7 +230,7 @@ REGRA_EXISTE_EVENTO_CESSAO
 O trabalhador deve estar cedido/em exercício em outro órgão (evento S-2200 ou S-2231 com {dtIniCessao}) na data definida no campo {dtTermCessao} para o vínculo identificado.
 
 REGRA_EXISTE_EVENTO_DESLIGAMENTO
-Para aceitação do evento de Reintegração, é necessária a existência de evento de Desligamento (S-2299), com {mtvDeslig} diferente de [10, 11, 12, 13, 28, 29, 30, 34, 36, 37, 40], ou de Admissão (S-2200) com preenchimento do campo {dtDeslig}. Esse evento anterior (S-2299 ou S-2200) deve se referir ao mesmo vínculo.
+Para aceitação do evento de Reintegração, é necessária a existência de evento de Desligamento (S-2299), com {mtvDeslig} diferente de [10, 11, 12, 13, 28, 29, 30, 34, 36, 37, 40], de Baixa Judicial (S-8299) ou de Admissão (S-2200) com preenchimento do campo {dtDeslig}. Esse evento anterior (S-2299, S-8299 ou S-2200) deve se referir ao mesmo vínculo.
 
 REGRA_EXISTE_EVENTO_TSV_INICIO
 O contrato identificado por CPF + matrícula (ou CPF + categoria, no caso de TSVE sem informação de matrícula no evento S-2300) deve existir na base de dados do Registro de Eventos Trabalhistas - RET.
