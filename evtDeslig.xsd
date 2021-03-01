@@ -15,6 +15,7 @@
                         <xs:documentation>REGRA:REGRA_DESLIG_EXCLUI_DESLIGAMENTO_REINTEG</xs:documentation>
                         <xs:documentation>REGRA:REGRA_DESLIG_EXCLUSAO_EVENTO</xs:documentation>
                         <xs:documentation>REGRA:REGRA_DESLIG_EXISTE_EVENTO_POSTERIOR</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_DESLIG_JA_EXISTE_BAIXA</xs:documentation>
                         <xs:documentation>REGRA:REGRA_DESLIG_TRABALHADOR_AFASTADO</xs:documentation>
                         <xs:documentation>REGRA:REGRA_EMPREGADO_DOMESTICO</xs:documentation>
                         <xs:documentation>REGRA:REGRA_ENVIO_PROC_FECHAMENTO</xs:documentation>
@@ -27,6 +28,7 @@
                         <xs:documentation>REGRA:REGRA_GERAL_VALIDA_DADOS_TABCONTRIB</xs:documentation>
                         <xs:documentation>REGRA:REGRA_MESMO_PROCEMI</xs:documentation>
                         <xs:documentation>REGRA:REGRA_MUDANCA_CPF</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_REMUN_FGTS_ANTERIOR_ESOCIAL</xs:documentation>
                         <xs:documentation>REGRA:REGRA_REMUN_IND_RETIFICACAO</xs:documentation>
                         <xs:documentation>REGRA:REGRA_REMUN_PERMITE_EXCLUSAO</xs:documentation>
                         <xs:documentation>REGRA:REGRA_RETIFICA_MESMO_VINCULO</xs:documentation>
@@ -209,7 +211,7 @@
                                                                             <xs:element name="ideEstabLot" maxOccurs="24" type="T_ideEstabLot">
                                                                                 <xs:annotation>
                                                                                     <xs:documentation>Identificação do estabelecimento e lotação</xs:documentation>
-                                                                                    <xs:documentation>DESCRICAO_COMPLETA:Identificação do estabelecimento e da lotação nos quais o trabalhador possui remuneração no período de apuração. O estabelecimento identificado no grupo pode ser: o número do CNPJ do estabelecimento da própria empresa (matriz/filial), o número da obra (própria) no CNO, ou o número do CAEPF (no caso de pessoa física obrigada a inscrição no cadastro de atividades econômicas da pessoa física). No caso específico do trabalhador doméstico, o estabelecimento deve ser o próprio CPF do empregador.</xs:documentation>
+                                                                                    <xs:documentation>DESCRICAO_COMPLETA:Identificação do estabelecimento e da lotação nos quais o trabalhador possui remuneração no período de apuração. O estabelecimento identificado no grupo pode ser: o número do CNPJ do estabelecimento da própria empresa (matriz/filial), o número da obra (própria) no CNO, ou o número do CAEPF (no caso de pessoa física obrigada a inscrição no Cadastro de Atividade Econômica da Pessoa Física).</xs:documentation>
                                                                                     <xs:documentation>CHAVE_GRUPO: {tpInsc}, {nrInsc}, {codLotacao}</xs:documentation>
                                                                                 </xs:annotation>
                                                                             </xs:element>
@@ -279,6 +281,11 @@
                                                                                                             <xs:documentation>Antecipação de diferenças de acordo, convenção ou dissídio coletivo</xs:documentation>
                                                                                                         </xs:annotation>
                                                                                                     </xs:enumeration>
+                                                                                                    <xs:enumeration value="H">
+                                                                                                        <xs:annotation>
+                                                                                                            <xs:documentation>Recolhimento mensal de FGTS anterior ao início de obrigatoriedade dos eventos periódicos</xs:documentation>
+                                                                                                        </xs:annotation>
+                                                                                                    </xs:enumeration>
                                                                                                 </xs:restriction>
                                                                                             </xs:simpleType>
                                                                                         </xs:element>
@@ -296,6 +303,7 @@
                                                                                                             <xs:documentation>Informar o período ao qual se refere o complemento de remuneração, no formato AAAA-MM.</xs:documentation>
                                                                                                             <xs:documentation>Validação: Deve ser igual ou anterior ao mês/ano da data do desligamento, informada em {dtDeslig}(2299_infoDeslig_dtDeslig).</xs:documentation>
                                                                                                             <xs:documentation>Deve ser informado no formato AAAA-MM.</xs:documentation>
+                                                                                                            <xs:documentation>Se {tpAcConv}(../tpAcConv) = [H], deve ser anterior ao início dos eventos periódicos para o empregador no eSocial.</xs:documentation>
                                                                                                         </xs:annotation>
                                                                                                     </xs:element>
                                                                                                     <xs:element name="ideEstabLot" maxOccurs="24" type="T_ideEstabLot">

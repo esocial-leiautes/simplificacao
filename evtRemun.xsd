@@ -27,6 +27,7 @@
                         <xs:documentation>REGRA:REGRA_REMUN_ANUAL_DEZEMBRO</xs:documentation>
                         <xs:documentation>REGRA:REGRA_REMUN_CATEG_COMPATIVEL_TPLOTACAO</xs:documentation>
                         <xs:documentation>REGRA:REGRA_REMUN_CATEG_EXISTENTE_RET</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_REMUN_FGTS_ANTERIOR_ESOCIAL</xs:documentation>
                         <xs:documentation>REGRA:REGRA_REMUN_IND_RETIFICACAO</xs:documentation>
                         <xs:documentation>REGRA:REGRA_REMUN_JA_EXISTE_DESLIGAMENTO</xs:documentation>
                         <xs:documentation>REGRA:REGRA_REMUN_PERMITE_EXCLUSAO</xs:documentation>
@@ -159,7 +160,7 @@
                                                     <xs:element name="ideEstabLot" maxOccurs="500">
                                                         <xs:annotation>
                                                             <xs:documentation>Identificação do estabelecimento e lotação</xs:documentation>
-                                                            <xs:documentation>DESCRICAO_COMPLETA:Identificação do estabelecimento e da lotação nos quais o trabalhador possui remuneração no período de apuração. O estabelecimento identificado no grupo pode ser: o número do CNPJ do estabelecimento da própria empresa (matriz/filial), o número da obra (própria) no CNO, ou o número do CAEPF (no caso de pessoa física obrigada a inscrição no cadastro de atividades econômicas da pessoa física). No caso específico do trabalhador doméstico, o estabelecimento deve ser o próprio CPF do empregador.</xs:documentation>
+                                                            <xs:documentation>DESCRICAO_COMPLETA:Identificação do estabelecimento e da lotação nos quais o trabalhador possui remuneração no período de apuração. O estabelecimento identificado no grupo pode ser: o número do CNPJ do estabelecimento da própria empresa (matriz/filial), o número da obra (própria) no CNO, ou o número do CAEPF (no caso de pessoa física obrigada a inscrição no Cadastro de Atividade Econômica da Pessoa Física).</xs:documentation>
                                                             <xs:documentation>CHAVE_GRUPO: {tpInsc}, {nrInsc}, {codLotacao}</xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
@@ -253,7 +254,14 @@
                                                                     </xs:annotation>
                                                                     <xs:complexType>
                                                                         <xs:sequence>
-                                                                            <xs:element name="perRef" type="TS_perRef" />
+                                                                            <xs:element name="perRef" type="TS_periodo_mensal">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Informar o período ao qual se refere o complemento de remuneração, no formato AAAA-MM.</xs:documentation>
+                                                                                    <xs:documentation>Validação: Deve ser igual ou anterior ao período de apuração informado em {perApur}(/ideEvento_perApur).</xs:documentation>
+                                                                                    <xs:documentation>Deve ser informado no formato AAAA-MM.</xs:documentation>
+                                                                                    <xs:documentation>Se {tpAcConv}(../tpAcConv) = [H], deve ser anterior ao início dos eventos periódicos para o empregador no eSocial.</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:element>
                                                                             <xs:element name="ideEstabLot" maxOccurs="500">
                                                                                 <xs:annotation>
                                                                                     <xs:documentation>Identificação do estabelecimento e lotação</xs:documentation>

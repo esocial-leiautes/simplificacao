@@ -17,7 +17,7 @@ locale.setlocale(locale.LC_TIME, "pt_BR")
 
 # TODO estrutura _saida _assets
 
-versao = 'Versão S-1.0'
+versao = 'Versão S-1.0 (consolidada até NT nº 01/2021)'
 
 if 'doc' in os.getcwd():
     os.chdir('../')
@@ -54,7 +54,7 @@ arquivo.close()
 inicio_tempo = perf_counter()
 
 conteudo = inicio.replace(
-    'SUBTITULO', 'eSocial versão S-1.0 - Regras de Validação').replace(
+    'SUBTITULO', 'eSocial versão S-1.0 - Regras (cons. até NT 01/2021)').replace(
     'TITULO', 'eSocial versão S-1.0 - Regras').replace(
     'TEXTO_1', '<h1 class="title has-text-centered is-3">ANEXO II DOS LEIAUTES DO eSOCIAL<br />REGRAS DE VALIDAÇÃO</h1>').replace(
     'TEXTO_2', '<h1 class="title has-text-centered is-3">{}</h1>'.format(
@@ -87,7 +87,7 @@ for identificador in identificadores:
 leiautes.sort(key=lambda item: item.codigo)
 
 conteudo = inicio.replace(
-    'SUBTITULO', 'eSocial versão S-1.0 - Leiautes').replace(
+    'SUBTITULO', 'eSocial versão S-1.0 - Leiautes (cons. até NT 01/2021)').replace(
     'TITULO', 'eSocial versão S-1.0 - Leiautes').replace(
     'TEXTO_1', (
         '<h1 class="title has-text-centered is-3">LEIAUTES DO eSOCIAL'
@@ -96,7 +96,7 @@ conteudo = inicio.replace(
         '<h2 class="title has-text-centered is-5">(aprovada pela Portaria Conjunta nº 82, de 10/11/2020 – DOU de 11/11/2020)</h2>'
         '<h2 class="title has-text-centered is-5" style="font-weight: normal">Observações: 1) Implantação no ambiente de produção: 10/05/2021'
         '<br />'
-        '2) Período de convivência de versões (2.5 e S-1.0): 10/05/2021 a 09/11/2021</h2>'.format(versao))).replace(
+        '2) Período de convivência de versões (2.5 e S-1.0): 10/05/2021 a 09/03/2022</h2>'.format(versao))).replace(
     'TEXTO_2', '<h1 class="title has-text-centered is-3">{}</h1>'.format(
         datetime.date.today().strftime('%B de %Y').capitalize()))
 
@@ -323,7 +323,7 @@ for tabela in sorted(os.listdir(caminho_tabelas.replace('{}', ''))):
     tabelas.append(tabela[:-4])
 
 conteudo = inicio.replace(
-    'SUBTITULO', 'eSocial versão S-1.0 - Tabelas').replace(
+    'SUBTITULO', 'eSocial versão S-1.0 - Tabelas (cons. até NT 01/2021)').replace(
     'TITULO', 'eSocial versão S-1.0 - Tabelas').replace(
     'TEXTO_1', '<h1 class="title has-text-centered is-3">ANEXO I DOS LEIAUTES DO eSOCIAL<br />TABELAS</h1>').replace(
     'TEXTO_2', '<h1 class="title has-text-centered is-3">{}</h1>'.format(

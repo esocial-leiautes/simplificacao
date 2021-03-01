@@ -4,19 +4,19 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>eSocial versão S-1.0 - Leiautes</title>
-<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+<link rel="shortcut icon" type="image/x-icon" href="favicon_doc.ico">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
 <link rel="stylesheet" href="esocial_html.css">
 </head>
 <body>
 <section id="folha-rosto">
 <img alt="Logomarca do eSocial" src="esocial-full.png" class="center">
-<h1 class="title has-text-centered is-3">LEIAUTES DO eSOCIAL<br /><br />Versão S-1.0</h1><h2 class="title has-text-centered is-5">(aprovada pela Portaria Conjunta nº 82, de 10/11/2020 – DOU de 11/11/2020)</h2><h2 class="title has-text-centered is-5" style="font-weight: normal">Observações: 1) Implantação no ambiente de produção: 10/05/2021<br />2) Período de convivência de versões (2.5 e S-1.0): 10/05/2021 a 09/11/2021</h2>
-<h1 class="title has-text-centered is-3">Novembro de 2020</h1>
+<h1 class="title has-text-centered is-3">LEIAUTES DO eSOCIAL<br /><br />Versão S-1.0 (consolidada até NT nº 01/2021)</h1><h2 class="title has-text-centered is-5">(aprovada pela Portaria Conjunta nº 82, de 10/11/2020 – DOU de 11/11/2020)</h2><h2 class="title has-text-centered is-5" style="font-weight: normal">Observações: 1) Implantação no ambiente de produção: 10/05/2021<br />2) Período de convivência de versões (2.5 e S-1.0): 10/05/2021 a 09/03/2022</h2>
+<h1 class="title has-text-centered is-3">Março de 2021</h1>
 </section>
 <section class="section">
 <div class="container is-fluid">
-<h1 class="title has-text-centered is-1">eSocial versão S-1.0 - Leiautes</h1>
+<h1 class="title has-text-centered is-1">eSocial versão S-1.0 - Leiautes (cons. até NT 01/2021)</h1>
 <h2 class="title has-text-centered is-3">Sumário</h2>
 <ul class="sumario">
 <li><a href="#evtInfoEmpregador">S-1000 - Informações do Empregador/Contribuinte/Órgão Público</a></li>
@@ -59,6 +59,7 @@
 <li><a href="#evtBasesFGTS">S-5003 - Informações do FGTS por Trabalhador</a></li>
 <li><a href="#evtCS">S-5011 - Informações das Contribuições Sociais Consolidadas por Contribuinte</a></li>
 <li><a href="#evtFGTS">S-5013 - Informações do FGTS Consolidadas por Contribuinte</a></li>
+<li><a href="#evtBaixa">S-8299 - Baixa Judicial do Vínculo</a></li>
 </ul>
 <div class="modal" id="REGRA_ADMISSAO_POSTERIOR_INICIO_ATIVIDADES">
 <div class="modal-background"></div>
@@ -142,6 +143,30 @@ b) Grupo [02]: pode ser alterado para tipo de benefício dos grupos [01, 03];<br
 c) Grupo [03]: pode ser alterado para tipo de benefício dos grupos [01, 02];<br />
 d) Grupo [04]: pode ser alterado para tipo de benefício do grupo [05];<br />
 e) Grupo [05]: pode ser alterado para tipo de benefício do grupo [04].</p>
+</div>
+</div>
+</div>
+<div class="modal" id="REGRA_BAIXA_JUDICIAL">
+<div class="modal-background"></div>
+<div class="modal-card">
+<header class="modal-card-head">
+<p class="modal-card-title">REGRA_BAIXA_JUDICIAL</p>
+<button class="delete" aria-label="close"></button>
+</header>
+<div class="modal-card-body">
+<p>Para recepção do evento de Baixa Judicial, não pode existir evento de Desligamento (S-2299) para o vínculo identificado por CPF + matrícula.</p>
+</div>
+</div>
+</div>
+<div class="modal" id="REGRA_BAIXA_TRABALHADOR_AFASTADO">
+<div class="modal-background"></div>
+<div class="modal-card">
+<header class="modal-card-head">
+<p class="modal-card-title">REGRA_BAIXA_TRABALHADOR_AFASTADO</p>
+<button class="delete" aria-label="close"></button>
+</header>
+<div class="modal-card-body">
+<p>É permitido o envio de evento de Baixa Judicial para trabalhador afastado temporariamente, independentemente do motivo de afastamento.</p>
 </div>
 </div>
 </div>
@@ -298,7 +323,7 @@ b) {perRef}, se pertencerem ao grupo {infoPerAnt}.</p>
 <button class="delete" aria-label="close"></button>
 </header>
 <div class="modal-card-body">
-<p>Não é permitida a exclusão de evento de Desligamento se existir evento de Reintegração para o mesmo vínculo com data posterior à data de desligamento.</p>
+<p>Não é permitida a exclusão de evento de Desligamento ou de Baixa Judicial se existir evento de Reintegração para o mesmo vínculo com data posterior à data de desligamento.</p>
 </div>
 </div>
 </div>
@@ -310,7 +335,7 @@ b) {perRef}, se pertencerem ao grupo {infoPerAnt}.</p>
 <button class="delete" aria-label="close"></button>
 </header>
 <div class="modal-card-body">
-<p>Em caso de exclusão do evento de Desligamento, o vínculo volta à condição de ativo.</p>
+<p>Em caso de exclusão do evento de Desligamento ou de Baixa Judicial, o vínculo volta à condição de ativo. No caso da existência concomitante de S-2299 e S-8299, o vínculo só volta à condição de ativo com a exclusão de ambos.</p>
 </div>
 </div>
 </div>
@@ -322,9 +347,21 @@ b) {perRef}, se pertencerem ao grupo {infoPerAnt}.</p>
 <button class="delete" aria-label="close"></button>
 </header>
 <div class="modal-card-body">
-<p>Não deve existir qualquer evento não periódico para o vínculo indicado no evento de Desligamento com data posterior a {dtDeslig}, {dtProjFimAPI} ou {dtFimQuar} (maior data entre elas), uma vez que o desligamento põe termo ao vínculo trabalhista. Também não deve existir qualquer evento periódico para o vínculo indicado no evento de Desligamento com período de apuração igual ou posterior ao mês/ano de {dtDeslig}.<br />
+<p>Não deve existir qualquer evento não periódico para o vínculo indicado no evento de Desligamento ou de Baixa Judicial com data posterior a {dtDeslig}, {dtProjFimAPI} ou {dtFimQuar} (maior data entre elas), uma vez que põem termo ao vínculo trabalhista. Também não deve existir qualquer evento periódico para o vínculo indicado no evento de Desligamento ou de Baixa Judicial com período de apuração igual ou posterior ao mês/ano de {dtDeslig}.<br />
 As exceções a essa regra se restringem a alguns tipos de remuneração (S-1200 ou S-1202), conforme definidos na <a href="#REGRA_REMUN_JA_EXISTE_DESLIGAMENTO">REGRA_REMUN_JA_EXISTE_DESLIGAMENTO</a>, Pagamentos (S-1210), Comunicação de Acidente de Trabalho (S-2210), Monitoramento de Saúde do Trabalhador (S-2220), Reintegração (S-2298) e Alteração Contratual (S-2206), quando {dtEf} desse evento for igual ou anterior a {dtDeslig}, {dtProjFimAPI} ou {dtFimQuar} (maior data entre elas).<br />
 Caso seja informado evento de Remuneração (S-1200 ou S-1202) em período de apuração posterior ao mês/ano de {dtDeslig} e não se trate de uma das exceções da <a href="#REGRA_REMUN_JA_EXISTE_DESLIGAMENTO">REGRA_REMUN_JA_EXISTE_DESLIGAMENTO</a>, retornar "alerta".</p>
+</div>
+</div>
+</div>
+<div class="modal" id="REGRA_DESLIG_JA_EXISTE_BAIXA">
+<div class="modal-background"></div>
+<div class="modal-card">
+<header class="modal-card-head">
+<p class="modal-card-title">REGRA_DESLIG_JA_EXISTE_BAIXA</p>
+<button class="delete" aria-label="close"></button>
+</header>
+<div class="modal-card-body">
+<p>Se já existir evento de Baixa Judicial (S-8299) para o vínculo, o evento S-2299 só será recepcionado quando houver identidade entre os seguintes campos: {dtDeslig}, {mtvDeslig} e, se for o caso, {dtProjFimAPI}.</p>
 </div>
 </div>
 </div>
@@ -384,7 +421,7 @@ b1) Às regras de validação do fechamento das folhas de todo o período afetad
 b2) Às regras <a href="#REGRA_REMUN_JA_EXISTE_DESLIGAMENTO">REGRA_REMUN_JA_EXISTE_DESLIGAMENTO</a> e <a href="#REGRA_REMUN_TRAB_EXISTENTE_RET">REGRA_REMUN_TRAB_EXISTENTE_RET</a> e à condição do grupo {infoComplCont} do evento S-1200 (no caso de TSVE sem informação de matrícula no evento S-2300) de todo o período afetado, se o evento extemporâneo excluir trabalhador (ou reduzir no RET o seu período de contrato ativo);<br />
 b3) À <a href="#REGRA_REMUN_BENEFICIO_EXISTENTE_RET">REGRA_REMUN_BENEFICIO_EXISTENTE_RET</a> de todo o período afetado, se o evento extemporâneo excluir benefício (ou reduzir no RET o seu período ativo).<br />
 Período Afetado: Meses em que a alteração pode tornar as informações do RET incompatíveis com as regras de validação do fechamento da folha ou com as regras mencionadas no item "b2". Exemplos: inclusão ou exclusão de evento de Admissão, retificação de data de admissão, envio/retificação de evento de Desligamento, etc.);<br />
-c) A retificação ou exclusão extemporânea de evento remuneratório (S-1200/S-1202/S-1207/S-2299/S-2399) exigirá a exclusão prévia do correspondente evento S-1210, quando existente.</p>
+c) A retificação ou exclusão extemporânea de evento remuneratório (S-1200/S-1202/S-1207/S-2299/S-2399) exigirá a exclusão prévia do correspondente evento S-1210, quando existente. Esta alínea somente será implantada após o término do período de convivência entre as versões 2.5 e S-1.0 do leiaute.</p>
 </div>
 </div>
 </div>
@@ -462,14 +499,16 @@ b) Se a data de admissão é anterior a 01/03/2000, a data de opção deve ser e
 <button class="delete" aria-label="close"></button>
 </header>
 <div class="modal-card-body">
-<p>1) É permitida a exclusão apenas de eventos não periódicos, na faixa de S-2190 a S-2420 e periódicos, na faixa de S-1200 a S-1280.<br />
-2) A exclusão dos eventos periódicos, com exceção do S-1210, sujeita-se às seguintes regras:<br />
+<p>1) É permitida a exclusão apenas de eventos não periódicos, na faixa de S-2190 a S-2420 e S-8299, e periódicos, na faixa de S-1200 a S-1280 e S-1300.<br />
+2) A exclusão dos eventos periódicos, com exceção do S-1210 e do S-1300, sujeita-se às seguintes regras:<br />
 a) Não é possível excluir nenhum dos eventos periódicos relativos a um período de apuração que esteja fechado (ou seja, para o qual já exista evento S-1299) antes do envio do evento de reabertura respectivo (S-1298) para o período de apuração;<br />
 b) A exclusão de eventos periódicos individualizados após o envio do evento de reabertura somente é efetivada após o "fechamento" do período correspondente, o que ocorre com o envio do evento S-1299.<br />
 3) A exclusão de alguns eventos não periódicos pode ser rejeitada em situações específicas, as quais constam nas regras do próprio evento (por exemplo, não é possível excluir um evento de admissão se já houver outro evento trabalhista posterior para o mesmo vínculo).<br />
 4) O {nrRecEvt} indicado deve existir no Registro de Eventos Trabalhistas - RET, não pode estar marcado como "excluído" e o tipo do evento deve ser o mesmo indicado em {tpEvento}.<br />
 5) Em caso de exclusão de qualquer evento periódico ou não periódico, o CPF do trabalhador indicado no evento de exclusão deve ser o mesmo que consta no evento objeto de exclusão.<br />
-6) Em caso de exclusão de qualquer evento periódico, as informações de {indApuracao} (no caso dos eventos S-1200, S-1202, S-1207 e S-1280) e de {perApur} indicadas no evento de exclusão devem ser as mesmas que constam no evento objeto de exclusão.</p>
+6) Em caso de exclusão de qualquer evento periódico, as informações de {indApuracao} (no caso dos eventos S-1200, S-1202, S-1207, S-1280 e S-1300) e de {perApur} indicadas no evento de exclusão devem ser as mesmas que constam no evento objeto de exclusão.<br />
+7) O evento S-1250 (existente até a versão 2.5 do leiaute) somente pode ser excluído se a data de envio do evento S-3000 for igual ou anterior a 20/05/2021.<br />
+8) Os eventos S-1300, S-2250 e S-2260 (existentes até a versão 2.5 do leiaute) podem ser excluídos nesta versão do leiaute.</p>
 </div>
 </div>
 </div>
@@ -648,7 +687,7 @@ b) No caso do S-1200, cada evento somente pode haver remuneração de uma única
 <button class="delete" aria-label="close"></button>
 </header>
 <div class="modal-card-body">
-<p>Para aceitação do evento de Reintegração, é necessária a existência de evento de Desligamento (S-2299), com {mtvDeslig} diferente de [10, 11, 12, 13, 28, 29, 30, 34, 36, 37, 40], ou de Admissão (S-2200) com preenchimento do campo {dtDeslig}. Esse evento anterior (S-2299 ou S-2200) deve se referir ao mesmo vínculo.</p>
+<p>Para aceitação do evento de Reintegração, é necessária a existência de evento de Desligamento (S-2299), com {mtvDeslig} diferente de [10, 11, 12, 13, 28, 29, 30, 34, 36, 37, 40], de Baixa Judicial (S-8299) ou de Admissão (S-2200) com preenchimento do campo {dtDeslig}. Esse evento anterior (S-2299, S-8299 ou S-2200) deve se referir ao mesmo vínculo.</p>
 </div>
 </div>
 </div>
@@ -684,7 +723,7 @@ b) No caso do S-1200, cada evento somente pode haver remuneração de uma única
 <button class="delete" aria-label="close"></button>
 </header>
 <div class="modal-card-body">
-<p>O CPF do trabalhador informado no evento de Alteração de Dados Cadastrais (S-2205) deve existir na base do RET para o empregador, bem como deve haver prévio envio do evento de Admissão (S-2200) ou de TSVE - Início (S-2300). Além disso, a data da alteração cadastral deve estar compreendida no período entre a admissão e o desligamento (no caso de empregado), entre a data da transferência e o desligamento (no caso de empregado sucedido ou de transferência de titularidade do empregado doméstico), entre a data da alteração do CPF e o desligamento (no caso de mudança de CPF do empregado), entre o início e o término do contrato (no caso de TSVE) ou entre a data da alteração do CPF e o término do contrato (no caso de mudança de CPF do TSVE).</p>
+<p>O CPF do trabalhador informado no evento de Alteração de Dados Cadastrais (S-2205) deve existir na base do RET para o empregador, bem como deve haver prévio envio do evento de Admissão (S-2200) ou de TSVE - Início (S-2300). Além disso, a data da alteração cadastral deve estar compreendida no período entre a admissão e o desligamento ou baixa judicial (no caso de empregado), entre a data da transferência e o desligamento ou baixa judicial (no caso de empregado sucedido ou de transferência de titularidade do empregado doméstico), entre a data da alteração do CPF e o desligamento ou baixa judicial (no caso de mudança de CPF do empregado), entre o início e o término do contrato (no caso de TSVE) ou entre a data da alteração do CPF e o término do contrato (no caso de mudança de CPF do TSVE).</p>
 </div>
 </div>
 </div>
@@ -736,7 +775,7 @@ Nesse caso, o evento S-2200 retificador não pode conter os grupos {afastamento}
 <button class="delete" aria-label="close"></button>
 </header>
 <div class="modal-card-body">
-<p>Quando houver demissão e reintegração de um empregado, o novo período contratual preserva a matrícula do período anterior; contudo, os eventos de um período não podem ter suas datas de ocorrência retificadas, de modo que sejam deslocados do período anterior ao desligamento ao período posterior à reintegração e vice-versa, ainda que sejam atendidos aos requisitos da <a href="#REGRA_EVENTOS_EXTEMP">REGRA_EVENTOS_EXTEMP</a>.</p>
+<p>Quando houver demissão (ou baixa judicial) e reintegração de um empregado, o novo período contratual preserva a matrícula do período anterior; contudo, os eventos de um período não podem ter suas datas de ocorrência retificadas, de modo que sejam deslocados do período anterior ao desligamento ou baixa judicial ao período posterior à reintegração e vice-versa, ainda que sejam atendidos aos requisitos da <a href="#REGRA_EVENTOS_EXTEMP">REGRA_EVENTOS_EXTEMP</a>.</p>
 </div>
 </div>
 </div>
@@ -780,7 +819,7 @@ No caso dos eventos S-2299 e S-2399, por serem eventos não periódicos com info
 <div class="modal-card-body">
 <p>a) A classificação tributária [70] somente pode ser utilizada se {tpInsc} = [1] e {nrInsc} = [07752497].<br />
 b) A classificação tributária [85] somente pode ser utilizada se a natureza jurídica do declarante for Administração Pública (grupo [1]).<br />
-c) A mudança de classificação tributária [21] para [22], e vice-versa, somente é permitida se não houver evento periódico (exceto evento de empregado doméstico) transmitido em {perApur} contido no período de validade do novo evento S-1000. No caso de evento de período de apuração anual, considerar {perApur} = "AAAA-12".</p>
+c) A mudança de classificação tributária [21] para [22], e vice-versa, somente é permitida se não houver evento periódico ou desligamento (exceto evento de empregado doméstico) transmitido em {perApur} (mês/ano do desligamento, no caso do S-2299) contido no período de validade do novo evento S-1000. No caso de evento de período de apuração anual, considerar {perApur} = "AAAA-12".</p>
 </div>
 </div>
 </div>
@@ -808,7 +847,10 @@ c) A mudança de classificação tributária [21] para [22], e vice-versa, somen
 a) Evento com {procEmi} = [1] pode ser retificado ou excluído por evento com {procEmi} = [3];<br />
 b) Evento com {procEmi} = [3] pode ser retificado ou excluído por evento com {procEmi} = [1];<br />
 c) Evento S-2230 de férias ({codMotAfast} = [15]) com {procEmi} = [1, 3] pode ser retificado por evento com {procEmi} = [2, 4, 22];<br />
-d) Evento com {procEmi} = [91] pode ser retificado ou excluído por evento com qualquer {procEmi}.</p>
+d) Evento com {procEmi} = [9] pode ser retificado ou excluído por evento com qualquer {procEmi};<br />
+e) Evento com {procEmi} = [5] (existente até a versão 2.5 do leiaute) pode ser retificado ou excluído por evento com {procEmi} = [2, 22];<br />
+f) Evento com {procEmi} = [2] pode ser retificado ou excluído por evento com {procEmi} = [22];<br />
+g) Evento com {procEmi} = [22] pode ser retificado ou excluído por evento com {procEmi} = [2].</p>
 </div>
 </div>
 </div>
@@ -901,14 +943,15 @@ c) Após o envio do evento S-2420 com {mtvTermino} = [10], os campos citados na 
 </header>
 <div class="modal-card-body">
 <p>1) Caso tenha sido enviado o evento S-2190 para o mesmo contrato de trabalho (CPF + matrícula) e se {indRetif} do evento S-2200/S-2300 for igual a [1]:<br />
-a) Os campos {codCateg} e {natAtividade} informados no evento S-2190 devem ser idênticos aos respectivos campos do evento S-2200/S-2300.<br />
-b) No caso de transmissão do evento S-2200:<br />
-b1) O campo {dtAdm} informado no evento S-2190 deve ser idêntico ao respectivo campo do evento S-2200;<br />
-b2) O campo {tpRegTrab} deve ser igual a [1] e o campo {tpRegPrev} deve ser igual a [1, 3].<br />
-c) No caso de transmissão do evento S-2300:<br />
-c1) O campo {dtAdm} informado no evento S-2190 deve ser idêntico ao campo {dtInicio} do evento S-2300;<br />
-c2) Se {codCateg} = [401], o campo {infoDirigenteSindical/tpRegTrab} deve ser igual a [1] ou não deve ser informado, e o campo {infoDirigenteSindical/tpRegPrev} deve ser igual a [1, 3];<br />
-c3) Se {codCateg} = [410], o campo {infoTrabCedido/tpRegTrab} deve ser igual a [1] e o campo {infoTrabCedido/tpRegPrev} deve ser igual a [1, 3].<br />
+a) O evento S-2190 deve ter sido enviado na versão S-1.0 do leaiute ou posterior (retornar mensagem de erro específica caso o S-2190 tenha sido transmitido na versão 2.5 do leiaute ou anterior).<br />
+b) Os campos {codCateg} e {natAtividade} informados no evento S-2190 devem ser idênticos aos respectivos campos do evento S-2200/S-2300.<br />
+c) No caso de transmissão do evento S-2200:<br />
+c1) O campo {dtAdm} informado no evento S-2190 deve ser idêntico ao respectivo campo do evento S-2200;<br />
+c2) O campo {tpRegTrab} deve ser igual a [1] e o campo {tpRegPrev} deve ser igual a [1, 3].<br />
+d) No caso de transmissão do evento S-2300:<br />
+d1) O campo {dtAdm} informado no evento S-2190 deve ser idêntico ao campo {dtInicio} do evento S-2300;<br />
+d2) Se {codCateg} = [401], o campo {infoDirigenteSindical/tpRegTrab} deve ser igual a [1] ou não deve ser informado, e o campo {infoDirigenteSindical/tpRegPrev} deve ser igual a [1, 3];<br />
+d3) Se {codCateg} = [410], o campo {infoTrabCedido/tpRegTrab} deve ser igual a [1] e o campo {infoTrabCedido/tpRegPrev} deve ser igual a [1, 3].<br />
 2) Caso exista evento S-2190 pendente (sem o correspondente evento S-2200 ou S-2300) para o mesmo trabalhador, mas com matrícula diferente, retornar "alerta".<br />
 3) As informações prestadas nos eventos S-2200/S-2300 substituirão os dados do evento S-2190 no Registro de Eventos Trabalhistas - RET, mesmo quando houver conteúdo diferente.</p>
 </div>
@@ -975,7 +1018,20 @@ b) Se houver informação no grupo {infoPerAnt}, deve haver evento S-2410 para C
 A categoria deve ser obtida no RET do respectivo contrato, em:<br />
 a) {perApur}, se a remuneração for preenchida no grupo {infoPerApur}; e/ou<br />
 b) {perRef}, se a remuneração for preenchida no grupo {infoPerAnt}.<br />
-Esta regra não se aplica para remunerações a trabalhadores nos casos em que {remunSuc} (ou {remunOrgSuc}) = [S].</p>
+Retornar mensagem de erro específica caso a categoria não seja encontrada no RET e haja evento S-2190 pendente (sem o correspondente evento S-2200) transmitido na versão 2.5 do leiaute ou anterior.<br />
+Esta regra não se aplica para remunerações a trabalhadores nos casos em que {remunSuc} (ou {remunOrgSuc}) = [S] ou quando, no caso de informação de períodos anteriores, {perRef} for anterior ao mês/ano da data de início da obrigatoriedade dos eventos não periódicos para o empregador no eSocial.</p>
+</div>
+</div>
+</div>
+<div class="modal" id="REGRA_REMUN_FGTS_ANTERIOR_ESOCIAL">
+<div class="modal-background"></div>
+<div class="modal-card">
+<header class="modal-card-head">
+<p class="modal-card-title">REGRA_REMUN_FGTS_ANTERIOR_ESOCIAL</p>
+<button class="delete" aria-label="close"></button>
+</header>
+<div class="modal-card-body">
+<p>Se {tpAcConv} = [H], as respectivas rubricas devem ser informativas ({tpRubr} = [3, 4]) e devem possuir {codIncCP} = [00] e {codIncIRRF} = [9].</p>
 </div>
 </div>
 </div>
@@ -1003,7 +1059,7 @@ d) no caso de desligamento ou término de TSVE (S-2299 e S-2399), o evento retif
 <button class="delete" aria-label="close"></button>
 </header>
 <div class="modal-card-body">
-<p>Se existir no Registro de Eventos Trabalhistas - RET evento de Desligamento ou de TSVE - Término para trabalhador com {codCateg} = [721] cujo mês/ano da data de desligamento (ou de término) seja igual ou anterior ao período de apuração ({perApur}), não deve haver remuneração (S-1200 ou S-1202). Também não deve haver remuneração (S-1200 ou S-1202) se existir no RET evento de TSVE - Término para o trabalhador com {codCateg} diferente de [721] com mês/ano da data de término anterior a {perApur}. As exceções para esse caso são:<br />
+<p>Se existir no Registro de Eventos Trabalhistas - RET evento de Desligamento ou de TSVE - Término para trabalhador com {codCateg} = [721] cujo mês/ano da data de desligamento (ou de término) seja igual ou anterior ao período de apuração ({perApur}), não deve haver remuneração (S-1200 ou S-1202). Se existir no RET evento de Baixa Judicial cujo mês/ano da data de desligamento seja anterior ao período de apuração ({perApur}), não deve haver remuneração (S-1200 ou S-1202). Também não deve haver remuneração (S-1200 ou S-1202) se existir no RET evento de TSVE - Término para o trabalhador com {codCateg} diferente de [721] com mês/ano da data de término anterior a {perApur}. As exceções para esses casos são:<br />
 a) Remuneração de PLR em {remunPerApur}. Para tanto, deve haver ao menos uma rubrica cujo {tpRubr} em S-1010 = [1] e {codIncIRRF} em S-1010 = [14];<br />
 b) Remuneração em {remunPerApur} para trabalhador que esteja em "quarentena", ou seja, o grupo {quarentena} tiver sido preenchido no respectivo evento de Desligamento/TSVE - Término e o mês/ano de {dtFimQuar} for igual ou posterior ao período de apuração indicado no evento de remuneração;<br />
 c) Remuneração em {remunPerApur} pelo exercício de opção de compra de ações da empresa ("stock option"). Para tanto, deve haver ao menos uma rubrica cuja {natRubr} seja igual a [1080];<br />
@@ -1042,16 +1098,16 @@ b) Se o evento que está sendo excluído for relativo a período de apuração p
 <p>1) Se houver remuneração no registro {remunPerApur}, obedecer ao que segue:<br />
 a) Se a categoria de trabalhador indicar "Empregado" ([101, 102, 103, 104, 105, 106, 107, 108, 111]) ou as categorias do grupo "Agente Público" [301, 302, 303, 306, 307, 309, 310, 312], aplicar a <a href="#REGRA_VINCULO_ATIVO_NA_DTEVENTO">REGRA_VINCULO_ATIVO_NA_DTEVENTO</a>.<br />
 b) Se a categoria indicar um dos tipos de trabalhador sujeito ao evento "Trabalhador Sem Vínculo de Emprego/Estatutário - TSVE", a saber: "Avulso" ([201, 202]), as categorias do grupo "Agente Público" [304, 305, 308], "Cessão" ([401, 410]), as categorias do grupo "Contribuinte Individual" [721, 722, 723, 731, 734, 738, 761, 771] ou "Bolsista" [901, 902], aplicar a <a href="#REGRA_TSV_ATIVO_NA_DTEVENTO">REGRA_TSV_ATIVO_NA_DTEVENTO</a>.<br />
-Caso seja informada em {remunPerApur} remuneração posterior ao mês/ano da data de desligamento (ou de término), retornar "alerta". No caso do evento S-1200, também retornar "alerta" se a remuneração informada em {remunPerApur} for referente a contrato informado pelo evento Registro Preliminar de Trabalhador (S-2190) sem o correspondente evento de Admissão (S-2200) ou TSVE - Início (S-2300).<br />
+Caso seja informada em {remunPerApur} remuneração posterior ao mês/ano da data de desligamento informada em S-2200, S-2299 ou S-8299 (ou de término informada em S-2300 ou S-2399), retornar "alerta". No caso do evento S-1200, também retornar "alerta" se a remuneração informada em {remunPerApur} for referente a contrato informado pelo evento Registro Preliminar de Trabalhador (S-2190) sem o correspondente evento de Admissão (S-2200) ou TSVE - Início (S-2300).<br />
 2) Se houver remuneração no registro {remunPerAnt}, obedecer ao que segue:<br />
-a) Se a categoria for relativa a "Empregado" ou as categorias do grupo "Agente Público" [301, 302, 303, 306, 307, 309, 310, 312] e se {remunSuc} (ou {remunOrgSuc}) = [N], executar a <a href="#REGRA_EXISTE_VINCULO">REGRA_EXISTE_VINCULO</a>. Além disso, {perRef} deve ser igual ou anterior ao mês/ano da data de desligamento do vínculo (exceto se houver reintegração com data posterior ao desligamento ou se, no caso do evento S-1200, {tpAcConv} = [F]), bem como igual ou posterior ao mês/ano da data de admissão/exercício.<br />
-b) Se a categoria for relativa a "Avulso", "Cessão" ou igual a [304, 305, 308, 721, 722, 901] e se {remunSuc} (ou {remunOrgSuc}) = [N], executar a <a href="#REGRA_EXISTE_EVENTO_TSV_INICIO">REGRA_EXISTE_EVENTO_TSV_INICIO</a>. Além disso, {perRef} deve ser igual ou anterior ao mês/ano da data de término (exceto se, no caso do evento S-1200, {tpAcConv} = [F]), bem como igual ou posterior ao mês/ano da data de início.<br />
+a) Se a categoria for relativa a "Empregado" ou as categorias do grupo "Agente Público" [301, 302, 303, 306, 307, 309, 310, 312] e se {remunSuc} (ou {remunOrgSuc}) = [N], executar a <a href="#REGRA_EXISTE_VINCULO">REGRA_EXISTE_VINCULO</a>. Além disso, {perRef} deve ser igual ou anterior ao mês/ano da data de desligamento do vínculo informada em S-2200, S-2299 ou S-8299 (exceto se houver reintegração com data posterior ao desligamento (ou baixa judicial) ou se, no caso do evento S-1200, {tpAcConv} = [F]), bem como igual ou posterior ao mês/ano da data de admissão/exercício.<br />
+b) Se a categoria for relativa a "Avulso", "Cessão" ou igual a [304, 305, 308, 721, 722, 901] e se {remunSuc} (ou {remunOrgSuc}) = [N], executar a <a href="#REGRA_EXISTE_EVENTO_TSV_INICIO">REGRA_EXISTE_EVENTO_TSV_INICIO</a>. Além disso, {perRef} deve ser igual ou anterior ao mês/ano da data de término informada em S-2300 ou S-2399 (exceto se, no caso do evento S-1200, {tpAcConv} = [F]), bem como igual ou posterior ao mês/ano da data de início.<br />
 c) Caso {remunSuc} (ou {remunOrgSuc}) = [S]:<br />
 c1) {codCateg} do demonstrativo deve ser igual a [1XX, 301, 302, 303, 306, 307, 309, 310, 312];<br />
 c2) {perRef} deve ser igual ou posterior ao mês/ano de {sucessaoVinc/dtAdm} (ou {sucessaoVinc/dtExercicio});<br />
 c3) Se o trabalhador possuir evento S-2200 informado no declarante, {perRef} deve ser anterior ao mês/ano da data de admissão/exercício desse vínculo;<br />
-c4) Se {perRef} for igual ou posterior ao mês/ano da data de início da obrigatoriedade dos eventos não periódicos para o empregador/órgão público sucedido (informado no grupo {sucessaoVinc}), o trabalhador deve possuir evento S-2200 informado nesse empregador/órgão público anterior. Além disso, {perRef} deve ser igual ou anterior ao mês/ano da data de desligamento do vínculo (exceto se, no caso do evento S-1200, {tpAcConv} = [F]), bem como igual ou posterior ao mês/ano da data de admissão/exercício.<br />
-Caso seja informada em {remunPerAnt} remuneração posterior ao mês/ano da data de desligamento (ou de término) e não se trate de uma das exceções acima listadas, retornar "alerta". No caso do evento S-1200, também retornar "alerta" se a remuneração informada em {remunPerAnt} for referente a contrato informado pelo evento Registro Preliminar de Trabalhador (S-2190) sem o correspondente evento de Admissão (S-2200) ou TSVE - Início (S-2300).</p>
+c4) Se {perRef} for igual ou posterior ao mês/ano da data de início da obrigatoriedade dos eventos não periódicos para o empregador/órgão público sucedido (informado no grupo {sucessaoVinc}), o trabalhador deve possuir evento S-2200 informado nesse empregador/órgão público anterior. Além disso, {perRef} deve ser igual ou anterior ao mês/ano da data de desligamento ou baixa judicial do vínculo (exceto se, no caso do evento S-1200, {tpAcConv} = [F]), bem como igual ou posterior ao mês/ano da data de admissão/exercício.<br />
+Caso seja informada em {remunPerAnt} remuneração posterior ao mês/ano da data de desligamento informada em S-2200, S-2299 ou S-8299 (ou de término informada em S-2300 ou S-2399) e não se trate de uma das exceções acima listadas, retornar "alerta". No caso do evento S-1200, também retornar "alerta" se a remuneração informada em {remunPerAnt} for referente a contrato informado pelo evento Registro Preliminar de Trabalhador (S-2190) sem o correspondente evento de Admissão (S-2200) ou TSVE - Início (S-2300).</p>
 </div>
 </div>
 </div>
@@ -1387,7 +1443,7 @@ OBS.: A alínea "a" de ambos os itens acima não deve ser executada quando se tr
 <p>Para aceitação do evento de fechamento, efetuar as seguintes verificações:<br />
 a) Não deve existir evento de Registro Preliminar (S-2190) sem o correspondente evento de Admissão (S-2200) ou TSVE - Início (S-2300) cujo mês/ano da "data de admissão" ou da "data de início" seja anterior ou igual ao período de apuração da folha de pagamento. Em caso de não existência, deve ser gerado um "alerta" para o empregador (ou seja, embora a situação seja irregular, não há impedimento para o fechamento dos eventos periódicos).<br />
 b) Validar a integridade entre os eventos de remuneração recepcionados e os empregados e agentes públicos "ativos" do Registro de Eventos Trabalhistas - RET, da seguinte forma:<br />
-b1) Todos os trabalhadores admitidos (S-2190 ou S-2200) em período igual ou anterior ao período de apuração que não estejam desligados ou cujo desligamento seja posterior ao período de apuração devem possuir o respectivo evento de remuneração (S-1200, S-1202 ou S-2299 para trabalhadores com {tpRegTrab} = [1] e S-1200 ou S-1202 para trabalhadores com {tpRegTrab} = [2]) já encaminhado para o mesmo período de apuração, exceto:<br />
+b1) Todos os trabalhadores admitidos (S-2190 ou S-2200) em período igual ou anterior ao período de apuração que não estejam desligados ou cujo desligamento ou baixa judicial seja posterior ao período de apuração devem possuir o respectivo evento de remuneração (S-1200, S-1202 ou S-2299 para trabalhadores com {tpRegTrab} = [1] e S-1200 ou S-1202 para trabalhadores com {tpRegTrab} = [2]) já encaminhado para o mesmo período de apuração, exceto:<br />
 - se o trabalhador estiver afastado durante todo o período de apuração em um dos seguintes códigos de afastamento [03, 05, 06, 07, 11, 12, 13, 21, 23, 25, 27, 28, 30, 31, 36, 37]; ou<br />
 - se o trabalhador estiver afastado durante todo o período de apuração pelo código de motivo de afastamento [14] com {infOnus} = [2], ou cedido/em exercício em outro órgão durante todo o período de apuração com {respRemun} = [N]); ou<br />
 - se o trabalhador estiver afastado durante todo o período de apuração pelo código de motivo de afastamento [24] com {infOnusRemun} = [2]; ou<br />
@@ -1497,15 +1553,15 @@ OBS.: Nos eventos de Admissão (S-2200) e TSVE - Início (S-2300), não efetuar 
 <button class="delete" aria-label="close"></button>
 </header>
 <div class="modal-card-body">
-<p>O vínculo identificado por CPF + matrícula deve estar ativo na data do evento, ou seja, a data do evento deve ser igual ou posterior à data de admissão/data de exercício (no caso de transferência ou mudança de CPF, igual ou posterior a {sucessaoVinc/dtTransf}, {transfDom/dtTransf} ou {dtAltCPF} do evento S-2200, conforme o caso) e igual ou anterior à data de desligamento.<br />
+<p>O vínculo identificado por CPF + matrícula deve estar ativo na data do evento, ou seja, a data do evento deve ser igual ou posterior à data de admissão/data de exercício (no caso de transferência ou mudança de CPF, igual ou posterior a {sucessaoVinc/dtTransf}, {transfDom/dtTransf} ou {dtAltCPF} do evento S-2200, conforme o caso) e igual ou anterior à data de desligamento (informada em S-2200, S-2299 ou S-8299).<br />
 Quanto aos eventos S-2206, S-2230, S-2231 e S-2299, deve existir prévio envio do evento de Admissão (S-2200) para o vínculo.<br />
 Exclusivamente na recepção do evento S-2206:<br />
 a) considerar como data do evento a informação prestada no campo {dtEf} se este estiver preenchido (nessa situação, a data do evento deve ser igual ou posterior à data de admissão); caso contrário, considerar a informação do campo {dtAlteracao};<br />
-b) considerar como data de desligamento a maior data entre {dtDeslig}, {dtProjFimAPI} e {dtFimQuar} do evento S-2299.<br />
+b) considerar como data de desligamento a maior data entre {dtDeslig}, {dtProjFimAPI} e {dtFimQuar} do evento S-2299 (ou a maior data entre {dtDeslig} e {dtProjFimAPI} do evento S-8299, caso não haja S-2299).<br />
 No caso do evento S-2210, quando {tpCat} = [2, 3], considerar vínculo ativo a partir da {dtAdm}, mesmo no caso de sucessão, transferência de titularidade do empregado doméstico ou mudança de CPF.<br />
-No caso dos eventos S-2210, S-2230 e S-2231, considerar como data de desligamento a maior data entre {dtDeslig} e {dtProjFimAPI} do evento S-2299.<br />
-No caso do evento S-2230 (ou S-2231), se houver afastamento (ou cessão/exercício em outro órgão) com início em data igual ou posterior a {dtDeslig} do evento S-2299, a data de término do afastamento (ou da cessão) deve ser igual ou anterior a {dtProjFimAPI} do S-2299. Se {dtProjFimAPI} não existir, a data de término do afastamento (ou da cessão) deve ser igual a {dtDeslig}.<br />
-No caso dos eventos S-1200 e S-1202, {perApur} deve ser igual ou posterior ao mês/ano da data de admissão/data de exercício (no caso de transferência ou mudança de CPF, igual ou posterior ao mês/ano de {sucessaoVinc/dtTransf}, {transfDom/dtTransf} ou {dtAltCPF} do evento S-2200, conforme o caso) e igual ou anterior ao mês/ano da data de desligamento.<br />
+No caso dos eventos S-2210, S-2230 e S-2231, considerar como data de desligamento a maior data entre {dtDeslig} e {dtProjFimAPI} do evento S-2299 ou S-8299.<br />
+No caso do evento S-2230 (ou S-2231), se houver afastamento (ou cessão/exercício em outro órgão) com início em data igual ou posterior a {dtDeslig} do evento S-2299 ou S-8299, a data de término do afastamento (ou da cessão) deve ser igual ou anterior a {dtProjFimAPI} do S-2299 ou S-8299. Se {dtProjFimAPI} não existir, a data de término do afastamento (ou da cessão) deve ser igual a {dtDeslig}.<br />
+No caso dos eventos S-1200 e S-1202, {perApur} deve ser igual ou posterior ao mês/ano da data de admissão/data de exercício (no caso de transferência ou mudança de CPF, igual ou posterior ao mês/ano de {sucessaoVinc/dtTransf}, {transfDom/dtTransf} ou {dtAltCPF} do evento S-2200, conforme o caso) e igual ou anterior ao mês/ano da data de desligamento (informada em S-2200, S-2299 ou S-8299).<br />
 No caso do evento S-2299, se houver remuneração informada no registro {infoPerAnt}, o mês/ano do evento (aqui considerado o período ao qual se refere a remuneração, indicado em {perRef}) deve ser igual ou posterior ao mês/ano da data de admissão.</p>
 </div>
 </div>
@@ -1784,9 +1840,8 @@ N (nos demais casos)</td>
 <strong>2</strong> - Aplicativo governamental - Simplificado Pessoa Física<br />
 <strong>3</strong> - Aplicativo governamental - Web Geral<br />
 <strong>4</strong> - Aplicativo governamental - Simplificado Pessoa Jurídica<br />
-<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico<br />
-<strong>81</strong> - Aplicativo governamental para envio de eventos pelo Judiciário<br />
-<strong>91</strong> - Aplicativo governamental - Integração com a Junta Comercial</td>
+<strong>9</strong> - Aplicativo governamental - Integração com a Junta Comercial<br />
+<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="1000_ideEvento_verProc" id="1000_ideEvento_verProc">7</td>
@@ -1834,7 +1889,7 @@ N (nos demais casos)</td>
 <td>8, 11 ou 14</td>
 <td>-</td>
 <td>Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo <a href="#1000_ideEmpregador_tpInsc">tpInsc</a>.<br />
-<strong>Validação:</strong> Se <a href="#1000_ideEmpregador_tpInsc">tpInsc</a> for igual a [1], deve ser um número de CNPJ válido. Neste caso, deve ser informada apenas a raiz/base (8 posições), exceto se natureza jurídica do declarante for igual a 101-5, 104-0, 107-4, 110-4, 113-9, 116-3, 119-8, 125-2, 128-7, 131-7 ou 134-1, situação em que o campo deve ser preenchido com o CNPJ completo (14 posições).<br />
+<strong>Validação:</strong> Se <a href="#1000_ideEmpregador_tpInsc">tpInsc</a> for igual a [1], deve ser um número de CNPJ válido. Neste caso, deve ser informada apenas a raiz/base (8 posições), exceto se natureza jurídica do declarante for igual a 101-5, 104-0, 107-4, 110-4, 113-9, 116-3, 125-2, 128-7 ou 134-1, situação em que o campo deve ser preenchido com o CNPJ completo (14 posições).<br />
 Se <a href="#1000_ideEmpregador_tpInsc">tpInsc</a> for igual a [2], deve ser um CPF válido.</td>
 </tr>
 <tr class="grupo-choice">
@@ -2597,9 +2652,8 @@ N (nos demais casos)</td>
 <strong>2</strong> - Aplicativo governamental - Simplificado Pessoa Física<br />
 <strong>3</strong> - Aplicativo governamental - Web Geral<br />
 <strong>4</strong> - Aplicativo governamental - Simplificado Pessoa Jurídica<br />
-<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico<br />
-<strong>81</strong> - Aplicativo governamental para envio de eventos pelo Judiciário<br />
-<strong>91</strong> - Aplicativo governamental - Integração com a Junta Comercial</td>
+<strong>9</strong> - Aplicativo governamental - Integração com a Junta Comercial<br />
+<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="1005_ideEvento_verProc" id="1005_ideEvento_verProc">7</td>
@@ -3438,9 +3492,7 @@ N (nos demais casos)</td>
 <strong>2</strong> - Aplicativo governamental - Simplificado Pessoa Física<br />
 <strong>3</strong> - Aplicativo governamental - Web Geral<br />
 <strong>4</strong> - Aplicativo governamental - Simplificado Pessoa Jurídica<br />
-<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico<br />
-<strong>81</strong> - Aplicativo governamental para envio de eventos pelo Judiciário<br />
-<strong>91</strong> - Aplicativo governamental - Integração com a Junta Comercial</td>
+<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="1010_ideEvento_verProc" id="1010_ideEvento_verProc">7</td>
@@ -4297,9 +4349,7 @@ N (nos demais casos)</td>
 <strong>2</strong> - Aplicativo governamental - Simplificado Pessoa Física<br />
 <strong>3</strong> - Aplicativo governamental - Web Geral<br />
 <strong>4</strong> - Aplicativo governamental - Simplificado Pessoa Jurídica<br />
-<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico<br />
-<strong>81</strong> - Aplicativo governamental para envio de eventos pelo Judiciário<br />
-<strong>91</strong> - Aplicativo governamental - Integração com a Junta Comercial</td>
+<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="1020_ideEvento_verProc" id="1020_ideEvento_verProc">7</td>
@@ -5077,9 +5127,7 @@ N (nos demais casos)</td>
 <strong>2</strong> - Aplicativo governamental - Simplificado Pessoa Física<br />
 <strong>3</strong> - Aplicativo governamental - Web Geral<br />
 <strong>4</strong> - Aplicativo governamental - Simplificado Pessoa Jurídica<br />
-<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico<br />
-<strong>81</strong> - Aplicativo governamental para envio de eventos pelo Judiciário<br />
-<strong>91</strong> - Aplicativo governamental - Integração com a Junta Comercial</td>
+<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="1070_ideEvento_verProc" id="1070_ideEvento_verProc">7</td>
@@ -5820,6 +5868,7 @@ N (nos demais casos)</td>
 <a href="#REGRA_REMUN_ANUAL_DEZEMBRO">REGRA_REMUN_ANUAL_DEZEMBRO</a><br />
 <a href="#REGRA_REMUN_CATEG_COMPATIVEL_TPLOTACAO">REGRA_REMUN_CATEG_COMPATIVEL_TPLOTACAO</a><br />
 <a href="#REGRA_REMUN_CATEG_EXISTENTE_RET">REGRA_REMUN_CATEG_EXISTENTE_RET</a><br />
+<a href="#REGRA_REMUN_FGTS_ANTERIOR_ESOCIAL">REGRA_REMUN_FGTS_ANTERIOR_ESOCIAL</a><br />
 <a href="#REGRA_REMUN_IND_RETIFICACAO">REGRA_REMUN_IND_RETIFICACAO</a><br />
 <a href="#REGRA_REMUN_JA_EXISTE_DESLIGAMENTO">REGRA_REMUN_JA_EXISTE_DESLIGAMENTO</a><br />
 <a href="#REGRA_REMUN_PERMITE_EXCLUSAO">REGRA_REMUN_PERMITE_EXCLUSAO</a><br />
@@ -5954,9 +6003,7 @@ Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo
 <strong>2</strong> - Aplicativo governamental - Simplificado Pessoa Física<br />
 <strong>3</strong> - Aplicativo governamental - Web Geral<br />
 <strong>4</strong> - Aplicativo governamental - Simplificado Pessoa Jurídica<br />
-<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico<br />
-<strong>81</strong> - Aplicativo governamental para envio de eventos pelo Judiciário<br />
-<strong>91</strong> - Aplicativo governamental - Integração com a Junta Comercial</td>
+<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="1200_ideEvento_verProc" id="1200_ideEvento_verProc">12</td>
@@ -6355,7 +6402,7 @@ Se <a href="#1200_ideTrabalhador_infoComplem_sucessaoVinc_tpInsc">sucessaoVinc/t
 <td>1-500</td>
 <td>-</td>
 <td>-</td>
-<td>Identificação do estabelecimento e da lotação nos quais o trabalhador possui remuneração no período de apuração. O estabelecimento identificado no grupo pode ser: o número do CNPJ do estabelecimento da própria empresa (matriz/filial), o número da obra (própria) no CNO, ou o número do CAEPF (no caso de pessoa física obrigada a inscrição no cadastro de atividades econômicas da pessoa física). No caso específico do trabalhador doméstico, o estabelecimento deve ser o próprio CPF do empregador.</td>
+<td>Identificação do estabelecimento e da lotação nos quais o trabalhador possui remuneração no período de apuração. O estabelecimento identificado no grupo pode ser: o número do CNPJ do estabelecimento da própria empresa (matriz/filial), o número da obra (própria) no CNO, ou o número do CAEPF (no caso de pessoa física obrigada a inscrição no Cadastro de Atividade Econômica da Pessoa Física).</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="1200_dmDev_infoPerApur_ideEstabLot_tpInsc" id="1200_dmDev_infoPerApur_ideEstabLot_tpInsc">45</td>
@@ -6621,7 +6668,8 @@ OBS.: As informações previstas acima podem se referir ao período de apuraçã
 <strong>D</strong> - Sentença normativa - Dissídio<br />
 <strong>E</strong> - Conversão de licença saúde em acidente de trabalho<br />
 <strong>F</strong> - Outras verbas de natureza salarial ou não salarial devidas após o desligamento<br />
-<strong>G</strong> - Antecipação de diferenças de acordo, convenção ou dissídio coletivo</td>
+<strong>G</strong> - Antecipação de diferenças de acordo, convenção ou dissídio coletivo<br />
+<strong>H</strong> - Recolhimento mensal de FGTS anterior ao início de obrigatoriedade dos eventos periódicos</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="1200_dmDev_infoPerAnt_ideADC_dsc" id="1200_dmDev_infoPerAnt_ideADC_dsc">65</td>
@@ -6670,7 +6718,8 @@ OBS.: As informações previstas acima podem se referir ao período de apuraçã
 <td>-</td>
 <td>Informar o período ao qual se refere o complemento de remuneração, no formato AAAA-MM.<br />
 <strong>Validação:</strong> Deve ser igual ou anterior ao período de apuração informado em <a href="#1200_ideEvento_perApur">perApur</a>.<br />
-Deve ser informado no formato AAAA-MM.</td>
+Deve ser informado no formato AAAA-MM.<br />
+Se <a href="#1200_dmDev_infoPerAnt_ideADC_tpAcConv">tpAcConv</a> = [H], deve ser anterior ao início dos eventos periódicos para o empregador no eSocial.</td>
 </tr>
 <tr class="grupo">
 <td onclick="copiarCaminho.call(this)" title="1200_dmDev_infoPerAnt_ideADC_idePeriodo_ideEstabLot" id="1200_dmDev_infoPerAnt_ideADC_idePeriodo_ideEstabLot">69</td>
@@ -7194,17 +7243,13 @@ Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo
 <td>E</td>
 <td>N</td>
 <td>1</td>
-<td>1-2</td>
+<td>1</td>
 <td>-</td>
 <td>Processo de emissão do evento.<br />
 <strong>Valores válidos:</strong><br />
 <strong>1</strong> - Aplicativo do empregador<br />
-<strong>2</strong> - Aplicativo governamental - Simplificado Pessoa Física<br />
 <strong>3</strong> - Aplicativo governamental - Web Geral<br />
-<strong>4</strong> - Aplicativo governamental - Simplificado Pessoa Jurídica<br />
-<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico<br />
-<strong>81</strong> - Aplicativo governamental para envio de eventos pelo Judiciário<br />
-<strong>91</strong> - Aplicativo governamental - Integração com a Junta Comercial</td>
+<strong>4</strong> - Aplicativo governamental - Simplificado Pessoa Jurídica</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="1202_ideEvento_verProc" id="1202_ideEvento_verProc">11</td>
@@ -7957,17 +8002,13 @@ Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo
 <td>E</td>
 <td>N</td>
 <td>1</td>
-<td>1-2</td>
+<td>1</td>
 <td>-</td>
 <td>Processo de emissão do evento.<br />
 <strong>Valores válidos:</strong><br />
 <strong>1</strong> - Aplicativo do empregador<br />
-<strong>2</strong> - Aplicativo governamental - Simplificado Pessoa Física<br />
 <strong>3</strong> - Aplicativo governamental - Web Geral<br />
-<strong>4</strong> - Aplicativo governamental - Simplificado Pessoa Jurídica<br />
-<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico<br />
-<strong>81</strong> - Aplicativo governamental para envio de eventos pelo Judiciário<br />
-<strong>91</strong> - Aplicativo governamental - Integração com a Junta Comercial</td>
+<strong>4</strong> - Aplicativo governamental - Simplificado Pessoa Jurídica</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="1207_ideEvento_verProc" id="1207_ideEvento_verProc">11</td>
@@ -8238,7 +8279,8 @@ Preenchimento obrigatório quando se tratar de rubrica relativa a faltas ou Desc
 <td>7</td>
 <td>-</td>
 <td>Informar o período ao qual se refere o complemento de provento ou pensão, no formato AAAA-MM.<br />
-<strong>Validação:</strong> Deve ser igual ou anterior ao período de apuração informado em <a href="#1207_ideEvento_perApur">perApur</a>.</td>
+<strong>Validação:</strong> Deve ser igual ou anterior ao período de apuração informado em <a href="#1207_ideEvento_perApur">perApur</a>.<br />
+Deve ser informado no formato AAAA-MM.</td>
 </tr>
 <tr class="grupo">
 <td onclick="copiarCaminho.call(this)" title="1207_dmDev_infoPerAnt_idePeriodo_ideEstab" id="1207_dmDev_infoPerAnt_idePeriodo_ideEstab">34</td>
@@ -8493,9 +8535,7 @@ Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo
 <strong>2</strong> - Aplicativo governamental - Simplificado Pessoa Física<br />
 <strong>3</strong> - Aplicativo governamental - Web Geral<br />
 <strong>4</strong> - Aplicativo governamental - Simplificado Pessoa Jurídica<br />
-<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico<br />
-<strong>81</strong> - Aplicativo governamental para envio de eventos pelo Judiciário<br />
-<strong>91</strong> - Aplicativo governamental - Integração com a Junta Comercial</td>
+<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="1210_ideEvento_verProc" id="1210_ideEvento_verProc">11</td>
@@ -8919,10 +8959,7 @@ Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo
 <strong>1</strong> - Aplicativo do empregador<br />
 <strong>2</strong> - Aplicativo governamental - Simplificado Pessoa Física<br />
 <strong>3</strong> - Aplicativo governamental - Web Geral<br />
-<strong>4</strong> - Aplicativo governamental - Simplificado Pessoa Jurídica<br />
-<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico<br />
-<strong>81</strong> - Aplicativo governamental para envio de eventos pelo Judiciário<br />
-<strong>91</strong> - Aplicativo governamental - Integração com a Junta Comercial</td>
+<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="1260_ideEvento_verProc" id="1260_ideEvento_verProc">11</td>
@@ -9491,9 +9528,7 @@ Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo
 <strong>2</strong> - Aplicativo governamental - Simplificado Pessoa Física<br />
 <strong>3</strong> - Aplicativo governamental - Web Geral<br />
 <strong>4</strong> - Aplicativo governamental - Simplificado Pessoa Jurídica<br />
-<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico<br />
-<strong>81</strong> - Aplicativo governamental para envio de eventos pelo Judiciário<br />
-<strong>91</strong> - Aplicativo governamental - Integração com a Junta Comercial</td>
+<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="1270_ideEvento_verProc" id="1270_ideEvento_verProc">11</td>
@@ -9925,9 +9960,7 @@ Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo
 <strong>2</strong> - Aplicativo governamental - Simplificado Pessoa Física<br />
 <strong>3</strong> - Aplicativo governamental - Web Geral<br />
 <strong>4</strong> - Aplicativo governamental - Simplificado Pessoa Jurídica<br />
-<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico<br />
-<strong>81</strong> - Aplicativo governamental para envio de eventos pelo Judiciário<br />
-<strong>91</strong> - Aplicativo governamental - Integração com a Junta Comercial</td>
+<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="1280_ideEvento_verProc" id="1280_ideEvento_verProc">12</td>
@@ -10264,9 +10297,7 @@ Informar 0 (zero) se <a href="#1280_infoSubstPatr_indSubstPatr">indSubstPatr</a>
 <strong>2</strong> - Aplicativo governamental - Simplificado Pessoa Física<br />
 <strong>3</strong> - Aplicativo governamental - Web Geral<br />
 <strong>4</strong> - Aplicativo governamental - Simplificado Pessoa Jurídica<br />
-<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico<br />
-<strong>81</strong> - Aplicativo governamental para envio de eventos pelo Judiciário<br />
-<strong>91</strong> - Aplicativo governamental - Integração com a Junta Comercial</td>
+<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="1298_ideEvento_verProc" id="1298_ideEvento_verProc">10</td>
@@ -10519,9 +10550,7 @@ Informar 0 (zero) se <a href="#1280_infoSubstPatr_indSubstPatr">indSubstPatr</a>
 <strong>2</strong> - Aplicativo governamental - Simplificado Pessoa Física<br />
 <strong>3</strong> - Aplicativo governamental - Web Geral<br />
 <strong>4</strong> - Aplicativo governamental - Simplificado Pessoa Jurídica<br />
-<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico<br />
-<strong>81</strong> - Aplicativo governamental para envio de eventos pelo Judiciário<br />
-<strong>91</strong> - Aplicativo governamental - Integração com a Junta Comercial</td>
+<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="1299_ideEvento_verProc" id="1299_ideEvento_verProc">10</td>
@@ -10640,6 +10669,20 @@ Informar 0 (zero) se <a href="#1280_infoSubstPatr_indSubstPatr">indSubstPatr</a>
 <strong>S</strong> - Sim<br />
 <strong>N</strong> - Não<br />
 <strong>Validação:</strong> Se for igual a [S], deve existir o evento S-1280 para o período de apuração. Caso contrário, não deve existir o evento.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="1299_infoFech_indExcApur1250" id="1299_infoFech_indExcApur1250">19</td>
+<td>indExcApur1250</td>
+<td><a href="#r_1299_infoFech">infoFech</a></td>
+<td>E</td>
+<td>C</td>
+<td>0-1</td>
+<td>1</td>
+<td>-</td>
+<td>Indicativo de exclusão de apuração das aquisições de produção rural (eventos S-1250) do período de apuração.<br />
+<strong>Valores válidos:</strong><br />
+<strong>S</strong> - Sim<br />
+<strong>Validação:</strong> Não informar se <a href="#1299_ideEvento_perApur">perApur</a> &gt;= [2021-05] ou se <a href="#1299_ideEvento_indApuracao">indApuracao</a> = [2]. Preenchimento obrigatório caso o campo tenha sido informado em fechamento anterior do mesmo período de apuração.</td>
 </tr>
 </tbody>
 </table>
@@ -10851,9 +10894,8 @@ Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo
 <strong>2</strong> - Aplicativo governamental - Simplificado Pessoa Física<br />
 <strong>3</strong> - Aplicativo governamental - Web Geral<br />
 <strong>4</strong> - Aplicativo governamental - Simplificado Pessoa Jurídica<br />
-<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico<br />
-<strong>81</strong> - Aplicativo governamental para envio de eventos pelo Judiciário<br />
-<strong>91</strong> - Aplicativo governamental - Integração com a Junta Comercial</td>
+<strong>9</strong> - Aplicativo governamental - Integração com a Junta Comercial<br />
+<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="2190_ideEvento_verProc" id="2190_ideEvento_verProc">9</td>
@@ -11612,9 +11654,8 @@ Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo
 <strong>2</strong> - Aplicativo governamental - Simplificado Pessoa Física<br />
 <strong>3</strong> - Aplicativo governamental - Web Geral<br />
 <strong>4</strong> - Aplicativo governamental - Simplificado Pessoa Jurídica<br />
-<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico<br />
-<strong>81</strong> - Aplicativo governamental para envio de eventos pelo Judiciário<br />
-<strong>91</strong> - Aplicativo governamental - Integração com a Junta Comercial</td>
+<strong>9</strong> - Aplicativo governamental - Integração com a Junta Comercial<br />
+<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="2200_ideEvento_verProc" id="2200_ideEvento_verProc">9</td>
@@ -13200,13 +13241,14 @@ c) Se <a href="#2200_vinculo_cadIni">cadIni</a> = [N], deve ser igual ou anterio
 <td><a href="#r_2200_vinculo_infoContrato_horContratual">horContratual</a></td>
 <td>E</td>
 <td>C</td>
-<td>1</td>
+<td>0-1</td>
 <td>1</td>
 <td>-</td>
 <td>Indicar se a jornada semanal possui horário noturno (no todo ou em parte).<br />
 <strong>Valores válidos:</strong><br />
 <strong>S</strong> - Sim<br />
-<strong>N</strong> - Não</td>
+<strong>N</strong> - Não<br />
+<strong>Validação:</strong> Informação obrigatória se <a href="#2200_vinculo_infoContrato_codCateg">codCateg</a> for diferente de [111].</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="2200_vinculo_infoContrato_horContratual_dscJorn" id="2200_vinculo_infoContrato_horContratual_dscJorn">130</td>
@@ -13507,7 +13549,7 @@ c) Se <a href="#2200_vinculo_cadIni">cadIni</a> = [N], deve ser anterior à data
 <td>2</td>
 <td>-</td>
 <td>Preencher com o código do motivo de afastamento temporário.<br />
-<strong>Validação:</strong> Deve ser um código válido e existente na <a href="tabelas.html#18">Tabela 18</a>. Se a natureza jurídica do declarante for Administração Pública (grupo [1]), não pode ser informado [14].</td>
+<strong>Validação:</strong> Deve ser um código válido e existente na <a href="tabelas.html#18">Tabela 18</a>, bem como compatível com o código de categoria do trabalhador, conforme <a href="tabelas.html#18">Tabela 18</a>. Se a natureza jurídica do declarante for Administração Pública (grupo [1]), não pode ser informado [14].</td>
 </tr>
 <tr class="grupo">
 <td onclick="copiarCaminho.call(this)" title="2200_vinculo_desligamento" id="2200_vinculo_desligamento">155</td>
@@ -13840,9 +13882,7 @@ Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo
 <strong>2</strong> - Aplicativo governamental - Simplificado Pessoa Física<br />
 <strong>3</strong> - Aplicativo governamental - Web Geral<br />
 <strong>4</strong> - Aplicativo governamental - Simplificado Pessoa Jurídica<br />
-<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico<br />
-<strong>81</strong> - Aplicativo governamental para envio de eventos pelo Judiciário<br />
-<strong>91</strong> - Aplicativo governamental - Integração com a Junta Comercial</td>
+<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="2205_ideEvento_verProc" id="2205_ideEvento_verProc">9</td>
@@ -14942,9 +14982,7 @@ Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo
 <strong>2</strong> - Aplicativo governamental - Simplificado Pessoa Física<br />
 <strong>3</strong> - Aplicativo governamental - Web Geral<br />
 <strong>4</strong> - Aplicativo governamental - Simplificado Pessoa Jurídica<br />
-<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico<br />
-<strong>81</strong> - Aplicativo governamental para envio de eventos pelo Judiciário<br />
-<strong>91</strong> - Aplicativo governamental - Integração com a Junta Comercial</td>
+<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="2206_ideEvento_verProc" id="2206_ideEvento_verProc">9</td>
@@ -15714,13 +15752,14 @@ Se não houver número a ser informado, preencher com &quot;S/N&quot;.</td>
 <td><a href="#r_2206_altContratual_vinculo_infoContrato_horContratual">horContratual</a></td>
 <td>E</td>
 <td>C</td>
-<td>1</td>
+<td>0-1</td>
 <td>1</td>
 <td>-</td>
 <td>Indicar se a jornada semanal possui horário noturno (no todo ou em parte).<br />
 <strong>Valores válidos:</strong><br />
 <strong>S</strong> - Sim<br />
-<strong>N</strong> - Não</td>
+<strong>N</strong> - Não<br />
+<strong>Validação:</strong> Informação obrigatória se <a href="#2206_altContratual_vinculo_infoContrato_codCateg">codCateg</a> for diferente de [111].</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="2206_altContratual_vinculo_infoContrato_horContratual_dscJorn" id="2206_altContratual_vinculo_infoContrato_horContratual_dscJorn">71</td>
@@ -16076,9 +16115,7 @@ Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo
 <strong>2</strong> - Aplicativo governamental - Simplificado Pessoa Física<br />
 <strong>3</strong> - Aplicativo governamental - Web Geral<br />
 <strong>4</strong> - Aplicativo governamental - Simplificado Pessoa Jurídica<br />
-<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico<br />
-<strong>81</strong> - Aplicativo governamental para envio de eventos pelo Judiciário<br />
-<strong>91</strong> - Aplicativo governamental - Integração com a Junta Comercial</td>
+<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="2210_ideEvento_verProc" id="2210_ideEvento_verProc">9</td>
@@ -17056,9 +17093,7 @@ Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo
 <strong>2</strong> - Aplicativo governamental - Simplificado Pessoa Física<br />
 <strong>3</strong> - Aplicativo governamental - Web Geral<br />
 <strong>4</strong> - Aplicativo governamental - Simplificado Pessoa Jurídica<br />
-<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico<br />
-<strong>81</strong> - Aplicativo governamental para envio de eventos pelo Judiciário<br />
-<strong>91</strong> - Aplicativo governamental - Integração com a Junta Comercial</td>
+<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="2220_ideEvento_verProc" id="2220_ideEvento_verProc">9</td>
@@ -17179,7 +17214,7 @@ Informar somente no caso de TSVE sem informação de matrícula no evento S-2300
 <strong>0</strong> - Exame médico admissional<br />
 <strong>1</strong> - Exame médico periódico, conforme Norma Regulamentadora 07 - NR-07 e/ou planejamento do Programa de Controle Médico de Saúde Ocupacional - PCMSO<br />
 <strong>2</strong> - Exame médico de retorno ao trabalho<br />
-<strong>3</strong> - Exame médico de mudança de função<br />
+<strong>3</strong> - Exame médico de mudança de função ou de mudança de risco ocupacional<br />
 <strong>4</strong> - Exame médico de monitoração pontual, não enquadrado nos demais casos<br />
 <strong>9</strong> - Exame médico demissional<br />
 <strong>Validação:</strong> Se informado [0], não pode existir outro evento S-2220 para o mesmo contrato com <a href="#2220_exMedOcup_aso_dtAso">dtAso</a> anterior.</td>
@@ -17213,7 +17248,7 @@ Informar somente no caso de TSVE sem informação de matrícula no evento S-2300
 <td><a href="#r_2220_exMedOcup_aso">aso</a></td>
 <td>E</td>
 <td>N</td>
-<td>1</td>
+<td>0-1</td>
 <td>1</td>
 <td>-</td>
 <td>Resultado do ASO.<br />
@@ -17230,7 +17265,7 @@ Informar somente no caso de TSVE sem informação de matrícula no evento S-2300
 <td>1-99</td>
 <td>-</td>
 <td>-</td>
-<td>Grupo que detalha as avaliações clínicas e os exames complementares porventura realizados pelo trabalhador em virtude do determinado nos Quadros I e II da NR-07, além de outros solicitados pelo médico e os referentes ao ASO.</td>
+<td>Grupo que detalha as avaliações clínicas e os exames complementares porventura realizados pelo trabalhador em virtude do determinado nos Anexos da NR-07, além de outros solicitados pelo médico e os referentes ao ASO.</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="2220_exMedOcup_aso_exame_dtExm" id="2220_exMedOcup_aso_exame_dtExm">23</td>
@@ -17679,9 +17714,7 @@ Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo
 <strong>2</strong> - Aplicativo governamental - Simplificado Pessoa Física<br />
 <strong>3</strong> - Aplicativo governamental - Web Geral<br />
 <strong>4</strong> - Aplicativo governamental - Simplificado Pessoa Jurídica<br />
-<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico<br />
-<strong>81</strong> - Aplicativo governamental para envio de eventos pelo Judiciário<br />
-<strong>91</strong> - Aplicativo governamental - Integração com a Junta Comercial</td>
+<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="2230_ideEvento_verProc" id="2230_ideEvento_verProc">9</td>
@@ -17825,7 +17858,7 @@ b) É necessário que o trabalhador esteja, antes da data de início do afastame
 <td>2</td>
 <td>-</td>
 <td>Preencher com o código do motivo de afastamento temporário.<br />
-<strong>Validação:</strong> Deve ser um código válido e existente na <a href="tabelas.html#18">Tabela 18</a>.</td>
+<strong>Validação:</strong> Deve ser um código válido e existente na <a href="tabelas.html#18">Tabela 18</a>, bem como compatível com o código de categoria do trabalhador, conforme <a href="tabelas.html#18">Tabela 18</a>. Se a natureza jurídica do declarante for Administração Pública (grupo [1]), não pode ser informado [14].</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="2230_infoAfastamento_iniAfastamento_infoMesmoMtv" id="2230_infoAfastamento_iniAfastamento_infoMesmoMtv">21</td>
@@ -18325,17 +18358,13 @@ Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo
 <td>E</td>
 <td>N</td>
 <td>1</td>
-<td>1-2</td>
+<td>1</td>
 <td>-</td>
 <td>Processo de emissão do evento.<br />
 <strong>Valores válidos:</strong><br />
 <strong>1</strong> - Aplicativo do empregador<br />
-<strong>2</strong> - Aplicativo governamental - Simplificado Pessoa Física<br />
 <strong>3</strong> - Aplicativo governamental - Web Geral<br />
-<strong>4</strong> - Aplicativo governamental - Simplificado Pessoa Jurídica<br />
-<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico<br />
-<strong>81</strong> - Aplicativo governamental para envio de eventos pelo Judiciário<br />
-<strong>91</strong> - Aplicativo governamental - Integração com a Junta Comercial</td>
+<strong>4</strong> - Aplicativo governamental - Simplificado Pessoa Jurídica</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="2231_ideEvento_verProc" id="2231_ideEvento_verProc">9</td>
@@ -18787,9 +18816,7 @@ Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo
 <strong>2</strong> - Aplicativo governamental - Simplificado Pessoa Física<br />
 <strong>3</strong> - Aplicativo governamental - Web Geral<br />
 <strong>4</strong> - Aplicativo governamental - Simplificado Pessoa Jurídica<br />
-<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico<br />
-<strong>81</strong> - Aplicativo governamental para envio de eventos pelo Judiciário<br />
-<strong>91</strong> - Aplicativo governamental - Integração com a Junta Comercial</td>
+<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="2240_ideEvento_verProc" id="2240_ideEvento_verProc">9</td>
@@ -19623,9 +19650,7 @@ Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo
 <strong>2</strong> - Aplicativo governamental - Simplificado Pessoa Física<br />
 <strong>3</strong> - Aplicativo governamental - Web Geral<br />
 <strong>4</strong> - Aplicativo governamental - Simplificado Pessoa Jurídica<br />
-<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico<br />
-<strong>81</strong> - Aplicativo governamental para envio de eventos pelo Judiciário<br />
-<strong>91</strong> - Aplicativo governamental - Integração com a Junta Comercial</td>
+<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="2298_ideEvento_verProc" id="2298_ideEvento_verProc">9</td>
@@ -20117,6 +20142,7 @@ OC (nos demais casos)</td>
 <a href="#REGRA_DESLIG_EXCLUI_DESLIGAMENTO_REINTEG">REGRA_DESLIG_EXCLUI_DESLIGAMENTO_REINTEG</a><br />
 <a href="#REGRA_DESLIG_EXCLUSAO_EVENTO">REGRA_DESLIG_EXCLUSAO_EVENTO</a><br />
 <a href="#REGRA_DESLIG_EXISTE_EVENTO_POSTERIOR">REGRA_DESLIG_EXISTE_EVENTO_POSTERIOR</a><br />
+<a href="#REGRA_DESLIG_JA_EXISTE_BAIXA">REGRA_DESLIG_JA_EXISTE_BAIXA</a><br />
 <a href="#REGRA_DESLIG_TRABALHADOR_AFASTADO">REGRA_DESLIG_TRABALHADOR_AFASTADO</a><br />
 <a href="#REGRA_EMPREGADO_DOMESTICO">REGRA_EMPREGADO_DOMESTICO</a><br />
 <a href="#REGRA_ENVIO_PROC_FECHAMENTO">REGRA_ENVIO_PROC_FECHAMENTO</a><br />
@@ -20129,6 +20155,7 @@ OC (nos demais casos)</td>
 <a href="#REGRA_GERAL_VALIDA_DADOS_TABCONTRIB">REGRA_GERAL_VALIDA_DADOS_TABCONTRIB</a><br />
 <a href="#REGRA_MESMO_PROCEMI">REGRA_MESMO_PROCEMI</a><br />
 <a href="#REGRA_MUDANCA_CPF">REGRA_MUDANCA_CPF</a><br />
+<a href="#REGRA_REMUN_FGTS_ANTERIOR_ESOCIAL">REGRA_REMUN_FGTS_ANTERIOR_ESOCIAL</a><br />
 <a href="#REGRA_REMUN_IND_RETIFICACAO">REGRA_REMUN_IND_RETIFICACAO</a><br />
 <a href="#REGRA_REMUN_PERMITE_EXCLUSAO">REGRA_REMUN_PERMITE_EXCLUSAO</a><br />
 <a href="#REGRA_RETIFICA_MESMO_VINCULO">REGRA_RETIFICA_MESMO_VINCULO</a><br />
@@ -20233,9 +20260,7 @@ Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo
 <strong>2</strong> - Aplicativo governamental - Simplificado Pessoa Física<br />
 <strong>3</strong> - Aplicativo governamental - Web Geral<br />
 <strong>4</strong> - Aplicativo governamental - Simplificado Pessoa Jurídica<br />
-<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico<br />
-<strong>81</strong> - Aplicativo governamental para envio de eventos pelo Judiciário<br />
-<strong>91</strong> - Aplicativo governamental - Integração com a Junta Comercial</td>
+<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="2299_ideEvento_verProc" id="2299_ideEvento_verProc">10</td>
@@ -20646,7 +20671,7 @@ Se <a href="#2299_infoDeslig_sucessaoVinc_tpInsc">sucessaoVinc/tpInsc</a> = [2],
 <td>1-24</td>
 <td>-</td>
 <td>-</td>
-<td>Identificação do estabelecimento e da lotação nos quais o trabalhador possui remuneração no período de apuração. O estabelecimento identificado no grupo pode ser: o número do CNPJ do estabelecimento da própria empresa (matriz/filial), o número da obra (própria) no CNO, ou o número do CAEPF (no caso de pessoa física obrigada a inscrição no cadastro de atividades econômicas da pessoa física). No caso específico do trabalhador doméstico, o estabelecimento deve ser o próprio CPF do empregador.</td>
+<td>Identificação do estabelecimento e da lotação nos quais o trabalhador possui remuneração no período de apuração. O estabelecimento identificado no grupo pode ser: o número do CNPJ do estabelecimento da própria empresa (matriz/filial), o número da obra (própria) no CNO, ou o número do CAEPF (no caso de pessoa física obrigada a inscrição no Cadastro de Atividade Econômica da Pessoa Física).</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="2299_infoDeslig_verbasResc_dmDev_infoPerApur_ideEstabLot_tpInsc" id="2299_infoDeslig_verbasResc_dmDev_infoPerApur_ideEstabLot_tpInsc">44</td>
@@ -20878,7 +20903,8 @@ Preenchimento obrigatório quando se tratar de rubrica relativa a faltas ou Desc
 <strong>C</strong> - Convenção Coletiva de Trabalho<br />
 <strong>D</strong> - Sentença normativa - Dissídio<br />
 <strong>E</strong> - Conversão de licença saúde em acidente de trabalho<br />
-<strong>G</strong> - Antecipação de diferenças de acordo, convenção ou dissídio coletivo</td>
+<strong>G</strong> - Antecipação de diferenças de acordo, convenção ou dissídio coletivo<br />
+<strong>H</strong> - Recolhimento mensal de FGTS anterior ao início de obrigatoriedade dos eventos periódicos</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="2299_infoDeslig_verbasResc_dmDev_infoPerAnt_ideADC_dsc" id="2299_infoDeslig_verbasResc_dmDev_infoPerAnt_ideADC_dsc">62</td>
@@ -20913,7 +20939,8 @@ Preenchimento obrigatório quando se tratar de rubrica relativa a faltas ou Desc
 <td>-</td>
 <td>Informar o período ao qual se refere o complemento de remuneração, no formato AAAA-MM.<br />
 <strong>Validação:</strong> Deve ser igual ou anterior ao mês/ano da data do desligamento, informada em <a href="#2299_infoDeslig_dtDeslig">dtDeslig</a>.<br />
-Deve ser informado no formato AAAA-MM.</td>
+Deve ser informado no formato AAAA-MM.<br />
+Se <a href="#2299_infoDeslig_verbasResc_dmDev_infoPerAnt_ideADC_tpAcConv">tpAcConv</a> = [H], deve ser anterior ao início dos eventos periódicos para o empregador no eSocial.</td>
 </tr>
 <tr class="grupo">
 <td onclick="copiarCaminho.call(this)" title="2299_infoDeslig_verbasResc_dmDev_infoPerAnt_ideADC_idePeriodo_ideEstabLot" id="2299_infoDeslig_verbasResc_dmDev_infoPerAnt_ideADC_idePeriodo_ideEstabLot">65</td>
@@ -21577,9 +21604,7 @@ Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo
 <strong>2</strong> - Aplicativo governamental - Simplificado Pessoa Física<br />
 <strong>3</strong> - Aplicativo governamental - Web Geral<br />
 <strong>4</strong> - Aplicativo governamental - Simplificado Pessoa Jurídica<br />
-<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico<br />
-<strong>81</strong> - Aplicativo governamental para envio de eventos pelo Judiciário<br />
-<strong>91</strong> - Aplicativo governamental - Integração com a Junta Comercial</td>
+<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="2300_ideEvento_verProc" id="2300_ideEvento_verProc">9</td>
@@ -23111,7 +23136,7 @@ c) Se <a href="#2300_infoTSVInicio_cadIni">cadIni</a> = [N], deve ser anterior �
 <td>2</td>
 <td>-</td>
 <td>Preencher com o código do motivo de afastamento temporário.<br />
-<strong>Validação:</strong> Deve ser um código válido e existente na <a href="tabelas.html#18">Tabela 18</a>.</td>
+<strong>Validação:</strong> Deve ser um código válido e existente na <a href="tabelas.html#18">Tabela 18</a>, bem como compatível com o código de categoria do trabalhador, conforme <a href="tabelas.html#18">Tabela 18</a>.</td>
 </tr>
 <tr class="grupo">
 <td onclick="copiarCaminho.call(this)" title="2300_infoTSVInicio_termino" id="2300_infoTSVInicio_termino">130</td>
@@ -23439,9 +23464,7 @@ Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo
 <strong>2</strong> - Aplicativo governamental - Simplificado Pessoa Física<br />
 <strong>3</strong> - Aplicativo governamental - Web Geral<br />
 <strong>4</strong> - Aplicativo governamental - Simplificado Pessoa Jurídica<br />
-<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico<br />
-<strong>81</strong> - Aplicativo governamental para envio de eventos pelo Judiciário<br />
-<strong>91</strong> - Aplicativo governamental - Integração com a Junta Comercial</td>
+<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="2306_ideEvento_verProc" id="2306_ideEvento_verProc">9</td>
@@ -24342,9 +24365,7 @@ Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo
 <strong>2</strong> - Aplicativo governamental - Simplificado Pessoa Física<br />
 <strong>3</strong> - Aplicativo governamental - Web Geral<br />
 <strong>4</strong> - Aplicativo governamental - Simplificado Pessoa Jurídica<br />
-<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico<br />
-<strong>81</strong> - Aplicativo governamental para envio de eventos pelo Judiciário<br />
-<strong>91</strong> - Aplicativo governamental - Integração com a Junta Comercial</td>
+<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="2399_ideEvento_verProc" id="2399_ideEvento_verProc">10</td>
@@ -25147,17 +25168,13 @@ Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo
 <td>E</td>
 <td>N</td>
 <td>1</td>
-<td>1-2</td>
+<td>1</td>
 <td>-</td>
 <td>Processo de emissão do evento.<br />
 <strong>Valores válidos:</strong><br />
 <strong>1</strong> - Aplicativo do empregador<br />
-<strong>2</strong> - Aplicativo governamental - Simplificado Pessoa Física<br />
 <strong>3</strong> - Aplicativo governamental - Web Geral<br />
-<strong>4</strong> - Aplicativo governamental - Simplificado Pessoa Jurídica<br />
-<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico<br />
-<strong>81</strong> - Aplicativo governamental para envio de eventos pelo Judiciário<br />
-<strong>91</strong> - Aplicativo governamental - Integração com a Junta Comercial</td>
+<strong>4</strong> - Aplicativo governamental - Simplificado Pessoa Jurídica</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="2400_ideEvento_verProc" id="2400_ideEvento_verProc">9</td>
@@ -25886,17 +25903,13 @@ Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo
 <td>E</td>
 <td>N</td>
 <td>1</td>
-<td>1-2</td>
+<td>1</td>
 <td>-</td>
 <td>Processo de emissão do evento.<br />
 <strong>Valores válidos:</strong><br />
 <strong>1</strong> - Aplicativo do empregador<br />
-<strong>2</strong> - Aplicativo governamental - Simplificado Pessoa Física<br />
 <strong>3</strong> - Aplicativo governamental - Web Geral<br />
-<strong>4</strong> - Aplicativo governamental - Simplificado Pessoa Jurídica<br />
-<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico<br />
-<strong>81</strong> - Aplicativo governamental para envio de eventos pelo Judiciário<br />
-<strong>91</strong> - Aplicativo governamental - Integração com a Junta Comercial</td>
+<strong>4</strong> - Aplicativo governamental - Simplificado Pessoa Jurídica</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="2405_ideEvento_verProc" id="2405_ideEvento_verProc">9</td>
@@ -26636,17 +26649,13 @@ Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo
 <td>E</td>
 <td>N</td>
 <td>1</td>
-<td>1-2</td>
+<td>1</td>
 <td>-</td>
 <td>Processo de emissão do evento.<br />
 <strong>Valores válidos:</strong><br />
 <strong>1</strong> - Aplicativo do empregador<br />
-<strong>2</strong> - Aplicativo governamental - Simplificado Pessoa Física<br />
 <strong>3</strong> - Aplicativo governamental - Web Geral<br />
-<strong>4</strong> - Aplicativo governamental - Simplificado Pessoa Jurídica<br />
-<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico<br />
-<strong>81</strong> - Aplicativo governamental para envio de eventos pelo Judiciário<br />
-<strong>91</strong> - Aplicativo governamental - Integração com a Junta Comercial</td>
+<strong>4</strong> - Aplicativo governamental - Simplificado Pessoa Jurídica</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="2410_ideEvento_verProc" id="2410_ideEvento_verProc">9</td>
@@ -27324,17 +27333,13 @@ Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo
 <td>E</td>
 <td>N</td>
 <td>1</td>
-<td>1-2</td>
+<td>1</td>
 <td>-</td>
 <td>Processo de emissão do evento.<br />
 <strong>Valores válidos:</strong><br />
 <strong>1</strong> - Aplicativo do empregador<br />
-<strong>2</strong> - Aplicativo governamental - Simplificado Pessoa Física<br />
 <strong>3</strong> - Aplicativo governamental - Web Geral<br />
-<strong>4</strong> - Aplicativo governamental - Simplificado Pessoa Jurídica<br />
-<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico<br />
-<strong>81</strong> - Aplicativo governamental para envio de eventos pelo Judiciário<br />
-<strong>91</strong> - Aplicativo governamental - Integração com a Junta Comercial</td>
+<strong>4</strong> - Aplicativo governamental - Simplificado Pessoa Jurídica</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="2416_ideEvento_verProc" id="2416_ideEvento_verProc">9</td>
@@ -27760,17 +27765,13 @@ Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo
 <td>E</td>
 <td>N</td>
 <td>1</td>
-<td>1-2</td>
+<td>1</td>
 <td>-</td>
 <td>Processo de emissão do evento.<br />
 <strong>Valores válidos:</strong><br />
 <strong>1</strong> - Aplicativo do empregador<br />
-<strong>2</strong> - Aplicativo governamental - Simplificado Pessoa Física<br />
 <strong>3</strong> - Aplicativo governamental - Web Geral<br />
-<strong>4</strong> - Aplicativo governamental - Simplificado Pessoa Jurídica<br />
-<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico<br />
-<strong>81</strong> - Aplicativo governamental para envio de eventos pelo Judiciário<br />
-<strong>91</strong> - Aplicativo governamental - Integração com a Junta Comercial</td>
+<strong>4</strong> - Aplicativo governamental - Simplificado Pessoa Jurídica</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="2418_ideEvento_verProc" id="2418_ideEvento_verProc">9</td>
@@ -28081,17 +28082,13 @@ Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo
 <td>E</td>
 <td>N</td>
 <td>1</td>
-<td>1-2</td>
+<td>1</td>
 <td>-</td>
 <td>Processo de emissão do evento.<br />
 <strong>Valores válidos:</strong><br />
 <strong>1</strong> - Aplicativo do empregador<br />
-<strong>2</strong> - Aplicativo governamental - Simplificado Pessoa Física<br />
 <strong>3</strong> - Aplicativo governamental - Web Geral<br />
-<strong>4</strong> - Aplicativo governamental - Simplificado Pessoa Jurídica<br />
-<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico<br />
-<strong>81</strong> - Aplicativo governamental para envio de eventos pelo Judiciário<br />
-<strong>91</strong> - Aplicativo governamental - Integração com a Junta Comercial</td>
+<strong>4</strong> - Aplicativo governamental - Simplificado Pessoa Jurídica</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="2420_ideEvento_verProc" id="2420_ideEvento_verProc">9</td>
@@ -28303,7 +28300,7 @@ Deve ser um CPF válido e diferente do antigo CPF do beneficiário.</td>
 <td>Identificação do trabalhador a que se refere o evento a ser excluído</td>
 <td>0-1</td>
 <td>-</td>
-<td>O (se <a href="#3000_infoExclusao_tpEvento">tpEvento</a> corresponder a um dos eventos não periódicos (S-2190 a S-2420) ou um dos eventos periódicos (S-1200 a S-1210);<br />
+<td>O (se <a href="#3000_infoExclusao_tpEvento">tpEvento</a> corresponder a um dos eventos não periódicos (S-2190 a S-2420 ou S-8299) ou um dos eventos periódicos (S-1200 a S-1210);<br />
 N (nos demais casos)</td>
 </tr>
 <tr>
@@ -28313,7 +28310,7 @@ N (nos demais casos)</td>
 <td>Identificação do período de apuração a que se refere o evento que será excluído</td>
 <td>0-1</td>
 <td>-</td>
-<td>O (se <a href="#3000_infoExclusao_tpEvento">tpEvento</a> corresponder a um dos eventos periódicos (S-1200 a S-1280));<br />
+<td>O (se <a href="#3000_infoExclusao_tpEvento">tpEvento</a> corresponder a um dos eventos periódicos (S-1200 a S-1280 ou S-1300));<br />
 N (nos demais casos)</td>
 </tr>
 </tbody>
@@ -28418,9 +28415,9 @@ N (nos demais casos)</td>
 <strong>2</strong> - Aplicativo governamental - Simplificado Pessoa Física<br />
 <strong>3</strong> - Aplicativo governamental - Web Geral<br />
 <strong>4</strong> - Aplicativo governamental - Simplificado Pessoa Jurídica<br />
-<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico<br />
-<strong>81</strong> - Aplicativo governamental para envio de eventos pelo Judiciário<br />
-<strong>91</strong> - Aplicativo governamental - Integração com a Junta Comercial</td>
+<strong>8</strong> - Aplicativo governamental para envio de eventos pelo Judiciário<br />
+<strong>9</strong> - Aplicativo governamental - Integração com a Junta Comercial<br />
+<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="3000_ideEvento_verProc" id="3000_ideEvento_verProc">7</td>
@@ -28489,10 +28486,7 @@ N (nos demais casos)</td>
 <td>1</td>
 <td>6</td>
 <td>-</td>
-<td>Preencher com o tipo de evento.<br />
-<strong>Validação:</strong> Deve existir na <a href="tabelas.html#09">Tabela 09</a>. Podem ser excluídos apenas os eventos relacionados abaixo:<br />
-a) Não periódicos (S-2190 a S-2420);<br />
-b) Periódicos (S-1200 a S-1280).</td>
+<td>Preencher com o tipo de evento. Ex.: S-1200, S-2200, etc.</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="3000_infoExclusao_nrRecEvt" id="3000_infoExclusao_nrRecEvt">13</td>
@@ -28553,7 +28547,7 @@ b) Periódicos (S-1200 a S-1280).</td>
 <strong>Valores válidos:</strong><br />
 <strong>1</strong> - Mensal<br />
 <strong>2</strong> - Anual (13° salário)<br />
-<strong>Validação:</strong> Preenchimento obrigatório e exclusivo se <a href="#3000_infoExclusao_tpEvento">tpEvento</a> = [S-1200, S-1202, S-1207, S-1280].</td>
+<strong>Validação:</strong> Preenchimento obrigatório e exclusivo se <a href="#3000_infoExclusao_tpEvento">tpEvento</a> = [S-1200, S-1202, S-1207, S-1280, S-1300].</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="3000_infoExclusao_ideFolhaPagto_perApur" id="3000_infoExclusao_ideFolhaPagto_perApur">18</td>
@@ -29379,42 +29373,42 @@ g) Não calcular quando a lotação tributária for [91]. O valor deve ser zerad
 <strong>Validação:</strong> Deve ser maior que 0 (zero).<br />
 Deve corresponder ao somatório dos valores informados no campo {vrRubr} em S-1200 e S-2299 (grupos {infoPerApur} e {infoPerAnt}), e também em S-2399, obedecendo ao que segue:<br />
 a) Somar os valores das rubricas cujo <a href="#1010_infoRubrica_inclusao_dadosRubrica_tpRubr">tpRubr</a> em S-1010 seja igual a [1, 3] e subtrair os valores das rubricas cujo <a href="#1010_infoRubrica_inclusao_dadosRubrica_tpRubr">tpRubr</a> em S-1010 seja igual a [2, 4], observando a tabela de relacionamento abaixo:<br />
-<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [11]*, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [11, 12, 21, 22] e ({grauExp} em S-1200/S-2299 = [1] ou não informado);<br />
-<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [12]*, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [11, 12, 21, 22] e {grauExp} em S-1200/S-2299 = [2];<br />
-<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [13]*, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [11, 12, 21, 22] e {grauExp} em S-1200/S-2299 = [3];<br />
-<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [14]*, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [11, 12, 21, 22] e {grauExp} em S-1200/S-2299 = [4];<br />
-<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [15]**, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [13, 14, 25, 26] e ({grauExp} em S-1200/S-2299 = [1] ou não informado);<br />
+<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [11]*, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [11, 12] e ({grauExp} em S-1200/S-2299 = [1] ou não informado);<br />
+<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [12]*, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [11, 12] e {grauExp} em S-1200/S-2299 = [2];<br />
+<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [13]*, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [11, 12] e {grauExp} em S-1200/S-2299 = [3];<br />
+<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [14]*, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [11, 12] e {grauExp} em S-1200/S-2299 = [4];<br />
+<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [15]**, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [13, 14] e ({grauExp} em S-1200/S-2299 = [1] ou não informado);<br />
 <a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [16]**, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [13, 14] e {grauExp} em S-1200/S-2299 = [2];<br />
 <a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [17]**, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [13, 14] e {grauExp} em S-1200/S-2299 = [3];<br />
 <a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [18]**, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [13, 14] e {grauExp} em S-1200/S-2299 = [4];<br />
-<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [19], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [15, 16];<br />
+<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [19], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [15, 16, 21, 22];<br />
 <a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [31], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [51];<br />
 <a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [32], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [21, 22] ou (<a href="#1010_infoRubrica_inclusao_dadosRubrica_natRubr">natRubr</a> em S-1010 = [4050, 4051] com <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [9X]);<br />
-<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [41]*, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [11, 12, 21, 22] e ({grauExp} em S-1200/S-2299 = [1] ou não informado), observado o limite para <a href="#5001_infoCp_ideEstabLot_infoCategIncid_codCateg">codCateg</a> = [107, 108];<br />
-<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [42]*, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [11, 12, 21, 22] e {grauExp} em S-1200/S-2299 = [2], observado o limite para <a href="#5001_infoCp_ideEstabLot_infoCategIncid_codCateg">codCateg</a> = [107, 108];<br />
-<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [43]*, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [11, 12, 21, 22] e {grauExp} em S-1200/S-2299 = [3], observado o limite para <a href="#5001_infoCp_ideEstabLot_infoCategIncid_codCateg">codCateg</a> = [107, 108];<br />
-<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [44]*, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [11, 12, 21, 22] e {grauExp} em S-1200/S-2299 = [4], observado o limite para <a href="#5001_infoCp_ideEstabLot_infoCategIncid_codCateg">codCateg</a> = [107, 108];<br />
-<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [45]**, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [13, 14, 25, 26] e ({grauExp} em S-1200/S-2299 = [1] ou não informado), observado o limite para <a href="#5001_infoCp_ideEstabLot_infoCategIncid_codCateg">codCateg</a> = [107, 108];<br />
+<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [41]*, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [11, 12] e ({grauExp} em S-1200/S-2299 = [1] ou não informado), observado o limite para <a href="#5001_infoCp_ideEstabLot_infoCategIncid_codCateg">codCateg</a> = [107, 108];<br />
+<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [42]*, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [11, 12] e {grauExp} em S-1200/S-2299 = [2], observado o limite para <a href="#5001_infoCp_ideEstabLot_infoCategIncid_codCateg">codCateg</a> = [107, 108];<br />
+<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [43]*, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [11, 12] e {grauExp} em S-1200/S-2299 = [3], observado o limite para <a href="#5001_infoCp_ideEstabLot_infoCategIncid_codCateg">codCateg</a> = [107, 108];<br />
+<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [44]*, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [11, 12] e {grauExp} em S-1200/S-2299 = [4], observado o limite para <a href="#5001_infoCp_ideEstabLot_infoCategIncid_codCateg">codCateg</a> = [107, 108];<br />
+<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [45]**, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [13, 14] e ({grauExp} em S-1200/S-2299 = [1] ou não informado), observado o limite para <a href="#5001_infoCp_ideEstabLot_infoCategIncid_codCateg">codCateg</a> = [107, 108];<br />
 <a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [46]**, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [13, 14] e {grauExp} em S-1200/S-2299 = [2], observado o limite para <a href="#5001_infoCp_ideEstabLot_infoCategIncid_codCateg">codCateg</a> = [107, 108];<br />
 <a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [47]**, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [13, 14] e {grauExp} em S-1200/S-2299 = [3], observado o limite para <a href="#5001_infoCp_ideEstabLot_infoCategIncid_codCateg">codCateg</a> = [107, 108];<br />
 <a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [48]**, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [13, 14] e {grauExp} em S-1200/S-2299 = [4], observado o limite para <a href="#5001_infoCp_ideEstabLot_infoCategIncid_codCateg">codCateg</a> = [107, 108];<br />
-<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [49], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [15, 16], observado o limite para <a href="#5001_infoCp_ideEstabLot_infoCategIncid_codCateg">codCateg</a> = [107, 108];<br />
-<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [81]*, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [91, 92, 93, 94] e ({grauExp} em S-1200/S-2299 = [1] ou não informado), observado o limite para <a href="#5001_infoCp_ideEstabLot_infoCategIncid_codCateg">codCateg</a> = [107, 108];<br />
-<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [82]*, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [91, 92, 93, 94] e {grauExp} em S-1200/S-2299 = [2], observado o limite para <a href="#5001_infoCp_ideEstabLot_infoCategIncid_codCateg">codCateg</a> = [107, 108];<br />
-<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [83]*, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [91, 92, 93, 94] e {grauExp} em S-1200/S-2299 = [3], observado o limite para <a href="#5001_infoCp_ideEstabLot_infoCategIncid_codCateg">codCateg</a> = [107, 108];<br />
-<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [84]*, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [91, 92, 93, 94] e {grauExp} em S-1200/S-2299 = [4], observado o limite para <a href="#5001_infoCp_ideEstabLot_infoCategIncid_codCateg">codCateg</a> = [107, 108];<br />
-<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [85]**, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [95, 96, 97, 98] e ({grauExp} em S-1200/S-2299 = [1] ou não informado), observado o limite para <a href="#5001_infoCp_ideEstabLot_infoCategIncid_codCateg">codCateg</a> = [107, 108];<br />
-<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [86]**, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [95, 96, 97, 98] e {grauExp} em S-1200/S-2299 = [2], observado o limite para <a href="#5001_infoCp_ideEstabLot_infoCategIncid_codCateg">codCateg</a> = [107, 108];<br />
-<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [87]**, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [95, 96, 97, 98] e {grauExp} em S-1200/S-2299 = [3], observado o limite para <a href="#5001_infoCp_ideEstabLot_infoCategIncid_codCateg">codCateg</a> = [107, 108];<br />
-<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [88]**, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [95, 96, 97, 98] e {grauExp} em S-1200/S-2299 = [4], observado o limite para <a href="#5001_infoCp_ideEstabLot_infoCategIncid_codCateg">codCateg</a> = [107, 108];<br />
-<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [91]*, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [91, 92, 93, 94] e ({grauExp} em S-1200/S-2299 = [1] ou não informado);<br />
-<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [92]*, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [91, 92, 93, 94] e {grauExp} em S-1200/S-2299 = [2];<br />
-<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [93]*, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [91, 92, 93, 94] e {grauExp} em S-1200/S-2299 = [3];<br />
-<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [94]*, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [91, 92, 93, 94] e {grauExp} em S-1200/S-2299 = [4];<br />
-<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [95]**, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [95, 96, 97, 98] e ({grauExp} em S-1200/S-2299 = [1] ou não informado);<br />
-<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [96]**, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [95, 96, 97, 98] e {grauExp} em S-1200/S-2299 = [2];<br />
-<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [97]**, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [95, 96, 97, 98] e {grauExp} em S-1200/S-2299 = [3];<br />
-<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [98]**, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [95, 96, 97, 98] e {grauExp} em S-1200/S-2299 = [4].<br />
+<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [49], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [15, 16, 21, 22], observado o limite para <a href="#5001_infoCp_ideEstabLot_infoCategIncid_codCateg">codCateg</a> = [107, 108];<br />
+<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [81]*, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [91, 92] e ({grauExp} em S-1200/S-2299 = [1] ou não informado), observado o limite para <a href="#5001_infoCp_ideEstabLot_infoCategIncid_codCateg">codCateg</a> = [107, 108];<br />
+<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [82]*, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [91, 92] e {grauExp} em S-1200/S-2299 = [2], observado o limite para <a href="#5001_infoCp_ideEstabLot_infoCategIncid_codCateg">codCateg</a> = [107, 108];<br />
+<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [83]*, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [91, 92] e {grauExp} em S-1200/S-2299 = [3], observado o limite para <a href="#5001_infoCp_ideEstabLot_infoCategIncid_codCateg">codCateg</a> = [107, 108];<br />
+<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [84]*, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [91, 92] e {grauExp} em S-1200/S-2299 = [4], observado o limite para <a href="#5001_infoCp_ideEstabLot_infoCategIncid_codCateg">codCateg</a> = [107, 108];<br />
+<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [85]**, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [95, 96] e ({grauExp} em S-1200/S-2299 = [1] ou não informado), observado o limite para <a href="#5001_infoCp_ideEstabLot_infoCategIncid_codCateg">codCateg</a> = [107, 108];<br />
+<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [86]**, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [95, 96] e {grauExp} em S-1200/S-2299 = [2], observado o limite para <a href="#5001_infoCp_ideEstabLot_infoCategIncid_codCateg">codCateg</a> = [107, 108];<br />
+<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [87]**, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [95, 96] e {grauExp} em S-1200/S-2299 = [3], observado o limite para <a href="#5001_infoCp_ideEstabLot_infoCategIncid_codCateg">codCateg</a> = [107, 108];<br />
+<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [88]**, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [95, 96] e {grauExp} em S-1200/S-2299 = [4], observado o limite para <a href="#5001_infoCp_ideEstabLot_infoCategIncid_codCateg">codCateg</a> = [107, 108];<br />
+<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [91]*, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [91, 92] e ({grauExp} em S-1200/S-2299 = [1] ou não informado);<br />
+<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [92]*, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [91, 92] e {grauExp} em S-1200/S-2299 = [2];<br />
+<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [93]*, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [91, 92] e {grauExp} em S-1200/S-2299 = [3];<br />
+<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [94]*, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [91, 92] e {grauExp} em S-1200/S-2299 = [4];<br />
+<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [95]**, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [95, 96] e ({grauExp} em S-1200/S-2299 = [1] ou não informado);<br />
+<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [96]**, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [95, 96] e {grauExp} em S-1200/S-2299 = [2];<br />
+<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [97]**, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [95, 96] e {grauExp} em S-1200/S-2299 = [3];<br />
+<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [98]**, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [95, 96] e {grauExp} em S-1200/S-2299 = [4].<br />
  <br />
 b) Somar os valores das rubricas cujo <a href="#1010_infoRubrica_inclusao_dadosRubrica_tpRubr">tpRubr</a> em S-1010 seja igual a [2, 4] e subtrair os valores das rubricas cujo <a href="#1010_infoRubrica_inclusao_dadosRubrica_tpRubr">tpRubr</a> em S-1010 seja igual a [1, 3], observando a tabela de relacionamento abaixo:<br />
 <a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor">tpValor</a> = [21], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [31, 32];<br />
@@ -29540,7 +29534,8 @@ OBS.: No período de 04/2020 a 06/2020, as alíquotas devem ser 0,75% para o SES
 <strong>D</strong> - Sentença normativa - Dissídio<br />
 <strong>E</strong> - Conversão de licença saúde em acidente de trabalho<br />
 <strong>F</strong> - Outras verbas de natureza salarial ou não salarial devidas após o desligamento<br />
-<strong>G</strong> - Antecipação de diferenças de acordo, convenção ou dissídio coletivo</td>
+<strong>G</strong> - Antecipação de diferenças de acordo, convenção ou dissídio coletivo<br />
+<strong>H</strong> - Recolhimento mensal de FGTS anterior ao início de obrigatoriedade dos eventos periódicos</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="5001_infoCp_ideEstabLot_infoCategIncid_infoPerRef_ideADC_dsc" id="5001_infoCp_ideEstabLot_infoCategIncid_infoPerRef_ideADC_dsc">54</td>
@@ -29632,15 +29627,15 @@ OBS.: No período de 04/2020 a 06/2020, as alíquotas devem ser 0,75% para o SES
 <strong>Validação:</strong> Deve ser maior que 0 (zero).<br />
 Deve corresponder ao somatório dos valores informados no campo {vrRubr} em S-1200 e S-2299 (grupos {infoPerApur} e {infoPerAnt}), e também em S-2399, obedecendo ao que segue:<br />
 a) Somar os valores das rubricas cujo <a href="#1010_infoRubrica_inclusao_dadosRubrica_tpRubr">tpRubr</a> em S-1010 seja igual a [1, 3] e subtrair os valores das rubricas cujo <a href="#1010_infoRubrica_inclusao_dadosRubrica_tpRubr">tpRubr</a> em S-1010 seja igual a [2, 4], observando a tabela de relacionamento abaixo:<br />
-<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoPerRef_detInfoPerRef_tpVrPerRef">tpVrPerRef</a> = [11]*, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [11, 12, 21, 22] e ({grauExp} em S-1200/S-2299 = [1] ou não informado);<br />
-<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoPerRef_detInfoPerRef_tpVrPerRef">tpVrPerRef</a> = [12]*, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [11, 12, 21, 22] e {grauExp} em S-1200/S-2299 = [2];<br />
-<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoPerRef_detInfoPerRef_tpVrPerRef">tpVrPerRef</a> = [13]*, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [11, 12, 21, 22] e {grauExp} em S-1200/S-2299 = [3];<br />
-<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoPerRef_detInfoPerRef_tpVrPerRef">tpVrPerRef</a> = [14]*, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [11, 12, 21, 22] e {grauExp} em S-1200/S-2299 = [4];<br />
-<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoPerRef_detInfoPerRef_tpVrPerRef">tpVrPerRef</a> = [15]**, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [13, 14, 25, 26] e ({grauExp} em S-1200/S-2299 = [1] ou não informado);<br />
+<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoPerRef_detInfoPerRef_tpVrPerRef">tpVrPerRef</a> = [11]*, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [11, 12] e ({grauExp} em S-1200/S-2299 = [1] ou não informado);<br />
+<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoPerRef_detInfoPerRef_tpVrPerRef">tpVrPerRef</a> = [12]*, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [11, 12] e {grauExp} em S-1200/S-2299 = [2];<br />
+<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoPerRef_detInfoPerRef_tpVrPerRef">tpVrPerRef</a> = [13]*, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [11, 12] e {grauExp} em S-1200/S-2299 = [3];<br />
+<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoPerRef_detInfoPerRef_tpVrPerRef">tpVrPerRef</a> = [14]*, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [11, 12] e {grauExp} em S-1200/S-2299 = [4];<br />
+<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoPerRef_detInfoPerRef_tpVrPerRef">tpVrPerRef</a> = [15]**, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [13, 14] e ({grauExp} em S-1200/S-2299 = [1] ou não informado);<br />
 <a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoPerRef_detInfoPerRef_tpVrPerRef">tpVrPerRef</a> = [16]**, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [13, 14] e {grauExp} em S-1200/S-2299 = [2];<br />
 <a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoPerRef_detInfoPerRef_tpVrPerRef">tpVrPerRef</a> = [17]**, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [13, 14] e {grauExp} em S-1200/S-2299 = [3];<br />
 <a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoPerRef_detInfoPerRef_tpVrPerRef">tpVrPerRef</a> = [18]**, <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [13, 14] e {grauExp} em S-1200/S-2299 = [4];<br />
-<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoPerRef_detInfoPerRef_tpVrPerRef">tpVrPerRef</a> = [19], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [15, 16];<br />
+<a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoPerRef_detInfoPerRef_tpVrPerRef">tpVrPerRef</a> = [19], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [15, 16, 21, 22];<br />
 <a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoPerRef_detInfoPerRef_tpVrPerRef">tpVrPerRef</a> = [31], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [51];<br />
 <a href="#5001_infoCp_ideEstabLot_infoCategIncid_infoPerRef_detInfoPerRef_tpVrPerRef">tpVrPerRef</a> = [32], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [21, 22] ou (<a href="#1010_infoRubrica_inclusao_dadosRubrica_natRubr">natRubr</a> em S-1010 = [4050, 4051] com <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [9X]).<br />
  <br />
@@ -30145,7 +30140,9 @@ b) Somar os valores das rubricas cujo <a href="#1010_infoRubrica_inclusao_dadosR
 <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [9064], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF">codIncIRRF</a> em S-1010 = [9064];<br />
 <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [9067], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF">codIncIRRF</a> em S-1010 = [9067];<br />
 <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [9082], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF">codIncIRRF</a> em S-1010 = [9082];<br />
-<a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [9083], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF">codIncIRRF</a> em S-1010 = [9083].</td>
+<a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [9083], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF">codIncIRRF</a> em S-1010 = [9083].<br />
+ <br />
+OBS.: Se o campo {indApurIR} vinculado à rubrica for igual a [1], considerar {vrRubr} = [0].</td>
 </tr>
 </tbody>
 </table>
@@ -30270,7 +30267,7 @@ N (nos demais casos)</td>
 <td id="r_5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_basePerApur"><a href="#5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_basePerApur">basePerApur</a></td>
 <td><a href="#r_5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS">infoBaseFGTS</a></td>
 <td>8</td>
-<td>Bases de cálculo e valores, exceto se {tpAcConv} = [E]</td>
+<td>Bases de cálculo e valores, exceto se {tpAcConv} = [E, H]</td>
 <td>0-99</td>
 <td><a href="#5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_basePerApur_tpValor">tpValor</a>, <a href="#5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_basePerApur_indIncid">indIncid</a></td>
 <td>OC</td>
@@ -30298,16 +30295,16 @@ N (nos demais casos)</td>
 <td id="r_5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE"><a href="#5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE">infoBasePerAntE</a></td>
 <td><a href="#r_5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS">infoBaseFGTS</a></td>
 <td>8</td>
-<td>Informações sobre bases e valores do FGTS quando {tpAcConv} = [E]</td>
+<td>Informações sobre bases e valores do FGTS quando <a href="#5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_tpAcConv">tpAcConv</a> = [E, H]</td>
 <td>0-180</td>
-<td><a href="#5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_perRef">perRef</a></td>
+<td><a href="#5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_perRef">perRef</a>, <a href="#5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_tpAcConv">tpAcConv</a></td>
 <td>OC</td>
 </tr>
 <tr>
 <td id="r_5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_basePerAntE"><a href="#5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_basePerAntE">basePerAntE</a></td>
 <td><a href="#r_5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE">infoBasePerAntE</a></td>
 <td>9</td>
-<td>Bases de cálculo e valores quando {tpAcConv} = [E]</td>
+<td>Bases de cálculo e valores quando <a href="#5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_tpAcConv">tpAcConv</a> = [E, H]</td>
 <td>1-99</td>
 <td><a href="#5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_basePerAntE_tpValorE">tpValorE</a>, <a href="#5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_basePerAntE_indIncidE">indIncidE</a></td>
 <td>O</td>
@@ -30853,7 +30850,7 @@ d) Se o evento de origem for S-3000 (referente a exclusão de S-2299 ou S-2399),
 <td>0-99</td>
 <td>-</td>
 <td>-</td>
-<td>Informações sobre bases de cálculo e valores do FGTS referentes à remuneração do período de apuração e de períodos anteriores, exceto se {tpAcConv} = [E].<br />
+<td>Informações sobre bases de cálculo e valores do FGTS referentes à remuneração do período de apuração e de períodos anteriores, exceto se {tpAcConv} = [E, H].<br />
 <strong>Evento de origem:</strong> S-1200, S-2299 ou S-2399.</td>
 </tr>
 <tr>
@@ -30869,34 +30866,34 @@ d) Se o evento de origem for S-3000 (referente a exclusão de S-2299 ou S-2399),
 <strong>Valores válidos:</strong><br />
 <strong>11</strong> - FGTS mensal<br />
 <strong>12</strong> - FGTS 13° salário<br />
-<strong>13</strong> - FGTS dissídio mensal<br />
-<strong>14</strong> - FGTS dissídio 13º salário<br />
+<strong>13</strong> - FGTS (período anterior) mensal<br />
+<strong>14</strong> - FGTS (período anterior) 13º salário<br />
 <strong>15</strong> - FGTS mensal - Aprendiz/Contrato Verde e Amarelo<br />
 <strong>16</strong> - FGTS 13° salário - Aprendiz/Contrato Verde e Amarelo<br />
-<strong>17</strong> - FGTS dissídio mensal - Aprendiz/Contrato Verde e Amarelo<br />
-<strong>18</strong> - FGTS dissídio 13º salário - Aprendiz/Contrato Verde e Amarelo<br />
+<strong>17</strong> - FGTS (período anterior) mensal - Aprendiz/Contrato Verde e Amarelo<br />
+<strong>18</strong> - FGTS (período anterior) 13º salário - Aprendiz/Contrato Verde e Amarelo<br />
 <strong>21</strong> - FGTS mês da rescisão<br />
 <strong>22</strong> - FGTS 13° salário rescisório<br />
 <strong>23</strong> - FGTS aviso prévio indenizado<br />
-<strong>24</strong> - FGTS dissídio mês da rescisão<br />
-<strong>25</strong> - FGTS dissídio 13º salário rescisório<br />
-<strong>26</strong> - FGTS dissídio aviso prévio indenizado<br />
+<strong>24</strong> - FGTS (período anterior) mês da rescisão<br />
+<strong>25</strong> - FGTS (período anterior) 13º salário rescisório<br />
+<strong>26</strong> - FGTS (período anterior) aviso prévio indenizado<br />
 <strong>27</strong> - FGTS mês da rescisão - Aprendiz/Contrato Verde e Amarelo<br />
 <strong>28</strong> - FGTS 13° salário rescisório - Aprendiz/Contrato Verde e Amarelo<br />
 <strong>29</strong> - FGTS aviso prévio indenizado - Aprendiz/Contrato Verde e Amarelo<br />
-<strong>30</strong> - FGTS dissídio mês da rescisão - Aprendiz/Contrato Verde e Amarelo<br />
-<strong>31</strong> - FGTS dissídio 13° salário rescisório - Aprendiz/Contrato Verde e Amarelo<br />
-<strong>32</strong> - FGTS dissídio aviso prévio indenizado - Aprendiz/Contrato Verde e Amarelo<br />
+<strong>30</strong> - FGTS (período anterior) mês da rescisão - Aprendiz/Contrato Verde e Amarelo<br />
+<strong>31</strong> - FGTS (período anterior) 13° salário rescisório - Aprendiz/Contrato Verde e Amarelo<br />
+<strong>32</strong> - FGTS (período anterior) aviso prévio indenizado - Aprendiz/Contrato Verde e Amarelo<br />
 <strong>41</strong> - FGTS mensal - Indenização compensatória do empregado doméstico<br />
 <strong>42</strong> - FGTS 13° salário - Indenização compensatória do empregado doméstico<br />
-<strong>43</strong> - FGTS dissídio mensal - Indenização compensatória do empregado doméstico<br />
-<strong>44</strong> - FGTS dissídio 13º salário - Indenização compensatória do empregado doméstico<br />
+<strong>43</strong> - FGTS (período anterior) mensal - Indenização compensatória do empregado doméstico<br />
+<strong>44</strong> - FGTS (período anterior) 13º salário - Indenização compensatória do empregado doméstico<br />
 <strong>45</strong> - FGTS mês da rescisão - Indenização compensatória do empregado doméstico<br />
 <strong>46</strong> - FGTS 13° salário rescisório - Indenização compensatória do empregado doméstico<br />
 <strong>47</strong> - FGTS aviso prévio indenizado - Indenização compensatória do empregado doméstico<br />
-<strong>48</strong> - FGTS dissídio mês da rescisão - Indenização compensatória do empregado doméstico<br />
-<strong>49</strong> - FGTS dissídio 13º salário rescisório - Indenização compensatória do empregado doméstico<br />
-<strong>50</strong> - FGTS dissídio aviso prévio indenizado - Indenização compensatória do empregado doméstico</td>
+<strong>48</strong> - FGTS (período anterior) mês da rescisão - Indenização compensatória do empregado doméstico<br />
+<strong>49</strong> - FGTS (período anterior) 13º salário rescisório - Indenização compensatória do empregado doméstico<br />
+<strong>50</strong> - FGTS (período anterior) aviso prévio indenizado - Indenização compensatória do empregado doméstico</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_basePerApur_indIncid" id="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_basePerApur_indIncid">41</td>
@@ -30925,7 +30922,7 @@ Se <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncFGTS">codIncFGTS</a> e
 <td>2</td>
 <td>Remuneração (valor da base de cálculo) do FGTS, conforme definido nos campos <a href="#5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_basePerApur_tpValor">tpValor</a> e <a href="#5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_basePerApur_indIncid">indIncid</a>.<br />
 <strong>Validação:</strong> Deve ser maior que 0 (zero).<br />
-Deve corresponder ao somatório dos valores informados no campo {vrRubr} em S-1200 e S-2299 (grupos {infoPerApur} e {infoPerAnt}, quando {tpAcConv} for diferente de [E]), e também em S-2399, devendo somar os valores das rubricas cujo <a href="#1010_infoRubrica_inclusao_dadosRubrica_tpRubr">tpRubr</a> em S-1010 seja igual a [1, 3] e subtrair os valores das rubricas cujo <a href="#1010_infoRubrica_inclusao_dadosRubrica_tpRubr">tpRubr</a> em S-1010 seja igual a [2, 4], observando a <a href="tabelas.html#23">Tabela 23</a>.</td>
+Deve corresponder ao somatório dos valores informados no campo {vrRubr} em S-1200 e S-2299 (grupos {infoPerApur} e {infoPerAnt}, quando {tpAcConv} for diferente de [E, H]), e também em S-2399, devendo somar os valores das rubricas cujo <a href="#1010_infoRubrica_inclusao_dadosRubrica_tpRubr">tpRubr</a> em S-1010 seja igual a [1, 3] e subtrair os valores das rubricas cujo <a href="#1010_infoRubrica_inclusao_dadosRubrica_tpRubr">tpRubr</a> em S-1010 seja igual a [2, 4], observando a <a href="tabelas.html#23">Tabela 23</a>.</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_basePerApur_dpsFGTS" id="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_basePerApur_dpsFGTS">43</td>
@@ -31023,7 +31020,7 @@ c) Se <a href="#5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_base
 <td>0-180</td>
 <td>-</td>
 <td>-</td>
-<td>Informações referentes a bases de cálculo e valores do FGTS de períodos anteriores quando {tpAcConv} = [E].</td>
+<td>Informações referentes a bases de cálculo e valores do FGTS de períodos anteriores quando <a href="#5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_tpAcConv">tpAcConv</a> = [E, H].</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_perRef" id="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_perRef">51</td>
@@ -31038,8 +31035,22 @@ c) Se <a href="#5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_base
 <strong>Evento de origem:</strong> S-1200 ou S-2299.<br />
 <strong>Validação:</strong> Deve corresponder ao período informado no evento de origem.</td>
 </tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_tpAcConv" id="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_tpAcConv">52</td>
+<td>tpAcConv</td>
+<td><a href="#r_5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE">infoBasePerAntE</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>1</td>
+<td>-</td>
+<td>Tipo do instrumento ou situação ensejadora da remuneração relativa a períodos de apuração anteriores.<br />
+<strong>Valores válidos:</strong><br />
+<strong>E</strong> - Conversão de licença saúde em acidente de trabalho<br />
+<strong>H</strong> - Recolhimento mensal de FGTS anterior ao início de obrigatoriedade dos eventos periódicos</td>
+</tr>
 <tr class="grupo">
-<td onclick="copiarCaminho.call(this)" title="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_basePerAntE" id="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_basePerAntE">52</td>
+<td onclick="copiarCaminho.call(this)" title="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_basePerAntE" id="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_basePerAntE">53</td>
 <td><a href="#r_5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_basePerAntE">basePerAntE</a></td>
 <td><a href="#r_5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE">infoBasePerAntE</a></td>
 <td>G</td>
@@ -31047,10 +31058,10 @@ c) Se <a href="#5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_base
 <td>1-99</td>
 <td>-</td>
 <td>-</td>
-<td>Informações sobre bases de cálculo e valores do FGTS referentes à remuneração de períodos anteriores quando {tpAcConv} = [E].</td>
+<td>Informações sobre bases de cálculo e valores do FGTS referentes à remuneração de períodos anteriores quando <a href="#5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_tpAcConv">tpAcConv</a> = [E, H].</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_basePerAntE_tpValorE" id="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_basePerAntE_tpValorE">53</td>
+<td onclick="copiarCaminho.call(this)" title="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_basePerAntE_tpValorE" id="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_basePerAntE_tpValorE">54</td>
 <td>tpValorE</td>
 <td><a href="#r_5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_basePerAntE">basePerAntE</a></td>
 <td>E</td>
@@ -31060,24 +31071,24 @@ c) Se <a href="#5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_base
 <td>-</td>
 <td>Tipo de valor que influi na apuração do FGTS.<br />
 <strong>Valores válidos:</strong><br />
-<strong>13</strong> - FGTS dissídio mensal<br />
-<strong>14</strong> - FGTS dissídio 13º salário<br />
-<strong>17</strong> - FGTS dissídio mensal - Aprendiz/Contrato Verde e Amarelo<br />
-<strong>18</strong> - FGTS dissídio 13º salário - Aprendiz/Contrato Verde e Amarelo<br />
-<strong>24</strong> - FGTS dissídio mês da rescisão<br />
-<strong>25</strong> - FGTS dissídio 13º salário rescisório<br />
-<strong>26</strong> - FGTS dissídio aviso prévio indenizado<br />
-<strong>30</strong> - FGTS dissídio mês da rescisão - Aprendiz/Contrato Verde e Amarelo<br />
-<strong>31</strong> - FGTS dissídio 13° salário rescisório - Aprendiz/Contrato Verde e Amarelo<br />
-<strong>32</strong> - FGTS dissídio aviso prévio indenizado - Aprendiz/Contrato Verde e Amarelo<br />
-<strong>43</strong> - FGTS dissídio mensal - Indenização compensatória do empregado doméstico<br />
-<strong>44</strong> - FGTS dissídio 13º salário - Indenização compensatória do empregado doméstico<br />
-<strong>48</strong> - FGTS dissídio mês da rescisão - Indenização compensatória do empregado doméstico<br />
-<strong>49</strong> - FGTS dissídio 13º salário rescisório - Indenização compensatória do empregado doméstico<br />
-<strong>50</strong> - FGTS dissídio aviso prévio indenizado - Indenização compensatória do empregado doméstico</td>
+<strong>13</strong> - FGTS (período anterior) mensal<br />
+<strong>14</strong> - FGTS (período anterior) 13º salário<br />
+<strong>17</strong> - FGTS (período anterior) mensal - Aprendiz/Contrato Verde e Amarelo<br />
+<strong>18</strong> - FGTS (período anterior) 13º salário - Aprendiz/Contrato Verde e Amarelo<br />
+<strong>24</strong> - FGTS (período anterior) mês da rescisão<br />
+<strong>25</strong> - FGTS (período anterior) 13º salário rescisório<br />
+<strong>26</strong> - FGTS (período anterior) aviso prévio indenizado<br />
+<strong>30</strong> - FGTS (período anterior) mês da rescisão - Aprendiz/Contrato Verde e Amarelo<br />
+<strong>31</strong> - FGTS (período anterior) 13° salário rescisório - Aprendiz/Contrato Verde e Amarelo<br />
+<strong>32</strong> - FGTS (período anterior) aviso prévio indenizado - Aprendiz/Contrato Verde e Amarelo<br />
+<strong>43</strong> - FGTS (período anterior) mensal - Indenização compensatória do empregado doméstico<br />
+<strong>44</strong> - FGTS (período anterior) 13º salário - Indenização compensatória do empregado doméstico<br />
+<strong>48</strong> - FGTS (período anterior) mês da rescisão - Indenização compensatória do empregado doméstico<br />
+<strong>49</strong> - FGTS (período anterior) 13º salário rescisório - Indenização compensatória do empregado doméstico<br />
+<strong>50</strong> - FGTS (período anterior) aviso prévio indenizado - Indenização compensatória do empregado doméstico</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_basePerAntE_indIncidE" id="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_basePerAntE_indIncidE">54</td>
+<td onclick="copiarCaminho.call(this)" title="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_basePerAntE_indIncidE" id="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_basePerAntE_indIncidE">55</td>
 <td>indIncidE</td>
 <td><a href="#r_5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_basePerAntE">basePerAntE</a></td>
 <td>E</td>
@@ -31093,7 +31104,7 @@ c) Se <a href="#5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_base
 Se <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncFGTS">codIncFGTS</a> em S-1010 for igual a [91, 92, 93], deve ser retornado [9].</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_basePerAntE_remFGTSE" id="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_basePerAntE_remFGTSE">55</td>
+<td onclick="copiarCaminho.call(this)" title="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_basePerAntE_remFGTSE" id="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_basePerAntE_remFGTSE">56</td>
 <td>remFGTSE</td>
 <td><a href="#r_5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_basePerAntE">basePerAntE</a></td>
 <td>E</td>
@@ -31103,10 +31114,10 @@ Se <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncFGTS">codIncFGTS</a> e
 <td>2</td>
 <td>Remuneração (valor da base de cálculo) do FGTS, conforme definido nos campos <a href="#5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_basePerAntE_tpValorE">tpValorE</a> e <a href="#5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_basePerAntE_indIncidE">indIncidE</a>.<br />
 <strong>Validação:</strong> Deve ser maior que 0 (zero).<br />
-Deve corresponder ao somatório dos valores informados no campo {vrRubr} em S-1200 e S-2299 (grupo {infoPerAnt}, quando {tpAcConv} = [E]), devendo somar os valores das rubricas cujo <a href="#1010_infoRubrica_inclusao_dadosRubrica_tpRubr">tpRubr</a> em S-1010 seja igual a [1, 3] e subtrair os valores das rubricas cujo <a href="#1010_infoRubrica_inclusao_dadosRubrica_tpRubr">tpRubr</a> em S-1010 seja igual a [2, 4], observando a <a href="tabelas.html#23">Tabela 23</a>.</td>
+Deve corresponder ao somatório dos valores informados no campo {vrRubr} em S-1200 e S-2299 (grupo {infoPerAnt}, agrupado por <a href="#5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_tpAcConv">tpAcConv</a>), devendo somar os valores das rubricas cujo <a href="#1010_infoRubrica_inclusao_dadosRubrica_tpRubr">tpRubr</a> em S-1010 seja igual a [1, 3] e subtrair os valores das rubricas cujo <a href="#1010_infoRubrica_inclusao_dadosRubrica_tpRubr">tpRubr</a> em S-1010 seja igual a [2, 4], observando a <a href="tabelas.html#23">Tabela 23</a>.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_basePerAntE_dpsFGTSE" id="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_basePerAntE_dpsFGTSE">56</td>
+<td onclick="copiarCaminho.call(this)" title="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_basePerAntE_dpsFGTSE" id="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_basePerAntE_dpsFGTSE">57</td>
 <td>dpsFGTSE</td>
 <td><a href="#r_5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_basePerAntE">basePerAntE</a></td>
 <td>E</td>
@@ -31122,7 +31133,7 @@ b) Se <a href="#5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_info
 c) Se <a href="#5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_basePerAntE_tpValorE">tpValorE</a> = [43, 44, 48, 49, 50], alíquota de 3,2%.</td>
 </tr>
 <tr class="grupo">
-<td onclick="copiarCaminho.call(this)" title="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_basePerAntE_detRubrSusp" id="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_basePerAntE_detRubrSusp">57</td>
+<td onclick="copiarCaminho.call(this)" title="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_basePerAntE_detRubrSusp" id="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_basePerAntE_detRubrSusp">58</td>
 <td><a href="#r_5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_basePerAntE_detRubrSusp">detRubrSusp</a></td>
 <td><a href="#r_5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_basePerAntE">basePerAntE</a></td>
 <td>G</td>
@@ -31144,7 +31155,7 @@ c) Se <a href="#5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_info
 <td><strong>Ver:</strong> <a href="#5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_basePerApur">basePerApur</a> &gt; <a href="#5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_basePerApur_detRubrSusp">detRubrSusp</a></td>
 </tr>
 <tr class="grupo">
-<td onclick="copiarCaminho.call(this)" title="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_procCS" id="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_procCS">58</td>
+<td onclick="copiarCaminho.call(this)" title="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_procCS" id="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_procCS">59</td>
 <td><a href="#r_5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_procCS">procCS</a></td>
 <td><a href="#r_5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS">infoTrabFGTS</a></td>
 <td>G</td>
@@ -31156,7 +31167,7 @@ c) Se <a href="#5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_info
 <strong>Evento de origem:</strong> S-2299.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_procCS_nrProcJud" id="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_procCS_nrProcJud">59</td>
+<td onclick="copiarCaminho.call(this)" title="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_procCS_nrProcJud" id="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_procCS_nrProcJud">60</td>
 <td>nrProcJud</td>
 <td><a href="#r_5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_procCS">procCS</a></td>
 <td>E</td>
@@ -31372,6 +31383,16 @@ N (nos demais casos)</td>
 <td>0-1</td>
 <td>-</td>
 <td>OC (se <a href="#5011_infoCS_infoContrib_classTrib">classTrib</a> = [09];<br />
+N (nos demais casos)</td>
+</tr>
+<tr>
+<td id="r_5011_infoCS_ideEstab_basesAquis"><a href="#5011_infoCS_ideEstab_basesAquis">basesAquis</a></td>
+<td><a href="#r_5011_infoCS_ideEstab">ideEstab</a></td>
+<td>5</td>
+<td>Informações sobre aquisição rural</td>
+<td>0-6</td>
+<td><a href="#5011_infoCS_ideEstab_basesAquis_indAquis">indAquis</a></td>
+<td>O (se existir informação em S-1250 relativa ao estabelecimento identificado em <a href="#5011_infoCS_ideEstab_nrInsc">ideEstab/nrInsc</a> e se não houver informação de <a href="#1299_infoFech_indExcApur1250">indExcApur1250</a> em S-1299);<br />
 N (nos demais casos)</td>
 </tr>
 <tr>
@@ -32497,7 +32518,159 @@ Informações desse grupo conforme informado pelo contribuinte em S-1270.</td>
 <strong>Origem:</strong> campo <a href="#1020_infoLotacao_inclusao_dadosLotacao_nrInsc">dadosLotacao/nrInsc</a> de S-1020 relativo a <a href="#1280_infoSubstPatrOpPort_codLotacao">codLotacao</a> em S-1280.</td>
 </tr>
 <tr class="grupo">
-<td onclick="copiarCaminho.call(this)" title="5011_infoCS_ideEstab_basesComerc" id="5011_infoCS_ideEstab_basesComerc">89</td>
+<td onclick="copiarCaminho.call(this)" title="5011_infoCS_ideEstab_basesAquis" id="5011_infoCS_ideEstab_basesAquis">89</td>
+<td><a href="#r_5011_infoCS_ideEstab_basesAquis">basesAquis</a></td>
+<td><a href="#r_5011_infoCS_ideEstab">ideEstab</a></td>
+<td>G</td>
+<td>-</td>
+<td>0-6</td>
+<td>-</td>
+<td>-</td>
+<td>Informações de bases de cálculo relativas à aquisição de produção rural.<br />
+<strong>Evento de origem:</strong> S-1250 (existente até a versão 2.5 do leiaute).</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="5011_infoCS_ideEstab_basesAquis_indAquis" id="5011_infoCS_ideEstab_basesAquis_indAquis">90</td>
+<td>indAquis</td>
+<td><a href="#r_5011_infoCS_ideEstab_basesAquis">basesAquis</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1</td>
+<td>-</td>
+<td>Indicativo da aquisição.<br />
+<strong>Valores válidos:</strong><br />
+<strong>1</strong> - Aquisição da produção de produtor rural pessoa física ou segurado especial em geral<br />
+<strong>2</strong> - Aquisição da produção de produtor rural pessoa física ou segurado especial em geral por entidade do PAA<br />
+<strong>3</strong> - Aquisição da produção de produtor rural pessoa jurídica por entidade do PAA<br />
+<strong>4</strong> - Aquisição da produção de produtor rural pessoa física ou segurado especial em geral - Produção isenta (Lei 13.606/2018)<br />
+<strong>5</strong> - Aquisição da produção de produtor rural pessoa física ou segurado especial em geral por entidade do PAA - Produção isenta (Lei 13.606/2018)<br />
+<strong>6</strong> - Aquisição da produção de produtor rural pessoa jurídica por entidade do PAA - Produção isenta (Lei 13.606/2018)<br />
+<strong>Origem:</strong> campo {indAquis} de S-1250.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="5011_infoCS_ideEstab_basesAquis_vlrAquis" id="5011_infoCS_ideEstab_basesAquis_vlrAquis">91</td>
+<td>vlrAquis</td>
+<td><a href="#r_5011_infoCS_ideEstab_basesAquis">basesAquis</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1-14</td>
+<td>2</td>
+<td>Valor total da aquisição de produção rural de produtor rural.<br />
+<strong>Origem:</strong> campo {vlrTotAquis} de S-1250.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="5011_infoCS_ideEstab_basesAquis_vrCPDescPR" id="5011_infoCS_ideEstab_basesAquis_vrCPDescPR">92</td>
+<td>vrCPDescPR</td>
+<td><a href="#r_5011_infoCS_ideEstab_basesAquis">basesAquis</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1-14</td>
+<td>2</td>
+<td>Preencher com o valor da contribuição previdenciária descontada pelo adquirente de produção de produtor rural - sub-rogação.<br />
+<strong>Origem:</strong> somatório do campo {vrCpDescPR} de S-1250.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="5011_infoCS_ideEstab_basesAquis_vrCPNRet" id="5011_infoCS_ideEstab_basesAquis_vrCPNRet">93</td>
+<td>vrCPNRet</td>
+<td><a href="#r_5011_infoCS_ideEstab_basesAquis">basesAquis</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1-14</td>
+<td>2</td>
+<td>Valor da contribuição previdenciária que deixou de ser retida pelo declarante em decorrência de decisão/sentença judicial.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="5011_infoCS_ideEstab_basesAquis_vrRatNRet" id="5011_infoCS_ideEstab_basesAquis_vrRatNRet">94</td>
+<td>vrRatNRet</td>
+<td><a href="#r_5011_infoCS_ideEstab_basesAquis">basesAquis</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1-14</td>
+<td>2</td>
+<td>Valor da GILRAT, incidente sobre a aquisição de produção rural de produtor rural, cuja retenção deixou de ser efetuada em decorrência de decisão/sentença judicial.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="5011_infoCS_ideEstab_basesAquis_vrSenarNRet" id="5011_infoCS_ideEstab_basesAquis_vrSenarNRet">95</td>
+<td>vrSenarNRet</td>
+<td><a href="#r_5011_infoCS_ideEstab_basesAquis">basesAquis</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1-14</td>
+<td>2</td>
+<td>Valor da contribuição destinada ao SENAR, incidente sobre a aquisição de produção rural de produtor rural pessoa física/segurado especial, que deixou de ser retida em decorrência de decisão/sentença judicial.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="5011_infoCS_ideEstab_basesAquis_vrCPCalcPR" id="5011_infoCS_ideEstab_basesAquis_vrCPCalcPR">96</td>
+<td>vrCPCalcPR</td>
+<td><a href="#r_5011_infoCS_ideEstab_basesAquis">basesAquis</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1-14</td>
+<td>2</td>
+<td>Valor calculado relativo à contribuição previdenciária do produtor rural, de acordo com <a href="#5011_infoCS_ideEstab_basesAquis_indAquis">indAquis</a>, conforme segue:<br />
+a) <a href="#5011_infoCS_ideEstab_basesAquis_indAquis">indAquis</a> = [1, 2]: <a href="#5011_infoCS_ideEstab_basesAquis_vlrAquis">vlrAquis</a> x 1,2%;<br />
+b) <a href="#5011_infoCS_ideEstab_basesAquis_indAquis">indAquis</a> = [3]: <a href="#5011_infoCS_ideEstab_basesAquis_vlrAquis">vlrAquis</a> x 1,7%;<br />
+c) <a href="#5011_infoCS_ideEstab_basesAquis_indAquis">indAquis</a> = [4, 5, 6]: 0 (zero).</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="5011_infoCS_ideEstab_basesAquis_vrRatDescPR" id="5011_infoCS_ideEstab_basesAquis_vrRatDescPR">97</td>
+<td>vrRatDescPR</td>
+<td><a href="#r_5011_infoCS_ideEstab_basesAquis">basesAquis</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1-14</td>
+<td>2</td>
+<td>Valor da contribuição destinada ao financiamento dos benefícios concedidos em razão do grau de incidência da incapacidade laborativa decorrente dos riscos ambientais do trabalho, incidente sobre a aquisição de produção rural de produtor rural.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="5011_infoCS_ideEstab_basesAquis_vrRatCalcPR" id="5011_infoCS_ideEstab_basesAquis_vrRatCalcPR">98</td>
+<td>vrRatCalcPR</td>
+<td><a href="#r_5011_infoCS_ideEstab_basesAquis">basesAquis</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1-14</td>
+<td>2</td>
+<td>Valor calculado relativo à contribuição GILRAT devida pelo produtor rural, de acordo com <a href="#5011_infoCS_ideEstab_basesAquis_indAquis">indAquis</a>, conforme segue:<br />
+a) <a href="#5011_infoCS_ideEstab_basesAquis_indAquis">indAquis</a> = [1, 2, 3]: <a href="#5011_infoCS_ideEstab_basesAquis_vlrAquis">vlrAquis</a> x 0,1%;<br />
+b) <a href="#5011_infoCS_ideEstab_basesAquis_indAquis">indAquis</a> = [4, 5, 6]: 0 (zero).</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="5011_infoCS_ideEstab_basesAquis_vrSenarDesc" id="5011_infoCS_ideEstab_basesAquis_vrSenarDesc">99</td>
+<td>vrSenarDesc</td>
+<td><a href="#r_5011_infoCS_ideEstab_basesAquis">basesAquis</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1-14</td>
+<td>2</td>
+<td>Valor da contribuição destinada ao SENAR, incidente sobre a aquisição de produção rural de produtor rural pessoa física/segurado especial.<br />
+<strong>Origem:</strong> campo {vrSenarDesc} de S-1250.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="5011_infoCS_ideEstab_basesAquis_vrSenarCalc" id="5011_infoCS_ideEstab_basesAquis_vrSenarCalc">100</td>
+<td>vrSenarCalc</td>
+<td><a href="#r_5011_infoCS_ideEstab_basesAquis">basesAquis</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1-14</td>
+<td>2</td>
+<td>Valor calculado da contribuição devida pelo produtor rural ao SENAR, conforme segue:<br />
+a) <a href="#5011_infoCS_ideEstab_basesAquis_indAquis">indAquis</a> = [1, 2, 4, 5]: <a href="#5011_infoCS_ideEstab_basesAquis_vlrAquis">vlrAquis</a> x 0,2%;<br />
+b) <a href="#5011_infoCS_ideEstab_basesAquis_indAquis">indAquis</a> = [3, 6]: 0 (zero).<br />
+OBS.: No período de 04/2020 a 06/2020, a alíquota deve ser 0,1%.</td>
+</tr>
+<tr class="grupo">
+<td onclick="copiarCaminho.call(this)" title="5011_infoCS_ideEstab_basesComerc" id="5011_infoCS_ideEstab_basesComerc">101</td>
 <td><a href="#r_5011_infoCS_ideEstab_basesComerc">basesComerc</a></td>
 <td><a href="#r_5011_infoCS_ideEstab">ideEstab</a></td>
 <td>G</td>
@@ -32509,7 +32682,7 @@ Informações desse grupo conforme informado pelo contribuinte em S-1270.</td>
 Informações desse grupo conforme informado pelo contribuinte em S-1260.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="5011_infoCS_ideEstab_basesComerc_indComerc" id="5011_infoCS_ideEstab_basesComerc_indComerc">90</td>
+<td onclick="copiarCaminho.call(this)" title="5011_infoCS_ideEstab_basesComerc_indComerc" id="5011_infoCS_ideEstab_basesComerc_indComerc">102</td>
 <td>indComerc</td>
 <td><a href="#r_5011_infoCS_ideEstab_basesComerc">basesComerc</a></td>
 <td>E</td>
@@ -32527,7 +32700,7 @@ Informações desse grupo conforme informado pelo contribuinte em S-1260.</td>
 <strong>Origem:</strong> campo <a href="#1260_infoComProd_ideEstabel_tpComerc_indComerc">indComerc</a> de S-1260.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="5011_infoCS_ideEstab_basesComerc_vrBcComPR" id="5011_infoCS_ideEstab_basesComerc_vrBcComPR">91</td>
+<td onclick="copiarCaminho.call(this)" title="5011_infoCS_ideEstab_basesComerc_vrBcComPR" id="5011_infoCS_ideEstab_basesComerc_vrBcComPR">103</td>
 <td>vrBcComPR</td>
 <td><a href="#r_5011_infoCS_ideEstab_basesComerc">basesComerc</a></td>
 <td>E</td>
@@ -32539,7 +32712,7 @@ Informações desse grupo conforme informado pelo contribuinte em S-1260.</td>
 <strong>Origem:</strong> campo <a href="#1260_infoComProd_ideEstabel_tpComerc_vrTotCom">vrTotCom</a> de S-1260.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="5011_infoCS_ideEstab_basesComerc_vrCPSusp" id="5011_infoCS_ideEstab_basesComerc_vrCPSusp">92</td>
+<td onclick="copiarCaminho.call(this)" title="5011_infoCS_ideEstab_basesComerc_vrCPSusp" id="5011_infoCS_ideEstab_basesComerc_vrCPSusp">104</td>
 <td>vrCPSusp</td>
 <td><a href="#r_5011_infoCS_ideEstab_basesComerc">basesComerc</a></td>
 <td>E</td>
@@ -32551,7 +32724,7 @@ Informações desse grupo conforme informado pelo contribuinte em S-1260.</td>
 <strong>Origem:</strong> campo <a href="#1260_infoComProd_ideEstabel_tpComerc_infoProcJud_vrCPSusp">vrCPSusp</a> de S-1260.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="5011_infoCS_ideEstab_basesComerc_vrRatSusp" id="5011_infoCS_ideEstab_basesComerc_vrRatSusp">93</td>
+<td onclick="copiarCaminho.call(this)" title="5011_infoCS_ideEstab_basesComerc_vrRatSusp" id="5011_infoCS_ideEstab_basesComerc_vrRatSusp">105</td>
 <td>vrRatSusp</td>
 <td><a href="#r_5011_infoCS_ideEstab_basesComerc">basesComerc</a></td>
 <td>E</td>
@@ -32563,7 +32736,7 @@ Informações desse grupo conforme informado pelo contribuinte em S-1260.</td>
 <strong>Origem:</strong> campo <a href="#1260_infoComProd_ideEstabel_tpComerc_infoProcJud_vrRatSusp">vrRatSusp</a> de S-1260.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="5011_infoCS_ideEstab_basesComerc_vrSenarSusp" id="5011_infoCS_ideEstab_basesComerc_vrSenarSusp">94</td>
+<td onclick="copiarCaminho.call(this)" title="5011_infoCS_ideEstab_basesComerc_vrSenarSusp" id="5011_infoCS_ideEstab_basesComerc_vrSenarSusp">106</td>
 <td>vrSenarSusp</td>
 <td><a href="#r_5011_infoCS_ideEstab_basesComerc">basesComerc</a></td>
 <td>E</td>
@@ -32575,7 +32748,7 @@ Informações desse grupo conforme informado pelo contribuinte em S-1260.</td>
 <strong>Origem:</strong> campo <a href="#1260_infoComProd_ideEstabel_tpComerc_infoProcJud_vrSenarSusp">vrSenarSusp</a> de S-1260.</td>
 </tr>
 <tr class="grupo">
-<td onclick="copiarCaminho.call(this)" title="5011_infoCS_ideEstab_infoCREstab" id="5011_infoCS_ideEstab_infoCREstab">95</td>
+<td onclick="copiarCaminho.call(this)" title="5011_infoCS_ideEstab_infoCREstab" id="5011_infoCS_ideEstab_infoCREstab">107</td>
 <td><a href="#r_5011_infoCS_ideEstab_infoCREstab">infoCREstab</a></td>
 <td><a href="#r_5011_infoCS_ideEstab">ideEstab</a></td>
 <td>G</td>
@@ -32586,7 +32759,7 @@ Informações desse grupo conforme informado pelo contribuinte em S-1260.</td>
 <td>Informações das contribuições sociais devidas à Previdência Social e Outras Entidades e Fundos, consolidadas por estabelecimento e por Código de Receita - CR.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="5011_infoCS_ideEstab_infoCREstab_tpCR" id="5011_infoCS_ideEstab_infoCREstab_tpCR">96</td>
+<td onclick="copiarCaminho.call(this)" title="5011_infoCS_ideEstab_infoCREstab_tpCR" id="5011_infoCS_ideEstab_infoCREstab_tpCR">108</td>
 <td>tpCR</td>
 <td><a href="#r_5011_infoCS_ideEstab_infoCREstab">infoCREstab</a></td>
 <td>E</td>
@@ -32598,7 +32771,7 @@ Informações desse grupo conforme informado pelo contribuinte em S-1260.</td>
 <strong>Validação:</strong> Deve ser um código válido, compatível com a classificação tributária do contribuinte e com as informações prestadas nos demais eventos.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="5011_infoCS_ideEstab_infoCREstab_vrCR" id="5011_infoCS_ideEstab_infoCREstab_vrCR">97</td>
+<td onclick="copiarCaminho.call(this)" title="5011_infoCS_ideEstab_infoCREstab_vrCR" id="5011_infoCS_ideEstab_infoCREstab_vrCR">109</td>
 <td>vrCR</td>
 <td><a href="#r_5011_infoCS_ideEstab_infoCREstab">infoCREstab</a></td>
 <td>E</td>
@@ -32611,7 +32784,7 @@ Informações desse grupo conforme informado pelo contribuinte em S-1260.</td>
 Deve ser maior que 0 (zero).</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="5011_infoCS_ideEstab_infoCREstab_vrSuspCR" id="5011_infoCS_ideEstab_infoCREstab_vrSuspCR">98</td>
+<td onclick="copiarCaminho.call(this)" title="5011_infoCS_ideEstab_infoCREstab_vrSuspCR" id="5011_infoCS_ideEstab_infoCREstab_vrSuspCR">110</td>
 <td>vrSuspCR</td>
 <td><a href="#r_5011_infoCS_ideEstab_infoCREstab">infoCREstab</a></td>
 <td>E</td>
@@ -32623,7 +32796,7 @@ Deve ser maior que 0 (zero).</td>
 <strong>Validação:</strong> Deve ser apurado de acordo com as informações de processos judiciais e administrativos.</td>
 </tr>
 <tr class="grupo">
-<td onclick="copiarCaminho.call(this)" title="5011_infoCS_infoCRContrib" id="5011_infoCS_infoCRContrib">99</td>
+<td onclick="copiarCaminho.call(this)" title="5011_infoCS_infoCRContrib" id="5011_infoCS_infoCRContrib">111</td>
 <td><a href="#r_5011_infoCS_infoCRContrib">infoCRContrib</a></td>
 <td><a href="#r_5011_infoCS">infoCS</a></td>
 <td>G</td>
@@ -32634,7 +32807,7 @@ Deve ser maior que 0 (zero).</td>
 <td>Informações consolidadas das contribuições sociais devidas à Previdência Social e Outras Entidades e Fundos, por Código de Receita - CR.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="5011_infoCS_infoCRContrib_tpCR" id="5011_infoCS_infoCRContrib_tpCR">100</td>
+<td onclick="copiarCaminho.call(this)" title="5011_infoCS_infoCRContrib_tpCR" id="5011_infoCS_infoCRContrib_tpCR">112</td>
 <td>tpCR</td>
 <td><a href="#r_5011_infoCS_infoCRContrib">infoCRContrib</a></td>
 <td>E</td>
@@ -32646,7 +32819,7 @@ Deve ser maior que 0 (zero).</td>
 <strong>Validação:</strong> Deve ser um código válido, compatível com a classificação tributária do contribuinte e com as informações prestadas nos demais eventos.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="5011_infoCS_infoCRContrib_vrCR" id="5011_infoCS_infoCRContrib_vrCR">101</td>
+<td onclick="copiarCaminho.call(this)" title="5011_infoCS_infoCRContrib_vrCR" id="5011_infoCS_infoCRContrib_vrCR">113</td>
 <td>vrCR</td>
 <td><a href="#r_5011_infoCS_infoCRContrib">infoCRContrib</a></td>
 <td>E</td>
@@ -32659,7 +32832,7 @@ Deve ser maior que 0 (zero).</td>
 Deve ser maior que 0 (zero).</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="5011_infoCS_infoCRContrib_vrCRSusp" id="5011_infoCS_infoCRContrib_vrCRSusp">102</td>
+<td onclick="copiarCaminho.call(this)" title="5011_infoCS_infoCRContrib_vrCRSusp" id="5011_infoCS_infoCRContrib_vrCRSusp">114</td>
 <td>vrCRSusp</td>
 <td><a href="#r_5011_infoCS_infoCRContrib">infoCRContrib</a></td>
 <td>E</td>
@@ -32763,7 +32936,7 @@ Deve ser maior que 0 (zero).</td>
 <td id="r_5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS_basePerApur"><a href="#5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS_basePerApur">basePerApur</a></td>
 <td><a href="#r_5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS">infoBaseFGTS</a></td>
 <td>7</td>
-<td>Bases de cálculo e valores do FGTS, exceto se {tpAcConv} = [E]</td>
+<td>Bases de cálculo e valores do FGTS, exceto se {tpAcConv} = [E, H]</td>
 <td>0-99</td>
 <td><a href="#5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS_basePerApur_tpValor">tpValor</a>, <a href="#5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS_basePerApur_indIncid">indIncid</a></td>
 <td>OC</td>
@@ -32772,16 +32945,16 @@ Deve ser maior que 0 (zero).</td>
 <td id="r_5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS_infoBasePerAntE"><a href="#5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS_infoBasePerAntE">infoBasePerAntE</a></td>
 <td><a href="#r_5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS">infoBaseFGTS</a></td>
 <td>7</td>
-<td>Informações sobre bases de cálculo e valores do FGTS, quando {tpAcConv} = [E]</td>
+<td>Informações sobre bases de cálculo e valores do FGTS, quando <a href="#5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS_infoBasePerAntE_tpAcConv">tpAcConv</a> = [E, H]</td>
 <td>0-180</td>
-<td><a href="#5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS_infoBasePerAntE_perRef">perRef</a></td>
+<td><a href="#5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS_infoBasePerAntE_perRef">perRef</a>, <a href="#5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS_infoBasePerAntE_tpAcConv">tpAcConv</a></td>
 <td>OC</td>
 </tr>
 <tr>
 <td id="r_5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS_infoBasePerAntE_basePerAntE"><a href="#5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS_infoBasePerAntE_basePerAntE">basePerAntE</a></td>
 <td><a href="#r_5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS_infoBasePerAntE">infoBasePerAntE</a></td>
 <td>8</td>
-<td>Bases de cálculo e valores do FGTS, quando {tpAcConv} = [E]</td>
+<td>Bases de cálculo e valores do FGTS, quando <a href="#5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS_infoBasePerAntE_tpAcConv">tpAcConv</a> = [E, H]</td>
 <td>1-99</td>
 <td><a href="#5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS_infoBasePerAntE_basePerAntE_tpValorE">tpValorE</a>, <a href="#5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS_infoBasePerAntE_basePerAntE_indIncidE">indIncidE</a></td>
 <td>O</td>
@@ -33069,7 +33242,7 @@ Deve ser maior que 0 (zero).</td>
 <td>0-99</td>
 <td>-</td>
 <td>-</td>
-<td>Informações consolidadas das bases de cálculo e valores do FGTS do período de apuração e de períodos anteriores, exceto se {tpAcConv} = [E].<br />
+<td>Informações consolidadas das bases de cálculo e valores do FGTS do período de apuração e de períodos anteriores, exceto se {tpAcConv} = [E, H].<br />
 <strong>Evento de origem:</strong> S-1270 ou S-5003.</td>
 </tr>
 <tr>
@@ -33085,35 +33258,35 @@ Deve ser maior que 0 (zero).</td>
 <strong>Valores válidos:</strong><br />
 <strong>11</strong> - FGTS mensal<br />
 <strong>12</strong> - FGTS 13° salário<br />
-<strong>13</strong> - FGTS dissídio mensal<br />
-<strong>14</strong> - FGTS dissídio 13º salário<br />
+<strong>13</strong> - FGTS (período anterior) mensal<br />
+<strong>14</strong> - FGTS (período anterior) 13º salário<br />
 <strong>15</strong> - FGTS mensal - Aprendiz/Contrato Verde e Amarelo<br />
 <strong>16</strong> - FGTS 13° salário - Aprendiz/Contrato Verde e Amarelo<br />
-<strong>17</strong> - FGTS dissídio mensal - Aprendiz/Contrato Verde e Amarelo<br />
-<strong>18</strong> - FGTS dissídio 13º salário - Aprendiz/Contrato Verde e Amarelo<br />
+<strong>17</strong> - FGTS (período anterior) mensal - Aprendiz/Contrato Verde e Amarelo<br />
+<strong>18</strong> - FGTS (período anterior) 13º salário - Aprendiz/Contrato Verde e Amarelo<br />
 <strong>19</strong> - FGTS - Avulsos não portuários<br />
 <strong>21</strong> - FGTS mês da rescisão<br />
 <strong>22</strong> - FGTS 13° salário rescisório<br />
 <strong>23</strong> - FGTS aviso prévio indenizado<br />
-<strong>24</strong> - FGTS dissídio mês da rescisão<br />
-<strong>25</strong> - FGTS dissídio 13º salário rescisório<br />
-<strong>26</strong> - FGTS dissídio aviso prévio indenizado<br />
+<strong>24</strong> - FGTS (período anterior) mês da rescisão<br />
+<strong>25</strong> - FGTS (período anterior) 13º salário rescisório<br />
+<strong>26</strong> - FGTS (período anterior) aviso prévio indenizado<br />
 <strong>27</strong> - FGTS mês da rescisão - Aprendiz/Contrato Verde e Amarelo<br />
 <strong>28</strong> - FGTS 13° salário rescisório - Aprendiz/Contrato Verde e Amarelo<br />
 <strong>29</strong> - FGTS aviso prévio indenizado - Aprendiz/Contrato Verde e Amarelo<br />
-<strong>30</strong> - FGTS dissídio mês da rescisão - Aprendiz/Contrato Verde e Amarelo<br />
-<strong>31</strong> - FGTS dissídio 13° salário rescisório - Aprendiz/Contrato Verde e Amarelo<br />
-<strong>32</strong> - FGTS dissídio aviso prévio indenizado - Aprendiz/Contrato Verde e Amarelo<br />
+<strong>30</strong> - FGTS (período anterior) mês da rescisão - Aprendiz/Contrato Verde e Amarelo<br />
+<strong>31</strong> - FGTS (período anterior) 13° salário rescisório - Aprendiz/Contrato Verde e Amarelo<br />
+<strong>32</strong> - FGTS (período anterior) aviso prévio indenizado - Aprendiz/Contrato Verde e Amarelo<br />
 <strong>41</strong> - FGTS mensal - Indenização compensatória do empregado doméstico<br />
 <strong>42</strong> - FGTS 13° salário - Indenização compensatória do empregado doméstico<br />
-<strong>43</strong> - FGTS dissídio mensal - Indenização compensatória do empregado doméstico<br />
-<strong>44</strong> - FGTS dissídio 13º salário - Indenização compensatória do empregado doméstico<br />
+<strong>43</strong> - FGTS (período anterior) mensal - Indenização compensatória do empregado doméstico<br />
+<strong>44</strong> - FGTS (período anterior) 13º salário - Indenização compensatória do empregado doméstico<br />
 <strong>45</strong> - FGTS mês da rescisão - Indenização compensatória do empregado doméstico<br />
 <strong>46</strong> - FGTS 13° salário rescisório - Indenização compensatória do empregado doméstico<br />
 <strong>47</strong> - FGTS aviso prévio indenizado - Indenização compensatória do empregado doméstico<br />
-<strong>48</strong> - FGTS dissídio mês da rescisão - Indenização compensatória do empregado doméstico<br />
-<strong>49</strong> - FGTS dissídio 13º salário rescisório - Indenização compensatória do empregado doméstico<br />
-<strong>50</strong> - FGTS dissídio aviso prévio indenizado - Indenização compensatória do empregado doméstico<br />
+<strong>48</strong> - FGTS (período anterior) mês da rescisão - Indenização compensatória do empregado doméstico<br />
+<strong>49</strong> - FGTS (período anterior) 13º salário rescisório - Indenização compensatória do empregado doméstico<br />
+<strong>50</strong> - FGTS (período anterior) aviso prévio indenizado - Indenização compensatória do empregado doméstico<br />
 <strong>Validação:</strong> Se o evento de origem for S-5003, deve corresponder ao valor informado no campo <a href="#5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_basePerApur_tpValor">tpValor</a> desse evento.<br />
 Se o evento de origem for S-1270, deve ser retornado [19].</td>
 </tr>
@@ -33170,7 +33343,7 @@ Se <a href="#5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS_basePerApur_tpValor"
 <td>0-180</td>
 <td>-</td>
 <td>-</td>
-<td>Informações referentes a bases de cálculo e valores do FGTS de períodos anteriores quando {tpAcConv} = [E].<br />
+<td>Informações referentes a bases de cálculo e valores do FGTS de períodos anteriores quando <a href="#5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS_infoBasePerAntE_tpAcConv">tpAcConv</a> = [E, H].<br />
 <strong>Evento de origem:</strong> S-5003.</td>
 </tr>
 <tr>
@@ -33185,8 +33358,22 @@ Se <a href="#5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS_basePerApur_tpValor"
 <td>Informar o período ao qual se refere a remuneração no formato AAAA-MM.<br />
 <strong>Validação:</strong> Deve corresponder ao período informado no evento de origem.</td>
 </tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS_infoBasePerAntE_tpAcConv" id="5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS_infoBasePerAntE_tpAcConv">29</td>
+<td>tpAcConv</td>
+<td><a href="#r_5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS_infoBasePerAntE">infoBasePerAntE</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>1</td>
+<td>-</td>
+<td>Tipo do instrumento ou situação ensejadora da remuneração relativa a períodos de apuração anteriores.<br />
+<strong>Valores válidos:</strong><br />
+<strong>E</strong> - Conversão de licença saúde em acidente de trabalho<br />
+<strong>H</strong> - Recolhimento mensal de FGTS anterior ao início de obrigatoriedade dos eventos periódicos</td>
+</tr>
 <tr class="grupo">
-<td onclick="copiarCaminho.call(this)" title="5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS_infoBasePerAntE_basePerAntE" id="5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS_infoBasePerAntE_basePerAntE">29</td>
+<td onclick="copiarCaminho.call(this)" title="5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS_infoBasePerAntE_basePerAntE" id="5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS_infoBasePerAntE_basePerAntE">30</td>
 <td><a href="#r_5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS_infoBasePerAntE_basePerAntE">basePerAntE</a></td>
 <td><a href="#r_5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS_infoBasePerAntE">infoBasePerAntE</a></td>
 <td>G</td>
@@ -33194,10 +33381,10 @@ Se <a href="#5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS_basePerApur_tpValor"
 <td>1-99</td>
 <td>-</td>
 <td>-</td>
-<td>Informações consolidadas das bases de cálculo e valores do FGTS de períodos anteriores quando {tpAcConv} = [E].</td>
+<td>Informações consolidadas das bases de cálculo e valores do FGTS de períodos anteriores quando <a href="#5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS_infoBasePerAntE_tpAcConv">tpAcConv</a> = [E, H].</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS_infoBasePerAntE_basePerAntE_tpValorE" id="5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS_infoBasePerAntE_basePerAntE_tpValorE">30</td>
+<td onclick="copiarCaminho.call(this)" title="5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS_infoBasePerAntE_basePerAntE_tpValorE" id="5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS_infoBasePerAntE_basePerAntE_tpValorE">31</td>
 <td>tpValorE</td>
 <td><a href="#r_5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS_infoBasePerAntE_basePerAntE">basePerAntE</a></td>
 <td>E</td>
@@ -33207,25 +33394,25 @@ Se <a href="#5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS_basePerApur_tpValor"
 <td>-</td>
 <td>Tipo de valor que influi na apuração do FGTS.<br />
 <strong>Valores válidos:</strong><br />
-<strong>13</strong> - FGTS dissídio mensal<br />
-<strong>14</strong> - FGTS dissídio 13º salário<br />
-<strong>17</strong> - FGTS dissídio mensal - Aprendiz/Contrato Verde e Amarelo<br />
-<strong>18</strong> - FGTS dissídio 13º salário - Aprendiz/Contrato Verde e Amarelo<br />
-<strong>24</strong> - FGTS dissídio mês da rescisão<br />
-<strong>25</strong> - FGTS dissídio 13º salário rescisório<br />
-<strong>26</strong> - FGTS dissídio aviso prévio indenizado<br />
-<strong>30</strong> - FGTS dissídio mês da rescisão - Aprendiz/Contrato Verde e Amarelo<br />
-<strong>31</strong> - FGTS dissídio 13° salário rescisório - Aprendiz/Contrato Verde e Amarelo<br />
-<strong>32</strong> - FGTS dissídio aviso prévio indenizado - Aprendiz/Contrato Verde e Amarelo<br />
-<strong>43</strong> - FGTS dissídio mensal - Indenização compensatória do empregado doméstico<br />
-<strong>44</strong> - FGTS dissídio 13º salário - Indenização compensatória do empregado doméstico<br />
-<strong>48</strong> - FGTS dissídio mês da rescisão - Indenização compensatória do empregado doméstico<br />
-<strong>49</strong> - FGTS dissídio 13º salário rescisório - Indenização compensatória do empregado doméstico<br />
-<strong>50</strong> - FGTS dissídio aviso prévio indenizado - Indenização compensatória do empregado doméstico<br />
+<strong>13</strong> - FGTS (período anterior) mensal<br />
+<strong>14</strong> - FGTS (período anterior) 13º salário<br />
+<strong>17</strong> - FGTS (período anterior) mensal - Aprendiz/Contrato Verde e Amarelo<br />
+<strong>18</strong> - FGTS (período anterior) 13º salário - Aprendiz/Contrato Verde e Amarelo<br />
+<strong>24</strong> - FGTS (período anterior) mês da rescisão<br />
+<strong>25</strong> - FGTS (período anterior) 13º salário rescisório<br />
+<strong>26</strong> - FGTS (período anterior) aviso prévio indenizado<br />
+<strong>30</strong> - FGTS (período anterior) mês da rescisão - Aprendiz/Contrato Verde e Amarelo<br />
+<strong>31</strong> - FGTS (período anterior) 13° salário rescisório - Aprendiz/Contrato Verde e Amarelo<br />
+<strong>32</strong> - FGTS (período anterior) aviso prévio indenizado - Aprendiz/Contrato Verde e Amarelo<br />
+<strong>43</strong> - FGTS (período anterior) mensal - Indenização compensatória do empregado doméstico<br />
+<strong>44</strong> - FGTS (período anterior) 13º salário - Indenização compensatória do empregado doméstico<br />
+<strong>48</strong> - FGTS (período anterior) mês da rescisão - Indenização compensatória do empregado doméstico<br />
+<strong>49</strong> - FGTS (período anterior) 13º salário rescisório - Indenização compensatória do empregado doméstico<br />
+<strong>50</strong> - FGTS (período anterior) aviso prévio indenizado - Indenização compensatória do empregado doméstico<br />
 <strong>Validação:</strong> Deve corresponder ao valor informado no campo <a href="#5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_basePerAntE_tpValorE">tpValorE</a> do evento de origem.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS_infoBasePerAntE_basePerAntE_indIncidE" id="5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS_infoBasePerAntE_basePerAntE_indIncidE">31</td>
+<td onclick="copiarCaminho.call(this)" title="5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS_infoBasePerAntE_basePerAntE_indIncidE" id="5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS_infoBasePerAntE_basePerAntE_indIncidE">32</td>
 <td>indIncidE</td>
 <td><a href="#r_5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS_infoBasePerAntE_basePerAntE">basePerAntE</a></td>
 <td>E</td>
@@ -33240,7 +33427,7 @@ Se <a href="#5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS_basePerApur_tpValor"
 <strong>Validação:</strong> Deve corresponder ao valor informado no campo <a href="#5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_basePerAntE_indIncidE">indIncidE</a> do evento de origem.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS_infoBasePerAntE_basePerAntE_baseFGTSE" id="5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS_infoBasePerAntE_basePerAntE_baseFGTSE">32</td>
+<td onclick="copiarCaminho.call(this)" title="5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS_infoBasePerAntE_basePerAntE_baseFGTSE" id="5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS_infoBasePerAntE_basePerAntE_baseFGTSE">33</td>
 <td>baseFGTSE</td>
 <td><a href="#r_5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS_infoBasePerAntE_basePerAntE">basePerAntE</a></td>
 <td>E</td>
@@ -33253,7 +33440,7 @@ Se <a href="#5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS_basePerApur_tpValor"
 Deve corresponder ao somatório dos valores informados no campo <a href="#5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_basePerAntE_remFGTSE">remFGTSE</a> do evento de origem, agrupados por <a href="#5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS_infoBasePerAntE_basePerAntE_tpValorE">tpValorE</a> e <a href="#5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS_infoBasePerAntE_basePerAntE_indIncidE">indIncidE</a>.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS_infoBasePerAntE_basePerAntE_vrFGTSE" id="5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS_infoBasePerAntE_basePerAntE_vrFGTSE">33</td>
+<td onclick="copiarCaminho.call(this)" title="5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS_infoBasePerAntE_basePerAntE_vrFGTSE" id="5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS_infoBasePerAntE_basePerAntE_vrFGTSE">34</td>
 <td>vrFGTSE</td>
 <td><a href="#r_5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS_infoBasePerAntE_basePerAntE">basePerAntE</a></td>
 <td>E</td>
@@ -33264,6 +33451,361 @@ Deve corresponder ao somatório dos valores informados no campo <a href="#5003_i
 <td>Valor histórico do FGTS a ser depositado na conta vinculada do trabalhador.<br />
 <strong>Validação:</strong> Deve ser maior que 0 (zero).<br />
 Deve corresponder ao somatório dos valores informados no campo <a href="#5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_basePerAntE_dpsFGTSE">dpsFGTSE</a> do evento de origem, agrupados por <a href="#5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS_infoBasePerAntE_basePerAntE_tpValorE">tpValorE</a>.</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="evtBaixa" class="title has-text-centered quebra-anterior">S-8299 - Baixa Judicial do Vínculo</h3>
+<table class="table is-fullwidth is-bordered resumo">
+<tbody>
+<tr>
+<th colspan="7">Tabela de Resumo dos Registros</th>
+</tr>
+<tr class="grupo">
+<td><strong>Grupo</strong></td>
+<td><strong>Grupo Pai</strong></td>
+<td><strong>Nível</strong></td>
+<td><strong>Descrição</strong></td>
+<td><strong>Ocor.</strong></td>
+<td><strong>Chave</strong></td>
+<td><strong>Condição</strong></td>
+</tr>
+<tr>
+<td id="r_8299_eSocial"><a href="#8299_eSocial">eSocial</a></td>
+<td></td>
+<td>1</td>
+<td>eSocial</td>
+<td>1</td>
+<td>-</td>
+<td>O</td>
+</tr>
+<tr>
+<td id="r_8299"><a href="#8299">evtBaixa</a></td>
+<td><a href="#r_8299_eSocial">eSocial</a></td>
+<td>2</td>
+<td>Evento Baixa Judicial do Vínculo</td>
+<td>1</td>
+<td><a href="#8299_Id">Id</a></td>
+<td>O</td>
+</tr>
+<tr>
+<td id="r_8299_ideEvento"><a href="#8299_ideEvento">ideEvento</a></td>
+<td><a href="#r_8299">evtBaixa</a></td>
+<td>3</td>
+<td>Informações de identificação do evento</td>
+<td>1</td>
+<td>-</td>
+<td>O</td>
+</tr>
+<tr>
+<td id="r_8299_ideEmpregador"><a href="#8299_ideEmpregador">ideEmpregador</a></td>
+<td><a href="#r_8299">evtBaixa</a></td>
+<td>3</td>
+<td>Informações de identificação do empregador</td>
+<td>1</td>
+<td><a href="#8299_ideEmpregador_tpInsc">tpInsc</a>, <a href="#8299_ideEmpregador_nrInsc">nrInsc</a></td>
+<td>O</td>
+</tr>
+<tr>
+<td id="r_8299_ideVinculo"><a href="#8299_ideVinculo">ideVinculo</a></td>
+<td><a href="#r_8299">evtBaixa</a></td>
+<td>3</td>
+<td>Informações de identificação do trabalhador e do vínculo</td>
+<td>1</td>
+<td><a href="#8299_ideVinculo_cpfTrab">cpfTrab</a>, <a href="#8299_ideVinculo_matricula">matricula</a></td>
+<td>O</td>
+</tr>
+<tr>
+<td id="r_8299_infoBaixa"><a href="#8299_infoBaixa">infoBaixa</a></td>
+<td><a href="#r_8299">evtBaixa</a></td>
+<td>3</td>
+<td>Informações relativas à baixa judicial do vínculo</td>
+<td>1</td>
+<td>-</td>
+<td>O</td>
+</tr>
+</tbody>
+</table>
+
+<h4 class="subtitle has-text-centered">Registros do evento S-8299 - Baixa Judicial do Vínculo</h4>
+<table class="table is-fullwidth is-bordered completo">
+<tbody>
+<tr>
+<th>#</th>
+<th>Grupo/Campo</th>
+<th>Grupo Pai</th>
+<th>Elem.</th>
+<th>Tipo</th>
+<th>Ocor.</th>
+<th>Tamanho</th>
+<th>Dec.</th>
+<th>Descrição</th>
+</tr>
+<tr class="grupo">
+<td onclick="copiarCaminho.call(this)" title="8299_eSocial" id="8299_eSocial">1</td>
+<td><a href="#r_8299_eSocial">eSocial</a></td>
+<td></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>eSocial</td>
+</tr>
+<tr class="grupo">
+<td onclick="copiarCaminho.call(this)" title="8299" id="8299">2</td>
+<td><a href="#r_8299">evtBaixa</a></td>
+<td><a href="#r_8299_eSocial">eSocial</a></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Evento Baixa Judicial do Vínculo.<br />
+<strong>Regras de validação:</strong><br />
+<a href="#REGRA_BAIXA_JUDICIAL">REGRA_BAIXA_JUDICIAL</a><br />
+<a href="#REGRA_BAIXA_TRABALHADOR_AFASTADO">REGRA_BAIXA_TRABALHADOR_AFASTADO</a><br />
+<a href="#REGRA_DESLIG_EXCLUI_DESLIGAMENTO_REINTEG">REGRA_DESLIG_EXCLUI_DESLIGAMENTO_REINTEG</a><br />
+<a href="#REGRA_DESLIG_EXCLUSAO_EVENTO">REGRA_DESLIG_EXCLUSAO_EVENTO</a><br />
+<a href="#REGRA_DESLIG_EXISTE_EVENTO_POSTERIOR">REGRA_DESLIG_EXISTE_EVENTO_POSTERIOR</a><br />
+<a href="#REGRA_ENVIO_PROC_FECHAMENTO">REGRA_ENVIO_PROC_FECHAMENTO</a><br />
+<a href="#REGRA_EVENTOS_EXTEMP">REGRA_EVENTOS_EXTEMP</a><br />
+<a href="#REGRA_EXISTE_INFO_EMPREGADOR">REGRA_EXISTE_INFO_EMPREGADOR</a><br />
+<a href="#REGRA_RETIFICA_MESMO_VINCULO">REGRA_RETIFICA_MESMO_VINCULO</a><br />
+<a href="#REGRA_VINCULO_ATIVO_NA_DTEVENTO">REGRA_VINCULO_ATIVO_NA_DTEVENTO</a></td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="8299_Id" id="8299_Id">3</td>
+<td>Id</td>
+<td><a href="#r_8299">evtBaixa</a></td>
+<td>A</td>
+<td>C</td>
+<td>1</td>
+<td>36</td>
+<td>-</td>
+<td>Identificação única do evento.<br />
+<strong>Regra de validação:</strong><br />
+<a href="#REGRA_VALIDA_ID_EVENTO">REGRA_VALIDA_ID_EVENTO</a></td>
+</tr>
+<tr class="grupo">
+<td onclick="copiarCaminho.call(this)" title="8299_ideEvento" id="8299_ideEvento">4</td>
+<td><a href="#r_8299_ideEvento">ideEvento</a></td>
+<td><a href="#r_8299">evtBaixa</a></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Informações de identificação do evento.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="8299_ideEvento_indRetif" id="8299_ideEvento_indRetif">5</td>
+<td>indRetif</td>
+<td><a href="#r_8299_ideEvento">ideEvento</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1</td>
+<td>-</td>
+<td>Informe [1] para arquivo original ou [2] para arquivo de retificação.<br />
+<strong>Valores válidos:</strong><br />
+<strong>1</strong> - Original<br />
+<strong>2</strong> - Retificação</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="8299_ideEvento_nrRecibo" id="8299_ideEvento_nrRecibo">6</td>
+<td>nrRecibo</td>
+<td><a href="#r_8299_ideEvento">ideEvento</a></td>
+<td>E</td>
+<td>C</td>
+<td>0-1</td>
+<td>23</td>
+<td>-</td>
+<td>Preencher com o número do recibo do arquivo a ser retificado.<br />
+<strong>Validação:</strong> O preenchimento é obrigatório se <a href="#8299_ideEvento_indRetif">indRetif</a> = [2].<br />
+Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo retificado.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="8299_ideEvento_tpAmb" id="8299_ideEvento_tpAmb">7</td>
+<td>tpAmb</td>
+<td><a href="#r_8299_ideEvento">ideEvento</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1</td>
+<td>-</td>
+<td>Identificação do ambiente.<br />
+<strong>Valores válidos:</strong><br />
+<strong>1</strong> - Produção<br />
+<strong>2</strong> - Produção restrita<br />
+<strong>7</strong> - Validação (uso interno)<br />
+<strong>8</strong> - Teste (uso interno)<br />
+<strong>9</strong> - Desenvolvimento (uso interno)</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="8299_ideEvento_procEmi" id="8299_ideEvento_procEmi">8</td>
+<td>procEmi</td>
+<td><a href="#r_8299_ideEvento">ideEvento</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1</td>
+<td>-</td>
+<td>Processo de emissão do evento.<br />
+<strong>Valores válidos:</strong><br />
+<strong>8</strong> - Aplicativo governamental para envio de eventos pelo Judiciário</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="8299_ideEvento_verProc" id="8299_ideEvento_verProc">9</td>
+<td>verProc</td>
+<td><a href="#r_8299_ideEvento">ideEvento</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>1-20</td>
+<td>-</td>
+<td>Versão do processo de emissão do evento. Informar a versão do aplicativo emissor do evento.</td>
+</tr>
+<tr class="grupo">
+<td onclick="copiarCaminho.call(this)" title="8299_ideEmpregador" id="8299_ideEmpregador">10</td>
+<td><a href="#r_8299_ideEmpregador">ideEmpregador</a></td>
+<td><a href="#r_8299">evtBaixa</a></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Informações de identificação do empregador.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="8299_ideEmpregador_tpInsc" id="8299_ideEmpregador_tpInsc">11</td>
+<td>tpInsc</td>
+<td><a href="#r_8299_ideEmpregador">ideEmpregador</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1</td>
+<td>-</td>
+<td>Preencher com o código correspondente ao tipo de inscrição, conforme <a href="tabelas.html#05">Tabela 05</a>.<br />
+<strong>Valores válidos:</strong><br />
+<strong>1</strong> - CNPJ<br />
+<strong>2</strong> - CPF</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="8299_ideEmpregador_nrInsc" id="8299_ideEmpregador_nrInsc">12</td>
+<td>nrInsc</td>
+<td><a href="#r_8299_ideEmpregador">ideEmpregador</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>8, 11 ou 14</td>
+<td>-</td>
+<td>Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo <a href="#8299_ideEmpregador_tpInsc">ideEmpregador/tpInsc</a> e conforme informado em S-1000.</td>
+</tr>
+<tr class="grupo">
+<td onclick="copiarCaminho.call(this)" title="8299_ideVinculo" id="8299_ideVinculo">13</td>
+<td><a href="#r_8299_ideVinculo">ideVinculo</a></td>
+<td><a href="#r_8299">evtBaixa</a></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Informações de identificação do trabalhador e do vínculo.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="8299_ideVinculo_cpfTrab" id="8299_ideVinculo_cpfTrab">14</td>
+<td>cpfTrab</td>
+<td><a href="#r_8299_ideVinculo">ideVinculo</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>11</td>
+<td>-</td>
+<td>Preencher com o número do CPF do trabalhador.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="8299_ideVinculo_matricula" id="8299_ideVinculo_matricula">15</td>
+<td>matricula</td>
+<td><a href="#r_8299_ideVinculo">ideVinculo</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>1-30</td>
+<td>-</td>
+<td>Matrícula atribuída ao trabalhador pela empresa ou, no caso de servidor público, a matrícula constante no Sistema de Administração de Recursos Humanos do órgão.<br />
+<strong>Validação:</strong> Deve corresponder à matrícula informada pelo empregador no evento S-2200 do respectivo vínculo trabalhista.</td>
+</tr>
+<tr class="grupo">
+<td onclick="copiarCaminho.call(this)" title="8299_infoBaixa" id="8299_infoBaixa">16</td>
+<td><a href="#r_8299_infoBaixa">infoBaixa</a></td>
+<td><a href="#r_8299">evtBaixa</a></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Informações relativas à baixa judicial do vínculo.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="8299_infoBaixa_mtvDeslig" id="8299_infoBaixa_mtvDeslig">17</td>
+<td>mtvDeslig</td>
+<td><a href="#r_8299_infoBaixa">infoBaixa</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>2</td>
+<td>-</td>
+<td>Código de motivo do desligamento.<br />
+<strong>Validação:</strong> Deve ser um código válido e existente na <a href="tabelas.html#19">Tabela 19</a>, bem como compatível com o código de categoria do trabalhador, conforme <a href="tabelas.html#19">Tabela 19</a>.<br />
+Não podem ser informados motivos que não implicam rescisão do contrato de trabalho (igual a [11, 12, 13, 25, 28, 29, 30, 34, 36]).</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="8299_infoBaixa_dtDeslig" id="8299_infoBaixa_dtDeslig">18</td>
+<td>dtDeslig</td>
+<td><a href="#r_8299_infoBaixa">infoBaixa</a></td>
+<td>E</td>
+<td>D</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Preencher com a data de desligamento do vínculo (último dia trabalhado).<br />
+<strong>Validação:</strong> Deve ser uma data igual ou posterior a 20/09/2019 e igual ou anterior à data atual.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="8299_infoBaixa_dtProjFimAPI" id="8299_infoBaixa_dtProjFimAPI">19</td>
+<td>dtProjFimAPI</td>
+<td><a href="#r_8299_infoBaixa">infoBaixa</a></td>
+<td>E</td>
+<td>D</td>
+<td>0-1</td>
+<td>-</td>
+<td>-</td>
+<td>Data projetada para o término do aviso prévio indenizado.<br />
+<strong>Validação:</strong> Se preenchida, deve ser uma data posterior a <a href="#8299_infoBaixa_dtDeslig">dtDeslig</a>.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="8299_infoBaixa_nrProcTrab" id="8299_infoBaixa_nrProcTrab">20</td>
+<td>nrProcTrab</td>
+<td><a href="#r_8299_infoBaixa">infoBaixa</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>20</td>
+<td>-</td>
+<td>Número que identifica o processo judicial onde a baixa do vínculo foi determinada.<br />
+<strong>Validação:</strong> Deve ser um processo judicial válido, com 20 (vinte) algarismos.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="8299_infoBaixa_observacao" id="8299_infoBaixa_observacao">21</td>
+<td>observacao</td>
+<td><a href="#r_8299_infoBaixa">infoBaixa</a></td>
+<td>E</td>
+<td>C</td>
+<td>0-1</td>
+<td>1-255</td>
+<td>-</td>
+<td>Observação relevante sobre o desligamento do trabalhador, que não esteja consignada em outros campos.</td>
 </tr>
 </tbody>
 </table>
@@ -33319,6 +33861,7 @@ Deve corresponder ao somatório dos valores informados no campo <a href="#5003_i
 <a class="navbar-item" href="index.html#evtTSVAltContr">S-2306 - Trabalhador Sem Vínculo de Emprego/Estatutário - Alteração Contratual</a>
 <a class="navbar-item" href="index.html#evtTSVTermino">S-2399 - Trabalhador Sem Vínculo de Emprego/Estatutário - Término</a>
 <a class="navbar-item" href="index.html#evtExclusao">S-3000 - Exclusão de Eventos</a>
+<a class="navbar-item" href="index.html#evtBaixa">S-8299 - Baixa Judicial do Vínculo</a>
 </div>
 </div>
 <div class="navbar-item has-dropdown has-dropdown-up is-hoverable">

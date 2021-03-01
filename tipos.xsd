@@ -3,6 +3,17 @@
 
     <!-- Grupo {ideEvento} -->
 
+    <xs:complexType name="T_ideEvento_evtTab_inicial">
+        <xs:annotation>
+            <xs:documentation>Informações de identificação do evento.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="tpAmb" type="TS_tpAmb" />
+            <xs:element name="procEmi" type="TS_procEmi_sem_8" />
+            <xs:element name="verProc" type="TS_verProc" />
+        </xs:sequence>
+    </xs:complexType>
+
     <xs:complexType name="T_ideEvento_evtTab">
         <xs:annotation>
             <xs:documentation>Informações de identificação do evento.</xs:documentation>
@@ -42,7 +53,7 @@
             <xs:element name="indApuracao" type="TS_indApuracao" />
             <xs:element name="perApur" type="TS_perApur" />
             <xs:element name="tpAmb" type="TS_tpAmb" />
-            <xs:element name="procEmi" type="TS_procEmi" />
+            <xs:element name="procEmi" type="TS_procEmi_PJ" />
             <xs:element name="verProc" type="TS_verProc" />
         </xs:sequence>
     </xs:complexType>
@@ -63,6 +74,22 @@
         </xs:sequence>
     </xs:complexType>
 
+    <xs:complexType name="T_ideEvento_folha_mensal_PF">
+        <xs:annotation>
+            <xs:documentation>Informações de identificação do evento.</xs:documentation>
+            <xs:documentation>CHAVE_GRUPO: {perApur}, {indGuia}</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="indRetif" type="TS_indRetif" />
+            <xs:element name="nrRecibo" minOccurs="0" type="TS_nrRecibo" />
+            <xs:element name="perApur" type="TS_perApur_mensal" />
+            <xs:element name="indGuia" minOccurs="0" type="TS_indGuia" />
+            <xs:element name="tpAmb" type="TS_tpAmb" />
+            <xs:element name="procEmi" type="TS_procEmi_PF" />
+            <xs:element name="verProc" type="TS_verProc" />
+        </xs:sequence>
+    </xs:complexType>
+
     <xs:complexType name="T_ideEvento_folha_sem_retificacao">
         <xs:annotation>
             <xs:documentation>Informações de identificação do evento.</xs:documentation>
@@ -74,6 +101,19 @@
             <xs:element name="indGuia" minOccurs="0" type="TS_indGuia" />
             <xs:element name="tpAmb" type="TS_tpAmb" />
             <xs:element name="procEmi" type="TS_procEmi" />
+            <xs:element name="verProc" type="TS_verProc" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="T_ideEvento_trab_admissao">
+        <xs:annotation>
+            <xs:documentation>Informações de identificação do evento.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="indRetif" type="TS_indRetif" />
+            <xs:element name="nrRecibo" minOccurs="0" type="TS_nrRecibo" />
+            <xs:element name="tpAmb" type="TS_tpAmb" />
+            <xs:element name="procEmi" type="TS_procEmi_sem_8" />
             <xs:element name="verProc" type="TS_verProc" />
         </xs:sequence>
     </xs:complexType>
@@ -91,6 +131,19 @@
         </xs:sequence>
     </xs:complexType>
 
+    <xs:complexType name="T_ideEvento_trab_PJ">
+        <xs:annotation>
+            <xs:documentation>Informações de identificação do evento.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="indRetif" type="TS_indRetif" />
+            <xs:element name="nrRecibo" minOccurs="0" type="TS_nrRecibo" />
+            <xs:element name="tpAmb" type="TS_tpAmb" />
+            <xs:element name="procEmi" type="TS_procEmi_PJ" />
+            <xs:element name="verProc" type="TS_verProc" />
+        </xs:sequence>
+    </xs:complexType>
+
     <xs:complexType name="T_ideEvento_trab_indGuia">
         <xs:annotation>
             <xs:documentation>Informações de identificação do evento.</xs:documentation>
@@ -101,6 +154,30 @@
             <xs:element name="indGuia" minOccurs="0" type="TS_indGuia" />
             <xs:element name="tpAmb" type="TS_tpAmb" />
             <xs:element name="procEmi" type="TS_procEmi" />
+            <xs:element name="verProc" type="TS_verProc" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="T_ideEvento_exclusao">
+        <xs:annotation>
+            <xs:documentation>Informações de identificação do evento.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="tpAmb" type="TS_tpAmb" />
+            <xs:element name="procEmi" type="TS_procEmi_todos" />
+            <xs:element name="verProc" type="TS_verProc" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="T_ideEvento_trab_jud">
+        <xs:annotation>
+            <xs:documentation>Informações de identificação do evento.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="indRetif" type="TS_indRetif" />
+            <xs:element name="nrRecibo" minOccurs="0" type="TS_nrRecibo" />
+            <xs:element name="tpAmb" type="TS_tpAmb" />
+            <xs:element name="procEmi" type="TS_procEmi_8" />
             <xs:element name="verProc" type="TS_verProc" />
         </xs:sequence>
     </xs:complexType>
@@ -511,9 +588,10 @@
                     </xs:restriction>
                 </xs:simpleType>
             </xs:element>
-            <xs:element name="horNoturno" type="TS_sim_nao">
+            <xs:element name="horNoturno" minOccurs="0" type="TS_sim_nao">
                 <xs:annotation>
                     <xs:documentation>Indicar se a jornada semanal possui horário noturno (no todo ou em parte).</xs:documentation>
+                    <xs:documentation>Validação: Informação obrigatória se {codCateg}(../codCateg) for diferente de [111].</xs:documentation>
                 </xs:annotation>
             </xs:element>
             <xs:element name="dscJorn" type="TS_texto_999">
@@ -908,7 +986,7 @@
         <xs:restriction base="TS_Id" />
     </xs:simpleType>
 
-    <!-- Campos do grupo {ideEvento} -->
+    <!-- Campo {indRetif} -->
 
     <xs:simpleType name="TS_indRetif">
         <xs:annotation>
@@ -928,6 +1006,8 @@
         </xs:restriction>
     </xs:simpleType>
 
+    <!-- Campo {nrRecibo} -->
+
     <xs:simpleType name="TS_nrRecibo">
         <xs:annotation>
             <xs:documentation>Preencher com o número do recibo do arquivo a ser retificado.</xs:documentation>
@@ -939,6 +1019,8 @@
             <xs:length value="23" />
         </xs:restriction>
     </xs:simpleType>
+
+    <!-- Campo {tpAmb} -->
 
     <xs:simpleType name="TS_tpAmb">
         <xs:annotation>
@@ -968,6 +1050,51 @@
             <xs:enumeration value="9">
                 <xs:annotation>
                     <xs:documentation>Desenvolvimento (uso interno)</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Campo {procEmi} -->
+
+    <xs:simpleType name="TS_procEmi_todos">
+        <xs:annotation>
+            <xs:documentation>Processo de emissão do evento.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:byte">
+            <xs:enumeration value="1">
+                <xs:annotation>
+                    <xs:documentation>Aplicativo do empregador</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="2">
+                <xs:annotation>
+                    <xs:documentation>Aplicativo governamental - Simplificado Pessoa Física</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="3">
+                <xs:annotation>
+                    <xs:documentation>Aplicativo governamental - Web Geral</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="4">
+                <xs:annotation>
+                    <xs:documentation>Aplicativo governamental - Simplificado Pessoa Jurídica</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="8">
+                <xs:annotation>
+                    <xs:documentation>Aplicativo governamental para envio de eventos pelo Judiciário</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="9">
+                <xs:annotation>
+                    <xs:documentation>Aplicativo governamental - Integração com a Junta Comercial</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="22">
+                <xs:annotation>
+                    <xs:documentation>Aplicativo governamental para dispositivos móveis - Empregador Doméstico</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
         </xs:restriction>
@@ -1003,18 +1130,112 @@
                     <xs:documentation>Aplicativo governamental para dispositivos móveis - Empregador Doméstico</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
-            <xs:enumeration value="81">
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="TS_procEmi_sem_8">
+        <xs:annotation>
+            <xs:documentation>Processo de emissão do evento.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:byte">
+            <xs:enumeration value="1">
                 <xs:annotation>
-                    <xs:documentation>Aplicativo governamental para envio de eventos pelo Judiciário</xs:documentation>
+                    <xs:documentation>Aplicativo do empregador</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
-            <xs:enumeration value="91">
+            <xs:enumeration value="2">
+                <xs:annotation>
+                    <xs:documentation>Aplicativo governamental - Simplificado Pessoa Física</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="3">
+                <xs:annotation>
+                    <xs:documentation>Aplicativo governamental - Web Geral</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="4">
+                <xs:annotation>
+                    <xs:documentation>Aplicativo governamental - Simplificado Pessoa Jurídica</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="9">
                 <xs:annotation>
                     <xs:documentation>Aplicativo governamental - Integração com a Junta Comercial</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
+            <xs:enumeration value="22">
+                <xs:annotation>
+                    <xs:documentation>Aplicativo governamental para dispositivos móveis - Empregador Doméstico</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
         </xs:restriction>
     </xs:simpleType>
+
+    <xs:simpleType name="TS_procEmi_PJ">
+        <xs:annotation>
+            <xs:documentation>Processo de emissão do evento.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:byte">
+            <xs:enumeration value="1">
+                <xs:annotation>
+                    <xs:documentation>Aplicativo do empregador</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="3">
+                <xs:annotation>
+                    <xs:documentation>Aplicativo governamental - Web Geral</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="4">
+                <xs:annotation>
+                    <xs:documentation>Aplicativo governamental - Simplificado Pessoa Jurídica</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="TS_procEmi_PF">
+        <xs:annotation>
+            <xs:documentation>Processo de emissão do evento.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:byte">
+            <xs:enumeration value="1">
+                <xs:annotation>
+                    <xs:documentation>Aplicativo do empregador</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="2">
+                <xs:annotation>
+                    <xs:documentation>Aplicativo governamental - Simplificado Pessoa Física</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="3">
+                <xs:annotation>
+                    <xs:documentation>Aplicativo governamental - Web Geral</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="22">
+                <xs:annotation>
+                    <xs:documentation>Aplicativo governamental para dispositivos móveis - Empregador Doméstico</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="TS_procEmi_8">
+        <xs:annotation>
+            <xs:documentation>Processo de emissão do evento.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:byte">
+            <xs:enumeration value="8">
+                <xs:annotation>
+                    <xs:documentation>Aplicativo governamental para envio de eventos pelo Judiciário</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Campo {verProc} -->
 
     <xs:simpleType name="TS_verProc">
         <xs:annotation>
@@ -1930,17 +2151,6 @@
         </xs:restriction>
     </xs:simpleType>
 
-    <!-- Campo {perRef} -->
-
-    <xs:simpleType name="TS_perRef">
-        <xs:annotation>
-            <xs:documentation>Informar o período ao qual se refere o complemento de remuneração, no formato AAAA-MM.</xs:documentation>
-            <xs:documentation>Validação: Deve ser igual ou anterior ao período de apuração informado em {perApur}(/ideEvento_perApur).</xs:documentation>
-            <xs:documentation>Deve ser informado no formato AAAA-MM.</xs:documentation>
-        </xs:annotation>
-        <xs:restriction base="TS_periodo_mensal" />
-    </xs:simpleType>
-
     <!-- Campo {tpAcConv} (S-1200 e S-5001) -->
 
     <xs:simpleType name="TS_tpAcConv">
@@ -1981,6 +2191,31 @@
             <xs:enumeration value="G">
                 <xs:annotation>
                     <xs:documentation>Antecipação de diferenças de acordo, convenção ou dissídio coletivo</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="H">
+                <xs:annotation>
+                    <xs:documentation>Recolhimento mensal de FGTS anterior ao início de obrigatoriedade dos eventos periódicos</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Campo {tpAcConv} (S-5003 e S-5013) -->
+
+    <xs:simpleType name="TS_tpAcConv_FGTS">
+        <xs:annotation>
+            <xs:documentation>Tipo do instrumento ou situação ensejadora da remuneração relativa a períodos de apuração anteriores.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="E">
+                <xs:annotation>
+                    <xs:documentation>Conversão de licença saúde em acidente de trabalho</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="H">
+                <xs:annotation>
+                    <xs:documentation>Recolhimento mensal de FGTS anterior ao início de obrigatoriedade dos eventos periódicos</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
         </xs:restriction>
@@ -2779,7 +3014,7 @@
     <xs:simpleType name="TS_codMotAfast">
         <xs:annotation>
             <xs:documentation>Preencher com o código do motivo de afastamento temporário.</xs:documentation>
-            <xs:documentation>Validação: Deve ser um código válido e existente na Tabela 18.</xs:documentation>
+            <xs:documentation>Validação: Deve ser um código válido e existente na Tabela 18, bem como compatível com o código de categoria do trabalhador, conforme Tabela 18. Se a natureza jurídica do declarante for Administração Pública (grupo [1]), não pode ser informado [14].</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:string">
             <xs:pattern value="\d{2}" />
@@ -2970,77 +3205,77 @@
         <xs:restriction base="xs:byte">
             <xs:enumeration value="13">
                 <xs:annotation>
-                    <xs:documentation>FGTS dissídio mensal</xs:documentation>
+                    <xs:documentation>FGTS (período anterior) mensal</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
             <xs:enumeration value="14">
                 <xs:annotation>
-                    <xs:documentation>FGTS dissídio 13º salário</xs:documentation>
+                    <xs:documentation>FGTS (período anterior) 13º salário</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
             <xs:enumeration value="17">
                 <xs:annotation>
-                    <xs:documentation>FGTS dissídio mensal - Aprendiz/Contrato Verde e Amarelo</xs:documentation>
+                    <xs:documentation>FGTS (período anterior) mensal - Aprendiz/Contrato Verde e Amarelo</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
             <xs:enumeration value="18">
                 <xs:annotation>
-                    <xs:documentation>FGTS dissídio 13º salário - Aprendiz/Contrato Verde e Amarelo</xs:documentation>
+                    <xs:documentation>FGTS (período anterior) 13º salário - Aprendiz/Contrato Verde e Amarelo</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
             <xs:enumeration value="24">
                 <xs:annotation>
-                    <xs:documentation>FGTS dissídio mês da rescisão</xs:documentation>
+                    <xs:documentation>FGTS (período anterior) mês da rescisão</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
             <xs:enumeration value="25">
                 <xs:annotation>
-                    <xs:documentation>FGTS dissídio 13º salário rescisório</xs:documentation>
+                    <xs:documentation>FGTS (período anterior) 13º salário rescisório</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
             <xs:enumeration value="26">
                 <xs:annotation>
-                    <xs:documentation>FGTS dissídio aviso prévio indenizado</xs:documentation>
+                    <xs:documentation>FGTS (período anterior) aviso prévio indenizado</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
             <xs:enumeration value="30">
                 <xs:annotation>
-                    <xs:documentation>FGTS dissídio mês da rescisão - Aprendiz/Contrato Verde e Amarelo</xs:documentation>
+                    <xs:documentation>FGTS (período anterior) mês da rescisão - Aprendiz/Contrato Verde e Amarelo</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
             <xs:enumeration value="31">
                 <xs:annotation>
-                    <xs:documentation>FGTS dissídio 13° salário rescisório - Aprendiz/Contrato Verde e Amarelo</xs:documentation>
+                    <xs:documentation>FGTS (período anterior) 13° salário rescisório - Aprendiz/Contrato Verde e Amarelo</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
             <xs:enumeration value="32">
                 <xs:annotation>
-                    <xs:documentation>FGTS dissídio aviso prévio indenizado - Aprendiz/Contrato Verde e Amarelo</xs:documentation>
+                    <xs:documentation>FGTS (período anterior) aviso prévio indenizado - Aprendiz/Contrato Verde e Amarelo</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
             <xs:enumeration value="43">
                 <xs:annotation>
-                    <xs:documentation>FGTS dissídio mensal - Indenização compensatória do empregado doméstico</xs:documentation>
+                    <xs:documentation>FGTS (período anterior) mensal - Indenização compensatória do empregado doméstico</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
             <xs:enumeration value="44">
                 <xs:annotation>
-                    <xs:documentation>FGTS dissídio 13º salário - Indenização compensatória do empregado doméstico</xs:documentation>
+                    <xs:documentation>FGTS (período anterior) 13º salário - Indenização compensatória do empregado doméstico</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
             <xs:enumeration value="48">
                 <xs:annotation>
-                    <xs:documentation>FGTS dissídio mês da rescisão - Indenização compensatória do empregado doméstico</xs:documentation>
+                    <xs:documentation>FGTS (período anterior) mês da rescisão - Indenização compensatória do empregado doméstico</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
             <xs:enumeration value="49">
                 <xs:annotation>
-                    <xs:documentation>FGTS dissídio 13º salário rescisório - Indenização compensatória do empregado doméstico</xs:documentation>
+                    <xs:documentation>FGTS (período anterior) 13º salário rescisório - Indenização compensatória do empregado doméstico</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
             <xs:enumeration value="50">
                 <xs:annotation>
-                    <xs:documentation>FGTS dissídio aviso prévio indenizado - Indenização compensatória do empregado doméstico</xs:documentation>
+                    <xs:documentation>FGTS (período anterior) aviso prévio indenizado - Indenização compensatória do empregado doméstico</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
         </xs:restriction>
