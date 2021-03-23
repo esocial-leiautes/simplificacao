@@ -1,0 +1,288 @@
+S-2298 - evtReintegr
+Reintegração/Outros Provimentos
+
+Nível: 1
+Nome: eSocial
+Pai: -
+Descrição: eSocial
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 2
+Nome: evtReintegr
+Pai: eSocial
+Descrição: Evento Reintegração/Outros Provimentos.
+Ocorrência: 1
+Chave: Id
+Condição: O
+
+Nível: 3
+Nome: ideEvento
+Pai: evtReintegr
+Descrição: Informações de identificação do evento.
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 3
+Nome: ideEmpregador
+Pai: evtReintegr
+Descrição: Informações de identificação do empregador.
+Ocorrência: 1
+Chave: tpInsc, nrInsc
+Condição: O
+
+Nível: 3
+Nome: ideVinculo
+Pai: evtReintegr
+Descrição: Informações de identificação do trabalhador e do vínculo.
+Ocorrência: 1
+Chave: cpfTrab, matricula
+Condição: O
+
+Nível: 3
+Nome: infoReintegr
+Pai: evtReintegr
+Descrição: Informações da reintegração.
+Ocorrência: 1
+Chave: dtEfetRetorno
+Condição: O
+
+Nome: eSocial
+Pai: -
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: eSocial
+
+Nome: evtReintegr
+Pai: eSocial
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Evento Reintegração/Outros Provimentos.
+Regras de validação:
+REGRA_EMPREGADO_DOMESTICO
+REGRA_ENVIO_PROC_FECHAMENTO
+REGRA_EVENTOS_EXTEMP
+REGRA_EVENTO_IMPACTO_FOPAG
+REGRA_EXISTE_EVENTO_DESLIGAMENTO
+REGRA_EXISTE_INFO_EMPREGADOR
+REGRA_EXTEMP_REINTEGRACAO
+REGRA_MESMO_PROCEMI
+REGRA_REINTEG_EXCLUSAO_EVENTO
+REGRA_RETIFICA_MESMO_VINCULO
+REGRA_VALIDA_EMPREGADOR
+
+Nome: Id
+Pai: evtReintegr
+Elem.: A
+Tipo: C
+Ocorrência: 1
+Tamanho: 36
+Dec.: -
+Descrição: Identificação única do evento.
+Regras de validação:
+REGRA_VALIDA_ID_EVENTO
+
+Nome: ideEvento
+Pai: evtReintegr
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do evento.
+
+Nome: indRetif
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Informe [1] para arquivo original ou [2] para arquivo de retificação.
+Valores válidos:
+1 - Original
+2 - Retificação
+
+Nome: nrRecibo
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 23
+Dec.: -
+Descrição: Preencher com o número do recibo do arquivo a ser retificado.
+Validação: O preenchimento é obrigatório se {indRetif}(./indRetif) = [2].
+Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo retificado.
+
+Nome: tpAmb
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Identificação do ambiente.
+Valores válidos:
+1 - Produção
+2 - Produção restrita
+7 - Validação (uso interno)
+8 - Teste (uso interno)
+9 - Desenvolvimento (uso interno)
+
+Nome: procEmi
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-2
+Dec.: -
+Descrição: Processo de emissão do evento.
+Valores válidos:
+1 - Aplicativo do empregador
+2 - Aplicativo governamental - Simplificado Pessoa Física
+3 - Aplicativo governamental - Web Geral
+4 - Aplicativo governamental - Simplificado Pessoa Jurídica
+22 - Aplicativo governamental para dispositivos móveis - Empregador Doméstico
+
+Nome: verProc
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-20
+Dec.: -
+Descrição: Versão do processo de emissão do evento. Informar a versão do aplicativo emissor do evento.
+
+Nome: ideEmpregador
+Pai: evtReintegr
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do empregador.
+
+Nome: tpInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+
+Nome: nrInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 8, 11 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {ideEmpregador/tpInsc}(./tpInsc) e conforme informado em S-1000.
+
+Nome: ideVinculo
+Pai: evtReintegr
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do trabalhador e do vínculo.
+
+Nome: cpfTrab
+Pai: ideVinculo
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11
+Dec.: -
+Descrição: Preencher com o número do CPF do trabalhador.
+
+Nome: matricula
+Pai: ideVinculo
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-30
+Dec.: -
+Descrição: Matrícula atribuída ao trabalhador pela empresa ou, no caso de servidor público, a matrícula constante no Sistema de Administração de Recursos Humanos do órgão.
+Validação: Deve corresponder à matrícula informada pelo empregador no evento S-2200 do respectivo vínculo trabalhista.
+
+Nome: infoReintegr
+Pai: evtReintegr
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações da reintegração.
+
+Nome: tpReint
+Pai: infoReintegr
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Tipo de reintegração/outro provimento.
+Valores válidos:
+1 - Reintegração por decisão judicial
+2 - Reintegração por anistia legal
+3 - Reversão de servidor público
+4 - Recondução de servidor público
+5 - Reinclusão de militar
+9 - Outros
+Validação: Os tipos [3, 4, 5] só podem ser informados se a natureza jurídica do declarante for Administração Pública (grupo [1]).
+
+Nome: nrProcJud
+Pai: infoReintegr
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 20
+Dec.: -
+Descrição: Em caso de reintegração por determinação judicial, preencher com o número do processo.
+Validação: Informação obrigatória e exclusiva se {tpReint}(./tpReint) = [1].
+Se preenchido, deve ser um processo judicial válido, com 20 (vinte) algarismos.
+
+Nome: nrLeiAnistia
+Pai: infoReintegr
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 5-13
+Dec.: -
+Descrição: Informar a lei de anistia, descrevendo seu número e ano de publicação.
+Validação: Preenchimento obrigatório se {tpReint}(./tpReint) = [2].
+
+Nome: dtEfetRetorno
+Pai: infoReintegr
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informar a data do efetivo retorno ao trabalho.
+Validação: Deve ser uma data válida, posterior à data de desligamento do trabalhador. Não pode ser posterior a 30 (trinta) dias da data atual.
+
+Nome: dtEfeito
+Pai: infoReintegr
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informar a data de início dos efeitos financeiros da reintegração.
+Validação: Deve ser uma data igual ou anterior à data do efetivo retorno ao trabalho e posterior à data do desligamento.
+

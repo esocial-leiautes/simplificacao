@@ -1,0 +1,181 @@
+S-1298 - evtReabreEvPer
+Reabertura dos Eventos Periódicos
+
+Nível: 1
+Nome: eSocial
+Pai: -
+Descrição: eSocial
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 2
+Nome: evtReabreEvPer
+Pai: eSocial
+Descrição: Evento Reabertura dos Eventos Periódicos.
+Ocorrência: 1
+Chave: Id
+Condição: O
+
+Nível: 3
+Nome: ideEvento
+Pai: evtReabreEvPer
+Descrição: Informações de identificação do evento.
+Ocorrência: 1
+Chave: indApuracao, perApur, indGuia
+Condição: O
+
+Nível: 3
+Nome: ideEmpregador
+Pai: evtReabreEvPer
+Descrição: Informações de identificação do empregador.
+Ocorrência: 1
+Chave: tpInsc, nrInsc
+Condição: O
+
+Nome: eSocial
+Pai: -
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: eSocial
+
+Nome: evtReabreEvPer
+Pai: eSocial
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Evento Reabertura dos Eventos Periódicos.
+Regras de validação:
+REGRA_ENVIO_PROC_FECHAMENTO
+REGRA_EVE_FOPAG_SIMPLIFICADO
+REGRA_EXISTE_INFO_EMPREGADOR
+REGRA_REABERTURA_VALIDA_PERIODO_APURACAO
+REGRA_VALIDA_EMPREGADOR
+
+Nome: Id
+Pai: evtReabreEvPer
+Elem.: A
+Tipo: C
+Ocorrência: 1
+Tamanho: 36
+Dec.: -
+Descrição: Identificação única do evento.
+Regras de validação:
+REGRA_VALIDA_ID_EVENTO
+
+Nome: ideEvento
+Pai: evtReabreEvPer
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do evento.
+
+Nome: indApuracao
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo de período de apuração.
+Valores válidos:
+1 - Mensal
+2 - Anual (13° salário)
+
+Nome: perApur
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 4 ou 7
+Dec.: -
+Descrição: Informar o mês/ano (formato AAAA-MM) de referência das informações, se {indApuracao}(./indApuracao) for igual a [1], ou apenas o ano (formato AAAA), se {indApuracao}(./indApuracao) for igual a [2].
+Validação: Deve ser um mês/ano ou ano válido, igual ou posterior ao início da obrigatoriedade dos eventos periódicos para o empregador.
+
+Nome: indGuia
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo do tipo de guia.
+Valores válidos:
+1 - Documento de Arrecadação do eSocial - DAE
+
+Nome: tpAmb
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Identificação do ambiente.
+Valores válidos:
+1 - Produção
+2 - Produção restrita
+7 - Validação (uso interno)
+8 - Teste (uso interno)
+9 - Desenvolvimento (uso interno)
+
+Nome: procEmi
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-2
+Dec.: -
+Descrição: Processo de emissão do evento.
+Valores válidos:
+1 - Aplicativo do empregador
+2 - Aplicativo governamental - Simplificado Pessoa Física
+3 - Aplicativo governamental - Web Geral
+4 - Aplicativo governamental - Simplificado Pessoa Jurídica
+22 - Aplicativo governamental para dispositivos móveis - Empregador Doméstico
+
+Nome: verProc
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-20
+Dec.: -
+Descrição: Versão do processo de emissão do evento. Informar a versão do aplicativo emissor do evento.
+
+Nome: ideEmpregador
+Pai: evtReabreEvPer
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do empregador.
+
+Nome: tpInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+
+Nome: nrInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 8, 11 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {ideEmpregador/tpInsc}(./tpInsc) e conforme informado em S-1000.
+

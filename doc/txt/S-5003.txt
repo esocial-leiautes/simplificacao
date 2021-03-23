@@ -1,0 +1,901 @@
+S-5003 - evtBasesFGTS
+Informações do FGTS por Trabalhador
+
+Nível: 1
+Nome: eSocial
+Pai: -
+Descrição: eSocial
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 2
+Nome: evtBasesFGTS
+Pai: eSocial
+Descrição: Evento Informações do FGTS por Trabalhador.
+Ocorrência: 1
+Chave: Id
+Condição: O
+
+Nível: 3
+Nome: ideEvento
+Pai: evtBasesFGTS
+Descrição: Identificação do evento de retorno.
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 3
+Nome: ideEmpregador
+Pai: evtBasesFGTS
+Descrição: Informações de identificação do empregador.
+Ocorrência: 1
+Chave: tpInsc, nrInsc
+Condição: O
+
+Nível: 3
+Nome: ideTrabalhador
+Pai: evtBasesFGTS
+Descrição: Identificação do trabalhador
+Ocorrência: 1
+Chave: cpfTrab
+Condição: O
+
+Nível: 3
+Nome: infoFGTS
+Pai: evtBasesFGTS
+Descrição: Informações relativas ao FGTS
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 4
+Nome: ideEstab
+Pai: infoFGTS
+Descrição: Identificação do estabelecimento
+Ocorrência: 1-N
+Chave: tpInsc, nrInsc
+Condição: O
+
+Nível: 5
+Nome: ideLotacao
+Pai: ideEstab
+Descrição: Identificação da lotação tributária.
+Ocorrência: 1-N
+Chave: codLotacao, tpLotacao, tpInsc, nrInsc
+Condição: O
+
+Nível: 6
+Nome: infoTrabFGTS
+Pai: ideLotacao
+Descrição: Informações relativas à matrícula e categoria do trabalhador.
+Ocorrência: 1-99
+Chave: matricula, codCateg
+Condição: O
+
+Nível: 7
+Nome: sucessaoVinc
+Pai: infoTrabFGTS
+Descrição: Grupo de informações da sucessão de vínculo trabalhista
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {remunSuc}(../remunSuc) = [S])
+N (nos demais casos)
+
+Nível: 7
+Nome: infoBaseFGTS
+Pai: infoTrabFGTS
+Descrição: Bases de cálculo e valores do FGTS
+Ocorrência: 0-1
+Chave: -
+Condição: OC ((se {codCateg}(../codCateg) = [1XX, 301, 302, 303, 304, 306, 307, 309, 310, 312] com {tpRegTrab}(../tpRegTrab) = [1] ou não informado) OU (se {codCateg}(../codCateg) = [201, 202, 721]) OU (se {codCateg}(../codCateg) = [401, 410] com {categOrig}(../categOrig) = [1XX, 301, 302, 303, 304, 306, 307, 309, 310, 312] ou não informada e com {tpRegTrab}(../tpRegTrab) = [1] ou não informado))
+N (nos demais casos)
+
+Nível: 8
+Nome: basePerApur
+Pai: infoBaseFGTS
+Descrição: Bases de cálculo e valores, exceto se {tpAcConv} = [E, H]
+Ocorrência: 0-99
+Chave: tpValor, indIncid
+Condição: OC
+
+Nível: 9
+Nome: detRubrSusp
+Pai: basePerApur
+Descrição: Detalhamento da(s) rubrica(s) com incidência de FGTS suspensa
+Ocorrência: 0-N
+Chave: codRubr, ideTabRubr
+Condição: O (se {indIncid}(../indIncid) = [9])
+N (nos demais casos)
+
+Nível: 10
+Nome: ideProcessoFGTS
+Pai: detRubrSusp
+Descrição: Identificação de processo - Incidência de FGTS
+Ocorrência: 1-N
+Chave: nrProc
+Condição: O
+
+Nível: 8
+Nome: infoBasePerAntE
+Pai: infoBaseFGTS
+Descrição: Informações sobre bases e valores do FGTS quando {tpAcConv}(5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_tpAcConv) = [E, H]
+Ocorrência: 0-180
+Chave: perRef, tpAcConv
+Condição: OC
+
+Nível: 9
+Nome: basePerAntE
+Pai: infoBasePerAntE
+Descrição: Bases de cálculo e valores quando {tpAcConv}(5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_tpAcConv) = [E, H]
+Ocorrência: 1-99
+Chave: tpValorE, indIncidE
+Condição: O
+
+Nível: 10
+Nome: detRubrSusp
+Pai: basePerAntE
+Descrição: Detalhamento da(s) rubrica(s) com incidência de FGTS suspensa
+Ocorrência: 0-N
+Chave: codRubr, ideTabRubr
+Condição: O (se {indIncidE}(../indIncidE) = [9])
+N (nos demais casos)
+
+Nível: 11
+Nome: ideProcessoFGTS
+Pai: detRubrSusp
+Descrição: Identificação de processo - Incidência de FGTS
+Ocorrência: 1-N
+Chave: nrProc
+Condição: O
+
+Nível: 7
+Nome: procCS
+Pai: infoTrabFGTS
+Descrição: Informação sobre processo judicial que suspende a exigibilidade da Contribuição Social Rescisória
+Ocorrência: 0-1
+Chave: -
+Condição: OC
+
+Nome: eSocial
+Pai: -
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: eSocial
+
+Nome: evtBasesFGTS
+Pai: eSocial
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Evento Informações do FGTS por Trabalhador.
+
+Nome: Id
+Pai: evtBasesFGTS
+Elem.: A
+Tipo: C
+Ocorrência: 1
+Tamanho: 36
+Dec.: -
+Descrição: Identificação única do evento.
+
+Nome: ideEvento
+Pai: evtBasesFGTS
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Identificação do evento de retorno.
+
+Nome: nrRecArqBase
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 23
+Dec.: -
+Descrição: Preencher com o número do recibo do arquivo que deu origem ao presente arquivo de retorno ao empregador.
+Validação: Deve ser um recibo de entrega válido, correspondente ao arquivo que deu origem ao presente arquivo de retorno (S-1200, S-2299, S-2399 ou S-3000).
+
+Nome: indApuracao
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo de período de apuração.
+Valores válidos:
+1 - Mensal
+2 - Anual (13° salário)
+
+Nome: perApur
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 4 ou 7
+Dec.: -
+Descrição: Informar o mês/ano (formato AAAA-MM) de referência das informações, se {indApuracao}(./indApuracao) for igual a [1], ou apenas o ano (formato AAAA), se {indApuracao}(./indApuracao) for igual a [2].
+
+Nome: ideEmpregador
+Pai: evtBasesFGTS
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do empregador.
+
+Nome: tpInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+
+Nome: nrInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 8, 11 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {ideEmpregador/tpInsc}(./tpInsc) e conforme informado em S-1000.
+
+Nome: ideTrabalhador
+Pai: evtBasesFGTS
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Grupo que apresenta a identificação básica do trabalhador ao qual se refere o evento de retorno.
+
+Nome: cpfTrab
+Pai: ideTrabalhador
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11
+Dec.: -
+Descrição: Preencher com o número do CPF do trabalhador.
+Validação: Deve ser um CPF constante no arquivo gerado pelo empregador no evento de origem.
+
+Nome: infoFGTS
+Pai: evtBasesFGTS
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações relativas ao Fundo de Garantia do Tempo de Serviço - FGTS.
+
+Nome: dtVenc
+Pai: infoFGTS
+Elem.: E
+Tipo: D
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Data de vencimento do FGTS mensal.
+Validação: Preencher somente se houver informação no grupo {infoBaseFGTS}(./ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS).
+Se informada, deve corresponder ao dia 7 (sete) do mês subsequente ao indicado em {perApur}(5003_ideEvento_perApur), se esse dia for útil. Caso não seja, deve corresponder ao dia útil imediatamente anterior.
+Considera-se como dia não útil o sábado, o domingo e todo aquele constante do Calendário Nacional de feriados bancários divulgados pelo Banco Central do Brasil.
+
+Nome: ideEstab
+Pai: infoFGTS
+Elem.: G
+Tipo: -
+Ocorrência: 1-N
+Tamanho: -
+Dec.: -
+Descrição: Identificação do estabelecimento ou obra de construção civil.
+
+Nome: tpInsc
+Pai: ideEstab
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+3 - CAEPF
+4 - CNO
+Origem: campo {ideEstabLot/tpInsc} de:
+a) {infoPerApur}(1200_dmDev_infoPerApur) ou {idePeriodo}(1200_dmDev_infoPerAnt_ideADC_idePeriodo) do S-1200;
+b) {infoPerApur}(2299_infoDeslig_verbasResc_dmDev_infoPerApur) ou {idePeriodo}(2299_infoDeslig_verbasResc_dmDev_infoPerAnt_ideADC_idePeriodo) do S-2299;
+c) {dmDev}(2399_infoTSVTermino_verbasResc_dmDev) do S-2399.
+
+Nome: nrInsc
+Pai: ideEstab
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 11, 12 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {ideEstab/tpInsc}(./tpInsc).
+Origem: campo {ideEstabLot/nrInsc} de:
+a) {infoPerApur}(1200_dmDev_infoPerApur) ou {idePeriodo}(1200_dmDev_infoPerAnt_ideADC_idePeriodo) do S-1200;
+b) {infoPerApur}(2299_infoDeslig_verbasResc_dmDev_infoPerApur) ou {idePeriodo}(2299_infoDeslig_verbasResc_dmDev_infoPerAnt_ideADC_idePeriodo) do S-2299;
+c) {dmDev}(2399_infoTSVTermino_verbasResc_dmDev) do S-2399.
+
+Nome: ideLotacao
+Pai: ideEstab
+Elem.: G
+Tipo: -
+Ocorrência: 1-N
+Tamanho: -
+Dec.: -
+Descrição: Identificação da lotação tributária.
+
+Nome: codLotacao
+Pai: ideLotacao
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-30
+Dec.: -
+Descrição: Informar o código atribuído pelo empregador para a lotação tributária.
+Origem: campo {ideEstabLot/codLotacao} de:
+a) {infoPerApur}(1200_dmDev_infoPerApur) ou {idePeriodo}(1200_dmDev_infoPerAnt_ideADC_idePeriodo) do S-1200;
+b) {infoPerApur}(2299_infoDeslig_verbasResc_dmDev_infoPerApur) ou {idePeriodo}(2299_infoDeslig_verbasResc_dmDev_infoPerAnt_ideADC_idePeriodo) do S-2299;
+c) {dmDev}(2399_infoTSVTermino_verbasResc_dmDev) do S-2399.
+
+Nome: tpLotacao
+Pai: ideLotacao
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 2
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de lotação, conforme Tabela 10.
+Evento de origem: S-1020.
+Validação: a) Se origem de {codLotacao}(./codLotacao) for {infoPerApur}(1200_dmDev_infoPerApur) do S-1200, {infoPerApur}(2299_infoDeslig_verbasResc_dmDev_infoPerApur) do S-2299 ou {dmDev}(2399_infoTSVTermino_verbasResc_dmDev) do S-2399, retornar o tipo de lotação vigente em {perApur}(5003_ideEvento_perApur);
+b) Se origem de {codLotacao}(./codLotacao) for {idePeriodo}(1200_dmDev_infoPerAnt_ideADC_idePeriodo) do S-1200, retornar o tipo de lotação vigente em {perRef}(1200_dmDev_infoPerAnt_ideADC_idePeriodo_perRef) desse evento;
+c) Se origem de {codLotacao}(./codLotacao) for {idePeriodo}(2299_infoDeslig_verbasResc_dmDev_infoPerAnt_ideADC_idePeriodo) do S-2299, retornar o tipo de lotação vigente em {perRef}(2299_infoDeslig_verbasResc_dmDev_infoPerAnt_ideADC_idePeriodo_perRef) desse evento.
+
+Nome: tpInsc
+Pai: ideLotacao
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+4 - CNO
+Evento de origem: S-1020.
+Validação: a) Se origem de {codLotacao}(./codLotacao) for {infoPerApur}(1200_dmDev_infoPerApur) do S-1200, {infoPerApur}(2299_infoDeslig_verbasResc_dmDev_infoPerApur) do S-2299 ou {dmDev}(2399_infoTSVTermino_verbasResc_dmDev) do S-2399, retornar o tipo de inscrição vigente em {perApur}(5003_ideEvento_perApur);
+b) Se origem de {codLotacao}(./codLotacao) for {idePeriodo}(1200_dmDev_infoPerAnt_ideADC_idePeriodo) do S-1200, retornar o tipo de inscrição vigente em {perRef}(1200_dmDev_infoPerAnt_ideADC_idePeriodo_perRef) desse evento;
+c) Se origem de {codLotacao}(./codLotacao) for {idePeriodo}(2299_infoDeslig_verbasResc_dmDev_infoPerAnt_ideADC_idePeriodo) do S-2299, retornar o tipo de inscrição vigente em {perRef}(2299_infoDeslig_verbasResc_dmDev_infoPerAnt_ideADC_idePeriodo_perRef) desse evento.
+
+Nome: nrInsc
+Pai: ideLotacao
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 11, 12 ou 14
+Dec.: -
+Descrição: Preencher com o número de inscrição (CNPJ, CPF, CNO) ao qual pertence a lotação tributária, conforme indicado na Tabela 10.
+Evento de origem: S-1020.
+Validação: a) Se origem de {codLotacao}(./codLotacao) for {infoPerApur}(1200_dmDev_infoPerApur) do S-1200, {infoPerApur}(2299_infoDeslig_verbasResc_dmDev_infoPerApur) do S-2299 ou {dmDev}(2399_infoTSVTermino_verbasResc_dmDev) do S-2399, retornar o número de inscrição vigente em {perApur}(5003_ideEvento_perApur);
+b) Se origem de {codLotacao}(./codLotacao) for {idePeriodo}(1200_dmDev_infoPerAnt_ideADC_idePeriodo) do S-1200, retornar o número de inscrição vigente em {perRef}(1200_dmDev_infoPerAnt_ideADC_idePeriodo_perRef) desse evento;
+c) Se origem de {codLotacao}(./codLotacao) for {idePeriodo}(2299_infoDeslig_verbasResc_dmDev_infoPerAnt_ideADC_idePeriodo) do S-2299, retornar o número de inscrição vigente em {perRef}(2299_infoDeslig_verbasResc_dmDev_infoPerAnt_ideADC_idePeriodo_perRef) desse evento.
+
+Nome: infoTrabFGTS
+Pai: ideLotacao
+Elem.: G
+Tipo: -
+Ocorrência: 1-99
+Tamanho: -
+Dec.: -
+Descrição: Informações relativas à matrícula e categoria do trabalhador.
+
+Nome: matricula
+Pai: infoTrabFGTS
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-30
+Dec.: -
+Descrição: Matrícula atribuída ao trabalhador pela empresa ou, no caso de servidor público, a matrícula constante no Sistema de Administração de Recursos Humanos do órgão.
+Evento de origem: S-1200, S-2299, S-2399 ou S-3000.
+Validação: a) Se o evento de origem for S-1200/S-2299/S-2399, retornar a matrícula informada nesse evento;
+b) Se o evento de origem for S-3000, retornar a matrícula informada no evento objeto da exclusão.
+
+Nome: codCateg
+Pai: infoTrabFGTS
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 3
+Dec.: -
+Descrição: Preencher com o código da categoria do trabalhador, conforme Tabela 01.
+Evento de origem: S-1200, S-2299, S-2399 ou S-3000.
+Validação: a) Se o evento de origem for S-1200, retornar o código de categoria informado nesse evento;
+b) Se o evento de origem for S-2299 ou S-2399, retornar o código de categoria existente no Registro de Eventos Trabalhistas - RET;
+c) Se o evento de origem for S-3000 (referente a exclusão de S-1200), retornar o código de categoria informado no evento S-1200 (objeto da exclusão);
+d) Se o evento de origem for S-3000 (referente a exclusão de S-2299 ou S-2399), retornar o código de categoria existente no RET relativo ao contrato informado em S-2299 ou S-2399 (objeto da exclusão).
+
+Nome: categOrig
+Pai: infoTrabFGTS
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 3
+Dec.: -
+Descrição: Preencher com o código correspondente à categoria de origem do dirigente sindical ou do trabalhador cedido.
+Origem: campo {infoDirigenteSindical/categOrig}(2300_infoTSVInicio_infoComplementares_infoDirigenteSindical_categOrig) ou {infoTrabCedido/categOrig}(2300_infoTSVInicio_infoComplementares_infoTrabCedido_categOrig) de S-2300.
+
+Nome: tpRegTrab
+Pai: infoTrabFGTS
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Tipo de regime trabalhista.
+Valores válidos:
+1 - CLT - Consolidação das Leis de Trabalho e legislações trabalhistas específicas
+2 - Estatutário/legislações específicas (servidor temporário, militar, agente político, etc.)
+Validação: Deve corresponder ao tipo de regime trabalhista existente no RET.
+
+Nome: remunSuc
+Pai: infoTrabFGTS
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Indicar se a remuneração é relativa a verbas de natureza salarial ou não salarial devidas pela empresa sucessora a empregados desligados ainda na sucedida.
+Valores válidos:
+S - Sim
+N - Não
+Evento de origem: S-1200.
+
+Nome: dtDeslig
+Pai: infoTrabFGTS
+Elem.: E
+Tipo: D
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Preencher com a data de desligamento do vínculo (último dia trabalhado).
+Validação: Deve corresponder à data de desligamento existente no RET. Não retornar caso haja reintegração com data posterior ao desligamento.
+
+Nome: mtvDeslig
+Pai: infoTrabFGTS
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 2
+Dec.: -
+Descrição: Código de motivo do desligamento, conforme Tabela 19.
+Validação: Deve corresponder ao motivo do desligamento existente no RET. Não retornar caso haja reintegração com data posterior ao desligamento.
+
+Nome: dtTerm
+Pai: infoTrabFGTS
+Elem.: E
+Tipo: D
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Data do término.
+Validação: Deve corresponder à data do término existente no RET.
+
+Nome: mtvDesligTSV
+Pai: infoTrabFGTS
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 2
+Dec.: -
+Descrição: Código de motivo do término do TSVE.
+Validação: Deve corresponder ao motivo do término existente no RET.
+
+Nome: sucessaoVinc
+Pai: infoTrabFGTS
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Grupo de informações da sucessão de vínculo trabalhista.
+Evento de origem: S-1200.
+
+Nome: tpInsc
+Pai: sucessaoVinc
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+
+Nome: nrInsc
+Pai: sucessaoVinc
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do empregador anterior, de acordo com o tipo de inscrição indicado no campo {sucessaoVinc/tpInsc}(./tpInsc).
+
+Nome: matricAnt
+Pai: sucessaoVinc
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-30
+Dec.: -
+Descrição: Matrícula do trabalhador no empregador anterior.
+
+Nome: dtAdm
+Pai: sucessaoVinc
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Preencher com a data de admissão do trabalhador. No caso de transferência do empregado, deve ser preenchida a data inicial do vínculo no primeiro empregador (data de início do vínculo).
+
+Nome: infoBaseFGTS
+Pai: infoTrabFGTS
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações referentes a bases de cálculo e valores do FGTS.
+
+Nome: basePerApur
+Pai: infoBaseFGTS
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição: Informações sobre bases de cálculo e valores do FGTS referentes à remuneração do período de apuração e de períodos anteriores, exceto se {tpAcConv} = [E, H].
+Evento de origem: S-1200, S-2299 ou S-2399.
+
+Nome: tpValor
+Pai: basePerApur
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 2
+Dec.: -
+Descrição: Tipo de valor que influi na apuração do FGTS.
+Valores válidos:
+11 - FGTS mensal
+12 - FGTS 13° salário
+13 - FGTS (período anterior) mensal
+14 - FGTS (período anterior) 13º salário
+15 - FGTS mensal - Aprendiz/Contrato Verde e Amarelo
+16 - FGTS 13° salário - Aprendiz/Contrato Verde e Amarelo
+17 - FGTS (período anterior) mensal - Aprendiz/Contrato Verde e Amarelo
+18 - FGTS (período anterior) 13º salário - Aprendiz/Contrato Verde e Amarelo
+21 - FGTS mês da rescisão
+22 - FGTS 13° salário rescisório
+23 - FGTS aviso prévio indenizado
+24 - FGTS (período anterior) mês da rescisão
+25 - FGTS (período anterior) 13º salário rescisório
+26 - FGTS (período anterior) aviso prévio indenizado
+27 - FGTS mês da rescisão - Aprendiz/Contrato Verde e Amarelo
+28 - FGTS 13° salário rescisório - Aprendiz/Contrato Verde e Amarelo
+29 - FGTS aviso prévio indenizado - Aprendiz/Contrato Verde e Amarelo
+30 - FGTS (período anterior) mês da rescisão - Aprendiz/Contrato Verde e Amarelo
+31 - FGTS (período anterior) 13° salário rescisório - Aprendiz/Contrato Verde e Amarelo
+32 - FGTS (período anterior) aviso prévio indenizado - Aprendiz/Contrato Verde e Amarelo
+41 - FGTS mensal - Indenização compensatória do empregado doméstico
+42 - FGTS 13° salário - Indenização compensatória do empregado doméstico
+43 - FGTS (período anterior) mensal - Indenização compensatória do empregado doméstico
+44 - FGTS (período anterior) 13º salário - Indenização compensatória do empregado doméstico
+45 - FGTS mês da rescisão - Indenização compensatória do empregado doméstico
+46 - FGTS 13° salário rescisório - Indenização compensatória do empregado doméstico
+47 - FGTS aviso prévio indenizado - Indenização compensatória do empregado doméstico
+48 - FGTS (período anterior) mês da rescisão - Indenização compensatória do empregado doméstico
+49 - FGTS (período anterior) 13º salário rescisório - Indenização compensatória do empregado doméstico
+50 - FGTS (período anterior) aviso prévio indenizado - Indenização compensatória do empregado doméstico
+
+Nome: indIncid
+Pai: basePerApur
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo de incidência de FGTS.
+Valores válidos:
+1 - Normal (incidência de FGTS)
+9 - Incidência de FGTS suspensa em decorrência de decisão judicial
+Validação: Se {codIncFGTS}(1010_infoRubrica_inclusao_dadosRubrica_codIncFGTS) em S-1010 for igual a [11, 12, 21], deve ser retornado [1].
+Se {codIncFGTS}(1010_infoRubrica_inclusao_dadosRubrica_codIncFGTS) em S-1010 for igual a [91, 92, 93], deve ser retornado [9].
+
+Nome: remFGTS
+Pai: basePerApur
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Remuneração (valor da base de cálculo) do FGTS, conforme definido nos campos {tpValor}(./tpValor) e {indIncid}(./indIncid).
+Validação: Deve ser maior que 0 (zero).
+Deve corresponder ao somatório dos valores informados no campo {vrRubr} em S-1200 e S-2299 (grupos {infoPerApur} e {infoPerAnt}, quando {tpAcConv} for diferente de [E, H]), e também em S-2399, devendo somar os valores das rubricas cujo {tpRubr}(1010_infoRubrica_inclusao_dadosRubrica_tpRubr) em S-1010 seja igual a [1, 3] e subtrair os valores das rubricas cujo {tpRubr}(1010_infoRubrica_inclusao_dadosRubrica_tpRubr) em S-1010 seja igual a [2, 4], observando a Tabela 23.
+
+Nome: dpsFGTS
+Pai: basePerApur
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor histórico do FGTS a ser depositado na conta vinculada do trabalhador.
+Validação: Deve ser maior que 0 (zero) e informado somente se {indIncid}(./indIncid) = [1].
+Deve corresponder à multiplicação de {remFGTS}(./remFGTS) pela alíquota abaixo:
+a) Se {tpValor}(./tpValor) = [11, 12, 13, 14, 21, 22, 23, 24, 25, 26], alíquota de 8%;
+b) Se {tpValor}(./tpValor) = [15, 16, 17, 18, 27, 28, 29, 30, 31, 32], alíquota de 2%;
+c) Se {tpValor}(./tpValor) = [41, 42, 43, 44, 45, 46, 47, 48, 49, 50], alíquota de 3,2%.
+
+Nome: detRubrSusp
+Pai: basePerApur
+Elem.: G
+Tipo: -
+Ocorrência: 0-N
+Tamanho: -
+Dec.: -
+Descrição: Detalhamento da(s) rubrica(s) com incidência de FGTS suspensa em decorrência de decisão judicial.
+
+Nome: codRubr
+Pai: detRubrSusp
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-30
+Dec.: -
+Descrição: Informar o código atribuído pelo empregador que identifica a rubrica em sua folha de pagamento.
+Evento de origem: S-1200, S-2299 ou S-2399.
+
+Nome: ideTabRubr
+Pai: detRubrSusp
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-8
+Dec.: -
+Descrição: Preencher com o identificador da Tabela de Rubricas para a rubrica definida em {codRubr}(./codRubr).
+Evento de origem: S-1200, S-2299 ou S-2399.
+
+Nome: vrRubr
+Pai: detRubrSusp
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor total da rubrica.
+Evento de origem: S-1200, S-2299 ou S-2399.
+Validação: Deve corresponder ao somatório dos valores informados no campo {vrRubr} dos eventos de origem para a respectiva rubrica.
+
+Nome: ideProcessoFGTS
+Pai: detRubrSusp
+Elem.: G
+Tipo: -
+Ocorrência: 1-N
+Tamanho: -
+Dec.: -
+Descrição: Processo(s) judicial(is) com decisão/sentença favorável, determinando a não incidência de FGTS.
+Evento de origem: S-1010.
+
+Nome: nrProc
+Pai: ideProcessoFGTS
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 20
+Dec.: -
+Descrição: Informar o número do processo.
+
+Nome: infoBasePerAntE
+Pai: infoBaseFGTS
+Elem.: G
+Tipo: -
+Ocorrência: 0-180
+Tamanho: -
+Dec.: -
+Descrição: Informações referentes a bases de cálculo e valores do FGTS de períodos anteriores quando {tpAcConv}(./tpAcConv) = [E, H].
+
+Nome: perRef
+Pai: infoBasePerAntE
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 7
+Dec.: -
+Descrição: Informar o período ao qual se refere a remuneração, no formato AAAA-MM.
+Evento de origem: S-1200 ou S-2299.
+Validação: Deve corresponder ao período informado no evento de origem.
+
+Nome: tpAcConv
+Pai: infoBasePerAntE
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Tipo do instrumento ou situação ensejadora da remuneração relativa a períodos de apuração anteriores.
+Valores válidos:
+E - Conversão de licença saúde em acidente de trabalho
+H - Recolhimento mensal de FGTS anterior ao início de obrigatoriedade dos eventos periódicos
+
+Nome: basePerAntE
+Pai: infoBasePerAntE
+Elem.: G
+Tipo: -
+Ocorrência: 1-99
+Tamanho: -
+Dec.: -
+Descrição: Informações sobre bases de cálculo e valores do FGTS referentes à remuneração de períodos anteriores quando {tpAcConv}(../tpAcConv) = [E, H].
+
+Nome: tpValorE
+Pai: basePerAntE
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 2
+Dec.: -
+Descrição: Tipo de valor que influi na apuração do FGTS.
+Valores válidos:
+13 - FGTS (período anterior) mensal
+14 - FGTS (período anterior) 13º salário
+17 - FGTS (período anterior) mensal - Aprendiz/Contrato Verde e Amarelo
+18 - FGTS (período anterior) 13º salário - Aprendiz/Contrato Verde e Amarelo
+24 - FGTS (período anterior) mês da rescisão
+25 - FGTS (período anterior) 13º salário rescisório
+26 - FGTS (período anterior) aviso prévio indenizado
+30 - FGTS (período anterior) mês da rescisão - Aprendiz/Contrato Verde e Amarelo
+31 - FGTS (período anterior) 13° salário rescisório - Aprendiz/Contrato Verde e Amarelo
+32 - FGTS (período anterior) aviso prévio indenizado - Aprendiz/Contrato Verde e Amarelo
+43 - FGTS (período anterior) mensal - Indenização compensatória do empregado doméstico
+44 - FGTS (período anterior) 13º salário - Indenização compensatória do empregado doméstico
+48 - FGTS (período anterior) mês da rescisão - Indenização compensatória do empregado doméstico
+49 - FGTS (período anterior) 13º salário rescisório - Indenização compensatória do empregado doméstico
+50 - FGTS (período anterior) aviso prévio indenizado - Indenização compensatória do empregado doméstico
+
+Nome: indIncidE
+Pai: basePerAntE
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo de incidência de FGTS.
+Valores válidos:
+1 - Normal (incidência de FGTS)
+9 - Incidência de FGTS suspensa em decorrência de decisão judicial
+Validação: Se {codIncFGTS}(1010_infoRubrica_inclusao_dadosRubrica_codIncFGTS) em S-1010 for igual a [11, 12, 21], deve ser retornado [1].
+Se {codIncFGTS}(1010_infoRubrica_inclusao_dadosRubrica_codIncFGTS) em S-1010 for igual a [91, 92, 93], deve ser retornado [9].
+
+Nome: remFGTSE
+Pai: basePerAntE
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Remuneração (valor da base de cálculo) do FGTS, conforme definido nos campos {tpValorE}(./tpValorE) e {indIncidE}(./indIncidE).
+Validação: Deve ser maior que 0 (zero).
+Deve corresponder ao somatório dos valores informados no campo {vrRubr} em S-1200 e S-2299 (grupo {infoPerAnt}, agrupado por {tpAcConv}(../tpAcConv)), devendo somar os valores das rubricas cujo {tpRubr}(1010_infoRubrica_inclusao_dadosRubrica_tpRubr) em S-1010 seja igual a [1, 3] e subtrair os valores das rubricas cujo {tpRubr}(1010_infoRubrica_inclusao_dadosRubrica_tpRubr) em S-1010 seja igual a [2, 4], observando a Tabela 23.
+
+Nome: dpsFGTSE
+Pai: basePerAntE
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor histórico do FGTS a ser depositado na conta vinculada do trabalhador.
+Validação: Deve ser maior que 0 (zero) e informado somente se {indIncidE}(./indIncidE) = [1].
+Deve corresponder à multiplicação de {remFGTSE}(./remFGTSE) pela alíquota abaixo:
+a) Se {tpValorE}(./tpValorE) = [13, 14, 24, 25, 26], alíquota de 8%;
+b) Se {tpValorE}(./tpValorE) = [17, 18, 30, 31, 32], alíquota de 2%;
+c) Se {tpValorE}(./tpValorE) = [43, 44, 48, 49, 50], alíquota de 3,2%.
+
+Nome: detRubrSusp
+Pai: basePerAntE
+Elem.: G
+Tipo: -
+Ocorrência: 0-N
+Tamanho: -
+Dec.: -
+Descrição: Detalhamento da(s) rubrica(s) com incidência de FGTS suspensa em decorrência de decisão judicial.
+
+Nome: codRubr
+Pai: detRubrSusp
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-30
+Dec.: -
+Descrição: Informar o código atribuído pelo empregador que identifica a rubrica em sua folha de pagamento.
+Evento de origem: S-1200, S-2299 ou S-2399.
+
+Nome: ideTabRubr
+Pai: detRubrSusp
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-8
+Dec.: -
+Descrição: Preencher com o identificador da Tabela de Rubricas para a rubrica definida em {codRubr}(./codRubr).
+Evento de origem: S-1200, S-2299 ou S-2399.
+
+Nome: vrRubr
+Pai: detRubrSusp
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor total da rubrica.
+Evento de origem: S-1200, S-2299 ou S-2399.
+Validação: Deve corresponder ao somatório dos valores informados no campo {vrRubr} dos eventos de origem para a respectiva rubrica.
+
+Nome: ideProcessoFGTS
+Pai: detRubrSusp
+Elem.: G
+Tipo: -
+Ocorrência: 1-N
+Tamanho: -
+Dec.: -
+Descrição: Processo(s) judicial(is) com decisão/sentença favorável, determinando a não incidência de FGTS.
+Evento de origem: S-1010.
+
+Nome: nrProc
+Pai: ideProcessoFGTS
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 20
+Dec.: -
+Descrição: Informar o número do processo.
+
+Nome: procCS
+Pai: infoTrabFGTS
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informação sobre processo judicial que suspende a exigibilidade da Contribuição Social Rescisória.
+Evento de origem: S-2299.
+
+Nome: nrProcJud
+Pai: procCS
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 20
+Dec.: -
+Descrição: Informar o número de processo judicial cadastrado.
+

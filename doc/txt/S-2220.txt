@@ -1,0 +1,469 @@
+S-2220 - evtMonit
+Monitoramento da Saúde do Trabalhador
+
+Nível: 1
+Nome: eSocial
+Pai: -
+Descrição: eSocial
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 2
+Nome: evtMonit
+Pai: eSocial
+Descrição: Evento Monitoramento da Saúde do Trabalhador.
+Ocorrência: 1
+Chave: Id
+Condição: O
+
+Nível: 3
+Nome: ideEvento
+Pai: evtMonit
+Descrição: Informações de identificação do evento.
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 3
+Nome: ideEmpregador
+Pai: evtMonit
+Descrição: Informações de identificação do empregador.
+Ocorrência: 1
+Chave: tpInsc, nrInsc
+Condição: O
+
+Nível: 3
+Nome: ideVinculo
+Pai: evtMonit
+Descrição: Informações de identificação do trabalhador e do vínculo.
+Ocorrência: 1
+Chave: cpfTrab, matricula, codCateg
+Condição: O
+
+Nível: 3
+Nome: exMedOcup
+Pai: evtMonit
+Descrição: Informações do exame médico ocupacional.
+Ocorrência: 1
+Chave: tpExameOcup
+Condição: O
+
+Nível: 4
+Nome: aso
+Pai: exMedOcup
+Descrição: ASO
+Ocorrência: 1
+Chave: dtAso
+Condição: O
+
+Nível: 5
+Nome: exame
+Pai: aso
+Descrição: Avaliações clínicas e exames complementares realizados
+Ocorrência: 1-99
+Chave: dtExm, procRealizado
+Condição: O
+
+Nível: 5
+Nome: medico
+Pai: aso
+Descrição: Informações sobre o médico emitente do ASO.
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 4
+Nome: respMonit
+Pai: exMedOcup
+Descrição: Informações sobre o médico responsável/coordenador do PCMSO.
+Ocorrência: 0-1
+Chave: -
+Condição: OC
+
+Nome: eSocial
+Pai: -
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: eSocial
+
+Nome: evtMonit
+Pai: eSocial
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Evento Monitoramento da Saúde do Trabalhador.
+Regras de validação:
+REGRA_ENVIO_PROC_FECHAMENTO
+REGRA_EVENTOS_EXTEMP
+REGRA_EVENTO_EXT_SEM_IMPACTO_FOPAG
+REGRA_EXISTE_EVENTO_TSV_INICIO
+REGRA_EXISTE_INFO_EMPREGADOR
+REGRA_EXISTE_VINCULO
+REGRA_EXTEMP_REINTEGRACAO
+REGRA_MESMO_PROCEMI
+REGRA_RETIFICA_MESMO_VINCULO
+
+Nome: Id
+Pai: evtMonit
+Elem.: A
+Tipo: C
+Ocorrência: 1
+Tamanho: 36
+Dec.: -
+Descrição: Identificação única do evento.
+Regras de validação:
+REGRA_VALIDA_ID_EVENTO
+
+Nome: ideEvento
+Pai: evtMonit
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do evento.
+
+Nome: indRetif
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Informe [1] para arquivo original ou [2] para arquivo de retificação.
+Valores válidos:
+1 - Original
+2 - Retificação
+
+Nome: nrRecibo
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 23
+Dec.: -
+Descrição: Preencher com o número do recibo do arquivo a ser retificado.
+Validação: O preenchimento é obrigatório se {indRetif}(./indRetif) = [2].
+Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo retificado.
+
+Nome: tpAmb
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Identificação do ambiente.
+Valores válidos:
+1 - Produção
+2 - Produção restrita
+7 - Validação (uso interno)
+8 - Teste (uso interno)
+9 - Desenvolvimento (uso interno)
+
+Nome: procEmi
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-2
+Dec.: -
+Descrição: Processo de emissão do evento.
+Valores válidos:
+1 - Aplicativo do empregador
+2 - Aplicativo governamental - Simplificado Pessoa Física
+3 - Aplicativo governamental - Web Geral
+4 - Aplicativo governamental - Simplificado Pessoa Jurídica
+22 - Aplicativo governamental para dispositivos móveis - Empregador Doméstico
+
+Nome: verProc
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-20
+Dec.: -
+Descrição: Versão do processo de emissão do evento. Informar a versão do aplicativo emissor do evento.
+
+Nome: ideEmpregador
+Pai: evtMonit
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do empregador.
+
+Nome: tpInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+
+Nome: nrInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 8, 11 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {ideEmpregador/tpInsc}(./tpInsc) e conforme informado em S-1000.
+
+Nome: ideVinculo
+Pai: evtMonit
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do trabalhador e do vínculo.
+
+Nome: cpfTrab
+Pai: ideVinculo
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11
+Dec.: -
+Descrição: Preencher com o número do CPF do trabalhador.
+
+Nome: matricula
+Pai: ideVinculo
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-30
+Dec.: -
+Descrição: Matrícula atribuída ao trabalhador pela empresa ou, no caso de servidor público, a matrícula constante no Sistema de Administração de Recursos Humanos do órgão.
+Validação: Deve corresponder à matrícula informada pelo empregador no evento S-2190, S-2200 ou S-2300 do respectivo contrato. Não preencher no caso de Trabalhador Sem Vínculo de Emprego/Estatutário - TSVE sem informação de matrícula no evento S-2300.
+
+Nome: codCateg
+Pai: ideVinculo
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 3
+Dec.: -
+Descrição: Preencher com o código da categoria do trabalhador.
+Informar somente no caso de TSVE sem informação de matrícula no evento S-2300.
+Validação: Informação obrigatória e exclusiva se não houver preenchimento de {matricula}(./matricula). Se informado, deve ser um código válido e existente na Tabela 01.
+
+Nome: exMedOcup
+Pai: evtMonit
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações do exame médico ocupacional.
+
+Nome: tpExameOcup
+Pai: exMedOcup
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Tipo do exame médico ocupacional.
+Valores válidos:
+0 - Exame médico admissional
+1 - Exame médico periódico, conforme Norma Regulamentadora 07 - NR-07 e/ou planejamento do Programa de Controle Médico de Saúde Ocupacional - PCMSO
+2 - Exame médico de retorno ao trabalho
+3 - Exame médico de mudança de função ou de mudança de risco ocupacional
+4 - Exame médico de monitoração pontual, não enquadrado nos demais casos
+9 - Exame médico demissional
+Validação: Se informado [0], não pode existir outro evento S-2220 para o mesmo contrato com {dtAso}(./aso_dtAso) anterior.
+
+Nome: aso
+Pai: exMedOcup
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Detalhamento das informações do Atestado de Saúde Ocupacional - ASO.
+
+Nome: dtAso
+Pai: aso
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Data de emissão do ASO.
+Validação: Deve ser uma data válida, igual ou anterior à data atual e igual ou posterior à data de início da obrigatoriedade deste evento para o empregador no eSocial.
+
+Nome: resAso
+Pai: aso
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Resultado do ASO.
+Valores válidos:
+1 - Apto
+2 - Inapto
+
+Nome: exame
+Pai: aso
+Elem.: G
+Tipo: -
+Ocorrência: 1-99
+Tamanho: -
+Dec.: -
+Descrição: Grupo que detalha as avaliações clínicas e os exames complementares porventura realizados pelo trabalhador em virtude do determinado nos Anexos da NR-07, além de outros solicitados pelo médico e os referentes ao ASO.
+
+Nome: dtExm
+Pai: exame
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Data do exame realizado.
+Validação: Deve ser uma data válida, igual ou anterior à data do ASO informada em {dtAso}(../dtAso).
+
+Nome: procRealizado
+Pai: exame
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 4
+Dec.: -
+Descrição: Código do procedimento diagnóstico.
+Validação: Deve ser um código válido e existente na Tabela 27.
+
+Nome: obsProc
+Pai: exame
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-999
+Dec.: -
+Descrição: Observação sobre o procedimento diagnóstico realizado.
+
+Nome: ordExame
+Pai: exame
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Ordem do exame.
+Valores válidos:
+1 - Inicial
+2 - Sequencial
+
+Nome: indResult
+Pai: exame
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Indicação dos resultados.
+Valores válidos:
+1 - Normal
+2 - Alterado
+3 - Estável
+4 - Agravamento
+
+Nome: medico
+Pai: aso
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações sobre o médico emitente do ASO.
+
+Nome: nmMed
+Pai: medico
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 2-70
+Dec.: -
+Descrição: Preencher com o nome do médico emitente do ASO.
+
+Nome: nrCRM
+Pai: medico
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-8
+Dec.: -
+Descrição: Número de inscrição do médico emitente do ASO no Conselho Regional de Medicina - CRM.
+
+Nome: ufCRM
+Pai: medico
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 2
+Dec.: -
+Descrição: Preencher com a sigla da Unidade da Federação - UF de expedição do CRM.
+Valores válidos:
+ AC, AL, AP, AM, BA, CE, DF, ES, GO, MA, MT, MS, MG, PA, PB, PR, PE, PI, RJ, RN, RS, RO, RR, SC, SP, SE, TO
+
+Nome: respMonit
+Pai: exMedOcup
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações sobre o médico responsável/coordenador do PCMSO.
+
+Nome: cpfResp
+Pai: respMonit
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 11
+Dec.: -
+Descrição: Preencher com o CPF do médico responsável/coordenador do PCMSO.
+Validação: Se informado, deve ser um CPF válido.
+
+Nome: nmResp
+Pai: respMonit
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 2-70
+Dec.: -
+Descrição: Preencher com o nome do médico responsável/coordenador do PCMSO.
+
+Nome: nrCRM
+Pai: respMonit
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-8
+Dec.: -
+Descrição: Número de inscrição do médico responsável/coordenador do PCMSO no CRM.
+
+Nome: ufCRM
+Pai: respMonit
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 2
+Dec.: -
+Descrição: Preencher com a sigla da UF de expedição do CRM.
+Valores válidos:
+ AC, AL, AP, AM, BA, CE, DF, ES, GO, MA, MT, MS, MG, PA, PB, PR, PE, PI, RJ, RN, RS, RO, RR, SC, SP, SE, TO
+

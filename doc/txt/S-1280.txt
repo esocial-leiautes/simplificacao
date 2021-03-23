@@ -1,0 +1,314 @@
+S-1280 - evtInfoComplPer
+Informações Complementares aos Eventos Periódicos
+
+Nível: 1
+Nome: eSocial
+Pai: -
+Descrição: eSocial
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 2
+Nome: evtInfoComplPer
+Pai: eSocial
+Descrição: Evento Informações Complementares
+Ocorrência: 1
+Chave: Id
+Condição: O
+
+Nível: 3
+Nome: ideEvento
+Pai: evtInfoComplPer
+Descrição: Informações de identificação do evento.
+Ocorrência: 1
+Chave: indApuracao, perApur, indGuia
+Condição: O
+
+Nível: 3
+Nome: ideEmpregador
+Pai: evtInfoComplPer
+Descrição: Informações de identificação do empregador.
+Ocorrência: 1
+Chave: tpInsc, nrInsc
+Condição: O
+
+Nível: 3
+Nome: infoSubstPatr
+Pai: evtInfoComplPer
+Descrição: Inf. complementares - Empresas enquadradas nos arts. 7º a 9º da Lei 12.546/2011
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {indDesFolha}(1000_infoEmpregador_inclusao_infoCadastro_indDesFolha) em S-1000 = [1])
+N (nos demais casos)
+
+Nível: 3
+Nome: infoSubstPatrOpPort
+Pai: evtInfoComplPer
+Descrição: Informação de substituição prevista na Lei 12.546/2011
+Ocorrência: 0-9999
+Chave: codLotacao
+Condição: OC (se {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [09]
+N (nos demais casos)
+
+Nível: 3
+Nome: infoAtivConcom
+Pai: evtInfoComplPer
+Descrição: Empresas enquadradas no Simples Nacional - Atividades concomitantes
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [03])
+N (nos demais casos)
+
+Nome: eSocial
+Pai: -
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: eSocial
+
+Nome: evtInfoComplPer
+Pai: eSocial
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Evento Informações Complementares aos Eventos Periódicos.
+Regras de validação:
+REGRA_ENVIO_PROC_FECHAMENTO
+REGRA_EVENTOS_EXTEMP
+REGRA_EVE_FOPAG_IND_RETIFICACAO
+REGRA_EVE_FOPAG_INFO_COMPAT_CLASSTRIB
+REGRA_EVE_FOPAG_PERMITE_EXCLUSAO
+REGRA_EVE_FOPAG_SIMPLIFICADO
+REGRA_EXISTE_INFO_EMPREGADOR
+REGRA_MESMO_PROCEMI
+REGRA_REMUN_ANUAL_DEZEMBRO
+REGRA_VALIDA_EMPREGADOR
+
+Nome: Id
+Pai: evtInfoComplPer
+Elem.: A
+Tipo: C
+Ocorrência: 1
+Tamanho: 36
+Dec.: -
+Descrição: Identificação única do evento.
+Regras de validação:
+REGRA_VALIDA_ID_EVENTO
+
+Nome: ideEvento
+Pai: evtInfoComplPer
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do evento.
+
+Nome: indRetif
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Informe [1] para arquivo original ou [2] para arquivo de retificação.
+Valores válidos:
+1 - Original
+2 - Retificação
+
+Nome: nrRecibo
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 23
+Dec.: -
+Descrição: Preencher com o número do recibo do arquivo a ser retificado.
+Validação: O preenchimento é obrigatório se {indRetif}(./indRetif) = [2].
+Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo retificado.
+
+Nome: indApuracao
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo de período de apuração.
+Valores válidos:
+1 - Mensal
+2 - Anual (13° salário)
+
+Nome: perApur
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 4 ou 7
+Dec.: -
+Descrição: Informar o mês/ano (formato AAAA-MM) de referência das informações, se {indApuracao}(./indApuracao) for igual a [1], ou apenas o ano (formato AAAA), se {indApuracao}(./indApuracao) for igual a [2].
+Validação: Deve ser um mês/ano ou ano válido, igual ou posterior ao início da obrigatoriedade dos eventos periódicos para o empregador.
+
+Nome: indGuia
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo do tipo de guia.
+Valores válidos:
+1 - Documento de Arrecadação do eSocial - DAE
+
+Nome: tpAmb
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Identificação do ambiente.
+Valores válidos:
+1 - Produção
+2 - Produção restrita
+7 - Validação (uso interno)
+8 - Teste (uso interno)
+9 - Desenvolvimento (uso interno)
+
+Nome: procEmi
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-2
+Dec.: -
+Descrição: Processo de emissão do evento.
+Valores válidos:
+1 - Aplicativo do empregador
+2 - Aplicativo governamental - Simplificado Pessoa Física
+3 - Aplicativo governamental - Web Geral
+4 - Aplicativo governamental - Simplificado Pessoa Jurídica
+22 - Aplicativo governamental para dispositivos móveis - Empregador Doméstico
+
+Nome: verProc
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-20
+Dec.: -
+Descrição: Versão do processo de emissão do evento. Informar a versão do aplicativo emissor do evento.
+
+Nome: ideEmpregador
+Pai: evtInfoComplPer
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do empregador.
+
+Nome: tpInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+
+Nome: nrInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 8, 11 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {ideEmpregador/tpInsc}(./tpInsc) e conforme informado em S-1000.
+
+Nome: infoSubstPatr
+Pai: evtInfoComplPer
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Grupo preenchido exclusivamente por empresa enquadrada nos arts. 7º a 9º da Lei 12.546/2011, conforme classificação tributária indicada no evento S-1000.
+
+Nome: indSubstPatr
+Pai: infoSubstPatr
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo de substituição da contribuição previdenciária patronal.
+Valores válidos:
+1 - Integralmente substituída
+2 - Parcialmente substituída
+
+Nome: percRedContrib
+Pai: infoSubstPatr
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-5
+Dec.: 2
+Descrição: Percentual não substituído pela contribuição prevista na Lei 12.546/2011.
+Informar 0 (zero) se {indSubstPatr}(./indSubstPatr) = [1]. Caso contrário, preencher com o percentual correspondente à razão entre a receita de atividades não relacionadas nos arts. 7º e 8º da Lei 12.546/2011 e a receita bruta total.
+Validação: Se {indSubstPatr}(./indSubstPatr) = [1], informar 0 (zero).
+
+Nome: infoSubstPatrOpPort
+Pai: evtInfoComplPer
+Elem.: G
+Tipo: -
+Ocorrência: 0-9999
+Tamanho: -
+Dec.: -
+Descrição: Grupo preenchido exclusivamente pelo Órgão Gestor de Mão de Obra - OGMO ({classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [09]), listando apenas seus códigos de lotação com operadores portuários enquadrados nos arts. 7º a 9º da Lei 12.546/2011.
+
+Nome: codLotacao
+Pai: infoSubstPatrOpPort
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-30
+Dec.: -
+Descrição: Informar o código atribuído pelo empregador para a lotação tributária.
+Validação: Deve ser um código válido e existente na Tabela de Lotações Tributárias (S-1020), com {tpLotacao}(1020_infoLotacao_inclusao_dadosLotacao_tpLotacao) = [08].
+
+Nome: infoAtivConcom
+Pai: evtInfoComplPer
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Grupo preenchido por empresa enquadrada no regime de tributação Simples Nacional com tributação previdenciária substituída e não substituída.
+
+Nome: fatorMes
+Pai: infoAtivConcom
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-5
+Dec.: 2
+Descrição: Informe o fator a ser utilizado para cálculo da contribuição patronal do mês dos trabalhadores envolvidos na execução das atividades enquadradas no Anexo IV em conjunto com as dos Anexos I a III e V da Lei Complementar 123/2006.
+
+Nome: fator13
+Pai: infoAtivConcom
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-5
+Dec.: 2
+Descrição: Informe o fator a ser utilizado para cálculo da contribuição patronal do décimo terceiro dos trabalhadores envolvidos na execução das atividades enquadradas no Anexo IV em conjunto com as dos Anexos I a III e V da Lei Complementar 123/2006.
+

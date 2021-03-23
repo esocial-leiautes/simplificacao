@@ -68,6 +68,15 @@ class Regra:
 
 
 class Resumo:
+    LINHA_TEXTO = (
+        'Nível: {nivel}\n'
+        'Nome: {nome}\n'
+        'Pai: {pai}\n'
+        'Descrição: {descricao}\n'
+        'Ocorrência: {ocorrencia}\n'
+        'Chave: {chave}\n'
+        'Condição: {condicao}\n\n')
+
     LINHA = (
         '<tr>\n'
         '<td id="r_{link_completo}">'
@@ -129,6 +138,17 @@ class Resumo:
 
 
 class Completo:
+    LINHA_TEXTO = (
+        'Nome: {nome}\n'
+        'Pai: {pai}\n'
+        'Elem.: {tipo_elemento}\n'
+        'Tipo: {tipo}\n'
+        'Ocorrência: {ocorrencia}\n'
+        'Tamanho: {tamanho}\n'
+        'Dec.: {decimais}\n'
+        'Descrição: {descricao}\n\n'
+    )
+
     LINHA = (
         '<tr{marcador_grupo}>\n'
         '<td onclick="copiarCaminho.call(this)"'

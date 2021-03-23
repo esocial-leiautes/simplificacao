@@ -32,6 +32,7 @@ class CategoriaItem(Enum):
 class Leiaute:
     """Representa o leiaute de um evento do eSocial.
     """
+
     def __init__(self, xml, tipos_globais):
         """Inicia uma nova instância da classe Leiaute.
 
@@ -99,6 +100,21 @@ class Leiaute:
 
             self.imprimir_estrutura(item_atual.filhos[-1], True, prefixo)
 
+    def gerar_texto(self):
+        """Gera a representação do Leiaute em texto simples.
+
+        Returns:
+            str: Representação do Leiaute em texto simples.
+        """
+
+        txt = f'{self.codigo} - {self.nome}\n{self.descricao}\n\n'
+
+        txt += self.raiz.gerar_texto_resumo()
+
+        txt += self.raiz.gerar_texto_completo()
+
+        return txt
+
     def gerar_html(self):
         """Gera a representação do Leiaute em HTML.
 
@@ -124,6 +140,7 @@ class Leiaute:
 class ItemLeiaute:
     """Representa um item do leiaute.
     """
+
     def __init__(self, xml, tipos_globais, leiaute, nivel=1, pai=None):
         """Inicia uma nova instância da classe ItemLeiaute.
 
@@ -728,3 +745,124 @@ class ItemLeiaute:
             return Geral.LINK.format(
                 'r_{}'.format(self.pai.caminho),
                 self.pai.nome)
+
+    def gerar_texto_resumo(self, modelo_linha=Resumo.LINHA_TEXTO):
+        """Gera a representação do item em texto simples para a visão resumida.
+
+        Args:
+            modelo_linha (str): Modelo de linha comum.
+
+        Returns:
+            str: Representação do item em texto simples.
+        """
+        texto = modelo_linha.format(
+            nivel=self.nivel,
+            nome=self.nome,
+            pai='-' if self.pai is None else self.pai.nome,
+            descricao=self.descricao[0],
+            ocorrencia=self.gerar_descricao_ocorrencia(),
+            chave=self.gerar_descricao_chaves_texto(),
+            condicao=self.gerar_descricao_condicoes_texto(),
+        )
+
+        for filho in self.filhos:
+            if filho.categoria.agrupadora():
+                texto += filho.gerar_texto_resumo()
+
+        return texto
+
+    def gerar_texto_completo(self, modelo_linha=Completo.LINHA_TEXTO):
+        """Gera a representação do item em texto simples para a visão completa.
+
+        Args:
+            modelo_linha (str): Modelo de linha comum.
+
+        Returns:
+            str: Representação do item em texto simples.
+        """
+        html = modelo_linha.format(
+            nome=self.nome,
+            pai=self.pai.nome if self.pai is not None else '-',
+            tipo_elemento=self.categoria.value,
+            tipo=self.rotulo_tipo,
+            ocorrencia=self.gerar_descricao_ocorrencia(),
+            tamanho=self.gerar_descricao_tamanho(),
+            decimais=self.decimais,
+            descricao=self.gerar_descricao_texto(),
+        )
+
+        if '\n\n' in self.gerar_descricao_texto():
+            print('aqui')
+
+        for filho in self.filhos:
+            html += filho.gerar_texto_completo(modelo_linha)
+
+        return html
+
+    def gerar_descricao_texto(self):
+        """Gera a descrição do item.
+
+        Returns:
+            str: Descrição do item.
+        """
+
+        if self.descricao_completa:
+            descricoes = self.descricao_completa
+        else:
+            descricoes = self.descricao
+
+        descricao = '\n'.join(descricoes)
+
+        if self.valores_validos:
+            descricao += '\nValores válidos:\n'
+
+            for chave in self.valores_validos:
+                if self.valores_validos[chave] == '':
+                    descricao += '{}\n'.format(chave)
+                elif self.valores_validos[chave] is not None:
+                    descricao += f'{chave} - {self.valores_validos[chave]}\n'
+                else:
+                    descricao += ' {},'.format(chave)
+
+            descricao = descricao.rstrip(',').rstrip('\n')
+
+        if self.origem:
+            descricao += '\nOrigem: '
+            descricao += '\n'.join([origem for origem in self.origem])
+
+        if self.evento_origem:
+            descricao += '\nEvento de origem: '
+            descricao += '\n'.join([origem for origem in self.evento_origem])
+
+        if self.validacao:
+            descricao += '\nValidação: '
+            descricao += '\n'.join([validacao for validacao in self.validacao])
+
+        if self.regras:
+            descricao += '\nRegras de validação:\n'
+
+            descricao += '\n'.join([regra for regra in self.regras])
+
+        return descricao
+
+    def gerar_descricao_chaves_texto(self):
+        """Gera a descrição das chaves do item.
+
+        Returns:
+            str: Descrição das chaves do item.
+        """
+        return ', '.join(self.chaves) if self.chaves else '-'
+
+    def gerar_descricao_condicoes_texto(self):
+        """Gera a descrição das condições de uso do item.
+
+        Returns:
+            str: Descrição das condições de uso do item.
+        """
+        return '\n'.join([
+            condicao if self.condicoes[condicao] is None else ' '.join(
+                (
+                    condicao,
+                    self.condicoes[condicao],
+                )) for condicao in self.condicoes
+        ])

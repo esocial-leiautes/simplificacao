@@ -15,8 +15,6 @@ from xml.etree.ElementTree import parse
 sys.dont_write_bytecode = True
 locale.setlocale(locale.LC_TIME, "pt_BR")
 
-# TODO estrutura _saida _assets
-
 versao = 'Versão S-1.0 (consolidada até NT nº 01/2021)'
 
 if 'doc' in os.getcwd():
@@ -24,9 +22,12 @@ if 'doc' in os.getcwd():
 
 caminho_xsd = os.path.join(os.getcwd(), '{}')
 caminho_doc = os.path.join(os.getcwd(), 'doc', '{}')
+caminho_ativos = os.path.join(os.getcwd(), 'doc', 'ativos', '{}')
+caminho_saida = os.path.join(os.getcwd(), 'doc', 'saida', '{}')
+caminho_texto = os.path.join(os.getcwd(), 'doc', 'txt', '{}')
 
-inicio = cinto.obter_arquivo(caminho_doc.format('inicio.html')).read()
-fim = cinto.obter_arquivo(caminho_doc.format('fim.html')).read()
+inicio = cinto.obter_arquivo(caminho_ativos.format('inicio.html')).read()
+fim = cinto.obter_arquivo(caminho_ativos.format('fim.html')).read()
 
 # REGRAS
 regras = {}
@@ -70,7 +71,7 @@ for regra in regras:
 conteudo += Geral.RODAPE_TABELA
 conteudo += fim
 
-with cinto.obter_arquivo(caminho_doc.format('regras.html'), 'w') as f:
+with cinto.obter_arquivo(caminho_saida.format('regras.html'), 'w') as f:
     f.write(conteudo)
 
 # LEIAUTES
@@ -105,6 +106,9 @@ for leiaute in leiautes:
     conteudo_indice += Resumo.LINHA_INDICE.format(
         nome=leiaute.nome, codigo=leiaute.codigo, descricao=leiaute.descricao)
 
+    with cinto.obter_arquivo(caminho_texto.format(f'{leiaute.codigo}.txt'), 'w') as f:
+        f.write(leiaute.gerar_texto())
+
 conteudo += '<h2 class="title has-text-centered is-3">Sumário</h2>\n'
 conteudo += '<ul class="sumario">\n'
 conteudo += conteudo_indice
@@ -120,7 +124,7 @@ html += ''.join([item.gerar_html() for item in leiautes])
 conteudo += html
 conteudo += fim
 
-with cinto.obter_arquivo(caminho_doc.format('index.html'), 'w') as f:
+with cinto.obter_arquivo(caminho_saida.format('index.html'), 'w') as f:
     f.write(conteudo)
 
 # TABELAS
@@ -336,7 +340,7 @@ conteudo += '</ul>\n'
 conteudo += conteudo_tabela
 conteudo += fim
 
-with cinto.obter_arquivo(caminho_doc.format('tabelas.html'), 'w') as f:
+with cinto.obter_arquivo(caminho_saida.format('tabelas.html'), 'w') as f:
     f.write(conteudo)
 
 # VERIFICAÇÃO DE LINKS

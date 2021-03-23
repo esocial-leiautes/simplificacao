@@ -1,0 +1,496 @@
+S-1260 - evtComProd
+Comercialização da Produção Rural Pessoa Física
+
+Nível: 1
+Nome: eSocial
+Pai: -
+Descrição: eSocial
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 2
+Nome: evtComProd
+Pai: eSocial
+Descrição: Evento Comercialização da Produção Rural Pessoa Física.
+Ocorrência: 1
+Chave: Id
+Condição: O
+
+Nível: 3
+Nome: ideEvento
+Pai: evtComProd
+Descrição: Informações de identificação do evento.
+Ocorrência: 1
+Chave: perApur, indGuia
+Condição: O
+
+Nível: 3
+Nome: ideEmpregador
+Pai: evtComProd
+Descrição: Informações de identificação do empregador.
+Ocorrência: 1
+Chave: tpInsc, nrInsc
+Condição: O
+
+Nível: 3
+Nome: infoComProd
+Pai: evtComProd
+Descrição: Informação da comercialização de produção.
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 4
+Nome: ideEstabel
+Pai: infoComProd
+Descrição: Identificação do estabelecimento que comercializou a produção.
+Ocorrência: 1
+Chave: nrInscEstabRural
+Condição: O
+
+Nível: 5
+Nome: tpComerc
+Pai: ideEstabel
+Descrição: Valor total da comercialização por "tipo" de comercialização.
+Ocorrência: 1-5
+Chave: indComerc
+Condição: O
+
+Nível: 6
+Nome: ideAdquir
+Pai: tpComerc
+Descrição: Identificação dos adquirentes da produção.
+Ocorrência: 0-9999
+Chave: tpInsc, nrInsc
+Condição: F (se {indComerc}(../indComerc) = [3, 7, 8])
+N (nos demais casos)
+
+Nível: 7
+Nome: nfs
+Pai: ideAdquir
+Descrição: Notas fiscais da aquisição de produção
+Ocorrência: 0-999
+Chave: serie, nrDocto
+Condição: F
+
+Nível: 6
+Nome: infoProcJud
+Pai: tpComerc
+Descrição: Informação de processos judiciais
+Ocorrência: 0-10
+Chave: tpProc, nrProc, codSusp
+Condição: OC
+
+Nome: eSocial
+Pai: -
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: eSocial
+
+Nome: evtComProd
+Pai: eSocial
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Evento Comercialização da Produção Rural Pessoa Física.
+Regras de validação:
+REGRA_ENVIO_PROC_FECHAMENTO
+REGRA_EVENTOS_EXTEMP
+REGRA_EVE_FOPAG_COMERC_PROD
+REGRA_EVE_FOPAG_IND_RETIFICACAO
+REGRA_EVE_FOPAG_INFO_COMPAT_CLASSTRIB
+REGRA_EVE_FOPAG_PERMITE_EXCLUSAO
+REGRA_EVE_FOPAG_SIMPLIFICADO
+REGRA_EXISTE_INFO_EMPREGADOR
+REGRA_MESMO_PROCEMI
+REGRA_VALIDA_EMPREGADOR
+
+Nome: Id
+Pai: evtComProd
+Elem.: A
+Tipo: C
+Ocorrência: 1
+Tamanho: 36
+Dec.: -
+Descrição: Identificação única do evento.
+Regras de validação:
+REGRA_VALIDA_ID_EVENTO
+
+Nome: ideEvento
+Pai: evtComProd
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do evento.
+
+Nome: indRetif
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Informe [1] para arquivo original ou [2] para arquivo de retificação.
+Valores válidos:
+1 - Original
+2 - Retificação
+
+Nome: nrRecibo
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 23
+Dec.: -
+Descrição: Preencher com o número do recibo do arquivo a ser retificado.
+Validação: O preenchimento é obrigatório se {indRetif}(./indRetif) = [2].
+Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo retificado.
+
+Nome: perApur
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 7
+Dec.: -
+Descrição: Informar o mês/ano (formato AAAA-MM) de referência das informações.
+Validação: Deve ser um mês/ano válido, igual ou posterior ao início da obrigatoriedade dos eventos periódicos para o empregador.
+
+Nome: indGuia
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo do tipo de guia.
+Valores válidos:
+1 - Documento de Arrecadação do eSocial - DAE
+
+Nome: tpAmb
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Identificação do ambiente.
+Valores válidos:
+1 - Produção
+2 - Produção restrita
+7 - Validação (uso interno)
+8 - Teste (uso interno)
+9 - Desenvolvimento (uso interno)
+
+Nome: procEmi
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-2
+Dec.: -
+Descrição: Processo de emissão do evento.
+Valores válidos:
+1 - Aplicativo do empregador
+2 - Aplicativo governamental - Simplificado Pessoa Física
+3 - Aplicativo governamental - Web Geral
+22 - Aplicativo governamental para dispositivos móveis - Empregador Doméstico
+
+Nome: verProc
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-20
+Dec.: -
+Descrição: Versão do processo de emissão do evento. Informar a versão do aplicativo emissor do evento.
+
+Nome: ideEmpregador
+Pai: evtComProd
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do empregador.
+
+Nome: tpInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
+Valores válidos:
+2 - CPF
+
+Nome: nrInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11
+Dec.: -
+Descrição: Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {ideEmpregador/tpInsc}(./tpInsc) e conforme informado em S-1000.
+
+Nome: infoComProd
+Pai: evtComProd
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informação da comercialização de produção.
+
+Nome: ideEstabel
+Pai: infoComProd
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Identificação do estabelecimento que comercializou a produção.
+
+Nome: nrInscEstabRural
+Pai: ideEstabel
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 14
+Dec.: -
+Descrição: Preencher com o número de inscrição no CAEPF do estabelecimento rural.
+Validação: Deve ser um número de inscrição válido e existente na Tabela de Estabelecimentos (S-1005). Se {indGuia}(1260_ideEvento_indGuia) estiver preenchido, o número de inscrição deve possuir {tpCaepf}(1005_infoEstab_inclusao_dadosEstab_infoCaepf_tpCaepf) em S-1005 = [3].
+
+Nome: tpComerc
+Pai: ideEstabel
+Elem.: G
+Tipo: -
+Ocorrência: 1-5
+Tamanho: -
+Dec.: -
+Descrição: Valor total da comercialização por "tipo" de comercialização.
+
+Nome: indComerc
+Pai: tpComerc
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo de comercialização.
+Valores válidos:
+2 - Comercialização da produção efetuada diretamente no varejo a consumidor final ou a outro produtor rural pessoa física por produtor rural pessoa física, inclusive por segurado especial, ou por pessoa física não produtor rural
+3 - Comercialização da produção por prod. rural PF/seg. especial - Vendas a PJ (exceto entidade inscrita no Programa de Aquisição de Alimentos - PAA) ou a intermediário PF
+7 - Comercialização da produção isenta de acordo com a Lei 13.606/2018
+8 - Comercialização da produção da pessoa física/segurado especial para entidade inscrita no PAA
+9 - Comercialização da produção no mercado externo
+
+Nome: vrTotCom
+Pai: tpComerc
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Preencher com o valor total da comercialização.
+Validação: Deve ser maior que 0 (zero).
+Se {indComerc}(./indComerc) for igual a [3, 7], deve corresponder à soma do campo {vrComerc}(1260_infoComProd_ideEstabel_tpComerc_ideAdquir_vrComerc) dos registros vinculados.
+
+Nome: ideAdquir
+Pai: tpComerc
+Elem.: G
+Tipo: -
+Ocorrência: 0-9999
+Tamanho: -
+Dec.: -
+Descrição: Identificação dos adquirentes da produção.
+
+Nome: tpInsc
+Pai: ideAdquir
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+Validação: Se {indComerc}(../indComerc) for igual a [3, 7], deve ser igual a [1, 2]. Se {indComerc}(../indComerc) for igual a [8], deve ser igual a [1].
+
+Nome: nrInsc
+Pai: ideAdquir
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {ideAdquir/tpInsc}(./tpInsc).
+Validação: A inscrição informada deve ser compatível com o {ideAdquir/tpInsc}(./tpInsc) e diferente da inscrição do declarante.
+
+Nome: vrComerc
+Pai: ideAdquir
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor bruto da comercialização da produção.
+Validação: Deve ser maior que 0 (zero).
+
+Nome: nfs
+Pai: ideAdquir
+Elem.: G
+Tipo: -
+Ocorrência: 0-999
+Tamanho: -
+Dec.: -
+Descrição: Detalhamento das notas fiscais relativas à comercialização de produção com o adquirente identificado no grupo superior.
+
+Nome: serie
+Pai: nfs
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-5
+Dec.: -
+Descrição: Informar o número de série da nota fiscal/fatura.
+
+Nome: nrDocto
+Pai: nfs
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-20
+Dec.: -
+Descrição: Número da nota fiscal/fatura.
+
+Nome: dtEmisNF
+Pai: nfs
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Data de emissão da nota fiscal/fatura.
+Validação: O mês/ano da emissão da nota fiscal deve ser igual ao mês/ano indicado no registro de abertura do arquivo.
+
+Nome: vlrBruto
+Pai: nfs
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Preencher com o valor bruto da(s) nota(s) fiscal(is).
+
+Nome: vrCPDescPR
+Pai: nfs
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Preencher com o valor da contribuição previdenciária descontada pelo adquirente na comercialização de produção. Se não houver informação, preencher com 0 (zero).
+
+Nome: vrRatDescPR
+Pai: nfs
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da contribuição destinada ao financiamento dos benefícios concedidos em razão do grau de incidência da incapacidade laborativa decorrente dos riscos ambientais do trabalho, incidente sobre a comercialização de produção rural de produtor rural. Se não houver informação, preencher com 0 (zero).
+
+Nome: vrSenarDesc
+Pai: nfs
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da contribuição destinada ao SENAR, incidente sobre a comercialização de produção rural de produtor rural pessoa física/segurado especial. Se não houver informação, preencher com 0 (zero).
+
+Nome: infoProcJud
+Pai: tpComerc
+Elem.: G
+Tipo: -
+Ocorrência: 0-10
+Tamanho: -
+Dec.: -
+Descrição: Informações de processos judiciais com decisão/sentença favorável ao contribuinte e relativos à contribuição incidente sobre a comercialização.
+
+Nome: tpProc
+Pai: infoProcJud
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de processo.
+Valores válidos:
+1 - Administrativo
+2 - Judicial
+
+Nome: nrProc
+Pai: infoProcJud
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 17, 20 ou 21
+Dec.: -
+Descrição: Informar um número de processo cadastrado através do evento S-1070, cujo {indMatProc}(1070_infoProcesso_inclusao_dadosProc_indMatProc) seja igual a [1].
+Validação: Deve ser um número de processo administrativo ou judicial válido e existente na Tabela de Processos (S-1070), com {indMatProc}(1070_infoProcesso_inclusao_dadosProc_indMatProc) = [1].
+
+Nome: codSusp
+Pai: infoProcJud
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: -
+Descrição: Código do indicativo da suspensão, atribuído pelo empregador em S-1070.
+Validação: A informação prestada deve estar de acordo com o que foi informado em S-1070.
+
+Nome: vrCPSusp
+Pai: infoProcJud
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da contribuição previdenciária com exigibilidade suspensa.
+Validação: Preenchimento obrigatório se {vrRatSusp}(./vrRatSusp) e {vrSenarSusp}(./vrSenarSusp) não tiverem sido preenchidos.
+Deve ser um valor maior que 0 (zero).
+
+Nome: vrRatSusp
+Pai: infoProcJud
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da contribuição para GILRAT com exigibilidade suspensa.
+Validação: Preenchimento obrigatório se {vrCPSusp}(./vrCPSusp) e {vrSenarSusp}(./vrSenarSusp) não tiverem sido preenchidos.
+Deve ser um valor maior que 0 (zero).
+
+Nome: vrSenarSusp
+Pai: infoProcJud
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da contribuição para o SENAR com exigibilidade suspensa.
+Validação: Preenchimento obrigatório se {vrCPSusp}(./vrCPSusp) e {vrRatSusp}(./vrRatSusp) não tiverem sido preenchidos.
+Deve ser um valor maior que 0 (zero).
+

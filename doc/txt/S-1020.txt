@@ -1,0 +1,936 @@
+S-1020 - evtTabLotacao
+Tabela de Lotações Tributárias
+
+Nível: 1
+Nome: eSocial
+Pai: -
+Descrição: eSocial
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 2
+Nome: evtTabLotacao
+Pai: eSocial
+Descrição: Evento Tabela de Lotações Tributárias.
+Ocorrência: 1
+Chave: Id
+Condição: O
+
+Nível: 3
+Nome: ideEvento
+Pai: evtTabLotacao
+Descrição: Informações de identificação do evento.
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 3
+Nome: ideEmpregador
+Pai: evtTabLotacao
+Descrição: Informações de identificação do empregador.
+Ocorrência: 1
+Chave: tpInsc, nrInsc
+Condição: O
+
+Nível: 3
+Nome: infoLotacao
+Pai: evtTabLotacao
+Descrição: Informações da lotação
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 4
+Nome: inclusao
+Pai: infoLotacao
+Descrição: Inclusão de novas informações.
+Ocorrência: 0-1
+Chave: -
+Condição: OC
+
+Nível: 5
+Nome: ideLotacao
+Pai: inclusao
+Descrição: Identificação da lotação e validade das informações
+Ocorrência: 1
+Chave: codLotacao, iniValid, fimValid
+Condição: O
+
+Nível: 5
+Nome: dadosLotacao
+Pai: inclusao
+Descrição: Detalhamento das informações da lotação.
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 6
+Nome: fpasLotacao
+Pai: dadosLotacao
+Descrição: Informações de FPAS e Terceiros relativos à lotação tributária.
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 7
+Nome: infoProcJudTerceiros
+Pai: fpasLotacao
+Descrição: Informações de processos judiciais relativos às contribuições destinadas a Outras Entidades
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {codTercsSusp}(1020_infoLotacao_inclusao_dadosLotacao_fpasLotacao_codTercsSusp) for preenchido)
+N (nos demais casos)
+
+Nível: 8
+Nome: procJudTerceiro
+Pai: infoProcJudTerceiros
+Descrição: Identificação do processo judicial.
+Ocorrência: 1-99
+Chave: codTerc, nrProcJud
+Condição: O
+
+Nível: 6
+Nome: infoEmprParcial
+Pai: dadosLotacao
+Descrição: Informação complementar de obra de construção civil
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {tpLotacao}(1020_infoLotacao_inclusao_dadosLotacao_tpLotacao) = [02])
+N (nos demais casos)
+
+Nível: 6
+Nome: dadosOpPort
+Pai: dadosLotacao
+Descrição: Informações do operador portuário.
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {tpLotacao}(1020_infoLotacao_inclusao_dadosLotacao_tpLotacao) = [08])
+N (nos demais casos)
+
+Nível: 4
+Nome: alteracao
+Pai: infoLotacao
+Descrição: Alteração das informações.
+Ocorrência: 0-1
+Chave: -
+Condição: OC
+
+Nível: 5
+Nome: ideLotacao
+Pai: alteracao
+Descrição: Identificação da lotação e validade das informações
+Ocorrência: 1
+Chave: codLotacao, iniValid, fimValid
+Condição: O
+
+Nível: 5
+Nome: dadosLotacao
+Pai: alteracao
+Descrição: Detalhamento das informações da lotação.
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 6
+Nome: fpasLotacao
+Pai: dadosLotacao
+Descrição: Informações de FPAS e Terceiros relativos à lotação tributária.
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 7
+Nome: infoProcJudTerceiros
+Pai: fpasLotacao
+Descrição: Informações de processos judiciais relativos às contribuições destinadas a Outras Entidades
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {codTercsSusp}(1020_infoLotacao_inclusao_dadosLotacao_fpasLotacao_codTercsSusp) for preenchido)
+N (nos demais casos)
+
+Nível: 8
+Nome: procJudTerceiro
+Pai: infoProcJudTerceiros
+Descrição: Identificação do processo judicial.
+Ocorrência: 1-99
+Chave: codTerc, nrProcJud
+Condição: O
+
+Nível: 6
+Nome: infoEmprParcial
+Pai: dadosLotacao
+Descrição: Informação complementar de obra de construção civil
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {tpLotacao}(1020_infoLotacao_inclusao_dadosLotacao_tpLotacao) = [02])
+N (nos demais casos)
+
+Nível: 6
+Nome: dadosOpPort
+Pai: dadosLotacao
+Descrição: Informações do operador portuário.
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {tpLotacao}(1020_infoLotacao_inclusao_dadosLotacao_tpLotacao) = [08])
+N (nos demais casos)
+
+Nível: 5
+Nome: novaValidade
+Pai: alteracao
+Descrição: Novo período de validade das informações.
+Ocorrência: 0-1
+Chave: -
+Condição: OC
+
+Nível: 4
+Nome: exclusao
+Pai: infoLotacao
+Descrição: Exclusão das informações.
+Ocorrência: 0-1
+Chave: -
+Condição: OC
+
+Nível: 5
+Nome: ideLotacao
+Pai: exclusao
+Descrição: Identificação da lotação e validade das informações
+Ocorrência: 1
+Chave: codLotacao, iniValid, fimValid
+Condição: O
+
+Nome: eSocial
+Pai: -
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: eSocial
+
+Nome: evtTabLotacao
+Pai: eSocial
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Evento Tabela de Lotações Tributárias.
+Regras de validação:
+REGRA_ENVIO_PROC_FECHAMENTO
+REGRA_EXISTE_INFO_EMPREGADOR
+REGRA_TABGERAL_ALTERACAO_PERIODO_CONFLITANTE
+REGRA_TABGERAL_EXISTE_REGISTRO_ALTERADO
+REGRA_TABGERAL_EXISTE_REGISTRO_EXCLUIDO
+REGRA_TABGERAL_INCLUSAO_PERIODO_CONFLITANTE
+REGRA_TABLOTACAO_VALIDA_FPASTERCEIROS
+REGRA_TAB_PERMITE_EXCLUSAO
+REGRA_VALIDA_DT_FUTURA
+
+Nome: Id
+Pai: evtTabLotacao
+Elem.: A
+Tipo: C
+Ocorrência: 1
+Tamanho: 36
+Dec.: -
+Descrição: Identificação única do evento.
+Regras de validação:
+REGRA_VALIDA_ID_EVENTO
+
+Nome: ideEvento
+Pai: evtTabLotacao
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do evento.
+
+Nome: tpAmb
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Identificação do ambiente.
+Valores válidos:
+1 - Produção
+2 - Produção restrita
+7 - Validação (uso interno)
+8 - Teste (uso interno)
+9 - Desenvolvimento (uso interno)
+
+Nome: procEmi
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-2
+Dec.: -
+Descrição: Processo de emissão do evento.
+Valores válidos:
+1 - Aplicativo do empregador
+2 - Aplicativo governamental - Simplificado Pessoa Física
+3 - Aplicativo governamental - Web Geral
+4 - Aplicativo governamental - Simplificado Pessoa Jurídica
+22 - Aplicativo governamental para dispositivos móveis - Empregador Doméstico
+
+Nome: verProc
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-20
+Dec.: -
+Descrição: Versão do processo de emissão do evento. Informar a versão do aplicativo emissor do evento.
+
+Nome: ideEmpregador
+Pai: evtTabLotacao
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do empregador.
+
+Nome: tpInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+
+Nome: nrInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 8, 11 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {ideEmpregador/tpInsc}(./tpInsc) e conforme informado em S-1000.
+
+Nome: infoLotacao
+Pai: evtTabLotacao
+Elem.: CG
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Identificação da operação (inclusão, alteração ou exclusão) e das informações da lotação.
+
+Nome: inclusao
+Pai: infoLotacao
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Inclusão de novas informações.
+
+Nome: ideLotacao
+Pai: inclusao
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Identificação da lotação e período de validade das informações.
+
+Nome: codLotacao
+Pai: ideLotacao
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-30
+Dec.: -
+Descrição: Informar o código atribuído pelo empregador para a lotação tributária.
+Validação: O código atribuído não pode conter a expressão 'eSocial' nas 7 primeiras posições.
+Regras de validação:
+REGRA_CARACTERE_ESPECIAL
+
+Nome: iniValid
+Pai: ideLotacao
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 7
+Dec.: -
+Descrição: Preencher com o mês e ano de início da validade das informações prestadas no evento, no formato AAAA-MM.
+Validação: Deve ser uma data válida, igual ou posterior à data de início de obrigatoriedade deste evento para o empregador no eSocial, no formato AAAA-MM.
+
+Nome: fimValid
+Pai: ideLotacao
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 7
+Dec.: -
+Descrição: Preencher com o mês e ano de término da validade das informações, se houver.
+Validação: Se informado, deve estar no formato AAAA-MM e ser um período igual ou posterior a {iniValid}(./iniValid).
+
+Nome: dadosLotacao
+Pai: inclusao
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Detalhamento das informações da lotação.
+
+Nome: tpLotacao
+Pai: dadosLotacao
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 2
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de lotação.
+Validação: Deve ser um código válido e existente na Tabela 10, bem como compatível com a classificação tributária indicada no evento S-1000, conforme Tabela 12.
+
+Nome: tpInsc
+Pai: dadosLotacao
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+4 - CNO
+Validação: O campo não deve ser preenchido se {tpLotacao}(./tpLotacao) for igual a [01, 10, 21, 24, 90, 91]. Nos demais casos, observar conteúdo exigido para o campo {dadosLotacao/nrInsc}(./nrInsc), conforme Tabela 10.
+
+Nome: nrInsc
+Pai: dadosLotacao
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 11, 12 ou 14
+Dec.: -
+Descrição: Preencher com o número de inscrição (CNPJ, CPF, CNO) ao qual pertence a lotação tributária.
+Validação: a) Deve ser preenchido de acordo com o conteúdo exigido, conforme especificado no campo {dadosLotacao/tpInsc}(./tpInsc) e na Tabela 10;
+b) Deve ser um identificador válido, constante das bases da RFB.
+
+Nome: fpasLotacao
+Pai: dadosLotacao
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de FPAS e Terceiros relativos à lotação tributária.
+
+Nome: fpas
+Pai: fpasLotacao
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 3
+Dec.: -
+Descrição: Preencher com o código relativo ao FPAS.
+Validação: Deve ser um código FPAS válido, conforme Tabela 04.
+
+Nome: codTercs
+Pai: fpasLotacao
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 4
+Dec.: -
+Descrição: Preencher com o código de Terceiros, já considerando a existência de eventuais convênios para recolhimento direto. Ex.: Se o contribuinte está enquadrado com FPAS [507], cujo código cheio de Terceiros é [0079], se possuir convênio com SENAI deve informar o código [0075].
+Validação: Se a classificação tributária em S-1000 for igual a [01, 02, 03, 04], informar [0000]. Nos demais casos, o código de Terceiros informado deve ser compatível com o código de FPAS informado, conforme Tabela 04.
+
+Nome: codTercsSusp
+Pai: fpasLotacao
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 4
+Dec.: -
+Descrição: Informar o código combinado dos Terceiros para os quais o recolhimento está suspenso em virtude de processos judiciais. Ex.: Se o contribuinte possui decisões de processos para suspensão de recolhimentos ao SESI (0008) e ao SEBRAE (0064), deve informar o código combinado das duas entidades, ou seja, [0072].
+Validação: Deve ser um código consistente com a Tabela 04.
+Deve haver um processo em {procJudTerceiro}(1020_infoLotacao_inclusao_dadosLotacao_fpasLotacao_infoProcJudTerceiros_procJudTerceiro) para cada código de Terceiro cujo recolhimento esteja suspenso.
+
+Nome: infoProcJudTerceiros
+Pai: fpasLotacao
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações sobre a existência de processos judiciais, com sentença/decisão favorável ao contribuinte, relativos às contribuições destinadas a Outras Entidades e Fundos.
+
+Nome: procJudTerceiro
+Pai: infoProcJudTerceiros
+Elem.: G
+Tipo: -
+Ocorrência: 1-99
+Tamanho: -
+Dec.: -
+Descrição: Identificação do processo judicial.
+
+Nome: codTerc
+Pai: procJudTerceiro
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 4
+Dec.: -
+Descrição: Informar o código de Terceiro.
+Validação: Deve ser um código de Terceiro válido e compatível com o FPAS/Terceiros informado no grupo superior, conforme Tabela 04.
+
+Nome: nrProcJud
+Pai: procJudTerceiro
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 20
+Dec.: -
+Descrição: Informar um número de processo judicial cadastrado através do evento S-1070, cujo {indMatProc}(1070_infoProcesso_inclusao_dadosProc_indMatProc) seja igual a [1].
+Validação: Deve ser um número de processo judicial válido e existente na Tabela de Processos (S-1070), com {indMatProc}(1070_infoProcesso_inclusao_dadosProc_indMatProc) = [1].
+
+Nome: codSusp
+Pai: procJudTerceiro
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: -
+Descrição: Código do indicativo da suspensão, atribuído pelo empregador em S-1070.
+Validação: A informação prestada deve estar de acordo com o que foi informado em S-1070.
+
+Nome: infoEmprParcial
+Pai: dadosLotacao
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informação complementar que apresenta identificação do contratante de obra de construção civil sob regime de empreitada parcial ou subempreitada.
+
+Nome: tpInscContrat
+Pai: infoEmprParcial
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Tipo de inscrição do contratante.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+
+Nome: nrInscContrat
+Pai: infoEmprParcial
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11 ou 14
+Dec.: -
+Descrição: Número de inscrição (CNPJ/CPF) do contratante.
+Validação: Deve ser um número de CNPJ ou CPF válido, conforme definido em {tpInscContrat}(./tpInscContrat).
+
+Nome: tpInscProp
+Pai: infoEmprParcial
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Tipo de inscrição do proprietário do CNO.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+
+Nome: nrInscProp
+Pai: infoEmprParcial
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 11 ou 14
+Dec.: -
+Descrição: Preencher com o número de inscrição (CNPJ/CPF) do proprietário do CNO.
+Validação: Preenchimento obrigatório e exclusivo se {tpInscProp}(./tpInscProp) for informado. Deve ser um número de CNPJ ou CPF válido, conforme indicado em {tpInscProp}(./tpInscProp), e constar como responsável no cadastro do CNO.
+
+Nome: dadosOpPort
+Pai: dadosLotacao
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações do operador portuário.
+
+Nome: aliqRat
+Pai: dadosOpPort
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com a alíquota definida na legislação vigente para a atividade (CNAE) preponderante.
+Valores válidos:
+ 1, 2, 3
+
+Nome: fap
+Pai: dadosOpPort
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-5
+Dec.: 4
+Descrição: Fator Acidentário de Prevenção - FAP.
+Validação: Deve ser um número maior ou igual a 0,5000 e menor ou igual a 2,0000, de acordo com o estabelecido pelo órgão governamental competente.
+
+Nome: alteracao
+Pai: infoLotacao
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Alteração das informações.
+
+Nome: ideLotacao
+Pai: alteracao
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Identificação da lotação e período de validade das informações.
+
+Nome: codLotacao
+Pai: ideLotacao
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-30
+Dec.: -
+Descrição: Informar o código atribuído pelo empregador para a lotação tributária.
+Validação: O código atribuído não pode conter a expressão 'eSocial' nas 7 primeiras posições.
+Regras de validação:
+REGRA_CARACTERE_ESPECIAL
+
+Nome: iniValid
+Pai: ideLotacao
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 7
+Dec.: -
+Descrição: Preencher com o mês e ano de início da validade das informações prestadas no evento, no formato AAAA-MM.
+Validação: Deve ser uma data válida, igual ou posterior à data de início de obrigatoriedade deste evento para o empregador no eSocial, no formato AAAA-MM.
+
+Nome: fimValid
+Pai: ideLotacao
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 7
+Dec.: -
+Descrição: Preencher com o mês e ano de término da validade das informações, se houver.
+Validação: Se informado, deve estar no formato AAAA-MM e ser um período igual ou posterior a {iniValid}(./iniValid).
+
+Nome: dadosLotacao
+Pai: alteracao
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Detalhamento das informações da lotação.
+
+Nome: tpLotacao
+Pai: dadosLotacao
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 2
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de lotação.
+Validação: Deve ser um código válido e existente na Tabela 10, bem como compatível com a classificação tributária indicada no evento S-1000, conforme Tabela 12.
+
+Nome: tpInsc
+Pai: dadosLotacao
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+4 - CNO
+Validação: O campo não deve ser preenchido se {tpLotacao}(./tpLotacao) for igual a [01, 10, 21, 24, 90, 91]. Nos demais casos, observar conteúdo exigido para o campo {dadosLotacao/nrInsc}(./nrInsc), conforme Tabela 10.
+
+Nome: nrInsc
+Pai: dadosLotacao
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 11, 12 ou 14
+Dec.: -
+Descrição: Preencher com o número de inscrição (CNPJ, CPF, CNO) ao qual pertence a lotação tributária.
+Validação: a) Deve ser preenchido de acordo com o conteúdo exigido, conforme especificado no campo {dadosLotacao/tpInsc}(./tpInsc) e na Tabela 10;
+b) Deve ser um identificador válido, constante das bases da RFB.
+
+Nome: fpasLotacao
+Pai: dadosLotacao
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de FPAS e Terceiros relativos à lotação tributária.
+
+Nome: fpas
+Pai: fpasLotacao
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 3
+Dec.: -
+Descrição: Preencher com o código relativo ao FPAS.
+Validação: Deve ser um código FPAS válido, conforme Tabela 04.
+
+Nome: codTercs
+Pai: fpasLotacao
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 4
+Dec.: -
+Descrição: Preencher com o código de Terceiros, já considerando a existência de eventuais convênios para recolhimento direto. Ex.: Se o contribuinte está enquadrado com FPAS [507], cujo código cheio de Terceiros é [0079], se possuir convênio com SENAI deve informar o código [0075].
+Validação: Se a classificação tributária em S-1000 for igual a [01, 02, 03, 04], informar [0000]. Nos demais casos, o código de Terceiros informado deve ser compatível com o código de FPAS informado, conforme Tabela 04.
+
+Nome: codTercsSusp
+Pai: fpasLotacao
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 4
+Dec.: -
+Descrição: Informar o código combinado dos Terceiros para os quais o recolhimento está suspenso em virtude de processos judiciais. Ex.: Se o contribuinte possui decisões de processos para suspensão de recolhimentos ao SESI (0008) e ao SEBRAE (0064), deve informar o código combinado das duas entidades, ou seja, [0072].
+Validação: Deve ser um código consistente com a Tabela 04.
+Deve haver um processo em {procJudTerceiro}(1020_infoLotacao_inclusao_dadosLotacao_fpasLotacao_infoProcJudTerceiros_procJudTerceiro) para cada código de Terceiro cujo recolhimento esteja suspenso.
+
+Nome: infoProcJudTerceiros
+Pai: fpasLotacao
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações sobre a existência de processos judiciais, com sentença/decisão favorável ao contribuinte, relativos às contribuições destinadas a Outras Entidades e Fundos.
+
+Nome: procJudTerceiro
+Pai: infoProcJudTerceiros
+Elem.: G
+Tipo: -
+Ocorrência: 1-99
+Tamanho: -
+Dec.: -
+Descrição: Identificação do processo judicial.
+
+Nome: codTerc
+Pai: procJudTerceiro
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 4
+Dec.: -
+Descrição: Informar o código de Terceiro.
+Validação: Deve ser um código de Terceiro válido e compatível com o FPAS/Terceiros informado no grupo superior, conforme Tabela 04.
+
+Nome: nrProcJud
+Pai: procJudTerceiro
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 20
+Dec.: -
+Descrição: Informar um número de processo judicial cadastrado através do evento S-1070, cujo {indMatProc}(1070_infoProcesso_inclusao_dadosProc_indMatProc) seja igual a [1].
+Validação: Deve ser um número de processo judicial válido e existente na Tabela de Processos (S-1070), com {indMatProc}(1070_infoProcesso_inclusao_dadosProc_indMatProc) = [1].
+
+Nome: codSusp
+Pai: procJudTerceiro
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: -
+Descrição: Código do indicativo da suspensão, atribuído pelo empregador em S-1070.
+Validação: A informação prestada deve estar de acordo com o que foi informado em S-1070.
+
+Nome: infoEmprParcial
+Pai: dadosLotacao
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informação complementar que apresenta identificação do contratante de obra de construção civil sob regime de empreitada parcial ou subempreitada.
+
+Nome: tpInscContrat
+Pai: infoEmprParcial
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Tipo de inscrição do contratante.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+
+Nome: nrInscContrat
+Pai: infoEmprParcial
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11 ou 14
+Dec.: -
+Descrição: Número de inscrição (CNPJ/CPF) do contratante.
+Validação: Deve ser um número de CNPJ ou CPF válido, conforme definido em {tpInscContrat}(./tpInscContrat).
+
+Nome: tpInscProp
+Pai: infoEmprParcial
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Tipo de inscrição do proprietário do CNO.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+
+Nome: nrInscProp
+Pai: infoEmprParcial
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 11 ou 14
+Dec.: -
+Descrição: Preencher com o número de inscrição (CNPJ/CPF) do proprietário do CNO.
+Validação: Preenchimento obrigatório e exclusivo se {tpInscProp}(./tpInscProp) for informado. Deve ser um número de CNPJ ou CPF válido, conforme indicado em {tpInscProp}(./tpInscProp), e constar como responsável no cadastro do CNO.
+
+Nome: dadosOpPort
+Pai: dadosLotacao
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações do operador portuário.
+
+Nome: aliqRat
+Pai: dadosOpPort
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com a alíquota definida na legislação vigente para a atividade (CNAE) preponderante.
+Valores válidos:
+ 1, 2, 3
+
+Nome: fap
+Pai: dadosOpPort
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-5
+Dec.: 4
+Descrição: Fator Acidentário de Prevenção - FAP.
+Validação: Deve ser um número maior ou igual a 0,5000 e menor ou igual a 2,0000, de acordo com o estabelecido pelo órgão governamental competente.
+
+Nome: novaValidade
+Pai: alteracao
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informação preenchida exclusivamente em caso de alteração do período de validade das informações, apresentando o novo período de validade.
+
+Nome: iniValid
+Pai: novaValidade
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 7
+Dec.: -
+Descrição: Preencher com o mês e ano de início da validade das informações prestadas no evento, no formato AAAA-MM.
+Validação: Deve ser uma data válida, igual ou posterior à data de início de obrigatoriedade deste evento para o empregador no eSocial, no formato AAAA-MM.
+
+Nome: fimValid
+Pai: novaValidade
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 7
+Dec.: -
+Descrição: Preencher com o mês e ano de término da validade das informações, se houver.
+Validação: Se informado, deve estar no formato AAAA-MM e ser um período igual ou posterior a {iniValid}(./iniValid).
+
+Nome: exclusao
+Pai: infoLotacao
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Exclusão das informações.
+
+Nome: ideLotacao
+Pai: exclusao
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Identificação da lotação e período de validade das informações.
+
+Nome: codLotacao
+Pai: ideLotacao
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-30
+Dec.: -
+Descrição: Informar o código atribuído pelo empregador para a lotação tributária.
+Validação: O código atribuído não pode conter a expressão 'eSocial' nas 7 primeiras posições.
+Regras de validação:
+REGRA_CARACTERE_ESPECIAL
+
+Nome: iniValid
+Pai: ideLotacao
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 7
+Dec.: -
+Descrição: Preencher com o mês e ano de início da validade das informações prestadas no evento, no formato AAAA-MM.
+Validação: Deve ser uma data válida, igual ou posterior à data de início de obrigatoriedade deste evento para o empregador no eSocial, no formato AAAA-MM.
+
+Nome: fimValid
+Pai: ideLotacao
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 7
+Dec.: -
+Descrição: Preencher com o mês e ano de término da validade das informações, se houver.
+Validação: Se informado, deve estar no formato AAAA-MM e ser um período igual ou posterior a {iniValid}(./iniValid).
+
