@@ -87,10 +87,9 @@ Nível: 5
 Nome: infoEstab
 Pai: ideEstab
 Descrição: Informações do estabelecimento
-Ocorrência: 0-1
+Ocorrência: 1
 Chave: -
-Condição: O (se {ideEmpregador/tpInsc}(5011_ideEmpregador_tpInsc) = [1])
-N (nos demais casos)
+Condição: O
 
 Nível: 6
 Nome: infoComplObra
@@ -499,7 +498,7 @@ Nome: infoEstab
 Pai: ideEstab
 Elem.: G
 Tipo: -
-Ocorrência: 0-1
+Ocorrência: 1
 Tamanho: -
 Dec.: -
 Descrição: Informações relativas a cada estabelecimento, necessárias à apuração das contribuições sociais.
@@ -530,21 +529,21 @@ Nome: fap
 Pai: infoEstab
 Elem.: E
 Tipo: N
-Ocorrência: 1
+Ocorrência: 0-1
 Tamanho: 1-5
 Dec.: 4
 Descrição: Fator Acidentário de Prevenção - FAP.
-Validação: Deve corresponder ao FAP declarado no evento S-1005. Caso não haja informação, retornar o FAP estabelecido para a empresa pelo órgão governamental competente.
+Validação: Informação obrigatória e exclusiva se {ideEmpregador/tpInsc}(5011_ideEmpregador_tpInsc) = [1]. Deve corresponder ao FAP declarado no evento S-1005. Caso não haja informação, retornar o FAP estabelecido para a empresa pelo órgão governamental competente.
 
 Nome: aliqRatAjust
 Pai: infoEstab
 Elem.: E
 Tipo: N
-Ocorrência: 1
+Ocorrência: 0-1
 Tamanho: 1-5
 Dec.: 4
 Descrição: Alíquota do RAT após ajuste pelo FAP.
-Validação: Deve corresponder ao resultado da multiplicação dos campos {infoEstab/aliqRat}(./aliqRat) e {infoEstab/fap}(./fap).
+Validação: Informação obrigatória e exclusiva se {ideEmpregador/tpInsc}(5011_ideEmpregador_tpInsc) = [1]. Deve corresponder ao resultado da multiplicação dos campos {infoEstab/aliqRat}(./aliqRat) e {infoEstab/fap}(./fap).
 
 Nome: infoComplObra
 Pai: infoEstab

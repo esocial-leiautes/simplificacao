@@ -166,11 +166,11 @@
                                                             <xs:documentation>Evento de origem: S-1260, S-1270 ou S-5001.</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
-                                                    <xs:element name="infoEstab" minOccurs="0">
+                                                    <xs:element name="infoEstab">
                                                         <xs:annotation>
                                                             <xs:documentation>Informações do estabelecimento</xs:documentation>
                                                             <xs:documentation>DESCRICAO_COMPLETA:Informações relativas a cada estabelecimento, necessárias à apuração das contribuições sociais.</xs:documentation>
-                                                            <xs:documentation>CONDICAO_GRUPO: O (se {ideEmpregador/tpInsc}(5011_ideEmpregador_tpInsc) = [1]); N (nos demais casos)</xs:documentation>
+                                                            <xs:documentation>CONDICAO_GRUPO: O</xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
                                                             <xs:sequence>
@@ -186,17 +186,17 @@
                                                                         <xs:documentation>Validação: Deve corresponder à alíquota declarada no evento S-1005. Caso não haja informação, retornar a alíquota definida na legislação vigente para o código CNAE informado.</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
-                                                                <xs:element name="fap" type="TS_fap">
+                                                                <xs:element name="fap" type="TS_fap" minOccurs="0">
                                                                     <xs:annotation>
                                                                         <xs:documentation>Fator Acidentário de Prevenção - FAP.</xs:documentation>
-                                                                        <xs:documentation>Validação: Deve corresponder ao FAP declarado no evento S-1005. Caso não haja informação, retornar o FAP estabelecido para a empresa pelo órgão governamental competente.</xs:documentation>
+                                                                        <xs:documentation>Validação: Informação obrigatória e exclusiva se {ideEmpregador/tpInsc}(5011_ideEmpregador_tpInsc) = [1]. Deve corresponder ao FAP declarado no evento S-1005. Caso não haja informação, retornar o FAP estabelecido para a empresa pelo órgão governamental competente.</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
-                                                                <xs:element name="aliqRatAjust">
+                                                                <xs:element name="aliqRatAjust" minOccurs="0">
                                                                     <xs:simpleType>
                                                                         <xs:annotation>
                                                                             <xs:documentation>Alíquota do RAT após ajuste pelo FAP.</xs:documentation>
-                                                                            <xs:documentation>Validação: Deve corresponder ao resultado da multiplicação dos campos {infoEstab/aliqRat}(./aliqRat) e {infoEstab/fap}(./fap).</xs:documentation>
+                                                                            <xs:documentation>Validação: Informação obrigatória e exclusiva se {ideEmpregador/tpInsc}(5011_ideEmpregador_tpInsc) = [1]. Deve corresponder ao resultado da multiplicação dos campos {infoEstab/aliqRat}(./aliqRat) e {infoEstab/fap}(./fap).</xs:documentation>
                                                                         </xs:annotation>
                                                                         <xs:restriction base="xs:decimal">
                                                                             <xs:totalDigits value="5" />
