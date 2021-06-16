@@ -1457,7 +1457,10 @@ b3) Todos os benefícios com início igual ou anterior ao período de apuração
 - se o período de apuração for menor que o mês/ano do campo {dtPublic} do S-2410, caso seja informado; ou<br />
 - se, para benefício com {indSitBenef} = [2, 3], o período de apuração for menor que o mês/ano informado no campo {dtTransf} ou {dtAltCPF}, respectivamente, do S-2410.<br />
 Em caso de benefício ativo no período de apuração sem o correspondente evento S-1207 (inclusive se o período de apuração for posterior à cessação do benefício e anterior a sua reativação, caso existente), retornar "alerta". Retornar "alerta" específico no caso de benefício ativo suspenso (S-2416 com o campo {indSuspensao} = [S]) em todo o período de apuração e sem o correspondente evento S-1207.<br />
-c) Existindo um ou mais trabalhadores "TSVE" ativos (S-2190 ou S-2300) no período de apuração mensal da folha de pagamento ({indApuracao} = [1]) e para os quais não tenha sido enviado o respectivo evento de remuneração, o evento de fechamento é aceito como válido, no entanto, são gerados "alertas" contendo o CPF, código de categoria e matrícula dos trabalhadores para os quais não foi prestada a informação de remuneração.</p>
+c) Existindo um ou mais trabalhadores "TSVE" ativos (S-2190 ou S-2300) no período de apuração mensal da folha de pagamento ({indApuracao} = [1]) e para os quais não tenha sido enviado o respectivo evento de remuneração, o evento de fechamento é aceito como válido, no entanto, são gerados "alertas" contendo o CPF, código de categoria e matrícula dos trabalhadores para os quais não foi prestada a informação de remuneração.<br />
+OBS.: No caso de empregador Pessoa Física, a verificação dos trabalhadores ativos no RET (alíneas "b1" e "c") deve considerar o campo {indGuia} do evento S-1299, da seguinte maneira:<br />
+- Se o campo estiver preenchido, devem ser buscados os empregados domésticos ({codCateg} = [104]) de empregador com {classTrib} em S-1000 = [21] ou todos os trabalhadores de empregador com {classTrib} em S-1000 = [22];<br />
+- Se o campo não estiver preenchido, devem ser buscados todos os trabalhadores de empregador com {classTrib} em S-1000 = [21], exceto os empregados domésticos.</p>
 </div>
 </div>
 </div>
