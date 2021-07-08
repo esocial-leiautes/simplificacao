@@ -825,7 +825,7 @@ Descrição: Tempo de residência do trabalhador imigrante.
 Valores válidos:
 1 - Prazo indeterminado
 2 - Prazo determinado
-Validação: Preenchimento obrigatório se ({dtAdm}(2200_vinculo_infoRegimeTrab_infoCeletista_dtAdm) ou {dtExercicio}(2200_vinculo_infoRegimeTrab_infoEstatutario_dtExercicio)) >= [2021-05-10].
+Validação: Preenchimento obrigatório se ({dtAdm}(2200_vinculo_infoRegimeTrab_infoCeletista_dtAdm) ou {dtExercicio}(2200_vinculo_infoRegimeTrab_infoEstatutario_dtExercicio)) >= [2021-07-19].
 
 Nome: condIng
 Pai: trabImig
@@ -939,7 +939,8 @@ Descrição: Informar se o trabalhador preenche cota de pessoas com deficiência
 Valores válidos:
 S - Sim
 N - Não
-Validação: Preenchimento obrigatório e exclusivo se {tpRegTrab}(2200_vinculo_tpRegTrab) = [1].
+Validação: Preenchimento obrigatório e exclusivo se {tpRegTrab}(2200_vinculo_tpRegTrab) = [1]. Somente pode ser informado [S] se pelo menos um dos campos a seguir estiver preenchido com [S]: {defFisica}(./defFisica), {defVisual}(./defVisual), {defAuditiva}(./defAuditiva), {defMental}(./defMental), {defIntelectual}(./defIntelectual) e {reabReadap}(./reabReadap).
+Esta validação não deve ser realizada quando se tratar de evento enviado em versão do leiaute anterior a S-1.0.
 
 Nome: observacao
 Pai: infoDeficiencia
@@ -1691,7 +1692,7 @@ Tipo: -
 Ocorrência: 0-1
 Tamanho: -
 Dec.: -
-Descrição: Estabelecimento (CNPJ, CNO, CAEPF) onde o trabalhador (exceto doméstico e temporário) exercerá suas atividades. Caso o trabalhador exerça suas atividades em instalações de terceiros, este campo deve ser preenchido com o estabelecimento do próprio empregador ao qual o trabalhador esteja vinculado.
+Descrição: Estabelecimento (CNPJ, CNO, CAEPF) onde o trabalhador (exceto doméstico) exercerá suas atividades. Caso o trabalhador exerça suas atividades em instalações de terceiros, este campo deve ser preenchido com o estabelecimento do próprio empregador ao qual o trabalhador esteja vinculado.
 
 Nome: tpInsc
 Pai: localTrabGeral
@@ -2171,5 +2172,5 @@ Descrição: Data de início da cessão/exercício em outro órgão.
 Validação: Devem ser observadas as seguintes regras:
 a) Deve ser igual ou posterior à data de admissão/exercício do trabalhador;
 b) Se {cadIni}(2200_vinculo_cadIni) = [S], deve ser anterior à data de início da obrigatoriedade dos eventos não periódicos para o ente público e a natureza jurídica do declarante deve ser Administração Pública (grupo [1]);
-c) Se {cadIni}(2200_vinculo_cadIni) = [N], deve ser anterior à data da transferência ou alteração do CPF do empregado ({sucessaoVinc/dtTransf}(2200_vinculo_sucessaoVinc_dtTransf) ou {dtAltCPF}(2200_vinculo_mudancaCPF_dtAltCPF)) e igual ou posterior a [2021-05-10]. Não informar se {tpAdmissao}(2200_vinculo_infoRegimeTrab_infoCeletista_tpAdmissao) = [1] ou se {tpProv}(2200_vinculo_infoRegimeTrab_infoEstatutario_tpProv) for diferente de [5, 8, 10].
+c) Se {cadIni}(2200_vinculo_cadIni) = [N], deve ser anterior à data da transferência ou alteração do CPF do empregado ({sucessaoVinc/dtTransf}(2200_vinculo_sucessaoVinc_dtTransf) ou {dtAltCPF}(2200_vinculo_mudancaCPF_dtAltCPF)) e igual ou posterior a [2021-07-19]. Não informar se {tpAdmissao}(2200_vinculo_infoRegimeTrab_infoCeletista_tpAdmissao) = [1] ou se {tpProv}(2200_vinculo_infoRegimeTrab_infoEstatutario_tpProv) for diferente de [5, 8, 10].
 

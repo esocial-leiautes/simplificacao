@@ -208,7 +208,7 @@ Pai: dmDev
 Descrição: Informações complementares contratuais do trabalhador
 Ocorrência: 0-1
 Chave: -
-Condição: O ((se {codCateg}(1200_dmDev_codCateg) = [2XX, 304, 305, 4XX, 7XX, 902]) E (se para o trabalhador não houver evento S-2300 ativo) E (se não for informado {remunPerApur/matricula}(1200_dmDev_infoPerApur_ideEstabLot_remunPerApur_matricula) ou {remunPerAnt/matricula}(1200_dmDev_infoPerAnt_ideADC_idePeriodo_ideEstabLot_remunPerAnt_matricula)))
+Condição: O ((se {codCateg}(1200_dmDev_codCateg) = [2XX, 304, 305, 4XX, 5XX, 7XX, 902]) E (se para o trabalhador não houver evento S-2300 ativo) E (se não for informado {remunPerApur/matricula}(1200_dmDev_infoPerApur_ideEstabLot_remunPerApur_matricula) ou {remunPerAnt/matricula}(1200_dmDev_infoPerAnt_ideADC_idePeriodo_ideEstabLot_remunPerAnt_matricula)))
 OC ((se {codCateg}(1200_dmDev_codCateg) = [901, 903, 904]) E (se para o trabalhador não houver evento S-2300 ativo) E (se não for informado {remunPerApur/matricula}(1200_dmDev_infoPerApur_ideEstabLot_remunPerApur_matricula) ou {remunPerAnt/matricula}(1200_dmDev_infoPerAnt_ideADC_idePeriodo_ideEstabLot_remunPerAnt_matricula)))
 N (nos demais casos)
 
@@ -643,7 +643,8 @@ Ocorrência: 1
 Tamanho: 1-2
 Dec.: -
 Descrição: Dia do mês efetivamente trabalhado pelo empregado com contrato de trabalho intermitente.
-Validação: Deve ser um número entre 1 e 31, de acordo com o calendário anual.
+Caso não tenha havido trabalho no mês, informar 0 (zero).
+Validação: Deve ser um número entre 0 e 31, de acordo com o calendário anual.
 
 Nome: dmDev
 Pai: evtRemun
@@ -739,8 +740,9 @@ Ocorrência: 0-1
 Tamanho: 1-2
 Dec.: -
 Descrição: Quantidade de dias trabalhados no mês pelo trabalhador avulso no tomador de serviços identificado em {ideEstabLot/codLotacao}(1200_dmDev_infoPerApur_ideEstabLot_codLotacao). Cada dia, total ou parcial, em que o trabalhador tenha prestado serviços ao tomador deve ser considerado. Ex.: Se, em um mesmo mês, o trabalhador prestou serviços durante uma hora em um dia e durante mais uma hora em outro dia, deve-se informar a quantidade de 2 dias.
+Caso não tenha havido trabalho no mês, informar 0 (zero).
 Validação: Informação obrigatória e exclusiva se {ideEstabLot/codLotacao}(./codLotacao) possuir {tpLotacao}(1020_infoLotacao_inclusao_dadosLotacao_tpLotacao) em S-1020 = [08, 09] em {perApur}(1200_ideEvento_perApur) e se {indApuracao}(1200_ideEvento_indApuracao) = [1].
-Se informado, deve ser um número entre 1 e 31, de acordo com o calendário anual.
+Se informado, deve ser um número entre 0 e 31, de acordo com o calendário anual.
 
 Nome: remunPerApur
 Pai: ideEstabLot
@@ -794,7 +796,7 @@ Dec.: -
 Descrição: Informar o código atribuído pelo empregador que identifica a rubrica em sua folha de pagamento ou o código da rubrica constante da Tabela de Rubricas Padrão.
 Validação: Não pode ser utilizada rubrica:
 a) cujo {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 seja igual a [25, 26, 51] se {codCateg}(1200_dmDev_codCateg) pertencer ao grupo "Contribuinte Individual" ou "Bolsista" da Tabela 01;
-b) cuja {natRubr}(1010_infoRubrica_inclusao_dadosRubrica_natRubr) em S-1010 seja igual a [1801, 9209, 9210, 9220], desde que {perApur}(1200_ideEvento_perApur) >= [2021-05] (se {indApuracao}(1200_ideEvento_indApuracao) = [1]) ou {perApur}(1200_ideEvento_perApur) >= [2021] (se {indApuracao}(1200_ideEvento_indApuracao) = [2]).
+b) cuja {natRubr}(1010_infoRubrica_inclusao_dadosRubrica_natRubr) em S-1010 seja igual a [1801, 9220], desde que {perApur}(1200_ideEvento_perApur) >= [2021-07] (se {indApuracao}(1200_ideEvento_indApuracao) = [1]) ou {perApur}(1200_ideEvento_perApur) >= [2021] (se {indApuracao}(1200_ideEvento_indApuracao) = [2]).
 
 Nome: ideTabRubr
 Pai: itensRemun
@@ -813,8 +815,7 @@ Ocorrência: 0-1
 Tamanho: 1-12
 Dec.: 2
 Descrição: Informar a quantidade de referência para apuração (em horas, cotas, meses, etc.). Ex.: Quantidade de horas extras trabalhadas relacionada com uma rubrica de hora extra, quantidade de dias trabalhados relacionada com uma rubrica de salário, etc.
-Preenchimento obrigatório quando se tratar de rubrica relativa a faltas ou Descanso Semanal Remunerado - DSR sobre faltas (nesse caso, informar a quantidade de dias).
-Validação: Deve ser maior que 0 (zero). Informação obrigatória se {codRubr}(./codRubr) tiver {natRubr}(1010_infoRubrica_inclusao_dadosRubrica_natRubr) em S-1010 igual a [9207, 9211].
+Validação: Deve ser maior que 0 (zero).
 
 Nome: fatorRubr
 Pai: itensRemun
@@ -847,7 +848,7 @@ Descrição: Indicativo de tipo de apuração de IR.
 Valores válidos:
 0 - Normal (apuração sob a folha de pagamento declarada no eSocial)
 1 - Situação especial de apuração de IR
-Validação: Informação obrigatória e exclusiva se {perApur}(1200_ideEvento_perApur) >= [2021-05] (se {indApuracao}(1200_ideEvento_indApuracao) = [1]) ou se {perApur}(1200_ideEvento_perApur) >= [2021] (se {indApuracao}(1200_ideEvento_indApuracao) = [2]).
+Validação: Informação obrigatória e exclusiva se {perApur}(1200_ideEvento_perApur) >= [2021-07] (se {indApuracao}(1200_ideEvento_indApuracao) = [1]) ou se {perApur}(1200_ideEvento_perApur) >= [2021] (se {indApuracao}(1200_ideEvento_indApuracao) = [2]).
 
 Nome: infoAgNocivo
 Pai: remunPerApur
@@ -922,6 +923,7 @@ E - Conversão de licença saúde em acidente de trabalho
 F - Outras verbas de natureza salarial ou não salarial devidas após o desligamento
 G - Antecipação de diferenças de acordo, convenção ou dissídio coletivo
 H - Recolhimento mensal de FGTS anterior ao início de obrigatoriedade dos eventos periódicos
+Validação: Se {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [04, 22], não pode ser informado [E, H].
 
 Nome: dsc
 Pai: ideADC
@@ -1061,7 +1063,7 @@ Dec.: -
 Descrição: Informar o código atribuído pelo empregador que identifica a rubrica em sua folha de pagamento ou o código da rubrica constante da Tabela de Rubricas Padrão.
 Validação: Não pode ser utilizada rubrica:
 a) cujo {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 seja igual a [25, 26, 51] se {codCateg}(1200_dmDev_codCateg) pertencer ao grupo "Contribuinte Individual" ou "Bolsista" da Tabela 01;
-b) cuja {natRubr}(1010_infoRubrica_inclusao_dadosRubrica_natRubr) em S-1010 seja igual a [1801, 9209, 9210, 9220], desde que {perApur}(1200_ideEvento_perApur) >= [2021-05] (se {indApuracao}(1200_ideEvento_indApuracao) = [1]) ou {perApur}(1200_ideEvento_perApur) >= [2021] (se {indApuracao}(1200_ideEvento_indApuracao) = [2]).
+b) cuja {natRubr}(1010_infoRubrica_inclusao_dadosRubrica_natRubr) em S-1010 seja igual a [1801, 9220], desde que {perApur}(1200_ideEvento_perApur) >= [2021-07] (se {indApuracao}(1200_ideEvento_indApuracao) = [1]) ou {perApur}(1200_ideEvento_perApur) >= [2021] (se {indApuracao}(1200_ideEvento_indApuracao) = [2]).
 
 Nome: ideTabRubr
 Pai: itensRemun
@@ -1080,8 +1082,7 @@ Ocorrência: 0-1
 Tamanho: 1-12
 Dec.: 2
 Descrição: Informar a quantidade de referência para apuração (em horas, cotas, meses, etc.). Ex.: Quantidade de horas extras trabalhadas relacionada com uma rubrica de hora extra, quantidade de dias trabalhados relacionada com uma rubrica de salário, etc.
-Preenchimento obrigatório quando se tratar de rubrica relativa a faltas ou Descanso Semanal Remunerado - DSR sobre faltas (nesse caso, informar a quantidade de dias).
-Validação: Deve ser maior que 0 (zero). Informação obrigatória se {codRubr}(./codRubr) tiver {natRubr}(1010_infoRubrica_inclusao_dadosRubrica_natRubr) em S-1010 igual a [9207, 9211].
+Validação: Deve ser maior que 0 (zero).
 
 Nome: fatorRubr
 Pai: itensRemun
@@ -1114,7 +1115,7 @@ Descrição: Indicativo de tipo de apuração de IR.
 Valores válidos:
 0 - Normal (apuração sob a folha de pagamento declarada no eSocial)
 1 - Situação especial de apuração de IR
-Validação: Informação obrigatória e exclusiva se {perApur}(1200_ideEvento_perApur) >= [2021-05] (se {indApuracao}(1200_ideEvento_indApuracao) = [1]) ou se {perApur}(1200_ideEvento_perApur) >= [2021] (se {indApuracao}(1200_ideEvento_indApuracao) = [2]).
+Validação: Informação obrigatória e exclusiva se {perApur}(1200_ideEvento_perApur) >= [2021-07] (se {indApuracao}(1200_ideEvento_indApuracao) = [1]) ou se {perApur}(1200_ideEvento_perApur) >= [2021] (se {indApuracao}(1200_ideEvento_indApuracao) = [2]).
 
 Nome: infoAgNocivo
 Pai: remunPerAnt
@@ -1181,5 +1182,6 @@ Ocorrência: 0-1
 Tamanho: 1-2
 Dec.: -
 Descrição: Informação prestada exclusivamente pelo segurado especial em caso de contratação de contribuinte individual, indicando a quantidade de dias trabalhados pelo mesmo.
-Validação: Preenchimento obrigatório e exclusivo se {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [22], {natAtividade}(./natAtividade) = [2] e {indApuracao}(1200_ideEvento_indApuracao) = [1]. Neste caso, preencher com um número entre 1 e 31, de acordo com o calendário anual.
+Caso não tenha havido trabalho no mês, informar 0 (zero).
+Validação: Preenchimento obrigatório e exclusivo se {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [22], {natAtividade}(./natAtividade) = [2] e {indApuracao}(1200_ideEvento_indApuracao) = [1]. Neste caso, preencher com um número entre 0 e 31, de acordo com o calendário anual.
 

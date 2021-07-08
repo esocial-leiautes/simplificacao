@@ -481,7 +481,7 @@ Ocorrência: 1
 Tamanho: -
 Dec.: -
 Descrição: Preencher com a data de desligamento do vínculo (último dia trabalhado).
-Validação: Deve ser uma data igual ou anterior à data atual acrescida de 10 (dez) dias. No caso de empregado reintegrado, também deve ser uma data igual ou posterior a {dtEfetRetorno}(2298_infoReintegr_dtEfetRetorno) do evento S-2298.
+Validação: Deve ser uma data igual ou anterior à data atual acrescida de 10 (dez) dias. No caso de empregado reintegrado e quando não se tratar de retificação do desligamento anterior à reintegração, também deve ser uma data igual ou posterior a {dtEfetRetorno}(2298_infoReintegr_dtEfetRetorno) do evento S-2298.
 
 Nome: dtAvPrv
 Pai: infoDeslig
@@ -579,7 +579,8 @@ Ocorrência: 1
 Tamanho: 1-2
 Dec.: -
 Descrição: Dia do mês efetivamente trabalhado pelo empregado com contrato de trabalho intermitente.
-Validação: Deve ser um número entre 1 e 31, de acordo com o calendário anual.
+Caso não tenha havido trabalho no mês, informar 0 (zero).
+Validação: Deve ser um número entre 0 e 31, de acordo com o calendário anual.
 
 Nome: observacoes
 Pai: infoDeslig
@@ -782,7 +783,7 @@ Ocorrência: 1
 Tamanho: 1-30
 Dec.: -
 Descrição: Informar o código atribuído pelo empregador que identifica a rubrica em sua folha de pagamento ou o código da rubrica constante da Tabela de Rubricas Padrão.
-Validação: Não pode ser utilizada rubrica cuja {natRubr}(1010_infoRubrica_inclusao_dadosRubrica_natRubr) em S-1010 seja igual a [1801, 9209, 9210, 9220], desde que mês/ano de {dtDeslig}(2299_infoDeslig_dtDeslig) >= [2021-05].
+Validação: Não pode ser utilizada rubrica cuja {natRubr}(1010_infoRubrica_inclusao_dadosRubrica_natRubr) em S-1010 seja igual a [1801, 9220], desde que mês/ano de {dtDeslig}(2299_infoDeslig_dtDeslig) >= [2021-07].
 
 Nome: ideTabRubr
 Pai: detVerbas
@@ -801,8 +802,7 @@ Ocorrência: 0-1
 Tamanho: 1-12
 Dec.: 2
 Descrição: Informar a quantidade de referência para apuração (em horas, cotas, meses, etc.). Ex.: Quantidade de horas extras trabalhadas relacionada com uma rubrica de hora extra, quantidade de dias trabalhados relacionada com uma rubrica de salário, etc.
-Preenchimento obrigatório quando se tratar de rubrica relativa a faltas ou Descanso Semanal Remunerado - DSR sobre faltas (nesse caso, informar a quantidade de dias).
-Validação: Deve ser maior que 0 (zero). Informação obrigatória se {codRubr}(./codRubr) tiver {natRubr}(1010_infoRubrica_inclusao_dadosRubrica_natRubr) em S-1010 igual a [9207, 9211].
+Validação: Deve ser maior que 0 (zero).
 
 Nome: fatorRubr
 Pai: detVerbas
@@ -835,7 +835,7 @@ Descrição: Indicativo de tipo de apuração de IR.
 Valores válidos:
 0 - Normal (apuração sob a folha de pagamento declarada no eSocial)
 1 - Situação especial de apuração de IR
-Validação: Informação obrigatória e exclusiva se mês/ano de {dtDeslig}(2299_infoDeslig_dtDeslig) >= [2021-05].
+Validação: Informação obrigatória e exclusiva se mês/ano de {dtDeslig}(2299_infoDeslig_dtDeslig) >= [2021-07].
 
 Nome: infoAgNocivo
 Pai: ideEstabLot
@@ -926,6 +926,7 @@ D - Sentença normativa - Dissídio
 E - Conversão de licença saúde em acidente de trabalho
 G - Antecipação de diferenças de acordo, convenção ou dissídio coletivo
 H - Recolhimento mensal de FGTS anterior ao início de obrigatoriedade dos eventos periódicos
+Validação: Se {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [04, 22], não pode ser informado [E, H].
 
 Nome: dsc
 Pai: ideADC
@@ -1018,7 +1019,7 @@ Ocorrência: 1
 Tamanho: 1-30
 Dec.: -
 Descrição: Informar o código atribuído pelo empregador que identifica a rubrica em sua folha de pagamento ou o código da rubrica constante da Tabela de Rubricas Padrão.
-Validação: Não pode ser utilizada rubrica cuja {natRubr}(1010_infoRubrica_inclusao_dadosRubrica_natRubr) em S-1010 seja igual a [1801, 9209, 9210, 9220], desde que mês/ano de {dtDeslig}(2299_infoDeslig_dtDeslig) >= [2021-05].
+Validação: Não pode ser utilizada rubrica cuja {natRubr}(1010_infoRubrica_inclusao_dadosRubrica_natRubr) em S-1010 seja igual a [1801, 9220], desde que mês/ano de {dtDeslig}(2299_infoDeslig_dtDeslig) >= [2021-07].
 
 Nome: ideTabRubr
 Pai: detVerbas
@@ -1037,8 +1038,7 @@ Ocorrência: 0-1
 Tamanho: 1-12
 Dec.: 2
 Descrição: Informar a quantidade de referência para apuração (em horas, cotas, meses, etc.). Ex.: Quantidade de horas extras trabalhadas relacionada com uma rubrica de hora extra, quantidade de dias trabalhados relacionada com uma rubrica de salário, etc.
-Preenchimento obrigatório quando se tratar de rubrica relativa a faltas ou Descanso Semanal Remunerado - DSR sobre faltas (nesse caso, informar a quantidade de dias).
-Validação: Deve ser maior que 0 (zero). Informação obrigatória se {codRubr}(./codRubr) tiver {natRubr}(1010_infoRubrica_inclusao_dadosRubrica_natRubr) em S-1010 igual a [9207, 9211].
+Validação: Deve ser maior que 0 (zero).
 
 Nome: fatorRubr
 Pai: detVerbas
@@ -1071,7 +1071,7 @@ Descrição: Indicativo de tipo de apuração de IR.
 Valores válidos:
 0 - Normal (apuração sob a folha de pagamento declarada no eSocial)
 1 - Situação especial de apuração de IR
-Validação: Informação obrigatória e exclusiva se mês/ano de {dtDeslig}(2299_infoDeslig_dtDeslig) >= [2021-05].
+Validação: Informação obrigatória e exclusiva se mês/ano de {dtDeslig}(2299_infoDeslig_dtDeslig) >= [2021-07].
 
 Nome: infoAgNocivo
 Pai: ideEstabLot

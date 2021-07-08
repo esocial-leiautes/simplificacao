@@ -89,8 +89,8 @@ Pai: ideEstab
 Descrição: Informações do estabelecimento
 Ocorrência: 0-1
 Chave: -
-Condição: O (se {ideEmpregador/tpInsc}(5011_ideEmpregador_tpInsc) = [1])
-N (nos demais casos)
+Condição: N (se {ideEstab/tpInsc}(../tpInsc) = [2] OU (se {ideEstab/tpInsc}(../tpInsc) = [3] e se tratar de empregador doméstico))
+O (nos demais casos)
 
 Nível: 6
 Nome: infoComplObra
@@ -530,21 +530,21 @@ Nome: fap
 Pai: infoEstab
 Elem.: E
 Tipo: N
-Ocorrência: 1
+Ocorrência: 0-1
 Tamanho: 1-5
 Dec.: 4
 Descrição: Fator Acidentário de Prevenção - FAP.
-Validação: Deve corresponder ao FAP declarado no evento S-1005. Caso não haja informação, retornar o FAP estabelecido para a empresa pelo órgão governamental competente.
+Validação: Informação obrigatória e exclusiva se {ideEmpregador/tpInsc}(5011_ideEmpregador_tpInsc) = [1]. Deve corresponder ao FAP declarado no evento S-1005. Caso não haja informação, retornar o FAP estabelecido para a empresa pelo órgão governamental competente.
 
 Nome: aliqRatAjust
 Pai: infoEstab
 Elem.: E
 Tipo: N
-Ocorrência: 1
+Ocorrência: 0-1
 Tamanho: 1-5
 Dec.: 4
 Descrição: Alíquota do RAT após ajuste pelo FAP.
-Validação: Deve corresponder ao resultado da multiplicação dos campos {infoEstab/aliqRat}(./aliqRat) e {infoEstab/fap}(./fap).
+Validação: Informação obrigatória e exclusiva se {ideEmpregador/tpInsc}(5011_ideEmpregador_tpInsc) = [1]. Deve corresponder ao resultado da multiplicação dos campos {infoEstab/aliqRat}(./aliqRat) e {infoEstab/fap}(./fap).
 
 Nome: infoComplObra
 Pai: infoEstab
@@ -769,7 +769,7 @@ Valores válidos:
 1 - Normal
 2 - Atividade concomitante
 9 - Substituída ou isenta
-Validação: a) Para empresas com {classTrib}(5011_infoCS_infoContrib_classTrib) = [01, 70, 80], todas as bases de cálculo devem ser totalizadas com {indIncid}(./indIncid) = [9].
+Validação: a) Para empresas com {classTrib}(5011_infoCS_infoContrib_classTrib) = [01, 70, 80], todas as bases de cálculo devem ser totalizadas com {indIncid}(./indIncid) = [9], EXCETO para {classTrib}(5011_infoCS_infoContrib_classTrib) = [01] E {ideEstab/tpInsc}(5011_infoCS_ideEstab) = [4], que deve ser totalizada com {indIncid}(./indIncid) = [1].
 b) Para empresas com {classTrib}(5011_infoCS_infoContrib_classTrib) = [03], considerar a informação prestada no campo {indSimples}(5001_infoCp_ideEstabLot_infoCategIncid_indSimples) do evento S-5001, conforme abaixo:
 - Se o {indSimples}(5001_infoCp_ideEstabLot_infoCategIncid_indSimples) em S-5001 = [1] (contrib. subst. integralmente), a base de cálculo do respectivo trabalhador deve ser totalizada com {indIncid}(./indIncid) = [9];
 - Se o {indSimples}(5001_infoCp_ideEstabLot_infoCategIncid_indSimples) em S-5001 = [2] (contrib. não substituída), a base de cálculo do respectivo trabalhador deve ser totalizada com {indIncid}(./indIncid) = [1] (normal);
