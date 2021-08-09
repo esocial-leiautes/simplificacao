@@ -12,7 +12,7 @@
 <section id="folha-rosto">
 <img alt="Logomarca do eSocial" src="esocial-full.png" class="center">
 <h1 class="title has-text-centered is-3">LEIAUTES DO eSOCIAL<br /><br />Versão S-1.0 (consolidada até NT nº 02/2021)</h1><h2 class="title has-text-centered is-5">(aprovada pela Portaria Conjunta nº 82, de 10/11/2020 – DOU de 11/11/2020)</h2><h2 class="title has-text-centered is-5" style="font-weight: normal">Observações: 1) Implantação no ambiente de produção: 19/07/2021<br />2) Período de convivência de versões (2.5 e S-1.0): 19/07/2021 a 09/03/2022</h2>
-<h1 class="title has-text-centered is-3">Julho de 2021</h1>
+<h1 class="title has-text-centered is-3">Agosto de 2021</h1>
 </section>
 <section class="section">
 <div class="container is-fluid">
@@ -16277,7 +16277,7 @@ Se <a href="#2210_cat_tpCat">tpCat</a> = [2, 3], deve ser informado valor igual 
 <td>hrAcid</td>
 <td><a href="#r_2210_cat">cat</a></td>
 <td>E</td>
-<td>N</td>
+<td>C</td>
 <td>0-1</td>
 <td>4</td>
 <td>-</td>
@@ -16290,7 +16290,7 @@ Se <a href="#2210_cat_tpCat">tpCat</a> = [2, 3], deve ser informado valor igual 
 <td>hrsTrabAntesAcid</td>
 <td><a href="#r_2210_cat">cat</a></td>
 <td>E</td>
-<td>N</td>
+<td>C</td>
 <td>0-1</td>
 <td>4</td>
 <td>-</td>
@@ -16685,7 +16685,7 @@ Nos casos de órgãos bilaterais, ou seja, que se situam dos lados do corpo, ass
 <td>hrAtendimento</td>
 <td><a href="#r_2210_cat_atestado">atestado</a></td>
 <td>E</td>
-<td>N</td>
+<td>C</td>
 <td>1</td>
 <td>4</td>
 <td>-</td>
@@ -17322,7 +17322,8 @@ Informar somente no caso de TSVE sem informação de matrícula no evento S-2300
 <td>0-1</td>
 <td>1-999</td>
 <td>-</td>
-<td>Observação sobre o procedimento diagnóstico realizado.</td>
+<td>Observação sobre o procedimento diagnóstico realizado.<br />
+<strong>Validação:</strong> Preenchimento obrigatório se <a href="#2220_exMedOcup_aso_exame_procRealizado">procRealizado</a> = [0583, 0998, 0999, 1128, 1230, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 9999].</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="2220_exMedOcup_aso_exame_ordExame" id="2220_exMedOcup_aso_exame_ordExame">26</td>
@@ -17330,13 +17331,14 @@ Informar somente no caso de TSVE sem informação de matrícula no evento S-2300
 <td><a href="#r_2220_exMedOcup_aso_exame">exame</a></td>
 <td>E</td>
 <td>N</td>
-<td>1</td>
+<td>0-1</td>
 <td>1</td>
 <td>-</td>
 <td>Ordem do exame.<br />
 <strong>Valores válidos:</strong><br />
 <strong>1</strong> - Inicial<br />
-<strong>2</strong> - Sequencial</td>
+<strong>2</strong> - Sequencial<br />
+<strong>Validação:</strong> Preenchimento obrigatório se <a href="#2220_exMedOcup_aso_exame_procRealizado">procRealizado</a> = [0281].</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="2220_exMedOcup_aso_exame_indResult" id="2220_exMedOcup_aso_exame_indResult">27</td>
@@ -18663,9 +18665,10 @@ b) Não pode ser posterior à data atual.</td>
 <td><a href="#r_2240_infoExpRisco_agNoc">agNoc</a></td>
 <td>5</td>
 <td>EPC e EPI</td>
-<td>1</td>
+<td>0-1</td>
 <td>-</td>
-<td>O</td>
+<td>N (se <a href="#2240_infoExpRisco_agNoc_codAgNoc">codAgNoc</a> = [09.01.001]);<br />
+O (nos demais casos)</td>
 </tr>
 <tr>
 <td id="r_2240_infoExpRisco_agNoc_epcEpi_epi"><a href="#2240_infoExpRisco_agNoc_epcEpi_epi">epi</a></td>
@@ -18692,8 +18695,8 @@ N (nos demais casos)</td>
 <td><a href="#r_2240_infoExpRisco">infoExpRisco</a></td>
 <td>4</td>
 <td>Responsável pelos registros ambientais</td>
-<td>1-9</td>
-<td>-</td>
+<td>1-99</td>
+<td><a href="#2240_infoExpRisco_respReg_cpfResp">cpfResp</a></td>
 <td>O</td>
 </tr>
 <tr>
@@ -19085,13 +19088,14 @@ b) Se <a href="#2240_infoExpRisco_infoAmb_localAmb">localAmb</a> = [2], deve ser
 <td><a href="#r_2240_infoExpRisco_agNoc">agNoc</a></td>
 <td>E</td>
 <td>N</td>
-<td>1</td>
+<td>0-1</td>
 <td>1</td>
 <td>-</td>
 <td>Tipo de avaliação do agente nocivo.<br />
 <strong>Valores válidos:</strong><br />
 <strong>1</strong> - Critério quantitativo<br />
-<strong>2</strong> - Critério qualitativo</td>
+<strong>2</strong> - Critério qualitativo<br />
+<strong>Validação:</strong> Não informar se <a href="#2240_infoExpRisco_agNoc_codAgNoc">codAgNoc</a> = [09.01.001].</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_agNoc_intConc" id="2240_infoExpRisco_agNoc_intConc">30</td>
@@ -19178,7 +19182,7 @@ b) Se <a href="#2240_infoExpRisco_infoAmb_localAmb">localAmb</a> = [2], deve ser
 <td><a href="#r_2240_infoExpRisco_agNoc">agNoc</a></td>
 <td>G</td>
 <td>-</td>
-<td>1</td>
+<td>0-1</td>
 <td>-</td>
 <td>-</td>
 <td>Informações relativas a Equipamentos de Proteção Coletiva - EPC e Equipamentos de Proteção Individual - EPI.</td>
@@ -19377,7 +19381,7 @@ b) Se <a href="#2240_infoExpRisco_infoAmb_localAmb">localAmb</a> = [2], deve ser
 <td><a href="#r_2240_infoExpRisco">infoExpRisco</a></td>
 <td>G</td>
 <td>-</td>
-<td>1-9</td>
+<td>1-99</td>
 <td>-</td>
 <td>-</td>
 <td>Informações relativas ao responsável pelos registros ambientais.</td>
