@@ -257,15 +257,16 @@ O evento S-2300 é permitido apenas para as categorias de trabalhadores [201, 20
 <button class="delete" aria-label="close"></button>
 </header>
 <div class="modal-card-body">
-<p>O evento S-1200 só é permitido para informação de remuneração relativa a trabalhador cujo contrato de trabalho esteja vinculado ao Regime Geral de Previdência Social - RGPS ou por Regime de Previdência Social no Exterior.<br />
-O evento S-1202 só é permitido para informação de remuneração relativa a trabalhador amparado por Regime Próprio de Previdência Social.<br />
+<p>O evento S-1200 é permitido para informação de remuneração relativa a trabalhador cujo contrato de trabalho esteja vinculado ao Regime Geral de Previdência Social - RGPS ou por Regime de Previdência Social no Exterior. Também é permitido para informação de base de cálculo de FGTS de empregado celetista amparado por Regime Próprio de Previdência Social - RPPS.<br />
+O evento S-1202 só é permitido para informação de remuneração relativa a trabalhador vinculado ao RPPS.<br />
 Observar o que segue:<br />
 1) O S-1200 é permitido para informação de remuneração de trabalhadores:<br />
 a) cujo {codCateg} = [1XX] e {tpRegPrev} = [1, 3] ou não existente;<br />
 b) cujo {codCateg} = [2XX], [5XX], [7XX], [9XX];<br />
 c) cujo {codCateg} = [301, 302, 303, 304, 306, 307, 309, 310, 312] e {tpRegPrev} = [1, 3] ou não existente;<br />
 d) cujo {codCateg} = [305] e ({perApur} &lt; [2022-04] (se {indApuracao} = [1]) ou {perApur} &lt; [2022] (se {indApuracao} = [2]));<br />
-e) cujo {codCateg} = [401, 410] e {tpRegPrev} = [1, 3] ou não existente.<br />
+e) cujo {codCateg} = [401, 410] e {tpRegPrev} = [1, 3] ou não existente;<br />
+f) cujo {codCateg} = [301, 302, 303, 304, 306, 307, 309, 310, 312, 401, 410] e {tpRegPrev} = [2] (neste caso, {tpRegTrab} em S-2200/S-2300 deve ser igual a [1] e todas as rubricas devem ser informativas ({tpRubr} em S-1010 = [3, 4]) e possuir {codIncCP} em S-1010 = [00] e {codIncIRRF} em S-1010 = [9]).<br />
 2) O S-1202 só é permitido para informação de remuneração de trabalhadores:<br />
 a) cujo {codCateg} = [301, 302, 303, 304, 306, 307, 309, 310, 312] e {tpRegPrev} = [2] ou não existente;<br />
 b) cujo {codCateg} = [308, 311, 313];<br />
@@ -1011,7 +1012,7 @@ Esta regra não se aplica para remunerações a trabalhadores nos casos em que {
 <button class="delete" aria-label="close"></button>
 </header>
 <div class="modal-card-body">
-<p>Se {tpAcConv} = [H], as respectivas rubricas devem ser informativas ({tpRubr} = [3, 4]) e devem possuir {codIncCP} = [00] e {codIncIRRF} = [9].</p>
+<p>Se {tpAcConv} = [H], as respectivas rubricas devem ser informativas ({tpRubr} em S-1010 = [3, 4]) e devem possuir {codIncCP} em S-1010 = [00] e {codIncIRRF} em S-1010 = [9].</p>
 </div>
 </div>
 </div>
