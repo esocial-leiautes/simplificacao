@@ -90,12 +90,16 @@
             <xs:documentation>CHAVE_GRUPO: {tpInsc}, {nrInsc}, {iniValid}, {fimValid}</xs:documentation>
         </xs:annotation>
         <xs:sequence>
-            <xs:element name="tpInsc" type="TS_tpInsc_1_3_4" />
+            <xs:element name="tpInsc" type="TS_tpInsc_1_3_4">
+                <xs:annotation>
+                    <xs:documentation>Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.</xs:documentation>
+                    <xs:documentation>Validação: Se {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [04], deve ser igual a [1].</xs:documentation>
+                </xs:annotation>
+            </xs:element>
             <xs:element name="nrInsc" type="TS_nrInsc_12_14">
                 <xs:annotation>
                     <xs:documentation>Informar o número de inscrição do estabelecimento, obra de construção civil ou órgão público de acordo com o tipo de inscrição indicado no campo {ideEstab/tpInsc}(./tpInsc).</xs:documentation>
                     <xs:documentation>Validação: Deve ser compatível com o conteúdo do campo {ideEstab/tpInsc}(./tpInsc). Deve ser um identificador válido, constante das bases da RFB, vinculado ao empregador.</xs:documentation>
-                    <xs:documentation>Se {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [04], deve ser igual a [1].</xs:documentation>
                 </xs:annotation>
             </xs:element>
             <xs:element name="iniValid" type="TS_iniValid" />
@@ -130,7 +134,7 @@
                                 <xs:documentation>a) {ideEstab/tpInsc}(1005_infoEstab_inclusao_ideEstab_tpInsc) = [4]; ou</xs:documentation>
                                 <xs:documentation>b) {ideEstab/tpInsc}(1005_infoEstab_inclusao_ideEstab_tpInsc) = [1] e o estabalecimento não for encontrado na tabela FAP; ou</xs:documentation>
                                 <xs:documentation>c) {ideEstab/tpInsc}(1005_infoEstab_inclusao_ideEstab_tpInsc) = [1] e o fator informado for diferente do definido pelo órgão governamental competente para o estabelecimento (neste caso, deverá haver informações de processo em {procAdmJudFap}(1005_infoEstab_inclusao_dadosEstab_aliqGilrat_procAdmJudFap)).</xs:documentation>
-                                <xs:documentation>Se informado, deve ser um número maior ou igual a 0,5000 e menor ou igual a 2,0000 e, se {ideEstab/tpInsc}(1005_infoEstab_inclusao_ideEstab_tpInsc) = [1], deve ser diferente do valor definido pelo órgão governamental competente.</xs:documentation>
+                                <xs:documentation>Se informado, deve ser um número maior ou igual a 0,5000 e menor ou igual a 2,0000 e, no caso da alínea "c", deve ser diferente do valor definido pelo órgão governamental competente.</xs:documentation>
                             </xs:annotation>
                         </xs:element>
                         <xs:element name="procAdmJudRat" minOccurs="0">
