@@ -31321,7 +31321,7 @@ O (nos demais casos)</td>
 <td id="r_5011_infoCS_ideEstab_infoEstab_infoEstabRef"><a href="#5011_infoCS_ideEstab_infoEstab_infoEstabRef">infoEstabRef</a></td>
 <td><a href="#r_5011_infoCS_ideEstab_infoEstab">infoEstab</a></td>
 <td>6</td>
-<td>Informações de RAT e/ou FAP de referência</td>
+<td>Informações de RAT e FAP de referência</td>
 <td>0-1</td>
 <td>-</td>
 <td>OC (se houver informação de <a href="#1005_infoEstab_inclusao_dadosEstab_aliqGilrat_procAdmJudRat">procAdmJudRat</a> em S-1005 ou de <a href="#1005_infoEstab_inclusao_dadosEstab_aliqGilrat_procAdmJudFap">procAdmJudFap</a> em S-1005);<br />
@@ -31862,7 +31862,11 @@ N (nos demais casos)</td>
 <td>1-5</td>
 <td>4</td>
 <td>Fator Acidentário de Prevenção - FAP.<br />
-<strong>Validação:</strong> Informação obrigatória e exclusiva se <a href="#5011_ideEmpregador_tpInsc">ideEmpregador/tpInsc</a> = [1]. Deve corresponder ao FAP declarado no evento S-1005. Caso não haja informação, retornar o FAP estabelecido para a empresa pelo órgão governamental competente.</td>
+<strong>Validação:</strong> Informação obrigatória e exclusiva se <a href="#5011_ideEmpregador_tpInsc">ideEmpregador/tpInsc</a> = [1]. Deve corresponder ao FAP estabelecido para a empresa pelo órgão governamental competente, exceto se:<br />
+a) <a href="#5011_infoCS_ideEstab_tpInsc">ideEstab/tpInsc</a> = [4]; ou<br />
+b) <a href="#5011_infoCS_ideEstab_tpInsc">ideEstab/tpInsc</a> = [1] e se houver informação de <a href="#1005_infoEstab_inclusao_dadosEstab_aliqGilrat_procAdmJudFap">procAdmJudFap</a> em S-1005; ou<br />
+c) <a href="#5011_infoCS_ideEstab_tpInsc">ideEstab/tpInsc</a> = [1] e o estabalecimento não for encontrado na tabela FAP referente ao ano de <a href="#5011_ideEvento_perApur">perApur</a>.<br />
+Caso haja alguma exceção acima, retornar o FAP declarado no evento S-1005.</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="5011_infoCS_ideEstab_infoEstab_aliqRatAjust" id="5011_infoCS_ideEstab_infoEstab_aliqRatAjust">33</td>
@@ -31885,7 +31889,7 @@ N (nos demais casos)</td>
 <td>0-1</td>
 <td>-</td>
 <td>-</td>
-<td> Informações de RAT e/ou FAP de referência, nos casos de processo administrativo ou judicial que altere a(s) alíquota(s).</td>
+<td> Informações de RAT e FAP de referência, nos casos de processo administrativo ou judicial que altere a(s) alíquota(s).</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="5011_infoCS_ideEstab_infoEstab_infoEstabRef_aliqRat" id="5011_infoCS_ideEstab_infoEstab_infoEstabRef_aliqRat">35</td>

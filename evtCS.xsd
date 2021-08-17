@@ -189,7 +189,11 @@
                                                                 <xs:element name="fap" type="TS_fap" minOccurs="0">
                                                                     <xs:annotation>
                                                                         <xs:documentation>Fator Acidentário de Prevenção - FAP.</xs:documentation>
-                                                                        <xs:documentation>Validação: Informação obrigatória e exclusiva se {ideEmpregador/tpInsc}(5011_ideEmpregador_tpInsc) = [1]. Deve corresponder ao FAP declarado no evento S-1005. Caso não haja informação, retornar o FAP estabelecido para a empresa pelo órgão governamental competente.</xs:documentation>
+                                                                        <xs:documentation>Validação: Informação obrigatória e exclusiva se {ideEmpregador/tpInsc}(5011_ideEmpregador_tpInsc) = [1]. Deve corresponder ao FAP estabelecido para a empresa pelo órgão governamental competente, exceto se:</xs:documentation>
+                                                                        <xs:documentation>a) {ideEstab/tpInsc}(5011_infoCS_ideEstab_tpInsc) = [4]; ou</xs:documentation>
+                                                                        <xs:documentation>b) {ideEstab/tpInsc}(5011_infoCS_ideEstab_tpInsc) = [1] e se houver informação de {procAdmJudFap}(1005_infoEstab_inclusao_dadosEstab_aliqGilrat_procAdmJudFap) em S-1005; ou</xs:documentation>
+                                                                        <xs:documentation>c) {ideEstab/tpInsc}(5011_infoCS_ideEstab_tpInsc) = [1] e o estabalecimento não for encontrado na tabela FAP referente ao ano de {perApur}(5011_ideEvento_perApur).</xs:documentation>
+                                                                        <xs:documentation>Caso haja alguma exceção acima, retornar o FAP declarado no evento S-1005.</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
                                                                 <xs:element name="aliqRatAjust" minOccurs="0">
@@ -208,8 +212,8 @@
                                                                 </xs:element>
                                                                 <xs:element name="infoEstabRef" minOccurs="0">
                                                                     <xs:annotation>
-                                                                        <xs:documentation>Informações de RAT e/ou FAP de referência</xs:documentation>
-                                                                        <xs:documentation>DESCRICAO_COMPLETA: Informações de RAT e/ou FAP de referência, nos casos de processo administrativo ou judicial que altere a(s) alíquota(s).</xs:documentation>
+                                                                        <xs:documentation>Informações de RAT e FAP de referência</xs:documentation>
+                                                                        <xs:documentation>DESCRICAO_COMPLETA: Informações de RAT e FAP de referência, nos casos de processo administrativo ou judicial que altere a(s) alíquota(s).</xs:documentation>
                                                                         <xs:documentation>CONDICAO_GRUPO: OC (se houver informação de {procAdmJudRat}(1005_infoEstab_inclusao_dadosEstab_aliqGilrat_procAdmJudRat) em S-1005 ou de {procAdmJudFap}(1005_infoEstab_inclusao_dadosEstab_aliqGilrat_procAdmJudFap) em S-1005); N (nos demais casos)</xs:documentation>
                                                                     </xs:annotation>
                                                                     <xs:complexType>
