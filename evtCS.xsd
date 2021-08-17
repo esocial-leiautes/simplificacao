@@ -206,6 +206,46 @@
                                                                         </xs:restriction>
                                                                     </xs:simpleType>
                                                                 </xs:element>
+                                                                <xs:element name="infoEstabSusp" minOccurs="0">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Informações de RAT e/ou FAP com exigibilidade suspensa</xs:documentation>
+                                                                        <xs:documentation>DESCRICAO_COMPLETA: Informações de RAT e/ou FAP com exigibilidade suspensa, em virtude de processo administrativo ou judicial que altere a(s) alíquota(s).</xs:documentation>
+                                                                        <xs:documentation>CONDICAO_GRUPO: OC (se houver informação de {procAdmJudRat}(1005_infoEstab_inclusao_dadosEstab_aliqGilrat_procAdmJudRat) em S-1005 ou de {procAdmJudFap}(1005_infoEstab_inclusao_dadosEstab_aliqGilrat_procAdmJudFap) em S-1005); N (nos demais casos)</xs:documentation>
+                                                                    </xs:annotation>
+                                                                    <xs:complexType>
+                                                                        <xs:sequence>
+                                                                            <xs:element name="aliqRat" type="TS_aliqRat" minOccurs="0">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Informar a alíquota RAT com exigibilidade suspensa.</xs:documentation>
+                                                                                    <xs:documentation>Validação: Informação obrigatória e exclusiva se houver informação de {procAdmJudRat}(1005_infoEstab_inclusao_dadosEstab_aliqGilrat_procAdmJudRat) em S-1005. Deve corresponder à alíquota definida na legislação vigente para o código CNAE informado em S-1005.</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:element>
+                                                                            <xs:element name="fap" type="TS_fap" minOccurs="0">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Fator Acidentário de Prevenção - FAP com exigibilidade suspensa.</xs:documentation>
+                                                                                    <xs:documentation>Validação: Informação obrigatória e exclusiva se {ideEmpregador/tpInsc}(5011_ideEmpregador_tpInsc) = [1] e se houver informação de {procAdmJudFap}(1005_infoEstab_inclusao_dadosEstab_aliqGilrat_procAdmJudFap) em S-1005. Deve corresponder ao FAP estabelecido para a empresa pelo órgão governamental competente.</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:element>
+                                                                            <xs:element name="aliqRatAjust" minOccurs="0">
+                                                                                <xs:simpleType>
+                                                                                    <xs:annotation>
+                                                                                        <xs:documentation>Alíquota com exigibilidade suspensa - RAT após ajuste pelo FAP.</xs:documentation>
+                                                                                        <xs:documentation>Validação: Informação obrigatória e exclusiva se {ideEmpregador/tpInsc}(5011_ideEmpregador_tpInsc) = [1]. Deve corresponder ao resultado da multiplicação entre os campos:</xs:documentation>
+                                                                                        <xs:documentation>a) {infoEstabSusp/aliqRat}(./aliqRat) e {infoEstabSusp/fap}(./fap), caso ambos estejam preenchidos; ou</xs:documentation>
+                                                                                        <xs:documentation>b) {infoEstabSusp/aliqRat}(./aliqRat) e {infoEstab/fap}(../fap), caso {infoEstabSusp/fap}(./fap) não esteja preenchido; ou</xs:documentation>
+                                                                                        <xs:documentation>c) {infoEstab/aliqRat}(../aliqRat) e {infoEstabSusp/fap}(./fap), caso {infoEstabSusp/aliqRat}(./aliqRat) não esteja preenchido.</xs:documentation>
+                                                                                    </xs:annotation>
+                                                                                    <xs:restriction base="xs:decimal">
+                                                                                        <xs:totalDigits value="5" />
+                                                                                        <xs:fractionDigits value="4" />
+                                                                                        <xs:minInclusive value="0.5" />
+                                                                                        <xs:maxInclusive value="6" />
+                                                                                    </xs:restriction>
+                                                                                </xs:simpleType>
+                                                                            </xs:element>
+                                                                        </xs:sequence>
+                                                                    </xs:complexType>
+                                                                </xs:element>
                                                                 <xs:element name="infoComplObra" minOccurs="0">
                                                                     <xs:annotation>
                                                                         <xs:documentation>Informações complementares relativas a obras</xs:documentation>
