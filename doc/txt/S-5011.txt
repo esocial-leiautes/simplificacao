@@ -93,9 +93,9 @@ Condição: N (se {ideEstab/tpInsc}(../tpInsc) = [2] OU (se {ideEstab/tpInsc}(..
 O (nos demais casos)
 
 Nível: 6
-Nome: infoEstabSusp
+Nome: infoEstabRef
 Pai: infoEstab
-Descrição: Informações de RAT e/ou FAP com exigibilidade suspensa
+Descrição: Informações de RAT e/ou FAP de referência
 Ocorrência: 0-1
 Chave: -
 Condição: OC (se houver informação de {procAdmJudRat}(1005_infoEstab_inclusao_dadosEstab_aliqGilrat_procAdmJudRat) em S-1005 ou de {procAdmJudFap}(1005_infoEstab_inclusao_dadosEstab_aliqGilrat_procAdmJudFap) em S-1005)
@@ -555,49 +555,46 @@ Dec.: 4
 Descrição: Alíquota do RAT após ajuste pelo FAP.
 Validação: Informação obrigatória e exclusiva se {ideEmpregador/tpInsc}(5011_ideEmpregador_tpInsc) = [1]. Deve corresponder ao resultado da multiplicação dos campos {infoEstab/aliqRat}(./aliqRat) e {infoEstab/fap}(./fap).
 
-Nome: infoEstabSusp
+Nome: infoEstabRef
 Pai: infoEstab
 Elem.: G
 Tipo: -
 Ocorrência: 0-1
 Tamanho: -
 Dec.: -
-Descrição:  Informações de RAT e/ou FAP com exigibilidade suspensa, em virtude de processo administrativo ou judicial que altere a(s) alíquota(s).
+Descrição:  Informações de RAT e/ou FAP de referência, nos casos de processo administrativo ou judicial que altere a(s) alíquota(s).
 
 Nome: aliqRat
-Pai: infoEstabSusp
+Pai: infoEstabRef
 Elem.: E
 Tipo: N
-Ocorrência: 0-1
+Ocorrência: 1
 Tamanho: 1
 Dec.: -
-Descrição: Informar a alíquota RAT com exigibilidade suspensa.
+Descrição: Retornar a alíquota RAT definida na legislação vigente.
 Valores válidos:
  1, 2, 3
-Validação: Informação obrigatória e exclusiva se houver informação de {procAdmJudRat}(1005_infoEstab_inclusao_dadosEstab_aliqGilrat_procAdmJudRat) em S-1005. Deve corresponder à alíquota definida na legislação vigente para o código CNAE informado em S-1005.
+Validação: Deve corresponder à alíquota definida na legislação vigente para o código CNAE informado em S-1005.
 
 Nome: fap
-Pai: infoEstabSusp
+Pai: infoEstabRef
 Elem.: E
 Tipo: N
 Ocorrência: 0-1
 Tamanho: 1-5
 Dec.: 4
-Descrição: Fator Acidentário de Prevenção - FAP com exigibilidade suspensa.
-Validação: Informação obrigatória e exclusiva se {ideEmpregador/tpInsc}(5011_ideEmpregador_tpInsc) = [1] e se houver informação de {procAdmJudFap}(1005_infoEstab_inclusao_dadosEstab_aliqGilrat_procAdmJudFap) em S-1005. Deve corresponder ao FAP estabelecido para a empresa pelo órgão governamental competente.
+Descrição: Fator Acidentário de Prevenção - FAP estabelecido pelo órgão governamental competente.
+Validação: Informação obrigatória e exclusiva se {ideEmpregador/tpInsc}(5011_ideEmpregador_tpInsc) = [1]. Deve corresponder ao FAP estabelecido para a empresa pelo órgão governamental competente.
 
 Nome: aliqRatAjust
-Pai: infoEstabSusp
+Pai: infoEstabRef
 Elem.: E
 Tipo: N
 Ocorrência: 0-1
 Tamanho: 1-5
 Dec.: 4
-Descrição: Alíquota com exigibilidade suspensa - RAT após ajuste pelo FAP.
-Validação: Informação obrigatória e exclusiva se {ideEmpregador/tpInsc}(5011_ideEmpregador_tpInsc) = [1]. Deve corresponder ao resultado da multiplicação entre os campos:
-a) {infoEstabSusp/aliqRat}(./aliqRat) e {infoEstabSusp/fap}(./fap), caso ambos estejam preenchidos; ou
-b) {infoEstabSusp/aliqRat}(./aliqRat) e {infoEstab/fap}(../fap), caso {infoEstabSusp/fap}(./fap) não esteja preenchido; ou
-c) {infoEstab/aliqRat}(../aliqRat) e {infoEstabSusp/fap}(./fap), caso {infoEstabSusp/aliqRat}(./aliqRat) não esteja preenchido.
+Descrição: Alíquota de referência - RAT após ajuste pelo FAP.
+Validação: Informação obrigatória e exclusiva se {ideEmpregador/tpInsc}(5011_ideEmpregador_tpInsc) = [1]. Deve corresponder ao resultado da multiplicação dos campos {infoEstabRef/aliqRat}(./aliqRat) e {infoEstabRef/fap}(./fap).
 
 Nome: infoComplObra
 Pai: infoEstab
