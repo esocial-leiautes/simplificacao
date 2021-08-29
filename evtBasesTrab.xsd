@@ -572,7 +572,7 @@
                                                                     <xs:annotation>
                                                                         <xs:documentation>Cálculo das contribuições sociais devidas a Outras Entidades e Fundos.</xs:documentation>
                                                                         <xs:documentation>CHAVE_GRUPO: {tpCR}</xs:documentation>
-                                                                        <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
+                                                                        <xs:documentation>CONDICAO_GRUPO: OC (se {ideEmpregador/tpInsc}(5001_ideEmpregador_tpInsc) = [1]); N (nos demais casos)</xs:documentation>
                                                                     </xs:annotation>
                                                                     <xs:complexType>
                                                                         <xs:sequence>
@@ -598,8 +598,8 @@
                                                                             <xs:element name="vrCsSegTerc" type="TS_valorMonetario">
                                                                                 <xs:annotation>
                                                                                     <xs:documentation>Valor da contribuição social devida a Outras Entidades ou Fundos, calculada segundo a legislação em vigor, por CR.</xs:documentation>
-                                                                                    <xs:documentation>Validação: {calcTerc/tpCR}(./tpCR) = [121802] - Somatório de {valor}(../infoBaseCS_valor) quando {tpValor}(../infoBaseCS_tpValor) = [11, 12, 13, 14], multiplicado pela alíquota de 1,5%, se {codCateg}(../codCateg) = [711, 712, 734] (transportador autônomo);</xs:documentation>
-                                                                                    <xs:documentation>{calcTerc/tpCR}(./tpCR) = [122102] - Somatório de {valor}(../infoBaseCS_valor) quando {tpValor}(../infoBaseCS_tpValor) = [11, 12, 13, 14], multiplicado pela alíquota de 1,0%, se {codCateg}(../codCateg) = [711, 712, 734] (transportador autônomo).</xs:documentation>
+                                                                                    <xs:documentation>Validação: {calcTerc/tpCR}(./tpCR) = [121802] - Somatório de {valor}(../infoBaseCS_valor) quando {tpValor}(../infoBaseCS_tpValor) = [11, 12, 13, 14], multiplicado pela alíquota de 1,5%, se {codCateg}(../codCateg) = [711, 712, 734] (transportador autônomo) e {ideEmpregador/tpInsc}(5001_ideEmpregador_tpInsc) = [1];</xs:documentation>
+                                                                                    <xs:documentation>{calcTerc/tpCR}(./tpCR) = [122102] - Somatório de {valor}(../infoBaseCS_valor) quando {tpValor}(../infoBaseCS_tpValor) = [11, 12, 13, 14], multiplicado pela alíquota de 1,0%, se {codCateg}(../codCateg) = [711, 712, 734] (transportador autônomo) e {ideEmpregador/tpInsc}(5001_ideEmpregador_tpInsc) = [1].</xs:documentation>
                                                                                     <xs:documentation>OBS.: No período de 04/2020 a 06/2020, as alíquotas devem ser 0,75% para o SEST e 0,5% para o SENAT.</xs:documentation>
                                                                                 </xs:annotation>
                                                                             </xs:element>
