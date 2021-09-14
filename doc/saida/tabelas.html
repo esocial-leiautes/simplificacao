@@ -17152,6 +17152,23 @@ document.querySelectorAll("a[href^='#REGRA_']").forEach(element => {
     }
 });
 
+document.querySelectorAll("td[id^='REGRA_']").forEach(element => {
+    element.onclick = function() {
+        var modal_atual = document.querySelector("div[class~='is-active']")
+        if (modal_atual != null) {
+            modal_atual.classList.remove('is-active')
+        }
+
+        var modal = document.querySelector("div[id='r_" + element.getAttribute('id') + "']")
+        if (modal != null) {
+            modal.classList.add("is-active")
+            modal.querySelector("button.delete").onclick = function() {
+                document.querySelector("div[class~='is-active']").classList.remove('is-active')
+            }
+        }
+    }
+});
+
 function copiarCaminho() {
     var copiador = document.getElementById("copiador");
     copiador.value = this.attributes["id"].value;
