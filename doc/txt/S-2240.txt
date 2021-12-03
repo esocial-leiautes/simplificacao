@@ -77,9 +77,10 @@ Nível: 5
 Nome: epcEpi
 Pai: agNoc
 Descrição: EPC e EPI
-Ocorrência: 1
+Ocorrência: 0-1
 Chave: -
-Condição: O
+Condição: N (se {codAgNoc}(../codAgNoc) = [09.01.001])
+O (nos demais casos)
 
 Nível: 6
 Nome: epi
@@ -103,8 +104,8 @@ Nível: 4
 Nome: respReg
 Pai: infoExpRisco
 Descrição: Responsável pelos registros ambientais
-Ocorrência: 1-9
-Chave: -
+Ocorrência: 1-99
+Chave: cpfResp
 Condição: O
 
 Nível: 4
@@ -420,13 +421,14 @@ Nome: tpAval
 Pai: agNoc
 Elem.: E
 Tipo: N
-Ocorrência: 1
+Ocorrência: 0-1
 Tamanho: 1
 Dec.: -
 Descrição: Tipo de avaliação do agente nocivo.
 Valores válidos:
 1 - Critério quantitativo
 2 - Critério qualitativo
+Validação: Não informar se {codAgNoc}(./codAgNoc) = [09.01.001].
 
 Nome: intConc
 Pai: agNoc
@@ -503,7 +505,7 @@ Nome: epcEpi
 Pai: agNoc
 Elem.: G
 Tipo: -
-Ocorrência: 1
+Ocorrência: 0-1
 Tamanho: -
 Dec.: -
 Descrição: Informações relativas a Equipamentos de Proteção Coletiva - EPC e Equipamentos de Proteção Individual - EPI.
@@ -528,7 +530,7 @@ Tipo: C
 Ocorrência: 0-1
 Tamanho: 1
 Dec.: -
-Descrição: Os EPCs são eficazes na neutralização dos riscos ao trabalhador?
+Descrição: Os EPCs são eficazes na neutralização do risco ao trabalhador?
 Valores válidos:
 S - Sim
 N - Não
@@ -546,6 +548,19 @@ Valores válidos:
 0 - Não se aplica
 1 - Não utilizado
 2 - Utilizado
+
+Nome: eficEpi
+Pai: epcEpi
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Os EPIs são eficazes na neutralização do risco ao trabalhador?
+Valores válidos:
+S - Sim
+N - Não
+Validação: Preenchimento obrigatório e exclusivo se {utilizEPI}(./utilizEPI) = [2].
 
 Nome: epi
 Pai: epcEpi
@@ -574,18 +589,6 @@ Tamanho: 1-999
 Dec.: -
 Descrição: Descrição do EPI.
 Validação: Preenchimento obrigatório e exclusivo se {docAval}(./docAval) não for informado.
-
-Nome: eficEpi
-Pai: epi
-Elem.: E
-Tipo: C
-Ocorrência: 1
-Tamanho: 1
-Dec.: -
-Descrição: O EPI é eficaz na neutralização do risco ao trabalhador?
-Valores válidos:
-S - Sim
-N - Não
 
 Nome: epiCompl
 Pai: epcEpi
@@ -672,7 +675,7 @@ Nome: respReg
 Pai: infoExpRisco
 Elem.: G
 Tipo: -
-Ocorrência: 1-9
+Ocorrência: 1-99
 Tamanho: -
 Dec.: -
 Descrição: Informações relativas ao responsável pelos registros ambientais.

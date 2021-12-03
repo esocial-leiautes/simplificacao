@@ -89,8 +89,17 @@ Pai: ideEstab
 Descrição: Informações do estabelecimento
 Ocorrência: 0-1
 Chave: -
-Condição: N (se {ideEstab/tpInsc}(../tpInsc) = [2] OU (se {ideEstab/tpInsc}(../tpInsc) = [3] e se tratar de empregador doméstico))
+Condição: N (se {ideEstab/tpInsc}(../tpInsc) = [2] OU (se {ideEstab/tpInsc}(../tpInsc) = [3] e se tratar de empregador doméstico) OU se não existir informação em S-1200, S-1270, S-2299 ou S-2399 relativas ao estabelecimento)
 O (nos demais casos)
+
+Nível: 6
+Nome: infoEstabRef
+Pai: infoEstab
+Descrição: Informações de RAT e FAP de referência
+Ocorrência: 0-1
+Chave: -
+Condição: OC (se houver informação de {procAdmJudRat}(1005_infoEstab_inclusao_dadosEstab_aliqGilrat_procAdmJudRat) em S-1005 ou de {procAdmJudFap}(1005_infoEstab_inclusao_dadosEstab_aliqGilrat_procAdmJudFap) em S-1005)
+N (nos demais casos)
 
 Nível: 6
 Nome: infoComplObra
@@ -98,7 +107,7 @@ Pai: infoEstab
 Descrição: Informações complementares relativas a obras
 Ocorrência: 0-1
 Chave: -
-Condição: O (se {indConstr}(5011_infoCS_infoContrib_infoPJ_indConstr) = [1] e {ideEstab/tpInsc}(../../tpInsc) = [4])
+Condição: O (se houver informação de {infoObra}(1005_infoEstab_inclusao_dadosEstab_infoObra) em S-1005)
 N (nos demais casos)
 
 Nível: 5
@@ -534,7 +543,11 @@ Ocorrência: 0-1
 Tamanho: 1-5
 Dec.: 4
 Descrição: Fator Acidentário de Prevenção - FAP.
-Validação: Informação obrigatória e exclusiva se {ideEmpregador/tpInsc}(5011_ideEmpregador_tpInsc) = [1]. Deve corresponder ao FAP declarado no evento S-1005. Caso não haja informação, retornar o FAP estabelecido para a empresa pelo órgão governamental competente.
+Validação: Informação obrigatória e exclusiva se {ideEmpregador/tpInsc}(5011_ideEmpregador_tpInsc) = [1]. Deve corresponder ao FAP estabelecido para a empresa pelo órgão governamental competente, exceto se:
+a) {ideEstab/tpInsc}(5011_infoCS_ideEstab_tpInsc) = [4]; ou
+b) {ideEstab/tpInsc}(5011_infoCS_ideEstab_tpInsc) = [1] e se houver informação de {procAdmJudFap}(1005_infoEstab_inclusao_dadosEstab_aliqGilrat_procAdmJudFap) em S-1005; ou
+c) {ideEstab/tpInsc}(5011_infoCS_ideEstab_tpInsc) = [1] e o estabalecimento não for encontrado na tabela FAP referente ao ano de {perApur}(5011_ideEvento_perApur).
+Caso haja alguma exceção acima, retornar o FAP declarado no evento S-1005.
 
 Nome: aliqRatAjust
 Pai: infoEstab
@@ -545,6 +558,47 @@ Tamanho: 1-5
 Dec.: 4
 Descrição: Alíquota do RAT após ajuste pelo FAP.
 Validação: Informação obrigatória e exclusiva se {ideEmpregador/tpInsc}(5011_ideEmpregador_tpInsc) = [1]. Deve corresponder ao resultado da multiplicação dos campos {infoEstab/aliqRat}(./aliqRat) e {infoEstab/fap}(./fap).
+
+Nome: infoEstabRef
+Pai: infoEstab
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição:  Informações de RAT e FAP de referência, nos casos de processo administrativo ou judicial que altere a(s) alíquota(s).
+
+Nome: aliqRat
+Pai: infoEstabRef
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Retornar a alíquota RAT definida na legislação vigente.
+Valores válidos:
+ 1, 2, 3
+Validação: Deve corresponder à alíquota definida na legislação vigente para o código CNAE informado em S-1005.
+
+Nome: fap
+Pai: infoEstabRef
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-5
+Dec.: 4
+Descrição: Fator Acidentário de Prevenção - FAP estabelecido pelo órgão governamental competente.
+Validação: Informação obrigatória e exclusiva se {ideEmpregador/tpInsc}(5011_ideEmpregador_tpInsc) = [1]. Deve corresponder ao FAP estabelecido para a empresa pelo órgão governamental competente.
+
+Nome: aliqRatAjust
+Pai: infoEstabRef
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-5
+Dec.: 4
+Descrição: Alíquota de referência - RAT após ajuste pelo FAP.
+Validação: Informação obrigatória e exclusiva se {ideEmpregador/tpInsc}(5011_ideEmpregador_tpInsc) = [1]. Deve corresponder ao resultado da multiplicação dos campos {infoEstabRef/aliqRat}(./aliqRat) e {infoEstabRef/fap}(./fap).
 
 Nome: infoComplObra
 Pai: infoEstab
