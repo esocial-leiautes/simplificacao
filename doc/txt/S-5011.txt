@@ -539,6 +539,16 @@ Dec.: -
 Descrição: Preencher com o código CNAE, conforme informado em S-1005.
 Evento de origem: S-1005.
 
+Nome: cnpjResp
+Pai: infoEstab
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 14
+Dec.: -
+Descrição: Preencher com o CNPJ responsável pela inscrição no cadastro de obras da RFB.
+Evento de origem: S-1005.
+
 Nome: aliqRat
 Pai: infoEstab
 Elem.: E
@@ -560,9 +570,9 @@ Tamanho: 1-5
 Dec.: 4
 Descrição: Fator Acidentário de Prevenção - FAP.
 Validação: Informação obrigatória e exclusiva se {ideEmpregador/tpInsc}(5011_ideEmpregador_tpInsc) = [1]. Deve corresponder ao FAP estabelecido para a empresa pelo órgão governamental competente, exceto se:
-a) {ideEstab/tpInsc}(5011_infoCS_ideEstab_tpInsc) = [4]; ou
-b) {ideEstab/tpInsc}(5011_infoCS_ideEstab_tpInsc) = [1] e se houver informação de {procAdmJudFap}(1005_infoEstab_inclusao_dadosEstab_aliqGilrat_procAdmJudFap) em S-1005; ou
-c) {ideEstab/tpInsc}(5011_infoCS_ideEstab_tpInsc) = [1] e o estabelecimento não for encontrado na tabela FAP referente ao ano de {perApur}(5011_ideEvento_perApur).
+a) {ideEstab/tpInsc}(5011_infoCS_ideEstab_tpInsc) = [4] e se não existir o campo {cnpjResp}(./cnpjResp); ou
+b) {ideEstab/tpInsc}(5011_infoCS_ideEstab_tpInsc) = [1, 4] e se houver informação de {procAdmJudFap}(1005_infoEstab_inclusao_dadosEstab_aliqGilrat_procAdmJudFap) em S-1005; ou
+c) {ideEstab/tpInsc}(5011_infoCS_ideEstab_tpInsc) = [1, 4] e o estabelecimento ou o CNPJ responsável pela inscrição no CNO não for encontrado na tabela FAP referente ao ano de {perApur}(5011_ideEvento_perApur).
 Caso haja alguma exceção acima, retornar o FAP declarado no evento S-1005.
 
 Nome: aliqRatAjust
