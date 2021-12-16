@@ -218,7 +218,7 @@ No caso do evento S-2420, a data de cessação deve ser igual ou posterior à da
 <div class="modal-card-body">
 <p>O preenchimento do campo deve observar o que segue:<br />
 1) Pode conter exclusivamente caracteres presentes na lista abaixo, incluindo o espaço simples:<br />
-! " # $ % & ' ( ) * + , - . / 0 1 2 3 4 5 6 7 8 9 : ; &lt; = > ? @ A B C D E F G H I J K L M N O P Q R S T U V W X Y Z [ \ ] ^ _ ` a b c d e f g h i j k l m n o p q r s t u v w x y z { | } ~ ¡ ¢ £ ¥ § © ª « ¬ ® ¯ ° ± ² ³ µ ¶ · ¹ º » À Á Â Ã Ä Å Æ Ç È É Ê Ë Ì Í Î Ï Ð Ñ Ò Ó Ô Õ Ö × Ø Ù Ú Û Ü Ý Þ ß à á â ã ä å æ ç è é ê ë ì í î ï ð ñ ò ó ô õ ö ÷ ø ù ú û ü ý þ ÿ<br />
+! " # $ % & ' ( ) * + , - . / 0 1 2 3 4 5 6 7 8 9 : ; &lt; = &gt; ? @ A B C D E F G H I J K L M N O P Q R S T U V W X Y Z [ \ ] ^ _ ` a b c d e f g h i j k l m n o p q r s t u v w x y z { | } ~ ¡ ¢ £ ¥ § © ª « ¬ ® ¯ ° ± ² ³ µ ¶ · ¹ º » À Á Â Ã Ä Å Æ Ç È É Ê Ë Ì Í Î Ï Ð Ñ Ò Ó Ô Õ Ö × Ø Ù Ú Û Ü Ý Þ ß à á â ã ä å æ ç è é ê ë ì í î ï ð ñ ò ó ô õ ö ÷ ø ù ú û ü ý þ ÿ<br />
 2) Não pode conter qualquer espaço no início ou no final.<br />
 3) Não pode conter &lt;tab&gt;, &lt;enter&gt; e &lt;espaço sem quebra visível&gt;.<br />
 OBS.: A presente regra não se aplica a eventos retificadores, periódicos e não periódicos, com data de ocorrência ou período de apuração anterior a 01/07/2019, bem como não se aplica a alterações de eventos de tabela.</p>
@@ -272,7 +272,7 @@ f) cujo {codCateg} = [301, 302, 303, 304, 306, 307, 309, 310, 312, 401, 410] e {
 2) O S-1202 só é permitido para informação de remuneração de trabalhadores:<br />
 a) cujo {codCateg} = [301, 302, 303, 304, 306, 307, 309, 310, 312] e {tpRegPrev} = [2] ou não existente;<br />
 b) cujo {codCateg} = [308, 311, 313];<br />
-c) cujo {codCateg} = [305] e ({perApur} >= [2022-04] (se {indApuracao} = [1]) ou {perApur} >= [2022] (se {indApuracao} = [2]));<br />
+c) cujo {codCateg} = [305] e ({perApur} &gt;= [2022-04] (se {indApuracao} = [1]) ou {perApur} &gt;= [2022] (se {indApuracao} = [2]));<br />
 d) cujo {codCateg} = [401, 410] e {tpRegPrev} = [2].<br />
 OBS.: A informação de {tpRegPrev} deve ser obtida no Registro de Eventos Trabalhistas - RET do respectivo contrato, em:<br />
 a) {perApur}, se a remuneração for preenchida no grupo {infoPerApur}; e/ou<br />
@@ -1442,7 +1442,7 @@ b1) Todos os trabalhadores admitidos (S-2190 ou S-2200) em período igual ou ant
 - se, para trabalhador admitido com {tpAdmissao} = [2, 3, 4, 5, 6] ou {tpProv} = [5, 8, 10], o período de apuração for menor que o mês/ano informado no campo {sucessaoVinc/dtTransf}, {transfDom/dtTransf} ou {mudancaCPF/dtAltCPF}, todos do S-2200; ou<br />
 - se {indApuracao} = [2] e o código da categoria do trabalhador for igual a [107, 108] em todo o ano; ou<br />
 - se o período de apuração for posterior ao mês/ano da data de desligamento (informada em S-2200 ou S-2299) e anterior ao mês/ano da data do efetivo retorno (informada em S-2298), no caso de empregado reintegrado; ou<br />
-- se {perApur} < [2022-04] e o trabalhador estiver amparado por Regime Próprio de Previdência Social - RPPS ({tpRegPrev} = [2] no RET) em todo o período de apuração.<br />
+- se {perApur} &lt; [2022-04] e o trabalhador estiver amparado por Regime Próprio de Previdência Social - RPPS ({tpRegPrev} = [2] no RET) em todo o período de apuração.<br />
 Em caso de não existência do evento de remuneração para o período de apuração e não se tratando das exceções acima listadas, deve ser gerado um "alerta" para o empregador (ou seja, embora a situação seja irregular, não há impedimento para o fechamento dos eventos periódicos).<br />
 b2) Para o fechamento da folha de pessoa física em que todos os trabalhadores de código de categoria [104] tenham remuneração enviada, não deve haver eventos de Remuneração RGPS (S-1200) para trabalhadores com código de categoria diferente de [104] em período de apuração anterior ao início da respectiva obrigatoriedade dos eventos periódicos.<br />
 b3) Todos os benefícios com início igual ou anterior ao período de apuração que não estejam cessados (inclusive benefícios reativados em mês/ano igual ou anterior ao período de apuração) ou cujo término seja posterior ao período de apuração devem possuir o evento S-1207 encaminhado para o mesmo período de apuração, exceto:<br />
@@ -1735,6 +1735,8 @@ N (nos demais casos)</td>
 </tr>
 </tbody>
 </table>
+
+<p class="is-size-6" style="margin-top: -1rem">* Campo chave do evento</p>
 
 <h4 class="subtitle has-text-centered">Registros do evento S-1000 - Informações do Empregador/Contribuinte/Órgão Público</h4>
 <table class="table is-fullwidth is-bordered completo">
@@ -2556,6 +2558,8 @@ N (nos demais casos)</td>
 </tr>
 </tbody>
 </table>
+
+<p class="is-size-6" style="margin-top: -1rem">* Campo chave do evento</p>
 
 <h4 class="subtitle has-text-centered">Registros do evento S-1005 - Tabela de Estabelecimentos, Obras ou Unidades de Órgãos Públicos</h4>
 <table class="table is-fullwidth is-bordered completo">
@@ -3415,6 +3419,8 @@ N (nos demais casos)</td>
 </tbody>
 </table>
 
+<p class="is-size-6" style="margin-top: -1rem">* Campo chave do evento</p>
+
 <h4 class="subtitle has-text-centered">Registros do evento S-1010 - Tabela de Rubricas</h4>
 <table class="table is-fullwidth is-bordered completo">
 <tbody>
@@ -4272,6 +4278,8 @@ N (nos demais casos)</td>
 </tbody>
 </table>
 
+<p class="is-size-6" style="margin-top: -1rem">* Campo chave do evento</p>
+
 <h4 class="subtitle has-text-centered">Registros do evento S-1020 - Tabela de Lotações Tributárias</h4>
 <table class="table is-fullwidth is-bordered completo">
 <tbody>
@@ -5048,6 +5056,8 @@ N (nos demais casos)</td>
 </tr>
 </tbody>
 </table>
+
+<p class="is-size-6" style="margin-top: -1rem">* Campo chave do evento</p>
 
 <h4 class="subtitle has-text-centered">Registros do evento S-1070 - Tabela de Processos Administrativos/Judiciais</h4>
 <table class="table is-fullwidth is-bordered completo">
@@ -5842,6 +5852,8 @@ N (nos demais casos)</td>
 </tr>
 </tbody>
 </table>
+
+<p class="is-size-6" style="margin-top: -1rem">* Campo chave do evento</p>
 
 <h4 class="subtitle has-text-centered">Registros do evento S-1200 - Remuneração de Trabalhador vinculado ao Regime Geral de Previd. Social</h4>
 <table class="table is-fullwidth is-bordered completo">
@@ -7116,6 +7128,8 @@ OC (nos demais casos)</td>
 </tbody>
 </table>
 
+<p class="is-size-6" style="margin-top: -1rem">* Campo chave do evento</p>
+
 <h4 class="subtitle has-text-centered">Registros do evento S-1202 - Remuneração de Servidor vinculado ao Regime Próprio de Previd. Social</h4>
 <table class="table is-fullwidth is-bordered completo">
 <tbody>
@@ -7846,7 +7860,8 @@ OC (nos demais casos)</td>
 <td>Informações relativas a períodos anteriores</td>
 <td>0-1</td>
 <td>-</td>
-<td>O (se não existir o grupo <a href="#1207_dmDev_infoPerApur">infoPerApur</a>);<br />
+<td>O (se não existir o grupo <a href="#1207_dmDev_infoPerApur">infoPerApur</a> e <a href="#1207_ideEvento_indApuracao">indApuracao</a> = [1]);<br />
+N (se <a href="#1207_ideEvento_indApuracao">indApuracao</a> = [2]);<br />
 OC (nos demais casos)</td>
 </tr>
 <tr>
@@ -7878,6 +7893,8 @@ OC (nos demais casos)</td>
 </tr>
 </tbody>
 </table>
+
+<p class="is-size-6" style="margin-top: -1rem">* Campo chave do evento</p>
 
 <h4 class="subtitle has-text-centered">Registros do evento S-1207 - Benefícios - Entes Públicos</h4>
 <table class="table is-fullwidth is-bordered completo">
@@ -8405,6 +8422,8 @@ Deve ser informado no formato AAAA-MM.</td>
 </tbody>
 </table>
 
+<p class="is-size-6" style="margin-top: -1rem">* Campo chave do evento</p>
+
 <h4 class="subtitle has-text-centered">Registros do evento S-1210 - Pagamentos de Rendimentos do Trabalho</h4>
 <table class="table is-fullwidth is-bordered completo">
 <tbody>
@@ -8830,6 +8849,8 @@ N (nos demais casos)</td>
 </tr>
 </tbody>
 </table>
+
+<p class="is-size-6" style="margin-top: -1rem">* Campo chave do evento</p>
 
 <h4 class="subtitle has-text-centered">Registros do evento S-1260 - Comercialização da Produção Rural Pessoa Física</h4>
 <table class="table is-fullwidth is-bordered completo">
@@ -9400,6 +9421,8 @@ Deve ser um valor maior que 0 (zero).</td>
 </tbody>
 </table>
 
+<p class="is-size-6" style="margin-top: -1rem">* Campo chave do evento</p>
+
 <h4 class="subtitle has-text-centered">Registros do evento S-1270 - Contratação de Trabalhadores Avulsos Não Portuários</h4>
 <table class="table is-fullwidth is-bordered completo">
 <tbody>
@@ -9826,6 +9849,8 @@ N (nos demais casos)</td>
 </tbody>
 </table>
 
+<p class="is-size-6" style="margin-top: -1rem">* Campo chave do evento</p>
+
 <h4 class="subtitle has-text-centered">Registros do evento S-1280 - Informações Complementares aos Eventos Periódicos</h4>
 <table class="table is-fullwidth is-bordered completo">
 <tbody>
@@ -10223,6 +10248,8 @@ Informar 0 (zero) se <a href="#1280_infoSubstPatr_indSubstPatr">indSubstPatr</a>
 </tbody>
 </table>
 
+<p class="is-size-6" style="margin-top: -1rem">* Campo chave do evento</p>
+
 <h4 class="subtitle has-text-centered">Registros do evento S-1298 - Reabertura dos Eventos Periódicos</h4>
 <table class="table is-fullwidth is-bordered completo">
 <tbody>
@@ -10474,6 +10501,8 @@ Informar 0 (zero) se <a href="#1280_infoSubstPatr_indSubstPatr">indSubstPatr</a>
 </tr>
 </tbody>
 </table>
+
+<p class="is-size-6" style="margin-top: -1rem">* Campo chave do evento</p>
 
 <h4 class="subtitle has-text-centered">Registros do evento S-1299 - Fechamento dos Eventos Periódicos</h4>
 <table class="table is-fullwidth is-bordered completo">
@@ -10836,6 +10865,8 @@ N (nos demais casos)</td>
 </tr>
 </tbody>
 </table>
+
+<p class="is-size-6" style="margin-top: -1rem">* Campo chave do evento</p>
 
 <h4 class="subtitle has-text-centered">Registros do evento S-2190 - Registro Preliminar de Trabalhador</h4>
 <table class="table is-fullwidth is-bordered completo">
@@ -11588,6 +11619,8 @@ OC (nos demais casos)</td>
 </tr>
 </tbody>
 </table>
+
+<p class="is-size-6" style="margin-top: -1rem">* Campo chave do evento</p>
 
 <h4 class="subtitle has-text-centered">Registros do evento S-2200 - Cadastramento Inicial do Vínculo e Admissão/Ingresso de Trabalhador</h4>
 <table class="table is-fullwidth is-bordered completo">
@@ -13832,6 +13865,8 @@ N (nos demais casos)</td>
 </tbody>
 </table>
 
+<p class="is-size-6" style="margin-top: -1rem">* Campo chave do evento</p>
+
 <h4 class="subtitle has-text-centered">Registros do evento S-2205 - Alteração de Dados Cadastrais do Trabalhador</h4>
 <table class="table is-fullwidth is-bordered completo">
 <tbody>
@@ -14927,6 +14962,8 @@ OC (nos demais casos)</td>
 </tr>
 </tbody>
 </table>
+
+<p class="is-size-6" style="margin-top: -1rem">* Campo chave do evento</p>
 
 <h4 class="subtitle has-text-centered">Registros do evento S-2206 - Alteração de Contrato de Trabalho/Relação Estatutária</h4>
 <table class="table is-fullwidth is-bordered completo">
@@ -16059,6 +16096,8 @@ N (nos demais casos)</td>
 </tbody>
 </table>
 
+<p class="is-size-6" style="margin-top: -1rem">* Campo chave do evento</p>
+
 <h4 class="subtitle has-text-centered">Registros do evento S-2210 - Comunicação de Acidente de Trabalho</h4>
 <table class="table is-fullwidth is-bordered completo">
 <tbody>
@@ -17043,6 +17082,8 @@ OBS.: Quando a data do acidente for anterior à data de obrigatoriedade do empre
 </tbody>
 </table>
 
+<p class="is-size-6" style="margin-top: -1rem">* Campo chave do evento</p>
+
 <h4 class="subtitle has-text-centered">Registros do evento S-2220 - Monitoramento da Saúde do Trabalhador</h4>
 <table class="table is-fullwidth is-bordered completo">
 <tbody>
@@ -17659,6 +17700,8 @@ OC (nos demais casos)</td>
 </tr>
 </tbody>
 </table>
+
+<p class="is-size-6" style="margin-top: -1rem">* Campo chave do evento</p>
 
 <h4 class="subtitle has-text-centered">Registros do evento S-2230 - Afastamento Temporário</h4>
 <table class="table is-fullwidth is-bordered completo">
@@ -18315,6 +18358,8 @@ N (nos demais casos)</td>
 </tbody>
 </table>
 
+<p class="is-size-6" style="margin-top: -1rem">* Campo chave do evento</p>
+
 <h4 class="subtitle has-text-centered">Registros do evento S-2231 - Cessão/Exercício em Outro Órgão</h4>
 <table class="table is-fullwidth is-bordered completo">
 <tbody>
@@ -18764,6 +18809,8 @@ N (nos demais casos)</td>
 </tr>
 </tbody>
 </table>
+
+<p class="is-size-6" style="margin-top: -1rem">* Campo chave do evento</p>
 
 <h4 class="subtitle has-text-centered">Registros do evento S-2240 - Condições Ambientais do Trabalho - Agentes Nocivos</h4>
 <table class="table is-fullwidth is-bordered completo">
@@ -19600,6 +19647,8 @@ b) Se <a href="#2240_infoExpRisco_infoAmb_localAmb">localAmb</a> = [2], deve ser
 </tbody>
 </table>
 
+<p class="is-size-6" style="margin-top: -1rem">* Campo chave do evento</p>
+
 <h4 class="subtitle has-text-centered">Registros do evento S-2298 - Reintegração/Outros Provimentos</h4>
 <table class="table is-fullwidth is-bordered completo">
 <tbody>
@@ -20182,6 +20231,8 @@ OC (nos demais casos)</td>
 </tr>
 </tbody>
 </table>
+
+<p class="is-size-6" style="margin-top: -1rem">* Campo chave do evento</p>
 
 <h4 class="subtitle has-text-centered">Registros do evento S-2299 - Desligamento</h4>
 <table class="table is-fullwidth is-bordered completo">
@@ -21547,6 +21598,8 @@ OC (nos demais casos)</td>
 </tr>
 </tbody>
 </table>
+
+<p class="is-size-6" style="margin-top: -1rem">* Campo chave do evento</p>
 
 <h4 class="subtitle has-text-centered">Registros do evento S-2300 - Trabalhador Sem Vínculo de Emprego/Estatutário - Início</h4>
 <table class="table is-fullwidth is-bordered completo">
@@ -23463,6 +23516,8 @@ N (nos demais casos)</td>
 </tbody>
 </table>
 
+<p class="is-size-6" style="margin-top: -1rem">* Campo chave do evento</p>
+
 <h4 class="subtitle has-text-centered">Registros do evento S-2306 - Trabalhador Sem Vínculo de Emprego/Estatutário - Alteração Contratual</h4>
 <table class="table is-fullwidth is-bordered completo">
 <tbody>
@@ -24344,6 +24399,8 @@ N (nos demais casos)</td>
 </tbody>
 </table>
 
+<p class="is-size-6" style="margin-top: -1rem">* Campo chave do evento</p>
+
 <h4 class="subtitle has-text-centered">Registros do evento S-2399 - Trabalhador Sem Vínculo de Emprego/Estatutário - Término</h4>
 <table class="table is-fullwidth is-bordered completo">
 <tbody>
@@ -25175,6 +25232,8 @@ N (nos demais casos)</td>
 </tbody>
 </table>
 
+<p class="is-size-6" style="margin-top: -1rem">* Campo chave do evento</p>
+
 <h4 class="subtitle has-text-centered">Registros do evento S-2400 - Cadastro de Beneficiário - Entes Públicos - Início</h4>
 <table class="table is-fullwidth is-bordered completo">
 <tbody>
@@ -25910,6 +25969,8 @@ N (nos demais casos)</td>
 </tr>
 </tbody>
 </table>
+
+<p class="is-size-6" style="margin-top: -1rem">* Campo chave do evento</p>
 
 <h4 class="subtitle has-text-centered">Registros do evento S-2405 - Cadastro de Beneficiário - Entes Públicos - Alteração</h4>
 <table class="table is-fullwidth is-bordered completo">
@@ -26654,6 +26715,8 @@ N (nos demais casos)</td>
 </tbody>
 </table>
 
+<p class="is-size-6" style="margin-top: -1rem">* Campo chave do evento</p>
+
 <h4 class="subtitle has-text-centered">Registros do evento S-2410 - Cadastro de Benefício - Entes Públicos - Início</h4>
 <table class="table is-fullwidth is-bordered completo">
 <tbody>
@@ -27339,6 +27402,8 @@ N (se <a href="#2416_infoBenAlteracao_dadosBeneficio_indSuspensao">indSuspensao<
 </tbody>
 </table>
 
+<p class="is-size-6" style="margin-top: -1rem">* Campo chave do evento</p>
+
 <h4 class="subtitle has-text-centered">Registros do evento S-2416 - Cadastro de Benefício - Entes Públicos - Alteração</h4>
 <table class="table is-fullwidth is-bordered completo">
 <tbody>
@@ -27770,6 +27835,8 @@ Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo
 </tbody>
 </table>
 
+<p class="is-size-6" style="margin-top: -1rem">* Campo chave do evento</p>
+
 <h4 class="subtitle has-text-centered">Registros do evento S-2418 - Reativação de Benefício - Entes Públicos</h4>
 <table class="table is-fullwidth is-bordered completo">
 <tbody>
@@ -28086,6 +28153,8 @@ Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo
 </tr>
 </tbody>
 </table>
+
+<p class="is-size-6" style="margin-top: -1rem">* Campo chave do evento</p>
 
 <h4 class="subtitle has-text-centered">Registros do evento S-2420 - Cadastro de Benefício - Entes Públicos - Término</h4>
 <table class="table is-fullwidth is-bordered completo">
@@ -28440,6 +28509,8 @@ N (nos demais casos)</td>
 </tr>
 </tbody>
 </table>
+
+<p class="is-size-6" style="margin-top: -1rem">* Campo chave do evento</p>
 
 <h4 class="subtitle has-text-centered">Registros do evento S-3000 - Exclusão de Eventos</h4>
 <table class="table is-fullwidth is-bordered completo">
@@ -28879,6 +28950,8 @@ N (nos demais casos)</td>
 </tr>
 </tbody>
 </table>
+
+<p class="is-size-6" style="margin-top: -1rem">* Campo chave do evento</p>
 
 <h4 class="subtitle has-text-centered">Registros do evento S-5001 - Informações das Contribuições Sociais por Trabalhador</h4>
 <table class="table is-fullwidth is-bordered completo">
@@ -29874,6 +29947,8 @@ b) Somar os valores das rubricas cujo <a href="#1010_infoRubrica_inclusao_dadosR
 </tbody>
 </table>
 
+<p class="is-size-6" style="margin-top: -1rem">* Campo chave do evento</p>
+
 <h4 class="subtitle has-text-centered">Registros do evento S-5002 - Imposto de Renda Retido na Fonte por Trabalhador</h4>
 <table class="table is-fullwidth is-bordered completo">
 <tbody>
@@ -30481,6 +30556,8 @@ N (nos demais casos)</td>
 </tr>
 </tbody>
 </table>
+
+<p class="is-size-6" style="margin-top: -1rem">* Campo chave do evento</p>
 
 <h4 class="subtitle has-text-centered">Registros do evento S-5003 - Informações do FGTS por Trabalhador</h4>
 <table class="table is-fullwidth is-bordered completo">
@@ -31590,6 +31667,8 @@ N (nos demais casos)</td>
 </tr>
 </tbody>
 </table>
+
+<p class="is-size-6" style="margin-top: -1rem">* Campo chave do evento</p>
 
 <h4 class="subtitle has-text-centered">Registros do evento S-5011 - Informações das Contribuições Sociais Consolidadas por Contribuinte</h4>
 <table class="table is-fullwidth is-bordered completo">
@@ -33209,6 +33288,8 @@ Deve ser maior que 0 (zero).</td>
 </tbody>
 </table>
 
+<p class="is-size-6" style="margin-top: -1rem">* Campo chave do evento</p>
+
 <h4 class="subtitle has-text-centered">Registros do evento S-5013 - Informações do FGTS Consolidadas por Contribuinte</h4>
 <table class="table is-fullwidth is-bordered completo">
 <tbody>
@@ -33773,6 +33854,8 @@ Deve corresponder ao somatório dos valores informados no campo <a href="#5003_i
 </tr>
 </tbody>
 </table>
+
+<p class="is-size-6" style="margin-top: -1rem">* Campo chave do evento</p>
 
 <h4 class="subtitle has-text-centered">Registros do evento S-8299 - Baixa Judicial do Vínculo</h4>
 <table class="table is-fullwidth is-bordered completo">
