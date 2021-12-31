@@ -28,7 +28,7 @@
     <xs:complexType name="T_ideEvento_folha">
         <xs:annotation>
             <xs:documentation>Informações de identificação do evento.</xs:documentation>
-            <xs:documentation>CHAVE_GRUPO: {indApuracao}, {perApur}, {indGuia}</xs:documentation>
+            <xs:documentation>CHAVE_GRUPO: {indApuracao*}, {perApur*}, {indGuia*}</xs:documentation>
         </xs:annotation>
         <xs:sequence>
             <xs:element name="indRetif" type="TS_indRetif" />
@@ -45,7 +45,7 @@
     <xs:complexType name="T_ideEvento_folha_opp">
         <xs:annotation>
             <xs:documentation>Informações de identificação do evento.</xs:documentation>
-            <xs:documentation>CHAVE_GRUPO: {indApuracao}, {perApur}</xs:documentation>
+            <xs:documentation>CHAVE_GRUPO: {indApuracao*}, {perApur*}</xs:documentation>
         </xs:annotation>
         <xs:sequence>
             <xs:element name="indRetif" type="TS_indRetif" />
@@ -61,7 +61,7 @@
     <xs:complexType name="T_ideEvento_folha_mensal">
         <xs:annotation>
             <xs:documentation>Informações de identificação do evento.</xs:documentation>
-            <xs:documentation>CHAVE_GRUPO: {perApur}, {indGuia}</xs:documentation>
+            <xs:documentation>CHAVE_GRUPO: {perApur*}, {indGuia*}</xs:documentation>
         </xs:annotation>
         <xs:sequence>
             <xs:element name="indRetif" type="TS_indRetif" />
@@ -77,7 +77,7 @@
     <xs:complexType name="T_ideEvento_folha_mensal_PF">
         <xs:annotation>
             <xs:documentation>Informações de identificação do evento.</xs:documentation>
-            <xs:documentation>CHAVE_GRUPO: {perApur}, {indGuia}</xs:documentation>
+            <xs:documentation>CHAVE_GRUPO: {perApur*}, {indGuia*}</xs:documentation>
         </xs:annotation>
         <xs:sequence>
             <xs:element name="indRetif" type="TS_indRetif" />
@@ -93,7 +93,7 @@
     <xs:complexType name="T_ideEvento_folha_sem_retificacao">
         <xs:annotation>
             <xs:documentation>Informações de identificação do evento.</xs:documentation>
-            <xs:documentation>CHAVE_GRUPO: {indApuracao}, {perApur}, {indGuia}</xs:documentation>
+            <xs:documentation>CHAVE_GRUPO: {indApuracao*}, {perApur*}, {indGuia*}</xs:documentation>
         </xs:annotation>
         <xs:sequence>
             <xs:element name="indApuracao" type="TS_indApuracao" />
@@ -185,6 +185,7 @@
     <xs:complexType name="T_ideEvento_retorno_trab">
         <xs:annotation>
             <xs:documentation>Identificação do evento de retorno.</xs:documentation>
+            <xs:documentation>CHAVE_GRUPO: {indApuracao*}, {perApur*}</xs:documentation>
         </xs:annotation>
         <xs:sequence>
             <xs:element name="nrRecArqBase" type="TS_nrRecibo">
@@ -207,6 +208,7 @@
             <xs:documentation>Identificação do evento de retorno.</xs:documentation>
             <xs:documentation>DESCRICAO_COMPLETA:Identificação do evento de retorno.</xs:documentation>
             <xs:documentation>Evento de origem: S-1299.</xs:documentation>
+            <xs:documentation>CHAVE_GRUPO: {indApuracao*}, {perApur*}</xs:documentation>
         </xs:annotation>
         <xs:sequence>
             <xs:element name="indApuracao" type="TS_indApuracao" />
@@ -221,6 +223,21 @@
     <!-- Grupo {ideEmpregador} -->
 
     <xs:complexType name="T_ideEmpregador">
+        <xs:annotation>
+            <xs:documentation>Informações de identificação do empregador.</xs:documentation>
+            <xs:documentation>CHAVE_GRUPO: {tpInsc*}, {nrInsc*}</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="tpInsc" type="TS_tpInsc_1_2" />
+            <xs:element name="nrInsc" type="TS_nrInsc_8_11_14">
+                <xs:annotation>
+                    <xs:documentation>Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {ideEmpregador/tpInsc}(./tpInsc) e conforme informado em S-1000.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="T_ideEmpregador_exclusao">
         <xs:annotation>
             <xs:documentation>Informações de identificação do empregador.</xs:documentation>
             <xs:documentation>CHAVE_GRUPO: {tpInsc}, {nrInsc}</xs:documentation>
@@ -238,7 +255,7 @@
     <xs:complexType name="T_ideEmpregador_cnpj">
         <xs:annotation>
             <xs:documentation>Informações de identificação do empregador.</xs:documentation>
-            <xs:documentation>CHAVE_GRUPO: {tpInsc}, {nrInsc}</xs:documentation>
+            <xs:documentation>CHAVE_GRUPO: {tpInsc*}, {nrInsc*}</xs:documentation>
         </xs:annotation>
         <xs:sequence>
             <xs:element name="tpInsc" type="TS_tpInsc_1" />
@@ -637,7 +654,7 @@
     <xs:complexType name="T_ideVinculo">
         <xs:annotation>
             <xs:documentation>Informações de identificação do trabalhador e do vínculo.</xs:documentation>
-            <xs:documentation>CHAVE_GRUPO: {cpfTrab}, {matricula}</xs:documentation>
+            <xs:documentation>CHAVE_GRUPO: {cpfTrab*}, {matricula*}</xs:documentation>
         </xs:annotation>
         <xs:sequence>
             <xs:element name="cpfTrab" type="TS_cpfTrab" />
@@ -653,7 +670,7 @@
     <xs:complexType name="T_ideVinculo_sst">
         <xs:annotation>
             <xs:documentation>Informações de identificação do trabalhador e do vínculo.</xs:documentation>
-            <xs:documentation>CHAVE_GRUPO: {cpfTrab}, {matricula}, {codCateg}</xs:documentation>
+            <xs:documentation>CHAVE_GRUPO: {cpfTrab*}, {matricula*}, {codCateg*}</xs:documentation>
         </xs:annotation>
         <xs:sequence>
             <xs:element name="cpfTrab" type="TS_cpfTrab" />
@@ -676,7 +693,7 @@
     <xs:complexType name="T_ideVinculo_baixa">
         <xs:annotation>
             <xs:documentation>Informações de identificação do trabalhador e do vínculo.</xs:documentation>
-            <xs:documentation>CHAVE_GRUPO: {cpfTrab}, {matricula}</xs:documentation>
+            <xs:documentation>CHAVE_GRUPO: {cpfTrab*}, {matricula*}</xs:documentation>
         </xs:annotation>
         <xs:sequence>
             <xs:element name="cpfTrab" type="TS_cpfTrab" />
@@ -695,7 +712,7 @@
         <xs:annotation>
             <xs:documentation>Identificação do TSVE</xs:documentation>
             <xs:documentation>DESCRICAO_COMPLETA:Identificação do Trabalhador Sem Vínculo de Emprego/Estatutário - TSVE.</xs:documentation>
-            <xs:documentation>CHAVE_GRUPO: {cpfTrab}, {matricula}, {codCateg}</xs:documentation>
+            <xs:documentation>CHAVE_GRUPO: {cpfTrab*}, {matricula*}, {codCateg*}</xs:documentation>
         </xs:annotation>
         <xs:sequence>
             <xs:element name="cpfTrab" type="TS_cpfTrab" />
@@ -942,7 +959,7 @@
     <xs:complexType name="T_ideBeneficio">
         <xs:annotation>
             <xs:documentation>Identificação do beneficiário e do benefício.</xs:documentation>
-            <xs:documentation>CHAVE_GRUPO: {cpfBenef}, {nrBeneficio}</xs:documentation>
+            <xs:documentation>CHAVE_GRUPO: {cpfBenef*}, {nrBeneficio*}</xs:documentation>
         </xs:annotation>
         <xs:sequence>
             <xs:element name="cpfBenef" type="TS_cpf">
@@ -2303,7 +2320,7 @@
             </xs:enumeration>
             <xs:enumeration value="7">
                 <xs:annotation>
-                    <xs:documentation>Comercialização da produção isenta de acordo com a Lei 13.606/2018</xs:documentation>
+                    <xs:documentation>Comercialização da produção isenta de acordo com a Lei 13.606/2018 efetuada diretamente no varejo a consumidor final ou a outro produtor rural pessoa física por produtor rural pessoa física, inclusive por segurado especial, ou por pessoa física não produtor rural</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
             <xs:enumeration value="8">
@@ -2331,6 +2348,38 @@
             <xs:enumeration value="2">
                 <xs:annotation>
                     <xs:documentation>Parcialmente substituída</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Campo {percTransf} -->
+
+    <xs:simpleType name="TS_percTransf">
+        <xs:restriction base="xs:byte">
+            <xs:enumeration value="1">
+                <xs:annotation>
+                    <xs:documentation>0,2000</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="2">
+                <xs:annotation>
+                    <xs:documentation>0,4000</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="3">
+                <xs:annotation>
+                    <xs:documentation>0,6000</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="4">
+                <xs:annotation>
+                    <xs:documentation>0,8000</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="5">
+                <xs:annotation>
+                    <xs:documentation>1,0000</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
         </xs:restriction>

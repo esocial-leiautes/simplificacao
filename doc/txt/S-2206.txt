@@ -30,7 +30,7 @@ Nome: ideEmpregador
 Pai: evtAltContratual
 Descrição: Informações de identificação do empregador.
 Ocorrência: 1
-Chave: tpInsc, nrInsc
+Chave: tpInsc*, nrInsc*
 Condição: O
 
 Nível: 3
@@ -38,7 +38,7 @@ Nome: ideVinculo
 Pai: evtAltContratual
 Descrição: Informações de identificação do trabalhador e do vínculo.
 Ocorrência: 1
-Chave: cpfTrab, matricula
+Chave: cpfTrab*, matricula*
 Condição: O
 
 Nível: 3
@@ -46,7 +46,7 @@ Nome: altContratual
 Pai: evtAltContratual
 Descrição: Alteração de dados contratuais.
 Ocorrência: 1
-Chave: dtAlteracao, dtEf
+Chave: dtAlteracao*, dtEf*
 Condição: O
 
 Nível: 4
@@ -61,9 +61,10 @@ Nível: 5
 Nome: infoRegimeTrab
 Pai: vinculo
 Descrição: Informações do regime trabalhista.
-Ocorrência: 1
+Ocorrência: 0-1
 Chave: -
-Condição: O
+Condição: N (se {tpRegPrev}(2206_altContratual_vinculo_tpRegPrev) = [1] e {tpRegTrab}(2200_vinculo_tpRegTrab) em S-2200 = [2])
+O (nos demais casos)
 
 Nível: 6
 Nome: infoCeletista
@@ -424,7 +425,7 @@ Nome: infoRegimeTrab
 Pai: vinculo
 Elem.: G
 Tipo: -
-Ocorrência: 1
+Ocorrência: 0-1
 Tamanho: -
 Dec.: -
 Descrição: Informações do regime trabalhista.

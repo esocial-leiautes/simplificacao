@@ -96,7 +96,7 @@ a) {perApur} (ou mês/ano de {dtDeslig}, para S-2299), se pertencerem ao grupo {
 b) {perRef}, se pertencerem ao grupo {infoPerAnt}.
 2.4) Para o evento S-2399, as informações dos campos {ideEstabLot/nrInsc} e {codLotacao} devem constar nas Tabelas S-1005 e S-1020, respectivamente, vigentes no mês/ano de {dtTerm}.
 3) No caso dos eventos S-1202 e S-1207:
-3.1) Para as rubricas cujo {codIncCPRP} em S-1010 = [31] e {codIncIRRF} em S-1010 = [31, 32, 33, 34], o somatório do valor das rubricas cujo {tpRubr} em S-1010 = [2, 4] deverá ser maior ou igual ao somatório do valor das rubricas cujo {tpRubr} em S-1010 = [1, 3], considerando o {codIncCPRP} e cada {codIncIRRF} individualmente.
+3.1) Para as rubricas cujo {codIncCPRP} em S-1010 = [31, 32] e {codIncIRRF} em S-1010 = [31, 32, 33, 34], o somatório do valor das rubricas cujo {tpRubr} em S-1010 = [2, 4] deverá ser maior ou igual ao somatório do valor das rubricas cujo {tpRubr} em S-1010 = [1, 3], considerando o {codIncCPRP} e cada {codIncIRRF} individualmente.
 3.2) As informações dos campos {codRubr} e {ideTabRubr} devem constar conjuntamente na Tabela S-1010, com o campo {codIncCPRP} preenchido, vigentes nos períodos mencionados no item 3.3 abaixo.
 3.3) As informações dos campos {ideEstab/nrInsc} devem constar na Tabela S-1005, vigentes em:
 a) {perApur}, se pertencerem ao grupo {infoPerApur};
@@ -167,6 +167,9 @@ b) A exclusão de eventos periódicos individualizados após o envio do evento d
 6) Em caso de exclusão de qualquer evento periódico, as informações de {indApuracao} (no caso dos eventos S-1200, S-1202, S-1207, S-1280 e S-1300) e de {perApur} indicadas no evento de exclusão devem ser as mesmas que constam no evento objeto de exclusão.
 7) O evento S-1250 (existente até a versão 2.5 do leiaute) somente pode ser excluído se a data de envio do evento S-3000 for igual ou anterior a 20/07/2021.
 8) Os eventos S-1300, S-2250 e S-2260 (existentes até a versão 2.5 do leiaute) podem ser excluídos nesta versão do leiaute.
+9) A exclusão de eventos S-2190, S-2200 e S-2300 deve obedecer ao seguinte:
+a) Somente é possível excluir evento S-2200 ou S-2300 se não existir outro evento para o vínculo ou contrato, com exceção do evento S-2190;
+b) Somente é possível excluir evento S-2190 se não existir outro evento para o vínculo ou contrato.
 
 REGRA_EVE_FOPAG_COMERC_PROD
 Não é permitido o envio de mais de um evento no mesmo período de apuração pelo mesmo CAEPF.
@@ -178,9 +181,8 @@ b) o evento "retificador" deve ser do mesmo tipo e do mesmo período de apuraç�
 c) caso o evento que está sendo retificado seja relativo a um período já encerrado, a retificação só é aceita se enviada após o evento específico de "reabertura" (S-1298).
 
 REGRA_EVE_FOPAG_INFO_COMPAT_CLASSTRIB
-Verificar compatibilidade entre o tipo de evento e a classificação tributária do contribuinte, conforme segue:
-a) O evento S-1260 é permitido apenas se {classTrib} = [21, 22];
-b) O evento S-1280 é permitido apenas se {classTrib} = [03, 09] ou ({classTrib} = [02, 99] e {indDesFolha} = [1]).
+1) O evento S-1260 é permitido apenas se {classTrib} = [21, 22];
+2) O evento S-1280 é permitido apenas se {classTrib} = [03, 09] ou ({classTrib} = [02, 99] e {indDesFolha} = [1]) ou se o campo {indTransf11096} for informado.
 
 REGRA_EVE_FOPAG_PERMITE_EXCLUSAO
 Se o evento a ser excluído seja relativo a período de apuração para o qual já exista encerramento das informações, o evento de exclusão só é aceito se encaminhado após o evento de "reabertura" das informações (S-1298).
@@ -190,9 +192,13 @@ REGRA_EVE_FOPAG_SIMPLIFICADO
 a) Caso {classTrib} em S-1000 = [21], somente deve ser preenchido se {procEmi} = [2, 22];
 b) Caso {classTrib} em S-1000 = [22], sempre deve ser preenchido, exceto quando o estabelecimento informado no evento S-1200, S-1270 ou S-2299 for CNO ({tpInsc} = [4]). No caso do evento S-1210, o campo deve ser preenchido se os eventos de origem dos demonstrativos informados também tiverem o campo {indGuia} informado. No caso dos eventos S-1299 e S-1298, o preenchimento ou não do campo {indGuia} corresponderá ao encerramento ou à reabertura da folha relativa aos eventos remuneratórios respectivos, cujos campos {indGuia} estão informados ou não.
 2) Se {classTrib} em S-1000 = [22] e o campo {indGuia} estiver preenchido:
-a) Todos os eventos periódicos (exceto S-1298 e S-1299) e desligamentos de um mesmo período de apuração (mês/ano do desligamento, no caso do S-2299) devem possuir ou {procEmi} = [1, 3] ou {procEmi} = [2, 22], exceto quando houver empregado doméstico ativo ou desligado no período de apuração, situação em que todos os eventos periódicos (exceto S-1298 e S-1299) e desligamentos devem possuir {procEmi} = [2, 22];
-b) No caso do S-1200, cada evento somente pode haver remuneração de uma única matrícula/categoria.
-3) No caso de empregador Pessoa Jurídica, todos os eventos periódicos e desligamentos/términos de TSVE de um mesmo período de apuração (mês/ano do desligamento ou do término de TSVE no caso do S-2299 ou do S-2399, respectivamente) devem possuir ou {procEmi} = [1, 3] ou {procEmi} = [4].
+a) Todos os eventos periódicos (exceto S-1298 e S-1299) e desligamentos com o campo {indGuia} preenchido de um mesmo período de apuração (mês/ano do desligamento, no caso do S-2299) devem possuir ou {procEmi} = [1, 3] ou {procEmi} = [2, 22], exceto quando houver empregado doméstico ativo ou desligado no período de apuração, situação em que todos os eventos periódicos (exceto S-1298 e S-1299) e desligamentos devem possuir {procEmi} = [2, 22];
+b) O evento S-1299 e o respectivo evento S-1298 (quando for o caso) devem possuir ou {procEmi} = [1, 3] ou {procEmi} = [2, 22], de acordo com os demais eventos periódicos e desligamentos anteriormente enviados para o mesmo período de apuração;
+c) Não pode ser enviado evento de fechamento (S-1299) nem de reabertura (S-1298) com {procEmi} = [1, 3] quando existir empregado doméstico ({codCateg} = [104]) ativo para o contribuinte em {perApur};
+d) No caso do S-1200, cada evento somente pode haver remuneração de uma única matrícula/categoria.
+3) No caso de empregador Pessoa Jurídica:
+a) Todos os eventos periódicos (exceto S-1298 e S-1299) e desligamentos/términos de TSVE de um mesmo período de apuração (mês/ano do desligamento ou do término de TSVE no caso do S-2299 ou do S-2399, respectivamente) devem possuir ou {procEmi} = [1, 3] ou {procEmi} = [4];
+b) O evento S-1299 e o respectivo evento S-1298 (quando for o caso) devem possuir ou {procEmi} = [1, 3] ou {procEmi} = [4], de acordo com os demais eventos periódicos e desligamentos anteriormente enviados para o mesmo período de apuração.
 
 REGRA_EXCLUI_EVENTO_AFASTAMENTO
 Não é permitida exclusão de evento de início de afastamento quando já existir evento de fim do mesmo afastamento.
@@ -262,8 +268,8 @@ Em caso de {inclusao} ou {alteracao}, não pode haver outro registro cujo perío
 REGRA_INFO_EMP_VALIDA_CLASSTRIB_NATJURID
 a) A classificação tributária [70] somente pode ser utilizada se {tpInsc} = [1] e {nrInsc} = [07752497].
 b) A classificação tributária [85] somente pode ser utilizada se a natureza jurídica do declarante for Administração Pública (grupo [1]).
-c) A mudança de classificação tributária [21] para [22], e vice-versa, somente é permitida se, em todo o período de validade do novo evento S-1000, as folhas de pagamento estiverem abertas (com e sem o campo {indGuia} informado) e não houver evento S-1200 a S-1280, S-2299 ou S-2399 (exceto evento de empregado doméstico). No caso de evento de período de apuração anual, considerar {perApur} = "AAAA-12". Esta alínea não deve ser executada quando {fimValid} do novo evento S-1000 for informado e se for anterior a 07/2021.
-d) A mudança de classificação tributária de empregador Pessoa Jurídica somente é permitida se, em todo o período de validade do novo evento S-1000, as folhas de pagamento estiverem abertas e não houver evento S-1200 a S-1280, S-2299 ou S-2399. No caso de evento de período de apuração anual, considerar {perApur} = "AAAA-12". Esta alínea não deve ser executada quando {fimValid} do novo evento S-1000 for informado e se for anterior ao início da obrigatoriedade dos eventos periódicos para o empregador.
+c) A mudança de classificação tributária [21] para [22], e vice-versa, somente é permitida se, em todo o período de validade do novo evento S-1000, as folhas de pagamento estiverem abertas (com e sem o campo {indGuia} informado). No caso de evento de período de apuração anual, considerar {perApur} = "AAAA-12". Esta alínea não deve ser executada quando {fimValid} do novo evento S-1000 for informado e se for anterior a 07/2021.
+d) A mudança de classificação tributária de empregador Pessoa Jurídica somente é permitida se, em todo o período de validade do novo evento S-1000, as folhas de pagamento estiverem abertas. No caso de evento de período de apuração anual, considerar {perApur} = "AAAA-12". Esta alínea não deve ser executada quando {fimValid} do novo evento S-1000 for informado e se for anterior ao início da obrigatoriedade dos eventos periódicos para o empregador.
 
 REGRA_INFO_EMP_VALIDA_DTINICIAL
 Em caso de arquivo gerado por Pessoa Jurídica, {iniValid} deve ser sempre igual ou posterior à data de início das atividades da empresa constante na base de dados do CNPJ ou à "data do primeiro vínculo", se existente no cadastro do CNPJ na RFB.
@@ -432,7 +438,8 @@ Rubrica com {codIncFGTS} em S-1010 = [21, 93] só pode ser utilizada nos eventos
 Caso esta regra não seja atendida, retornar "alerta".
 
 REGRA_TABESTAB_VALIDA_ESTABELECIMENTO
-Órgão Público da Administração Direta, Autárquica ou Fundacional (natureza jurídica pertencente ao grupo [1]) pode cadastrar estabelecimento com CNPJ de raiz igual ou diferente da inscrição do órgão público informada em S-1000. No caso de CNPJ de raiz diferente, o estabelecimento deve pertencer ao mesmo EFR - Ente Federativo Responsável do Órgão Público (definido em S-1000).
+1) Órgão Público da Administração Direta, Autárquica ou Fundacional (natureza jurídica pertencente ao grupo [1]) pode cadastrar estabelecimento com CNPJ de raiz igual ou diferente da inscrição do órgão público informada em S-1000. No caso de CNPJ de raiz diferente, o estabelecimento deve pertencer ao mesmo EFR - Ente Federativo Responsável do Órgão Público (definido em S-1000).
+2) Empregador Pessoa Jurídica pode cadastrar estabelecimento com CNPJ de raiz diferente da inscrição do contribuinte informada em S-1000, desde que a natureza jurídica desse estabelecimento seja igual a 212-7 (Sociedade em Conta de Participação - SCP).
 
 REGRA_TABESTAB_VALIDA_INFO_CNO
 O preenchimento do grupo {infoObra} somente pode ser efetuado em estabelecimento CNO. A informação prestada no campo {indSubstPatrObra} é validada em função da data de início da obra, constante no cadastro do CNO, da seguinte forma:
@@ -506,11 +513,8 @@ a3) No caso de evento periódico, {perApur} deve ser igual ou anterior ao mês/a
 b) Não pode estar anulado.
 OBS.: A alínea "a" de ambos os itens acima não deve ser executada quando se tratar dos eventos S-1298 e S-3000. A alínea "a" do item 1) também não deve ser executada quando se tratar dos eventos S-2299 e S-2399.
 
-REGRA_VALIDA_FAP
-No caso de empregador Pessoa Jurídica, exceto MEI ({classTrib} em S-1000 = [04]), todos os estabelecimentos com {ideEstab/tpInsc} em S-1005 = [1] (CNPJ) que não possuam informação de {procAdmJudFap} em S-1005 e que não forem encontrados na tabela FAP referente ao ano de {perApur} devem possuir FAP declarado no evento S-1005, sendo que o ano de {iniValid} nesse evento deve ser igual ao ano de {perApur}.
-
 REGRA_VALIDA_FECHAMENTO_FOPAG
-Para aceitação do evento de fechamento, efetuar as seguintes verificações:
+Caso o campo {naoValid} não esteja informado, efetuar as seguintes verificações:
 a) Não deve existir evento de Registro Preliminar (S-2190) sem o correspondente evento de Admissão (S-2200) ou TSVE - Início (S-2300) cujo mês/ano da "data de admissão" ou da "data de início" seja anterior ou igual ao período de apuração da folha de pagamento. Em caso de não existência, deve ser gerado um "alerta" para o empregador (ou seja, embora a situação seja irregular, não há impedimento para o fechamento dos eventos periódicos).
 b) Validar a integridade entre os eventos de remuneração recepcionados e os empregados e agentes públicos "ativos" do Registro de Eventos Trabalhistas - RET, da seguinte forma:
 b1) Todos os trabalhadores admitidos (S-2190 ou S-2200) em período igual ou anterior ao período de apuração que não estejam desligados ou cujo desligamento ou baixa judicial seja posterior ao período de apuração devem possuir o respectivo evento de remuneração (S-1200, S-1202 ou S-2299 para trabalhadores com {tpRegTrab} = [1] e S-1200 ou S-1202 para trabalhadores com {tpRegTrab} = [2]) já encaminhado para o mesmo período de apuração, exceto:
@@ -552,7 +556,7 @@ REGRA_VALIDA_PERIODO_APURACAO
 No caso de remuneração (S-1200, S-1202 e S-1207):
 a) Se {indApuracao} = [1] (mensal), o evento periódico só é permitido se o mês/ano do período de apuração for igual ou anterior ao mês/ano corrente. Se {indApuracao} for igual a [2] (décimo terceiro), o evento periódico é permitido se ano do período de apuração for igual ou anterior ao ano corrente;
 b) Se já existe para o período de apuração indicado no evento, evento de fechamento (S-1299), a aceitação do evento fica condicionada ao envio do evento de Reabertura (S-1298).
-No caso de desligamento (S-2299 e S-2399), se já existir evento de fechamento (S-1299) para o período que compreende {dtDeslig} (indicada no S-2299) ou {dtTerm} (indicada no S-2399), a aceitação do evento fica condicionada ao envio do evento de reabertura (S-1298).
+No caso de desligamento (S-2299 e S-2399), se já existir evento de fechamento (S-1299) para o período que compreende {dtDeslig} (indicada no S-2299) ou {dtTerm} (indicada no S-2399), a aceitação do evento fica condicionada ao envio do evento de reabertura (S-1298). Não executar a validação deste parágrafo quando se tratar de recepção de evento extemporâneo.
 OBS.: No caso de empregador Pessoa Física, a verificação de existência de evento S-1299 deve considerar a informação do campo {indGuia} do evento remuneratório (S-1200, S-2299 e S-2399).
 
 REGRA_VALIDA_PER_APUR_PGTO

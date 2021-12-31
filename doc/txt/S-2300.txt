@@ -30,7 +30,7 @@ Nome: ideEmpregador
 Pai: evtTSVInicio
 Descrição: Informações de identificação do empregador.
 Ocorrência: 1
-Chave: tpInsc, nrInsc
+Chave: tpInsc*, nrInsc*
 Condição: O
 
 Nível: 3
@@ -38,7 +38,7 @@ Nome: trabalhador
 Pai: evtTSVInicio
 Descrição: Grupo de informações do trabalhador.
 Ocorrência: 1
-Chave: cpfTrab
+Chave: cpfTrab*
 Condição: O
 
 Nível: 4
@@ -113,7 +113,7 @@ Nome: infoTSVInicio
 Pai: evtTSVInicio
 Descrição: TSVE - Início
 Ocorrência: 1
-Chave: matricula, codCateg, dtInicio
+Chave: matricula*, codCateg*, dtInicio*
 Condição: O
 
 Nível: 4
@@ -164,10 +164,10 @@ N (nos demais casos)
 Nível: 5
 Nome: infoTrabCedido
 Pai: infoComplementares
-Descrição: Informações relativas ao trabalhador cedido/em exercício em outro órgão
+Descrição: Informações relativas ao trabalhador cedido ou servidor público indicado para conselho
 Ocorrência: 0-1
 Chave: -
-Condição: O (se {codCateg}(2300_infoTSVInicio_codCateg) = [410])
+Condição: O (se {codCateg}(2300_infoTSVInicio_codCateg) = [305, 410])
 N (nos demais casos)
 
 Nível: 5
@@ -1249,7 +1249,7 @@ Tipo: -
 Ocorrência: 0-1
 Tamanho: -
 Dec.: -
-Descrição: Informações relativas ao trabalhador cedido/em exercício em outro órgão, preenchidas exclusivamente pelo cessionário/órgão de destino.
+Descrição: Informações relativas ao trabalhador cedido/em exercício em outro órgão ou servidor público indicado para conselho, preenchidas exclusivamente pelo cessionário/órgão de destino.
 
 Nome: categOrig
 Pai: infoTrabCedido
@@ -1258,8 +1258,8 @@ Tipo: N
 Ocorrência: 1
 Tamanho: 3
 Dec.: -
-Descrição: Preencher com o código correspondente à categoria de origem do trabalhador cedido.
-Validação: Deve ser um código válido e existente na Tabela 01, diferente de [410].
+Descrição: Preencher com o código correspondente à categoria de origem do trabalhador cedido ou do servidor público indicado para conselho.
+Validação: Deve ser um código válido e existente na Tabela 01, diferente de [305, 410].
 
 Nome: cnpjCednt
 Pai: infoTrabCedido
@@ -1316,7 +1316,7 @@ Valores válidos:
 1 - Regime Geral de Previdência Social - RGPS
 2 - Regime Próprio de Previdência Social - RPPS ou Sistema de Proteção Social dos Militares
 3 - Regime de Previdência Social no exterior
-Validação: Se {infoTrabCedido/categOrig}(./categOrig) for relativa a "Empregado", não pode ser preenchido com [2].
+Validação: Se {infoTrabCedido/categOrig}(./categOrig) for relativa a "Empregado", não pode ser preenchido com [2]. Se {codCateg}(2300_infoTSVInicio_codCateg) = [305], deve ser preenchido com [2].
 
 Nome: infoMandElet
 Pai: infoComplementares
@@ -1326,6 +1326,46 @@ Ocorrência: 0-1
 Tamanho: -
 Dec.: -
 Descrição: Informações relativas a servidor público exercente de mandato eletivo.
+
+Nome: categOrig
+Pai: infoMandElet
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 3
+Dec.: -
+Descrição: Preencher com o código correspondente à categoria de origem do servidor.
+Validação: Deve ser um código válido e existente na Tabela 01, diferente de [304].
+
+Nome: cnpjOrig
+Pai: infoMandElet
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 14
+Dec.: -
+Descrição: Informar o CNPJ do órgão público de origem.
+Regras de validação:
+REGRA_VALIDA_CNPJ
+
+Nome: matricOrig
+Pai: infoMandElet
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-30
+Dec.: -
+Descrição: Preencher com a matrícula do servidor no órgão público de origem.
+
+Nome: dtExercOrig
+Pai: infoMandElet
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Preencher com a data de exercício do servidor no órgão público de origem.
+Validação: Deve ser uma data anterior a {dtInicio}(2300_infoTSVInicio_dtInicio) e igual ou posterior a 01/01/1890.
 
 Nome: indRemunCargo
 Pai: infoMandElet

@@ -22,7 +22,7 @@ Nome: ideEvento
 Pai: evtInfoComplPer
 Descrição: Informações de identificação do evento.
 Ocorrência: 1
-Chave: indApuracao, perApur, indGuia
+Chave: indApuracao*, perApur*, indGuia*
 Condição: O
 
 Nível: 3
@@ -30,7 +30,7 @@ Nome: ideEmpregador
 Pai: evtInfoComplPer
 Descrição: Informações de identificação do empregador.
 Ocorrência: 1
-Chave: tpInsc, nrInsc
+Chave: tpInsc*, nrInsc*
 Condição: O
 
 Nível: 3
@@ -58,6 +58,15 @@ Descrição: Empresas enquadradas no Simples Nacional - Atividades concomitantes
 Ocorrência: 0-1
 Chave: -
 Condição: O (se {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [03])
+N (nos demais casos)
+
+Nível: 3
+Nome: infoPercTransf11096
+Pai: evtInfoComplPer
+Descrição: Transformação de entidade beneficente em empresa de fins lucrativos
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {dtTrans11096}(1000_infoEmpregador_inclusao_infoCadastro_dtTrans11096) em S-1000 for informado)
 N (nos demais casos)
 
 Nome: eSocial
@@ -311,4 +320,28 @@ Ocorrência: 1
 Tamanho: 1-5
 Dec.: 2
 Descrição: Informe o fator a ser utilizado para cálculo da contribuição patronal do décimo terceiro dos trabalhadores envolvidos na execução das atividades enquadradas no Anexo IV em conjunto com as dos Anexos I a III e V da Lei Complementar 123/2006.
+
+Nome: infoPercTransf11096
+Pai: evtInfoComplPer
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Grupo preenchido por entidade que tenha se transformado em sociedade de fins lucrativos nos termos e no prazo da Lei 11.096/2005.
+
+Nome: percTransf
+Pai: infoPercTransf11096
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Informe o percentual de contribuição social devida em caso de transformação em sociedade de fins lucrativos - Lei 11.096/2005.
+Valores válidos:
+1 - 0,2000
+2 - 0,4000
+3 - 0,6000
+4 - 0,8000
+5 - 1,0000
 

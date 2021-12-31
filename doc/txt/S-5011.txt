@@ -22,7 +22,7 @@ Nome: ideEvento
 Pai: evtCS
 Descrição: Identificação do evento de retorno.
 Ocorrência: 1
-Chave: -
+Chave: indApuracao*, perApur*
 Condição: O
 
 Nível: 3
@@ -30,7 +30,7 @@ Nome: ideEmpregador
 Pai: evtCS
 Descrição: Informações de identificação do empregador.
 Ocorrência: 1
-Chave: tpInsc, nrInsc
+Chave: tpInsc*, nrInsc*
 Condição: O
 
 Nível: 3
@@ -442,6 +442,22 @@ Dec.: 2
 Descrição: Percentual de redução da contribuição prevista na Lei 12.546/2011.
 Evento de origem: S-1280.
 
+Nome: percTransf
+Pai: infoPJ
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Percentual de contribuição social - Lei 11.096/2005.
+Valores válidos:
+1 - 0,2000
+2 - 0,4000
+3 - 0,6000
+4 - 0,8000
+5 - 1,0000
+Evento de origem: S-1280.
+
 Nome: infoAtConc
 Pai: infoPJ
 Elem.: G
@@ -523,6 +539,16 @@ Dec.: -
 Descrição: Preencher com o código CNAE, conforme informado em S-1005.
 Evento de origem: S-1005.
 
+Nome: cnpjResp
+Pai: infoEstab
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 14
+Dec.: -
+Descrição: Preencher com o CNPJ responsável pela inscrição no cadastro de obras da RFB.
+Evento de origem: S-1005.
+
 Nome: aliqRat
 Pai: infoEstab
 Elem.: E
@@ -544,9 +570,9 @@ Tamanho: 1-5
 Dec.: 4
 Descrição: Fator Acidentário de Prevenção - FAP.
 Validação: Informação obrigatória e exclusiva se {ideEmpregador/tpInsc}(5011_ideEmpregador_tpInsc) = [1]. Deve corresponder ao FAP estabelecido para a empresa pelo órgão governamental competente, exceto se:
-a) {ideEstab/tpInsc}(5011_infoCS_ideEstab_tpInsc) = [4]; ou
-b) {ideEstab/tpInsc}(5011_infoCS_ideEstab_tpInsc) = [1] e se houver informação de {procAdmJudFap}(1005_infoEstab_inclusao_dadosEstab_aliqGilrat_procAdmJudFap) em S-1005; ou
-c) {ideEstab/tpInsc}(5011_infoCS_ideEstab_tpInsc) = [1] e o estabalecimento não for encontrado na tabela FAP referente ao ano de {perApur}(5011_ideEvento_perApur).
+a) {ideEstab/tpInsc}(5011_infoCS_ideEstab_tpInsc) = [4] e se não existir o campo {cnpjResp}(./cnpjResp); ou
+b) {ideEstab/tpInsc}(5011_infoCS_ideEstab_tpInsc) = [1, 4] e se houver informação de {procAdmJudFap}(1005_infoEstab_inclusao_dadosEstab_aliqGilrat_procAdmJudFap) em S-1005; ou
+c) {ideEstab/tpInsc}(5011_infoCS_ideEstab_tpInsc) = [1, 4] e o estabelecimento ou o CNPJ responsável pela inscrição no CNO não for encontrado na tabela FAP referente ao ano de {perApur}(5011_ideEvento_perApur).
 Caso haja alguma exceção acima, retornar o FAP declarado no evento S-1005.
 
 Nome: aliqRatAjust
@@ -1311,7 +1337,7 @@ Descrição: Indicativo de comercialização.
 Valores válidos:
 2 - Comercialização da produção efetuada diretamente no varejo a consumidor final ou a outro produtor rural pessoa física por produtor rural pessoa física, inclusive por segurado especial, ou por pessoa física não produtor rural
 3 - Comercialização da produção por prod. rural PF/seg. especial - Vendas a PJ (exceto entidade inscrita no Programa de Aquisição de Alimentos - PAA) ou a intermediário PF
-7 - Comercialização da produção isenta de acordo com a Lei 13.606/2018
+7 - Comercialização da produção isenta de acordo com a Lei 13.606/2018 efetuada diretamente no varejo a consumidor final ou a outro produtor rural pessoa física por produtor rural pessoa física, inclusive por segurado especial, ou por pessoa física não produtor rural
 8 - Comercialização da produção da pessoa física/segurado especial para entidade inscrita no PAA
 9 - Comercialização da produção no mercado externo
 Origem: campo {indComerc}(1260_infoComProd_ideEstabel_tpComerc_indComerc) de S-1260.

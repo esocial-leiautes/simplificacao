@@ -30,7 +30,7 @@ Nome: ideEmpregador
 Pai: evtTabEstab
 Descrição: Informações de identificação do empregador.
 Ocorrência: 1
-Chave: tpInsc, nrInsc
+Chave: tpInsc*, nrInsc*
 Condição: O
 
 Nível: 3
@@ -54,7 +54,7 @@ Nome: ideEstab
 Pai: inclusao
 Descrição: Identificação do estabelecimento e validade das informações
 Ocorrência: 1
-Chave: tpInsc, nrInsc, iniValid, fimValid
+Chave: tpInsc*, nrInsc*, iniValid*, fimValid*
 Condição: O
 
 Nível: 5
@@ -104,7 +104,7 @@ Pai: dadosEstab
 Descrição: Indicativo de substituição da contribuição patronal - Obra de construção civil
 Ocorrência: 0-1
 Chave: -
-Condição: O (se {indConstr}(1000_infoEmpregador_inclusao_infoCadastro_indConstr) em S-1000 = [1], {indDesFolha}(1000_infoEmpregador_inclusao_infoCadastro_indDesFolha) em S-1000 = [1] e {ideEstab/tpInsc}(1005_infoEstab_inclusao_ideEstab_tpInsc) = [4])
+Condição: O (se {indConstr}(1000_infoEmpregador_inclusao_infoCadastro_indConstr) em S-1000 = [1] e {ideEstab/tpInsc}(1005_infoEstab_inclusao_ideEstab_tpInsc) = [4])
 N (nos demais casos)
 
 Nível: 6
@@ -152,7 +152,7 @@ Nome: ideEstab
 Pai: alteracao
 Descrição: Identificação do estabelecimento e validade das informações
 Ocorrência: 1
-Chave: tpInsc, nrInsc, iniValid, fimValid
+Chave: tpInsc*, nrInsc*, iniValid*, fimValid*
 Condição: O
 
 Nível: 5
@@ -202,7 +202,7 @@ Pai: dadosEstab
 Descrição: Indicativo de substituição da contribuição patronal - Obra de construção civil
 Ocorrência: 0-1
 Chave: -
-Condição: O (se {indConstr}(1000_infoEmpregador_inclusao_infoCadastro_indConstr) em S-1000 = [1], {indDesFolha}(1000_infoEmpregador_inclusao_infoCadastro_indDesFolha) em S-1000 = [1] e {ideEstab/tpInsc}(1005_infoEstab_inclusao_ideEstab_tpInsc) = [4])
+Condição: O (se {indConstr}(1000_infoEmpregador_inclusao_infoCadastro_indConstr) em S-1000 = [1] e {ideEstab/tpInsc}(1005_infoEstab_inclusao_ideEstab_tpInsc) = [4])
 N (nos demais casos)
 
 Nível: 6
@@ -258,7 +258,7 @@ Nome: ideEstab
 Pai: exclusao
 Descrição: Identificação do estabelecimento e validade das informações
 Ocorrência: 1
-Chave: tpInsc, nrInsc, iniValid, fimValid
+Chave: tpInsc*, nrInsc*, iniValid*, fimValid*
 Condição: O
 
 Nome: eSocial
@@ -428,7 +428,7 @@ Tipo: C
 Ocorrência: 1
 Tamanho: 12 ou 14
 Dec.: -
-Descrição: Informar o número de inscrição do estabelecimento, obra de construção civil ou órgão público de acordo com o tipo de inscrição indicado no campo {ideEstab/tpInsc}(./tpInsc).
+Descrição: Informar o número de inscrição do estabelecimento (inclusive Sociedade em Conta de Participação - SCP), obra de construção civil ou órgão público de acordo com o tipo de inscrição indicado no campo {ideEstab/tpInsc}(./tpInsc).
 Validação: Deve ser compatível com o conteúdo do campo {ideEstab/tpInsc}(./tpInsc). Deve ser um identificador válido, constante das bases da RFB, vinculado ao empregador.
 
 Nome: iniValid
@@ -470,6 +470,17 @@ Dec.: -
 Descrição: Preencher com o código CNAE conforme legislação vigente, referente à atividade econômica preponderante do estabelecimento.
 Validação: Deve ser um número existente na tabela CNAE, com 7 (sete) algarismos.
 
+Nome: cnpjResp
+Pai: dadosEstab
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 14
+Dec.: -
+Descrição: Preencher com o CNPJ responsável pela inscrição no cadastro de obras da RFB.
+Validação: Preenchimento obrigatório e exclusivo por Pessoa Jurídica e se {ideEstab/tpInsc}(1005_infoEstab_inclusao_ideEstab_tpInsc) = [4]. Informação obrigatória se {iniValid}(1005_infoEstab_inclusao_ideEstab_iniValid) >= [2022-04].
+Deve ser um identificador válido, constante das bases da RFB, vinculado ao empregador.
+
 Nome: aliqGilrat
 Pai: dadosEstab
 Elem.: G
@@ -501,10 +512,10 @@ Tamanho: 1-5
 Dec.: 4
 Descrição: Fator Acidentário de Prevenção - FAP.
 Validação: Preenchimento obrigatório e exclusivo por Pessoa Jurídica e:
-a) {ideEstab/tpInsc}(1005_infoEstab_inclusao_ideEstab_tpInsc) = [4]; ou
-b) {ideEstab/tpInsc}(1005_infoEstab_inclusao_ideEstab_tpInsc) = [1] e o fator informado for diferente do definido pelo órgão governamental competente para o estabelecimento (neste caso, deverá haver informações de processo em {procAdmJudFap}(1005_infoEstab_inclusao_dadosEstab_aliqGilrat_procAdmJudFap)); ou
-c) {ideEstab/tpInsc}(1005_infoEstab_inclusao_ideEstab_tpInsc) = [1] e o estabalecimento não for encontrado na tabela FAP.
-Se informado, deve ser um número maior ou igual a 0,5000 e menor ou igual a 2,0000 e, no caso da alínea "c", deve ser diferente do valor definido pelo órgão governamental competente.
+a) {ideEstab/tpInsc}(1005_infoEstab_inclusao_ideEstab_tpInsc) = [4] e o campo {cnpjResp}(../cnpjResp) não estiver informado; ou
+b) {ideEstab/tpInsc}(1005_infoEstab_inclusao_ideEstab_tpInsc) = [1, 4] e o fator informado for diferente do definido pelo órgão governamental competente para o estabelecimento ou para o CNPJ responsável pela inscrição no CNO (neste caso, deverá haver informações de processo em {procAdmJudFap}(1005_infoEstab_inclusao_dadosEstab_aliqGilrat_procAdmJudFap)); ou
+c) {ideEstab/tpInsc}(1005_infoEstab_inclusao_ideEstab_tpInsc) = [1, 4] e o estabelecimento ou o CNPJ responsável pela inscrição no CNO não for encontrado na tabela FAP.
+Se informado, deve ser um número maior ou igual a 0,5000 e menor ou igual a 2,0000 e, no caso da alínea "b", deve ser diferente do valor definido pelo órgão governamental competente.
 
 Nome: procAdmJudRat
 Pai: aliqGilrat
@@ -741,7 +752,7 @@ Tipo: C
 Ocorrência: 1
 Tamanho: 12 ou 14
 Dec.: -
-Descrição: Informar o número de inscrição do estabelecimento, obra de construção civil ou órgão público de acordo com o tipo de inscrição indicado no campo {ideEstab/tpInsc}(./tpInsc).
+Descrição: Informar o número de inscrição do estabelecimento (inclusive Sociedade em Conta de Participação - SCP), obra de construção civil ou órgão público de acordo com o tipo de inscrição indicado no campo {ideEstab/tpInsc}(./tpInsc).
 Validação: Deve ser compatível com o conteúdo do campo {ideEstab/tpInsc}(./tpInsc). Deve ser um identificador válido, constante das bases da RFB, vinculado ao empregador.
 
 Nome: iniValid
@@ -783,6 +794,17 @@ Dec.: -
 Descrição: Preencher com o código CNAE conforme legislação vigente, referente à atividade econômica preponderante do estabelecimento.
 Validação: Deve ser um número existente na tabela CNAE, com 7 (sete) algarismos.
 
+Nome: cnpjResp
+Pai: dadosEstab
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 14
+Dec.: -
+Descrição: Preencher com o CNPJ responsável pela inscrição no cadastro de obras da RFB.
+Validação: Preenchimento obrigatório e exclusivo por Pessoa Jurídica e se {ideEstab/tpInsc}(1005_infoEstab_inclusao_ideEstab_tpInsc) = [4]. Informação obrigatória se {iniValid}(1005_infoEstab_inclusao_ideEstab_iniValid) >= [2022-04].
+Deve ser um identificador válido, constante das bases da RFB, vinculado ao empregador.
+
 Nome: aliqGilrat
 Pai: dadosEstab
 Elem.: G
@@ -814,10 +836,10 @@ Tamanho: 1-5
 Dec.: 4
 Descrição: Fator Acidentário de Prevenção - FAP.
 Validação: Preenchimento obrigatório e exclusivo por Pessoa Jurídica e:
-a) {ideEstab/tpInsc}(1005_infoEstab_inclusao_ideEstab_tpInsc) = [4]; ou
-b) {ideEstab/tpInsc}(1005_infoEstab_inclusao_ideEstab_tpInsc) = [1] e o fator informado for diferente do definido pelo órgão governamental competente para o estabelecimento (neste caso, deverá haver informações de processo em {procAdmJudFap}(1005_infoEstab_inclusao_dadosEstab_aliqGilrat_procAdmJudFap)); ou
-c) {ideEstab/tpInsc}(1005_infoEstab_inclusao_ideEstab_tpInsc) = [1] e o estabalecimento não for encontrado na tabela FAP.
-Se informado, deve ser um número maior ou igual a 0,5000 e menor ou igual a 2,0000 e, no caso da alínea "c", deve ser diferente do valor definido pelo órgão governamental competente.
+a) {ideEstab/tpInsc}(1005_infoEstab_inclusao_ideEstab_tpInsc) = [4] e o campo {cnpjResp}(../cnpjResp) não estiver informado; ou
+b) {ideEstab/tpInsc}(1005_infoEstab_inclusao_ideEstab_tpInsc) = [1, 4] e o fator informado for diferente do definido pelo órgão governamental competente para o estabelecimento ou para o CNPJ responsável pela inscrição no CNO (neste caso, deverá haver informações de processo em {procAdmJudFap}(1005_infoEstab_inclusao_dadosEstab_aliqGilrat_procAdmJudFap)); ou
+c) {ideEstab/tpInsc}(1005_infoEstab_inclusao_ideEstab_tpInsc) = [1, 4] e o estabelecimento ou o CNPJ responsável pela inscrição no CNO não for encontrado na tabela FAP.
+Se informado, deve ser um número maior ou igual a 0,5000 e menor ou igual a 2,0000 e, no caso da alínea "b", deve ser diferente do valor definido pelo órgão governamental competente.
 
 Nome: procAdmJudRat
 Pai: aliqGilrat
@@ -1083,7 +1105,7 @@ Tipo: C
 Ocorrência: 1
 Tamanho: 12 ou 14
 Dec.: -
-Descrição: Informar o número de inscrição do estabelecimento, obra de construção civil ou órgão público de acordo com o tipo de inscrição indicado no campo {ideEstab/tpInsc}(./tpInsc).
+Descrição: Informar o número de inscrição do estabelecimento (inclusive Sociedade em Conta de Participação - SCP), obra de construção civil ou órgão público de acordo com o tipo de inscrição indicado no campo {ideEstab/tpInsc}(./tpInsc).
 Validação: Deve ser compatível com o conteúdo do campo {ideEstab/tpInsc}(./tpInsc). Deve ser um identificador válido, constante das bases da RFB, vinculado ao empregador.
 
 Nome: iniValid
