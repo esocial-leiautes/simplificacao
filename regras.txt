@@ -60,7 +60,7 @@ No caso dos eventos S-1200 e S-1202, retornar "alerta" caso não seja compatíve
 
 REGRA_COMPATIB_CATEG_EVENTO
 A utilização do evento S-2200 só é permitida para as categorias de trabalhadores [101, 102, 103, 104, 105, 106, 107, 108, 111, 301, 302, 303, 306, 307, 309, 310, 312].
-O evento S-2300 é permitido apenas para as categorias de trabalhadores [201, 202, 304, 305, 308, 311, 313, 401, 410, 501, 701, 711, 712, 721, 722, 723, 731, 734, 738, 741, 751, 761, 771, 781, 901, 902, 903, 904].
+O evento S-2300 é permitido apenas para as categorias de trabalhadores [201, 202, 304, 305, 308, 311, 313, 401, 410, 501, 701, 711, 712, 721, 722, 723, 731, 734, 738, 741, 751, 761, 771, 781, 901, 902, 903, 904, 906].
 
 REGRA_COMPATIB_REGIME_PREV
 O evento S-1200 é permitido para informação de remuneração relativa a trabalhador cujo contrato de trabalho esteja vinculado ao Regime Geral de Previdência Social - RGPS ou por Regime de Previdência Social no Exterior. Também é permitido para informação de base de cálculo de FGTS de empregado celetista amparado por Regime Próprio de Previdência Social - RPPS. 
@@ -348,7 +348,7 @@ REGRA_REMUN_CATEG_COMPATIVEL_TPLOTACAO
 A categoria indicada no evento de remuneração deve ser compatível com o tipo de lotação (indicado na Tabela de Lotações Tributárias) da lotação informada no registro {ideEstabLot}, conforme Tabela 11. Caso não seja compatível, retornar "alerta".
 
 REGRA_REMUN_CATEG_EXISTENTE_RET
-A categoria indicada no registro de remuneração de trabalhadores sujeitos ao Registro de Eventos Trabalhistas - RET, ou seja, "Empregado" ([101, 102, 103, 104, 105, 106, 107, 108, 111]), algumas categorias de "Agente Público" ([301, 302, 303, 304, 305, 306, 307, 308, 309, 310, 312]), "Avulso" ([201, 202]), "Cessão" ([401, 410]) ou algumas categorias de "Contribuinte Individual" ([721, 722, 723, 731, 734, 738, 761, 771]) e de "Bolsista" ([901, 902]) deve ser igual àquela existente no RET para o referido vínculo (matrícula) ou categoria, para o caso de Trabalhador Sem Vínculo de Emprego/Estatutário - TSVE.
+A categoria indicada no registro de remuneração de trabalhadores sujeitos ao Registro de Eventos Trabalhistas - RET, ou seja, "Empregado" ([101, 102, 103, 104, 105, 106, 107, 108, 111]), algumas categorias de "Agente Público" ([301, 302, 303, 304, 305, 306, 307, 308, 309, 310, 312]), "Avulso" ([201, 202]), "Cessão" ([401, 410]) ou algumas categorias de "Contribuinte Individual" ([721, 722, 723, 731, 734, 738, 761, 771]) e de "Bolsista" ([901, 902, 906]) deve ser igual àquela existente no RET para o referido vínculo (matrícula) ou categoria, para o caso de Trabalhador Sem Vínculo de Emprego/Estatutário - TSVE.
 A categoria deve ser obtida no RET do respectivo contrato, em:
 a) {perApur}, se a remuneração for preenchida no grupo {infoPerApur}; e/ou
 b) {perRef} ou {perApur}, se a remuneração for preenchida no grupo {infoPerAnt}.
@@ -386,7 +386,7 @@ b) Se o evento que está sendo excluído for relativo a período de apuração p
 REGRA_REMUN_TRAB_EXISTENTE_RET
 1) Se houver remuneração no registro {remunPerApur}, obedecer ao que segue:
 a) Se a categoria de trabalhador indicar "Empregado" ([101, 102, 103, 104, 105, 106, 107, 108, 111]) ou as categorias do grupo "Agente Público" [301, 302, 303, 306, 307, 309, 310, 312], aplicar a REGRA_VINCULO_ATIVO_NA_DTEVENTO.
-b) Se a categoria indicar um dos tipos de trabalhador sujeito ao evento "Trabalhador Sem Vínculo de Emprego/Estatutário - TSVE", a saber: "Avulso" ([201, 202]), as categorias do grupo "Agente Público" [304, 305, 308], "Cessão" ([401, 410]), as categorias do grupo "Contribuinte Individual" [721, 722, 723, 731, 734, 738, 761, 771] ou "Bolsista" [901, 902], aplicar a REGRA_TSV_ATIVO_NA_DTEVENTO.
+b) Se a categoria indicar um dos tipos de trabalhador sujeito ao evento "Trabalhador Sem Vínculo de Emprego/Estatutário - TSVE", a saber: "Avulso" ([201, 202]), as categorias do grupo "Agente Público" [304, 305, 308], "Cessão" ([401, 410]), as categorias do grupo "Contribuinte Individual" [721, 722, 723, 731, 734, 738, 761, 771] ou "Bolsista" [901, 902, 906], aplicar a REGRA_TSV_ATIVO_NA_DTEVENTO.
 Caso seja informada em {remunPerApur} remuneração posterior ao mês/ano da data de desligamento informada em S-2200, S-2299 ou S-8299 (ou de término informada em S-2300 ou S-2399), retornar "alerta". No caso do evento S-1200, também retornar "alerta" se a remuneração informada em {remunPerApur} for referente a contrato informado pelo evento Registro Preliminar de Trabalhador (S-2190) sem o correspondente evento de Admissão (S-2200) ou TSVE - Início (S-2300).
 2) Se houver remuneração no registro {remunPerAnt}, obedecer ao que segue:
 a) Se a categoria for relativa a "Empregado" ou as categorias do grupo "Agente Público" [301, 302, 303, 306, 307, 309, 310, 312] e se {remunSuc} (ou {remunOrgSuc}) = [N], executar a REGRA_EXISTE_VINCULO. Além disso, {perRef} deve ser igual ou anterior ao mês/ano da data de desligamento do vínculo informada em S-2200, S-2299 ou S-8299 (exceto se houver reintegração com data posterior ao desligamento (ou baixa judicial) ou se, no caso do evento S-1200, {tpAcConv} = [F]), bem como igual ou posterior ao mês/ano da data de admissão/exercício.
