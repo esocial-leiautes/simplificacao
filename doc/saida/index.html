@@ -54,6 +54,7 @@
 <li><a href="#evtReativBen">S-2418 - Reativação de Benefício - Entes Públicos</a></li>
 <li><a href="#evtCdBenTerm">S-2420 - Cadastro de Benefício - Entes Públicos - Término</a></li>
 <li><a href="#evtProcTrab">S-2500 - Processo Trabalhista</a></li>
+<li><a href="#evtContProc">S-2501 - Informações de Contribuições Decorrentes de Processo Trabalhista</a></li>
 <li><a href="#evtExclusao">S-3000 - Exclusão de Eventos</a></li>
 <li><a href="#evtBasesTrab">S-5001 - Informações das Contribuições Sociais por Trabalhador</a></li>
 <li><a href="#evtIrrfBenef">S-5002 - Imposto de Renda Retido na Fonte por Trabalhador</a></li>
@@ -30095,6 +30096,748 @@ Preencher este campo somente quando o valor de FGTS anteriormente declarado (eSo
 </tbody>
 </table>
 
+<h3 id="evtContProc" class="title has-text-centered quebra-anterior">S-2501 - Informações de Contribuições Decorrentes de Processo Trabalhista</h3>
+<table class="table is-fullwidth is-bordered resumo">
+<tbody>
+<tr>
+<th colspan="7">Tabela de Resumo dos Registros</th>
+</tr>
+<tr class="grupo">
+<td><strong>Grupo</strong></td>
+<td><strong>Grupo Pai</strong></td>
+<td><strong>Nível</strong></td>
+<td><strong>Descrição</strong></td>
+<td><strong>Ocor.</strong></td>
+<td><strong>Chave</strong></td>
+<td><strong>Condição</strong></td>
+</tr>
+<tr>
+<td id="r_2501_eSocial"><a href="#2501_eSocial">eSocial</a></td>
+<td></td>
+<td>1</td>
+<td>eSocial</td>
+<td>1</td>
+<td>-</td>
+<td>O</td>
+</tr>
+<tr>
+<td id="r_2501"><a href="#2501">evtContProc</a></td>
+<td><a href="#r_2501_eSocial">eSocial</a></td>
+<td>2</td>
+<td>Evento Informações de Contribuições Decorrentes de Processo Trabalhista</td>
+<td>1</td>
+<td><a href="#2501_Id">Id</a></td>
+<td>O</td>
+</tr>
+<tr>
+<td id="r_2501_ideEvento"><a href="#2501_ideEvento">ideEvento</a></td>
+<td><a href="#r_2501">evtContProc</a></td>
+<td>3</td>
+<td>Informações de identificação do evento</td>
+<td>1</td>
+<td>-</td>
+<td>O</td>
+</tr>
+<tr>
+<td id="r_2501_ideEmpregador"><a href="#2501_ideEmpregador">ideEmpregador</a></td>
+<td><a href="#r_2501">evtContProc</a></td>
+<td>3</td>
+<td>Informações de identificação do empregador ou do contribuinte que está prestando a informação</td>
+<td>1</td>
+<td><a href="#2501_ideEmpregador_tpInsc">tpInsc</a>*, <a href="#2501_ideEmpregador_nrInsc">nrInsc</a>*</td>
+<td>O</td>
+</tr>
+<tr>
+<td id="r_2501_ideProc"><a href="#2501_ideProc">ideProc</a></td>
+<td><a href="#r_2501">evtContProc</a></td>
+<td>3</td>
+<td>Identificação do processo</td>
+<td>1</td>
+<td><a href="#2501_ideProc_nrProcTrab">nrProcTrab</a>*, <a href="#2501_ideProc_perApurPgto">perApurPgto</a>*</td>
+<td>O</td>
+</tr>
+<tr>
+<td id="r_2501_ideProc_calcTrib"><a href="#2501_ideProc_calcTrib">calcTrib</a></td>
+<td><a href="#r_2501_ideProc">ideProc</a></td>
+<td>4</td>
+<td>Identificação do trabalhador, do período e da base de cálculo dos tributos</td>
+<td>1-999</td>
+<td><a href="#2501_ideProc_calcTrib_cpfTrab">cpfTrab</a>, <a href="#2501_ideProc_calcTrib_perRef">perRef</a></td>
+<td>O</td>
+</tr>
+<tr>
+<td id="r_2501_ideProc_calcTrib_infoCRContrib"><a href="#2501_ideProc_calcTrib_infoCRContrib">infoCRContrib</a></td>
+<td><a href="#r_2501_ideProc_calcTrib">calcTrib</a></td>
+<td>5</td>
+<td>Informações das contribuições sociais</td>
+<td>0-99</td>
+<td><a href="#2501_ideProc_calcTrib_infoCRContrib_tpCR">tpCR</a></td>
+<td>OC</td>
+</tr>
+<tr>
+<td id="r_2501_ideProc_calcTrib_infoCRIRRF"><a href="#2501_ideProc_calcTrib_infoCRIRRF">infoCRIRRF</a></td>
+<td><a href="#r_2501_ideProc_calcTrib">calcTrib</a></td>
+<td>5</td>
+<td>Informações de IRRF</td>
+<td>0-99</td>
+<td><a href="#2501_ideProc_calcTrib_infoCRIRRF_tpCR">tpCR</a></td>
+<td>OC</td>
+</tr>
+<tr>
+<td id="r_2501_ideProc_calcTrib_infoComplIRRF"><a href="#2501_ideProc_calcTrib_infoComplIRRF">infoComplIRRF</a></td>
+<td><a href="#r_2501_ideProc_calcTrib">calcTrib</a></td>
+<td>5</td>
+<td>Informações complementares de IRRF</td>
+<td>0-1</td>
+<td>-</td>
+<td>OC</td>
+</tr>
+<tr>
+<td id="r_2501_ideProc_calcTrib_infoComplIRRF_dedDepen"><a href="#2501_ideProc_calcTrib_infoComplIRRF_dedDepen">dedDepen</a></td>
+<td><a href="#r_2501_ideProc_calcTrib_infoComplIRRF">infoComplIRRF</a></td>
+<td>6</td>
+<td>Dedução do rendimento tributável relativa a dependentes</td>
+<td>0-99</td>
+<td><a href="#2501_ideProc_calcTrib_infoComplIRRF_dedDepen_cpfDepen">cpfDepen</a></td>
+<td>OC</td>
+</tr>
+<tr>
+<td id="r_2501_ideProc_calcTrib_infoComplIRRF_penAlim"><a href="#2501_ideProc_calcTrib_infoComplIRRF_penAlim">penAlim</a></td>
+<td><a href="#r_2501_ideProc_calcTrib_infoComplIRRF">infoComplIRRF</a></td>
+<td>6</td>
+<td>Informação dos beneficiários da pensão alimentícia</td>
+<td>0-99</td>
+<td><a href="#2501_ideProc_calcTrib_infoComplIRRF_penAlim_cpfDep">cpfDep</a></td>
+<td>OC</td>
+</tr>
+<tr>
+<td id="r_2501_ideProc_calcTrib_infoComplIRRF_infoRRA"><a href="#2501_ideProc_calcTrib_infoComplIRRF_infoRRA">infoRRA</a></td>
+<td><a href="#r_2501_ideProc_calcTrib_infoComplIRRF">infoComplIRRF</a></td>
+<td>6</td>
+<td>Informações complementares relativas a RRA</td>
+<td>0-1</td>
+<td>-</td>
+<td>OC</td>
+</tr>
+<tr>
+<td id="r_2501_ideProc_calcTrib_infoComplIRRF_infoRRA_despProcJud"><a href="#2501_ideProc_calcTrib_infoComplIRRF_infoRRA_despProcJud">despProcJud</a></td>
+<td><a href="#r_2501_ideProc_calcTrib_infoComplIRRF_infoRRA">infoRRA</a></td>
+<td>7</td>
+<td>Detalhamento das despesas com processo judicial</td>
+<td>0-1</td>
+<td>-</td>
+<td>OC</td>
+</tr>
+<tr>
+<td id="r_2501_ideProc_calcTrib_infoComplIRRF_infoRRA_ideAdv"><a href="#2501_ideProc_calcTrib_infoComplIRRF_infoRRA_ideAdv">ideAdv</a></td>
+<td><a href="#r_2501_ideProc_calcTrib_infoComplIRRF_infoRRA">infoRRA</a></td>
+<td>7</td>
+<td>Identificação dos advogados</td>
+<td>0-99</td>
+<td><a href="#2501_ideProc_calcTrib_infoComplIRRF_infoRRA_ideAdv_tpInsc">tpInsc</a>, <a href="#2501_ideProc_calcTrib_infoComplIRRF_infoRRA_ideAdv_nrInsc">nrInsc</a></td>
+<td>OC</td>
+</tr>
+</tbody>
+</table>
+
+<p class="is-size-6" style="margin-top: -1rem; margin-bottom: 2rem;">* Campo chave do evento</p>
+
+<h4 class="subtitle has-text-centered">Registros do evento S-2501 - Informações de Contribuições Decorrentes de Processo Trabalhista</h4>
+<table class="table is-fullwidth is-bordered completo">
+<tbody>
+<tr>
+<th>#</th>
+<th>Grupo/Campo</th>
+<th>Grupo Pai</th>
+<th>Elem.</th>
+<th>Tipo</th>
+<th>Ocor.</th>
+<th>Tamanho</th>
+<th>Dec.</th>
+<th>Descrição</th>
+</tr>
+<tr class="grupo">
+<td onclick="copiarCaminho.call(this)" title="2501_eSocial" id="2501_eSocial">1</td>
+<td><a href="#r_2501_eSocial">eSocial</a></td>
+<td></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>eSocial</td>
+</tr>
+<tr class="grupo">
+<td onclick="copiarCaminho.call(this)" title="2501" id="2501">2</td>
+<td><a href="#r_2501">evtContProc</a></td>
+<td><a href="#r_2501_eSocial">eSocial</a></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Evento Informações de Contribuições Decorrentes de Processo Trabalhista.<br />
+<strong>Regras de validação:</strong><br />
+<a href="#REGRA_EXISTE_INFO_EMPREGADOR">REGRA_EXISTE_INFO_EMPREGADOR</a><br />
+<a href="#REGRA_VALIDA_EMPREGADOR">REGRA_VALIDA_EMPREGADOR</a></td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="2501_Id" id="2501_Id">3</td>
+<td>Id</td>
+<td><a href="#r_2501">evtContProc</a></td>
+<td>A</td>
+<td>C</td>
+<td>1</td>
+<td>36</td>
+<td>-</td>
+<td>Identificação única do evento.<br />
+<strong>Regra de validação:</strong><br />
+<a href="#REGRA_VALIDA_ID_EVENTO">REGRA_VALIDA_ID_EVENTO</a></td>
+</tr>
+<tr class="grupo">
+<td onclick="copiarCaminho.call(this)" title="2501_ideEvento" id="2501_ideEvento">4</td>
+<td><a href="#r_2501_ideEvento">ideEvento</a></td>
+<td><a href="#r_2501">evtContProc</a></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Informações de identificação do evento.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="2501_ideEvento_indRetif" id="2501_ideEvento_indRetif">5</td>
+<td>indRetif</td>
+<td><a href="#r_2501_ideEvento">ideEvento</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1</td>
+<td>-</td>
+<td>Informe [1] para arquivo original ou [2] para arquivo de retificação.<br />
+<strong>Valores válidos:</strong><br />
+<strong>1</strong> - Original<br />
+<strong>2</strong> - Retificação</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="2501_ideEvento_nrRecibo" id="2501_ideEvento_nrRecibo">6</td>
+<td>nrRecibo</td>
+<td><a href="#r_2501_ideEvento">ideEvento</a></td>
+<td>E</td>
+<td>C</td>
+<td>0-1</td>
+<td>23</td>
+<td>-</td>
+<td>Preencher com o número do recibo do arquivo a ser retificado.<br />
+<strong>Validação:</strong> O preenchimento é obrigatório se <a href="#2501_ideEvento_indRetif">indRetif</a> = [2].<br />
+Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo retificado.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="2501_ideEvento_tpAmb" id="2501_ideEvento_tpAmb">7</td>
+<td>tpAmb</td>
+<td><a href="#r_2501_ideEvento">ideEvento</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1</td>
+<td>-</td>
+<td>Identificação do ambiente.<br />
+<strong>Valores válidos:</strong><br />
+<strong>1</strong> - Produção<br />
+<strong>2</strong> - Produção restrita<br />
+<strong>7</strong> - Validação (uso interno)<br />
+<strong>8</strong> - Teste (uso interno)<br />
+<strong>9</strong> - Desenvolvimento (uso interno)</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="2501_ideEvento_procEmi" id="2501_ideEvento_procEmi">8</td>
+<td>procEmi</td>
+<td><a href="#r_2501_ideEvento">ideEvento</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1-2</td>
+<td>-</td>
+<td>Processo de emissão do evento.<br />
+<strong>Valores válidos:</strong><br />
+<strong>1</strong> - Aplicativo do empregador<br />
+<strong>2</strong> - Aplicativo governamental - Simplificado Pessoa Física<br />
+<strong>3</strong> - Aplicativo governamental - Web Geral<br />
+<strong>4</strong> - Aplicativo governamental - Simplificado Pessoa Jurídica<br />
+<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="2501_ideEvento_verProc" id="2501_ideEvento_verProc">9</td>
+<td>verProc</td>
+<td><a href="#r_2501_ideEvento">ideEvento</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>1-20</td>
+<td>-</td>
+<td>Versão do processo de emissão do evento. Informar a versão do aplicativo emissor do evento.</td>
+</tr>
+<tr class="grupo">
+<td onclick="copiarCaminho.call(this)" title="2501_ideEmpregador" id="2501_ideEmpregador">10</td>
+<td><a href="#r_2501_ideEmpregador">ideEmpregador</a></td>
+<td><a href="#r_2501">evtContProc</a></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Informações de identificação do empregador ou do contribuinte que está prestando a informação.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="2501_ideEmpregador_tpInsc" id="2501_ideEmpregador_tpInsc">11</td>
+<td>tpInsc</td>
+<td><a href="#r_2501_ideEmpregador">ideEmpregador</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1</td>
+<td>-</td>
+<td>Preencher com o código correspondente ao tipo de inscrição do empregador ou contribuinte que está prestando a informação, conforme <a href="tabelas.html#05">Tabela 05</a>.<br />
+<strong>Valores válidos:</strong><br />
+<strong>1</strong> - CNPJ<br />
+<strong>2</strong> - CPF</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="2501_ideEmpregador_nrInsc" id="2501_ideEmpregador_nrInsc">12</td>
+<td>nrInsc</td>
+<td><a href="#r_2501_ideEmpregador">ideEmpregador</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>8, 11 ou 14</td>
+<td>-</td>
+<td>Informar o número de inscrição do empregador ou contribuinte que está prestando a informação, de acordo com o tipo de inscrição indicado no campo <a href="#2501_ideEmpregador_tpInsc">ideEmpregador/tpInsc</a> e conforme informado em S-1000.</td>
+</tr>
+<tr class="grupo">
+<td onclick="copiarCaminho.call(this)" title="2501_ideProc" id="2501_ideProc">13</td>
+<td><a href="#r_2501_ideProc">ideProc</a></td>
+<td><a href="#r_2501">evtContProc</a></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Identificação do processo.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="2501_ideProc_nrProcTrab" id="2501_ideProc_nrProcTrab">14</td>
+<td>nrProcTrab</td>
+<td><a href="#r_2501_ideProc">ideProc</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>15 ou 20</td>
+<td>-</td>
+<td>Número do processo trabalhista, da ata ou número de identificação da conciliação.<br />
+<strong>Validação:</strong> Deve ser um número de processo válido e declarado no evento S-2500 para o(s) trabalhador(es) informado(s) em <a href="#2501_ideProc_calcTrib_cpfTrab">cpfTrab</a>.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="2501_ideProc_perApurPgto" id="2501_ideProc_perApurPgto">15</td>
+<td>perApurPgto</td>
+<td><a href="#r_2501_ideProc">ideProc</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>7</td>
+<td>-</td>
+<td>Mês/ano em que é devida a obrigação de pagar a parcela prevista no acordo/sentença.<br />
+<strong>Validação:</strong> Deve ser informado no formato AAAA-MM.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="2501_ideProc_obs" id="2501_ideProc_obs">16</td>
+<td>obs</td>
+<td><a href="#r_2501_ideProc">ideProc</a></td>
+<td>E</td>
+<td>C</td>
+<td>0-1</td>
+<td>1-999</td>
+<td>-</td>
+<td>Observação referente ao pagamento de parcela prevista no acordo/sentença.</td>
+</tr>
+<tr class="grupo">
+<td onclick="copiarCaminho.call(this)" title="2501_ideProc_calcTrib" id="2501_ideProc_calcTrib">17</td>
+<td><a href="#r_2501_ideProc_calcTrib">calcTrib</a></td>
+<td><a href="#r_2501_ideProc">ideProc</a></td>
+<td>G</td>
+<td>-</td>
+<td>1-999</td>
+<td>-</td>
+<td>-</td>
+<td>Identificação do trabalhador, do período e da base de cálculo dos tributos.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="2501_ideProc_calcTrib_cpfTrab" id="2501_ideProc_calcTrib_cpfTrab">18</td>
+<td>cpfTrab</td>
+<td><a href="#r_2501_ideProc_calcTrib">calcTrib</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>11</td>
+<td>-</td>
+<td>Preencher com o número do CPF do trabalhador.<br />
+<strong>Validação:</strong> Deve ser um CPF válido e informado no evento S-2500.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="2501_ideProc_calcTrib_perRef" id="2501_ideProc_calcTrib_perRef">19</td>
+<td>perRef</td>
+<td><a href="#r_2501_ideProc_calcTrib">calcTrib</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>7</td>
+<td>-</td>
+<td>Informar o mês/ano (formato AAAA-MM) de referência das informações.<br />
+<strong>Validação:</strong> Deve ser um período existente no evento S-2500 para o trabalhador indicado em <a href="#2501_ideProc_calcTrib_cpfTrab">cpfTrab</a>.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="2501_ideProc_calcTrib_vrBcCpMensal" id="2501_ideProc_calcTrib_vrBcCpMensal">20</td>
+<td>vrBcCpMensal</td>
+<td><a href="#r_2501_ideProc_calcTrib">calcTrib</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1-14</td>
+<td>2</td>
+<td>Valor da base de cálculo da contribuição previdenciária sobre a remuneração mensal do trabalhador.<br />
+<strong>Validação:</strong> Deve ser maior ou igual a 0 (zero).</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="2501_ideProc_calcTrib_vrBcCp13" id="2501_ideProc_calcTrib_vrBcCp13">21</td>
+<td>vrBcCp13</td>
+<td><a href="#r_2501_ideProc_calcTrib">calcTrib</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1-14</td>
+<td>2</td>
+<td>Valor da base de cálculo da contribuição previdenciária sobre a remuneração do trabalhador referente ao 13º salário.<br />
+<strong>Validação:</strong> Deve ser maior ou igual a 0 (zero).</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="2501_ideProc_calcTrib_vrRendIRRF" id="2501_ideProc_calcTrib_vrRendIRRF">22</td>
+<td>vrRendIRRF</td>
+<td><a href="#r_2501_ideProc_calcTrib">calcTrib</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1-14</td>
+<td>2</td>
+<td>Valor do rendimento tributável do Imposto de Renda.<br />
+<strong>Validação:</strong> Deve ser maior ou igual a 0 (zero).</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="2501_ideProc_calcTrib_vrRendIRRF13" id="2501_ideProc_calcTrib_vrRendIRRF13">23</td>
+<td>vrRendIRRF13</td>
+<td><a href="#r_2501_ideProc_calcTrib">calcTrib</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1-14</td>
+<td>2</td>
+<td>Valor do rendimento tributável do Imposto de Renda referente ao 13º salário - Tributação exclusiva.<br />
+<strong>Validação:</strong> Deve ser maior ou igual a 0 (zero).</td>
+</tr>
+<tr class="grupo">
+<td onclick="copiarCaminho.call(this)" title="2501_ideProc_calcTrib_infoCRContrib" id="2501_ideProc_calcTrib_infoCRContrib">24</td>
+<td><a href="#r_2501_ideProc_calcTrib_infoCRContrib">infoCRContrib</a></td>
+<td><a href="#r_2501_ideProc_calcTrib">calcTrib</a></td>
+<td>G</td>
+<td>-</td>
+<td>0-99</td>
+<td>-</td>
+<td>-</td>
+<td>Informações das contribuições sociais devidas à Previdência Social e Outras Entidades e Fundos, por Código de Receita - CR.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="2501_ideProc_calcTrib_infoCRContrib_tpCR" id="2501_ideProc_calcTrib_infoCRContrib_tpCR">25</td>
+<td>tpCR</td>
+<td><a href="#r_2501_ideProc_calcTrib_infoCRContrib">infoCRContrib</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>6</td>
+<td>-</td>
+<td>Código de Receita - CR relativo a contribuições sociais devidas à Previdência Social e a Outras Entidades e Fundos (Terceiros), conforme legislação em vigor na competência.<br />
+<strong>Validação:</strong> Deve ser um código válido e existente na <a href="tabelas.html#29">Tabela 29</a>.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="2501_ideProc_calcTrib_infoCRContrib_vrCR" id="2501_ideProc_calcTrib_infoCRContrib_vrCR">26</td>
+<td>vrCR</td>
+<td><a href="#r_2501_ideProc_calcTrib_infoCRContrib">infoCRContrib</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1-14</td>
+<td>2</td>
+<td>Valor correspondente ao Código de Receita - CR.<br />
+<strong>Validação:</strong> Deve ser informado de acordo com a legislação em vigor na competência.<br />
+Deve ser maior que 0 (zero).</td>
+</tr>
+<tr class="grupo">
+<td onclick="copiarCaminho.call(this)" title="2501_ideProc_calcTrib_infoCRIRRF" id="2501_ideProc_calcTrib_infoCRIRRF">27</td>
+<td><a href="#r_2501_ideProc_calcTrib_infoCRIRRF">infoCRIRRF</a></td>
+<td><a href="#r_2501_ideProc_calcTrib">calcTrib</a></td>
+<td>G</td>
+<td>-</td>
+<td>0-99</td>
+<td>-</td>
+<td>-</td>
+<td>Informações de Imposto de Renda Retido na Fonte, por Código de Receita - CR.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="2501_ideProc_calcTrib_infoCRIRRF_tpCR" id="2501_ideProc_calcTrib_infoCRIRRF_tpCR">28</td>
+<td>tpCR</td>
+<td><a href="#r_2501_ideProc_calcTrib_infoCRIRRF">infoCRIRRF</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>6</td>
+<td>-</td>
+<td>Código de Receita - CR relativo a Imposto de Renda Retido na Fonte.<br />
+<strong>Validação:</strong> Deve ser um código válido e existente na <a href="tabelas.html#29">Tabela 29</a>.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="2501_ideProc_calcTrib_infoCRIRRF_vrCR" id="2501_ideProc_calcTrib_infoCRIRRF_vrCR">29</td>
+<td>vrCR</td>
+<td><a href="#r_2501_ideProc_calcTrib_infoCRIRRF">infoCRIRRF</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1-14</td>
+<td>2</td>
+<td>Valor correspondente ao Código de Receita - CR.<br />
+<strong>Validação:</strong> Deve ser informado de acordo com a legislação em vigor na competência.<br />
+Deve ser maior que 0 (zero).</td>
+</tr>
+<tr class="grupo">
+<td onclick="copiarCaminho.call(this)" title="2501_ideProc_calcTrib_infoComplIRRF" id="2501_ideProc_calcTrib_infoComplIRRF">30</td>
+<td><a href="#r_2501_ideProc_calcTrib_infoComplIRRF">infoComplIRRF</a></td>
+<td><a href="#r_2501_ideProc_calcTrib">calcTrib</a></td>
+<td>G</td>
+<td>-</td>
+<td>0-1</td>
+<td>-</td>
+<td>-</td>
+<td>Informações complementares de Imposto de Renda Retido na Fonte.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="2501_ideProc_calcTrib_infoComplIRRF_vlrDedPensao" id="2501_ideProc_calcTrib_infoComplIRRF_vlrDedPensao">31</td>
+<td>vlrDedPensao</td>
+<td><a href="#r_2501_ideProc_calcTrib_infoComplIRRF">infoComplIRRF</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1-14</td>
+<td>2</td>
+<td>Valor do somatório das deduções referentes à pensão alimentícia.<br />
+<strong>Validação:</strong> Se o grupo <a href="#2501_ideProc_calcTrib_infoComplIRRF_penAlim">penAlim</a> for informado, o valor deste campo deve ser o somatório dos valores informados no campo <a href="#2501_ideProc_calcTrib_infoComplIRRF_penAlim_vlrPensao">vlrPensao</a>.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="2501_ideProc_calcTrib_infoComplIRRF_vlrDedDepen" id="2501_ideProc_calcTrib_infoComplIRRF_vlrDedDepen">32</td>
+<td>vlrDedDepen</td>
+<td><a href="#r_2501_ideProc_calcTrib_infoComplIRRF">infoComplIRRF</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1-14</td>
+<td>2</td>
+<td>Valor do somatório das deduções por dependentes.<br />
+<strong>Validação:</strong> Devem ser observadas as seguintes regras:<br />
+a) Se o grupo <a href="#2501_ideProc_calcTrib_infoComplIRRF_dedDepen">dedDepen</a> for informado, o valor deste campo deve ser o somatório dos valores informados no campo <a href="#2501_ideProc_calcTrib_infoComplIRRF_dedDepen_vlrDeducao">vlrDeducao</a>.<br />
+b) O não preenchimento do grupo <a href="#2501_ideProc_calcTrib_infoComplIRRF_dedDepen">dedDepen</a> indica que o contribuinte declarante não possui as informações detalhadas por dependente. Se o grupo <a href="#2501_ideProc_calcTrib_infoComplIRRF_dedDepen">dedDepen</a> não for preenchido, o valor informado neste campo deve ser múltiplo do valor unitário da dedução por dependente definido na legislação. Caso a regra dessa alínea não seja atendida, retornar &quot;alerta&quot;.</td>
+</tr>
+<tr class="grupo">
+<td onclick="copiarCaminho.call(this)" title="2501_ideProc_calcTrib_infoComplIRRF_dedDepen" id="2501_ideProc_calcTrib_infoComplIRRF_dedDepen">33</td>
+<td><a href="#r_2501_ideProc_calcTrib_infoComplIRRF_dedDepen">dedDepen</a></td>
+<td><a href="#r_2501_ideProc_calcTrib_infoComplIRRF">infoComplIRRF</a></td>
+<td>G</td>
+<td>-</td>
+<td>0-99</td>
+<td>-</td>
+<td>-</td>
+<td>Dedução do rendimento tributável relativa a dependentes.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="2501_ideProc_calcTrib_infoComplIRRF_dedDepen_cpfDepen" id="2501_ideProc_calcTrib_infoComplIRRF_dedDepen_cpfDepen">34</td>
+<td>cpfDepen</td>
+<td><a href="#r_2501_ideProc_calcTrib_infoComplIRRF_dedDepen">dedDepen</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>11</td>
+<td>-</td>
+<td>Informar o CPF do dependente.<br />
+<strong>Validação:</strong> Deve ser um CPF de dependente cadastrado no eSocial (S-2200, S-2205, S-2300 ou S-2500).</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="2501_ideProc_calcTrib_infoComplIRRF_dedDepen_vlrDeducao" id="2501_ideProc_calcTrib_infoComplIRRF_dedDepen_vlrDeducao">35</td>
+<td>vlrDeducao</td>
+<td><a href="#r_2501_ideProc_calcTrib_infoComplIRRF_dedDepen">dedDepen</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1-14</td>
+<td>2</td>
+<td>Valor da dedução referente ao dependente acima identificado.</td>
+</tr>
+<tr class="grupo">
+<td onclick="copiarCaminho.call(this)" title="2501_ideProc_calcTrib_infoComplIRRF_penAlim" id="2501_ideProc_calcTrib_infoComplIRRF_penAlim">36</td>
+<td><a href="#r_2501_ideProc_calcTrib_infoComplIRRF_penAlim">penAlim</a></td>
+<td><a href="#r_2501_ideProc_calcTrib_infoComplIRRF">infoComplIRRF</a></td>
+<td>G</td>
+<td>-</td>
+<td>0-99</td>
+<td>-</td>
+<td>-</td>
+<td>Informação dos beneficiários da pensão alimentícia.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="2501_ideProc_calcTrib_infoComplIRRF_penAlim_cpfDep" id="2501_ideProc_calcTrib_infoComplIRRF_penAlim_cpfDep">37</td>
+<td>cpfDep</td>
+<td><a href="#r_2501_ideProc_calcTrib_infoComplIRRF_penAlim">penAlim</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>11</td>
+<td>-</td>
+<td>Número do CPF do dependente/beneficiário da pensão alimentícia.<br />
+<strong>Validação:</strong> Deve ser um CPF de dependente cadastrado no eSocial (S-2200, S-2205, S-2300 ou S-2500).</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="2501_ideProc_calcTrib_infoComplIRRF_penAlim_vlrPensao" id="2501_ideProc_calcTrib_infoComplIRRF_penAlim_vlrPensao">38</td>
+<td>vlrPensao</td>
+<td><a href="#r_2501_ideProc_calcTrib_infoComplIRRF_penAlim">penAlim</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1-14</td>
+<td>2</td>
+<td>Valor relativo à dedução do rendimento tributável correspondente a pagamento de pensão alimentícia.</td>
+</tr>
+<tr class="grupo">
+<td onclick="copiarCaminho.call(this)" title="2501_ideProc_calcTrib_infoComplIRRF_infoRRA" id="2501_ideProc_calcTrib_infoComplIRRF_infoRRA">39</td>
+<td><a href="#r_2501_ideProc_calcTrib_infoComplIRRF_infoRRA">infoRRA</a></td>
+<td><a href="#r_2501_ideProc_calcTrib_infoComplIRRF">infoComplIRRF</a></td>
+<td>G</td>
+<td>-</td>
+<td>0-1</td>
+<td>-</td>
+<td>-</td>
+<td>Informações complementares relativas a Rendimentos Recebidos Acumuladamente - RRA.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="2501_ideProc_calcTrib_infoComplIRRF_infoRRA_descRRA" id="2501_ideProc_calcTrib_infoComplIRRF_infoRRA_descRRA">40</td>
+<td>descRRA</td>
+<td><a href="#r_2501_ideProc_calcTrib_infoComplIRRF_infoRRA">infoRRA</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>1-50</td>
+<td>-</td>
+<td>Descrição dos Rendimentos Recebidos Acumuladamente.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="2501_ideProc_calcTrib_infoComplIRRF_infoRRA_qtdMesesRRA" id="2501_ideProc_calcTrib_infoComplIRRF_infoRRA_qtdMesesRRA">41</td>
+<td>qtdMesesRRA</td>
+<td><a href="#r_2501_ideProc_calcTrib_infoComplIRRF_infoRRA">infoRRA</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1-4</td>
+<td>1</td>
+<td>Número de meses relativo aos Rendimentos Recebidos Acumuladamente - RRA.</td>
+</tr>
+<tr class="grupo">
+<td onclick="copiarCaminho.call(this)" title="2501_ideProc_calcTrib_infoComplIRRF_infoRRA_despProcJud" id="2501_ideProc_calcTrib_infoComplIRRF_infoRRA_despProcJud">42</td>
+<td><a href="#r_2501_ideProc_calcTrib_infoComplIRRF_infoRRA_despProcJud">despProcJud</a></td>
+<td><a href="#r_2501_ideProc_calcTrib_infoComplIRRF_infoRRA">infoRRA</a></td>
+<td>G</td>
+<td>-</td>
+<td>0-1</td>
+<td>-</td>
+<td>-</td>
+<td>Detalhamento das despesas com processo judicial.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="2501_ideProc_calcTrib_infoComplIRRF_infoRRA_despProcJud_vlrDespCustas" id="2501_ideProc_calcTrib_infoComplIRRF_infoRRA_despProcJud_vlrDespCustas">43</td>
+<td>vlrDespCustas</td>
+<td><a href="#r_2501_ideProc_calcTrib_infoComplIRRF_infoRRA_despProcJud">despProcJud</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1-14</td>
+<td>2</td>
+<td>Preencher com valor das despesas com custas judiciais.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="2501_ideProc_calcTrib_infoComplIRRF_infoRRA_despProcJud_vlrDespAdvogados" id="2501_ideProc_calcTrib_infoComplIRRF_infoRRA_despProcJud_vlrDespAdvogados">44</td>
+<td>vlrDespAdvogados</td>
+<td><a href="#r_2501_ideProc_calcTrib_infoComplIRRF_infoRRA_despProcJud">despProcJud</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1-14</td>
+<td>2</td>
+<td>Preencher com o valor total das despesas com advogado.</td>
+</tr>
+<tr class="grupo">
+<td onclick="copiarCaminho.call(this)" title="2501_ideProc_calcTrib_infoComplIRRF_infoRRA_ideAdv" id="2501_ideProc_calcTrib_infoComplIRRF_infoRRA_ideAdv">45</td>
+<td><a href="#r_2501_ideProc_calcTrib_infoComplIRRF_infoRRA_ideAdv">ideAdv</a></td>
+<td><a href="#r_2501_ideProc_calcTrib_infoComplIRRF_infoRRA">infoRRA</a></td>
+<td>G</td>
+<td>-</td>
+<td>0-99</td>
+<td>-</td>
+<td>-</td>
+<td>Identificação dos advogados.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="2501_ideProc_calcTrib_infoComplIRRF_infoRRA_ideAdv_tpInsc" id="2501_ideProc_calcTrib_infoComplIRRF_infoRRA_ideAdv_tpInsc">46</td>
+<td>tpInsc</td>
+<td><a href="#r_2501_ideProc_calcTrib_infoComplIRRF_infoRRA_ideAdv">ideAdv</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1</td>
+<td>-</td>
+<td>Preencher com o código correspondente ao tipo de inscrição, conforme <a href="tabelas.html#05">Tabela 05</a>.<br />
+<strong>Valores válidos:</strong><br />
+<strong>1</strong> - CNPJ<br />
+<strong>2</strong> - CPF</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="2501_ideProc_calcTrib_infoComplIRRF_infoRRA_ideAdv_nrInsc" id="2501_ideProc_calcTrib_infoComplIRRF_infoRRA_ideAdv_nrInsc">47</td>
+<td>nrInsc</td>
+<td><a href="#r_2501_ideProc_calcTrib_infoComplIRRF_infoRRA_ideAdv">ideAdv</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>11 ou 14</td>
+<td>-</td>
+<td>Informar o número de inscrição do advogado.<br />
+<strong>Validação:</strong> Deve ser um número de inscrição válido, de acordo com o tipo de inscrição indicado no campo <a href="#2501_ideProc_calcTrib_infoComplIRRF_infoRRA_ideAdv_tpInsc">ideAdv/tpInsc</a>, considerando as particularidades aplicadas à informação de CNPJ de órgão público em S-1000.<br />
+Se <a href="#2501_ideProc_calcTrib_infoComplIRRF_infoRRA_ideAdv_tpInsc">ideAdv/tpInsc</a> = [1], deve possuir 14 (catorze) algarismos e, no caso de declarante pessoa jurídica, ser diferente do CNPJ base do empregador (exceto se <a href="#2501_ideEmpregador_nrInsc">ideEmpregador/nrInsc</a> tiver 14 (catorze) algarismos).<br />
+Se <a href="#2501_ideProc_calcTrib_infoComplIRRF_infoRRA_ideAdv_tpInsc">ideAdv/tpInsc</a> = [2], deve possuir 11 (onze) algarismos e, no caso de declarante pessoa física, ser diferente do CPF do empregador.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="2501_ideProc_calcTrib_infoComplIRRF_infoRRA_ideAdv_vlrAdv" id="2501_ideProc_calcTrib_infoComplIRRF_infoRRA_ideAdv_vlrAdv">48</td>
+<td>vlrAdv</td>
+<td><a href="#r_2501_ideProc_calcTrib_infoComplIRRF_infoRRA_ideAdv">ideAdv</a></td>
+<td>E</td>
+<td>N</td>
+<td>0-1</td>
+<td>1-14</td>
+<td>2</td>
+<td>Valor da despesa com o advogado, se houver.</td>
+</tr>
+</tbody>
+</table>
+
 <h3 id="evtExclusao" class="title has-text-centered quebra-anterior">S-3000 - Exclusão de Eventos</h3>
 <table class="table is-fullwidth is-bordered resumo">
 <tbody>
@@ -35832,7 +36575,7 @@ Não podem ser informados motivos que não implicam rescisão do contrato de tra
 <div class="navbar-dropdown">
 <a class="navbar-item" href="index.html#evtRemun">S-1200 - Remuneração de Trabalhador vinculado ao Regime Geral de Previd. Social</a>
 <a class="navbar-item" href="index.html#evtRmnRPPS">S-1202 - Remuneração de Servidor vinculado ao Regime Próprio de Previd. Social</a>
-<a class="navbar-item" href="index.html#evtBenPrRP">S-1207 - Benefícios - Entes públicos</a>
+<a class="navbar-item" href="index.html#evtBenPrRP">S-1207 - Benefícios - Entes Públicos</a>
 <a class="navbar-item" href="index.html#evtPgtos">S-1210 - Pagamentos de Rendimentos do Trabalho</a>
 <a class="navbar-item" href="index.html#evtComProd">S-1260 - Comercialização da Produção Rural Pessoa Física</a>
 <a class="navbar-item" href="index.html#evtContratAvNP">S-1270 - Contratação de Trabalhadores Avulsos Não Portuários</a>
@@ -35874,19 +36617,20 @@ Não podem ser informados motivos que não implicam rescisão do contrato de tra
 </div>
 </div>
 <div class="navbar-item has-dropdown has-dropdown-up is-hoverable">
-    <a class="navbar-link" href="">Proc. Trabalhista</a>
-    <div class="navbar-dropdown">
-    <a class="navbar-item" href="index.html#evtProcTrab">S-2500 - Processo Trabalhista</a>
-    </div>
-    </div>
+<a class="navbar-link" href="">Proc. Trabalhista</a>
+<div class="navbar-dropdown">
+<a class="navbar-item" href="index.html#evtProcTrab">S-2500 - Processo Trabalhista</a>
+<a class="navbar-item" href="index.html#evtContProc">S-2501 - Informações de Contribuições Decorrentes de Processo Trabalhista</a>
+</div>
+</div>
 <div class="navbar-item has-dropdown has-dropdown-up is-hoverable">
 <a class="navbar-link" href="">Totalizadores</a>
 <div class="navbar-dropdown">
-<a class="navbar-item" href="index.html#evtBasesTrab">S-5001 - Informações das contribuições sociais por trabalhador</a>
-<a class="navbar-item" href="index.html#evtIrrfBenef">S-5002 - Imposto de Renda Retido na Fonte por trabalhador</a>
-<a class="navbar-item" href="index.html#evtBasesFGTS">S-5003 - Informações do FGTS por trabalhador</a>
-<a class="navbar-item" href="index.html#evtCS">S-5011 - Informações das contribuições sociais consolidadas por contribuinte</a>
-<a class="navbar-item" href="index.html#evtFGTS">S-5013 - Informações do FGTS consolidadas por contribuinte</a>
+<a class="navbar-item" href="index.html#evtBasesTrab">S-5001 - Informações das Contribuições Sociais por Trabalhador</a>
+<a class="navbar-item" href="index.html#evtIrrfBenef">S-5002 - Imposto de Renda Retido na Fonte por Trabalhador</a>
+<a class="navbar-item" href="index.html#evtBasesFGTS">S-5003 - Informações do FGTS por Trabalhador</a>
+<a class="navbar-item" href="index.html#evtCS">S-5011 - Informações das Contribuições Sociais Consolidadas por Contribuinte</a>
+<a class="navbar-item" href="index.html#evtFGTS">S-5013 - Informações do FGTS Consolidadas por Contribuinte</a>
 </div>
 </div>
 <div class="navbar-item">

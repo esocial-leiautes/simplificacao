@@ -1,0 +1,598 @@
+S-2501 - evtContProc
+Informações de Contribuições Decorrentes de Processo Trabalhista
+
+Nível: 1
+Nome: eSocial
+Pai: -
+Descrição: eSocial
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 2
+Nome: evtContProc
+Pai: eSocial
+Descrição: Evento Informações de Contribuições Decorrentes de Processo Trabalhista.
+Ocorrência: 1
+Chave: Id
+Condição: O
+
+Nível: 3
+Nome: ideEvento
+Pai: evtContProc
+Descrição: Informações de identificação do evento.
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 3
+Nome: ideEmpregador
+Pai: evtContProc
+Descrição: Informações de identificação do empregador ou do contribuinte que está prestando a informação.
+Ocorrência: 1
+Chave: tpInsc*, nrInsc*
+Condição: O
+
+Nível: 3
+Nome: ideProc
+Pai: evtContProc
+Descrição: Identificação do processo.
+Ocorrência: 1
+Chave: nrProcTrab*, perApurPgto*
+Condição: O
+
+Nível: 4
+Nome: calcTrib
+Pai: ideProc
+Descrição: Identificação do trabalhador, do período e da base de cálculo dos tributos.
+Ocorrência: 1-999
+Chave: cpfTrab, perRef
+Condição: O
+
+Nível: 5
+Nome: infoCRContrib
+Pai: calcTrib
+Descrição: Informações das contribuições sociais.
+Ocorrência: 0-99
+Chave: tpCR
+Condição: OC
+
+Nível: 5
+Nome: infoCRIRRF
+Pai: calcTrib
+Descrição: Informações de IRRF.
+Ocorrência: 0-99
+Chave: tpCR
+Condição: OC
+
+Nível: 5
+Nome: infoComplIRRF
+Pai: calcTrib
+Descrição: Informações complementares de IRRF.
+Ocorrência: 0-1
+Chave: -
+Condição: OC
+
+Nível: 6
+Nome: dedDepen
+Pai: infoComplIRRF
+Descrição: Dedução do rendimento tributável relativa a dependentes.
+Ocorrência: 0-99
+Chave: cpfDepen
+Condição: OC
+
+Nível: 6
+Nome: penAlim
+Pai: infoComplIRRF
+Descrição: Informação dos beneficiários da pensão alimentícia.
+Ocorrência: 0-99
+Chave: cpfDep
+Condição: OC
+
+Nível: 6
+Nome: infoRRA
+Pai: infoComplIRRF
+Descrição: Informações complementares relativas a RRA.
+Ocorrência: 0-1
+Chave: -
+Condição: OC
+
+Nível: 7
+Nome: despProcJud
+Pai: infoRRA
+Descrição: Detalhamento das despesas com processo judicial.
+Ocorrência: 0-1
+Chave: -
+Condição: OC
+
+Nível: 7
+Nome: ideAdv
+Pai: infoRRA
+Descrição: Identificação dos advogados.
+Ocorrência: 0-99
+Chave: tpInsc, nrInsc
+Condição: OC
+
+Nome: eSocial
+Pai: -
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: eSocial
+
+Nome: evtContProc
+Pai: eSocial
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Evento Informações de Contribuições Decorrentes de Processo Trabalhista.
+Regras de validação:
+REGRA_EXISTE_INFO_EMPREGADOR
+REGRA_VALIDA_EMPREGADOR
+
+Nome: Id
+Pai: evtContProc
+Elem.: A
+Tipo: C
+Ocorrência: 1
+Tamanho: 36
+Dec.: -
+Descrição: Identificação única do evento.
+Regras de validação:
+REGRA_VALIDA_ID_EVENTO
+
+Nome: ideEvento
+Pai: evtContProc
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do evento.
+
+Nome: indRetif
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Informe [1] para arquivo original ou [2] para arquivo de retificação.
+Valores válidos:
+1 - Original
+2 - Retificação
+
+Nome: nrRecibo
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 23
+Dec.: -
+Descrição: Preencher com o número do recibo do arquivo a ser retificado.
+Validação: O preenchimento é obrigatório se {indRetif}(./indRetif) = [2].
+Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo retificado.
+
+Nome: tpAmb
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Identificação do ambiente.
+Valores válidos:
+1 - Produção
+2 - Produção restrita
+7 - Validação (uso interno)
+8 - Teste (uso interno)
+9 - Desenvolvimento (uso interno)
+
+Nome: procEmi
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-2
+Dec.: -
+Descrição: Processo de emissão do evento.
+Valores válidos:
+1 - Aplicativo do empregador
+2 - Aplicativo governamental - Simplificado Pessoa Física
+3 - Aplicativo governamental - Web Geral
+4 - Aplicativo governamental - Simplificado Pessoa Jurídica
+22 - Aplicativo governamental para dispositivos móveis - Empregador Doméstico
+
+Nome: verProc
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-20
+Dec.: -
+Descrição: Versão do processo de emissão do evento. Informar a versão do aplicativo emissor do evento.
+
+Nome: ideEmpregador
+Pai: evtContProc
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do empregador ou do contribuinte que está prestando a informação.
+
+Nome: tpInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição do empregador ou contribuinte que está prestando a informação, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+
+Nome: nrInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 8, 11 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do empregador ou contribuinte que está prestando a informação, de acordo com o tipo de inscrição indicado no campo {ideEmpregador/tpInsc}(./tpInsc) e conforme informado em S-1000.
+
+Nome: ideProc
+Pai: evtContProc
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Identificação do processo.
+
+Nome: nrProcTrab
+Pai: ideProc
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 15 ou 20
+Dec.: -
+Descrição: Número do processo trabalhista, da ata ou número de identificação da conciliação.
+Validação: Deve ser um número de processo válido e declarado no evento S-2500 para o(s) trabalhador(es) informado(s) em {cpfTrab}(./calcTrib_cpfTrab).
+
+Nome: perApurPgto
+Pai: ideProc
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 7
+Dec.: -
+Descrição: Mês/ano em que é devida a obrigação de pagar a parcela prevista no acordo/sentença.
+Validação: Deve ser informado no formato AAAA-MM.
+
+Nome: obs
+Pai: ideProc
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-999
+Dec.: -
+Descrição: Observação referente ao pagamento de parcela prevista no acordo/sentença.
+
+Nome: calcTrib
+Pai: ideProc
+Elem.: G
+Tipo: -
+Ocorrência: 1-999
+Tamanho: -
+Dec.: -
+Descrição: Identificação do trabalhador, do período e da base de cálculo dos tributos.
+
+Nome: cpfTrab
+Pai: calcTrib
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11
+Dec.: -
+Descrição: Preencher com o número do CPF do trabalhador.
+Validação: Deve ser um CPF válido e informado no evento S-2500.
+
+Nome: perRef
+Pai: calcTrib
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 7
+Dec.: -
+Descrição: Informar o mês/ano (formato AAAA-MM) de referência das informações.
+Validação: Deve ser um período existente no evento S-2500 para o trabalhador indicado em {cpfTrab}(./cpfTrab).
+
+Nome: vrBcCpMensal
+Pai: calcTrib
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da base de cálculo da contribuição previdenciária sobre a remuneração mensal do trabalhador.
+Validação: Deve ser maior ou igual a 0 (zero).
+
+Nome: vrBcCp13
+Pai: calcTrib
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da base de cálculo da contribuição previdenciária sobre a remuneração do trabalhador referente ao 13º salário.
+Validação: Deve ser maior ou igual a 0 (zero).
+
+Nome: vrRendIRRF
+Pai: calcTrib
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor do rendimento tributável do Imposto de Renda.
+Validação: Deve ser maior ou igual a 0 (zero).
+
+Nome: vrRendIRRF13
+Pai: calcTrib
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor do rendimento tributável do Imposto de Renda referente ao 13º salário - Tributação exclusiva.
+Validação: Deve ser maior ou igual a 0 (zero).
+
+Nome: infoCRContrib
+Pai: calcTrib
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição: Informações das contribuições sociais devidas à Previdência Social e Outras Entidades e Fundos, por Código de Receita - CR.
+
+Nome: tpCR
+Pai: infoCRContrib
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 6
+Dec.: -
+Descrição: Código de Receita - CR relativo a contribuições sociais devidas à Previdência Social e a Outras Entidades e Fundos (Terceiros), conforme legislação em vigor na competência.
+Validação: Deve ser um código válido e existente na Tabela 29.
+
+Nome: vrCR
+Pai: infoCRContrib
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor correspondente ao Código de Receita - CR.
+Validação: Deve ser informado de acordo com a legislação em vigor na competência.
+Deve ser maior que 0 (zero).
+
+Nome: infoCRIRRF
+Pai: calcTrib
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição: Informações de Imposto de Renda Retido na Fonte, por Código de Receita - CR.
+
+Nome: tpCR
+Pai: infoCRIRRF
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 6
+Dec.: -
+Descrição: Código de Receita - CR relativo a Imposto de Renda Retido na Fonte.
+Validação: Deve ser um código válido e existente na Tabela 29.
+
+Nome: vrCR
+Pai: infoCRIRRF
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor correspondente ao Código de Receita - CR.
+Validação: Deve ser informado de acordo com a legislação em vigor na competência.
+Deve ser maior que 0 (zero).
+
+Nome: infoComplIRRF
+Pai: calcTrib
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações complementares de Imposto de Renda Retido na Fonte.
+
+Nome: vlrDedPensao
+Pai: infoComplIRRF
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor do somatório das deduções referentes à pensão alimentícia.
+Validação: Se o grupo {penAlim}(./penAlim) for informado, o valor deste campo deve ser o somatório dos valores informados no campo {vlrPensao}(./penAlim_vlrPensao).
+
+Nome: vlrDedDepen
+Pai: infoComplIRRF
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor do somatório das deduções por dependentes.
+Validação: Devem ser observadas as seguintes regras:
+a) Se o grupo {dedDepen}(./dedDepen) for informado, o valor deste campo deve ser o somatório dos valores informados no campo {vlrDeducao}(./dedDepen_vlrDeducao).
+b) O não preenchimento do grupo {dedDepen}(./dedDepen) indica que o contribuinte declarante não possui as informações detalhadas por dependente. Se o grupo {dedDepen}(./dedDepen) não for preenchido, o valor informado neste campo deve ser múltiplo do valor unitário da dedução por dependente definido na legislação. Caso a regra dessa alínea não seja atendida, retornar "alerta".
+
+Nome: dedDepen
+Pai: infoComplIRRF
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição: Dedução do rendimento tributável relativa a dependentes.
+
+Nome: cpfDepen
+Pai: dedDepen
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11
+Dec.: -
+Descrição: Informar o CPF do dependente.
+Validação: Deve ser um CPF de dependente cadastrado no eSocial (S-2200, S-2205, S-2300 ou S-2500).
+
+Nome: vlrDeducao
+Pai: dedDepen
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da dedução referente ao dependente acima identificado.
+
+Nome: penAlim
+Pai: infoComplIRRF
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição: Informação dos beneficiários da pensão alimentícia.
+
+Nome: cpfDep
+Pai: penAlim
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11
+Dec.: -
+Descrição: Número do CPF do dependente/beneficiário da pensão alimentícia.
+Validação: Deve ser um CPF de dependente cadastrado no eSocial (S-2200, S-2205, S-2300 ou S-2500).
+
+Nome: vlrPensao
+Pai: penAlim
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor relativo à dedução do rendimento tributável correspondente a pagamento de pensão alimentícia.
+
+Nome: infoRRA
+Pai: infoComplIRRF
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações complementares relativas a Rendimentos Recebidos Acumuladamente - RRA.
+
+Nome: descRRA
+Pai: infoRRA
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-50
+Dec.: -
+Descrição: Descrição dos Rendimentos Recebidos Acumuladamente.
+
+Nome: qtdMesesRRA
+Pai: infoRRA
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-4
+Dec.: 1
+Descrição: Número de meses relativo aos Rendimentos Recebidos Acumuladamente - RRA.
+
+Nome: despProcJud
+Pai: infoRRA
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Detalhamento das despesas com processo judicial.
+
+Nome: vlrDespCustas
+Pai: despProcJud
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Preencher com valor das despesas com custas judiciais.
+
+Nome: vlrDespAdvogados
+Pai: despProcJud
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Preencher com o valor total das despesas com advogado.
+
+Nome: ideAdv
+Pai: infoRRA
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição: Identificação dos advogados.
+
+Nome: tpInsc
+Pai: ideAdv
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+
+Nome: nrInsc
+Pai: ideAdv
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do advogado.
+Validação: Deve ser um número de inscrição válido, de acordo com o tipo de inscrição indicado no campo {ideAdv/tpInsc}(./tpInsc), considerando as particularidades aplicadas à informação de CNPJ de órgão público em S-1000.
+Se {ideAdv/tpInsc}(./tpInsc) = [1], deve possuir 14 (catorze) algarismos e, no caso de declarante pessoa jurídica, ser diferente do CNPJ base do empregador (exceto se {ideEmpregador/nrInsc}(2501_ideEmpregador_nrInsc) tiver 14 (catorze) algarismos).
+Se {ideAdv/tpInsc}(./tpInsc) = [2], deve possuir 11 (onze) algarismos e, no caso de declarante pessoa física, ser diferente do CPF do empregador.
+
+Nome: vlrAdv
+Pai: ideAdv
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da despesa com o advogado, se houver.
+
