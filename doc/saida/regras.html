@@ -1711,7 +1711,7 @@ No caso do evento S-2420, a data de cessação deve ser igual ou posterior à da
 </tr>
 <tr>
 <td id="REGRA_BLOQUEIA_USO_CPF_EMPREGADOR"><a title="Ver ocorrências"><strong>REGRA_BLOQUEIA_USO_CPF_EMPREGADOR</strong></a></td>
-<td>Em eventos de Admissão e de Remuneração gerados por empregador pessoa física, o CPF do trabalhador indicado no arquivo não pode ser o mesmo CPF do empregador.</td>
+<td>Em eventos de Admissão, de Remuneração e de Processo Trabalhista gerados por empregador pessoa física, o CPF do trabalhador indicado no arquivo não pode ser o mesmo CPF do empregador.</td>
 </tr>
 <tr>
 <td id="REGRA_CARACTERE_ESPECIAL"><a title="Ver ocorrências"><strong>REGRA_CARACTERE_ESPECIAL</strong></a></td>
@@ -2281,7 +2281,8 @@ b1) Todos os trabalhadores admitidos (S-2190 ou S-2200) em período igual ou ant
 - se, para trabalhador admitido com {tpAdmissao} = [2, 3, 4, 5, 6] ou {tpProv} = [5, 8, 10], o período de apuração for menor que o mês/ano informado no campo {sucessaoVinc/dtTransf}, {transfDom/dtTransf} ou {mudancaCPF/dtAltCPF}, todos do S-2200; ou<br />
 - se {indApuracao} = [2] e o código da categoria do trabalhador for igual a [107, 108] em todo o ano; ou<br />
 - se o período de apuração for posterior ao mês/ano da data de desligamento (informada em S-2200 ou S-2299) e anterior ao mês/ano da data do efetivo retorno (informada em S-2298), no caso de empregado reintegrado; ou<br />
-- se {perApur} &lt; [2022-04] e o trabalhador estiver amparado por Regime Próprio de Previdência Social - RPPS ({tpRegPrev} = [2] no RET) em todo o período de apuração.<br />
+- se {perApur} &lt; [2022-04] e o trabalhador estiver amparado por Regime Próprio de Previdência Social - RPPS ({tpRegPrev} = [2] no RET) em todo o período de apuração; ou<br />
+- se, para o trabalhador admitido com {indAdmissao} = [3] ou desligado com o campo {nrProcTrab} informado, o período de apuração estiver compreendido entre {compIni} e {compFim} do evento S-2500 (caso esse evento tenha sido informado).<br />
 Em caso de não existência do evento de remuneração para o período de apuração e não se tratando das exceções acima listadas, deve ser gerado um "alerta" para o empregador (ou seja, embora a situação seja irregular, não há impedimento para o fechamento dos eventos periódicos).<br />
 b2) Para o fechamento da folha de pessoa física em que todos os trabalhadores de código de categoria [104] tenham remuneração enviada, não deve haver eventos de Remuneração RGPS (S-1200) para trabalhadores com código de categoria diferente de [104] em período de apuração anterior ao início da respectiva obrigatoriedade dos eventos periódicos.<br />
 b3) Todos os benefícios com início igual ou anterior ao período de apuração que não estejam cessados (inclusive benefícios reativados em mês/ano igual ou anterior ao período de apuração) ou cujo término seja posterior ao período de apuração devem possuir o evento S-1207 encaminhado para o mesmo período de apuração, exceto:<br />
