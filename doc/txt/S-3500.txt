@@ -1,0 +1,230 @@
+S-3500 - evtExcProcTrab
+Exclusão de Eventos - Processo Trabalhista
+
+Nível: 1
+Nome: eSocial
+Pai: -
+Descrição: eSocial
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 2
+Nome: evtExcProcTrab
+Pai: eSocial
+Descrição: Evento Exclusão
+Ocorrência: 1
+Chave: Id
+Condição: O
+
+Nível: 3
+Nome: ideEvento
+Pai: evtExcProcTrab
+Descrição: Informações de identificação do evento.
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 3
+Nome: ideEmpregador
+Pai: evtExcProcTrab
+Descrição: Informações de identificação do empregador.
+Ocorrência: 1
+Chave: tpInsc, nrInsc
+Condição: O
+
+Nível: 3
+Nome: infoExclusao
+Pai: evtExcProcTrab
+Descrição: Informação do evento que será excluído
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 4
+Nome: ideProcTrab
+Pai: infoExclusao
+Descrição: Identificação do processo, do trabalhador e do período de apuração.
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nome: eSocial
+Pai: -
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: eSocial
+
+Nome: evtExcProcTrab
+Pai: eSocial
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Evento Exclusão de Eventos - Processo Trabalhista.
+Regras de validação:
+REGRA_ENVIO_PROC_FECHAMENTO
+REGRA_EXISTE_INFO_EMPREGADOR
+REGRA_VALIDA_EMPREGADOR
+
+Nome: Id
+Pai: evtExcProcTrab
+Elem.: A
+Tipo: C
+Ocorrência: 1
+Tamanho: 36
+Dec.: -
+Descrição: Identificação única do evento.
+Regras de validação:
+REGRA_VALIDA_ID_EVENTO
+
+Nome: ideEvento
+Pai: evtExcProcTrab
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do evento.
+
+Nome: tpAmb
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Identificação do ambiente.
+Valores válidos:
+1 - Produção
+2 - Produção restrita
+7 - Validação (uso interno)
+8 - Teste (uso interno)
+9 - Desenvolvimento (uso interno)
+
+Nome: procEmi
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-2
+Dec.: -
+Descrição: Processo de emissão do evento.
+Valores válidos:
+1 - Aplicativo do empregador
+2 - Aplicativo governamental - Simplificado Pessoa Física
+3 - Aplicativo governamental - Web Geral
+4 - Aplicativo governamental - Simplificado Pessoa Jurídica
+22 - Aplicativo governamental para dispositivos móveis - Empregador Doméstico
+
+Nome: verProc
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-20
+Dec.: -
+Descrição: Versão do processo de emissão do evento. Informar a versão do aplicativo emissor do evento.
+
+Nome: ideEmpregador
+Pai: evtExcProcTrab
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do empregador.
+
+Nome: tpInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+
+Nome: nrInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 8, 11 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {ideEmpregador/tpInsc}(./tpInsc) e conforme informado em S-1000.
+
+Nome: infoExclusao
+Pai: evtExcProcTrab
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Grupo que identifica o evento objeto da exclusão.
+
+Nome: tpEvento
+Pai: infoExclusao
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 6
+Dec.: -
+Descrição: Preencher com o tipo de evento (S-2500 ou S-2501).
+Validação: Deve ser igual a [S-2500, S-2501].
+
+Nome: nrRecEvt
+Pai: infoExclusao
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 23
+Dec.: -
+Descrição: Preencher com o número do recibo do evento que será excluído.
+Validação: O recibo deve ser relativo ao mesmo tipo de evento indicado em {tpEvento}(./tpEvento).
+
+Nome: ideProcTrab
+Pai: infoExclusao
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Identificação do processo, do trabalhador e do período a que se refere o evento que será excluído.
+
+Nome: nrProcTrab
+Pai: ideProcTrab
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 15 ou 20
+Dec.: -
+Descrição: Número do processo trabalhista, da ata ou número de identificação da conciliação.
+Validação: Deve ser o mesmo número do processo informado no evento objeto da exclusão.
+
+Nome: cpfTrab
+Pai: ideProcTrab
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 11
+Dec.: -
+Descrição: Preencher com o número do CPF do trabalhador.
+Validação: Preenchimento obrigatório e exclusivo se {tpEvento}(../tpEvento) = [S-2500]. Deve ser o mesmo CPF informado no evento S-2500 objeto da exclusão.
+
+Nome: perApurPgto
+Pai: ideProcTrab
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 7
+Dec.: -
+Descrição: Mês/ano em que é devida a obrigação de pagar a parcela prevista no acordo/sentença.
+Validação: Preenchimento obrigatório e exclusivo se {tpEvento}(../tpEvento) = [S-2501]. Deve ser o mesmo período informado no evento S-2501 objeto da exclusão.
+

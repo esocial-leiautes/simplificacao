@@ -56,6 +56,7 @@
 <li><a href="#evtProcTrab">S-2500 - Processo Trabalhista</a></li>
 <li><a href="#evtContProc">S-2501 - Informações de Contribuições Decorrentes de Processo Trabalhista</a></li>
 <li><a href="#evtExclusao">S-3000 - Exclusão de Eventos</a></li>
+<li><a href="#evtExcProcTrab">S-3500 - Exclusão de Eventos - Processo Trabalhista</a></li>
 <li><a href="#evtBasesTrab">S-5001 - Informações das Contribuições Sociais por Trabalhador</a></li>
 <li><a href="#evtIrrfBenef">S-5002 - Imposto de Renda Retido na Fonte por Trabalhador</a></li>
 <li><a href="#evtBasesFGTS">S-5003 - Informações do FGTS por Trabalhador</a></li>
@@ -31208,6 +31209,310 @@ N (nos demais casos)</td>
 <td>-</td>
 <td>Informar o mês/ano (formato AAAA-MM) ou apenas o ano (formato AAAA) de referência das informações.<br />
 <strong>Validação:</strong> Deve ser um mês/ano ou ano válido, posterior à implementação do eSocial. Somente pode ser informado ano (formato AAAA) se <a href="#3000_infoExclusao_ideFolhaPagto_indApuracao">indApuracao</a> = [2].</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="evtExcProcTrab" class="title has-text-centered quebra-anterior">S-3500 - Exclusão de Eventos - Processo Trabalhista</h3>
+<table class="table is-fullwidth is-bordered resumo">
+<tbody>
+<tr>
+<th colspan="7">Tabela de Resumo dos Registros</th>
+</tr>
+<tr class="grupo">
+<td><strong>Grupo</strong></td>
+<td><strong>Grupo Pai</strong></td>
+<td><strong>Nível</strong></td>
+<td><strong>Descrição</strong></td>
+<td><strong>Ocor.</strong></td>
+<td><strong>Chave</strong></td>
+<td><strong>Condição</strong></td>
+</tr>
+<tr>
+<td id="r_3500_eSocial"><a href="#3500_eSocial">eSocial</a></td>
+<td></td>
+<td>1</td>
+<td>eSocial</td>
+<td>1</td>
+<td>-</td>
+<td>O</td>
+</tr>
+<tr>
+<td id="r_3500"><a href="#3500">evtExcProcTrab</a></td>
+<td><a href="#r_3500_eSocial">eSocial</a></td>
+<td>2</td>
+<td>Evento Exclusão</td>
+<td>1</td>
+<td><a href="#3500_Id">Id</a></td>
+<td>O</td>
+</tr>
+<tr>
+<td id="r_3500_ideEvento"><a href="#3500_ideEvento">ideEvento</a></td>
+<td><a href="#r_3500">evtExcProcTrab</a></td>
+<td>3</td>
+<td>Informações de identificação do evento</td>
+<td>1</td>
+<td>-</td>
+<td>O</td>
+</tr>
+<tr>
+<td id="r_3500_ideEmpregador"><a href="#3500_ideEmpregador">ideEmpregador</a></td>
+<td><a href="#r_3500">evtExcProcTrab</a></td>
+<td>3</td>
+<td>Informações de identificação do empregador</td>
+<td>1</td>
+<td><a href="#3500_ideEmpregador_tpInsc">tpInsc</a>, <a href="#3500_ideEmpregador_nrInsc">nrInsc</a></td>
+<td>O</td>
+</tr>
+<tr>
+<td id="r_3500_infoExclusao"><a href="#3500_infoExclusao">infoExclusao</a></td>
+<td><a href="#r_3500">evtExcProcTrab</a></td>
+<td>3</td>
+<td>Informação do evento que será excluído</td>
+<td>1</td>
+<td>-</td>
+<td>O</td>
+</tr>
+<tr>
+<td id="r_3500_infoExclusao_ideProcTrab"><a href="#3500_infoExclusao_ideProcTrab">ideProcTrab</a></td>
+<td><a href="#r_3500_infoExclusao">infoExclusao</a></td>
+<td>4</td>
+<td>Identificação do processo, do trabalhador e do período de apuração</td>
+<td>1</td>
+<td>-</td>
+<td>O</td>
+</tr>
+</tbody>
+</table>
+
+<p class="is-size-6" style="margin-top: -1rem; margin-bottom: 2rem;">* Campo chave do evento</p>
+
+<h4 class="subtitle has-text-centered">Registros do evento S-3500 - Exclusão de Eventos - Processo Trabalhista</h4>
+<table class="table is-fullwidth is-bordered completo">
+<tbody>
+<tr>
+<th>#</th>
+<th>Grupo/Campo</th>
+<th>Grupo Pai</th>
+<th>Elem.</th>
+<th>Tipo</th>
+<th>Ocor.</th>
+<th>Tamanho</th>
+<th>Dec.</th>
+<th>Descrição</th>
+</tr>
+<tr class="grupo">
+<td onclick="copiarCaminho.call(this)" title="3500_eSocial" id="3500_eSocial">1</td>
+<td><a href="#r_3500_eSocial">eSocial</a></td>
+<td></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>eSocial</td>
+</tr>
+<tr class="grupo">
+<td onclick="copiarCaminho.call(this)" title="3500" id="3500">2</td>
+<td><a href="#r_3500">evtExcProcTrab</a></td>
+<td><a href="#r_3500_eSocial">eSocial</a></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Evento Exclusão de Eventos - Processo Trabalhista.<br />
+<strong>Regras de validação:</strong><br />
+<a href="#REGRA_ENVIO_PROC_FECHAMENTO">REGRA_ENVIO_PROC_FECHAMENTO</a><br />
+<a href="#REGRA_EXISTE_INFO_EMPREGADOR">REGRA_EXISTE_INFO_EMPREGADOR</a><br />
+<a href="#REGRA_VALIDA_EMPREGADOR">REGRA_VALIDA_EMPREGADOR</a></td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="3500_Id" id="3500_Id">3</td>
+<td>Id</td>
+<td><a href="#r_3500">evtExcProcTrab</a></td>
+<td>A</td>
+<td>C</td>
+<td>1</td>
+<td>36</td>
+<td>-</td>
+<td>Identificação única do evento.<br />
+<strong>Regra de validação:</strong><br />
+<a href="#REGRA_VALIDA_ID_EVENTO">REGRA_VALIDA_ID_EVENTO</a></td>
+</tr>
+<tr class="grupo">
+<td onclick="copiarCaminho.call(this)" title="3500_ideEvento" id="3500_ideEvento">4</td>
+<td><a href="#r_3500_ideEvento">ideEvento</a></td>
+<td><a href="#r_3500">evtExcProcTrab</a></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Informações de identificação do evento.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="3500_ideEvento_tpAmb" id="3500_ideEvento_tpAmb">5</td>
+<td>tpAmb</td>
+<td><a href="#r_3500_ideEvento">ideEvento</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1</td>
+<td>-</td>
+<td>Identificação do ambiente.<br />
+<strong>Valores válidos:</strong><br />
+<strong>1</strong> - Produção<br />
+<strong>2</strong> - Produção restrita<br />
+<strong>7</strong> - Validação (uso interno)<br />
+<strong>8</strong> - Teste (uso interno)<br />
+<strong>9</strong> - Desenvolvimento (uso interno)</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="3500_ideEvento_procEmi" id="3500_ideEvento_procEmi">6</td>
+<td>procEmi</td>
+<td><a href="#r_3500_ideEvento">ideEvento</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1-2</td>
+<td>-</td>
+<td>Processo de emissão do evento.<br />
+<strong>Valores válidos:</strong><br />
+<strong>1</strong> - Aplicativo do empregador<br />
+<strong>2</strong> - Aplicativo governamental - Simplificado Pessoa Física<br />
+<strong>3</strong> - Aplicativo governamental - Web Geral<br />
+<strong>4</strong> - Aplicativo governamental - Simplificado Pessoa Jurídica<br />
+<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="3500_ideEvento_verProc" id="3500_ideEvento_verProc">7</td>
+<td>verProc</td>
+<td><a href="#r_3500_ideEvento">ideEvento</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>1-20</td>
+<td>-</td>
+<td>Versão do processo de emissão do evento. Informar a versão do aplicativo emissor do evento.</td>
+</tr>
+<tr class="grupo">
+<td onclick="copiarCaminho.call(this)" title="3500_ideEmpregador" id="3500_ideEmpregador">8</td>
+<td><a href="#r_3500_ideEmpregador">ideEmpregador</a></td>
+<td><a href="#r_3500">evtExcProcTrab</a></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Informações de identificação do empregador.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="3500_ideEmpregador_tpInsc" id="3500_ideEmpregador_tpInsc">9</td>
+<td>tpInsc</td>
+<td><a href="#r_3500_ideEmpregador">ideEmpregador</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1</td>
+<td>-</td>
+<td>Preencher com o código correspondente ao tipo de inscrição, conforme <a href="tabelas.html#05">Tabela 05</a>.<br />
+<strong>Valores válidos:</strong><br />
+<strong>1</strong> - CNPJ<br />
+<strong>2</strong> - CPF</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="3500_ideEmpregador_nrInsc" id="3500_ideEmpregador_nrInsc">10</td>
+<td>nrInsc</td>
+<td><a href="#r_3500_ideEmpregador">ideEmpregador</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>8, 11 ou 14</td>
+<td>-</td>
+<td>Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo <a href="#3500_ideEmpregador_tpInsc">ideEmpregador/tpInsc</a> e conforme informado em S-1000.</td>
+</tr>
+<tr class="grupo">
+<td onclick="copiarCaminho.call(this)" title="3500_infoExclusao" id="3500_infoExclusao">11</td>
+<td><a href="#r_3500_infoExclusao">infoExclusao</a></td>
+<td><a href="#r_3500">evtExcProcTrab</a></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Grupo que identifica o evento objeto da exclusão.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="3500_infoExclusao_tpEvento" id="3500_infoExclusao_tpEvento">12</td>
+<td>tpEvento</td>
+<td><a href="#r_3500_infoExclusao">infoExclusao</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>6</td>
+<td>-</td>
+<td>Preencher com o tipo de evento (S-2500 ou S-2501).<br />
+<strong>Validação:</strong> Deve ser igual a [S-2500, S-2501].</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="3500_infoExclusao_nrRecEvt" id="3500_infoExclusao_nrRecEvt">13</td>
+<td>nrRecEvt</td>
+<td><a href="#r_3500_infoExclusao">infoExclusao</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>23</td>
+<td>-</td>
+<td>Preencher com o número do recibo do evento que será excluído.<br />
+<strong>Validação:</strong> O recibo deve ser relativo ao mesmo tipo de evento indicado em <a href="#3500_infoExclusao_tpEvento">tpEvento</a>.</td>
+</tr>
+<tr class="grupo">
+<td onclick="copiarCaminho.call(this)" title="3500_infoExclusao_ideProcTrab" id="3500_infoExclusao_ideProcTrab">14</td>
+<td><a href="#r_3500_infoExclusao_ideProcTrab">ideProcTrab</a></td>
+<td><a href="#r_3500_infoExclusao">infoExclusao</a></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Identificação do processo, do trabalhador e do período a que se refere o evento que será excluído.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="3500_infoExclusao_ideProcTrab_nrProcTrab" id="3500_infoExclusao_ideProcTrab_nrProcTrab">15</td>
+<td>nrProcTrab</td>
+<td><a href="#r_3500_infoExclusao_ideProcTrab">ideProcTrab</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>15 ou 20</td>
+<td>-</td>
+<td>Número do processo trabalhista, da ata ou número de identificação da conciliação.<br />
+<strong>Validação:</strong> Deve ser o mesmo número do processo informado no evento objeto da exclusão.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="3500_infoExclusao_ideProcTrab_cpfTrab" id="3500_infoExclusao_ideProcTrab_cpfTrab">16</td>
+<td>cpfTrab</td>
+<td><a href="#r_3500_infoExclusao_ideProcTrab">ideProcTrab</a></td>
+<td>E</td>
+<td>C</td>
+<td>0-1</td>
+<td>11</td>
+<td>-</td>
+<td>Preencher com o número do CPF do trabalhador.<br />
+<strong>Validação:</strong> Preenchimento obrigatório e exclusivo se <a href="#3500_infoExclusao_tpEvento">tpEvento</a> = [S-2500]. Deve ser o mesmo CPF informado no evento S-2500 objeto da exclusão.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="3500_infoExclusao_ideProcTrab_perApurPgto" id="3500_infoExclusao_ideProcTrab_perApurPgto">17</td>
+<td>perApurPgto</td>
+<td><a href="#r_3500_infoExclusao_ideProcTrab">ideProcTrab</a></td>
+<td>E</td>
+<td>C</td>
+<td>0-1</td>
+<td>7</td>
+<td>-</td>
+<td>Mês/ano em que é devida a obrigação de pagar a parcela prevista no acordo/sentença.<br />
+<strong>Validação:</strong> Preenchimento obrigatório e exclusivo se <a href="#3500_infoExclusao_tpEvento">tpEvento</a> = [S-2501]. Deve ser o mesmo período informado no evento S-2501 objeto da exclusão.</td>
 </tr>
 </tbody>
 </table>
