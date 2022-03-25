@@ -61,6 +61,7 @@
 <li><a href="#evtBasesFGTS">S-5003 - Informações do FGTS por Trabalhador</a></li>
 <li><a href="#evtCS">S-5011 - Informações das Contribuições Sociais Consolidadas por Contribuinte</a></li>
 <li><a href="#evtFGTS">S-5013 - Informações do FGTS Consolidadas por Contribuinte</a></li>
+<li><a href="#evtTribProcTrab">S-5501 - Informações de Tributos Decorrentes de Processo Trabalhista</a></li>
 <li><a href="#evtBaixa">S-8299 - Baixa Judicial do Vínculo</a></li>
 </ul>
 <div class="modal" id="REGRA_ADMISSAO_POSTERIOR_INICIO_ATIVIDADES">
@@ -36190,6 +36191,340 @@ Deve corresponder ao somatório dos valores informados no campo <a href="#5003_i
 <td>Valor histórico do FGTS a ser depositado na conta vinculada do trabalhador.<br />
 <strong>Validação:</strong> Deve ser maior que 0 (zero).<br />
 Deve corresponder ao somatório dos valores informados no campo <a href="#5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_basePerAntE_dpsFGTSE">dpsFGTSE</a> do evento de origem, agrupados por <a href="#5013_infoFGTS_ideEstab_ideLotacao_infoBaseFGTS_infoBasePerAntE_basePerAntE_tpValorE">tpValorE</a>.</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="evtTribProcTrab" class="title has-text-centered quebra-anterior">S-5501 - Informações de Tributos Decorrentes de Processo Trabalhista</h3>
+<table class="table is-fullwidth is-bordered resumo">
+<tbody>
+<tr>
+<th colspan="7">Tabela de Resumo dos Registros</th>
+</tr>
+<tr class="grupo">
+<td><strong>Grupo</strong></td>
+<td><strong>Grupo Pai</strong></td>
+<td><strong>Nível</strong></td>
+<td><strong>Descrição</strong></td>
+<td><strong>Ocor.</strong></td>
+<td><strong>Chave</strong></td>
+<td><strong>Condição</strong></td>
+</tr>
+<tr>
+<td id="r_5501_eSocial"><a href="#5501_eSocial">eSocial</a></td>
+<td></td>
+<td>1</td>
+<td>eSocial</td>
+<td>1</td>
+<td>-</td>
+<td>O</td>
+</tr>
+<tr>
+<td id="r_5501"><a href="#5501">evtTribProcTrab</a></td>
+<td><a href="#r_5501_eSocial">eSocial</a></td>
+<td>2</td>
+<td>Evento Informações de Tributos Decorrentes de Processo Trabalhista</td>
+<td>1</td>
+<td><a href="#5501_Id">Id</a></td>
+<td>O</td>
+</tr>
+<tr>
+<td id="r_5501_ideEvento"><a href="#5501_ideEvento">ideEvento</a></td>
+<td><a href="#r_5501">evtTribProcTrab</a></td>
+<td>3</td>
+<td>Informações de identificação do evento</td>
+<td>1</td>
+<td>-</td>
+<td>O</td>
+</tr>
+<tr>
+<td id="r_5501_ideEmpregador"><a href="#5501_ideEmpregador">ideEmpregador</a></td>
+<td><a href="#r_5501">evtTribProcTrab</a></td>
+<td>3</td>
+<td>Informações de identificação do empregador ou do contribuinte que prestou a informação</td>
+<td>1</td>
+<td><a href="#5501_ideEmpregador_tpInsc">tpInsc</a>*, <a href="#5501_ideEmpregador_nrInsc">nrInsc</a>*</td>
+<td>O</td>
+</tr>
+<tr>
+<td id="r_5501_ideProc"><a href="#5501_ideProc">ideProc</a></td>
+<td><a href="#r_5501">evtTribProcTrab</a></td>
+<td>3</td>
+<td>Identificação do processo</td>
+<td>1</td>
+<td><a href="#5501_ideProc_nrProcTrab">nrProcTrab</a>*, <a href="#5501_ideProc_perApur">perApur</a>*</td>
+<td>O</td>
+</tr>
+<tr>
+<td id="r_5501_infoTributos"><a href="#5501_infoTributos">infoTributos</a></td>
+<td><a href="#r_5501">evtTribProcTrab</a></td>
+<td>3</td>
+<td>Identificação do período e da base de cálculo dos tributos referentes ao processo trabalhista</td>
+<td>1-999</td>
+<td><a href="#5501_infoTributos_perRef">perRef</a></td>
+<td>O</td>
+</tr>
+<tr>
+<td id="r_5501_infoTributos_infoCRContrib"><a href="#5501_infoTributos_infoCRContrib">infoCRContrib</a></td>
+<td><a href="#r_5501_infoTributos">infoTributos</a></td>
+<td>4</td>
+<td>Informações das contribuições sociais referentes ao processo trabalhista</td>
+<td>0-99</td>
+<td><a href="#5501_infoTributos_infoCRContrib_tpCR">tpCR</a></td>
+<td>OC</td>
+</tr>
+<tr>
+<td id="r_5501_infoTributos_infoCRIRRF"><a href="#5501_infoTributos_infoCRIRRF">infoCRIRRF</a></td>
+<td><a href="#r_5501_infoTributos">infoTributos</a></td>
+<td>4</td>
+<td>Informações de IRRF referentes ao processo trabalhista</td>
+<td>0-99</td>
+<td><a href="#5501_infoTributos_infoCRIRRF_tpCR">tpCR</a></td>
+<td>OC</td>
+</tr>
+</tbody>
+</table>
+
+<p class="is-size-6" style="margin-top: -1rem; margin-bottom: 2rem;">* Campo chave do evento</p>
+
+<h4 class="subtitle has-text-centered">Registros do evento S-5501 - Informações de Tributos Decorrentes de Processo Trabalhista</h4>
+<table class="table is-fullwidth is-bordered completo">
+<tbody>
+<tr>
+<th>#</th>
+<th>Grupo/Campo</th>
+<th>Grupo Pai</th>
+<th>Elem.</th>
+<th>Tipo</th>
+<th>Ocor.</th>
+<th>Tamanho</th>
+<th>Dec.</th>
+<th>Descrição</th>
+</tr>
+<tr class="grupo">
+<td onclick="copiarCaminho.call(this)" title="5501_eSocial" id="5501_eSocial">1</td>
+<td><a href="#r_5501_eSocial">eSocial</a></td>
+<td></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>eSocial</td>
+</tr>
+<tr class="grupo">
+<td onclick="copiarCaminho.call(this)" title="5501" id="5501">2</td>
+<td><a href="#r_5501">evtTribProcTrab</a></td>
+<td><a href="#r_5501_eSocial">eSocial</a></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Evento Informações de Tributos Decorrentes de Processo Trabalhista.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="5501_Id" id="5501_Id">3</td>
+<td>Id</td>
+<td><a href="#r_5501">evtTribProcTrab</a></td>
+<td>A</td>
+<td>C</td>
+<td>1</td>
+<td>36</td>
+<td>-</td>
+<td>Identificação única do evento.</td>
+</tr>
+<tr class="grupo">
+<td onclick="copiarCaminho.call(this)" title="5501_ideEvento" id="5501_ideEvento">4</td>
+<td><a href="#r_5501_ideEvento">ideEvento</a></td>
+<td><a href="#r_5501">evtTribProcTrab</a></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Informações de identificação do evento.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="5501_ideEvento_nrRecArqBase" id="5501_ideEvento_nrRecArqBase">5</td>
+<td>nrRecArqBase</td>
+<td><a href="#r_5501_ideEvento">ideEvento</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>23</td>
+<td>-</td>
+<td>Preencher com o número do recibo do arquivo que deu origem ao presente arquivo de retorno.<br />
+<strong>Validação:</strong> Deve ser um recibo de entrega válido, correspondente ao arquivo que deu origem ao presente arquivo de retorno (S-2501 ou S-3500).</td>
+</tr>
+<tr class="grupo">
+<td onclick="copiarCaminho.call(this)" title="5501_ideEmpregador" id="5501_ideEmpregador">6</td>
+<td><a href="#r_5501_ideEmpregador">ideEmpregador</a></td>
+<td><a href="#r_5501">evtTribProcTrab</a></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Informações de identificação do empregador ou do contribuinte que prestou a informação.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="5501_ideEmpregador_tpInsc" id="5501_ideEmpregador_tpInsc">7</td>
+<td>tpInsc</td>
+<td><a href="#r_5501_ideEmpregador">ideEmpregador</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1</td>
+<td>-</td>
+<td>Preencher com o código correspondente ao tipo de inscrição do empregador ou contribuinte que prestou a informação, conforme <a href="tabelas.html#05">Tabela 05</a>.<br />
+<strong>Valores válidos:</strong><br />
+<strong>1</strong> - CNPJ<br />
+<strong>2</strong> - CPF</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="5501_ideEmpregador_nrInsc" id="5501_ideEmpregador_nrInsc">8</td>
+<td>nrInsc</td>
+<td><a href="#r_5501_ideEmpregador">ideEmpregador</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>8, 11 ou 14</td>
+<td>-</td>
+<td>Informar o número de inscrição do empregador ou contribuinte que prestou a informação, de acordo com o tipo de inscrição indicado no campo <a href="#5501_ideEmpregador_tpInsc">ideEmpregador/tpInsc</a> e conforme informado em S-1000.</td>
+</tr>
+<tr class="grupo">
+<td onclick="copiarCaminho.call(this)" title="5501_ideProc" id="5501_ideProc">9</td>
+<td><a href="#r_5501_ideProc">ideProc</a></td>
+<td><a href="#r_5501">evtTribProcTrab</a></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Identificação do processo.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="5501_ideProc_nrProcTrab" id="5501_ideProc_nrProcTrab">10</td>
+<td>nrProcTrab</td>
+<td><a href="#r_5501_ideProc">ideProc</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>15 ou 20</td>
+<td>-</td>
+<td>Número do processo trabalhista, da ata ou número de identificação da conciliação.<br />
+<strong>Validação:</strong> a) Se o evento de origem for S-2501, retornar o campo <a href="#2501_ideProc_nrProcTrab">nrProcTrab</a> desse evento;<br />
+b) Se o evento de origem for S-3500, retornar o campo <a href="#2501_ideProc_nrProcTrab">nrProcTrab</a> do evento S-2501 objeto da exclusão.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="5501_ideProc_perApur" id="5501_ideProc_perApur">11</td>
+<td>perApur</td>
+<td><a href="#r_5501_ideProc">ideProc</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>7</td>
+<td>-</td>
+<td>Mês/ano em que é devida a obrigação de pagar a parcela prevista no acordo/sentença.<br />
+<strong>Validação:</strong> a) Se o evento de origem for S-2501, retornar o campo <a href="#2501_ideProc_perApurPgto">perApurPgto</a> desse evento;<br />
+b) Se o evento de origem for S-3500, retornar o campo <a href="#2501_ideProc_perApurPgto">perApurPgto</a> do evento S-2501 objeto da exclusão.</td>
+</tr>
+<tr class="grupo">
+<td onclick="copiarCaminho.call(this)" title="5501_infoTributos" id="5501_infoTributos">12</td>
+<td><a href="#r_5501_infoTributos">infoTributos</a></td>
+<td><a href="#r_5501">evtTribProcTrab</a></td>
+<td>G</td>
+<td>-</td>
+<td>1-999</td>
+<td>-</td>
+<td>-</td>
+<td>Identificação do período e da base de cálculo dos tributos referentes ao processo trabalhista.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="5501_infoTributos_perRef" id="5501_infoTributos_perRef">13</td>
+<td>perRef</td>
+<td><a href="#r_5501_infoTributos">infoTributos</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>7</td>
+<td>-</td>
+<td>Informar o mês/ano (formato AAAA-MM) de referência das informações.<br />
+<strong>Validação:</strong> a) Se o evento de origem for S-2501, retornar o campo <a href="#2501_ideProc_calcTrib_perRef">perRef</a> desse evento;<br />
+b) Se o evento de origem for S-3500, retornar o campo <a href="#2501_ideProc_calcTrib_perRef">perRef</a> do evento S-2501 objeto da exclusão.</td>
+</tr>
+<tr class="grupo">
+<td onclick="copiarCaminho.call(this)" title="5501_infoTributos_infoCRContrib" id="5501_infoTributos_infoCRContrib">14</td>
+<td><a href="#r_5501_infoTributos_infoCRContrib">infoCRContrib</a></td>
+<td><a href="#r_5501_infoTributos">infoTributos</a></td>
+<td>G</td>
+<td>-</td>
+<td>0-99</td>
+<td>-</td>
+<td>-</td>
+<td>Informações das contribuições sociais devidas à Previdência Social e Outras Entidades e Fundos, consolidadas por <a href="#5501_infoTributos_perRef">perRef</a> e por Código de Receita - CR.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="5501_infoTributos_infoCRContrib_tpCR" id="5501_infoTributos_infoCRContrib_tpCR">15</td>
+<td>tpCR</td>
+<td><a href="#r_5501_infoTributos_infoCRContrib">infoCRContrib</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>6</td>
+<td>-</td>
+<td>Código de Receita - CR relativo a contribuições sociais devidas à Previdência Social e a Outras Entidades e Fundos (Terceiros), conforme legislação em vigor na competência.<br />
+<strong>Validação:</strong> Deve ser um código válido e existente na <a href="tabelas.html#29">Tabela 29</a>.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="5501_infoTributos_infoCRContrib_vrCR" id="5501_infoTributos_infoCRContrib_vrCR">16</td>
+<td>vrCR</td>
+<td><a href="#r_5501_infoTributos_infoCRContrib">infoCRContrib</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1-14</td>
+<td>2</td>
+<td>Valor correspondente ao Código de Receita - CR.<br />
+<strong>Validação:</strong> Deve ser apurado de acordo com a legislação em vigor na competência.<br />
+Deve ser maior que 0 (zero).</td>
+</tr>
+<tr class="grupo">
+<td onclick="copiarCaminho.call(this)" title="5501_infoTributos_infoCRIRRF" id="5501_infoTributos_infoCRIRRF">17</td>
+<td><a href="#r_5501_infoTributos_infoCRIRRF">infoCRIRRF</a></td>
+<td><a href="#r_5501_infoTributos">infoTributos</a></td>
+<td>G</td>
+<td>-</td>
+<td>0-99</td>
+<td>-</td>
+<td>-</td>
+<td>Informações de Imposto de Renda Retido na Fonte, consolidadas por <a href="#5501_infoTributos_perRef">perRef</a> e por Código de Receita - CR.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="5501_infoTributos_infoCRIRRF_tpCR" id="5501_infoTributos_infoCRIRRF_tpCR">18</td>
+<td>tpCR</td>
+<td><a href="#r_5501_infoTributos_infoCRIRRF">infoCRIRRF</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>6</td>
+<td>-</td>
+<td>Código de Receita - CR relativo a Imposto de Renda Retido na Fonte.<br />
+<strong>Validação:</strong> Deve ser um código válido e existente na <a href="tabelas.html#29">Tabela 29</a>.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="5501_infoTributos_infoCRIRRF_vrCR" id="5501_infoTributos_infoCRIRRF_vrCR">19</td>
+<td>vrCR</td>
+<td><a href="#r_5501_infoTributos_infoCRIRRF">infoCRIRRF</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1-14</td>
+<td>2</td>
+<td>Valor correspondente ao Código de Receita - CR.<br />
+<strong>Validação:</strong> Deve ser apurado de acordo com a legislação em vigor na competência.<br />
+Deve ser maior que 0 (zero).</td>
 </tr>
 </tbody>
 </table>
