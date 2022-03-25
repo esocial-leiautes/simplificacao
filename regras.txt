@@ -35,6 +35,9 @@ Para recepção do evento de Baixa Judicial, não pode existir evento de Desliga
 REGRA_BAIXA_TRABALHADOR_AFASTADO
 É permitido o envio de evento de Baixa Judicial para trabalhador afastado temporariamente, independentemente do motivo de afastamento.
 
+REGRA_BASES_PROC_TRAB
+Se {repercProc} = [1], devem ser informadas bases de cálculo para todos os períodos de referência compreendidos entre {compIni} e {compFim}.
+
 REGRA_BENEFICIO_ATIVO_NA_DTEVENTO
 O benefício identificado por CPF + número do benefício deve estar ativo na data do evento.
 No caso do evento S-2416, a data de alteração deve ser posterior à data de início do benefício (no caso de sucessão ou mudança de CPF, posterior à data da transferência ou à data de alteração do CPF, respectivamente) e igual ou anterior à data de cessação.
@@ -478,6 +481,9 @@ No caso dos eventos S-1200 e S-1202, o período de apuração deve ser igual ou 
 REGRA_TSV_VERIFICA_DUPLICIDADE
 Não é possível o envio de dois eventos de TSVE - Início (S-2300) para o mesmo trabalhador (CPF) e categoria, exceto se já houver respectivo evento de "término" anterior ao envio do segundo evento ou se houver informação de matrícula em pelo menos um dos eventos.
 
+REGRA_UNICIDADE_CONTRATUAL
+No caso de unicidade contratual, o período do contrato de trabalho reconhecido judicialmente (relativo ao campo {matricula}) deve abranger os períodos dos contratos de trabalho referentes às matrículas incorporadas (campos {matUnic}).
+
 REGRA_VALIDA_ADMISSAO_PRELIMINAR
 Para aceitação do evento Registro Preliminar de Trabalhador (S-2190):
 a) O CPF indicado no evento deve existir na base de dados do CPF (verificar CPF + data de nascimento);
@@ -561,6 +567,10 @@ OBS.: No caso de empregador Pessoa Física, a verificação de existência de ev
 
 REGRA_VALIDA_PER_APUR_PGTO
 O evento de pagamento somente pode ser enviado se o mês/ano do período de apuração {perApur} for igual ou anterior ao mês/ano corrente, exceto se {procEmi} = [2, 4, 22], situação em que {perApur} poderá ser até 2 meses posteriores à data atual.
+
+REGRA_VALIDA_PROC_TRAB
+a) Se houver contrato com {indContr} = [S] e o campo {nrProcTrab} do S-2200 e/ou do S-2300 estiverem preenchidos, o número do processo trabalhista informado nos eventos acima citados deve corresponder ao respectivo campo do evento S-2500.
+b) Se houver vínculo com {tpContr} = [5] e {indContr} = [S], deve existir evento de admissão (S-2200) com {indAdmissao} = [3] e o número de processo trabalhista desse evento deve ser igual a {nrProcTrab} do evento S-2500.
 
 REGRA_VALIDA_PROCESSO
 Se {tpProc} = [2] e {indMatProc} = [1], o processo não pode ser originário do Conselho Nacional de Justiça, Justiça do Trabalho, Justiça Eleitoral, Justiça Militar da União e Justiça Militar Estadual. Estes tipos de processo não podem ser utilizados para suspensão de débitos tributários perante a RFB e estão identificados no número do processo, na 14ª posição a qual não pode ser igual a [2, 5, 6, 7, 9].

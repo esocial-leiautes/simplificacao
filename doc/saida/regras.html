@@ -116,6 +116,18 @@
 </div>
 </div>
 </div>
+<div class="modal" id="r_REGRA_BASES_PROC_TRAB">
+<div class="modal-background"></div>
+<div class="modal-card">
+<header class="modal-card-head">
+<p class="modal-card-title">REGRA_BASES_PROC_TRAB</p>
+<button class="delete" aria-label="close"></button>
+</header>
+<div class="modal-card-body">
+<ul><li><a href="index.html#2500">evtProcTrab</a></li></ul>
+</div>
+</div>
+</div>
 <div class="modal" id="r_REGRA_BENEFICIO_ATIVO_NA_DTEVENTO">
 <div class="modal-background"></div>
 <div class="modal-card">
@@ -1364,6 +1376,18 @@
 </div>
 </div>
 </div>
+<div class="modal" id="r_REGRA_UNICIDADE_CONTRATUAL">
+<div class="modal-background"></div>
+<div class="modal-card">
+<header class="modal-card-head">
+<p class="modal-card-title">REGRA_UNICIDADE_CONTRATUAL</p>
+<button class="delete" aria-label="close"></button>
+</header>
+<div class="modal-card-body">
+<ul><li><a href="index.html#2500">evtProcTrab</a></li></ul>
+</div>
+</div>
+</div>
 <div class="modal" id="r_REGRA_VALIDA_ADMISSAO_PRELIMINAR">
 <div class="modal-background"></div>
 <div class="modal-card">
@@ -1559,6 +1583,18 @@
 </div>
 </div>
 </div>
+<div class="modal" id="r_REGRA_VALIDA_PROC_TRAB">
+<div class="modal-background"></div>
+<div class="modal-card">
+<header class="modal-card-head">
+<p class="modal-card-title">REGRA_VALIDA_PROC_TRAB</p>
+<button class="delete" aria-label="close"></button>
+</header>
+<div class="modal-card-body">
+<ul><li><a href="index.html#2500">evtProcTrab</a></li></ul>
+</div>
+</div>
+</div>
 <div class="modal" id="r_REGRA_VALIDA_PROCESSO">
 <div class="modal-background"></div>
 <div class="modal-card">
@@ -1658,6 +1694,10 @@ e) Grupo [05]: pode ser alterado para tipo de benefício do grupo [04].</td>
 <tr>
 <td id="REGRA_BAIXA_TRABALHADOR_AFASTADO"><a title="Ver ocorrências"><strong>REGRA_BAIXA_TRABALHADOR_AFASTADO</strong></a></td>
 <td>É permitido o envio de evento de Baixa Judicial para trabalhador afastado temporariamente, independentemente do motivo de afastamento.</td>
+</tr>
+<tr>
+<td id="REGRA_BASES_PROC_TRAB"><a title="Ver ocorrências"><strong>REGRA_BASES_PROC_TRAB</strong></a></td>
+<td>Se {repercProc} = [1], devem ser informadas bases de cálculo para todos os períodos de referência compreendidos entre {compIni} e {compFim}.</td>
 </tr>
 <tr>
 <td id="REGRA_BENEFICIO_ATIVO_NA_DTEVENTO"><a title="Ver ocorrências"><strong>REGRA_BENEFICIO_ATIVO_NA_DTEVENTO</strong></a></td>
@@ -2184,6 +2224,10 @@ No caso dos eventos S-1200 e S-1202, o período de apuração deve ser igual ou 
 <td>Não é possível o envio de dois eventos de TSVE - Início (S-2300) para o mesmo trabalhador (CPF) e categoria, exceto se já houver respectivo evento de "término" anterior ao envio do segundo evento ou se houver informação de matrícula em pelo menos um dos eventos.</td>
 </tr>
 <tr>
+<td id="REGRA_UNICIDADE_CONTRATUAL"><a title="Ver ocorrências"><strong>REGRA_UNICIDADE_CONTRATUAL</strong></a></td>
+<td>No caso de unicidade contratual, o período do contrato de trabalho reconhecido judicialmente (relativo ao campo {matricula}) deve abranger os períodos dos contratos de trabalho referentes às matrículas incorporadas (campos {matUnic}).</td>
+</tr>
+<tr>
 <td id="REGRA_VALIDA_ADMISSAO_PRELIMINAR"><a title="Ver ocorrências"><strong>REGRA_VALIDA_ADMISSAO_PRELIMINAR</strong></a></td>
 <td>Para aceitação do evento Registro Preliminar de Trabalhador (S-2190):<br />
 a) O CPF indicado no evento deve existir na base de dados do CPF (verificar CPF + data de nascimento);<br />
@@ -2276,6 +2320,11 @@ OBS.: No caso de empregador Pessoa Física, a verificação de existência de ev
 <tr>
 <td id="REGRA_VALIDA_PER_APUR_PGTO"><a title="Ver ocorrências"><strong>REGRA_VALIDA_PER_APUR_PGTO</strong></a></td>
 <td>O evento de pagamento somente pode ser enviado se o mês/ano do período de apuração {perApur} for igual ou anterior ao mês/ano corrente, exceto se {procEmi} = [2, 4, 22], situação em que {perApur} poderá ser até 2 meses posteriores à data atual.</td>
+</tr>
+<tr>
+<td id="REGRA_VALIDA_PROC_TRAB"><a title="Ver ocorrências"><strong>REGRA_VALIDA_PROC_TRAB</strong></a></td>
+<td>a) Se houver contrato com {indContr} = [S] e o campo {nrProcTrab} do S-2200 e/ou do S-2300 estiverem preenchidos, o número do processo trabalhista informado nos eventos acima citados deve corresponder ao respectivo campo do evento S-2500.<br />
+b) Se houver vínculo com {tpContr} = [5] e {indContr} = [S], deve existir evento de admissão (S-2200) com {indAdmissao} = [3] e o número de processo trabalhista desse evento deve ser igual a {nrProcTrab} do evento S-2500.</td>
 </tr>
 <tr>
 <td id="REGRA_VALIDA_PROCESSO"><a title="Ver ocorrências"><strong>REGRA_VALIDA_PROCESSO</strong></a></td>
