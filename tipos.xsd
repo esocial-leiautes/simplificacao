@@ -372,13 +372,31 @@
                             </xs:annotation>
                         </xs:element>
                         <xs:element name="ideAdv" minOccurs="0" maxOccurs="99">
+                            <xs:annotation>
+                                <xs:documentation>Identificação dos advogados.</xs:documentation>
+                                <xs:documentation>CHAVE_GRUPO: {tpInsc}, {nrInsc}</xs:documentation>
+                                <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
+                            </xs:annotation>
                             <xs:complexType>
-                                <xs:annotation>
-                                    <xs:documentation>Identificação dos advogados.</xs:documentation>
-                                    <xs:documentation>CHAVE_GRUPO: {tpInsc}, {nrInsc}</xs:documentation>
-                                    <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
-                                </xs:annotation>
                                 <xs:sequence>
+                                    <xs:element name="tpInsc" type="TS_tpInsc_1_2">
+                                        <xs:annotation>
+                                            <xs:documentation>Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element name="nrInsc" type="TS_nrInsc_11_14">
+                                        <xs:annotation>
+                                            <xs:documentation>Informar o número de inscrição do advogado.</xs:documentation>
+                                            <xs:documentation>Validação: Deve ser um número de inscrição válido, de acordo com o tipo de inscrição indicado no campo {ideAdv/tpInsc}(./tpInsc), considerando as particularidades aplicadas à informação de CNPJ de órgão público em S-1000.</xs:documentation>
+                                            <xs:documentation>Se {ideAdv/tpInsc}(./tpInsc) = [1], deve possuir 14 (catorze) algarismos e, no caso de declarante pessoa jurídica, ser diferente do CNPJ base do empregador (exceto se {ideEmpregador/nrInsc}(2501_ideEmpregador_nrInsc) tiver 14 (catorze) algarismos).</xs:documentation>
+                                            <xs:documentation>Se {ideAdv/tpInsc}(./tpInsc) = [2], deve possuir 11 (onze) algarismos e, no caso de declarante pessoa física, ser diferente do CPF do empregador.</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                    <xs:element name="vlrAdv" minOccurs="0" type="TS_valorMonetario">
+                                        <xs:annotation>
+                                            <xs:documentation>Valor da despesa com o advogado, se houver.</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
                                 </xs:sequence>
                             </xs:complexType>
                         </xs:element>
