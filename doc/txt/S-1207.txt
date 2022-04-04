@@ -50,6 +50,31 @@ Chave: ideDmDev
 Condição: O
 
 Nível: 4
+Nome: infoRRA
+Pai: dmDev
+Descrição: Informações complementares de RRA.
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {indRRA}(../indRRA) = [S])
+N (nos demais casos)
+
+Nível: 5
+Nome: despProcJud
+Pai: infoRRA
+Descrição: Despesas com processo judicial
+Ocorrência: 0-1
+Chave: -
+Condição: OC
+
+Nível: 6
+Nome: ideAdv
+Pai: despProcJud
+Descrição: Identificação dos advogados.
+Ocorrência: 0-99
+Chave: tpInsc, nrInsc
+Condição: OC
+
+Nível: 4
 Nome: infoPerApur
 Pai: dmDev
 Descrição: Informações relativas ao período de apuração.
@@ -320,6 +345,105 @@ Ocorrência: 1
 Tamanho: 1-20
 Dec.: -
 Descrição: Preencher com o número do benefício.
+
+Nome: indRRA
+Pai: dmDev
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo de Rendimentos Recebidos Acumuladamente - RRA.
+Somente preencher este campo se for um demonstrativo de RRA.
+Valores válidos:
+S - Sim
+
+Nome: infoRRA
+Pai: dmDev
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações complementares relativas a Rendimentos Recebidos Acumuladamente - RRA.
+
+Nome: tpProcRRA
+Pai: infoRRA
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de processo.
+Valores válidos:
+1 - Administrativo
+2 - Judicial
+
+Nome: nrProcRRA
+Pai: infoRRA
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 17, 20 ou 21
+Dec.: -
+Descrição: Informar o número do processo/requerimento administrativo/judicial.
+Validação: Informação obrigatória se {tpProcRRA}(./tpProcRRA) = [2] e opcional se {tpProcRRA}(./tpProcRRA) = [1]. Deve ser número de processo válido e:
+a) Se {tpProcRRA}(./tpProcRRA) = [1], deve possuir 17 (dezessete) ou 21 (vinte e um) algarismos;
+a) Se {tpProcRRA}(./tpProcRRA) = [2], deve possuir 20 (vinte) algarismos.
+
+Nome: descRRA
+Pai: infoRRA
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-50
+Dec.: -
+Descrição: Descrição dos Rendimentos Recebidos Acumuladamente - RRA.
+
+Nome: qtdMesesRRA
+Pai: infoRRA
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-4
+Dec.: 1
+Descrição: Número de meses relativo aos Rendimentos Recebidos Acumuladamente - RRA.
+
+Nome: despProcJud
+Pai: infoRRA
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Detalhamento das despesas com processo judicial.
+
+Nome: vlrDespCustas
+Pai: despProcJud
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Preencher com valor das despesas com custas judiciais.
+
+Nome: vlrDespAdvogados
+Pai: despProcJud
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Preencher com valor das despesas com advogado(s).
+
+Nome: ideAdv
+Pai: despProcJud
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição: Identificação dos advogados.
 
 Nome: infoPerApur
 Pai: dmDev

@@ -310,6 +310,86 @@
         </xs:sequence>
     </xs:complexType>
 
+    <!-- Grupo {infoRRA} -->
+
+    <xs:complexType name="T_infoRRA">
+        <xs:annotation>
+            <xs:documentation>Informações complementares de RRA.</xs:documentation>
+            <xs:documentation>DESCRICAO_COMPLETA:Informações complementares relativas a Rendimentos Recebidos Acumuladamente - RRA.</xs:documentation>
+            <xs:documentation>CONDICAO_GRUPO: O (se {indRRA}(../indRRA) = [S]); N (nos demais casos)</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="tpProcRRA" type="TS_tpProc_1_2" />
+            <xs:element name="nrProcRRA" minOccurs="0" type="TS_nrProc_17_20_21">
+                <xs:annotation>
+                    <xs:documentation>Informar o número do processo/requerimento administrativo/judicial.</xs:documentation>
+                    <xs:documentation>Validação: Informação obrigatória se {tpProcRRA}(./tpProcRRA) = [2] e opcional se {tpProcRRA}(./tpProcRRA) = [1]. Deve ser número de processo válido e:</xs:documentation>
+                    <xs:documentation>a) Se {tpProcRRA}(./tpProcRRA) = [1], deve possuir 17 (dezessete) ou 21 (vinte e um) algarismos;</xs:documentation>
+                    <xs:documentation>a) Se {tpProcRRA}(./tpProcRRA) = [2], deve possuir 20 (vinte) algarismos.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="descRRA">
+                <xs:simpleType>
+                    <xs:annotation>
+                        <xs:documentation>Descrição dos Rendimentos Recebidos Acumuladamente - RRA.</xs:documentation>
+                    </xs:annotation>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1" />
+                        <xs:maxLength value="50" />
+                        <xs:pattern value=".*[^\s].*" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="qtdMesesRRA">
+                <xs:simpleType>
+                    <xs:annotation>
+                        <xs:documentation>Número de meses relativo aos Rendimentos Recebidos Acumuladamente - RRA.</xs:documentation>
+                    </xs:annotation>
+                    <xs:restriction base="xs:decimal">
+                        <xs:totalDigits value="4" />
+                        <xs:fractionDigits value="1" />
+                        <xs:minExclusive value="0" />
+                        <xs:maxInclusive value="999.9" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="despProcJud" minOccurs="0">
+                <xs:complexType>
+                    <xs:annotation>
+                        <xs:documentation>Despesas com processo judicial</xs:documentation>
+                        <xs:documentation>DESCRICAO_COMPLETA:Detalhamento das despesas com processo judicial.</xs:documentation>
+                        <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
+                    </xs:annotation>
+                    <xs:sequence>
+                        <xs:element name="vlrDespCustas" type="TS_valorMonetario">
+                            <xs:annotation>
+                                <xs:documentation>Preencher com valor das despesas com custas judiciais.</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="vlrDespAdvogados" type="TS_valorMonetario">
+                            <xs:annotation>
+                                <xs:documentation>Preencher com valor das despesas com advogado(s).</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="ideAdv" minOccurs="0" maxOccurs="99">
+                            <xs:complexType>
+                                <xs:annotation>
+                                    <xs:documentation>Identificação dos advogados.</xs:documentation>
+                                    <xs:documentation>CHAVE_GRUPO: {tpInsc}, {nrInsc}</xs:documentation>
+                                    <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
+                                </xs:annotation>
+                                <xs:sequence>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Grupo {itensRemun} (S-1202 e S-1207) -->
+
     <xs:complexType name="T_itensRemun_rpps">
         <xs:annotation>
             <xs:documentation>Itens da remuneração do trabalhador</xs:documentation>
@@ -1953,6 +2033,22 @@
         </xs:annotation>
         <xs:restriction base="xs:date">
             <xs:minInclusive value="1890-01-01" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Campo {indRRA} -->
+
+    <xs:simpleType name="TS_indRRA">
+        <xs:annotation>
+            <xs:documentation>Indicativo de Rendimentos Recebidos Acumuladamente - RRA.</xs:documentation>
+            <xs:documentation>Somente preencher este campo se for um demonstrativo de RRA.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="S">
+                <xs:annotation>
+                    <xs:documentation>Sim</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
         </xs:restriction>
     </xs:simpleType>
 
