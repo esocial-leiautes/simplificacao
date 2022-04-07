@@ -96,7 +96,7 @@ Nome: infoContr
 Pai: ideTrab
 Descrição: Informações do contrato de trabalho.
 Ocorrência: 1-99
-Chave: matricula, codCateg
+Chave: matricula, codCateg, dtInicio
 Condição: O
 
 Nível: 5
@@ -105,7 +105,7 @@ Pai: infoContr
 Descrição: Informações complementares do contrato de trabalho.
 Ocorrência: 0-1
 Chave: -
-Condição: O (se {indContr}(../indContr) = [N] ou se {matricula}(../matricula) não estiver preenchido)
+Condição: O (se {indContr}(../indContr) = [N])
 N (nos demais casos)
 
 Nível: 6
@@ -114,7 +114,7 @@ Pai: infoCompl
 Descrição: Informações da remuneração e periodicidade de pagamento.
 Ocorrência: 0-1
 Chave: -
-Condição: N (se (({tpContr}(../../tpContr) for diferente de [6] e {tpRegTrab}(../infoVinc_tpRegTrab) = [2]) ou se {matricula}(../../matricula) não estiver preenchido)
+Condição: N (se (({tpContr}(../../tpContr) for diferente de [6] e {tpRegTrab}(../infoVinc_tpRegTrab) = [2])
 O (se ({tpContr}(../../tpContr) for diferente de [6] e {tpRegTrab}(../infoVinc_tpRegTrab) = [1]) ou se {infoContr/codCateg}(../../codCateg) = [721, 722, 771])
 OC (nos demais casos)
 
@@ -144,22 +144,13 @@ Chave: -
 Condição: O
 
 Nível: 6
-Nome: infoTSVE
-Pai: infoCompl
-Descrição: Informações contratuais de TSVE.
-Ocorrência: 0-1
-Chave: -
-Condição: O (se {tpContr}(2500_ideTrab_infoContr_tpContr) = [6]
-N (nos demais casos)
-
-Nível: 7
 Nome: infoTerm
-Pai: infoTSVE
-Descrição: Informações de término.
+Pai: infoCompl
+Descrição: Informações de término de TSVE.
 Ocorrência: 0-1
 Chave: -
-Condição: N (se {matricula}(2500_ideTrab_infoContr_matricula) não estiver preenchido)
-OC (nos demais casos)
+Condição: OC (se {tpContr}(2500_ideTrab_infoContr_tpContr) = [6]
+N (nos demais casos)
 
 Nível: 5
 Nome: mudCategAtiv
@@ -748,6 +739,23 @@ a) Se {indContr}(./indContr) = [S], deve corresponder ao código da categoria ex
 b) Se {tpContr}(./tpContr) for diferente de [6], deve ser igual a [1XX, 301, 302, 303, 306, 307, 309, 310, 312];
 c) Se {tpContr}(./tpContr) = [6], deve ser um código de categoria referente a TSVE.
 
+Nome: dtInicio
+Pai: infoContr
+Elem.: E
+Tipo: D
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Data de início do TSVE, que pode ser:
+a) Para o cooperado, a data de ingresso na cooperativa;
+b) Para o diretor não empregado, a data de posse no cargo;
+c) Para o dirigente sindical, a data de início do mandato no sindicato;
+d) Para o estagiário, a data de início do estágio;
+e) Para o trabalhador avulso, a data de ingresso no Órgão Gestor de Mão de Obra - OGMO ou no sindicato;
+f) Para o servidor público exercente de cargo eletivo, a data de início do mandato;
+g) Para os demais trabalhadores, a data de início das atividades.
+Validação: Informação obrigatória e exclusiva se ({tpContr}(./tpContr) = [6] e {indContr}(./indContr) = [N]) ou se o campo {matricula}(./matricula) não estiver preenchido. Deve ser posterior à data de nascimento do trabalhador. Se o campo {matricula}(2500_ideTrab_infoContr_matricula) não estiver preenchido, deve ser igual à data de início informada no evento S-2300.
+
 Nome: infoCompl
 Pai: infoContr
 Elem.: G
@@ -765,7 +773,7 @@ Ocorrência: 0-1
 Tamanho: 6
 Dec.: -
 Descrição: Classificação Brasileira de Ocupações - CBO.
-Validação: Preenchimento obrigatório se {infoContr/codCateg}(../codCateg) for diferente de [901, 903, 904]), desde que haja informação de {matricula}(../matricula). Não deve ser preenchido se não houver informação de {matricula}(../matricula). Se informado, deve ser um código válido e existente na tabela de CBO, com 6 (seis) posições.
+Validação: Preenchimento obrigatório se {infoContr/codCateg}(../codCateg) for diferente de [901, 903, 904]). Se informado, deve ser um código válido e existente na tabela de CBO, com 6 (seis) posições.
 
 Nome: natAtividade
 Pai: infoCompl
@@ -778,7 +786,7 @@ Descrição: Natureza da atividade.
 Valores válidos:
 1 - Trabalho urbano
 2 - Trabalho rural
-Validação: Preenchimento obrigatório se {infoContr/codCateg}(../codCateg) for relativo a "Empregado", "Agente Público", "Avulso" ou igual a [401, 731, 734, 738], desde que haja informação de {matricula}(../matricula). Não deve ser preenchido se {infoContr/codCateg}(../codCateg) = [721, 722, 771, 901] ou se não houver informação de {matricula}(../matricula).
+Validação: Preenchimento obrigatório se {infoContr/codCateg}(../codCateg) for relativo a "Empregado", "Agente Público", "Avulso" ou igual a [401, 731, 734, 738]. Não deve ser preenchido se {infoContr/codCateg}(../codCateg) = [721, 722, 771, 901].
 Se {infoContr/codCateg}(../codCateg) = [104], deve ser preenchido com [1]. Se {infoContr/codCateg}(../codCateg) = [102], deve ser preenchido com [2].
 
 Nome: remuneracao
@@ -970,40 +978,14 @@ Dec.: -
 Descrição: Data projetada para o término do aviso prévio indenizado.
 Validação: Se informada, deve ser igual ou posterior a {dtDeslig}(./dtDeslig).
 
-Nome: infoTSVE
+Nome: infoTerm
 Pai: infoCompl
 Elem.: G
 Tipo: -
 Ocorrência: 0-1
 Tamanho: -
 Dec.: -
-Descrição: Informações contratuais de TSVE.
-
-Nome: dtInicio
-Pai: infoTSVE
-Elem.: E
-Tipo: D
-Ocorrência: 1
-Tamanho: -
-Dec.: -
-Descrição: Data de início, que pode ser:
-a) Para o cooperado, a data de ingresso na cooperativa;
-b) Para o diretor não empregado, a data de posse no cargo;
-c) Para o dirigente sindical, a data de início do mandato no sindicato;
-d) Para o estagiário, a data de início do estágio;
-e) Para o trabalhador avulso, a data de ingresso no Órgão Gestor de Mão de Obra - OGMO ou no sindicato;
-f) Para o servidor público exercente de cargo eletivo, a data de início do mandato;
-g) Para os demais trabalhadores, a data de início das atividades.
-Validação: Deve ser posterior à data de nascimento do trabalhador. Se o campo {matricula}(2500_ideTrab_infoContr_matricula) não estiver preenchido, deve ser igual à data de início informada no evento S-2300.
-
-Nome: infoTerm
-Pai: infoTSVE
-Elem.: G
-Tipo: -
-Ocorrência: 0-1
-Tamanho: -
-Dec.: -
-Descrição: Informações de término.
+Descrição: Informações de término de TSVE.
 
 Nome: dtTerm
 Pai: infoTerm
@@ -1013,7 +995,7 @@ Ocorrência: 1
 Tamanho: -
 Dec.: -
 Descrição: Data do término.
-Validação: Deve ser igual ou posterior a {dtInicio}(../dtInicio) e igual ou anterior à data atual acrescida de 10 (dez) dias.
+Validação: Deve ser igual ou posterior a {dtInicio}(../../dtInicio) e igual ou anterior à data atual acrescida de 10 (dez) dias.
 
 Nome: mtvDesligTSV
 Pai: infoTerm

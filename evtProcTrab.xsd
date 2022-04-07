@@ -234,7 +234,7 @@
                                         <xs:element name="infoContr" maxOccurs="99">
                                             <xs:annotation>
                                                 <xs:documentation>Informações do contrato de trabalho.</xs:documentation>
-                                                <xs:documentation>CHAVE_GRUPO: {matricula}, {codCateg}</xs:documentation>
+                                                <xs:documentation>CHAVE_GRUPO: {matricula}, {codCateg}, {dtInicio}</xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>
@@ -328,30 +328,43 @@
                                                             <xs:documentation>c) Se {tpContr}(./tpContr) = [6], deve ser um código de categoria referente a TSVE.</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
+                                                    <xs:element name="dtInicio" minOccurs="0" type="xs:date">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Data de início de TSVE, que pode ser:</xs:documentation>
+                                                            <xs:documentation>a) Para o cooperado, a data de ingresso na cooperativa;</xs:documentation>
+                                                            <xs:documentation>b) Para o diretor não empregado, a data de posse no cargo;</xs:documentation>
+                                                            <xs:documentation>c) Para o dirigente sindical, a data de início do mandato no sindicato;</xs:documentation>
+                                                            <xs:documentation>d) Para o estagiário, a data de início do estágio;</xs:documentation>
+                                                            <xs:documentation>e) Para o trabalhador avulso, a data de ingresso no Órgão Gestor de Mão de Obra - OGMO ou no sindicato;</xs:documentation>
+                                                            <xs:documentation>f) Para o servidor público exercente de cargo eletivo, a data de início do mandato;</xs:documentation>
+                                                            <xs:documentation>g) Para os demais trabalhadores, a data de início das atividades.</xs:documentation>
+                                                            <xs:documentation>Validação: Informação obrigatória e exclusiva se ({tpContr}(./tpContr) = [6] e {indContr}(./indContr) = [N]) ou se o campo {matricula}(./matricula) não estiver preenchido. Deve ser posterior à data de nascimento do trabalhador. Se o campo {matricula}(./matricula) não estiver preenchido, deve ser igual à data de início informada no evento S-2300.</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:element>
                                                     <xs:element name="infoCompl" minOccurs="0">
                                                         <xs:annotation>
                                                             <xs:documentation>Informações complementares do contrato de trabalho.</xs:documentation>
-                                                            <xs:documentation>CONDICAO_GRUPO: O (se {indContr}(../indContr) = [N] ou se {matricula}(../matricula) não estiver preenchido); N (nos demais casos)</xs:documentation>
+                                                            <xs:documentation>CONDICAO_GRUPO: O (se {indContr}(../indContr) = [N]); N (nos demais casos)</xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
                                                             <xs:sequence>
                                                                 <xs:element name="codCBO" type="TS_cbo" minOccurs="0">
                                                                     <xs:annotation>
                                                                         <xs:documentation>Classificação Brasileira de Ocupações - CBO.</xs:documentation>
-                                                                        <xs:documentation>Validação: Preenchimento obrigatório se {infoContr/codCateg}(../codCateg) for diferente de [901, 903, 904]), desde que haja informação de {matricula}(../matricula). Não deve ser preenchido se não houver informação de {matricula}(../matricula). Se informado, deve ser um código válido e existente na tabela de CBO, com 6 (seis) posições.</xs:documentation>
+                                                                        <xs:documentation>Validação: Preenchimento obrigatório se {infoContr/codCateg}(../codCateg) for diferente de [901, 903, 904]). Se informado, deve ser um código válido e existente na tabela de CBO, com 6 (seis) posições.</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
                                                                 <xs:element name="natAtividade" minOccurs="0" type="TS_natAtividade">
                                                                     <xs:annotation>
                                                                         <xs:documentation>Natureza da atividade.</xs:documentation>
-                                                                        <xs:documentation>Validação: Preenchimento obrigatório se {infoContr/codCateg}(../codCateg) for relativo a "Empregado", "Agente Público", "Avulso" ou igual a [401, 731, 734, 738], desde que haja informação de {matricula}(../matricula). Não deve ser preenchido se {infoContr/codCateg}(../codCateg) = [721, 722, 771, 901] ou se não houver informação de {matricula}(../matricula).</xs:documentation>
+                                                                        <xs:documentation>Validação: Preenchimento obrigatório se {infoContr/codCateg}(../codCateg) for relativo a "Empregado", "Agente Público", "Avulso" ou igual a [401, 731, 734, 738]. Não deve ser preenchido se {infoContr/codCateg}(../codCateg) = [721, 722, 771, 901].</xs:documentation>
                                                                         <xs:documentation>Se {infoContr/codCateg}(../codCateg) = [104], deve ser preenchido com [1]. Se {infoContr/codCateg}(../codCateg) = [102], deve ser preenchido com [2].</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
                                                                 <xs:element name="remuneracao" minOccurs="0">
                                                                     <xs:annotation>
                                                                         <xs:documentation>Informações da remuneração e periodicidade de pagamento.</xs:documentation>
-                                                                        <xs:documentation>CONDICAO_GRUPO: N (se (({tpContr}(../../tpContr) for diferente de [6] e {tpRegTrab}(../infoVinc_tpRegTrab) = [2]) ou se {matricula}(../../matricula) não estiver preenchido); O (se ({tpContr}(../../tpContr) for diferente de [6] e {tpRegTrab}(../infoVinc_tpRegTrab) = [1]) ou se {infoContr/codCateg}(../../codCateg) = [721, 722, 771]); OC (nos demais casos)</xs:documentation>
+                                                                        <xs:documentation>CONDICAO_GRUPO: N (se ({tpContr}(../../tpContr) for diferente de [6] e {tpRegTrab}(../infoVinc_tpRegTrab) = [2]); O (se ({tpContr}(../../tpContr) for diferente de [6] e {tpRegTrab}(../infoVinc_tpRegTrab) = [1]) ou se {infoContr/codCateg}(../../codCateg) = [721, 722, 771]); OC (nos demais casos)</xs:documentation>
                                                                     </xs:annotation>
                                                                     <xs:complexType>
                                                                         <xs:sequence>
@@ -498,86 +511,63 @@
                                                                         </xs:sequence>
                                                                     </xs:complexType>
                                                                 </xs:element>
-                                                                <xs:element name="infoTSVE" minOccurs="0">
+                                                                <xs:element name="infoTerm" minOccurs="0">
                                                                     <xs:annotation>
-                                                                        <xs:documentation>Informações contratuais de TSVE.</xs:documentation>
-                                                                        <xs:documentation>CONDICAO_GRUPO: O (se {tpContr}(2500_ideTrab_infoContr_tpContr) = [6]; N (nos demais casos)</xs:documentation>
+                                                                        <xs:documentation>Informações de término de TSVE.</xs:documentation>
+                                                                        <xs:documentation>CONDICAO_GRUPO: OC (se {tpContr}(2500_ideTrab_infoContr_tpContr) = [6]; N (nos demais casos)</xs:documentation>
                                                                     </xs:annotation>
                                                                     <xs:complexType>
                                                                         <xs:sequence>
-                                                                            <xs:element name="dtInicio" type="xs:date">
+                                                                            <xs:element name="dtTerm" type="xs:date">
                                                                                 <xs:annotation>
-                                                                                    <xs:documentation>Data de início, que pode ser:</xs:documentation>
-                                                                                    <xs:documentation>a) Para o cooperado, a data de ingresso na cooperativa;</xs:documentation>
-                                                                                    <xs:documentation>b) Para o diretor não empregado, a data de posse no cargo;</xs:documentation>
-                                                                                    <xs:documentation>c) Para o dirigente sindical, a data de início do mandato no sindicato;</xs:documentation>
-                                                                                    <xs:documentation>d) Para o estagiário, a data de início do estágio;</xs:documentation>
-                                                                                    <xs:documentation>e) Para o trabalhador avulso, a data de ingresso no Órgão Gestor de Mão de Obra - OGMO ou no sindicato;</xs:documentation>
-                                                                                    <xs:documentation>f) Para o servidor público exercente de cargo eletivo, a data de início do mandato;</xs:documentation>
-                                                                                    <xs:documentation>g) Para os demais trabalhadores, a data de início das atividades.</xs:documentation>
-                                                                                    <xs:documentation>Validação: Deve ser posterior à data de nascimento do trabalhador. Se o campo {matricula}(2500_ideTrab_infoContr_matricula) não estiver preenchido, deve ser igual à data de início informada no evento S-2300.</xs:documentation>
+                                                                                    <xs:documentation>Data do término.</xs:documentation>
+                                                                                    <xs:documentation>Validação: Deve ser igual ou posterior a {dtInicio}(../../dtInicio) e igual ou anterior à data atual acrescida de 10 (dez) dias.</xs:documentation>
                                                                                 </xs:annotation>
                                                                             </xs:element>
-                                                                            <xs:element name="infoTerm" minOccurs="0">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Informações de término.</xs:documentation>
-                                                                                    <xs:documentation>CONDICAO_GRUPO: N (se {matricula}(2500_ideTrab_infoContr_matricula) não estiver preenchido); OC (nos demais casos)</xs:documentation>
-                                                                                </xs:annotation>
-                                                                                <xs:complexType>
-                                                                                    <xs:sequence>
-                                                                                        <xs:element name="dtTerm" type="xs:date">
+                                                                            <xs:element name="mtvDesligTSV" minOccurs="0">
+                                                                                <xs:simpleType>
+                                                                                    <xs:annotation>
+                                                                                        <xs:documentation>Motivo do término do diretor não empregado, com FGTS.</xs:documentation>
+                                                                                        <xs:documentation>Validação: Informação obrigatória e exclusiva se {infoContr/codCateg}(2500_ideTrab_infoContr_codCateg) = [721].</xs:documentation>
+                                                                                    </xs:annotation>
+                                                                                    <xs:restriction base="xs:string">
+                                                                                        <xs:enumeration value="01">
                                                                                             <xs:annotation>
-                                                                                                <xs:documentation>Data do término.</xs:documentation>
-                                                                                                <xs:documentation>Validação: Deve ser igual ou posterior a {dtInicio}(../dtInicio) e igual ou anterior à data atual acrescida de 10 (dez) dias.</xs:documentation>
+                                                                                                <xs:documentation>Exoneração do diretor não empregado sem justa causa, por deliberação da assembleia, dos sócios cotistas ou da autoridade competente</xs:documentation>
                                                                                             </xs:annotation>
-                                                                                        </xs:element>
-                                                                                        <xs:element name="mtvDesligTSV" minOccurs="0">
-                                                                                            <xs:simpleType>
-                                                                                                <xs:annotation>
-                                                                                                    <xs:documentation>Motivo do término do diretor não empregado, com FGTS.</xs:documentation>
-                                                                                                    <xs:documentation>Validação: Informação obrigatória e exclusiva se {infoContr/codCateg}(2500_ideTrab_infoContr_codCateg) = [721].</xs:documentation>
-                                                                                                </xs:annotation>
-                                                                                                <xs:restriction base="xs:string">
-                                                                                                    <xs:enumeration value="01">
-                                                                                                        <xs:annotation>
-                                                                                                            <xs:documentation>Exoneração do diretor não empregado sem justa causa, por deliberação da assembleia, dos sócios cotistas ou da autoridade competente</xs:documentation>
-                                                                                                        </xs:annotation>
-                                                                                                    </xs:enumeration>
-                                                                                                    <xs:enumeration value="02">
-                                                                                                        <xs:annotation>
-                                                                                                            <xs:documentation>Término de mandato do diretor não empregado que não tenha sido reconduzido ao cargo</xs:documentation>
-                                                                                                        </xs:annotation>
-                                                                                                    </xs:enumeration>
-                                                                                                    <xs:enumeration value="03">
-                                                                                                        <xs:annotation>
-                                                                                                            <xs:documentation>Exoneração a pedido de diretor não empregado</xs:documentation>
-                                                                                                        </xs:annotation>
-                                                                                                    </xs:enumeration>
-                                                                                                    <xs:enumeration value="04">
-                                                                                                        <xs:annotation>
-                                                                                                            <xs:documentation>Exoneração do diretor não empregado por culpa recíproca ou força maior</xs:documentation>
-                                                                                                        </xs:annotation>
-                                                                                                    </xs:enumeration>
-                                                                                                    <xs:enumeration value="05">
-                                                                                                        <xs:annotation>
-                                                                                                            <xs:documentation>Morte do diretor não empregado</xs:documentation>
-                                                                                                        </xs:annotation>
-                                                                                                    </xs:enumeration>
-                                                                                                    <xs:enumeration value="06">
-                                                                                                        <xs:annotation>
-                                                                                                            <xs:documentation>Exoneração do diretor não empregado por falência, encerramento ou supressão de parte da empresa</xs:documentation>
-                                                                                                        </xs:annotation>
-                                                                                                    </xs:enumeration>
-                                                                                                    <xs:enumeration value="99">
-                                                                                                        <xs:annotation>
-                                                                                                            <xs:documentation>Outros</xs:documentation>
-                                                                                                        </xs:annotation>
-                                                                                                    </xs:enumeration>
-                                                                                                </xs:restriction>
-                                                                                            </xs:simpleType>
-                                                                                        </xs:element>
-                                                                                    </xs:sequence>
-                                                                                </xs:complexType>
+                                                                                        </xs:enumeration>
+                                                                                        <xs:enumeration value="02">
+                                                                                            <xs:annotation>
+                                                                                                <xs:documentation>Término de mandato do diretor não empregado que não tenha sido reconduzido ao cargo</xs:documentation>
+                                                                                            </xs:annotation>
+                                                                                        </xs:enumeration>
+                                                                                        <xs:enumeration value="03">
+                                                                                            <xs:annotation>
+                                                                                                <xs:documentation>Exoneração a pedido de diretor não empregado</xs:documentation>
+                                                                                            </xs:annotation>
+                                                                                        </xs:enumeration>
+                                                                                        <xs:enumeration value="04">
+                                                                                            <xs:annotation>
+                                                                                                <xs:documentation>Exoneração do diretor não empregado por culpa recíproca ou força maior</xs:documentation>
+                                                                                            </xs:annotation>
+                                                                                        </xs:enumeration>
+                                                                                        <xs:enumeration value="05">
+                                                                                            <xs:annotation>
+                                                                                                <xs:documentation>Morte do diretor não empregado</xs:documentation>
+                                                                                            </xs:annotation>
+                                                                                        </xs:enumeration>
+                                                                                        <xs:enumeration value="06">
+                                                                                            <xs:annotation>
+                                                                                                <xs:documentation>Exoneração do diretor não empregado por falência, encerramento ou supressão de parte da empresa</xs:documentation>
+                                                                                            </xs:annotation>
+                                                                                        </xs:enumeration>
+                                                                                        <xs:enumeration value="99">
+                                                                                            <xs:annotation>
+                                                                                                <xs:documentation>Outros</xs:documentation>
+                                                                                            </xs:annotation>
+                                                                                        </xs:enumeration>
+                                                                                    </xs:restriction>
+                                                                                </xs:simpleType>
                                                                             </xs:element>
                                                                         </xs:sequence>
                                                                     </xs:complexType>
