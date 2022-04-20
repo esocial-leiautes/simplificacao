@@ -320,13 +320,14 @@
                                                             <xs:documentation>REGRA:REGRA_CARACTERE_ESPECIAL</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
-                                                    <xs:element name="codCateg" type="TS_codCateg">
+                                                    <xs:element name="codCateg" minOccurs="0" type="TS_codCateg">
                                                         <xs:annotation>
                                                             <xs:documentation>Preencher com o código da categoria do trabalhador.</xs:documentation>
-                                                            <xs:documentation>Validação: Deve ser um código válido e existente na Tabela 01 e obedecer ao que segue:</xs:documentation>
-                                                            <xs:documentation>a) Se {indContr}(./indContr) = [S], deve corresponder ao código da categoria existente no RET. Se {indUnic}(./indUnic) = [S], deve corresponder ao código da categoria de vínculo mais recente no RET;</xs:documentation>
-                                                            <xs:documentation>b) Se {tpContr}(./tpContr) for diferente de [6], deve ser igual a [1XX, 301, 302, 303, 306, 307, 309, 310, 312];</xs:documentation>
-                                                            <xs:documentation>c) Se {tpContr}(./tpContr) = [6], deve ser um código de categoria referente a TSVE.</xs:documentation>
+                                                            <xs:documentation>Validação: Informação obrigatória e exclusiva se {indContr}(./indContr) = [N] ou se o campo {matricula}(./matricula) não estiver preenchido. Deve ser um código válido e existente na Tabela 01 e obedecer ao que segue:</xs:documentation>
+                                                            <xs:documentation>a) Se o campo {matricula}(./matricula) não estiver preenchido, deve ser igual ao código de categoria informado no evento S-2300;</xs:documentation>
+                                                            <xs:documentation>b) Se {indContr}(./indContr) = [N] e {tpContr}(./tpContr) for diferente de [6], deve ser um código de categoria compatível com o evento S-2200 (conforme regra de validação abaixo);</xs:documentation>
+                                                            <xs:documentation>c) Se {indContr}(./indContr) = [N] e {tpContr}(./tpContr) = [6], deve ser um código de categoria compatível com o evento S-2300 (conforme regra de validação abaixo).</xs:documentation>
+                                                            <xs:documentation>REGRA:REGRA_COMPATIB_CATEG_EVENTO</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
                                                     <xs:element name="dtInicio" minOccurs="0" type="xs:date">

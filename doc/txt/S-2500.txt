@@ -731,14 +731,16 @@ Nome: codCateg
 Pai: infoContr
 Elem.: E
 Tipo: N
-Ocorrência: 1
+Ocorrência: 0-1
 Tamanho: 3
 Dec.: -
 Descrição: Preencher com o código da categoria do trabalhador.
-Validação: Deve ser um código válido e existente na Tabela 01 e obedecer ao que segue:
-a) Se {indContr}(./indContr) = [S], deve corresponder ao código da categoria existente no RET. Se {indUnic}(./indUnic) = [S], deve corresponder ao código da categoria de vínculo mais recente no RET;
-b) Se {tpContr}(./tpContr) for diferente de [6], deve ser igual a [1XX, 301, 302, 303, 306, 307, 309, 310, 312];
-c) Se {tpContr}(./tpContr) = [6], deve ser um código de categoria referente a TSVE.
+Validação: Informação obrigatória e exclusiva se {indContr}(./indContr) = [N] ou se o campo {matricula}(./matricula) não estiver preenchido. Deve ser um código válido e existente na Tabela 01 e obedecer ao que segue:
+a) Se o campo {matricula}(./matricula) não estiver preenchido, deve ser igual ao código de categoria informado no evento S-2300;
+b) Se {indContr}(./indContr) = [N] e {tpContr}(./tpContr) for diferente de [6], deve ser um código de categoria compatível com o evento S-2200 (conforme regra de validação abaixo);
+c) Se {indContr}(./indContr) = [N] e {tpContr}(./tpContr) = [6], deve ser um código de categoria compatível com o evento S-2300 (conforme regra de validação abaixo).
+Regras de validação:
+REGRA_COMPATIB_CATEG_EVENTO
 
 Nome: dtInicio
 Pai: infoContr

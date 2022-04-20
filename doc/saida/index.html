@@ -29368,14 +29368,16 @@ Se <a href="#2500_ideTrab_infoContr_indContr">indContr</a> = [S], deve correspon
 <td><a href="#r_2500_ideTrab_infoContr">infoContr</a></td>
 <td>E</td>
 <td>N</td>
-<td>1</td>
+<td>0-1</td>
 <td>3</td>
 <td>-</td>
 <td>Preencher com o código da categoria do trabalhador.<br />
-<strong>Validação:</strong> Deve ser um código válido e existente na <a href="tabelas.html#01">Tabela 01</a> e obedecer ao que segue:<br />
-a) Se <a href="#2500_ideTrab_infoContr_indContr">indContr</a> = [S], deve corresponder ao código da categoria existente no RET. Se <a href="#2500_ideTrab_infoContr_indUnic">indUnic</a> = [S], deve corresponder ao código da categoria de vínculo mais recente no RET;<br />
-b) Se <a href="#2500_ideTrab_infoContr_tpContr">tpContr</a> for diferente de [6], deve ser igual a [1XX, 301, 302, 303, 306, 307, 309, 310, 312];<br />
-c) Se <a href="#2500_ideTrab_infoContr_tpContr">tpContr</a> = [6], deve ser um código de categoria referente a TSVE.</td>
+<strong>Validação:</strong> Informação obrigatória e exclusiva se <a href="#2500_ideTrab_infoContr_indContr">indContr</a> = [N] ou se o campo <a href="#2500_ideTrab_infoContr_matricula">matricula</a> não estiver preenchido. Deve ser um código válido e existente na <a href="tabelas.html#01">Tabela 01</a> e obedecer ao que segue:<br />
+a) Se o campo <a href="#2500_ideTrab_infoContr_matricula">matricula</a> não estiver preenchido, deve ser igual ao código de categoria informado no evento S-2300;<br />
+b) Se <a href="#2500_ideTrab_infoContr_indContr">indContr</a> = [N] e <a href="#2500_ideTrab_infoContr_tpContr">tpContr</a> for diferente de [6], deve ser um código de categoria compatível com o evento S-2200 (conforme regra de validação abaixo);<br />
+c) Se <a href="#2500_ideTrab_infoContr_indContr">indContr</a> = [N] e <a href="#2500_ideTrab_infoContr_tpContr">tpContr</a> = [6], deve ser um código de categoria compatível com o evento S-2300 (conforme regra de validação abaixo).<br />
+<strong>Regra de validação:</strong><br />
+<a href="#REGRA_COMPATIB_CATEG_EVENTO">REGRA_COMPATIB_CATEG_EVENTO</a></td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="2500_ideTrab_infoContr_dtInicio" id="2500_ideTrab_infoContr_dtInicio">48</td>
