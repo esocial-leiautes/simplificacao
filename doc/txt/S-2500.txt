@@ -128,6 +128,15 @@ Condição: O (se {tpContr}(2500_ideTrab_infoContr_tpContr) for diferente de [6]
 N (nos demais casos)
 
 Nível: 7
+Nome: duracao
+Pai: infoVinc
+Descrição: Duração do contrato de trabalho.
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {tpRegTrab}(../tpRegTrab) = [1])
+N (nos demais casos)
+
+Nível: 7
 Nome: sucessaoVinc
 Pai: infoVinc
 Descrição: Grupo de informações da sucessão de vínculo trabalhista/estatutário.
@@ -883,6 +892,61 @@ Tamanho: -
 Dec.: -
 Descrição: Preencher com a data de admissão do trabalhador.
 Validação: Deve ser posterior à data de nascimento do trabalhador.
+
+Nome: duracao
+Pai: infoVinc
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Duração do contrato de trabalho.
+
+Nome: tpContr
+Pai: duracao
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Tipo de contrato de trabalho.
+Valores válidos:
+1 - Prazo indeterminado
+2 - Prazo determinado, definido em dias
+3 - Prazo determinado, vinculado à ocorrência de um fato
+
+Nome: dtTerm
+Pai: duracao
+Elem.: E
+Tipo: D
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Data do término do contrato por prazo determinado.
+Validação: O preenchimento é obrigatório se {tpContr}(./tpContr) = [2]. Não informar se {tpContr}(./tpContr) = [1]. Se preenchido, deve ser igual ou posterior à data de admissão (no caso de transferência, igual ou posterior a {sucessaoVinc/dtTransf}(../sucessaoVinc_dtTransf)).
+
+Nome: clauAssec
+Pai: duracao
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Indicar se o contrato por prazo determinado contém cláusula assecuratória do direito recíproco de rescisão antes da data de seu término.
+Valores válidos:
+S - Sim
+N - Não
+Validação: O preenchimento é obrigatório se {tpContr}(./tpContr) = [2, 3]. Não preencher se {tpContr}(./tpContr) = [1].
+
+Nome: objDet
+Pai: duracao
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-255
+Dec.: -
+Descrição: Indicação do objeto determinante da contratação por prazo determinado (obra, serviço, safra, etc.).
+Validação: O preenchimento é obrigatório e exclusivo se {tpContr}(./tpContr) = [3].
 
 Nome: sucessaoVinc
 Pai: infoVinc

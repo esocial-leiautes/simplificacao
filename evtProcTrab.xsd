@@ -411,6 +411,30 @@
                                                                                     <xs:documentation>Validação: Deve ser posterior à data de nascimento do trabalhador.</xs:documentation>
                                                                                 </xs:annotation>
                                                                             </xs:element>
+                                                                            <xs:element name="duracao" minOccurs="0">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Duração do contrato de trabalho.</xs:documentation>
+                                                                                    <xs:documentation>CONDICAO_GRUPO: O (se {tpRegTrab}(../tpRegTrab) = [1]); N (nos demais casos)</xs:documentation>
+                                                                                </xs:annotation>
+                                                                                <xs:complexType>
+                                                                                    <xs:sequence>
+                                                                                        <xs:element name="tpContr" type="TS_tpContr" />
+                                                                                        <xs:element name="dtTerm" minOccurs="0" type="TS_dtTerm">
+                                                                                            <xs:annotation>
+                                                                                                <xs:documentation>Data do término do contrato por prazo determinado.</xs:documentation>
+                                                                                                <xs:documentation>Validação: O preenchimento é obrigatório se {tpContr}(./tpContr) = [2]. Não informar se {tpContr}(./tpContr) = [1]. Se preenchido, deve ser igual ou posterior à data de admissão (no caso de transferência, igual ou posterior a {sucessaoVinc/dtTransf}(../sucessaoVinc_dtTransf)).</xs:documentation>
+                                                                                            </xs:annotation>
+                                                                                        </xs:element>
+                                                                                        <xs:element name="clauAssec" minOccurs="0" type="TS_sim_nao">
+                                                                                            <xs:annotation>
+                                                                                                <xs:documentation>Indicar se o contrato por prazo determinado contém cláusula assecuratória do direito recíproco de rescisão antes da data de seu término.</xs:documentation>
+                                                                                                <xs:documentation>Validação: O preenchimento é obrigatório se {tpContr}(./tpContr) = [2, 3]. Não preencher se {tpContr}(./tpContr) = [1].</xs:documentation>
+                                                                                            </xs:annotation>
+                                                                                        </xs:element>
+                                                                                        <xs:element name="objDet" minOccurs="0" type="TS_objDet" />
+                                                                                    </xs:sequence>
+                                                                                </xs:complexType>
+                                                                            </xs:element>
                                                                             <xs:element name="sucessaoVinc" minOccurs="0">
                                                                                 <xs:annotation>
                                                                                     <xs:documentation>Grupo de informações da sucessão de vínculo trabalhista/estatutário.</xs:documentation>
