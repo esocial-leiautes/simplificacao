@@ -206,8 +206,18 @@
                                 <xs:complexType>
                                     <xs:sequence>
                                         <xs:element name="cpfTrab" type="TS_cpfTrab" />
-                                        <xs:element name="nmTrab" type="TS_nmTrab" />
-                                        <xs:element name="dtNascto" type="TS_dtNascto" />
+                                        <xs:element name="nmTrab" minOccurs="0" type="TS_nmTrab">
+                                            <xs:annotation>
+                                                <xs:documentation>Informar o nome do trabalhador.</xs:documentation>
+                                                <xs:documentation>Validação: Preenchimento obrigatório se não existir contrato com {indContr}(2500_ideTrab_infoContr_indContr) = [S].</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="dtNascto" minOccurs="0" type="TS_dtNascto">
+                                            <xs:annotation>
+                                                <xs:documentation>Preencher com a data de nascimento.</xs:documentation>
+                                                <xs:documentation>Validação: Preenchimento obrigatório se não existir contrato com {indContr}(2500_ideTrab_infoContr_indContr) = [S]. Deve ser maior ou igual que 01/01/1890 e menor ou igual à data atual.</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
                                         <xs:element name="dependente" minOccurs="0" maxOccurs="99">
                                             <xs:annotation>
                                                 <xs:documentation>Informações dos dependentes.</xs:documentation>
