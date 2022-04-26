@@ -369,13 +369,20 @@
                                                                         <xs:documentation>Se {infoContr/codCateg}(../codCateg) = [104], deve ser preenchido com [1]. Se {infoContr/codCateg}(../codCateg) = [102], deve ser preenchido com [2].</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
-                                                                <xs:element name="remuneracao" minOccurs="0">
+                                                                <xs:element name="remuneracao" minOccurs="0" maxOccurs="99">
                                                                     <xs:annotation>
                                                                         <xs:documentation>Informações da remuneração e periodicidade de pagamento.</xs:documentation>
+                                                                        <xs:documentation>CHAVE_GRUPO: {dtRemun}</xs:documentation>
                                                                         <xs:documentation>CONDICAO_GRUPO: N (se ({tpContr}(../../tpContr) for diferente de [6] e {tpRegTrab}(../infoVinc_tpRegTrab) = [2]); O (se ({tpContr}(../../tpContr) for diferente de [6] e {tpRegTrab}(../infoVinc_tpRegTrab) = [1]) ou se {infoContr/codCateg}(../../codCateg) = [721, 722, 771]); OC (nos demais casos)</xs:documentation>
                                                                     </xs:annotation>
                                                                     <xs:complexType>
                                                                         <xs:sequence>
+                                                                            <xs:element name="dtRemun" type="xs:date">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Data a partir da qual as informações de remuneração e periodicidade de pagamento estão vigentes.</xs:documentation>
+                                                                                    <xs:documentation>Validação: Deve ser igual ou posterior à data de admissão (ou de início) e igual ou anterior à data de desligamento (ou de término), se informada.</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:element>
                                                                             <xs:element name="vrSalFx" type="TS_vrSalFx">
                                                                                 <xs:annotation>
                                                                                     <xs:documentation>Salário base do trabalhador, correspondente à parte fixa da remuneração em {compFim}(2500_ideTrab_infoContr_ideEstab_infoVlr_compFim).</xs:documentation>
