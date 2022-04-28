@@ -231,6 +231,14 @@ Condição: O (se o código de categoria no RET for igual a [1XX, 2XX, 3XX, 731,
 N (nos demais casos)
 
 Nível: 8
+Nome: infoFGTS
+Pai: idePeriodo
+Descrição: Informações referentes a bases de cálculo de FGTS para geração de guia.
+Ocorrência: 0-1
+Chave: -
+Condição: OC
+
+Nível: 8
 Nome: baseMudCateg
 Pai: idePeriodo
 Descrição: Bases de cálculo já declaradas em GFIP, no caso de reconhecimento de mudança de código de categoria.
@@ -1356,9 +1364,22 @@ Tipo: N
 Ocorrência: 0-1
 Tamanho: 1-14
 Dec.: 2
-Descrição: Valor do saldo para fins rescisórios do FGTS (base de cálculo para recolhimento da indenização compensatória do FGTS).
-Preencher este campo somente quando o valor de FGTS rescisório for objeto de transação.
-Validação: Se preenchido, deve ser maior que 0 (zero).
+Descrição: Valor da base de cálculo para recolhimento da indenização compensatória (multa rescisória) do FGTS, para geração de guia.
+Preencher este campo somente quando o valor da indenização compensatória (multa rescisória) do FGTS for objeto de transação.
+Validação: Deve ser maior ou igual a 0 (zero).
+
+Nome: pagDiretoResc
+Pai: infoVlr
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: A indenização compensatória (multa rescisória) do FGTS transacionada foi paga diretamente ao trabalhador mediante decisão/autorização judicial?
+Valores válidos:
+S - Sim
+N - Não
+Validação: Informação obrigatória e exclusiva se {vrSaldoFGTS}(./vrSaldoFGTS) estiver preenchido.
 
 Nome: idePeriodo
 Pai: infoVlr
@@ -1378,18 +1399,6 @@ Tamanho: 7
 Dec.: -
 Descrição: Informar o mês/ano (formato AAAA-MM) de referência das informações.
 Validação: Deve ser um período compreendido entre {compIni}(../compIni) e {compFim}(../compFim), informado no formato AAAA-MM.
-
-Nome: indQuitFGTS
-Pai: idePeriodo
-Elem.: E
-Tipo: C
-Ocorrência: 0-1
-Tamanho: 1
-Dec.: -
-Descrição: Indicativo de quitação de FGTS.
-Preencher este campo somente quando o valor de FGTS anteriormente declarado (eSocial ou GFIP) deva ser desconsiderado por força de transação ou sentença judicial.
-Valores válidos:
-S - Sim
 
 Nome: baseCalculo
 Pai: idePeriodo
@@ -1462,6 +1471,48 @@ Valores válidos:
 2 - Ensejador de aposentadoria especial - FAE15_12% (15 anos de contribuição e alíquota de 12%)
 3 - Ensejador de aposentadoria especial - FAE20_09% (20 anos de contribuição e alíquota de 9%)
 4 - Ensejador de aposentadoria especial - FAE25_06% (25 anos de contribuição e alíquota de 6%)
+
+Nome: infoFGTS
+Pai: idePeriodo
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações referentes a bases de cálculo de FGTS para geração de guia.
+O grupo somente deve ser preenchido quando o FGTS foi objeto de transação judicial com modificação do valor de FGTS anteriormente declarado (eSocial ou GFIP), acrescida da base complementar declarada no grupo {baseCalculo}(../baseCalculo).
+
+Nome: vrBcFgtsGuia
+Pai: infoFGTS
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da base de cálculo do FGTS sobre a remuneração do trabalhador (sem 13° salário).
+Validação: Deve ser maior ou igual a 0 (zero).
+
+Nome: vrBcFgts13Guia
+Pai: infoFGTS
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da base de cálculo do FGTS sobre a remuneração do trabalhador sobre o 13º salário.
+Validação: Deve ser maior ou igual a 0 (zero).
+
+Nome: pagDireto
+Pai: infoFGTS
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: O FGTS transacionado referente a {perRef}(../perRef) foi pago diretamente ao trabalhador mediante decisão/autorização judicial?
+Valores válidos:
+S - Sim
+N - Não
 
 Nome: baseMudCateg
 Pai: idePeriodo

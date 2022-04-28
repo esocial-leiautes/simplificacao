@@ -796,11 +796,17 @@
                                                                                     <xs:documentation>Validação: Deve ser maior ou igual a 0 (zero).</xs:documentation>
                                                                                 </xs:annotation>
                                                                             </xs:element>
-                                                                            <xs:element name="vrSaldoFGTS" type="TS_valorMonetario_positivo" minOccurs="0">
+                                                                            <xs:element name="vrSaldoFGTS" type="TS_valorMonetario" minOccurs="0">
                                                                                 <xs:annotation>
-                                                                                    <xs:documentation>Valor do saldo para fins rescisórios do FGTS (base de cálculo para recolhimento da indenização compensatória do FGTS).</xs:documentation>
-                                                                                    <xs:documentation>Preencher este campo somente quando o valor de FGTS rescisório for objeto de transação.</xs:documentation>
-                                                                                    <xs:documentation>Validação: Se preenchido, deve ser maior que 0 (zero).</xs:documentation>
+                                                                                    <xs:documentation>Valor da base de cálculo para recolhimento da indenização compensatória (multa rescisória) do FGTS, para geração de guia.</xs:documentation>
+                                                                                    <xs:documentation>Preencher este campo somente quando o valor da indenização compensatória (multa rescisória) do FGTS for objeto de transação.</xs:documentation>
+                                                                                    <xs:documentation>Validação: Deve ser maior ou igual a 0 (zero).</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:element>
+                                                                            <xs:element name="pagDiretoResc" minOccurs="0" type="TS_sim_nao">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>A indenização compensatória (multa rescisória) do FGTS transacionada foi paga diretamente ao trabalhador mediante decisão/autorização judicial?</xs:documentation>
+                                                                                    <xs:documentation>Validação: Informação obrigatória e exclusiva se {vrSaldoFGTS}(./vrSaldoFGTS) estiver preenchido.</xs:documentation>
                                                                                 </xs:annotation>
                                                                             </xs:element>
                                                                             <xs:element name="idePeriodo" minOccurs="0" maxOccurs="360">
@@ -816,21 +822,6 @@
                                                                                                 <xs:documentation>Informar o mês/ano (formato AAAA-MM) de referência das informações.</xs:documentation>
                                                                                                 <xs:documentation>Validação: Deve ser um período compreendido entre {compIni}(../compIni) e {compFim}(../compFim), informado no formato AAAA-MM.</xs:documentation>
                                                                                             </xs:annotation>
-                                                                                        </xs:element>
-                                                                                        <xs:element name="indQuitFGTS" minOccurs="0">
-                                                                                            <xs:simpleType>
-                                                                                                <xs:annotation>
-                                                                                                    <xs:documentation>Indicativo de quitação de FGTS.</xs:documentation>
-                                                                                                    <xs:documentation>Preencher este campo somente quando o valor de FGTS anteriormente declarado (eSocial ou GFIP) deva ser desconsiderado por força de transação ou sentença judicial.</xs:documentation>
-                                                                                                </xs:annotation>
-                                                                                                <xs:restriction base="xs:string">
-                                                                                                    <xs:enumeration value="S">
-                                                                                                        <xs:annotation>
-                                                                                                            <xs:documentation>Sim</xs:documentation>
-                                                                                                        </xs:annotation>
-                                                                                                    </xs:enumeration>
-                                                                                                </xs:restriction>
-                                                                                            </xs:simpleType>
                                                                                         </xs:element>
                                                                                         <xs:element name="baseCalculo">
                                                                                             <xs:annotation>
@@ -877,6 +868,35 @@
                                                                                                     </xs:element>
                                                                                                 </xs:sequence>
                                                                                             </xs:complexType>    
+                                                                                        </xs:element>
+                                                                                        <xs:element name="infoFGTS" minOccurs="0">
+                                                                                            <xs:annotation>
+                                                                                                <xs:documentation>Informações referentes a bases de cálculo de FGTS para geração de guia.</xs:documentation>
+                                                                                                <xs:documentation>DESCRICAO_COMPLETA:Informações referentes a bases de cálculo de FGTS para geração de guia.</xs:documentation>
+                                                                                                <xs:documentation>O grupo somente deve ser preenchido quando o FGTS foi objeto de transação judicial com modificação do valor de FGTS anteriormente declarado (eSocial ou GFIP), acrescida da base complementar declarada no grupo {baseCalculo}(../baseCalculo).</xs:documentation>
+                                                                                                <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
+                                                                                            </xs:annotation>
+                                                                                            <xs:complexType>
+                                                                                                <xs:sequence>
+                                                                                                    <xs:element name="vrBcFgtsGuia" type="TS_valorMonetario">
+                                                                                                        <xs:annotation>
+                                                                                                            <xs:documentation>Valor da base de cálculo do FGTS sobre a remuneração do trabalhador (sem 13° salário).</xs:documentation>
+                                                                                                            <xs:documentation>Validação: Deve ser maior ou igual a 0 (zero).</xs:documentation>
+                                                                                                        </xs:annotation>
+                                                                                                    </xs:element>
+                                                                                                    <xs:element name="vrBcFgts13Guia" type="TS_valorMonetario">
+                                                                                                        <xs:annotation>
+                                                                                                            <xs:documentation>Valor da base de cálculo do FGTS sobre a remuneração do trabalhador sobre o 13º salário.</xs:documentation>
+                                                                                                            <xs:documentation>Validação: Deve ser maior ou igual a 0 (zero).</xs:documentation>
+                                                                                                        </xs:annotation>
+                                                                                                    </xs:element>
+                                                                                                    <xs:element name="pagDireto" type="TS_sim_nao">
+                                                                                                        <xs:annotation>
+                                                                                                            <xs:documentation>O FGTS transacionado referente a {perRef}(../perRef) foi pago diretamente ao trabalhador mediante decisão/autorização judicial?</xs:documentation>
+                                                                                                        </xs:annotation>
+                                                                                                    </xs:element>
+                                                                                                </xs:sequence>
+                                                                                            </xs:complexType>
                                                                                         </xs:element>
                                                                                         <xs:element name="baseMudCateg" minOccurs="0">
                                                                                             <xs:annotation>
