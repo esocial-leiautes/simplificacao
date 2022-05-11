@@ -392,6 +392,22 @@ Caso seja informado evento de Remuneração (S-1200 ou S-1202) em período de ap
 </div>
 </div>
 </div>
+<div class="modal" id="REGRA_ENDERECO_EXTERIOR">
+<div class="modal-background"></div>
+<div class="modal-card">
+<header class="modal-card-head">
+<p class="modal-card-title"><a href="regras.html#REGRA_ENDERECO_EXTERIOR">REGRA_ENDERECO_EXTERIOR</a></p>
+<button class="delete" aria-label="close"></button>
+</header>
+<div class="modal-card-body">
+<p>Para os campos de endereçamento no exterior {endDscLograd}, {endComplem}, {endBairro}, {endCidade} e {endEstado}, observar as seguintes regras:<br />
+a) Deve ser informado no mínimo um caractere alfanumérico;<br />
+b) É permitido informar no máximo 3 (três) caracteres iguais consecutivos;<br />
+c) Não é permitida a repetição consecutiva de 4 (quatro) ou mais caracteres especiais;<br />
+d) Não pode conter barra vertical ("|").</p>
+</div>
+</div>
+</div>
 <div class="modal" id="REGRA_ENVIO_PROC_FECHAMENTO">
 <div class="modal-background"></div>
 <div class="modal-card">
@@ -8991,6 +9007,25 @@ Deve ser informado no formato AAAA-MM.</td>
 <td><a href="#1210_ideBenef_infoPgto_tpPgto">tpPgto</a>, <a href="#1210_ideBenef_infoPgto_perRef">perRef</a>, <a href="#1210_ideBenef_infoPgto_ideDmDev">ideDmDev</a></td>
 <td>O</td>
 </tr>
+<tr>
+<td id="r_1210_ideBenef_infoPgto_infoPgtoExt"><a href="#1210_ideBenef_infoPgto_infoPgtoExt">infoPgtoExt</a></td>
+<td><a href="#r_1210_ideBenef_infoPgto">infoPgto</a></td>
+<td>5</td>
+<td>Informações complementares relativas a pagamentos a residente fiscal no exterior</td>
+<td>0-1</td>
+<td>-</td>
+<td>O (se <a href="#1210_ideBenef_infoPgto_paisResidExt">paisResidExt</a> for informado;<br />
+N (nos demais casos)</td>
+</tr>
+<tr>
+<td id="r_1210_ideBenef_infoPgto_infoPgtoExt_endExt"><a href="#1210_ideBenef_infoPgto_infoPgtoExt_endExt">endExt</a></td>
+<td><a href="#r_1210_ideBenef_infoPgto_infoPgtoExt">infoPgtoExt</a></td>
+<td>6</td>
+<td>Endereço do beneficiário residente ou domiciliado no exterior</td>
+<td>0-1</td>
+<td>-</td>
+<td>OC</td>
+</tr>
 </tbody>
 </table>
 
@@ -9309,6 +9344,173 @@ Se <a href="#1210_ideBenef_infoPgto_tpPgto">tpPgto</a> = [5], em S-1207.</td>
 <td>2</td>
 <td>Valor líquido recebido pelo trabalhador, composto pelos vencimentos e descontos, inclusive os descontos de IRRF e de pensão alimentícia (se houver).<br />
 <strong>Validação:</strong> Não pode ser um valor negativo.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoPgto_paisResidExt" id="1210_ideBenef_infoPgto_paisResidExt">23</td>
+<td>paisResidExt</td>
+<td><a href="#r_1210_ideBenef_infoPgto">infoPgto</a></td>
+<td>E</td>
+<td>C</td>
+<td>0-1</td>
+<td>3</td>
+<td>-</td>
+<td>Informar o código do país de residência para fins fiscais, quando no exterior, conforme <a href="tabelas.html#06">Tabela 06</a>.<br />
+Somente informar este campo caso o país de residência para fins fiscais seja diferente de Brasil. Se não informado, implica que o país de residência fiscal é Brasil.<br />
+<strong>Validação:</strong> Deve ser um código válido e existente na <a href="tabelas.html#06">Tabela 06</a>, exceto [105].</td>
+</tr>
+<tr class="grupo">
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoPgto_infoPgtoExt" id="1210_ideBenef_infoPgto_infoPgtoExt">24</td>
+<td><a href="#r_1210_ideBenef_infoPgto_infoPgtoExt">infoPgtoExt</a></td>
+<td><a href="#r_1210_ideBenef_infoPgto">infoPgto</a></td>
+<td>G</td>
+<td>-</td>
+<td>0-1</td>
+<td>-</td>
+<td>-</td>
+<td>Informações complementares relativas a pagamentos a residente fiscal no exterior.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoPgto_infoPgtoExt_indNIF" id="1210_ideBenef_infoPgto_infoPgtoExt_indNIF">25</td>
+<td>indNIF</td>
+<td><a href="#r_1210_ideBenef_infoPgto_infoPgtoExt">infoPgtoExt</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1</td>
+<td>-</td>
+<td>Indicativo do Número de Identificação Fiscal (NIF).<br />
+<strong>Valores válidos:</strong><br />
+<strong>1</strong> - Beneficiário com NIF<br />
+<strong>2</strong> - Beneficiário dispensado do NIF<br />
+<strong>3</strong> - País não exige NIF</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoPgto_infoPgtoExt_nifBenef" id="1210_ideBenef_infoPgto_infoPgtoExt_nifBenef">26</td>
+<td>nifBenef</td>
+<td><a href="#r_1210_ideBenef_infoPgto_infoPgtoExt">infoPgtoExt</a></td>
+<td>E</td>
+<td>C</td>
+<td>0-1</td>
+<td>1-30</td>
+<td>-</td>
+<td>Número de Identificação Fiscal (NIF).<br />
+<strong>Validação:</strong> Preenchimento obrigatório se <a href="#1210_ideBenef_infoPgto_infoPgtoExt_indNIF">indNIF</a> = [1].</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoPgto_infoPgtoExt_frmTribut" id="1210_ideBenef_infoPgto_infoPgtoExt_frmTribut">27</td>
+<td>frmTribut</td>
+<td><a href="#r_1210_ideBenef_infoPgto_infoPgtoExt">infoPgtoExt</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>2</td>
+<td>-</td>
+<td>Forma de tributação, conforme opções disponíveis na <a href="tabelas.html#30">Tabela 30</a>.<br />
+<strong>Validação:</strong> Deve ser um código válido e existente na <a href="tabelas.html#30">Tabela 30</a>.</td>
+</tr>
+<tr class="grupo">
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoPgto_infoPgtoExt_endExt" id="1210_ideBenef_infoPgto_infoPgtoExt_endExt">28</td>
+<td><a href="#r_1210_ideBenef_infoPgto_infoPgtoExt_endExt">endExt</a></td>
+<td><a href="#r_1210_ideBenef_infoPgto_infoPgtoExt">infoPgtoExt</a></td>
+<td>G</td>
+<td>-</td>
+<td>0-1</td>
+<td>-</td>
+<td>-</td>
+<td>Endereço do beneficiário residente ou domiciliado no exterior.<br />
+<strong>Regra de validação:</strong><br />
+<a href="#REGRA_ENDERECO_EXTERIOR">REGRA_ENDERECO_EXTERIOR</a></td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoPgto_infoPgtoExt_endExt_endDscLograd" id="1210_ideBenef_infoPgto_infoPgtoExt_endExt_endDscLograd">29</td>
+<td>endDscLograd</td>
+<td><a href="#r_1210_ideBenef_infoPgto_infoPgtoExt_endExt">endExt</a></td>
+<td>E</td>
+<td>C</td>
+<td>0-1</td>
+<td>1-80</td>
+<td>-</td>
+<td>Descrição do logradouro.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoPgto_infoPgtoExt_endExt_endNrLograd" id="1210_ideBenef_infoPgto_infoPgtoExt_endExt_endNrLograd">30</td>
+<td>endNrLograd</td>
+<td><a href="#r_1210_ideBenef_infoPgto_infoPgtoExt_endExt">endExt</a></td>
+<td>E</td>
+<td>C</td>
+<td>0-1</td>
+<td>1-10</td>
+<td>-</td>
+<td>Número do logradouro.<br />
+<strong>Validação:</strong> Devem ser utilizados apenas caracteres alfanuméricos com, pelo menos, um caractere numérico.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoPgto_infoPgtoExt_endExt_endComplem" id="1210_ideBenef_infoPgto_infoPgtoExt_endExt_endComplem">31</td>
+<td>endComplem</td>
+<td><a href="#r_1210_ideBenef_infoPgto_infoPgtoExt_endExt">endExt</a></td>
+<td>E</td>
+<td>C</td>
+<td>0-1</td>
+<td>1-30</td>
+<td>-</td>
+<td>Complemento do logradouro.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoPgto_infoPgtoExt_endExt_endBairro" id="1210_ideBenef_infoPgto_infoPgtoExt_endExt_endBairro">32</td>
+<td>endBairro</td>
+<td><a href="#r_1210_ideBenef_infoPgto_infoPgtoExt_endExt">endExt</a></td>
+<td>E</td>
+<td>C</td>
+<td>0-1</td>
+<td>1-60</td>
+<td>-</td>
+<td>Nome do bairro/distrito.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoPgto_infoPgtoExt_endExt_endCidade" id="1210_ideBenef_infoPgto_infoPgtoExt_endExt_endCidade">33</td>
+<td>endCidade</td>
+<td><a href="#r_1210_ideBenef_infoPgto_infoPgtoExt_endExt">endExt</a></td>
+<td>E</td>
+<td>C</td>
+<td>0-1</td>
+<td>1-40</td>
+<td>-</td>
+<td>Nome da cidade.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoPgto_infoPgtoExt_endExt_endEstado" id="1210_ideBenef_infoPgto_infoPgtoExt_endExt_endEstado">34</td>
+<td>endEstado</td>
+<td><a href="#r_1210_ideBenef_infoPgto_infoPgtoExt_endExt">endExt</a></td>
+<td>E</td>
+<td>C</td>
+<td>0-1</td>
+<td>1-40</td>
+<td>-</td>
+<td>Nome da província/estado.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoPgto_infoPgtoExt_endExt_endCodPostal" id="1210_ideBenef_infoPgto_infoPgtoExt_endExt_endCodPostal">35</td>
+<td>endCodPostal</td>
+<td><a href="#r_1210_ideBenef_infoPgto_infoPgtoExt_endExt">endExt</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>4-12</td>
+<td>-</td>
+<td>Código de Endereçamento Postal.<br />
+<strong>Validação:</strong> Devem ser informados apenas caracteres numéricos.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoPgto_infoPgtoExt_endExt_telef" id="1210_ideBenef_infoPgto_infoPgtoExt_endExt_telef">36</td>
+<td>telef</td>
+<td><a href="#r_1210_ideBenef_infoPgto_infoPgtoExt_endExt">endExt</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>6-15</td>
+<td>-</td>
+<td>Número do telefone.<br />
+<strong>Validação:</strong> Devem ser informados apenas caracteres numéricos.</td>
 </tr>
 </tbody>
 </table>
