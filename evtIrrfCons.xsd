@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns="http://www.esocial.gov.br/schema/evt/evtIrrfCons/v_S_01_00_00" targetNamespace="http://www.esocial.gov.br/schema/evt/evtIrrfCons/v_S_01_00_00" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+    <xs:include schemaLocation="tipos.xsd" />
+    <xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd" />
+    <xs:element name="eSocial">
+        <xs:annotation>
+            <xs:documentation>S-5012 - IRRF Consolidado por Contribuinte</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="evtIrrfCons">
+                    <xs:annotation>
+                        <xs:documentation>Evento IRRF Consolidado por Contribuinte.</xs:documentation>
+                        <xs:documentation>CHAVE_GRUPO: {Id}</xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="ideEvento" type="T_ideEvento_retorno_mensal" />
+                            <xs:element name="ideEmpregador" type="T_ideEmpregador" />
+                            <xs:element name="infoIRRF">
+                                <xs:annotation>
+                                    <xs:documentation>Informações relativas ao Imposto de Renda.</xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="nrRecArqBase" type="TS_nrRecArqBase" />
+                                        <xs:element name="indExistInfo">
+                                            <xs:simpleType>
+                                                <xs:annotation>
+                                                    <xs:documentation>Indicativo de existência de valores de bases ou de tributos.</xs:documentation>
+                                                </xs:annotation>
+                                                <xs:restriction base="xs:byte">
+                                                    <xs:enumeration value="1">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Há informações com apuração de IRRF</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:enumeration>
+                                                    <xs:enumeration value="2">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Há movimento, porém não há informações de IRRF</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:enumeration>
+                                                    <xs:enumeration value="3">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Não há movimento no período informado em {perApur}(5012_ideEvento_perApur)</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:enumeration>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                        <xs:element name="infoCR" minOccurs="0" maxOccurs="12">
+                                            <xs:annotation>
+                                                <xs:documentation>Totalizador do IRRF por CR</xs:documentation>
+                                                <xs:documentation>DESCRICAO_COMPLETA:Informações consolidadas do IRRF, por Código de Receita - CR.</xs:documentation>
+                                                <xs:documentation>Evento de origem: S-5002.</xs:documentation>
+                                                <xs:documentation>CHAVE_GRUPO: {tpCR}</xs:documentation>
+                                                <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
+                                            </xs:annotation>
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="tpCR">
+                                                        <xs:simpleType>
+                                                            <xs:annotation>
+                                                                <xs:documentation>Código de Receita - CR relativo ao Imposto de Renda Retido na Fonte.</xs:documentation>
+                                                            </xs:annotation>
+                                                            <xs:restriction base="xs:integer">
+                                                                <xs:enumeration value="047301">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>IRRF - Residentes fiscais no exterior</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:enumeration>
+                                                                <xs:enumeration value="056107">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>IRRF mensal, 13° salário e férias sobre trabalho assalariado no país ou ausente no exterior a serviço do país, exceto se contratado por empregador doméstico ou por segurado especial sujeito a recolhimento unificado</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:enumeration>
+                                                                <xs:enumeration value="056108">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>IRRF mensal, 13° salário e férias sobre trabalho assalariado no país ou ausente no exterior a serviço do país, empregado doméstico ou trabalhador contratado por segurado especial sujeito a recolhimento unificado</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:enumeration>
+                                                                <xs:enumeration value="056109">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>IRRF 13° salário na rescisão de contrato de trabalho relativo a empregador sujeito a recolhimento unificado</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:enumeration>
+                                                                <xs:enumeration value="056110">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>IRRF - Empregado doméstico 13º salário</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:enumeration>
+                                                                <xs:enumeration value="056111">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>IRRF - Empregado/Trabalhador rural - Segurado especial</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:enumeration>
+                                                                <xs:enumeration value="056112">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>IRRF - Empregado/Trabalhador rural - Segurado especial 13° salário</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:enumeration>
+                                                                <xs:enumeration value="056113">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>IRRF - Empregado/Trabalhador rural - Segurado especial 13° salário rescisório</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:enumeration>
+                                                                <xs:enumeration value="058806">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>IRRF sobre rendimento do trabalho sem vínculo empregatício</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:enumeration>
+                                                                <xs:enumeration value="061001">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>IRRF sobre rendimentos relativos a prestação de serviços de transporte rodoviário internacional de carga, pagos a transportador autônomo PF residente no Paraguai</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:enumeration>
+                                                                <xs:enumeration value="353301">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Proventos de aposentadoria, reserva, reforma ou pensão pagos por previdência pública</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:enumeration>
+                                                                <xs:enumeration value="356201">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>IRRF sobre participação dos trabalhadores em lucros ou resultados - PLR</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:enumeration>                                                    
+                                                                <xs:enumeration value="188901">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Rendimentos Recebidos Acumuladamente - RRA</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:enumeration>
+                                                            </xs:restriction>
+                                                        </xs:simpleType>
+                                                    </xs:element>
+                                                    <xs:element name="vrCR" type="TS_valorMonetario_positivo">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Valor correspondente ao CR indicado em {tpCR}(./tpCR).</xs:documentation>
+                                                            <xs:documentation>Validação: Deve ser maior que 0 (zero).</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:element>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="Id" use="required" type="TS_Id_retorno" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:element ref="ds:Signature" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
