@@ -1826,16 +1826,26 @@ c) caso o evento que está sendo retificado seja relativo a um período já ence
 <tr>
 <td id="REGRA_EVE_FOPAG_SIMPLIFICADO"><a title="Ver ocorrências"><strong>REGRA_EVE_FOPAG_SIMPLIFICADO</strong></a></td>
 <td>1) O campo {indGuia} somente pode ser informado se o empregador for Pessoa Física e se o período de apuração (mês/ano de {dtDeslig}, para S-2299, ou mês/ano de {dtTerm}, para S-2399) for igual ou posterior a 07/2021 (ou igual ou posterior a 2021, para período de apuração anual), nas seguintes situações:<br />
-a) Caso {classTrib} em S-1000 = [21], somente deve ser preenchido se {procEmi} = [2, 22];<br />
+a) Caso {classTrib} em S-1000 = [21], somente deve ser preenchido se {procEmi} = [2, 22], com exceção do evento S-1298;<br />
 b) Caso {classTrib} em S-1000 = [22], sempre deve ser preenchido, exceto quando o estabelecimento informado no evento S-1200, S-1270 ou S-2299 for CNO ({tpInsc} = [4]). No caso do evento S-1210, o campo deve ser preenchido se os eventos de origem dos demonstrativos informados também tiverem o campo {indGuia} informado. No caso dos eventos S-1299 e S-1298, o preenchimento ou não do campo {indGuia} corresponderá ao encerramento ou à reabertura da folha relativa aos eventos remuneratórios respectivos, cujos campos {indGuia} estão informados ou não.<br />
-2) Se {classTrib} em S-1000 = [22] e o campo {indGuia} estiver preenchido:<br />
+2) Se {classTrib} em S-1000 = [22] em determinado {perApur} e o campo {indGuia} estiver preenchido:<br />
 a) Todos os eventos periódicos (exceto S-1298 e S-1299) e desligamentos com o campo {indGuia} preenchido de um mesmo período de apuração (mês/ano do desligamento, no caso do S-2299) devem possuir ou {procEmi} = [1, 3] ou {procEmi} = [2, 22], exceto quando houver empregado doméstico ativo ou desligado no período de apuração, situação em que todos os eventos periódicos (exceto S-1298 e S-1299) e desligamentos devem possuir {procEmi} = [2, 22];<br />
-b) O evento S-1299 e o respectivo evento S-1298 (quando for o caso) devem possuir ou {procEmi} = [1, 3] ou {procEmi} = [2, 22], de acordo com os demais eventos periódicos e desligamentos anteriormente enviados para o mesmo período de apuração;<br />
-c) Não pode ser enviado evento de fechamento (S-1299) nem de reabertura (S-1298) com {procEmi} = [1, 3] quando existir empregado doméstico ({codCateg} = [104]) ativo para o contribuinte em {perApur};<br />
-d) No caso do S-1200, cada evento somente pode haver remuneração de uma única matrícula/categoria.<br />
-3) No caso de empregador Pessoa Jurídica:<br />
+b) O evento S-1299 deve possuir ou {procEmi} = [1, 3] ou {procEmi} = [2, 22], de acordo com os demais eventos periódicos e desligamentos anteriormente enviados para o mesmo período de apuração;<br />
+c) Não pode ser enviado evento de fechamento (S-1299) com {procEmi} = [1, 3] quando existir empregado doméstico ({codCateg} = [104]) ativo para o contribuinte em {perApur};<br />
+d) Referente ao evento S-1298 (quando for o caso), observar o que segue:<br />
+d1) Se o evento S-1299 foi enviado com {procEmi} = [1, 3], o evento S-1298 poderá ter {procEmi} = [1, 2, 3, 22];<br />
+d2) Se o evento S-1299 foi enviado com {procEmi} = [2, 22] e existir empregado doméstico ({codCateg} = [104]) ativo para o contribuinte em {perApur}, o evento S-1298 deverá ter {procEmi} = [2, 3, 22];<br />
+d3) Se o evento S-1299 foi enviado com {procEmi} = [2, 22] e não existir empregado doméstico ({codCateg} = [104]) ativo para o contribuinte em {perApur}, o evento S-1298 poderá ter {procEmi} = [1, 2, 3, 22];<br />
+e) No caso do S-1200, em cada evento somente pode haver remuneração de uma única matrícula/categoria.<br />
+3) Se {classTrib} em S-1000 = [21] em determinado {perApur}, devem ser observadas as seguintes regras para a transmissão do evento S-1298:<br />
+a) Se o evento S-1299 foi enviado com {procEmi} = [1, 3], o evento S-1298 deverá ter {procEmi} = [1, 3];<br />
+b) Se o evento S-1299 foi enviado com {procEmi} = [2, 22], o evento S-1298 poderá ter {procEmi} = [2, 3, 22].<br />
+4) No caso de empregador Pessoa Jurídica:<br />
 a) Todos os eventos periódicos (exceto S-1298 e S-1299) e desligamentos/términos de TSVE de um mesmo período de apuração (mês/ano do desligamento ou do término de TSVE no caso do S-2299 ou do S-2399, respectivamente) devem possuir ou {procEmi} = [1, 3] ou {procEmi} = [4];<br />
-b) O evento S-1299 e o respectivo evento S-1298 (quando for o caso) devem possuir ou {procEmi} = [1, 3] ou {procEmi} = [4], de acordo com os demais eventos periódicos e desligamentos anteriormente enviados para o mesmo período de apuração.</td>
+b) O evento S-1299 deve possuir ou {procEmi} = [1, 3] ou {procEmi} = [4], de acordo com os demais eventos periódicos e desligamentos anteriormente enviados para o mesmo período de apuração;<br />
+c) Referente ao evento S-1298 (quando for o caso), observar o que segue:<br />
+c1) Se o evento S-1299 foi enviado com {procEmi} = [1, 3], o evento S-1298 deverá ter {procEmi} = [1, 3];<br />
+c2) Se o evento S-1299 foi enviado com {procEmi} = [4], o evento S-1298 poderá ter {procEmi} = [1, 3, 4].</td>
 </tr>
 <tr>
 <td id="REGRA_EXCLUI_EVENTO_AFASTAMENTO"><a title="Ver ocorrências"><strong>REGRA_EXCLUI_EVENTO_AFASTAMENTO</strong></a></td>
@@ -2314,7 +2324,7 @@ No caso do evento S-2299, se houver remuneração informada no registro {infoPer
 <div class="navbar-dropdown">
 <a class="navbar-item" href="index.html#evtRemun">S-1200 - Remuneração de Trabalhador vinculado ao Regime Geral de Previd. Social</a>
 <a class="navbar-item" href="index.html#evtRmnRPPS">S-1202 - Remuneração de Servidor vinculado ao Regime Próprio de Previd. Social</a>
-<a class="navbar-item" href="index.html#evtBenPrRP">S-1207 - Benefícios - Entes públicos</a>
+<a class="navbar-item" href="index.html#evtBenPrRP">S-1207 - Benefícios - Entes Públicos</a>
 <a class="navbar-item" href="index.html#evtPgtos">S-1210 - Pagamentos de Rendimentos do Trabalho</a>
 <a class="navbar-item" href="index.html#evtComProd">S-1260 - Comercialização da Produção Rural Pessoa Física</a>
 <a class="navbar-item" href="index.html#evtContratAvNP">S-1270 - Contratação de Trabalhadores Avulsos Não Portuários</a>
@@ -2358,11 +2368,11 @@ No caso do evento S-2299, se houver remuneração informada no registro {infoPer
 <div class="navbar-item has-dropdown has-dropdown-up is-hoverable">
 <a class="navbar-link" href="">Totalizadores</a>
 <div class="navbar-dropdown">
-<a class="navbar-item" href="index.html#evtBasesTrab">S-5001 - Informações das contribuições sociais por trabalhador</a>
-<a class="navbar-item" href="index.html#evtIrrfBenef">S-5002 - Imposto de Renda Retido na Fonte por trabalhador</a>
-<a class="navbar-item" href="index.html#evtBasesFGTS">S-5003 - Informações do FGTS por trabalhador</a>
-<a class="navbar-item" href="index.html#evtCS">S-5011 - Informações das contribuições sociais consolidadas por contribuinte</a>
-<a class="navbar-item" href="index.html#evtFGTS">S-5013 - Informações do FGTS consolidadas por contribuinte</a>
+<a class="navbar-item" href="index.html#evtBasesTrab">S-5001 - Informações das Contribuições Sociais por Trabalhador</a>
+<a class="navbar-item" href="index.html#evtIrrfBenef">S-5002 - Imposto de Renda Retido na Fonte por Trabalhador</a>
+<a class="navbar-item" href="index.html#evtBasesFGTS">S-5003 - Informações do FGTS por Trabalhador</a>
+<a class="navbar-item" href="index.html#evtCS">S-5011 - Informações das Contribuições Sociais Consolidadas por Contribuinte</a>
+<a class="navbar-item" href="index.html#evtFGTS">S-5013 - Informações do FGTS Consolidadas por Contribuinte</a>
 </div>
 </div>
 <div class="navbar-item">
