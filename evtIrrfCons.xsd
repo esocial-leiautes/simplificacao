@@ -48,7 +48,57 @@
                                                 </xs:restriction>
                                             </xs:simpleType>
                                         </xs:element>
-                                                                                
+                                        <xs:element name="totApurMen" minOccurs="0" maxOccurs="50">
+                                            <xs:annotation>
+                                                <xs:documentation>Totalizador de tributos com período de apuração mensal.</xs:documentation>
+                                                <xs:documentation>Evento de origem: S-5002.</xs:documentation>
+                                                <xs:documentation>CHAVE_GRUPO: {CRMen}</xs:documentation>
+                                                <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
+                                            </xs:annotation>
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="CRMen" type="TS_CRMen"/>
+                                                    <xs:element name="vrCRMen" type="TS_valorMonetario_positivo">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Valor correspondente ao Código de Receita - CR indicado em {CRMen}(./CRMen).</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:element>
+                                                    <xs:element name="vrCRMenSusp" minOccurs="0" type="TS_valorMonetario">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Valor com exigibilidade suspensa correspondente ao Código de Receita - CR indicado em {CRMen}(./CRMen).</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:element>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="totApurDia" minOccurs="0" maxOccurs="350">
+                                            <xs:annotation>
+                                                <xs:documentation>Totalizador de tributos com período de apuração diário.</xs:documentation>
+                                                <xs:documentation>Evento de origem: S-5002.</xs:documentation>
+                                                <xs:documentation>CHAVE_GRUPO: {perApurDia}, {CRDia}</xs:documentation>
+                                                <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
+                                            </xs:annotation>
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="perApurDia" type="TS_dia">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Período de apuração diário do Código de Receita - CR.</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:element>
+                                                    <xs:element name="CRDia" type="TS_CRDia"/>
+                                                    <xs:element name="vrCRDia" type="TS_valorMonetario_positivo">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Valor relativo ao Imposto de Renda Retido na Fonte sobre rendimentos do trabalho pagos a residente, para fins fiscais, no exterior.</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:element>
+                                                    <xs:element name="vrCRDiaSusp" minOccurs="0" type="TS_valorMonetario">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Valor que deixou de ser descontado do trabalhador relativo ao Imposto de Renda sobre rendimentos do trabalho pagos a residente, para fins fiscais, no exterior.</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:element>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>                                        
                                     </xs:sequence>
                                 </xs:complexType>
                             </xs:element>
