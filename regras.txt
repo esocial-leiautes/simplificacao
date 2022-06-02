@@ -316,7 +316,8 @@ c) Após o envio do evento S-2420 com {mtvTermino} = [10], os campos citados na 
 6) Não é permitida a exclusão ou a retificação do motivo de cessação de evento Cadastro de Benefício - Término (S-2420) com {mtvTermino} = [10] se existir novo evento S-2410 para o novo CPF com {indSitBenef) = [3].
 
 REGRA_PAGTO_IND_RETIFICACAO
-Se {indRetif} = [2], o evento correspondente ao número de recibo original informado em {nrRecibo} deve referir-se ao mesmo beneficiário indicado no evento retificador. Caso o erro que deu origem à retificação tenha ocorrido em relação à identificação do beneficiário, o evento incorreto deve ser "excluído", através do evento específico de exclusão, e um novo evento com a correta identificação de beneficiário deve ser transmitido como "original".
+a) Se {indRetif} = [2], o evento correspondente ao número de recibo original informado em {nrRecibo} deve referir-se ao mesmo beneficiário indicado no evento retificador. Caso o erro que deu origem à retificação tenha ocorrido em relação à identificação do beneficiário, o evento incorreto deve ser "excluído", através do evento específico de Exclusão, e um novo evento com a correta identificação de beneficiário deve ser transmitido como "original".
+b) Se o evento a ser retificado for relativo a um período de apuração já encerrado, a retificação somente deve ser aceita se for enviada após o evento de Reabertura (S-1298).
 
 REGRA_PERMITE_ALT_EXCL_CODSUSP
 Não pode haver alteração ou exclusão de {nrProc} + {codSusp} que esteja sendo utilizado em outro evento.
