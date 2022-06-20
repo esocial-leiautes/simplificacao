@@ -333,7 +333,7 @@ Ocorrência: 0-1
 Tamanho: 4
 Dec.: -
 Descrição: Hora do acidente, no formato HHMM.
-Validação: Preenchimento obrigatório e exclusivo se {tpAcid}(./tpAcid) = [1, 3]. Se informada, deve estar no intervalo entre [0000] e [2359], criticando inclusive a segunda parte do número, que indica os minutos, que deve ser menor ou igual a 59.
+Validação: Preenchimento obrigatório se {tpAcid}(./tpAcid) = [1] ou se ({tpAcid}(./tpAcid) = [3] e {dtAcid}(./dtAcid) >= [2022-01-26]). Não informar se {tpAcid}(./tpAcid) = [2]. Se preenchida, deve estar no intervalo entre [0000] e [2359], criticando inclusive a segunda parte do número, que indica os minutos, que deve ser menor ou igual a 59.
 Se {tpCat}(./tpCat) = [2, 3], deve ser informado valor igual ao preenchido no evento de CAT anterior, quando informado em {nrRecCatOrig}(./catOrigem_nrRecCatOrig).
 
 Nome: hrsTrabAntesAcid
@@ -344,7 +344,7 @@ Ocorrência: 0-1
 Tamanho: 4
 Dec.: -
 Descrição: Horas trabalhadas antes da ocorrência do acidente, no formato HHMM.
-Validação: Preenchimento obrigatório e exclusivo se {tpAcid}(./tpAcid) = [1]. Se informada, deve estar no intervalo entre [0000] e [9959], criticando inclusive a segunda parte do número, que indica os minutos, que deve ser menor ou igual a 59.
+Validação: Preenchimento obrigatório se {tpAcid}(./tpAcid) = [1] ou se ({tpAcid}(./tpAcid) = [3] e {dtAcid}(./dtAcid) >= [2022-07-20]). Não informar se {tpAcid}(./tpAcid) = [2]. Se preenchida, deve estar no intervalo entre [0000] e [9959], criticando inclusive a segunda parte do número, que indica os minutos, que deve ser menor ou igual a 59.
 
 Nome: tpCat
 Pai: cat
@@ -799,18 +799,19 @@ Tipo: C
 Ocorrência: 1
 Tamanho: 1-14
 Dec.: -
-Descrição: Número de inscrição no órgão de classe.
+Descrição: Número de inscrição no órgão de classe ou Registro do Ministério da Saúde (RMS).
 
 Nome: ufOC
 Pai: emitente
 Elem.: E
 Tipo: C
-Ocorrência: 1
+Ocorrência: 0-1
 Tamanho: 2
 Dec.: -
 Descrição: Sigla da UF do órgão de classe.
 Valores válidos:
  AC, AL, AP, AM, BA, CE, DF, ES, GO, MA, MT, MS, MG, PA, PB, PR, PE, PI, RJ, RN, RS, RO, RR, SC, SP, SE, TO
+Validação: Preenchimento obrigatório se {ideOC}(./ideOC) = [1, 2].
 
 Nome: catOrigem
 Pai: cat
