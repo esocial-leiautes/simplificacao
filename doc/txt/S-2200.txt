@@ -294,7 +294,7 @@ Pai: vinculo
 Descrição: Grupo de informações da sucessão de vínculo trabalhista/estatutário.
 Ocorrência: 0-1
 Chave: -
-Condição: O (se {tpAdmissao}(2200_vinculo_infoRegimeTrab_infoCeletista_tpAdmissao) = [2, 3, 4] ou {tpProv}(2200_vinculo_infoRegimeTrab_infoEstatutario_tpProv) = [5, 8])
+Condição: O (se {tpAdmissao}(2200_vinculo_infoRegimeTrab_infoCeletista_tpAdmissao) = [2, 3, 4, 7] ou {tpProv}(2200_vinculo_infoRegimeTrab_infoEstatutario_tpProv) = [5, 8])
 N (nos demais casos)
 
 Nível: 4
@@ -1186,6 +1186,7 @@ Valores válidos:
 4 - Transferência por motivo de sucessão, incorporação, cisão ou fusão
 5 - Transferência do empregado doméstico para outro representante da mesma unidade familiar
 6 - Mudança de CPF
+7 - Transferência quando a empresa sucedida é considerada inapta por inexistência de fato
 Validação: Se for igual a [5], {codCateg}(2200_vinculo_infoContrato_codCateg) deve ser igual a [104] e {procEmi}(2200_ideEvento_procEmi) deve ser igual a [2, 22].
 Se for igual a [6], {cadIni}(2200_vinculo_cadIni) deve ser igual a [N].
 
@@ -1412,15 +1413,16 @@ Valores válidos:
 1 - Nomeação em cargo efetivo
 2 - Nomeação exclusivamente em cargo em comissão
 3 - Incorporação, matrícula ou nomeação (militar)
-5 - Redistribuição
+5 - Redistribuição ou Reforma Administrativa
 6 - Diplomação
 7 - Contratação por tempo determinado
 8 - Remoção (em caso de alteração do órgão declarante)
 9 - Designação
 10 - Mudança de CPF
+11 - Estabilizados - Art. 19 do ADCT
 99 - Outros não relacionados acima
 Validação: Os valores [3, 5, 6, 7, 8, 9] só são permitidos se a natureza jurídica do declarante for Administração Pública (grupo [1]).
-Se {codCateg}(2200_vinculo_infoContrato_codCateg) = [302], deve ser preenchido com [2].
+Se {codCateg}(2200_vinculo_infoContrato_codCateg) = [302], deve ser preenchido com [2, 5, 8, 10].
 
 Nome: dtExercicio
 Pai: infoEstatutario

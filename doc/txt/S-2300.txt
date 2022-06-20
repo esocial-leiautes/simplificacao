@@ -131,7 +131,7 @@ Pai: infoComplementares
 Descrição: Cargo/Função ocupado pelo TSVE
 Ocorrência: 0-1
 Chave: -
-Condição: OC (se {codCateg}(2300_infoTSVInicio_codCateg) = [901, 903, 904])
+Condição: OC (se {codCateg}(2300_infoTSVInicio_codCateg) = [901, 903, 904, 906])
 O (nos demais casos)
 
 Nível: 5
@@ -140,7 +140,7 @@ Pai: infoComplementares
 Descrição: Informações da remuneração e periodicidade de pagamento.
 Ocorrência: 0-1
 Chave: -
-Condição: O (se {codCateg}(2300_infoTSVInicio_codCateg) = [721, 722, 771])
+Condição: O (se {codCateg}(2300_infoTSVInicio_codCateg) = [721, 722, 771, 906])
 OC (nos demais casos)
 
 Nível: 5
@@ -182,16 +182,16 @@ N (nos demais casos)
 Nível: 5
 Nome: infoEstagiario
 Pai: infoComplementares
-Descrição: Informações relativas ao estagiário.
+Descrição: Informações relativas ao estagiário ou ao beneficiário do Programa Nacional de Prestação de Serviço Civil Voluntário.
 Ocorrência: 0-1
 Chave: -
-Condição: O (se {codCateg}(2300_infoTSVInicio_codCateg) = [901])
+Condição: O (se {codCateg}(2300_infoTSVInicio_codCateg) = [901, 906])
 N (nos demais casos)
 
 Nível: 6
 Nome: instEnsino
 Pai: infoEstagiario
-Descrição: Instituição de ensino.
+Descrição: Instituição de ensino ou entidade de formação/qualificação.
 Ocorrência: 1
 Chave: -
 Condição: O
@@ -202,7 +202,8 @@ Pai: infoEstagiario
 Descrição: Agente de integração.
 Ocorrência: 0-1
 Chave: -
-Condição: OC
+Condição: OC (se o código de categoria for igual a [901])
+N (nos demais casos)
 
 Nível: 6
 Nome: supervisorEstagio
@@ -210,7 +211,8 @@ Pai: infoEstagiario
 Descrição: Supervisor do estágio.
 Ocorrência: 0-1
 Chave: -
-Condição: OC
+Condição: OC (se o código de categoria for igual a [901])
+N (nos demais casos)
 
 Nível: 4
 Nome: mudancaCPF
@@ -1290,7 +1292,7 @@ Ocorrência: 1
 Tamanho: -
 Dec.: -
 Descrição: Preencher com a data de admissão (ou de exercício) do trabalhador no empregador/órgão público cedente/de origem.
-Validação: Deve ser uma data anterior a {dtInicio}(2300_infoTSVInicio_dtInicio) e igual ou posterior a 01/01/1890.
+Validação: Deve ser uma data igual ou anterior a {dtInicio}(2300_infoTSVInicio_dtInicio) e igual ou posterior a 01/01/1890.
 
 Nome: tpRegTrab
 Pai: infoTrabCedido
@@ -1412,7 +1414,7 @@ Tipo: -
 Ocorrência: 0-1
 Tamanho: -
 Dec.: -
-Descrição: Informações relativas ao estagiário.
+Descrição: Informações relativas ao estagiário ou ao beneficiário do Programa Nacional de Prestação de Serviço Civil Voluntário.
 
 Nome: natEstagio
 Pai: infoEstagiario
@@ -1421,19 +1423,20 @@ Tipo: C
 Ocorrência: 1
 Tamanho: 1
 Dec.: -
-Descrição: Natureza do estágio.
+Descrição: Natureza do estágio ou da prestação de serviço civil voluntário.
 Valores válidos:
 O - Obrigatório
 N - Não obrigatório
+Validação: Se o código de categoria for igual a [906], deve ser preenchido com [N].
 
 Nome: nivEstagio
 Pai: infoEstagiario
 Elem.: E
 Tipo: N
-Ocorrência: 1
+Ocorrência: 0-1
 Tamanho: 1
 Dec.: -
-Descrição: Informar o nível do estágio.
+Descrição: Informar o nível do estágio ou da prestação de serviço civil voluntário.
 Valores válidos:
 1 - Fundamental
 2 - Médio
@@ -1441,6 +1444,7 @@ Valores válidos:
 4 - Superior
 8 - Especial
 9 - Mãe social (Lei 7.644/1987)
+Validação: Preenchimento obrigatório se o código de categoria for igual a [901]. Se o código de categoria for igual a [906], não pode ser informado [9].
 
 Nome: areaAtuacao
 Pai: infoEstagiario
@@ -1449,7 +1453,7 @@ Tipo: C
 Ocorrência: 0-1
 Tamanho: 1-100
 Dec.: -
-Descrição: Área de atuação do estagiário.
+Descrição: Área de atuação do estagiário ou, no caso de prestação de serviço civil voluntário, jornada semanal do desempenho de atividades em formato decimal.
 
 Nome: nrApol
 Pai: infoEstagiario
@@ -1467,8 +1471,8 @@ Tipo: D
 Ocorrência: 1
 Tamanho: -
 Dec.: -
-Descrição: Data prevista para o término do estágio.
-Validação: Deve ser uma data posterior à data de início do estágio.
+Descrição: Data prevista para o término do estágio ou da prestação de serviço civil voluntário.
+Validação: Deve ser uma data posterior à data de início do estágio ou da prestação de serviço civil voluntário.
 
 Nome: instEnsino
 Pai: infoEstagiario
@@ -1477,7 +1481,7 @@ Tipo: -
 Ocorrência: 1
 Tamanho: -
 Dec.: -
-Descrição: Instituição de ensino.
+Descrição: Instituição de ensino ou entidade de formação/qualificação.
 
 Nome: cnpjInstEnsino
 Pai: instEnsino
@@ -1486,7 +1490,7 @@ Tipo: C
 Ocorrência: 0-1
 Tamanho: 14
 Dec.: -
-Descrição: Preencher com o CNPJ da instituição de ensino. Deve ser preenchido apenas se a instituição de ensino for brasileira.
+Descrição: Preencher com o CNPJ da instituição de ensino, no caso de estágio, ou da entidade de formação/qualificação, no caso de prestação de serviço civil voluntário. Deve ser preenchido apenas se a instituição/entidade for brasileira.
 Validação: Se informado, deve ser um CNPJ válido, com 14 (catorze) algarismos.
 
 Nome: nmRazao
