@@ -125,7 +125,7 @@ Chave: tpInsc, nrInsc, codCateg
 Condição: O
 
 Nível: 4
-Nome: quarentena
+Nome: remunAposTerm
 Pai: infoTSVTermino
 Descrição: Informações sobre a quarentena remunerada ou outra situação de término com data anterior
 Ocorrência: 0-1
@@ -716,7 +716,7 @@ Dec.: 2
 Descrição: Preencher com o valor da remuneração recebida pelo trabalhador na outra empresa/atividade, sobre a qual houve desconto/recolhimento da contribuição do segurado.
 Validação: Deve ser maior que 0 (zero).
 
-Nome: quarentena
+Nome: remunAposTerm
 Pai: infoTSVTermino
 Elem.: G
 Tipo: -
@@ -726,8 +726,21 @@ Dec.: -
 Descrição: Informações sobre a "quarentena" remunerada de trabalhador desligado ou outra situação de término com data anterior.
 O grupo deve ser preenchido apenas no caso do trabalhador que recebe remuneração após o desligamento por estar impossibilitado de exercer atividade remunerada ou no caso de término reconhecido judicialmente com data anterior a competências com remunerações já informadas no eSocial.
 
-Nome: dtFimQuar
-Pai: quarentena
+Nome: indRemun
+Pai: remunAposTerm
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo de situação de remuneração após o término.
+Valores válidos:
+1 - Quarentena
+2 - Término reconhecido judicialmente com data anterior a competências com remunerações já informadas no eSocial
+Validação: Informação obrigatória se {dtTerm}(2399_infoTSVTermino_dtTerm) >= [2022-XX-XX].
+
+Nome: dtFimRemun
+Pai: remunAposTerm
 Elem.: E
 Tipo: D
 Ocorrência: 1
