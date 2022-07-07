@@ -343,7 +343,7 @@
                                                 </xs:sequence>
                                             </xs:complexType>
                                         </xs:element>
-                                        <xs:element name="quarentena" minOccurs="0">
+                                        <xs:element name="remunAposDeslig" minOccurs="0">
                                             <xs:annotation>
                                                 <xs:documentation>Informações sobre a quarentena remunerada ou outra situação de desligamento com data anterior</xs:documentation>
                                                 <xs:documentation>DESCRICAO_COMPLETA:Informações sobre a "quarentena" remunerada de trabalhador desligado ou outra situação de desligamento com data anterior.</xs:documentation>
@@ -352,7 +352,32 @@
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>
-                                                    <xs:element name="dtFimQuar" type="xs:date">
+                                                    <xs:element name="indRemun" minOccurs="0">
+                                                        <xs:simpleType>
+                                                            <xs:annotation>
+                                                                <xs:documentation>Indicativo de situação de remuneração após o desligamento.</xs:documentation>
+                                                                <xs:documentation>Validação: Informação obrigatória se {dtDeslig}(2299_infoDeslig_dtDeslig) >= [2022-XX-XX].</xs:documentation>
+                                                            </xs:annotation>
+                                                            <xs:restriction base="xs:byte">
+                                                                <xs:enumeration value="1">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Quarentena</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:enumeration>
+                                                                <xs:enumeration value="2">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Desligamento reconhecido judicialmente com data anterior a competências com remunerações já informadas no eSocial</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:enumeration>
+                                                                <xs:enumeration value="3">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Aposentadoria de servidor com data anterior a competências com remunerações já informadas no eSocial</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:enumeration>
+                                                            </xs:restriction>
+                                                        </xs:simpleType>
+                                                    </xs:element>
+                                                    <xs:element name="dtFimRemun" type="xs:date">
                                                         <xs:annotation>
                                                             <xs:documentation>Preencher com a data final da quarentena a que está sujeito o trabalhador. No caso de desligamento reconhecido judicialmente ou de concessão de aposentadoria de servidor com data anterior a competências com remunerações já informadas no eSocial, informar o último dia trabalhado.</xs:documentation>
                                                             <xs:documentation>Validação: Deve ser uma data posterior a {dtDeslig}(2299_infoDeslig_dtDeslig).</xs:documentation>

@@ -245,7 +245,7 @@ Chave: -
 Condição: OC
 
 Nível: 4
-Nome: quarentena
+Nome: remunAposDeslig
 Pai: infoDeslig
 Descrição: Informações sobre a quarentena remunerada ou outra situação de desligamento com data anterior
 Ocorrência: 0-1
@@ -1252,7 +1252,7 @@ Dec.: -
 Descrição: Informar um número de processo judicial cadastrado através do evento S-1070, cujo {indMatProc}(1070_infoProcesso_inclusao_dadosProc_indMatProc) seja igual a [1, 7].
 Validação: Deve ser um número de processo judicial válido e existente na Tabela de Processos (S-1070), com {indMatProc}(1070_infoProcesso_inclusao_dadosProc_indMatProc) = [1, 7].
 
-Nome: quarentena
+Nome: remunAposDeslig
 Pai: infoDeslig
 Elem.: G
 Tipo: -
@@ -1262,8 +1262,22 @@ Dec.: -
 Descrição: Informações sobre a "quarentena" remunerada de trabalhador desligado ou outra situação de desligamento com data anterior.
 O grupo deve ser preenchido apenas no caso do trabalhador que recebe remuneração após o desligamento por estar impossibilitado de exercer atividade remunerada, no caso de desligamento reconhecido judicialmente com data anterior a competências com remunerações já informadas ou em caso de concessão de aposentadoria de servidor com data anterior a competências com remunerações já informadas no eSocial.
 
-Nome: dtFimQuar
-Pai: quarentena
+Nome: indRemun
+Pai: remunAposDeslig
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo de situação de remuneração após o desligamento.
+Valores válidos:
+1 - Quarentena
+2 - Desligamento reconhecido judicialmente com data anterior a competências com remunerações já informadas no eSocial
+3 - Aposentadoria de servidor com data anterior a competências com remunerações já informadas no eSocial
+Validação: Informação obrigatória se {dtDeslig}(2299_infoDeslig_dtDeslig) >= [2022-XX-XX].
+
+Nome: dtFimRemun
+Pai: remunAposDeslig
 Elem.: E
 Tipo: D
 Ocorrência: 1
