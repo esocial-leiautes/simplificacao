@@ -41,15 +41,15 @@ Ocorrência: 1
 Chave: nrProcTrab*, perApur*
 Condição: O
 
-Nível: 3
+Nível: 4
 Nome: infoTributos
-Pai: evtTribProcTrab
+Pai: ideProc
 Descrição: Identificação do período e da base de cálculo dos tributos referentes ao processo trabalhista.
 Ocorrência: 1-999
 Chave: perRef
 Condição: O
 
-Nível: 4
+Nível: 5
 Nome: infoCRContrib
 Pai: infoTributos
 Descrição: Informações das contribuições sociais referentes ao processo trabalhista.
@@ -59,7 +59,7 @@ Condição: OC
 
 Nível: 4
 Nome: infoCRIRRF
-Pai: infoTributos
+Pai: ideProc
 Descrição: Informações de IRRF referentes ao processo trabalhista.
 Ocorrência: 0-99
 Chave: tpCR
@@ -173,7 +173,7 @@ Validação: a) Se o evento de origem for S-2501, retornar o campo {perApurPgto}
 b) Se o evento de origem for S-3500, retornar o campo {perApurPgto}(2501_ideProc_perApurPgto) do evento S-2501 objeto da exclusão.
 
 Nome: infoTributos
-Pai: evtTribProcTrab
+Pai: ideProc
 Elem.: G
 Tipo: -
 Ocorrência: 1-999
@@ -189,8 +189,8 @@ Ocorrência: 1
 Tamanho: 7
 Dec.: -
 Descrição: Informar o mês/ano (formato AAAA-MM) de referência das informações.
-Validação: a) Se o evento de origem for S-2501, retornar o campo {perRef}(2501_calcTrib_perRef) desse evento;
-b) Se o evento de origem for S-3500, retornar o campo {perRef}(2501_calcTrib_perRef) do evento S-2501 objeto da exclusão.
+Validação: a) Se o evento de origem for S-2501, retornar o campo {perRef}(2501_ideTrab_calcTrib_perRef) desse evento;
+b) Se o evento de origem for S-3500, retornar o campo {perRef}(2501_ideTrab_calcTrib_perRef) do evento S-2501 objeto da exclusão.
 
 Nome: infoCRContrib
 Pai: infoTributos
@@ -223,13 +223,13 @@ Validação: Deve ser apurado de acordo com a legislação em vigor na competên
 Deve ser maior que 0 (zero).
 
 Nome: infoCRIRRF
-Pai: infoTributos
+Pai: ideProc
 Elem.: G
 Tipo: -
 Ocorrência: 0-99
 Tamanho: -
 Dec.: -
-Descrição: Informações de Imposto de Renda Retido na Fonte, consolidadas por {perRef}(../perRef) e por Código de Receita - CR.
+Descrição: Informações de Imposto de Renda Retido na Fonte, consolidadas por Código de Receita - CR.
 
 Nome: tpCR
 Pai: infoCRIRRF

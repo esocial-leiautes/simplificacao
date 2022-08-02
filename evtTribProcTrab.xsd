@@ -71,49 +71,49 @@
                                                 <xs:documentation>b) Se o evento de origem for S-3500, retornar o campo {perApurPgto}(2501_ideProc_perApurPgto) do evento S-2501 objeto da exclusão.</xs:documentation>
                                             </xs:annotation>
                                         </xs:element>
-                                    </xs:sequence>
-                                </xs:complexType>
-                            </xs:element>
-                            <xs:element name="infoTributos" maxOccurs="999">
-                                <xs:annotation>
-                                    <xs:documentation>Identificação do período e da base de cálculo dos tributos referentes ao processo trabalhista.</xs:documentation>
-                                    <xs:documentation>CHAVE_GRUPO: {perRef}</xs:documentation>
-                                </xs:annotation>
-                                <xs:complexType>
-                                    <xs:sequence>
-                                        <xs:element name="perRef" type="TS_periodo_mensal">
+                                        <xs:element name="infoTributos" maxOccurs="999">
                                             <xs:annotation>
-                                                <xs:documentation>Informar o mês/ano (formato AAAA-MM) de referência das informações.</xs:documentation>
-                                                <xs:documentation>Validação: a) Se o evento de origem for S-2501, retornar o campo {perRef}(2501_calcTrib_perRef) desse evento;</xs:documentation>
-                                                <xs:documentation>b) Se o evento de origem for S-3500, retornar o campo {perRef}(2501_calcTrib_perRef) do evento S-2501 objeto da exclusão.</xs:documentation>
-                                            </xs:annotation>
-                                        </xs:element>
-                                        <xs:element name="infoCRContrib" minOccurs="0" maxOccurs="99">
-                                            <xs:annotation>
-                                                <xs:documentation>Informações das contribuições sociais referentes ao processo trabalhista.</xs:documentation>
-                                                <xs:documentation>DESCRICAO_COMPLETA:Informações das contribuições sociais devidas à Previdência Social e Outras Entidades e Fundos, consolidadas por {perRef}(../perRef) e por Código de Receita - CR.</xs:documentation>
-                                                <xs:documentation>CHAVE_GRUPO: {tpCR}</xs:documentation>
-                                                <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
+                                                <xs:documentation>Identificação do período e da base de cálculo dos tributos referentes ao processo trabalhista.</xs:documentation>
+                                                <xs:documentation>CHAVE_GRUPO: {perRef}</xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>
-                                                    <xs:element name="tpCR">
-                                                        <xs:simpleType>
-                                                            <xs:annotation>
-                                                                <xs:documentation>Código de Receita - CR relativo a contribuições sociais devidas à Previdência Social e a Outras Entidades e Fundos (Terceiros), conforme legislação em vigor na competência.</xs:documentation>
-                                                                <xs:documentation>Validação: Deve ser um código válido e existente na Tabela 29.</xs:documentation>
-                                                            </xs:annotation>
-                                                            <xs:restriction base="xs:integer">
-                                                                <xs:pattern value="\d{6}" />
-                                                            </xs:restriction>
-                                                        </xs:simpleType>
-                                                    </xs:element>
-                                                    <xs:element name="vrCR" type="TS_valorMonetario_positivo">
+                                                    <xs:element name="perRef" type="TS_periodo_mensal">
                                                         <xs:annotation>
-                                                            <xs:documentation>Valor correspondente ao Código de Receita - CR.</xs:documentation>
-                                                            <xs:documentation>Validação: Deve ser apurado de acordo com a legislação em vigor na competência.</xs:documentation>
-                                                            <xs:documentation>Deve ser maior que 0 (zero).</xs:documentation>
+                                                            <xs:documentation>Informar o mês/ano (formato AAAA-MM) de referência das informações.</xs:documentation>
+                                                            <xs:documentation>Validação: a) Se o evento de origem for S-2501, retornar o campo {perRef}(2501_ideTrab_calcTrib_perRef) desse evento;</xs:documentation>
+                                                            <xs:documentation>b) Se o evento de origem for S-3500, retornar o campo {perRef}(2501_ideTrab_calcTrib_perRef) do evento S-2501 objeto da exclusão.</xs:documentation>
                                                         </xs:annotation>
+                                                    </xs:element>
+                                                    <xs:element name="infoCRContrib" minOccurs="0" maxOccurs="99">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Informações das contribuições sociais referentes ao processo trabalhista.</xs:documentation>
+                                                            <xs:documentation>DESCRICAO_COMPLETA:Informações das contribuições sociais devidas à Previdência Social e Outras Entidades e Fundos, consolidadas por {perRef}(../perRef) e por Código de Receita - CR.</xs:documentation>
+                                                            <xs:documentation>CHAVE_GRUPO: {tpCR}</xs:documentation>
+                                                            <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
+                                                        </xs:annotation>
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:element name="tpCR">
+                                                                    <xs:simpleType>
+                                                                        <xs:annotation>
+                                                                            <xs:documentation>Código de Receita - CR relativo a contribuições sociais devidas à Previdência Social e a Outras Entidades e Fundos (Terceiros), conforme legislação em vigor na competência.</xs:documentation>
+                                                                            <xs:documentation>Validação: Deve ser um código válido e existente na Tabela 29.</xs:documentation>
+                                                                        </xs:annotation>
+                                                                        <xs:restriction base="xs:integer">
+                                                                            <xs:pattern value="\d{6}" />
+                                                                        </xs:restriction>
+                                                                    </xs:simpleType>
+                                                                </xs:element>
+                                                                <xs:element name="vrCR" type="TS_valorMonetario_positivo">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Valor correspondente ao Código de Receita - CR.</xs:documentation>
+                                                                        <xs:documentation>Validação: Deve ser apurado de acordo com a legislação em vigor na competência.</xs:documentation>
+                                                                        <xs:documentation>Deve ser maior que 0 (zero).</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:element>
+                                                            </xs:sequence>
+                                                        </xs:complexType>
                                                     </xs:element>
                                                 </xs:sequence>
                                             </xs:complexType>
@@ -121,7 +121,7 @@
                                         <xs:element name="infoCRIRRF" minOccurs="0" maxOccurs="99">
                                             <xs:annotation>
                                                 <xs:documentation>Informações de IRRF referentes ao processo trabalhista.</xs:documentation>
-                                                <xs:documentation>DESCRICAO_COMPLETA:Informações de Imposto de Renda Retido na Fonte, consolidadas por {perRef}(../perRef) e por Código de Receita - CR.</xs:documentation>
+                                                <xs:documentation>DESCRICAO_COMPLETA:Informações de Imposto de Renda Retido na Fonte, consolidadas por Código de Receita - CR.</xs:documentation>
                                                 <xs:documentation>CHAVE_GRUPO: {tpCR}</xs:documentation>
                                                 <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
                                             </xs:annotation>
