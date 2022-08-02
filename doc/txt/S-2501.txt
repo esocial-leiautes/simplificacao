@@ -42,14 +42,22 @@ Chave: nrProcTrab*, perApurPgto*
 Condição: O
 
 Nível: 3
-Nome: calcTrib
+Nome: ideTrab
 Pai: evtContProc
-Descrição: Identificação do trabalhador, do período e da base de cálculo dos tributos.
+Descrição: Identificação do trabalhador.
 Ocorrência: 1-N
-Chave: cpfTrab, perRef
+Chave: cpfTrab
 Condição: O
 
 Nível: 4
+Nome: calcTrib
+Pai: ideTrab
+Descrição: Identificação do período e da base de cálculo dos tributos.
+Ocorrência: 1-360
+Chave: perRef
+Condição: O
+
+Nível: 5
 Nome: infoCRContrib
 Pai: calcTrib
 Descrição: Informações das contribuições sociais.
@@ -59,7 +67,7 @@ Condição: OC
 
 Nível: 4
 Nome: infoCRIRRF
-Pai: calcTrib
+Pai: ideTrab
 Descrição: Informações de IRRF.
 Ocorrência: 0-99
 Chave: tpCR
@@ -237,17 +245,17 @@ Tamanho: 1-999
 Dec.: -
 Descrição: Observação referente ao pagamento de parcela prevista no acordo/sentença.
 
-Nome: calcTrib
+Nome: ideTrab
 Pai: evtContProc
 Elem.: G
 Tipo: -
 Ocorrência: 1-N
 Tamanho: -
 Dec.: -
-Descrição: Identificação do trabalhador, do período e da base de cálculo dos tributos.
+Descrição: Identificação do trabalhador.
 
 Nome: cpfTrab
-Pai: calcTrib
+Pai: ideTrab
 Elem.: A
 Tipo: C
 Ocorrência: 1
@@ -255,6 +263,15 @@ Tamanho: 11
 Dec.: -
 Descrição: Preencher com o número do CPF do trabalhador.
 Validação: Deve ser um CPF válido e informado no evento S-2500.
+
+Nome: calcTrib
+Pai: ideTrab
+Elem.: G
+Tipo: -
+Ocorrência: 1-360
+Tamanho: -
+Dec.: -
+Descrição: Identificação do período e da base de cálculo dos tributos.
 
 Nome: perRef
 Pai: calcTrib
@@ -337,7 +354,7 @@ Validação: Deve ser informado de acordo com a legislação em vigor na compet�
 Deve ser maior que 0 (zero).
 
 Nome: infoCRIRRF
-Pai: calcTrib
+Pai: ideTrab
 Elem.: G
 Tipo: -
 Ocorrência: 0-99

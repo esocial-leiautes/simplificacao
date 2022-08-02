@@ -49,7 +49,7 @@
                                         <xs:element name="nrProcTrab" type="TS_nrProcTrab">
                                             <xs:annotation>
                                                 <xs:documentation>Número do processo trabalhista, da ata ou número de identificação da conciliação.</xs:documentation>
-                                                <xs:documentation>Validação: Deve ser um número de processo válido e declarado no evento S-2500 para o(s) trabalhador(es) informado(s) em {cpfTrab}(2501_calcTrib_cpfTrab).</xs:documentation>
+                                                <xs:documentation>Validação: Deve ser um número de processo válido e declarado no evento S-2500 para o(s) trabalhador(es) informado(s) em {cpfTrab}(2501_ideTrab_cpfTrab).</xs:documentation>
                                             </xs:annotation>
                                         </xs:element>
                                         <xs:element name="perApurPgto" type="TS_periodo_mensal">
@@ -66,40 +66,95 @@
                                     </xs:sequence>
                                 </xs:complexType>
                             </xs:element>
-                            <xs:element name="calcTrib" maxOccurs="unbounded">
+                            <xs:element name="ideTrab" maxOccurs="unbounded">
                                 <xs:annotation>
-                                    <xs:documentation>Identificação do trabalhador, do período e da base de cálculo dos tributos.</xs:documentation>
-                                    <xs:documentation>CHAVE_GRUPO: {cpfTrab}, {perRef}</xs:documentation>
+                                    <xs:documentation>Identificação do trabalhador.</xs:documentation>
+                                    <xs:documentation>CHAVE_GRUPO: {cpfTrab}</xs:documentation>
                                 </xs:annotation>
                                 <xs:complexType>
                                     <xs:sequence>
-                                        <xs:element name="infoCRContrib" minOccurs="0" maxOccurs="99">
+                                        <xs:element name="calcTrib" maxOccurs="360">
                                             <xs:annotation>
-                                                <xs:documentation>Informações das contribuições sociais.</xs:documentation>
-                                                <xs:documentation>DESCRICAO_COMPLETA:Informações das contribuições sociais devidas à Previdência Social e Outras Entidades e Fundos, por Código de Receita - CR.</xs:documentation>
-                                                <xs:documentation>CHAVE_GRUPO: {tpCR}</xs:documentation>
-                                                <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
+                                                <xs:documentation>Identificação do período e da base de cálculo dos tributos.</xs:documentation>
+                                                <xs:documentation>CHAVE_GRUPO: {perRef}</xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
-                                                <xs:attribute name="tpCR" use="required">
+                                                <xs:sequence>
+                                                    <xs:element name="infoCRContrib" minOccurs="0" maxOccurs="99">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Informações das contribuições sociais.</xs:documentation>
+                                                            <xs:documentation>DESCRICAO_COMPLETA:Informações das contribuições sociais devidas à Previdência Social e Outras Entidades e Fundos, por Código de Receita - CR.</xs:documentation>
+                                                            <xs:documentation>CHAVE_GRUPO: {tpCR}</xs:documentation>
+                                                            <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
+                                                        </xs:annotation>
+                                                        <xs:complexType>
+                                                            <xs:attribute name="tpCR" use="required">
+                                                                <xs:annotation>
+                                                                    <xs:documentation>Código de Receita - CR relativo a contribuições sociais devidas à Previdência Social e a Outras Entidades e Fundos (Terceiros), conforme legislação em vigor na competência.</xs:documentation>
+                                                                    <xs:documentation>Validação: Deve ser um código válido e existente na Tabela 29.</xs:documentation>
+                                                                </xs:annotation>
+                                                                <xs:simpleType>
+                                                                    <xs:restriction base="xs:integer">
+                                                                        <xs:pattern value="\d{6}" />
+                                                                    </xs:restriction>
+                                                                </xs:simpleType>
+                                                            </xs:attribute>
+                                                            <xs:attribute name="vrCR" use="required">
+                                                                <xs:annotation>
+                                                                    <xs:documentation>Valor correspondente ao Código de Receita - CR.</xs:documentation>
+                                                                    <xs:documentation>Validação: Deve ser informado de acordo com a legislação em vigor na competência.</xs:documentation>
+                                                                    <xs:documentation>Deve ser maior que 0 (zero).</xs:documentation>
+                                                                </xs:annotation>
+                                                                <xs:simpleType>
+                                                                    <xs:restriction base="TS_valorMonetario_positivo" />
+                                                                </xs:simpleType>
+                                                            </xs:attribute>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                </xs:sequence>
+                                                <xs:attribute name="perRef" use="required">
                                                     <xs:annotation>
-                                                        <xs:documentation>Código de Receita - CR relativo a contribuições sociais devidas à Previdência Social e a Outras Entidades e Fundos (Terceiros), conforme legislação em vigor na competência.</xs:documentation>
-                                                        <xs:documentation>Validação: Deve ser um código válido e existente na Tabela 29.</xs:documentation>
+                                                        <xs:documentation>Informar o mês/ano (formato AAAA-MM) de referência das informações.</xs:documentation>
+                                                        <xs:documentation>Validação: Deve ser um período existente no evento S-2500 para o trabalhador indicado em {cpfTrab}(../cpfTrab).</xs:documentation>
                                                     </xs:annotation>
                                                     <xs:simpleType>
-                                                        <xs:restriction base="xs:integer">
-                                                            <xs:pattern value="\d{6}" />
-                                                        </xs:restriction>
+                                                        <xs:restriction base="TS_periodo_mensal" />
                                                     </xs:simpleType>
                                                 </xs:attribute>
-                                                <xs:attribute name="vrCR" use="required">
+                                                <xs:attribute name="vrBcCpMensal" use="required">
                                                     <xs:annotation>
-                                                        <xs:documentation>Valor correspondente ao Código de Receita - CR.</xs:documentation>
-                                                        <xs:documentation>Validação: Deve ser informado de acordo com a legislação em vigor na competência.</xs:documentation>
-                                                        <xs:documentation>Deve ser maior que 0 (zero).</xs:documentation>
+                                                        <xs:documentation>Valor da base de cálculo da contribuição previdenciária sobre a remuneração mensal do trabalhador.</xs:documentation>
+                                                        <xs:documentation>Validação: Deve ser maior ou igual a 0 (zero).</xs:documentation>
                                                     </xs:annotation>
                                                     <xs:simpleType>
-                                                        <xs:restriction base="TS_valorMonetario_positivo" />
+                                                        <xs:restriction base="TS_valorMonetario" />
+                                                    </xs:simpleType>
+                                                </xs:attribute>
+                                                <xs:attribute name="vrBcCp13" use="required">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Valor da base de cálculo da contribuição previdenciária sobre a remuneração do trabalhador referente ao 13º salário.</xs:documentation>
+                                                        <xs:documentation>Validação: Deve ser maior ou igual a 0 (zero).</xs:documentation>
+                                                    </xs:annotation>
+                                                    <xs:simpleType>
+                                                        <xs:restriction base="TS_valorMonetario" />
+                                                    </xs:simpleType>
+                                                </xs:attribute>
+                                                <xs:attribute name="vrRendIRRF" use="required">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Valor do rendimento tributável do Imposto de Renda.</xs:documentation>
+                                                        <xs:documentation>Validação: Deve ser maior ou igual a 0 (zero).</xs:documentation>
+                                                    </xs:annotation>
+                                                    <xs:simpleType>
+                                                        <xs:restriction base="TS_valorMonetario" />
+                                                    </xs:simpleType>
+                                                </xs:attribute>
+                                                <xs:attribute name="vrRendIRRF13" use="required">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Valor do rendimento tributável do Imposto de Renda referente ao 13º salário - Tributação exclusiva.</xs:documentation>
+                                                        <xs:documentation>Validação: Deve ser maior ou igual a 0 (zero).</xs:documentation>
+                                                    </xs:annotation>
+                                                    <xs:simpleType>
+                                                        <xs:restriction base="TS_valorMonetario" />
                                                     </xs:simpleType>
                                                 </xs:attribute>
                                             </xs:complexType>
@@ -143,51 +198,6 @@
                                         </xs:annotation>
                                         <xs:simpleType>
                                             <xs:restriction base="TS_cpfTrab" />
-                                        </xs:simpleType>
-                                    </xs:attribute>
-                                    <xs:attribute name="perRef" use="required">
-                                        <xs:annotation>
-                                            <xs:documentation>Informar o mês/ano (formato AAAA-MM) de referência das informações.</xs:documentation>
-                                            <xs:documentation>Validação: Deve ser um período existente no evento S-2500 para o trabalhador indicado em {cpfTrab}(./cpfTrab).</xs:documentation>
-                                        </xs:annotation>
-                                        <xs:simpleType>
-                                            <xs:restriction base="TS_periodo_mensal" />
-                                        </xs:simpleType>
-                                    </xs:attribute>
-                                    <xs:attribute name="vrBcCpMensal" use="required">
-                                        <xs:annotation>
-                                            <xs:documentation>Valor da base de cálculo da contribuição previdenciária sobre a remuneração mensal do trabalhador.</xs:documentation>
-                                            <xs:documentation>Validação: Deve ser maior ou igual a 0 (zero).</xs:documentation>
-                                        </xs:annotation>
-                                        <xs:simpleType>
-                                            <xs:restriction base="TS_valorMonetario" />
-                                        </xs:simpleType>
-                                    </xs:attribute>
-                                    <xs:attribute name="vrBcCp13" use="required">
-                                        <xs:annotation>
-                                            <xs:documentation>Valor da base de cálculo da contribuição previdenciária sobre a remuneração do trabalhador referente ao 13º salário.</xs:documentation>
-                                            <xs:documentation>Validação: Deve ser maior ou igual a 0 (zero).</xs:documentation>
-                                        </xs:annotation>
-                                        <xs:simpleType>
-                                            <xs:restriction base="TS_valorMonetario" />
-                                        </xs:simpleType>
-                                    </xs:attribute>
-                                    <xs:attribute name="vrRendIRRF" use="required">
-                                        <xs:annotation>
-                                            <xs:documentation>Valor do rendimento tributável do Imposto de Renda.</xs:documentation>
-                                            <xs:documentation>Validação: Deve ser maior ou igual a 0 (zero).</xs:documentation>
-                                        </xs:annotation>
-                                        <xs:simpleType>
-                                            <xs:restriction base="TS_valorMonetario" />
-                                        </xs:simpleType>
-                                    </xs:attribute>
-                                    <xs:attribute name="vrRendIRRF13" use="required">
-                                        <xs:annotation>
-                                            <xs:documentation>Valor do rendimento tributável do Imposto de Renda referente ao 13º salário - Tributação exclusiva.</xs:documentation>
-                                            <xs:documentation>Validação: Deve ser maior ou igual a 0 (zero).</xs:documentation>
-                                        </xs:annotation>
-                                        <xs:simpleType>
-                                            <xs:restriction base="TS_valorMonetario" />
                                         </xs:simpleType>
                                     </xs:attribute>
                                 </xs:complexType>
