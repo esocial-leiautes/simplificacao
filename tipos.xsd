@@ -686,36 +686,7 @@
                     </xs:restriction>
                 </xs:simpleType>
             </xs:element>
-            <xs:element name="tmpParc">
-                <xs:simpleType>
-                    <xs:annotation>
-                        <xs:documentation>Preencher com o código relativo ao tipo de contrato em tempo parcial.</xs:documentation>
-                        <xs:documentation>Validação: O código [1] só é válido se {codCateg}(../codCateg) = [104]. Os códigos [2, 3] não são válidos se {codCateg}(../codCateg) = [104].</xs:documentation>
-                    </xs:annotation>
-                    <xs:restriction base="xs:byte">
-                        <xs:enumeration value="0">
-                            <xs:annotation>
-                                <xs:documentation>Não é contrato em tempo parcial</xs:documentation>
-                            </xs:annotation>
-                        </xs:enumeration>
-                        <xs:enumeration value="1">
-                            <xs:annotation>
-                                <xs:documentation>Limitado a 25 horas semanais</xs:documentation>
-                            </xs:annotation>
-                        </xs:enumeration>
-                        <xs:enumeration value="2">
-                            <xs:annotation>
-                                <xs:documentation>Limitado a 30 horas semanais</xs:documentation>
-                            </xs:annotation>
-                        </xs:enumeration>
-                        <xs:enumeration value="3">
-                            <xs:annotation>
-                                <xs:documentation>Limitado a 26 horas semanais</xs:documentation>
-                            </xs:annotation>
-                        </xs:enumeration>
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:element>
+            <xs:element name="tmpParc" type="TS_tmpParc" />
             <xs:element name="horNoturno" minOccurs="0" type="TS_sim_nao">
                 <xs:annotation>
                     <xs:documentation>Indicar se a jornada semanal possui horário noturno (no todo ou em parte).</xs:documentation>
@@ -2076,6 +2047,7 @@
         <xs:annotation>
             <xs:documentation>Indicativo de Rendimentos Recebidos Acumuladamente - RRA.</xs:documentation>
             <xs:documentation>Somente preencher este campo se for um demonstrativo de RRA.</xs:documentation>
+            <xs:documentation>Validação: O campo apenas pode ser informado se {perApur}(/ideEvento_perApur) >= [2023-03] (se {indApuracao}(/ideEvento_indApuracao) = [1]) ou se {perApur}(/ideEvento_perApur) >= [2023] (se {indApuracao}(/ideEvento_indApuracao) = [2]).</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:string">
             <xs:enumeration value="S">
@@ -3201,6 +3173,37 @@
             <xs:documentation>Validação: O preenchimento é obrigatório e exclusivo se {tpContr}(./tpContr) = [3].</xs:documentation>
         </xs:annotation>
         <xs:restriction base="TS_texto_255" />
+    </xs:simpleType>
+
+    <!-- Campo {tmpParc} -->
+
+    <xs:simpleType name="TS_tmpParc">
+        <xs:annotation>
+            <xs:documentation>Preencher com o código relativo ao tipo de contrato em tempo parcial.</xs:documentation>
+            <xs:documentation>Validação: O código [1] só é válido se {codCateg}(../codCateg) = [104]. Os códigos [2, 3] não são válidos se {codCateg}(../codCateg) = [104].</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:byte">
+            <xs:enumeration value="0">
+                <xs:annotation>
+                    <xs:documentation>Não é contrato em tempo parcial</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="1">
+                <xs:annotation>
+                    <xs:documentation>Limitado a 25 horas semanais</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="2">
+                <xs:annotation>
+                    <xs:documentation>Limitado a 30 horas semanais</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="3">
+                <xs:annotation>
+                    <xs:documentation>Limitado a 26 horas semanais</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
     </xs:simpleType>
 
     <!-- Campo {codMotAfast} -->
