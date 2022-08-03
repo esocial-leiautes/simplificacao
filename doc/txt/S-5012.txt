@@ -1,0 +1,265 @@
+S-5012 - evtIrrf
+Imposto de Renda Retido na Fonte Consolidado por Contribuinte
+
+Nível: 1
+Nome: eSocial
+Pai: -
+Descrição: eSocial
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 2
+Nome: evtIrrf
+Pai: eSocial
+Descrição: Evento IRRF Consolidado por Contribuinte.
+Ocorrência: 1
+Chave: Id
+Condição: O
+
+Nível: 3
+Nome: ideEvento
+Pai: evtIrrf
+Descrição: Identificação do evento de retorno.
+Ocorrência: 1
+Chave: perApur*
+Condição: O
+
+Nível: 3
+Nome: ideEmpregador
+Pai: evtIrrf
+Descrição: Informações de identificação do empregador.
+Ocorrência: 1
+Chave: tpInsc*, nrInsc*
+Condição: O
+
+Nível: 3
+Nome: infoIRRF
+Pai: evtIrrf
+Descrição: Informações relativas ao Imposto de Renda.
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 4
+Nome: infoCRMen
+Pai: infoIRRF
+Descrição: Totalizador do IRRF por CR mensal.
+Ocorrência: 0-50
+Chave: CRMen
+Condição: OC
+
+Nível: 4
+Nome: infoCRDia
+Pai: infoIRRF
+Descrição: Totalizador do IRRF por CR diário.
+Ocorrência: 0-350
+Chave: perApurDia, CRDia
+Condição: OC
+
+Nome: eSocial
+Pai: -
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: eSocial
+
+Nome: evtIrrf
+Pai: eSocial
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Evento Imposto de Renda Retido na Fonte Consolidado por Contribuinte.
+
+Nome: Id
+Pai: evtIrrf
+Elem.: A
+Tipo: C
+Ocorrência: 1
+Tamanho: 36
+Dec.: -
+Descrição: Identificação única do evento.
+
+Nome: ideEvento
+Pai: evtIrrf
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Identificação do evento de retorno.
+Evento de origem: S-1299.
+
+Nome: perApur
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 7
+Dec.: -
+Descrição: Informar o mês/ano (formato AAAA-MM) de referência das informações.
+
+Nome: ideEmpregador
+Pai: evtIrrf
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do empregador.
+
+Nome: tpInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+
+Nome: nrInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 8, 11 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {ideEmpregador/tpInsc}(./tpInsc) e conforme informado em S-1000.
+
+Nome: infoIRRF
+Pai: evtIrrf
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações relativas ao Imposto de Renda.
+
+Nome: nrRecArqBase
+Pai: infoIRRF
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 23
+Dec.: -
+Descrição: Preencher com o número do recibo do arquivo que deu origem ao presente arquivo de retorno ao empregador.
+Validação: Deve ser um recibo de entrega válido, correspondente ao arquivo que deu origem ao presente arquivo de retorno (S-1299).
+
+Nome: indExistInfo
+Pai: infoIRRF
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo de existência de valores de bases ou de tributos.
+Valores válidos:
+1 - Há informações de IRRF
+2 - Há movimento, porém não há informações de IRRF
+3 - Não há movimento no período informado em <a href="#5012_ideEvento_perApur">perApur</a>
+
+Nome: infoCRMen
+Pai: infoIRRF
+Elem.: G
+Tipo: -
+Ocorrência: 0-50
+Tamanho: -
+Dec.: -
+Descrição: Informações consolidadas do IRRF, por Código de Receita - CR mensal.
+Evento de origem: S-5002.
+
+Nome: CRMen
+Pai: infoCRMen
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 6
+Dec.: -
+Descrição: Código de Receita - CR relativo ao Imposto de Renda Retido na Fonte sobre rendimentos do trabalho.
+Valores válidos:
+056107 - IRRF mensal, 13° salário e férias sobre trabalho assalariado no país ou ausente no exterior a serviço do país, exceto se contratado por empregador doméstico ou por segurado especial sujeito a recolhimento unificado
+056108 - IRRF mensal e férias - Empregado doméstico
+056109 - IRRF 13° salário na rescisão de contrato de trabalho - Empregado doméstico
+056110 - IRRF - Empregado doméstico 13º salário
+056111 - IRRF - Empregado/Trabalhador rural - Segurado especial
+056112 - IRRF - Empregado/Trabalhador rural - Segurado especial 13° salário
+056113 - IRRF - Empregado/Trabalhador rural - Segurado especial 13° salário rescisório
+058806 - IRRF sobre rendimento do trabalho sem vínculo empregatício
+061001 - IRRF sobre rendimentos relativos a prestação de serviços de transporte rodoviário internacional de carga, pagos a transportador autônomo PF residente no Paraguai
+353301 - Proventos de aposentadoria, reserva, reforma ou pensão pagos por previdência pública
+356201 - IRRF sobre participação dos trabalhadores em lucros ou resultados - PLR
+188901 - Rendimentos Recebidos Acumuladamente - RRA
+
+Nome: vrCRMen
+Pai: infoCRMen
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor correspondente ao Código de Receita - CR indicado em {CRMen}(./CRMen).
+
+Nome: vrCRMenSusp
+Pai: infoCRMen
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor com exigibilidade suspensa correspondente ao Código de Receita - CR indicado em {CRMen}(./CRMen).
+
+Nome: infoCRDia
+Pai: infoIRRF
+Elem.: G
+Tipo: -
+Ocorrência: 0-350
+Tamanho: -
+Dec.: -
+Descrição: Informações consolidadas do IRRF, por Código de Receita - CR diário.
+Evento de origem: S-5002.
+
+Nome: perApurDia
+Pai: infoCRDia
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-2
+Dec.: -
+Descrição: Período de apuração diário do Código de Receita - CR.
+
+Nome: CRDia
+Pai: infoCRDia
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 6
+Dec.: -
+Descrição: Código de Receita - CR relativo ao Imposto de Renda Retido na Fonte sobre rendimentos do trabalho pagos a residente no exterior para fins fiscais.
+Valores válidos:
+047301 - IRRF - Residentes no exterior, para fins fiscais
+
+Nome: vrCRDia
+Pai: infoCRDia
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor relativo ao Imposto de Renda Retido na Fonte sobre rendimentos do trabalho pagos a residente, para fins fiscais, no exterior.
+
+Nome: vrCRDiaSusp
+Pai: infoCRDia
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor que deixou de ser descontado do trabalhador relativo ao Imposto de Renda sobre rendimentos do trabalho pagos a residente, para fins fiscais, no exterior.
+
