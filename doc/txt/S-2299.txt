@@ -72,7 +72,7 @@ Pai: infoDeslig
 Descrição: Sucessão do vínculo trabalhista/estatutário
 Ocorrência: 0-1
 Chave: -
-Condição: O (se {mtvDeslig}(2299_infoDeslig_mtvDeslig) = [11, 12, 13, 28, 29, 30, 37, 43])
+Condição: O (se {mtvDeslig}(2299_infoDeslig_mtvDeslig) = [11, 12, 13, 28, 29, 37, 43])
 N (nos demais casos)
 
 Nível: 4
@@ -99,7 +99,7 @@ Pai: infoDeslig
 Descrição: Verbas rescisórias
 Ocorrência: 0-1
 Chave: -
-Condição: N (se {mtvDeslig}(2299_infoDeslig_mtvDeslig) = [11, 12, 13, 25, 28, 29, 30, 34, 36, 43] OU {dtDeslig}(2299_infoDeslig_dtDeslig) for anterior ao início de obrigatoriedade dos eventos periódicos para o empregador OU {tpRegTrab}(2200_vinculo_tpRegTrab) em S-2200 = [2])
+Condição: N (se {mtvDeslig}(2299_infoDeslig_mtvDeslig) = [11, 12, 13, 25, 28, 29, 30, 34, 36, 43, 44] OU {dtDeslig}(2299_infoDeslig_dtDeslig) for anterior ao início de obrigatoriedade dos eventos periódicos para o empregador OU {tpRegTrab}(2200_vinculo_tpRegTrab) em S-2200 = [2])
 OC (nos demais casos)
 
 Nível: 5
@@ -109,6 +109,31 @@ Descrição: Demonstrativo de valores devidos ao trabalhador
 Ocorrência: 1-50
 Chave: ideDmDev
 Condição: O
+
+Nível: 6
+Nome: infoRRA
+Pai: dmDev
+Descrição: Informações complementares de RRA.
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {indRRA}(../indRRA) = [S])
+N (nos demais casos)
+
+Nível: 7
+Nome: despProcJud
+Pai: infoRRA
+Descrição: Despesas com processo judicial
+Ocorrência: 0-1
+Chave: -
+Condição: OC
+
+Nível: 7
+Nome: ideAdv
+Pai: infoRRA
+Descrição: Identificação dos advogados.
+Ocorrência: 0-99
+Chave: tpInsc, nrInsc
+Condição: OC
 
 Nível: 6
 Nome: infoPerApur
@@ -712,6 +737,139 @@ Descrição: Identificador atribuído pela empresa para o demonstrativo de valor
 Validação: Deve ser um identificador único dentro da mesma competência (mês/ano da data de desligamento) para cada um dos demonstrativos do trabalhador.
 Regras de validação:
 REGRA_CARACTERE_ESPECIAL
+
+Nome: indRRA
+Pai: dmDev
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo de Rendimentos Recebidos Acumuladamente - RRA.
+Somente preencher este campo se for um demonstrativo de RRA.
+Valores válidos:
+S - Sim
+Validação: O campo apenas pode ser informado se o mês/ano de {dtDeslig}(2299_infoDeslig_dtDeslig) >= [2023-03].
+
+Nome: infoRRA
+Pai: dmDev
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações complementares relativas a Rendimentos Recebidos Acumuladamente - RRA.
+
+Nome: tpProcRRA
+Pai: infoRRA
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de processo.
+Valores válidos:
+1 - Administrativo
+2 - Judicial
+
+Nome: nrProcRRA
+Pai: infoRRA
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 17, 20 ou 21
+Dec.: -
+Descrição: Informar o número do processo/requerimento administrativo/judicial.
+Validação: Informação obrigatória se {tpProcRRA}(./tpProcRRA) = [2] e opcional se {tpProcRRA}(./tpProcRRA) = [1]. Deve ser número de processo válido e:
+a) Se {tpProcRRA}(./tpProcRRA) = [1], deve possuir 17 (dezessete) ou 21 (vinte e um) algarismos;
+b) Se {tpProcRRA}(./tpProcRRA) = [2], deve possuir 20 (vinte) algarismos.
+
+Nome: descRRA
+Pai: infoRRA
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-50
+Dec.: -
+Descrição: Descrição dos Rendimentos Recebidos Acumuladamente - RRA.
+
+Nome: qtdMesesRRA
+Pai: infoRRA
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-4
+Dec.: 1
+Descrição: Número de meses relativo aos Rendimentos Recebidos Acumuladamente - RRA.
+
+Nome: despProcJud
+Pai: infoRRA
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Detalhamento das despesas com processo judicial.
+
+Nome: vlrDespCustas
+Pai: despProcJud
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Preencher com o valor das despesas com custas judiciais.
+
+Nome: vlrDespAdvogados
+Pai: despProcJud
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Preencher com o valor total das despesas com advogado(s).
+
+Nome: ideAdv
+Pai: infoRRA
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição: Identificação dos advogados.
+
+Nome: tpInsc
+Pai: ideAdv
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+
+Nome: nrInsc
+Pai: ideAdv
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do advogado.
+Validação: Deve ser um número de inscrição válido, de acordo com o tipo de inscrição indicado no campo {ideAdv/tpInsc}(./tpInsc), considerando as particularidades aplicadas à informação de CNPJ de órgão público em S-1000.
+Se {ideAdv/tpInsc}(./tpInsc) = [1], deve possuir 14 (catorze) algarismos e, no caso de declarante pessoa jurídica, ser diferente do CNPJ base do empregador (exceto se {ideEmpregador/nrInsc}(/ideEmpregador_nrInsc) tiver 14 (catorze) algarismos).
+Se {ideAdv/tpInsc}(./tpInsc) = [2], deve possuir 11 (onze) algarismos e, no caso de declarante pessoa física, ser diferente do CPF do empregador.
+
+Nome: vlrAdv
+Pai: ideAdv
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da despesa com o advogado, se houver.
 
 Nome: infoPerApur
 Pai: dmDev
