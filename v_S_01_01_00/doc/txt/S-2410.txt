@@ -1,0 +1,585 @@
+S-2410 - evtCdBenIn
+Cadastro de Benefício - Entes Públicos - Início
+
+Nível: 1
+Nome: eSocial
+Pai: -
+Descrição: eSocial
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 2
+Nome: evtCdBenIn
+Pai: eSocial
+Descrição: Evento Cadastro de Benefício - Início
+Ocorrência: 1
+Chave: Id
+Condição: O
+
+Nível: 3
+Nome: ideEvento
+Pai: evtCdBenIn
+Descrição: Informações de identificação do evento.
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 3
+Nome: ideEmpregador
+Pai: evtCdBenIn
+Descrição: Informações de identificação do empregador.
+Ocorrência: 1
+Chave: tpInsc*, nrInsc*
+Condição: O
+
+Nível: 3
+Nome: beneficiario
+Pai: evtCdBenIn
+Descrição: Informações do beneficiário.
+Ocorrência: 1
+Chave: cpfBenef*
+Condição: O
+
+Nível: 3
+Nome: infoBenInicio
+Pai: evtCdBenIn
+Descrição: Informações do benefício - Início.
+Ocorrência: 1
+Chave: nrBeneficio*
+Condição: O
+
+Nível: 4
+Nome: dadosBeneficio
+Pai: infoBenInicio
+Descrição: Dados relativos ao benefício.
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 5
+Nome: infoPenMorte
+Pai: dadosBeneficio
+Descrição: Informações relativas à pensão por morte.
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {tpBeneficio}(../tpBeneficio) pertencer ao grupo [06])
+N (nos demais casos)
+
+Nível: 6
+Nome: instPenMorte
+Pai: infoPenMorte
+Descrição: Informações do instituidor da pensão por morte.
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {cadIni}(2410_infoBenInicio_cadIni) = [N])
+F (se {cadIni}(2410_infoBenInicio_cadIni) = [S])
+
+Nível: 4
+Nome: sucessaoBenef
+Pai: infoBenInicio
+Descrição: Grupo de informações de transferência de benefício.
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {indSitBenef}(2410_infoBenInicio_indSitBenef) = [2])
+N (nos demais casos)
+
+Nível: 4
+Nome: mudancaCPF
+Pai: infoBenInicio
+Descrição: Informações de mudança de CPF do beneficiário.
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {indSitBenef}(2410_infoBenInicio_indSitBenef) = [3])
+N (nos demais casos)
+
+Nível: 4
+Nome: infoBenTermino
+Pai: infoBenInicio
+Descrição: Informações da cessação do benefício
+Ocorrência: 0-1
+Chave: -
+Condição: OC (se {cadIni}(2410_infoBenInicio_cadIni) = [S] ou {indSitBenef}(2410_infoBenInicio_indSitBenef) = [2])
+N (nos demais casos)
+
+Nome: eSocial
+Pai: -
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: eSocial
+
+Nome: evtCdBenIn
+Pai: eSocial
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Evento Cadastro de Benefício - Entes Públicos - Início.
+Regras de validação:
+REGRA_BENEFICIO_VALIDA_NUMERO
+REGRA_ENVIO_PROC_FECHAMENTO
+REGRA_EVENTOS_EXTEMP
+REGRA_EXISTE_INFO_EMPREGADOR
+REGRA_EXTEMP_REATIVACAO
+REGRA_MUDANCA_CPF
+REGRA_RETIFICA_MESMO_BENEFICIO
+REGRA_VALIDA_CNPJ
+
+Nome: Id
+Pai: evtCdBenIn
+Elem.: A
+Tipo: C
+Ocorrência: 1
+Tamanho: 36
+Dec.: -
+Descrição: Identificação única do evento.
+Regras de validação:
+REGRA_VALIDA_ID_EVENTO
+
+Nome: ideEvento
+Pai: evtCdBenIn
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do evento.
+
+Nome: indRetif
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Informe [1] para arquivo original ou [2] para arquivo de retificação.
+Valores válidos:
+1 - Original
+2 - Retificação
+
+Nome: nrRecibo
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 23
+Dec.: -
+Descrição: Preencher com o número do recibo do arquivo a ser retificado.
+Validação: O preenchimento é obrigatório se {indRetif}(./indRetif) = [2].
+Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo retificado.
+
+Nome: tpAmb
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Identificação do ambiente.
+Valores válidos:
+1 - Produção
+2 - Produção restrita
+7 - Validação (uso interno)
+8 - Teste (uso interno)
+9 - Desenvolvimento (uso interno)
+
+Nome: procEmi
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Processo de emissão do evento.
+Valores válidos:
+1 - Aplicativo do empregador
+3 - Aplicativo governamental - Web Geral
+4 - Aplicativo governamental - Simplificado Pessoa Jurídica
+
+Nome: verProc
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-20
+Dec.: -
+Descrição: Versão do processo de emissão do evento. Informar a versão do aplicativo emissor do evento.
+
+Nome: ideEmpregador
+Pai: evtCdBenIn
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do empregador.
+
+Nome: tpInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+
+Nome: nrInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 8 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {ideEmpregador/tpInsc}(./tpInsc) e conforme informado em S-1000.
+
+Nome: beneficiario
+Pai: evtCdBenIn
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações do beneficiário.
+
+Nome: cpfBenef
+Pai: beneficiario
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11
+Dec.: -
+Descrição: Informar o CPF do beneficiário.
+Validação: Deve observar o que segue:
+a) Se {cadIni}(2410_infoBenInicio_cadIni) = [S], deve estar cadastrado no evento S-2400 com data de início igual à data de obrigatoriedade dos eventos não periódicos para o ente público no eSocial;
+b) Se {indSitBenef}(2410_infoBenInicio_indSitBenef) = [1], deve estar cadastrado no evento S-2400 com data de início igual ou anterior a {dtIniBeneficio}(2410_infoBenInicio_dtIniBeneficio) (ou a {dtPublic}(2410_infoBenInicio_dtPublic), caso este campo tenha sido informado);
+c) Se {indSitBenef}(2410_infoBenInicio_indSitBenef) = [2, 3], deve estar cadastrado no evento S-2400 com data de início igual ou anterior a {dtTransf}(2410_infoBenInicio_sucessaoBenef_dtTransf) ou {dtAltCPF}(2410_infoBenInicio_mudancaCPF_dtAltCPF), respectivamente.
+
+Nome: matricula
+Pai: beneficiario
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-30
+Dec.: -
+Descrição: Matrícula do servidor/militar constante no Sistema de Administração de Recursos Humanos do órgão cujo vínculo deu ensejo ao benefício. No caso de pensão por morte, informar a matrícula do instituidor da pensão.
+Validação: Informação obrigatória se {cadIni}(2410_infoBenInicio_cadIni) = [N] e {tpBeneficio}(2410_infoBenInicio_dadosBeneficio_tpBeneficio) pertencer ao grupo [01, 02, 03, 04, 05, 06, 11] da Tabela 25.
+Regras de validação:
+REGRA_CARACTERE_ESPECIAL
+
+Nome: cnpjOrigem
+Pai: beneficiario
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 14
+Dec.: -
+Descrição: Preencher com o CNPJ do órgão público responsável pela matrícula do servidor/militar. Informação obrigatória se {cadIni}(2410_infoBenInicio_cadIni) = [N], desde que haja informação de matrícula e que o CNPJ seja diferente do CNPJ do órgão declarante.
+Validação: Preenchimento obrigatório se {cadIni}(2410_infoBenInicio_cadIni) = [N] e houver informação de {matricula}(./matricula), exceto se existir vínculo (evento S-2200) no órgão declarante para o beneficiário (indicado em {cpfBenef}(./cpfBenef) e {matricula}(./matricula)) ou, se {tpBeneficio}(2410_infoBenInicio_dadosBeneficio_tpBeneficio) pertencer ao grupo [06] da Tabela 25, para o instituidor da pensão por morte (indicado em {cpfInst}(2410_infoBenInicio_dadosBeneficio_infoPenMorte_instPenMorte_cpfInst) e {matricula}(./matricula)).
+Se informado, deve ser um CNPJ válido e diferente do CNPJ do órgão público declarante, com 14 (catorze) algarismos.
+
+Nome: infoBenInicio
+Pai: evtCdBenIn
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações do benefício - Início.
+
+Nome: cadIni
+Pai: infoBenInicio
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Indicar se a data de início do benefício é anterior à obrigatoriedade dos eventos não periódicos para o ente público no eSocial.
+Valores válidos:
+S - Sim
+N - Não
+
+Nome: indSitBenef
+Pai: infoBenInicio
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Indicar a situação do benefício no órgão declarante.
+Valores válidos:
+1 - Benefício concedido pelo próprio órgão declarante
+2 - Benefício transferido de outro órgão
+3 - Mudança de CPF do beneficiário
+Validação: Preenchimento obrigatório e exclusivo se {cadIni}(./cadIni) = [N].
+
+Nome: nrBeneficio
+Pai: infoBenInicio
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-20
+Dec.: -
+Descrição: Número do benefício.
+Regras de validação:
+REGRA_CARACTERE_ESPECIAL
+
+Nome: dtIniBeneficio
+Pai: infoBenInicio
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Data de início do benefício.
+Validação: Deve observar o que segue:
+a) Se {cadIni}(./cadIni) = [S], deve ser anterior à data de início da obrigatoriedade dos eventos não periódicos para o ente público no eSocial;
+b) Se {cadIni}(./cadIni) = [N], deve ser igual ou posterior à data de início da obrigatoriedade dos eventos não periódicos para o ente público no eSocial e igual ou anterior à data atual.
+
+Nome: dtPublic
+Pai: infoBenInicio
+Elem.: E
+Tipo: D
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informar a data de publicação da concessão do benefício, somente quando o ato concessório tiver vigência retroativa.
+Validação: Deve ser posterior a {dtIniBeneficio}(./dtIniBeneficio).
+
+Nome: dadosBeneficio
+Pai: infoBenInicio
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Dados relativos ao benefício.
+
+Nome: tpBeneficio
+Pai: dadosBeneficio
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 4
+Dec.: -
+Descrição: Tipo de benefício.
+Validação: Deve ser um código válido e existente na Tabela 25. Se {cadIni}(2410_infoBenInicio_cadIni) = [N], não é permitido utilizar código do grupo [08] dessa tabela.
+
+Nome: tpPlanRP
+Pai: dadosBeneficio
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Tipo de plano de segregação da massa.
+Valores válidos:
+0 - Sem segregação da massa
+1 - Fundo em capitalização
+2 - Fundo em repartição
+3 - Mantido pelo Tesouro
+
+Nome: dsc
+Pai: dadosBeneficio
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-255
+Dec.: -
+Descrição: Descrição do instrumento ou situação que originou o pagamento do benefício.
+Validação: Preenchimento obrigatório se {tpBeneficio}(./tpBeneficio) = [0909, 1001, 1009].
+
+Nome: indDecJud
+Pai: dadosBeneficio
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Informar se o benefício foi concedido por determinação judicial.
+Valores válidos:
+S - Sim
+N - Não
+Validação: Preenchimento obrigatório se {cadIni}(2410_infoBenInicio_cadIni) = [N].
+
+Nome: infoPenMorte
+Pai: dadosBeneficio
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações relativas à pensão por morte.
+
+Nome: tpPenMorte
+Pai: infoPenMorte
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Tipo de pensão por morte.
+Valores válidos:
+1 - Vitalícia
+2 - Temporária
+
+Nome: instPenMorte
+Pai: infoPenMorte
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações do instituidor da pensão por morte.
+
+Nome: cpfInst
+Pai: instPenMorte
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11
+Dec.: -
+Descrição: Preencher com o CPF do instituidor da pensão por morte.
+Validação: Deve ser um CPF válido e diferente do CPF do beneficiário.
+
+Nome: dtInst
+Pai: instPenMorte
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Data de óbito do instituidor da pensão por morte.
+
+Nome: sucessaoBenef
+Pai: infoBenInicio
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Grupo de informações de transferência de benefício.
+
+Nome: cnpjOrgaoAnt
+Pai: sucessaoBenef
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 14
+Dec.: -
+Descrição: Informar o CNPJ do órgão público anterior.
+Validação: Deve ser um CNPJ válido e diferente da inscrição do declarante, considerando as particularidades aplicadas à informação de CNPJ de órgão público em S-1000. Além disso, deve possuir 14 (catorze) algarismos e ser diferente do CNPJ base do órgão público declarante (exceto se {ideEmpregador/nrInsc}(2410_ideEmpregador_nrInsc) tiver 14 (catorze) algarismos) e dos estabelecimentos informados através do evento S-1005.
+
+Nome: nrBeneficioAnt
+Pai: sucessaoBenef
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-20
+Dec.: -
+Descrição: Número do benefício no ente público anterior.
+
+Nome: dtTransf
+Pai: sucessaoBenef
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Preencher com a data da transferência do benefício para o órgão público declarante.
+Validação: Devem ser observadas as seguintes regras:
+a) Deve ser posterior à data de início do benefício;
+b) Deve ser igual ou posterior à data de início da obrigatoriedade dos eventos não periódicos para o ente público no eSocial e igual ou anterior à data atual.
+
+Nome: observacao
+Pai: sucessaoBenef
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-255
+Dec.: -
+Descrição: Observação.
+
+Nome: mudancaCPF
+Pai: infoBenInicio
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações de mudança de CPF do beneficiário.
+
+Nome: cpfAnt
+Pai: mudancaCPF
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11
+Dec.: -
+Descrição: Preencher com o número do CPF antigo do beneficiário.
+
+Nome: nrBeneficioAnt
+Pai: mudancaCPF
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-20
+Dec.: -
+Descrição: Preencher com o número do benefício anterior.
+
+Nome: dtAltCPF
+Pai: mudancaCPF
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Data de alteração do CPF.
+
+Nome: observacao
+Pai: mudancaCPF
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-255
+Dec.: -
+Descrição: Observação.
+
+Nome: infoBenTermino
+Pai: infoBenInicio
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações da cessação do benefício.
+Grupo preenchido exclusivamente caso seja necessário enviar evento de reativação de benefício cessado antes do início dos eventos não periódicos para o ente público no eSocial ou para informação de diferenças de proventos e pensões devidos sob a vigência dos eventos periódicos para o ente público no eSocial.
+
+Nome: dtTermBeneficio
+Pai: infoBenTermino
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Data de cessação do benefício.
+Validação: Devem ser observadas as seguintes regras:
+a) Deve ser igual ou posterior à data de início do benefício;
+b) Se {cadIni}(2410_infoBenInicio_cadIni) = [S], deve ser anterior à data de início da obrigatoriedade dos eventos não periódicos para o ente público no eSocial;
+c) Se {indSitBenef}(2410_infoBenInicio_indSitBenef) = [2], deve ser anterior a {dtTransf}(2410_infoBenInicio_sucessaoBenef_dtTransf).
+
+Nome: mtvTermino
+Pai: infoBenTermino
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 2
+Dec.: -
+Descrição: Motivo da cessação do benefício.
+Validação: Deve ser um código válido e existente na Tabela 26, com exceção dos códigos [09, 10].
+

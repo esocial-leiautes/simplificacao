@@ -1,0 +1,254 @@
+S-5501 - evtTribProcTrab
+Informações Consolidadas de Tributos Decorrentes de Processo Trabalhista
+
+Nível: 1
+Nome: eSocial
+Pai: -
+Descrição: eSocial
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 2
+Nome: evtTribProcTrab
+Pai: eSocial
+Descrição: Evento Informações Consolidadas de Tributos Decorrentes de Processo Trabalhista.
+Ocorrência: 1
+Chave: Id
+Condição: O
+
+Nível: 3
+Nome: ideEvento
+Pai: evtTribProcTrab
+Descrição: Informações de identificação do evento.
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 3
+Nome: ideEmpregador
+Pai: evtTribProcTrab
+Descrição: Informações de identificação do empregador ou do contribuinte que prestou a informação.
+Ocorrência: 1
+Chave: tpInsc*, nrInsc*
+Condição: O
+
+Nível: 3
+Nome: ideProc
+Pai: evtTribProcTrab
+Descrição: Identificação do processo.
+Ocorrência: 1
+Chave: nrProcTrab*, perApur*
+Condição: O
+
+Nível: 4
+Nome: infoTributos
+Pai: ideProc
+Descrição: Identificação do período e da base de cálculo dos tributos referentes ao processo trabalhista.
+Ocorrência: 1-999
+Chave: perRef
+Condição: O
+
+Nível: 5
+Nome: infoCRContrib
+Pai: infoTributos
+Descrição: Informações das contribuições sociais referentes ao processo trabalhista.
+Ocorrência: 0-99
+Chave: tpCR
+Condição: OC
+
+Nível: 4
+Nome: infoCRIRRF
+Pai: ideProc
+Descrição: Informações de IRRF referentes ao processo trabalhista.
+Ocorrência: 0-99
+Chave: tpCR
+Condição: OC
+
+Nome: eSocial
+Pai: -
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: eSocial
+
+Nome: evtTribProcTrab
+Pai: eSocial
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Evento Informações Consolidadas de Tributos Decorrentes de Processo Trabalhista.
+
+Nome: Id
+Pai: evtTribProcTrab
+Elem.: A
+Tipo: C
+Ocorrência: 1
+Tamanho: 36
+Dec.: -
+Descrição: Identificação única do evento.
+
+Nome: ideEvento
+Pai: evtTribProcTrab
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do evento.
+
+Nome: nrRecArqBase
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 23
+Dec.: -
+Descrição: Preencher com o número do recibo do arquivo que deu origem ao presente arquivo de retorno.
+Validação: Deve ser um recibo de entrega válido, correspondente ao arquivo que deu origem ao presente arquivo de retorno (S-2501 ou S-3500).
+
+Nome: ideEmpregador
+Pai: evtTribProcTrab
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do empregador ou do contribuinte que prestou a informação.
+
+Nome: tpInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição do empregador ou contribuinte que prestou a informação, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+
+Nome: nrInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 8, 11 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do empregador ou contribuinte que prestou a informação, de acordo com o tipo de inscrição indicado no campo {ideEmpregador/tpInsc}(./tpInsc) e conforme informado em S-1000.
+
+Nome: ideProc
+Pai: evtTribProcTrab
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Identificação do processo.
+
+Nome: nrProcTrab
+Pai: ideProc
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 15 ou 20
+Dec.: -
+Descrição: Número do processo trabalhista, da ata ou número de identificação da conciliação.
+Validação: a) Se o evento de origem for S-2501, retornar o campo {nrProcTrab}(2501_ideProc_nrProcTrab) desse evento;
+b) Se o evento de origem for S-3500, retornar o campo {nrProcTrab}(2501_ideProc_nrProcTrab) do evento S-2501 objeto da exclusão.
+
+Nome: perApur
+Pai: ideProc
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 7
+Dec.: -
+Descrição: Mês/ano em que é devida a obrigação de pagar a parcela prevista no acordo/sentença.
+Validação: a) Se o evento de origem for S-2501, retornar o campo {perApurPgto}(2501_ideProc_perApurPgto) desse evento;
+b) Se o evento de origem for S-3500, retornar o campo {perApurPgto}(2501_ideProc_perApurPgto) do evento S-2501 objeto da exclusão.
+
+Nome: infoTributos
+Pai: ideProc
+Elem.: G
+Tipo: -
+Ocorrência: 1-999
+Tamanho: -
+Dec.: -
+Descrição: Identificação do período e da base de cálculo dos tributos referentes ao processo trabalhista.
+
+Nome: perRef
+Pai: infoTributos
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 7
+Dec.: -
+Descrição: Informar o mês/ano (formato AAAA-MM) de referência das informações.
+Validação: a) Se o evento de origem for S-2501, retornar o campo {perRef}(2501_ideTrab_calcTrib_perRef) desse evento;
+b) Se o evento de origem for S-3500, retornar o campo {perRef}(2501_ideTrab_calcTrib_perRef) do evento S-2501 objeto da exclusão.
+
+Nome: infoCRContrib
+Pai: infoTributos
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição: Informações das contribuições sociais devidas à Previdência Social e Outras Entidades e Fundos, consolidadas por {perRef}(../perRef) e por Código de Receita - CR.
+
+Nome: tpCR
+Pai: infoCRContrib
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 6
+Dec.: -
+Descrição: Código de Receita - CR relativo a contribuições sociais devidas à Previdência Social e a Outras Entidades e Fundos (Terceiros), conforme legislação em vigor na competência.
+Validação: Deve ser um código válido e existente na Tabela 29.
+
+Nome: vrCR
+Pai: infoCRContrib
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor correspondente ao Código de Receita - CR.
+Validação: Deve ser apurado de acordo com a legislação em vigor na competência.
+Deve ser maior que 0 (zero).
+
+Nome: infoCRIRRF
+Pai: ideProc
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição: Informações de Imposto de Renda Retido na Fonte, consolidadas por Código de Receita - CR.
+
+Nome: tpCR
+Pai: infoCRIRRF
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 6
+Dec.: -
+Descrição: Código de Receita - CR relativo a Imposto de Renda Retido na Fonte.
+Validação: Deve ser um código válido e existente na Tabela 29.
+
+Nome: vrCR
+Pai: infoCRIRRF
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor correspondente ao Código de Receita - CR.
+Validação: Deve ser apurado de acordo com a legislação em vigor na competência.
+Deve ser maior que 0 (zero).
+

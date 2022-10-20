@@ -1,0 +1,464 @@
+S-1210 - evtPgtos
+Pagamentos de Rendimentos do Trabalho
+
+Nível: 1
+Nome: eSocial
+Pai: -
+Descrição: eSocial
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 2
+Nome: evtPgtos
+Pai: eSocial
+Descrição: Evento Pagamentos de Rendimentos do Trabalho.
+Ocorrência: 1
+Chave: Id
+Condição: O
+
+Nível: 3
+Nome: ideEvento
+Pai: evtPgtos
+Descrição: Informações de identificação do evento.
+Ocorrência: 1
+Chave: perApur*, indGuia*
+Condição: O
+
+Nível: 3
+Nome: ideEmpregador
+Pai: evtPgtos
+Descrição: Informações de identificação do empregador.
+Ocorrência: 1
+Chave: tpInsc*, nrInsc*
+Condição: O
+
+Nível: 3
+Nome: ideBenef
+Pai: evtPgtos
+Descrição: Identificação do beneficiário do pagamento.
+Ocorrência: 1
+Chave: cpfBenef*
+Condição: O
+
+Nível: 4
+Nome: infoPgto
+Pai: ideBenef
+Descrição: Informações dos pagamentos efetuados.
+Ocorrência: 1-999
+Chave: tpPgto, perRef, ideDmDev
+Condição: O
+
+Nível: 5
+Nome: infoPgtoExt
+Pai: infoPgto
+Descrição: Informações complementares relativas a pagamentos a residente fiscal no exterior.
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {paisResidExt}(../paisResidExt) for informado)
+N (nos demais casos)
+
+Nível: 6
+Nome: endExt
+Pai: infoPgtoExt
+Descrição: Endereço do beneficiário residente ou domiciliado no exterior.
+Ocorrência: 0-1
+Chave: -
+Condição: OC
+
+Nome: eSocial
+Pai: -
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: eSocial
+
+Nome: evtPgtos
+Pai: eSocial
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Evento Pagamentos de Rendimentos do Trabalho.
+Regras de validação:
+REGRA_CONTROLE_DUPLICIDADE
+REGRA_EMPREGADO_DOMESTICO
+REGRA_ENVIO_PROC_FECHAMENTO
+REGRA_EVENTOS_EXTEMP
+REGRA_EVE_FOPAG_SIMPLIFICADO
+REGRA_EXISTE_INFO_EMPREGADOR
+REGRA_MESMO_PROCEMI
+REGRA_PAGTO_IND_RETIFICACAO
+REGRA_PAGTO_PERMITE_EXCLUSAO
+REGRA_VALIDA_DT_PGTO
+REGRA_VALIDA_EMPREGADOR
+REGRA_VALIDA_PER_APUR_PGTO
+
+Nome: Id
+Pai: evtPgtos
+Elem.: A
+Tipo: C
+Ocorrência: 1
+Tamanho: 36
+Dec.: -
+Descrição: Identificação única do evento.
+Regras de validação:
+REGRA_VALIDA_ID_EVENTO
+
+Nome: ideEvento
+Pai: evtPgtos
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do evento.
+
+Nome: indRetif
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Informe [1] para arquivo original ou [2] para arquivo de retificação.
+Valores válidos:
+1 - Original
+2 - Retificação
+
+Nome: nrRecibo
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 23
+Dec.: -
+Descrição: Preencher com o número do recibo do arquivo a ser retificado.
+Validação: O preenchimento é obrigatório se {indRetif}(./indRetif) = [2].
+Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo retificado.
+
+Nome: perApur
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 7
+Dec.: -
+Descrição: Informar o mês/ano (formato AAAA-MM) de referência das informações.
+Validação: Deve ser um mês/ano válido, igual ou posterior ao início da obrigatoriedade dos eventos periódicos para o empregador.
+
+Nome: indGuia
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo do tipo de guia.
+Valores válidos:
+1 - Documento de Arrecadação do eSocial - DAE
+
+Nome: tpAmb
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Identificação do ambiente.
+Valores válidos:
+1 - Produção
+2 - Produção restrita
+7 - Validação (uso interno)
+8 - Teste (uso interno)
+9 - Desenvolvimento (uso interno)
+
+Nome: procEmi
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-2
+Dec.: -
+Descrição: Processo de emissão do evento.
+Valores válidos:
+1 - Aplicativo do empregador
+2 - Aplicativo governamental - Simplificado Pessoa Física
+3 - Aplicativo governamental - Web Geral
+4 - Aplicativo governamental - Simplificado Pessoa Jurídica
+22 - Aplicativo governamental para dispositivos móveis - Empregador Doméstico
+
+Nome: verProc
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-20
+Dec.: -
+Descrição: Versão do processo de emissão do evento. Informar a versão do aplicativo emissor do evento.
+
+Nome: ideEmpregador
+Pai: evtPgtos
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do empregador.
+
+Nome: tpInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+
+Nome: nrInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 8, 11 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {ideEmpregador/tpInsc}(./tpInsc) e conforme informado em S-1000.
+
+Nome: ideBenef
+Pai: evtPgtos
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Identificação do beneficiário do pagamento.
+
+Nome: cpfBenef
+Pai: ideBenef
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11
+Dec.: -
+Descrição: Informar o CPF do beneficiário.
+Validação: Deve ser o mesmo CPF informado no evento de remuneração ou desligamento (S-1200, S-1202, S-1207, S-2299 ou S-2399).
+
+Nome: infoPgto
+Pai: ideBenef
+Elem.: G
+Tipo: -
+Ocorrência: 1-999
+Tamanho: -
+Dec.: -
+Descrição: Informações dos pagamentos efetuados.
+
+Nome: dtPgto
+Pai: infoPgto
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informar a data de pagamento.
+Validação: A data informada deve estar compreendida no período de apuração ({perApur}(1210_ideEvento_perApur)), exceto se {procEmi}(1210_ideEvento_procEmi) = [2, 4, 22].
+
+Nome: tpPgto
+Pai: infoPgto
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Informar o evento de origem do pagamento.
+Valores válidos:
+1 - Pagamento de remuneração, conforme apurado em <a href="#1200_dmDev_ideDmDev">ideDmDev</a> do S-1200
+2 - Pagamento de verbas rescisórias conforme apurado em <a href="#2299_infoDeslig_verbasResc_dmDev_ideDmDev">ideDmDev</a> do S-2299
+3 - Pagamento de verbas rescisórias conforme apurado em <a href="#2399_infoTSVTermino_verbasResc_dmDev_ideDmDev">ideDmDev</a> do S-2399
+4 - Pagamento de remuneração conforme apurado em <a href="#1202_dmDev_ideDmDev">ideDmDev</a> do S-1202
+5 - Pagamento de benefícios previdenciários, conforme apurado em <a href="#1207_dmDev_ideDmDev">ideDmDev</a> do S-1207
+
+Nome: perRef
+Pai: infoPgto
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 4 ou 7
+Dec.: -
+Descrição: Informar a competência declarada no campo {perApur} do evento remuneratório a que se refere o pagamento, no formato AAAA-MM (ou AAAA, se for relativa à folha de 13° salário). Se {tpPgto}(1210_ideBenef_infoPgto_tpPgto) = [2, 3], informar o mês/ano da data de desligamento (ou de término), no formato AAAA-MM.
+Validação: Deve corresponder ao conteúdo indicado na relação a seguir:
+Se {tpPgto}(1210_ideBenef_infoPgto_tpPgto) = [1], {perApur}(1200_ideEvento_perApur) do S-1200;
+Se {tpPgto}(1210_ideBenef_infoPgto_tpPgto) = [2], mês/ano de {dtDeslig}(2299_infoDeslig_dtDeslig) do S-2299 (formato AAAA-MM);
+Se {tpPgto}(1210_ideBenef_infoPgto_tpPgto) = [3], mês/ano de {dtTerm}(2399_infoTSVTermino_dtTerm) do S-2399 (formato AAAA-MM);
+Se {tpPgto}(1210_ideBenef_infoPgto_tpPgto) = [4], {perApur}(1202_ideEvento_perApur) do S-1202;
+Se {tpPgto}(1210_ideBenef_infoPgto_tpPgto) = [5], {perApur}(1207_ideEvento_perApur) do S-1207.
+
+Nome: ideDmDev
+Pai: infoPgto
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-30
+Dec.: -
+Descrição: Identificador atribuído pela fonte pagadora para o demonstrativo de valores devidos ao trabalhador conforme definido em S-1200, S-1202, S-1207, S-2299 ou S-2399.
+Validação: Deve ser um valor atribuído pela fonte pagadora em S-1200, S-1202, S-1207, S-2299 ou S-2399 no campo {ideDmDev}, obedecendo à relação:
+Se {tpPgto}(1210_ideBenef_infoPgto_tpPgto) = [1], em S-1200;
+Se {tpPgto}(1210_ideBenef_infoPgto_tpPgto) = [2], em S-2299;
+Se {tpPgto}(1210_ideBenef_infoPgto_tpPgto) = [3], em S-2399;
+Se {tpPgto}(1210_ideBenef_infoPgto_tpPgto) = [4], em S-1202;
+Se {tpPgto}(1210_ideBenef_infoPgto_tpPgto) = [5], em S-1207.
+
+Nome: vrLiq
+Pai: infoPgto
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor líquido recebido pelo trabalhador, composto pelos vencimentos e descontos, inclusive os descontos de IRRF e de pensão alimentícia (se houver).
+Validação: Não pode ser um valor negativo.
+
+Nome: paisResidExt
+Pai: infoPgto
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 3
+Dec.: -
+Descrição: Informar o código do país de residência para fins fiscais, quando no exterior, conforme Tabela 06.
+Somente informar este campo caso o país de residência para fins fiscais seja diferente de Brasil. Se não informado, implica que o país de residência fiscal é Brasil.
+Validação: O campo apenas pode ser preenchido se {perApur}(1210_ideEvento_perApur) >= [2023-03]. Se informado, deve ser um código válido e existente na Tabela 06, exceto [105].
+
+Nome: infoPgtoExt
+Pai: infoPgto
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações complementares relativas a pagamentos a residente fiscal no exterior.
+
+Nome: indNIF
+Pai: infoPgtoExt
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo do Número de Identificação Fiscal (NIF).
+Valores válidos:
+1 - Beneficiário com NIF
+2 - Beneficiário dispensado do NIF
+3 - País não exige NIF
+
+Nome: nifBenef
+Pai: infoPgtoExt
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-30
+Dec.: -
+Descrição: Número de Identificação Fiscal (NIF).
+Validação: Preenchimento obrigatório se {indNIF}(./indNIF) = [1].
+
+Nome: frmTribut
+Pai: infoPgtoExt
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 2
+Dec.: -
+Descrição: Forma de tributação, conforme opções disponíveis na Tabela 30.
+Validação: Deve ser um código válido e existente na Tabela 30.
+
+Nome: endExt
+Pai: infoPgtoExt
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Endereço do beneficiário residente ou domiciliado no exterior.
+Regras de validação:
+REGRA_ENDERECO_EXTERIOR
+
+Nome: endDscLograd
+Pai: endExt
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-80
+Dec.: -
+Descrição: Descrição do logradouro.
+
+Nome: endNrLograd
+Pai: endExt
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-10
+Dec.: -
+Descrição: Número do logradouro.
+Validação: Devem ser utilizados apenas caracteres alfanuméricos com, pelo menos, um caractere numérico.
+
+Nome: endComplem
+Pai: endExt
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-30
+Dec.: -
+Descrição: Complemento do logradouro.
+
+Nome: endBairro
+Pai: endExt
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-60
+Dec.: -
+Descrição: Nome do bairro/distrito.
+
+Nome: endCidade
+Pai: endExt
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-40
+Dec.: -
+Descrição: Nome da cidade.
+
+Nome: endEstado
+Pai: endExt
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-40
+Dec.: -
+Descrição: Nome da província/estado.
+
+Nome: endCodPostal
+Pai: endExt
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-12
+Dec.: -
+Descrição: Código de Endereçamento Postal.
+Validação: Devem ser informados apenas caracteres numéricos.
+
+Nome: telef
+Pai: endExt
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 8-15
+Dec.: -
+Descrição: Número do telefone.
+Validação: Devem ser informados apenas caracteres numéricos.
+

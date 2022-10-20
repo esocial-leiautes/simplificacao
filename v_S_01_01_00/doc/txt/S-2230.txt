@@ -1,0 +1,579 @@
+S-2230 - evtAfastTemp
+Afastamento Temporário
+
+Nível: 1
+Nome: eSocial
+Pai: -
+Descrição: eSocial
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 2
+Nome: evtAfastTemp
+Pai: eSocial
+Descrição: Evento Afastamento Temporário.
+Ocorrência: 1
+Chave: Id
+Condição: O
+
+Nível: 3
+Nome: ideEvento
+Pai: evtAfastTemp
+Descrição: Informações de identificação do evento.
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 3
+Nome: ideEmpregador
+Pai: evtAfastTemp
+Descrição: Informações de identificação do empregador.
+Ocorrência: 1
+Chave: tpInsc*, nrInsc*
+Condição: O
+
+Nível: 3
+Nome: ideVinculo
+Pai: evtAfastTemp
+Descrição: Informações de identificação do trabalhador e do vínculo.
+Ocorrência: 1
+Chave: cpfTrab*, matricula*, codCateg*
+Condição: O
+
+Nível: 3
+Nome: infoAfastamento
+Pai: evtAfastTemp
+Descrição: Informações do afastamento temporário.
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 4
+Nome: iniAfastamento
+Pai: infoAfastamento
+Descrição: Informações de início do afastamento.
+Ocorrência: 0-1
+Chave: dtIniAfast*
+Condição: O (se não for preenchido o grupo {fimAfastamento}(../fimAfastamento))
+OC (nos demais casos)
+
+Nível: 5
+Nome: perAquis
+Pai: iniAfastamento
+Descrição: Período aquisitivo de férias
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {codMotAfast}(../codMotAfast) = [15] E (o código de categoria no RET for igual a [1XX, 301, 302, 303, 304, 306, 307, 309, 310, 312, 410] com {tpRegTrab} em S-2200/S-2300 = [1] OU o código de categoria no RET for igual a [401] com {tpRegTrab}(2300_infoTSVInicio_infoComplementares_infoDirigenteSindical_tpRegTrab) em S-2300 = [1] ou não informado) E {dtIniAfast}(../dtIniAfast) >= [2021-07-19])
+N (nos demais casos)
+
+Nível: 5
+Nome: infoCessao
+Pai: iniAfastamento
+Descrição: Informações complementares - Cessão/Requisição de trabalhador.
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {codMotAfast}(../codMotAfast) = [14])
+N (nos demais casos)
+
+Nível: 5
+Nome: infoMandSind
+Pai: iniAfastamento
+Descrição: Informações complementares - Afastamento para exercício de mandato sindical.
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {codMotAfast}(../codMotAfast) = [24])
+N (nos demais casos)
+
+Nível: 5
+Nome: infoMandElet
+Pai: iniAfastamento
+Descrição: Informações complementares - Afastamento para exercício de mandato eletivo.
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {codMotAfast}(../codMotAfast) = [22] e se a natureza jurídica do declarante for igual a 1XX-X, 201-1 ou 203-8)
+N (nos demais casos)
+
+Nível: 4
+Nome: infoRetif
+Pai: infoAfastamento
+Descrição: Informações de retificação do afastamento
+Ocorrência: 0-1
+Chave: -
+Condição: OC ((se {indRetif}(2230_ideEvento_indRetif) = [2]) E (o grupo {iniAfastamento}(../iniAfastamento) estiver preenchido)
+N (nos demais casos)
+
+Nível: 4
+Nome: fimAfastamento
+Pai: infoAfastamento
+Descrição: Informação do término do afastamento.
+Ocorrência: 0-1
+Chave: dtTermAfast*
+Condição: O (se não for preenchido o grupo {iniAfastamento}(../iniAfastamento))
+OC (nos demais casos)
+
+Nome: eSocial
+Pai: -
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: eSocial
+
+Nome: evtAfastTemp
+Pai: eSocial
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Evento Afastamento Temporário.
+Regras de validação:
+REGRA_AFASTAMENTO
+REGRA_EMPREGADO_DOMESTICO
+REGRA_ENVIO_PROC_FECHAMENTO
+REGRA_EVENTOS_EXTEMP
+REGRA_EVENTO_EXT_SEM_IMPACTO_FOPAG
+REGRA_EVENTO_POSTERIOR_CAT_OBITO
+REGRA_EXCLUI_EVENTO_AFASTAMENTO
+REGRA_EXISTE_INFO_EMPREGADOR
+REGRA_EXTEMP_DOMESTICO
+REGRA_EXTEMP_REINTEGRACAO
+REGRA_GERAL_VALIDA_DADOS_TABCONTRIB
+REGRA_MESMO_PROCEMI
+REGRA_RETIFICA_MESMO_VINCULO
+REGRA_TSV_ATIVO_NA_DTEVENTO
+REGRA_VINCULO_ATIVO_NA_DTEVENTO
+
+Nome: Id
+Pai: evtAfastTemp
+Elem.: A
+Tipo: C
+Ocorrência: 1
+Tamanho: 36
+Dec.: -
+Descrição: Identificação única do evento.
+Regras de validação:
+REGRA_VALIDA_ID_EVENTO
+
+Nome: ideEvento
+Pai: evtAfastTemp
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do evento.
+
+Nome: indRetif
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Informe [1] para arquivo original ou [2] para arquivo de retificação.
+Valores válidos:
+1 - Original
+2 - Retificação
+
+Nome: nrRecibo
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 23
+Dec.: -
+Descrição: Preencher com o número do recibo do arquivo a ser retificado.
+Validação: O preenchimento é obrigatório se {indRetif}(./indRetif) = [2].
+Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo retificado.
+
+Nome: tpAmb
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Identificação do ambiente.
+Valores válidos:
+1 - Produção
+2 - Produção restrita
+7 - Validação (uso interno)
+8 - Teste (uso interno)
+9 - Desenvolvimento (uso interno)
+
+Nome: procEmi
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-2
+Dec.: -
+Descrição: Processo de emissão do evento.
+Valores válidos:
+1 - Aplicativo do empregador
+2 - Aplicativo governamental - Simplificado Pessoa Física
+3 - Aplicativo governamental - Web Geral
+4 - Aplicativo governamental - Simplificado Pessoa Jurídica
+22 - Aplicativo governamental para dispositivos móveis - Empregador Doméstico
+
+Nome: verProc
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-20
+Dec.: -
+Descrição: Versão do processo de emissão do evento. Informar a versão do aplicativo emissor do evento.
+
+Nome: ideEmpregador
+Pai: evtAfastTemp
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do empregador.
+
+Nome: tpInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+
+Nome: nrInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 8, 11 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {ideEmpregador/tpInsc}(./tpInsc) e conforme informado em S-1000.
+
+Nome: ideVinculo
+Pai: evtAfastTemp
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do trabalhador e do vínculo.
+
+Nome: cpfTrab
+Pai: ideVinculo
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11
+Dec.: -
+Descrição: Preencher com o número do CPF do trabalhador.
+
+Nome: matricula
+Pai: ideVinculo
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-30
+Dec.: -
+Descrição: Matrícula atribuída ao trabalhador pela empresa ou, no caso de servidor público, a matrícula constante no Sistema de Administração de Recursos Humanos do órgão.
+Validação: Deve corresponder à matrícula informada pelo empregador no evento S-2200 ou S-2300 do respectivo contrato. Não preencher no caso de Trabalhador Sem Vínculo de Emprego/Estatutário - TSVE sem informação de matrícula no evento S-2300.
+
+Nome: codCateg
+Pai: ideVinculo
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 3
+Dec.: -
+Descrição: Preencher com o código da categoria do trabalhador.
+Informar somente no caso de TSVE sem informação de matrícula no evento S-2300.
+Validação: Informação obrigatória e exclusiva se não houver preenchimento de {matricula}(./matricula). Se informado, deve ser um código válido e existente na Tabela 01.
+
+Nome: infoAfastamento
+Pai: evtAfastTemp
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações do afastamento temporário.
+
+Nome: iniAfastamento
+Pai: infoAfastamento
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações de início do afastamento.
+
+Nome: dtIniAfast
+Pai: iniAfastamento
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Data de início do afastamento.
+Validação: Deve-se obedecer às seguintes regras:
+a) Não pode ser posterior à data atual, exceto se:
+a1) {codMotAfast}(./codMotAfast) = [15] (férias), situação em que pode ser até 60 dias posterior à data atual;
+a2) {codMotAfast}(./codMotAfast) = [18], situação em que pode ser até 120 dias posterior à data atual;
+b) É necessário que o trabalhador esteja, antes da data de início do afastamento, em atividade, ou seja, não pode existir evento de afastamento anterior a {dtIniAfast}(./dtIniAfast) sem que este tenha sido encerrado.
+
+Nome: codMotAfast
+Pai: iniAfastamento
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 2
+Dec.: -
+Descrição: Preencher com o código do motivo de afastamento temporário.
+Validação: Deve ser um código válido e existente na Tabela 18, bem como compatível com o código de categoria do trabalhador, conforme Tabela 18. Se a natureza jurídica do declarante for Administração Pública (grupo [1]), não pode ser informado [14].
+
+Nome: infoMesmoMtv
+Pai: iniAfastamento
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Informar se o afastamento decorre da mesma doença que gerou o afastamento anterior ({codMotAfast}(./codMotAfast) = [01, 03]), dentro de 60 dias.
+Valores válidos:
+S - Sim
+N - Não
+
+Nome: tpAcidTransito
+Pai: iniAfastamento
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Tipo de acidente de trânsito.
+Valores válidos:
+1 - Atropelamento
+2 - Colisão
+3 - Outros
+Validação: Somente pode ser preenchido se {codMotAfast}(./codMotAfast) = [01, 03].
+
+Nome: observacao
+Pai: iniAfastamento
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-255
+Dec.: -
+Descrição: Detalhar as informações sobre o afastamento do trabalhador, de maneira a explicitar os motivos do mesmo.
+Validação: O preenchimento é obrigatório se {codMotAfast}(./codMotAfast) = [21].
+
+Nome: perAquis
+Pai: iniAfastamento
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações referentes ao período aquisitivo de férias.
+
+Nome: dtInicio
+Pai: perAquis
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Data de início do período aquisitivo de férias.
+Validação: Deve ser igual ou posterior à data de admissão.
+
+Nome: dtFim
+Pai: perAquis
+Elem.: E
+Tipo: D
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Data de término do período aquisitivo de férias.
+Informar o campo somente se o período aquisitivo for diferente de 1 ano.
+Validação: Se informada, deve ser uma data posterior a {dtInicio}(./dtInicio).
+
+Nome: infoCessao
+Pai: iniAfastamento
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações complementares - Cessão/Requisição de trabalhador.
+
+Nome: cnpjCess
+Pai: infoCessao
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 14
+Dec.: -
+Descrição: Preencher com o CNPJ do órgão/entidade para o qual o trabalhador foi cedido/requisitado.
+Validação: Deve ser um CNPJ diferente do CNPJ do empregador e diferente dos estabelecimentos informados através do evento S-1005.
+Regras de validação:
+REGRA_VALIDA_CNPJ
+
+Nome: infOnus
+Pai: infoCessao
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Ônus da cessão/requisição.
+Valores válidos:
+1 - Ônus do cedente
+2 - Ônus do cessionário
+3 - Ônus do cedente e cessionário
+
+Nome: infoMandSind
+Pai: iniAfastamento
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações complementares - Afastamento para exercício de mandato sindical.
+
+Nome: cnpjSind
+Pai: infoMandSind
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 14
+Dec.: -
+Descrição: CNPJ do sindicato no qual o trabalhador exercerá o mandato.
+Validação: Deve ser um CNPJ diferente do CNPJ base do empregador e diferente dos informados na Tabela de Estabelecimentos (S-1005).
+Regras de validação:
+REGRA_VALIDA_CNPJ
+
+Nome: infOnusRemun
+Pai: infoMandSind
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Ônus da remuneração.
+Valores válidos:
+1 - Apenas do empregador
+2 - Apenas do sindicato
+3 - Parte do empregador, sendo a diferença e/ou complementação salarial paga pelo sindicato
+
+Nome: infoMandElet
+Pai: iniAfastamento
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações complementares - Afastamento para exercício de mandato eletivo.
+
+Nome: cnpjMandElet
+Pai: infoMandElet
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 14
+Dec.: -
+Descrição: CNPJ do órgão no qual o trabalhador exercerá o mandato eletivo.
+Regras de validação:
+REGRA_VALIDA_CNPJ
+
+Nome: indRemunCargo
+Pai: infoMandElet
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Indicar se o servidor optou pela remuneração do cargo efetivo.
+Valores válidos:
+S - Sim
+N - Não
+Validação: Informação obrigatória e exclusiva se o código de categoria no Registro de Eventos Trabalhistas - RET for igual a [301].
+
+Nome: infoRetif
+Pai: infoAfastamento
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações de retificação do afastamento temporário.
+Preenchimento obrigatório caso {codMotAfast}(../iniAfastamento_codMotAfast) seja retificado de [01] para [03] ou de [03] para [01].
+
+Nome: origRetif
+Pai: infoRetif
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Origem da retificação.
+Valores válidos:
+1 - Por iniciativa do empregador
+2 - Revisão administrativa
+3 - Determinação judicial
+
+Nome: tpProc
+Pai: infoRetif
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de processo.
+Valores válidos:
+1 - Administrativo
+2 - Judicial
+3 - Número de Benefício - NB do INSS
+Validação: O preenchimento é obrigatório se {origRetif}(./origRetif) = [2, 3].
+
+Nome: nrProc
+Pai: infoRetif
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 10, 17, 20 ou 21
+Dec.: -
+Descrição: Informar o número do processo administrativo/judicial ou do benefício de acordo com o tipo informado em {tpProc}(./tpProc).
+Validação: O preenchimento é obrigatório se {origRetif}(./origRetif) = [2, 3]. Deve ser um número de processo/benefício válido e:
+a) Se {tpProc}(./tpProc) = [1], deve possuir 17 (dezessete) ou 21 (vinte e um) algarismos;
+b) Se {tpProc}(./tpProc) = [2], deve possuir 20 (vinte) algarismos;
+c) Se {tpProc}(./tpProc) = [3], deve possuir 10 (dez) algarismos.
+
+Nome: fimAfastamento
+Pai: infoAfastamento
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informação do término do afastamento.
+Regras de validação:
+REGRA_EXISTE_EVENTO_AFASTAMENTO
+
+Nome: dtTermAfast
+Pai: fimAfastamento
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Preencher com a data do término do afastamento do trabalhador.
+Validação: Deve ser igual ou posterior à data de início do afastamento do trabalhador.
+
