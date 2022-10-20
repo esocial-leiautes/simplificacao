@@ -11,12 +11,12 @@
 <body>
 <section id="folha-rosto">
 <img alt="Logomarca do eSocial" src="esocial-full.png" class="center">
-<h1 class="title has-text-centered is-3">LEIAUTES DO eSOCIAL<br /><br />Versão S-1.0 (consolidada até NT nº 05/2022)</h1><h2 class="title has-text-centered is-5">(aprovada pela Portaria Conjunta nº 82, de 10/11/2020 – DOU de 11/11/2020)</h2>
-<h1 class="title has-text-centered is-3">Junho de 2022</h1>
+<h1 class="title has-text-centered is-3">LEIAUTES DO eSOCIAL<br /><br />Versão S-1.0 (consolidada até NT nº 06/2022)</h1><h2 class="title has-text-centered is-5">(aprovada pela Portaria Conjunta nº 82, de 10/11/2020 – DOU de 11/11/2020)</h2>
+<h1 class="title has-text-centered is-3">Agosto de 2022</h1>
 </section>
 <section class="section">
 <div class="container is-fluid">
-<h1 class="title has-text-centered is-1">eSocial versão S-1.0 - Leiautes (cons. até NT 05/2022)</h1>
+<h1 class="title has-text-centered is-1">eSocial versão S-1.0 - Leiautes (cons. até NT 06/2022)</h1>
 <h2 class="title has-text-centered is-3">Sumário</h2>
 <ul class="sumario">
 <li><a href="#evtInfoEmpregador">S-1000 - Informações do Empregador/Contribuinte/Órgão Público</a></li>
@@ -143,6 +143,18 @@ b) Grupo [02]: pode ser alterado para tipo de benefício dos grupos [01, 03];<br
 c) Grupo [03]: pode ser alterado para tipo de benefício dos grupos [01, 02];<br />
 d) Grupo [04]: pode ser alterado para tipo de benefício do grupo [05];<br />
 e) Grupo [05]: pode ser alterado para tipo de benefício do grupo [04].</p>
+</div>
+</div>
+</div>
+<div class="modal" id="REGRA_AMBIENTE_TRABALHO">
+<div class="modal-background"></div>
+<div class="modal-card">
+<header class="modal-card-head">
+<p class="modal-card-title"><a href="regras.html#REGRA_AMBIENTE_TRABALHO">REGRA_AMBIENTE_TRABALHO</a></p>
+<button class="delete" aria-label="close"></button>
+</header>
+<div class="modal-card-body">
+<p>Somente é permitido informar mais de um ambiente de trabalho no caso de trabalhador avulso (código de categoria no RET igual a [2XX]).</p>
 </div>
 </div>
 </div>
@@ -376,7 +388,7 @@ Caso seja informado evento de Remuneração (S-1200 ou S-1202) em período de ap
 <button class="delete" aria-label="close"></button>
 </header>
 <div class="modal-card-body">
-<p>Somente é permitido o envio de evento de Desligamento para trabalhador afastado temporariamente ou cedido/em exercício em outro órgão se o motivo de desligamento for igual a (10, 11, 12, 13, 14, 16, 21, 22, 23, 24, 25, 26, 29, 30, 32, 34, 36, 37, 38, 39, 40, 43). Para essa regra, considerar como data de desligamento a maior data entre {dtDeslig} e {dtProjFimAPI} do evento S-2299.</p>
+<p>Somente é permitido o envio de evento de Desligamento para trabalhador afastado temporariamente ou cedido/em exercício em outro órgão se o motivo de desligamento for igual a (10, 11, 12, 13, 14, 16, 21, 22, 23, 24, 25, 26, 29, 30, 32, 34, 36, 37, 38, 39, 40, 43, 44). Para essa regra, considerar como data de desligamento a maior data entre {dtDeslig} e {dtProjFimAPI} do evento S-2299.</p>
 </div>
 </div>
 </div>
@@ -424,7 +436,10 @@ b1) Às regras de validação do fechamento das folhas de todo o período afetad
 b2) Às regras <a href="#REGRA_REMUN_JA_EXISTE_DESLIGAMENTO">REGRA_REMUN_JA_EXISTE_DESLIGAMENTO</a> e <a href="#REGRA_REMUN_TRAB_EXISTENTE_RET">REGRA_REMUN_TRAB_EXISTENTE_RET</a> e à condição do grupo {infoComplCont} do evento S-1200 (no caso de TSVE sem informação de matrícula no evento S-2300) de todo o período afetado, se o evento extemporâneo excluir trabalhador (ou reduzir no RET o seu período de contrato ativo);<br />
 b3) À <a href="#REGRA_REMUN_BENEFICIO_EXISTENTE_RET">REGRA_REMUN_BENEFICIO_EXISTENTE_RET</a> de todo o período afetado, se o evento extemporâneo excluir benefício (ou reduzir no RET o seu período ativo).<br />
 Período Afetado: Meses em que a alteração pode tornar as informações do RET incompatíveis com as regras de validação do fechamento da folha ou com as regras mencionadas no item "b2". Exemplos: inclusão ou exclusão de evento de Admissão, retificação de data de admissão, envio/retificação de evento de Desligamento, etc.);<br />
-c) A retificação ou exclusão extemporânea de evento remuneratório (S-1200/S-1202/S-1207/S-2299/S-2399) exigirá a exclusão prévia do correspondente evento S-1210, quando existente. Esta alínea somente será implantada após o término do período de convivência entre as versões 2.5 e S-1.0 do leiaute, e não deve ser executada se o {procEmi} do evento de retificação ou exclusão do evento remuneratório for igual a [2, 4, 22].</p>
+c) A retificação ou exclusão extemporânea de evento remuneratório (S-1200/S-1202/S-1207/S-2299/S-2399) exigirá:<br />
+c1) A exclusão prévia do correspondente evento S-1210, quando existente; ou<br />
+c2) A retificação prévia do evento S-1210, se existente, excluindo a referência ao identificador do demonstrativo do evento que se pretende retificar ou excluir, quando o S-1210 se referir a mais de um evento remuneratório.<br />
+OBS.: A alínea "b" não deve ser executada quando se tratar do evento S-8299.</p>
 </div>
 </div>
 </div>
@@ -480,7 +495,7 @@ b) Se a data de admissão é anterior a 01/03/2000, a data de opção deve ser e
 </header>
 <div class="modal-card-body">
 <p>1) É permitida a exclusão apenas de eventos não periódicos, na faixa de S-2190 a S-2420 e S-8299, e periódicos, na faixa de S-1200 a S-1280 e S-1300.<br />
-2) A exclusão dos eventos periódicos, com exceção do S-1210 e do S-1300, sujeita-se às seguintes regras:<br />
+2) A exclusão dos eventos periódicos, com exceção do S-1300, sujeita-se às seguintes regras:<br />
 a) Não é possível excluir nenhum dos eventos periódicos relativos a um período de apuração que esteja fechado (ou seja, para o qual já exista evento S-1299) antes do envio do evento de reabertura respectivo (S-1298) para o período de apuração;<br />
 b) A exclusão de eventos periódicos individualizados após o envio do evento de reabertura somente é efetivada após o "fechamento" do período correspondente, o que ocorre com o envio do evento S-1299.<br />
 3) A exclusão de alguns eventos não periódicos pode ser rejeitada em situações específicas, as quais constam nas regras do próprio evento (por exemplo, não é possível excluir um evento de admissão se já houver outro evento trabalhista posterior para o mesmo vínculo).<br />
@@ -587,7 +602,7 @@ c2) Se o evento S-1299 foi enviado com {procEmi} = [4], o evento S-1298 poderá 
 <button class="delete" aria-label="close"></button>
 </header>
 <div class="modal-card-body">
-<p>Não é permitida exclusão de evento de início de afastamento quando já existir evento de fim do mesmo afastamento.</p>
+<p>Não é permitida a exclusão de evento de início de afastamento quando já existir evento de fim do mesmo afastamento.</p>
 </div>
 </div>
 </div>
@@ -599,7 +614,7 @@ c2) Se o evento S-1299 foi enviado com {procEmi} = [4], o evento S-1298 poderá 
 <button class="delete" aria-label="close"></button>
 </header>
 <div class="modal-card-body">
-<p>Não é permitida exclusão ou retificação do evento de CAT que estiver sendo referenciado por uma CAT de reabertura ou de comunicação de óbito (campo {nrRecCatOrig} de outro evento CAT).</p>
+<p>Não é permitida a exclusão ou retificação do evento de CAT que estiver sendo referenciado por uma CAT de reabertura ou de comunicação de óbito (campo {nrRecCatOrig} de outro evento CAT).</p>
 </div>
 </div>
 </div>
@@ -615,15 +630,15 @@ c2) Se o evento S-1299 foi enviado com {procEmi} = [4], o evento S-1298 poderá 
 </div>
 </div>
 </div>
-<div class="modal" id="REGRA_EXCLUSAO_ADMISSAO_PRELIMINAR">
+<div class="modal" id="REGRA_EXCLUSAO_ADMISSAO_TSVE_INICIO">
 <div class="modal-background"></div>
 <div class="modal-card">
 <header class="modal-card-head">
-<p class="modal-card-title"><a href="regras.html#REGRA_EXCLUSAO_ADMISSAO_PRELIMINAR">REGRA_EXCLUSAO_ADMISSAO_PRELIMINAR</a></p>
+<p class="modal-card-title"><a href="regras.html#REGRA_EXCLUSAO_ADMISSAO_TSVE_INICIO">REGRA_EXCLUSAO_ADMISSAO_TSVE_INICIO</a></p>
 <button class="delete" aria-label="close"></button>
 </header>
 <div class="modal-card-body">
-<p>Não é permitida exclusão de evento de Registro Preliminar se houver evento de Admissão ou TSVE - Início "definitivo" (S-2200 ou S-2300). A exclusão só é aceita se, primeiramente, houver exclusão do respectivo evento de Admissão ou TSVE - Início "definitivo".</p>
+<p>Não é permitida a exclusão de evento de Admissão ou TSVE - Início (S-2200 ou S-2300) se houver evento de Registro Preliminar (S-2190). A exclusão só é aceita se, primeiramente, houver exclusão do respectivo evento de Registro Preliminar.</p>
 </div>
 </div>
 </div>
@@ -683,7 +698,7 @@ c2) Se o evento S-1299 foi enviado com {procEmi} = [4], o evento S-1298 poderá 
 <button class="delete" aria-label="close"></button>
 </header>
 <div class="modal-card-body">
-<p>Para aceitação do evento de Reintegração, é necessária a existência de evento de Desligamento (S-2299) com {mtvDeslig} diferente de [10, 11, 12, 13, 28, 29, 30, 34, 36, 37, 40, 43] ou de Admissão (S-2200) com preenchimento do campo {dtDeslig}. Esse evento anterior (S-2299 ou S-2200) deve se referir ao mesmo vínculo.</p>
+<p>Para aceitação do evento de Reintegração, é necessária a existência de evento de Desligamento (S-2299) com {mtvDeslig} diferente de [10, 11, 12, 13, 28, 29, 30, 34, 36, 37, 40, 43, 44] ou de Admissão (S-2200) com preenchimento do campo {dtDeslig}. Esse evento anterior (S-2299 ou S-2200) deve se referir ao mesmo vínculo.</p>
 </div>
 </div>
 </div>
@@ -893,7 +908,33 @@ c) Após o envio do evento S-2420 com {mtvTermino} = [10], os campos citados na 
 <button class="delete" aria-label="close"></button>
 </header>
 <div class="modal-card-body">
-<p>Se {indRetif} = [2], o evento correspondente ao número de recibo original informado em {nrRecibo} deve referir-se ao mesmo beneficiário indicado no evento retificador. Caso o erro que deu origem à retificação tenha ocorrido em relação à identificação do beneficiário, o evento incorreto deve ser "excluído", através do evento específico de exclusão, e um novo evento com a correta identificação de beneficiário deve ser transmitido como "original".</p>
+<p>a) Se {indRetif} = [2], o evento correspondente ao número de recibo original informado em {nrRecibo} deve referir-se ao mesmo beneficiário indicado no evento retificador. Caso o erro que deu origem à retificação tenha ocorrido em relação à identificação do beneficiário, o evento incorreto deve ser "excluído", através do evento específico de Exclusão, e um novo evento com a correta identificação de beneficiário deve ser transmitido como "original".<br />
+b) Se o evento a ser retificado for relativo a um período de apuração já encerrado, a retificação somente deve ser aceita se for enviada após o evento de Reabertura (S-1298).</p>
+</div>
+</div>
+</div>
+<div class="modal" id="REGRA_PAGTO_PERMITE_EXCLUSAO">
+<div class="modal-background"></div>
+<div class="modal-card">
+<header class="modal-card-head">
+<p class="modal-card-title"><a href="regras.html#REGRA_PAGTO_PERMITE_EXCLUSAO">REGRA_PAGTO_PERMITE_EXCLUSAO</a></p>
+<button class="delete" aria-label="close"></button>
+</header>
+<div class="modal-card-body">
+<p>Se o evento a ser excluído for relativo a um período de apuração já encerrado, a exclusão somente deve ser aceita se for enviada após o evento de Reabertura (S-1298).</p>
+</div>
+</div>
+</div>
+<div class="modal" id="REGRA_PERIODO_EXPOSICAO_RISCO">
+<div class="modal-background"></div>
+<div class="modal-card">
+<header class="modal-card-head">
+<p class="modal-card-title"><a href="regras.html#REGRA_PERIODO_EXPOSICAO_RISCO">REGRA_PERIODO_EXPOSICAO_RISCO</a></p>
+<button class="delete" aria-label="close"></button>
+</header>
+<div class="modal-card-body">
+<p>Para trabalhadores avulsos (código de categoria no RET igual a [2XX]), o período de exposição a agentes nocivos informado no evento S-2240 deve ser delimitado pelas datas de inicio ({dtIniCondicao}) e de término ({dtFimCondicao}) da condição. Não é possível haver dois eventos S-2240 fazendo referência a data ou período coincidente.<br />
+Essa regra não deve ser executada se {dtIniCondicao} for anterior a [2023-01-16].</p>
 </div>
 </div>
 </div>
@@ -1064,7 +1105,7 @@ b) Remuneração em {remunPerApur} para trabalhador que esteja em "quarentena", 
 c) Remuneração em {remunPerApur} pelo exercício de opção de compra de ações da empresa ("stock option"). Para tanto, deve haver ao menos uma rubrica cuja {natRubr} seja igual a [1080];<br />
 d) Remuneração relativa a competência anual ({indApuracao} = [2]);<br />
 e) Remuneração relativa a períodos anteriores ({remunPerAnt}), conforme definido no item 2 da <a href="#REGRA_REMUN_TRAB_EXISTENTE_RET">REGRA_REMUN_TRAB_EXISTENTE_RET</a>;<br />
-f) Se o desligamento não implicar rescisão do contrato de trabalho ({mtvDeslig} = [11, 12, 13, 25, 28, 29, 30, 34, 36]), pode existir remuneração no evento S-1200 no período de apuração ({perApur}) correspondente à data de desligamento ({dtDeslig});<br />
+f) Se o desligamento não implicar rescisão do contrato de trabalho ({mtvDeslig} = [11, 12, 13, 25, 28, 29, 30, 34, 36, 43, 44]), pode existir remuneração no evento S-1200 no período de apuração ({perApur}) correspondente à data de desligamento ({dtDeslig});<br />
 g) Remuneração em {remunPerApur} pela retirada ou pró-labore a diretores. Para tanto, deve haver ao menos uma rubrica cuja {natRubr} seja igual [3505] ou [3506];<br />
 h) Remuneração em {remunPerApur} para empregado reintegrado.<br />
 i) Se o desligamento for de vínculo estatutário ({tpRegTrab} indicado no evento S-2200 = [2]), pode existir remuneração no evento S-1200 ou S-1202 no período de apuração {perApur} correspondente à data de desligamento {dtDeslig}.<br />
@@ -1175,8 +1216,8 @@ b) referir-se ao mesmo contrato (CPF + matrícula; ou CPF + categoria, no caso d
 <p>Com base na categoria do trabalhador, observar o que segue:<br />
 1) Se for relativa aos grupos "Empregado" (1XX) ou "Avulso" (2XX), não é permitida a inclusão de registro cujo {codRubr} tenha {codIncCP} em S-1010 = [34, 35];<br />
 2) Se for relativa ao grupo "Contribuinte Individual" (7XX), não podem ser utilizados códigos de rubrica cujos {codIncCP} e {codIncIRRF} em S-1010 sejam específicos de segurados empregados. Portanto, não são aceitas rubricas cujo:<br />
-2a) {codIncCP} em S-1010 = [12, 21, 22, 32, 51, 92, 93, 94], exceto se categoria de trabalhador = [771];<br />
-2b) {codIncIRRF} em S-1010 = [12, 13, 32, 33, 42, 43, 47, 48, 52, 53, 62, 63, 64, 65, 66, 71, 76, 77, 92, 93, 9012, 9013, 9032, 9033, 9042, 9043, 9047, 9048, 9052, 9053, 9062, 9063, 9064, 9065, 9066, 9832, 9833], exceto se categoria de trabalhador = [771];<br />
+2a) {codIncCP} em S-1010 = [12, 21, 22, 32, 51, 92, 93, 94], exceto se categoria de trabalhador = [721, 722, 723, 771];<br />
+2b) {codIncIRRF} em S-1010 = [12, 13, 32, 33, 42, 43, 47, 48, 52, 53, 62, 63, 64, 65, 66, 71, 76, 77, 92, 93, 9012, 9013, 9032, 9033, 9042, 9043, 9047, 9048, 9052, 9053, 9062, 9063, 9064, 9065, 9066, 9832, 9833], exceto se categoria de trabalhador = [721, 722, 723, 771];<br />
 2c) {codIncCP} em S-1010 = [34, 35] se a categoria do trabalhador for diferente de [711, 712, 734];<br />
 2d) {codIncCP} em S-1010 = [31] se {classTrib} em S-1000 = [21, 22] (Pessoa Física) e a categoria do trabalhador pertencer ao grupo "Contribuinte Individual" (7XX), pois não existe previsão legal de desconto de contribuição do segurado contribuinte individual que é contratado por outro contribuinte individual, exceto se {ideEstab/tpInsc} em S-1005 = [4] (CNO);<br />
 2e) {codIncIRRF} em S-1010 = [14, 34, 54, 94, 9014, 9034, 9054, 9834], exceto se categoria de trabalhador = [721, 722, 723, 731, 734, 738, 761, 771];<br />
@@ -1196,7 +1237,7 @@ Caso algum item acima não seja atendido, retornar "alerta".</p>
 <div class="modal-card-body">
 <p>Se {indApuracao} for igual a [2] (décimo terceiro salário):<br />
 a) No caso do evento S-1200, são permitidas apenas as rubricas cujo {codIncCP} em S-1010 seja igual a [00, 01, 12, 14, 16, 22, 26, 32, 92, 94, 96, 98], cujo {codIncIRRF} em S-1010 seja igual a [0, 1, 9, 12, 14, 32, 34, 42, 47, 52, 54, 62, 64, 71, 77, 81, 82, 83, 92, 94, 9014, 9034, 9054, 9834] e cujo {codIncFGTS} em S-1010 seja igual a [00, 12, 92]. Caso sejam informadas rubricas com {codIncCP}, {codIncIRRF} e/ou {codIncFGTS} diferentes dos valores acima citados, retornar "alerta";<br />
-b) Nos casos dos eventos S-1202 e S-1207, são permitidas apenas as rubricas cujo {codIncCPRP} em S-1010 seja igual a [00, 12, 32, 91] e cujo {codIncIRRF} em S-1010 seja igual a [0, 1, 9, 12, 14, 32, 34, 42, 47, 52, 54, 62, 64, 71, 77, 81, 82, 83, 92, 94, 9014, 9034, 9054, 9834].</p>
+b) Nos casos dos eventos S-1202 e S-1207, são permitidas apenas as rubricas cujo {codIncCPRP} em S-1010 seja igual a [00, 12, 32, 91, 92] e cujo {codIncIRRF} em S-1010 seja igual a [0, 1, 9, 12, 14, 32, 34, 42, 47, 52, 54, 62, 64, 71, 77, 81, 82, 83, 92, 94, 9014, 9034, 9054, 9834].</p>
 </div>
 </div>
 </div>
@@ -1422,7 +1463,7 @@ Se {tpPgto} = [3], a data de pagamento não pode ser menor que o mês anterior d
 </header>
 <div class="modal-card-body">
 <p>1) Se {tpInsc} do empregador for igual a [1] (CNPJ):<br />
-a) O evento não deve ser permitido se a natureza jurídica do declarante for igual a [119-8, 212-7, 221-6, 228-3, 303-4, 310-7, 321-2, 323-9, 324-7, 329-8, 402-2, 408-1, 409-0, 411-1, 412-0];<br />
+a) O evento não deve ser permitido se a natureza jurídica do declarante for igual a [119-8, 212-7, 228-3, 303-4, 310-7, 323-9, 324-7, 329-8, 402-2, 408-1, 409-0, 411-1, 412-0];<br />
 b) Aplicar <a href="#REGRA_VALIDA_CNPJ">REGRA_VALIDA_CNPJ</a> para o CNPJ informado em {nrInsc}.<br />
 2) Se {tpInsc} do empregador for igual a [2] (CPF), o CPF indicado no campo {nrInsc} deve existir na base da RFB e obedecer às seguintes condições:<br />
 a) Se estiver com a situação cadastral "cancelada":<br />
@@ -1447,8 +1488,8 @@ a) Não deve existir evento de Registro Preliminar (S-2190) sem o correspondente
 b) Validar a integridade entre os eventos de remuneração recepcionados e os empregados e agentes públicos "ativos" do Registro de Eventos Trabalhistas - RET, da seguinte forma:<br />
 b1) Todos os trabalhadores admitidos (S-2190 ou S-2200) em período igual ou anterior ao período de apuração que não estejam desligados ou cujo desligamento ou baixa judicial seja posterior ao período de apuração devem possuir o respectivo evento de remuneração (S-1200, S-1202 ou S-2299 para trabalhadores com {tpRegTrab} = [1] e S-1200 ou S-1202 para trabalhadores com {tpRegTrab} = [2]) já encaminhado para o mesmo período de apuração, exceto:<br />
 - se o trabalhador estiver afastado durante todo o período de apuração em um dos seguintes códigos de afastamento [03, 05, 06, 07, 11, 12, 13, 21, 23, 25, 27, 28, 30, 31, 36, 37]; ou<br />
-- se o trabalhador estiver afastado durante todo o período de apuração pelo código de motivo de afastamento [14] com {infOnus} = [2], ou cedido/em exercício em outro órgão durante todo o período de apuração com {respRemun} = [N]); ou<br />
-- se o trabalhador estiver afastado durante todo o período de apuração pelo código de motivo de afastamento [24] com {infOnusRemun} = [2]; ou<br />
+- se o trabalhador estiver afastado durante todo o período de apuração pelo código de motivo de afastamento [14] com {infOnus} = [2] ou não existente, ou cedido/em exercício em outro órgão durante todo o período de apuração com {respRemun} = [N] ou não existente; ou<br />
+- se o trabalhador estiver afastado durante todo o período de apuração pelo código de motivo de afastamento [24] com {infOnusRemun} = [2] ou não existente; ou<br />
 - se o trabalhador estiver afastado durante todo o período de apuração pelo código de motivo de afastamento [22] com {indRemunCargo} = [N] ou não existente; ou<br />
 - se o código da categoria do trabalhador for igual a [111, 310] em todo o período de apuração; ou<br />
 - se, para trabalhador admitido com {tpAdmissao} = [2, 3, 4, 5, 6, 7] ou {tpProv} = [5, 8, 10], o período de apuração for menor que o mês/ano informado no campo {sucessaoVinc/dtTransf}, {transfDom/dtTransf} ou {mudancaCPF/dtAltCPF}, todos do S-2200; ou<br />
@@ -3814,7 +3855,8 @@ Para utilização de código [9X] ou [9XXX], é necessária a existência de gru
 <strong>12</strong> - Base de cálculo de contribuições devidas ao RPPS/regime militar - 13º salário<br />
 <strong>31</strong> - Contribuição descontada do segurado e beneficiário<br />
 <strong>32</strong> - Contribuição descontada do segurado e beneficiário - 13º salário<br />
-<strong>91</strong> - Suspensão de incidência em decorrência de decisão judicial</td>
+<strong>91</strong> - Suspensão de incidência em decorrência de decisão judicial<br />
+<strong>92</strong> - Suspensão de incidência em decorrência de decisão judicial - 13º salário</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="1010_infoRubrica_inclusao_dadosRubrica_tetoRemun" id="1010_infoRubrica_inclusao_dadosRubrica_tetoRemun">26</td>
@@ -4721,7 +4763,8 @@ Deve haver pelo menos um processo em <a href="#1020_infoLotacao_inclusao_dadosLo
 <td>Tipo de inscrição do proprietário do CNO.<br />
 <strong>Valores válidos:</strong><br />
 <strong>1</strong> - CNPJ<br />
-<strong>2</strong> - CPF</td>
+<strong>2</strong> - CPF<br />
+<strong>Validação:</strong> Preenchimento obrigatório e exclusivo quando o proprietário não for encontrado no CNO.</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="1020_infoLotacao_inclusao_dadosLotacao_infoEmprParcial_nrInscProp" id="1020_infoLotacao_inclusao_dadosLotacao_infoEmprParcial_nrInscProp">34</td>
@@ -8482,6 +8525,7 @@ Deve ser informado no formato AAAA-MM.</td>
 <a href="#REGRA_EXISTE_INFO_EMPREGADOR">REGRA_EXISTE_INFO_EMPREGADOR</a><br />
 <a href="#REGRA_MESMO_PROCEMI">REGRA_MESMO_PROCEMI</a><br />
 <a href="#REGRA_PAGTO_IND_RETIFICACAO">REGRA_PAGTO_IND_RETIFICACAO</a><br />
+<a href="#REGRA_PAGTO_PERMITE_EXCLUSAO">REGRA_PAGTO_PERMITE_EXCLUSAO</a><br />
 <a href="#REGRA_VALIDA_DT_PGTO">REGRA_VALIDA_DT_PGTO</a><br />
 <a href="#REGRA_VALIDA_EMPREGADOR">REGRA_VALIDA_EMPREGADOR</a><br />
 <a href="#REGRA_VALIDA_PER_APUR_PGTO">REGRA_VALIDA_PER_APUR_PGTO</a></td>
@@ -10940,7 +10984,6 @@ N (nos demais casos)</td>
 <a href="#REGRA_EMPREGADO_DOMESTICO">REGRA_EMPREGADO_DOMESTICO</a><br />
 <a href="#REGRA_ENVIO_PROC_FECHAMENTO">REGRA_ENVIO_PROC_FECHAMENTO</a><br />
 <a href="#REGRA_EVENTOS_EXTEMP">REGRA_EVENTOS_EXTEMP</a><br />
-<a href="#REGRA_EXCLUSAO_ADMISSAO_PRELIMINAR">REGRA_EXCLUSAO_ADMISSAO_PRELIMINAR</a><br />
 <a href="#REGRA_EXISTE_INFO_EMPREGADOR">REGRA_EXISTE_INFO_EMPREGADOR</a><br />
 <a href="#REGRA_MESMO_PROCEMI">REGRA_MESMO_PROCEMI</a><br />
 <a href="#REGRA_RETIFICA_MESMO_VINCULO">REGRA_RETIFICA_MESMO_VINCULO</a><br />
@@ -11697,6 +11740,7 @@ OC (nos demais casos)</td>
 <a href="#REGRA_ENVIO_PROC_FECHAMENTO">REGRA_ENVIO_PROC_FECHAMENTO</a><br />
 <a href="#REGRA_EVENTOS_EXTEMP">REGRA_EVENTOS_EXTEMP</a><br />
 <a href="#REGRA_EVETRAB_VALIDA_OPCAO_FGTS">REGRA_EVETRAB_VALIDA_OPCAO_FGTS</a><br />
+<a href="#REGRA_EXCLUSAO_ADMISSAO_TSVE_INICIO">REGRA_EXCLUSAO_ADMISSAO_TSVE_INICIO</a><br />
 <a href="#REGRA_EXISTE_INFO_EMPREGADOR">REGRA_EXISTE_INFO_EMPREGADOR</a><br />
 <a href="#REGRA_EXTEMP_DOMESTICO">REGRA_EXTEMP_DOMESTICO</a><br />
 <a href="#REGRA_EXTEMP_REINTEGRACAO">REGRA_EXTEMP_REINTEGRACAO</a><br />
@@ -16074,10 +16118,10 @@ Se não houver número a ser informado, preencher com &quot;S/N&quot;.</td>
 <td id="r_2210_cat_localAcidente_ideLocalAcid"><a href="#2210_cat_localAcidente_ideLocalAcid">ideLocalAcid</a></td>
 <td><a href="#r_2210_cat_localAcidente">localAcidente</a></td>
 <td>5</td>
-<td>Identificação do local onde ocorreu o acidente</td>
+<td>Identificação do local onde ocorreu o acidente ou do estabelecimento ao qual o trabalhador avulso está vinculado</td>
 <td>0-1</td>
 <td>-</td>
-<td>O (se <a href="#2210_ideEmpregador_tpInsc">ideEmpregador/tpInsc</a> = [1] e <a href="#2210_cat_localAcidente_tpLocal">tpLocal</a> = [1, 3]);<br />
+<td>O ((se <a href="#2210_ideEmpregador_tpInsc">ideEmpregador/tpInsc</a> = [1] e <a href="#2210_cat_localAcidente_tpLocal">tpLocal</a> = [1, 3]) ou (se o código de categoria no RET for igual a [2XX] e <a href="#2210_cat_dtAcid">dtAcid</a> &gt;= [2023-01-16]));<br />
 OC (nos demais casos)</td>
 </tr>
 <tr>
@@ -16521,8 +16565,36 @@ Preenchimento obrigatório e exclusivo se <a href="#2210_cat_indCatObito">indCat
 <td>-</td>
 <td>Observação.</td>
 </tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="2210_cat_ultDiaTrab" id="2210_cat_ultDiaTrab">29</td>
+<td>ultDiaTrab</td>
+<td><a href="#r_2210_cat">cat</a></td>
+<td>E</td>
+<td>D</td>
+<td>0-1</td>
+<td>-</td>
+<td>-</td>
+<td>Último dia trabalhado.<br />
+<strong>Validação:</strong> Preenchimento obrigatório se <a href="#2210_cat_dtAcid">dtAcid</a> &gt;= [2023-01-16]). Se informada, deve ser uma data igual ou anterior à data atual e igual ou posterior à data de admissão do trabalhador.<br />
+Se <a href="#2210_cat_tpCat">tpCat</a> = [2], deve ser informada data posterior à data preenchida no evento de CAT anterior, quando informada em <a href="#2210_cat_catOrigem_nrRecCatOrig">nrRecCatOrig</a>.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="2210_cat_houveAfast" id="2210_cat_houveAfast">30</td>
+<td>houveAfast</td>
+<td><a href="#r_2210_cat">cat</a></td>
+<td>E</td>
+<td>C</td>
+<td>0-1</td>
+<td>1</td>
+<td>-</td>
+<td>Houve afastamento?<br />
+<strong>Valores válidos:</strong><br />
+<strong>S</strong> - Sim<br />
+<strong>N</strong> - Não<br />
+<strong>Validação:</strong> Preenchimento obrigatório se <a href="#2210_cat_dtAcid">dtAcid</a> &gt;= [2023-01-16]).</td>
+</tr>
 <tr class="grupo">
-<td onclick="copiarCaminho.call(this)" title="2210_cat_localAcidente" id="2210_cat_localAcidente">29</td>
+<td onclick="copiarCaminho.call(this)" title="2210_cat_localAcidente" id="2210_cat_localAcidente">31</td>
 <td><a href="#r_2210_cat_localAcidente">localAcidente</a></td>
 <td><a href="#r_2210_cat">cat</a></td>
 <td>G</td>
@@ -16533,7 +16605,7 @@ Preenchimento obrigatório e exclusivo se <a href="#2210_cat_indCatObito">indCat
 <td>Local do acidente.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2210_cat_localAcidente_tpLocal" id="2210_cat_localAcidente_tpLocal">30</td>
+<td onclick="copiarCaminho.call(this)" title="2210_cat_localAcidente_tpLocal" id="2210_cat_localAcidente_tpLocal">32</td>
 <td>tpLocal</td>
 <td><a href="#r_2210_cat_localAcidente">localAcidente</a></td>
 <td>E</td>
@@ -16552,7 +16624,7 @@ Preenchimento obrigatório e exclusivo se <a href="#2210_cat_indCatObito">indCat
 <strong>9</strong> - Outros</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2210_cat_localAcidente_dscLocal" id="2210_cat_localAcidente_dscLocal">31</td>
+<td onclick="copiarCaminho.call(this)" title="2210_cat_localAcidente_dscLocal" id="2210_cat_localAcidente_dscLocal">33</td>
 <td>dscLocal</td>
 <td><a href="#r_2210_cat_localAcidente">localAcidente</a></td>
 <td>E</td>
@@ -16563,7 +16635,7 @@ Preenchimento obrigatório e exclusivo se <a href="#2210_cat_indCatObito">indCat
 <td>Especificação do local do acidente (pátio, rampa de acesso, posto de trabalho, etc.).</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2210_cat_localAcidente_tpLograd" id="2210_cat_localAcidente_tpLograd">32</td>
+<td onclick="copiarCaminho.call(this)" title="2210_cat_localAcidente_tpLograd" id="2210_cat_localAcidente_tpLograd">34</td>
 <td>tpLograd</td>
 <td><a href="#r_2210_cat_localAcidente">localAcidente</a></td>
 <td>E</td>
@@ -16575,7 +16647,7 @@ Preenchimento obrigatório e exclusivo se <a href="#2210_cat_indCatObito">indCat
 <strong>Validação:</strong> Se informado, deve ser um código válido e existente na <a href="tabelas.html#20">Tabela 20</a>.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2210_cat_localAcidente_dscLograd" id="2210_cat_localAcidente_dscLograd">33</td>
+<td onclick="copiarCaminho.call(this)" title="2210_cat_localAcidente_dscLograd" id="2210_cat_localAcidente_dscLograd">35</td>
 <td>dscLograd</td>
 <td><a href="#r_2210_cat_localAcidente">localAcidente</a></td>
 <td>E</td>
@@ -16586,7 +16658,7 @@ Preenchimento obrigatório e exclusivo se <a href="#2210_cat_indCatObito">indCat
 <td>Descrição do logradouro.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2210_cat_localAcidente_nrLograd" id="2210_cat_localAcidente_nrLograd">34</td>
+<td onclick="copiarCaminho.call(this)" title="2210_cat_localAcidente_nrLograd" id="2210_cat_localAcidente_nrLograd">36</td>
 <td>nrLograd</td>
 <td><a href="#r_2210_cat_localAcidente">localAcidente</a></td>
 <td>E</td>
@@ -16598,7 +16670,7 @@ Preenchimento obrigatório e exclusivo se <a href="#2210_cat_indCatObito">indCat
 Se não houver número a ser informado, preencher com &quot;S/N&quot;.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2210_cat_localAcidente_complemento" id="2210_cat_localAcidente_complemento">35</td>
+<td onclick="copiarCaminho.call(this)" title="2210_cat_localAcidente_complemento" id="2210_cat_localAcidente_complemento">37</td>
 <td>complemento</td>
 <td><a href="#r_2210_cat_localAcidente">localAcidente</a></td>
 <td>E</td>
@@ -16609,7 +16681,7 @@ Se não houver número a ser informado, preencher com &quot;S/N&quot;.</td>
 <td>Complemento do logradouro.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2210_cat_localAcidente_bairro" id="2210_cat_localAcidente_bairro">36</td>
+<td onclick="copiarCaminho.call(this)" title="2210_cat_localAcidente_bairro" id="2210_cat_localAcidente_bairro">38</td>
 <td>bairro</td>
 <td><a href="#r_2210_cat_localAcidente">localAcidente</a></td>
 <td>E</td>
@@ -16620,7 +16692,7 @@ Se não houver número a ser informado, preencher com &quot;S/N&quot;.</td>
 <td>Nome do bairro/distrito.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2210_cat_localAcidente_cep" id="2210_cat_localAcidente_cep">37</td>
+<td onclick="copiarCaminho.call(this)" title="2210_cat_localAcidente_cep" id="2210_cat_localAcidente_cep">39</td>
 <td>cep</td>
 <td><a href="#r_2210_cat_localAcidente">localAcidente</a></td>
 <td>E</td>
@@ -16633,7 +16705,7 @@ Se não houver número a ser informado, preencher com &quot;S/N&quot;.</td>
 Se preenchido, deve ser informado apenas com números, com 8 (oito) posições.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2210_cat_localAcidente_codMunic" id="2210_cat_localAcidente_codMunic">38</td>
+<td onclick="copiarCaminho.call(this)" title="2210_cat_localAcidente_codMunic" id="2210_cat_localAcidente_codMunic">40</td>
 <td>codMunic</td>
 <td><a href="#r_2210_cat_localAcidente">localAcidente</a></td>
 <td>E</td>
@@ -16646,7 +16718,7 @@ Se preenchido, deve ser informado apenas com números, com 8 (oito) posições.<
 Se informado, deve ser um código válido e existente na tabela do IBGE.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2210_cat_localAcidente_uf" id="2210_cat_localAcidente_uf">39</td>
+<td onclick="copiarCaminho.call(this)" title="2210_cat_localAcidente_uf" id="2210_cat_localAcidente_uf">41</td>
 <td>uf</td>
 <td><a href="#r_2210_cat_localAcidente">localAcidente</a></td>
 <td>E</td>
@@ -16659,7 +16731,7 @@ Se informado, deve ser um código válido e existente na tabela do IBGE.</td>
 <strong>Validação:</strong> Preenchimento obrigatório se <a href="#2210_cat_localAcidente_tpLocal">tpLocal</a> = [1, 3, 4, 5]. Não preencher se <a href="#2210_cat_localAcidente_tpLocal">tpLocal</a> = [2].</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2210_cat_localAcidente_pais" id="2210_cat_localAcidente_pais">40</td>
+<td onclick="copiarCaminho.call(this)" title="2210_cat_localAcidente_pais" id="2210_cat_localAcidente_pais">42</td>
 <td>pais</td>
 <td><a href="#r_2210_cat_localAcidente">localAcidente</a></td>
 <td>E</td>
@@ -16672,7 +16744,7 @@ Se informado, deve ser um código válido e existente na tabela do IBGE.</td>
 Preenchimento obrigatório se <a href="#2210_cat_localAcidente_tpLocal">tpLocal</a> = [2]. Não preencher nos demais casos.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2210_cat_localAcidente_codPostal" id="2210_cat_localAcidente_codPostal">41</td>
+<td onclick="copiarCaminho.call(this)" title="2210_cat_localAcidente_codPostal" id="2210_cat_localAcidente_codPostal">43</td>
 <td>codPostal</td>
 <td><a href="#r_2210_cat_localAcidente">localAcidente</a></td>
 <td>E</td>
@@ -16684,7 +16756,7 @@ Preenchimento obrigatório se <a href="#2210_cat_localAcidente_tpLocal">tpLocal<
 <strong>Validação:</strong> Preenchimento obrigatório se <a href="#2210_cat_localAcidente_tpLocal">tpLocal</a> = [2]. Não preencher nos demais casos.</td>
 </tr>
 <tr class="grupo">
-<td onclick="copiarCaminho.call(this)" title="2210_cat_localAcidente_ideLocalAcid" id="2210_cat_localAcidente_ideLocalAcid">42</td>
+<td onclick="copiarCaminho.call(this)" title="2210_cat_localAcidente_ideLocalAcid" id="2210_cat_localAcidente_ideLocalAcid">44</td>
 <td><a href="#r_2210_cat_localAcidente_ideLocalAcid">ideLocalAcid</a></td>
 <td><a href="#r_2210_cat_localAcidente">localAcidente</a></td>
 <td>G</td>
@@ -16692,10 +16764,10 @@ Preenchimento obrigatório se <a href="#2210_cat_localAcidente_tpLocal">tpLocal<
 <td>0-1</td>
 <td>-</td>
 <td>-</td>
-<td>Identificação do local onde ocorreu o acidente.</td>
+<td>Identificação do local onde ocorreu o acidente ou do estabelecimento ao qual o trabalhador avulso está vinculado.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2210_cat_localAcidente_ideLocalAcid_tpInsc" id="2210_cat_localAcidente_ideLocalAcid_tpInsc">43</td>
+<td onclick="copiarCaminho.call(this)" title="2210_cat_localAcidente_ideLocalAcid_tpInsc" id="2210_cat_localAcidente_ideLocalAcid_tpInsc">45</td>
 <td>tpInsc</td>
 <td><a href="#r_2210_cat_localAcidente_ideLocalAcid">ideLocalAcid</a></td>
 <td>E</td>
@@ -16703,14 +16775,14 @@ Preenchimento obrigatório se <a href="#2210_cat_localAcidente_tpLocal">tpLocal<
 <td>1</td>
 <td>1</td>
 <td>-</td>
-<td>Preencher com o código correspondente ao tipo de inscrição do local onde ocorreu o acidente ou a doença ocupacional, conforme <a href="tabelas.html#05">Tabela 05</a>.<br />
+<td>Preencher com o código correspondente ao tipo de inscrição, conforme <a href="tabelas.html#05">Tabela 05</a>.<br />
 <strong>Valores válidos:</strong><br />
 <strong>1</strong> - CNPJ<br />
 <strong>3</strong> - CAEPF<br />
 <strong>4</strong> - CNO</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2210_cat_localAcidente_ideLocalAcid_nrInsc" id="2210_cat_localAcidente_ideLocalAcid_nrInsc">44</td>
+<td onclick="copiarCaminho.call(this)" title="2210_cat_localAcidente_ideLocalAcid_nrInsc" id="2210_cat_localAcidente_ideLocalAcid_nrInsc">46</td>
 <td>nrInsc</td>
 <td><a href="#r_2210_cat_localAcidente_ideLocalAcid">ideLocalAcid</a></td>
 <td>E</td>
@@ -16719,12 +16791,13 @@ Preenchimento obrigatório se <a href="#2210_cat_localAcidente_tpLocal">tpLocal<
 <td>12 ou 14</td>
 <td>-</td>
 <td>Informar o número de inscrição do estabelecimento, de acordo com o tipo de inscrição indicado no campo <a href="#2210_cat_localAcidente_ideLocalAcid_tpInsc">ideLocalAcid/tpInsc</a>. Se o acidente ou a doença ocupacional ocorreu em local onde o trabalhador presta serviços, deve ser um número de inscrição pertencente à contratante dos serviços.<br />
+No caso de acidente de avulso com <a href="#2210_cat_localAcidente_tpLocal">tpLocal</a> diferente de [1, 3], informar o estabelecimento ao qual o trabalhador está vinculado.<br />
 <strong>Validação:</strong> Deve ser compatível com o conteúdo do campo <a href="#2210_cat_localAcidente_ideLocalAcid_tpInsc">ideLocalAcid/tpInsc</a>. Deve ser um identificador válido, constante das bases da RFB, e:<br />
-a) Se <a href="#2210_cat_localAcidente_tpLocal">tpLocal</a> = [1], deve ser válido e existente na Tabela de Estabelecimentos (S-1005);<br />
+a) Se <a href="#2210_cat_localAcidente_tpLocal">tpLocal</a> = [1] ou (se o código de categoria no RET for igual a [2XX] e <a href="#2210_cat_localAcidente_tpLocal">tpLocal</a> for diferente de [1, 3]), deve ser válido e existente na Tabela de Estabelecimentos (S-1005);<br />
 b) Se <a href="#2210_cat_localAcidente_tpLocal">tpLocal</a> = [3], deve ser diferente dos estabelecimentos informados na Tabela S-1005 e, se <a href="#2210_cat_localAcidente_ideLocalAcid_tpInsc">ideLocalAcid/tpInsc</a> = [1], diferente do CNPJ base indicado em S-1000.</td>
 </tr>
 <tr class="grupo">
-<td onclick="copiarCaminho.call(this)" title="2210_cat_parteAtingida" id="2210_cat_parteAtingida">45</td>
+<td onclick="copiarCaminho.call(this)" title="2210_cat_parteAtingida" id="2210_cat_parteAtingida">47</td>
 <td><a href="#r_2210_cat_parteAtingida">parteAtingida</a></td>
 <td><a href="#r_2210_cat">cat</a></td>
 <td>G</td>
@@ -16735,7 +16808,7 @@ b) Se <a href="#2210_cat_localAcidente_tpLocal">tpLocal</a> = [3], deve ser dife
 <td>Detalhamento da parte atingida pelo acidente de trabalho.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2210_cat_parteAtingida_codParteAting" id="2210_cat_parteAtingida_codParteAting">46</td>
+<td onclick="copiarCaminho.call(this)" title="2210_cat_parteAtingida_codParteAting" id="2210_cat_parteAtingida_codParteAting">48</td>
 <td>codParteAting</td>
 <td><a href="#r_2210_cat_parteAtingida">parteAtingida</a></td>
 <td>E</td>
@@ -16747,7 +16820,7 @@ b) Se <a href="#2210_cat_localAcidente_tpLocal">tpLocal</a> = [3], deve ser dife
 <strong>Validação:</strong> Deve ser um código válido e existente na <a href="tabelas.html#13">Tabela 13</a>.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2210_cat_parteAtingida_lateralidade" id="2210_cat_parteAtingida_lateralidade">47</td>
+<td onclick="copiarCaminho.call(this)" title="2210_cat_parteAtingida_lateralidade" id="2210_cat_parteAtingida_lateralidade">49</td>
 <td>lateralidade</td>
 <td><a href="#r_2210_cat_parteAtingida">parteAtingida</a></td>
 <td>E</td>
@@ -16764,7 +16837,7 @@ Nos casos de órgãos bilaterais, ou seja, que se situam dos lados do corpo, ass
 <strong>3</strong> - Ambas</td>
 </tr>
 <tr class="grupo">
-<td onclick="copiarCaminho.call(this)" title="2210_cat_agenteCausador" id="2210_cat_agenteCausador">48</td>
+<td onclick="copiarCaminho.call(this)" title="2210_cat_agenteCausador" id="2210_cat_agenteCausador">50</td>
 <td><a href="#r_2210_cat_agenteCausador">agenteCausador</a></td>
 <td><a href="#r_2210_cat">cat</a></td>
 <td>G</td>
@@ -16775,7 +16848,7 @@ Nos casos de órgãos bilaterais, ou seja, que se situam dos lados do corpo, ass
 <td>Detalhamento do agente causador do acidente de trabalho.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2210_cat_agenteCausador_codAgntCausador" id="2210_cat_agenteCausador_codAgntCausador">49</td>
+<td onclick="copiarCaminho.call(this)" title="2210_cat_agenteCausador_codAgntCausador" id="2210_cat_agenteCausador_codAgntCausador">51</td>
 <td>codAgntCausador</td>
 <td><a href="#r_2210_cat_agenteCausador">agenteCausador</a></td>
 <td>E</td>
@@ -16787,7 +16860,7 @@ Nos casos de órgãos bilaterais, ou seja, que se situam dos lados do corpo, ass
 <strong>Validação:</strong> Deve ser um código válido e existente na <a href="tabelas.html#14">Tabela 14</a> ou na <a href="tabelas.html#15">Tabela 15</a>.</td>
 </tr>
 <tr class="grupo">
-<td onclick="copiarCaminho.call(this)" title="2210_cat_atestado" id="2210_cat_atestado">50</td>
+<td onclick="copiarCaminho.call(this)" title="2210_cat_atestado" id="2210_cat_atestado">52</td>
 <td><a href="#r_2210_cat_atestado">atestado</a></td>
 <td><a href="#r_2210_cat">cat</a></td>
 <td>G</td>
@@ -16798,7 +16871,7 @@ Nos casos de órgãos bilaterais, ou seja, que se situam dos lados do corpo, ass
 <td>Atestado médico.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2210_cat_atestado_dtAtendimento" id="2210_cat_atestado_dtAtendimento">51</td>
+<td onclick="copiarCaminho.call(this)" title="2210_cat_atestado_dtAtendimento" id="2210_cat_atestado_dtAtendimento">53</td>
 <td>dtAtendimento</td>
 <td><a href="#r_2210_cat_atestado">atestado</a></td>
 <td>E</td>
@@ -16810,7 +16883,7 @@ Nos casos de órgãos bilaterais, ou seja, que se situam dos lados do corpo, ass
 <strong>Validação:</strong> Deve ser uma data igual ou posterior a <a href="#2210_cat_dtAcid">dtAcid</a> e igual ou anterior à data atual.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2210_cat_atestado_hrAtendimento" id="2210_cat_atestado_hrAtendimento">52</td>
+<td onclick="copiarCaminho.call(this)" title="2210_cat_atestado_hrAtendimento" id="2210_cat_atestado_hrAtendimento">54</td>
 <td>hrAtendimento</td>
 <td><a href="#r_2210_cat_atestado">atestado</a></td>
 <td>E</td>
@@ -16822,7 +16895,7 @@ Nos casos de órgãos bilaterais, ou seja, que se situam dos lados do corpo, ass
 <strong>Validação:</strong> Deve estar no intervalo entre [0000] e [2359], criticando inclusive a segunda parte do número, que indica os minutos, que deve ser menor ou igual a 59.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2210_cat_atestado_indInternacao" id="2210_cat_atestado_indInternacao">53</td>
+<td onclick="copiarCaminho.call(this)" title="2210_cat_atestado_indInternacao" id="2210_cat_atestado_indInternacao">55</td>
 <td>indInternacao</td>
 <td><a href="#r_2210_cat_atestado">atestado</a></td>
 <td>E</td>
@@ -16836,7 +16909,7 @@ Nos casos de órgãos bilaterais, ou seja, que se situam dos lados do corpo, ass
 <strong>N</strong> - Não</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2210_cat_atestado_durTrat" id="2210_cat_atestado_durTrat">54</td>
+<td onclick="copiarCaminho.call(this)" title="2210_cat_atestado_durTrat" id="2210_cat_atestado_durTrat">56</td>
 <td>durTrat</td>
 <td><a href="#r_2210_cat_atestado">atestado</a></td>
 <td>E</td>
@@ -16847,7 +16920,7 @@ Nos casos de órgãos bilaterais, ou seja, que se situam dos lados do corpo, ass
 <td>Duração estimada do tratamento, em dias.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2210_cat_atestado_indAfast" id="2210_cat_atestado_indAfast">55</td>
+<td onclick="copiarCaminho.call(this)" title="2210_cat_atestado_indAfast" id="2210_cat_atestado_indAfast">57</td>
 <td>indAfast</td>
 <td><a href="#r_2210_cat_atestado">atestado</a></td>
 <td>E</td>
@@ -16862,7 +16935,7 @@ Nos casos de órgãos bilaterais, ou seja, que se situam dos lados do corpo, ass
 <strong>Validação:</strong> Se o campo <a href="#2210_cat_indCatObito">indCatObito</a> for igual a [S], o campo deve sempre ser preenchido com [N].</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2210_cat_atestado_dscLesao" id="2210_cat_atestado_dscLesao">56</td>
+<td onclick="copiarCaminho.call(this)" title="2210_cat_atestado_dscLesao" id="2210_cat_atestado_dscLesao">58</td>
 <td>dscLesao</td>
 <td><a href="#r_2210_cat_atestado">atestado</a></td>
 <td>E</td>
@@ -16874,7 +16947,7 @@ Nos casos de órgãos bilaterais, ou seja, que se situam dos lados do corpo, ass
 <strong>Validação:</strong> Deve ser um código válido e existente na <a href="tabelas.html#17">Tabela 17</a>.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2210_cat_atestado_dscCompLesao" id="2210_cat_atestado_dscCompLesao">57</td>
+<td onclick="copiarCaminho.call(this)" title="2210_cat_atestado_dscCompLesao" id="2210_cat_atestado_dscCompLesao">59</td>
 <td>dscCompLesao</td>
 <td><a href="#r_2210_cat_atestado">atestado</a></td>
 <td>E</td>
@@ -16885,7 +16958,7 @@ Nos casos de órgãos bilaterais, ou seja, que se situam dos lados do corpo, ass
 <td>Descrição complementar da lesão.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2210_cat_atestado_diagProvavel" id="2210_cat_atestado_diagProvavel">58</td>
+<td onclick="copiarCaminho.call(this)" title="2210_cat_atestado_diagProvavel" id="2210_cat_atestado_diagProvavel">60</td>
 <td>diagProvavel</td>
 <td><a href="#r_2210_cat_atestado">atestado</a></td>
 <td>E</td>
@@ -16896,7 +16969,7 @@ Nos casos de órgãos bilaterais, ou seja, que se situam dos lados do corpo, ass
 <td>Diagnóstico provável.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2210_cat_atestado_codCID" id="2210_cat_atestado_codCID">59</td>
+<td onclick="copiarCaminho.call(this)" title="2210_cat_atestado_codCID" id="2210_cat_atestado_codCID">61</td>
 <td>codCID</td>
 <td><a href="#r_2210_cat_atestado">atestado</a></td>
 <td>E</td>
@@ -16908,7 +16981,7 @@ Nos casos de órgãos bilaterais, ou seja, que se situam dos lados do corpo, ass
 <strong>Validação:</strong> Deve ser preenchido com caracteres alfanuméricos, conforme opções constantes na tabela CID.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2210_cat_atestado_observacao" id="2210_cat_atestado_observacao">60</td>
+<td onclick="copiarCaminho.call(this)" title="2210_cat_atestado_observacao" id="2210_cat_atestado_observacao">62</td>
 <td>observacao</td>
 <td><a href="#r_2210_cat_atestado">atestado</a></td>
 <td>E</td>
@@ -16919,7 +16992,7 @@ Nos casos de órgãos bilaterais, ou seja, que se situam dos lados do corpo, ass
 <td>Observação.</td>
 </tr>
 <tr class="grupo">
-<td onclick="copiarCaminho.call(this)" title="2210_cat_atestado_emitente" id="2210_cat_atestado_emitente">61</td>
+<td onclick="copiarCaminho.call(this)" title="2210_cat_atestado_emitente" id="2210_cat_atestado_emitente">63</td>
 <td><a href="#r_2210_cat_atestado_emitente">emitente</a></td>
 <td><a href="#r_2210_cat_atestado">atestado</a></td>
 <td>G</td>
@@ -16930,7 +17003,7 @@ Nos casos de órgãos bilaterais, ou seja, que se situam dos lados do corpo, ass
 <td>Médico/Dentista que emitiu o atestado.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2210_cat_atestado_emitente_nmEmit" id="2210_cat_atestado_emitente_nmEmit">62</td>
+<td onclick="copiarCaminho.call(this)" title="2210_cat_atestado_emitente_nmEmit" id="2210_cat_atestado_emitente_nmEmit">64</td>
 <td>nmEmit</td>
 <td><a href="#r_2210_cat_atestado_emitente">emitente</a></td>
 <td>E</td>
@@ -16941,7 +17014,7 @@ Nos casos de órgãos bilaterais, ou seja, que se situam dos lados do corpo, ass
 <td>Nome do médico/dentista que emitiu o atestado.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2210_cat_atestado_emitente_ideOC" id="2210_cat_atestado_emitente_ideOC">63</td>
+<td onclick="copiarCaminho.call(this)" title="2210_cat_atestado_emitente_ideOC" id="2210_cat_atestado_emitente_ideOC">65</td>
 <td>ideOC</td>
 <td><a href="#r_2210_cat_atestado_emitente">emitente</a></td>
 <td>E</td>
@@ -16956,7 +17029,7 @@ Nos casos de órgãos bilaterais, ou seja, que se situam dos lados do corpo, ass
 <strong>3</strong> - Registro do Ministério da Saúde - RMS</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2210_cat_atestado_emitente_nrOC" id="2210_cat_atestado_emitente_nrOC">64</td>
+<td onclick="copiarCaminho.call(this)" title="2210_cat_atestado_emitente_nrOC" id="2210_cat_atestado_emitente_nrOC">66</td>
 <td>nrOC</td>
 <td><a href="#r_2210_cat_atestado_emitente">emitente</a></td>
 <td>E</td>
@@ -16967,7 +17040,7 @@ Nos casos de órgãos bilaterais, ou seja, que se situam dos lados do corpo, ass
 <td>Número de inscrição no órgão de classe ou Registro do Ministério da Saúde (RMS).</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2210_cat_atestado_emitente_ufOC" id="2210_cat_atestado_emitente_ufOC">65</td>
+<td onclick="copiarCaminho.call(this)" title="2210_cat_atestado_emitente_ufOC" id="2210_cat_atestado_emitente_ufOC">67</td>
 <td>ufOC</td>
 <td><a href="#r_2210_cat_atestado_emitente">emitente</a></td>
 <td>E</td>
@@ -16980,7 +17053,7 @@ Nos casos de órgãos bilaterais, ou seja, que se situam dos lados do corpo, ass
 <strong>Validação:</strong> Preenchimento obrigatório se <a href="#2210_cat_atestado_emitente_ideOC">ideOC</a> = [1, 2].</td>
 </tr>
 <tr class="grupo">
-<td onclick="copiarCaminho.call(this)" title="2210_cat_catOrigem" id="2210_cat_catOrigem">66</td>
+<td onclick="copiarCaminho.call(this)" title="2210_cat_catOrigem" id="2210_cat_catOrigem">68</td>
 <td><a href="#r_2210_cat_catOrigem">catOrigem</a></td>
 <td><a href="#r_2210_cat">cat</a></td>
 <td>G</td>
@@ -16991,7 +17064,7 @@ Nos casos de órgãos bilaterais, ou seja, que se situam dos lados do corpo, ass
 <td>Grupo que indica a CAT anterior, no caso de CAT de reabertura ou de comunicação de óbito.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2210_cat_catOrigem_nrRecCatOrig" id="2210_cat_catOrigem_nrRecCatOrig">67</td>
+<td onclick="copiarCaminho.call(this)" title="2210_cat_catOrigem_nrRecCatOrig" id="2210_cat_catOrigem_nrRecCatOrig">69</td>
 <td>nrRecCatOrig</td>
 <td><a href="#r_2210_cat_catOrigem">catOrigem</a></td>
 <td>E</td>
@@ -18774,8 +18847,8 @@ b) Não pode ser posterior à data atual.</td>
 <td><a href="#r_2240_infoExpRisco">infoExpRisco</a></td>
 <td>4</td>
 <td>Informações relativas ao ambiente de trabalho</td>
-<td>1</td>
-<td>-</td>
+<td>1-9</td>
+<td><a href="#2240_infoExpRisco_infoAmb_tpInsc">tpInsc</a>, <a href="#2240_infoExpRisco_infoAmb_nrInsc">nrInsc</a></td>
 <td>O</td>
 </tr>
 <tr>
@@ -18812,7 +18885,7 @@ O (nos demais casos)</td>
 <td>6</td>
 <td>EPI</td>
 <td>0-50</td>
-<td><a href="#2240_infoExpRisco_agNoc_epcEpi_epi_docAval">docAval</a>, <a href="#2240_infoExpRisco_agNoc_epcEpi_epi_dscEPI">dscEPI</a></td>
+<td><a href="#2240_infoExpRisco_agNoc_epcEpi_epi_docAval">docAval</a></td>
 <td>O (se <a href="#2240_infoExpRisco_agNoc_epcEpi_utilizEPI">utilizEPI</a> = [2]);<br />
 N (nos demais casos)</td>
 </tr>
@@ -19085,7 +19158,9 @@ Informar somente no caso de TSVE sem informação de matrícula no evento S-2300
 <td>1</td>
 <td>-</td>
 <td>-</td>
-<td>Informações sobre o ambiente de trabalho, atividades desempenhadas e exposição a agentes nocivos.</td>
+<td>Informações sobre o ambiente de trabalho, atividades desempenhadas e exposição a agentes nocivos.<br />
+<strong>Regra de validação:</strong><br />
+<a href="#REGRA_PERIODO_EXPOSICAO_RISCO">REGRA_PERIODO_EXPOSICAO_RISCO</a></td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_dtIniCondicao" id="2240_infoExpRisco_dtIniCondicao">18</td>
@@ -19099,19 +19174,33 @@ Informar somente no caso de TSVE sem informação de matrícula no evento S-2300
 <td>Informar a data em que o trabalhador iniciou as atividades nas condições descritas ou a data de início da obrigatoriedade deste evento para o empregador no eSocial, a que for mais recente.<br />
 <strong>Validação:</strong> Deve ser uma data válida, igual ou posterior à data de admissão do vínculo a que se refere. Não pode ser anterior à data de início da obrigatoriedade deste evento para o empregador no eSocial, nem pode ser posterior a 30 (trinta) dias da data atual.</td>
 </tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_dtFimCondicao" id="2240_infoExpRisco_dtFimCondicao">19</td>
+<td>dtFimCondicao</td>
+<td><a href="#r_2240_infoExpRisco">infoExpRisco</a></td>
+<td>E</td>
+<td>D</td>
+<td>0-1</td>
+<td>-</td>
+<td>-</td>
+<td>Informar a data em que o trabalhador terminou as atividades nas condições descritas.<br />
+<strong>Validação:</strong> Preenchimento obrigatório e exclusivo para trabalhador avulso (código de categoria no RET igual a [2XX]) e se <a href="#2240_infoExpRisco_dtIniCondicao">dtIniCondicao</a> for igual ou posterior a [2023-01-16]. Se informada, deve ser uma data válida, igual ou posterior a <a href="#2240_infoExpRisco_dtIniCondicao">dtIniCondicao</a> e igual ou anterior a <a href="#2399_infoTSVTermino_dtTerm">dtTerm</a> de S-2399, se existente.</td>
+</tr>
 <tr class="grupo">
-<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_infoAmb" id="2240_infoExpRisco_infoAmb">19</td>
+<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_infoAmb" id="2240_infoExpRisco_infoAmb">20</td>
 <td><a href="#r_2240_infoExpRisco_infoAmb">infoAmb</a></td>
 <td><a href="#r_2240_infoExpRisco">infoExpRisco</a></td>
 <td>G</td>
 <td>-</td>
-<td>1</td>
+<td>1-9</td>
 <td>-</td>
 <td>-</td>
-<td>Informações relativas ao ambiente de trabalho.</td>
+<td>Informações relativas ao ambiente de trabalho. Somente no caso de trabalhador avulso (código de categoria no RET igual a [2XX]) é possível declarar mais de um ambiente.<br />
+<strong>Regra de validação:</strong><br />
+<a href="#REGRA_AMBIENTE_TRABALHO">REGRA_AMBIENTE_TRABALHO</a></td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_infoAmb_localAmb" id="2240_infoExpRisco_infoAmb_localAmb">20</td>
+<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_infoAmb_localAmb" id="2240_infoExpRisco_infoAmb_localAmb">21</td>
 <td>localAmb</td>
 <td><a href="#r_2240_infoExpRisco_infoAmb">infoAmb</a></td>
 <td>E</td>
@@ -19125,7 +19214,7 @@ Informar somente no caso de TSVE sem informação de matrícula no evento S-2300
 <strong>2</strong> - Estabelecimento de terceiros</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_infoAmb_dscSetor" id="2240_infoExpRisco_infoAmb_dscSetor">21</td>
+<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_infoAmb_dscSetor" id="2240_infoExpRisco_infoAmb_dscSetor">22</td>
 <td>dscSetor</td>
 <td><a href="#r_2240_infoExpRisco_infoAmb">infoAmb</a></td>
 <td>E</td>
@@ -19136,7 +19225,7 @@ Informar somente no caso de TSVE sem informação de matrícula no evento S-2300
 <td>Descrição do lugar administrativo, na estrutura organizacional da empresa, onde o trabalhador exerce suas atividades laborais.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_infoAmb_tpInsc" id="2240_infoExpRisco_infoAmb_tpInsc">22</td>
+<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_infoAmb_tpInsc" id="2240_infoExpRisco_infoAmb_tpInsc">23</td>
 <td>tpInsc</td>
 <td><a href="#r_2240_infoExpRisco_infoAmb">infoAmb</a></td>
 <td>E</td>
@@ -19151,7 +19240,7 @@ Informar somente no caso de TSVE sem informação de matrícula no evento S-2300
 <strong>4</strong> - CNO</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_infoAmb_nrInsc" id="2240_infoExpRisco_infoAmb_nrInsc">23</td>
+<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_infoAmb_nrInsc" id="2240_infoExpRisco_infoAmb_nrInsc">24</td>
 <td>nrInsc</td>
 <td><a href="#r_2240_infoExpRisco_infoAmb">infoAmb</a></td>
 <td>E</td>
@@ -19165,7 +19254,7 @@ a) Se <a href="#2240_infoExpRisco_infoAmb_localAmb">localAmb</a> = [1], deve ser
 b) Se <a href="#2240_infoExpRisco_infoAmb_localAmb">localAmb</a> = [2], deve ser diferente dos estabelecimentos informados na Tabela S-1005 e, se <a href="#2240_infoExpRisco_infoAmb_tpInsc">infoAmb/tpInsc</a> = [1] e o empregador for pessoa jurídica, a raiz do CNPJ informado deve ser diferente da constante em S-1000.</td>
 </tr>
 <tr class="grupo">
-<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_infoAtiv" id="2240_infoExpRisco_infoAtiv">24</td>
+<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_infoAtiv" id="2240_infoExpRisco_infoAtiv">25</td>
 <td><a href="#r_2240_infoExpRisco_infoAtiv">infoAtiv</a></td>
 <td><a href="#r_2240_infoExpRisco">infoExpRisco</a></td>
 <td>G</td>
@@ -19176,7 +19265,7 @@ b) Se <a href="#2240_infoExpRisco_infoAmb_localAmb">localAmb</a> = [2], deve ser
 <td>Descrição das atividades desempenhadas.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_infoAtiv_dscAtivDes" id="2240_infoExpRisco_infoAtiv_dscAtivDes">25</td>
+<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_infoAtiv_dscAtivDes" id="2240_infoExpRisco_infoAtiv_dscAtivDes">26</td>
 <td>dscAtivDes</td>
 <td><a href="#r_2240_infoExpRisco_infoAtiv">infoAtiv</a></td>
 <td>E</td>
@@ -19187,7 +19276,7 @@ b) Se <a href="#2240_infoExpRisco_infoAmb_localAmb">localAmb</a> = [2], deve ser
 <td>Descrição das atividades, físicas ou mentais, realizadas pelo trabalhador, por força do poder de comando a que se submete. As atividades deverão ser escritas com exatidão, e de forma sucinta, com a utilização de verbos no infinitivo impessoal. Ex.: Distribuir panfletos, operar máquina de envase, etc.</td>
 </tr>
 <tr class="grupo">
-<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_agNoc" id="2240_infoExpRisco_agNoc">26</td>
+<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_agNoc" id="2240_infoExpRisco_agNoc">27</td>
 <td><a href="#r_2240_infoExpRisco_agNoc">agNoc</a></td>
 <td><a href="#r_2240_infoExpRisco">infoExpRisco</a></td>
 <td>G</td>
@@ -19198,7 +19287,7 @@ b) Se <a href="#2240_infoExpRisco_infoAmb_localAmb">localAmb</a> = [2], deve ser
 <td>Agente(s) nocivo(s) ao(s) qual(is) o trabalhador está exposto.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_agNoc_codAgNoc" id="2240_infoExpRisco_agNoc_codAgNoc">27</td>
+<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_agNoc_codAgNoc" id="2240_infoExpRisco_agNoc_codAgNoc">28</td>
 <td>codAgNoc</td>
 <td><a href="#r_2240_infoExpRisco_agNoc">agNoc</a></td>
 <td>E</td>
@@ -19210,19 +19299,19 @@ b) Se <a href="#2240_infoExpRisco_infoAmb_localAmb">localAmb</a> = [2], deve ser
 <strong>Validação:</strong> Deve ser um código válido e existente na <a href="tabelas.html#24">Tabela 24</a>. Não é possível informar nenhum outro código de agente nocivo quando houver o código [09.01.001].</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_agNoc_dscAgNoc" id="2240_infoExpRisco_agNoc_dscAgNoc">28</td>
+<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_agNoc_dscAgNoc" id="2240_infoExpRisco_agNoc_dscAgNoc">29</td>
 <td>dscAgNoc</td>
 <td><a href="#r_2240_infoExpRisco_agNoc">agNoc</a></td>
 <td>E</td>
 <td>C</td>
 <td>0-1</td>
-<td>1-999</td>
+<td>1-100</td>
 <td>-</td>
 <td>Descrição do agente nocivo.<br />
 <strong>Validação:</strong> Preenchimento obrigatório se <a href="#2240_infoExpRisco_agNoc_codAgNoc">codAgNoc</a> = [01.01.001, 01.02.001, 01.03.001, 01.04.001, 01.05.001, 01.06.001, 01.07.001, 01.08.001, 01.09.001, 01.10.001, 01.12.001, 01.13.001, 01.14.001, 01.15.001, 01.16.001, 01.17.001, 01.18.001, 05.01.001].</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_agNoc_tpAval" id="2240_infoExpRisco_agNoc_tpAval">29</td>
+<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_agNoc_tpAval" id="2240_infoExpRisco_agNoc_tpAval">30</td>
 <td>tpAval</td>
 <td><a href="#r_2240_infoExpRisco_agNoc">agNoc</a></td>
 <td>E</td>
@@ -19237,7 +19326,7 @@ b) Se <a href="#2240_infoExpRisco_infoAmb_localAmb">localAmb</a> = [2], deve ser
 <strong>Validação:</strong> Preenchimento obrigatório e exclusivo se <a href="#2240_infoExpRisco_agNoc_codAgNoc">codAgNoc</a> for diferente de [09.01.001].</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_agNoc_intConc" id="2240_infoExpRisco_agNoc_intConc">30</td>
+<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_agNoc_intConc" id="2240_infoExpRisco_agNoc_intConc">31</td>
 <td>intConc</td>
 <td><a href="#r_2240_infoExpRisco_agNoc">agNoc</a></td>
 <td>E</td>
@@ -19249,7 +19338,7 @@ b) Se <a href="#2240_infoExpRisco_infoAmb_localAmb">localAmb</a> = [2], deve ser
 <strong>Validação:</strong> Preenchimento obrigatório e exclusivo se <a href="#2240_infoExpRisco_agNoc_tpAval">tpAval</a> = [1].</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_agNoc_limTol" id="2240_infoExpRisco_agNoc_limTol">31</td>
+<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_agNoc_limTol" id="2240_infoExpRisco_agNoc_limTol">32</td>
 <td>limTol</td>
 <td><a href="#r_2240_infoExpRisco_agNoc">agNoc</a></td>
 <td>E</td>
@@ -19261,7 +19350,7 @@ b) Se <a href="#2240_infoExpRisco_infoAmb_localAmb">localAmb</a> = [2], deve ser
 <strong>Validação:</strong> Preenchimento obrigatório e exclusivo se <a href="#2240_infoExpRisco_agNoc_tpAval">tpAval</a> = [1] e <a href="#2240_infoExpRisco_agNoc_codAgNoc">codAgNoc</a> = [01.18.001, 02.01.014].</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_agNoc_unMed" id="2240_infoExpRisco_agNoc_unMed">32</td>
+<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_agNoc_unMed" id="2240_infoExpRisco_agNoc_unMed">33</td>
 <td>unMed</td>
 <td><a href="#r_2240_infoExpRisco_agNoc">agNoc</a></td>
 <td>E</td>
@@ -19304,7 +19393,7 @@ b) Se <a href="#2240_infoExpRisco_infoAmb_localAmb">localAmb</a> = [2], deve ser
 <strong>Validação:</strong> Preenchimento obrigatório e exclusivo se <a href="#2240_infoExpRisco_agNoc_tpAval">tpAval</a> = [1].</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_agNoc_tecMedicao" id="2240_infoExpRisco_agNoc_tecMedicao">33</td>
+<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_agNoc_tecMedicao" id="2240_infoExpRisco_agNoc_tecMedicao">34</td>
 <td>tecMedicao</td>
 <td><a href="#r_2240_infoExpRisco_agNoc">agNoc</a></td>
 <td>E</td>
@@ -19316,7 +19405,7 @@ b) Se <a href="#2240_infoExpRisco_infoAmb_localAmb">localAmb</a> = [2], deve ser
 <strong>Validação:</strong> Preenchimento obrigatório e exclusivo se <a href="#2240_infoExpRisco_agNoc_tpAval">tpAval</a> = [1].</td>
 </tr>
 <tr class="grupo">
-<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_agNoc_epcEpi" id="2240_infoExpRisco_agNoc_epcEpi">34</td>
+<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_agNoc_epcEpi" id="2240_infoExpRisco_agNoc_epcEpi">35</td>
 <td><a href="#r_2240_infoExpRisco_agNoc_epcEpi">epcEpi</a></td>
 <td><a href="#r_2240_infoExpRisco_agNoc">agNoc</a></td>
 <td>G</td>
@@ -19327,7 +19416,7 @@ b) Se <a href="#2240_infoExpRisco_infoAmb_localAmb">localAmb</a> = [2], deve ser
 <td>Informações relativas a Equipamentos de Proteção Coletiva - EPC e Equipamentos de Proteção Individual - EPI.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_agNoc_epcEpi_utilizEPC" id="2240_infoExpRisco_agNoc_epcEpi_utilizEPC">35</td>
+<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_agNoc_epcEpi_utilizEPC" id="2240_infoExpRisco_agNoc_epcEpi_utilizEPC">36</td>
 <td>utilizEPC</td>
 <td><a href="#r_2240_infoExpRisco_agNoc_epcEpi">epcEpi</a></td>
 <td>E</td>
@@ -19342,7 +19431,7 @@ b) Se <a href="#2240_infoExpRisco_infoAmb_localAmb">localAmb</a> = [2], deve ser
 <strong>2</strong> - Implementa</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_agNoc_epcEpi_eficEpc" id="2240_infoExpRisco_agNoc_epcEpi_eficEpc">36</td>
+<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_agNoc_epcEpi_eficEpc" id="2240_infoExpRisco_agNoc_epcEpi_eficEpc">37</td>
 <td>eficEpc</td>
 <td><a href="#r_2240_infoExpRisco_agNoc_epcEpi">epcEpi</a></td>
 <td>E</td>
@@ -19357,7 +19446,7 @@ b) Se <a href="#2240_infoExpRisco_infoAmb_localAmb">localAmb</a> = [2], deve ser
 <strong>Validação:</strong> Preenchimento obrigatório e exclusivo se <a href="#2240_infoExpRisco_agNoc_epcEpi_utilizEPC">utilizEPC</a> = [2].</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_agNoc_epcEpi_utilizEPI" id="2240_infoExpRisco_agNoc_epcEpi_utilizEPI">37</td>
+<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_agNoc_epcEpi_utilizEPI" id="2240_infoExpRisco_agNoc_epcEpi_utilizEPI">38</td>
 <td>utilizEPI</td>
 <td><a href="#r_2240_infoExpRisco_agNoc_epcEpi">epcEpi</a></td>
 <td>E</td>
@@ -19372,7 +19461,7 @@ b) Se <a href="#2240_infoExpRisco_infoAmb_localAmb">localAmb</a> = [2], deve ser
 <strong>2</strong> - Utilizado</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_agNoc_epcEpi_eficEpi" id="2240_infoExpRisco_agNoc_epcEpi_eficEpi">38</td>
+<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_agNoc_epcEpi_eficEpi" id="2240_infoExpRisco_agNoc_epcEpi_eficEpi">39</td>
 <td>eficEpi</td>
 <td><a href="#r_2240_infoExpRisco_agNoc_epcEpi">epcEpi</a></td>
 <td>E</td>
@@ -19387,7 +19476,7 @@ b) Se <a href="#2240_infoExpRisco_infoAmb_localAmb">localAmb</a> = [2], deve ser
 <strong>Validação:</strong> Preenchimento obrigatório e exclusivo se <a href="#2240_infoExpRisco_agNoc_epcEpi_utilizEPI">utilizEPI</a> = [2].</td>
 </tr>
 <tr class="grupo">
-<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_agNoc_epcEpi_epi" id="2240_infoExpRisco_agNoc_epcEpi_epi">39</td>
+<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_agNoc_epcEpi_epi" id="2240_infoExpRisco_agNoc_epcEpi_epi">40</td>
 <td><a href="#r_2240_infoExpRisco_agNoc_epcEpi_epi">epi</a></td>
 <td><a href="#r_2240_infoExpRisco_agNoc_epcEpi">epcEpi</a></td>
 <td>G</td>
@@ -19398,18 +19487,18 @@ b) Se <a href="#2240_infoExpRisco_infoAmb_localAmb">localAmb</a> = [2], deve ser
 <td>EPI.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_agNoc_epcEpi_epi_docAval" id="2240_infoExpRisco_agNoc_epcEpi_epi_docAval">40</td>
+<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_agNoc_epcEpi_epi_docAval" id="2240_infoExpRisco_agNoc_epcEpi_epi_docAval">41</td>
 <td>docAval</td>
 <td><a href="#r_2240_infoExpRisco_agNoc_epcEpi_epi">epi</a></td>
 <td>E</td>
 <td>C</td>
-<td>0-1</td>
+<td>1</td>
 <td>1-255</td>
 <td>-</td>
 <td>Certificado de Aprovação - CA ou documento de avaliação do EPI.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_agNoc_epcEpi_epi_dscEPI" id="2240_infoExpRisco_agNoc_epcEpi_epi_dscEPI">41</td>
+<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_agNoc_epcEpi_epi_dscEPI" id="2240_infoExpRisco_agNoc_epcEpi_epi_dscEPI">42</td>
 <td>dscEPI</td>
 <td><a href="#r_2240_infoExpRisco_agNoc_epcEpi_epi">epi</a></td>
 <td>E</td>
@@ -19417,11 +19506,10 @@ b) Se <a href="#2240_infoExpRisco_infoAmb_localAmb">localAmb</a> = [2], deve ser
 <td>0-1</td>
 <td>1-999</td>
 <td>-</td>
-<td>Descrição do EPI.<br />
-<strong>Validação:</strong> Preenchimento obrigatório e exclusivo se <a href="#2240_infoExpRisco_agNoc_epcEpi_epi_docAval">docAval</a> não for informado.</td>
+<td>Descrição do EPI.</td>
 </tr>
 <tr class="grupo">
-<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_agNoc_epcEpi_epiCompl" id="2240_infoExpRisco_agNoc_epcEpi_epiCompl">42</td>
+<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_agNoc_epcEpi_epiCompl" id="2240_infoExpRisco_agNoc_epcEpi_epiCompl">43</td>
 <td><a href="#r_2240_infoExpRisco_agNoc_epcEpi_epiCompl">epiCompl</a></td>
 <td><a href="#r_2240_infoExpRisco_agNoc_epcEpi">epcEpi</a></td>
 <td>G</td>
@@ -19432,7 +19520,7 @@ b) Se <a href="#2240_infoExpRisco_infoAmb_localAmb">localAmb</a> = [2], deve ser
 <td>Requisitos da Norma Regulamentadora 06 - NR-06 e da Norma Regulamentadora 09 - NR-09 pelo(s) EPI(s) informado(s).</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_agNoc_epcEpi_epiCompl_medProtecao" id="2240_infoExpRisco_agNoc_epcEpi_epiCompl_medProtecao">43</td>
+<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_agNoc_epcEpi_epiCompl_medProtecao" id="2240_infoExpRisco_agNoc_epcEpi_epiCompl_medProtecao">44</td>
 <td>medProtecao</td>
 <td><a href="#r_2240_infoExpRisco_agNoc_epcEpi_epiCompl">epiCompl</a></td>
 <td>E</td>
@@ -19446,7 +19534,7 @@ b) Se <a href="#2240_infoExpRisco_infoAmb_localAmb">localAmb</a> = [2], deve ser
 <strong>N</strong> - Não</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_agNoc_epcEpi_epiCompl_condFuncto" id="2240_infoExpRisco_agNoc_epcEpi_epiCompl_condFuncto">44</td>
+<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_agNoc_epcEpi_epiCompl_condFuncto" id="2240_infoExpRisco_agNoc_epcEpi_epiCompl_condFuncto">45</td>
 <td>condFuncto</td>
 <td><a href="#r_2240_infoExpRisco_agNoc_epcEpi_epiCompl">epiCompl</a></td>
 <td>E</td>
@@ -19460,7 +19548,7 @@ b) Se <a href="#2240_infoExpRisco_infoAmb_localAmb">localAmb</a> = [2], deve ser
 <strong>N</strong> - Não</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_agNoc_epcEpi_epiCompl_usoInint" id="2240_infoExpRisco_agNoc_epcEpi_epiCompl_usoInint">45</td>
+<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_agNoc_epcEpi_epiCompl_usoInint" id="2240_infoExpRisco_agNoc_epcEpi_epiCompl_usoInint">46</td>
 <td>usoInint</td>
 <td><a href="#r_2240_infoExpRisco_agNoc_epcEpi_epiCompl">epiCompl</a></td>
 <td>E</td>
@@ -19474,7 +19562,7 @@ b) Se <a href="#2240_infoExpRisco_infoAmb_localAmb">localAmb</a> = [2], deve ser
 <strong>N</strong> - Não</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_agNoc_epcEpi_epiCompl_przValid" id="2240_infoExpRisco_agNoc_epcEpi_epiCompl_przValid">46</td>
+<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_agNoc_epcEpi_epiCompl_przValid" id="2240_infoExpRisco_agNoc_epcEpi_epiCompl_przValid">47</td>
 <td>przValid</td>
 <td><a href="#r_2240_infoExpRisco_agNoc_epcEpi_epiCompl">epiCompl</a></td>
 <td>E</td>
@@ -19488,7 +19576,7 @@ b) Se <a href="#2240_infoExpRisco_infoAmb_localAmb">localAmb</a> = [2], deve ser
 <strong>N</strong> - Não</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_agNoc_epcEpi_epiCompl_periodicTroca" id="2240_infoExpRisco_agNoc_epcEpi_epiCompl_periodicTroca">47</td>
+<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_agNoc_epcEpi_epiCompl_periodicTroca" id="2240_infoExpRisco_agNoc_epcEpi_epiCompl_periodicTroca">48</td>
 <td>periodicTroca</td>
 <td><a href="#r_2240_infoExpRisco_agNoc_epcEpi_epiCompl">epiCompl</a></td>
 <td>E</td>
@@ -19502,7 +19590,7 @@ b) Se <a href="#2240_infoExpRisco_infoAmb_localAmb">localAmb</a> = [2], deve ser
 <strong>N</strong> - Não</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_agNoc_epcEpi_epiCompl_higienizacao" id="2240_infoExpRisco_agNoc_epcEpi_epiCompl_higienizacao">48</td>
+<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_agNoc_epcEpi_epiCompl_higienizacao" id="2240_infoExpRisco_agNoc_epcEpi_epiCompl_higienizacao">49</td>
 <td>higienizacao</td>
 <td><a href="#r_2240_infoExpRisco_agNoc_epcEpi_epiCompl">epiCompl</a></td>
 <td>E</td>
@@ -19516,7 +19604,7 @@ b) Se <a href="#2240_infoExpRisco_infoAmb_localAmb">localAmb</a> = [2], deve ser
 <strong>N</strong> - Não</td>
 </tr>
 <tr class="grupo">
-<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_respReg" id="2240_infoExpRisco_respReg">49</td>
+<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_respReg" id="2240_infoExpRisco_respReg">50</td>
 <td><a href="#r_2240_infoExpRisco_respReg">respReg</a></td>
 <td><a href="#r_2240_infoExpRisco">infoExpRisco</a></td>
 <td>G</td>
@@ -19527,7 +19615,7 @@ b) Se <a href="#2240_infoExpRisco_infoAmb_localAmb">localAmb</a> = [2], deve ser
 <td>Informações relativas ao responsável pelos registros ambientais.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_respReg_cpfResp" id="2240_infoExpRisco_respReg_cpfResp">50</td>
+<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_respReg_cpfResp" id="2240_infoExpRisco_respReg_cpfResp">51</td>
 <td>cpfResp</td>
 <td><a href="#r_2240_infoExpRisco_respReg">respReg</a></td>
 <td>E</td>
@@ -19539,7 +19627,7 @@ b) Se <a href="#2240_infoExpRisco_infoAmb_localAmb">localAmb</a> = [2], deve ser
 <strong>Validação:</strong> Deve ser um CPF válido.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_respReg_ideOC" id="2240_infoExpRisco_respReg_ideOC">51</td>
+<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_respReg_ideOC" id="2240_infoExpRisco_respReg_ideOC">52</td>
 <td>ideOC</td>
 <td><a href="#r_2240_infoExpRisco_respReg">respReg</a></td>
 <td>E</td>
@@ -19555,7 +19643,7 @@ b) Se <a href="#2240_infoExpRisco_infoAmb_localAmb">localAmb</a> = [2], deve ser
 <strong>Validação:</strong> Preenchimento obrigatório se <a href="#2240_infoExpRisco_agNoc_codAgNoc">codAgNoc</a> for diferente de [09.01.001].</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_respReg_dscOC" id="2240_infoExpRisco_respReg_dscOC">52</td>
+<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_respReg_dscOC" id="2240_infoExpRisco_respReg_dscOC">53</td>
 <td>dscOC</td>
 <td><a href="#r_2240_infoExpRisco_respReg">respReg</a></td>
 <td>E</td>
@@ -19567,7 +19655,7 @@ b) Se <a href="#2240_infoExpRisco_infoAmb_localAmb">localAmb</a> = [2], deve ser
 <strong>Validação:</strong> Preenchimento obrigatório e exclusivo se <a href="#2240_infoExpRisco_respReg_ideOC">ideOC</a> = [9].</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_respReg_nrOC" id="2240_infoExpRisco_respReg_nrOC">53</td>
+<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_respReg_nrOC" id="2240_infoExpRisco_respReg_nrOC">54</td>
 <td>nrOC</td>
 <td><a href="#r_2240_infoExpRisco_respReg">respReg</a></td>
 <td>E</td>
@@ -19579,7 +19667,7 @@ b) Se <a href="#2240_infoExpRisco_infoAmb_localAmb">localAmb</a> = [2], deve ser
 <strong>Validação:</strong> Preenchimento obrigatório se <a href="#2240_infoExpRisco_agNoc_codAgNoc">codAgNoc</a> for diferente de [09.01.001].</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_respReg_ufOC" id="2240_infoExpRisco_respReg_ufOC">54</td>
+<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_respReg_ufOC" id="2240_infoExpRisco_respReg_ufOC">55</td>
 <td>ufOC</td>
 <td><a href="#r_2240_infoExpRisco_respReg">respReg</a></td>
 <td>E</td>
@@ -19592,7 +19680,7 @@ b) Se <a href="#2240_infoExpRisco_infoAmb_localAmb">localAmb</a> = [2], deve ser
 <strong>Validação:</strong> Preenchimento obrigatório se <a href="#2240_infoExpRisco_agNoc_codAgNoc">codAgNoc</a> for diferente de [09.01.001].</td>
 </tr>
 <tr class="grupo">
-<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_obs" id="2240_infoExpRisco_obs">55</td>
+<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_obs" id="2240_infoExpRisco_obs">56</td>
 <td><a href="#r_2240_infoExpRisco_obs">obs</a></td>
 <td><a href="#r_2240_infoExpRisco">infoExpRisco</a></td>
 <td>G</td>
@@ -19603,7 +19691,7 @@ b) Se <a href="#2240_infoExpRisco_infoAmb_localAmb">localAmb</a> = [2], deve ser
 <td>Observações relativas a registros ambientais.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_obs_obsCompl" id="2240_infoExpRisco_obs_obsCompl">56</td>
+<td onclick="copiarCaminho.call(this)" title="2240_infoExpRisco_obs_obsCompl" id="2240_infoExpRisco_obs_obsCompl">57</td>
 <td>obsCompl</td>
 <td><a href="#r_2240_infoExpRisco_obs">obs</a></td>
 <td>E</td>
@@ -20081,7 +20169,7 @@ N (nos demais casos)</td>
 <td>Sucessão do vínculo trabalhista/estatutário</td>
 <td>0-1</td>
 <td>-</td>
-<td>O (se <a href="#2299_infoDeslig_mtvDeslig">mtvDeslig</a> = [11, 12, 13, 28, 29, 30, 37, 43]);<br />
+<td>O (se <a href="#2299_infoDeslig_mtvDeslig">mtvDeslig</a> = [11, 12, 13, 28, 29, 37, 43]);<br />
 N (nos demais casos)</td>
 </tr>
 <tr>
@@ -20111,7 +20199,7 @@ N (nos demais casos)</td>
 <td>Verbas rescisórias</td>
 <td>0-1</td>
 <td>-</td>
-<td>N (se <a href="#2299_infoDeslig_mtvDeslig">mtvDeslig</a> = [11, 12, 13, 25, 28, 29, 30, 34, 36, 43] OU <a href="#2299_infoDeslig_dtDeslig">dtDeslig</a> for anterior ao início de obrigatoriedade dos eventos periódicos para o empregador OU <a href="#2200_vinculo_tpRegTrab">tpRegTrab</a> em S-2200 = [2]);<br />
+<td>N (se <a href="#2299_infoDeslig_mtvDeslig">mtvDeslig</a> = [11, 12, 13, 25, 28, 29, 30, 34, 36, 43, 44] OU <a href="#2299_infoDeslig_dtDeslig">dtDeslig</a> for anterior ao início de obrigatoriedade dos eventos periódicos para o empregador OU <a href="#2200_vinculo_tpRegTrab">tpRegTrab</a> em S-2200 = [2]);<br />
 OC (nos demais casos)</td>
 </tr>
 <tr>
@@ -21687,6 +21775,7 @@ OC (nos demais casos)</td>
 <a href="#REGRA_ENVIO_PROC_FECHAMENTO">REGRA_ENVIO_PROC_FECHAMENTO</a><br />
 <a href="#REGRA_EVENTOS_EXTEMP">REGRA_EVENTOS_EXTEMP</a><br />
 <a href="#REGRA_EVETRAB_VALIDA_OPCAO_FGTS">REGRA_EVETRAB_VALIDA_OPCAO_FGTS</a><br />
+<a href="#REGRA_EXCLUSAO_ADMISSAO_TSVE_INICIO">REGRA_EXCLUSAO_ADMISSAO_TSVE_INICIO</a><br />
 <a href="#REGRA_EXISTE_INFO_EMPREGADOR">REGRA_EXISTE_INFO_EMPREGADOR</a><br />
 <a href="#REGRA_GERAL_VALIDA_DADOS_TABCONTRIB">REGRA_GERAL_VALIDA_DADOS_TABCONTRIB</a><br />
 <a href="#REGRA_MESMO_PROCEMI">REGRA_MESMO_PROCEMI</a><br />
@@ -26980,7 +27069,9 @@ c) Se <a href="#2410_infoBenInicio_indSitBenef">indSitBenef</a> = [2, 3], deve e
 <td>1-30</td>
 <td>-</td>
 <td>Matrícula do servidor/militar constante no Sistema de Administração de Recursos Humanos do órgão cujo vínculo deu ensejo ao benefício. No caso de pensão por morte, informar a matrícula do instituidor da pensão.<br />
-<strong>Validação:</strong> Informação obrigatória se <a href="#2410_infoBenInicio_cadIni">cadIni</a> = [N] e <a href="#2410_infoBenInicio_dadosBeneficio_tpBeneficio">tpBeneficio</a> pertencer ao grupo [01, 02, 03, 04, 05, 06, 11] da <a href="tabelas.html#25">Tabela 25</a>.</td>
+<strong>Validação:</strong> Informação obrigatória se <a href="#2410_infoBenInicio_cadIni">cadIni</a> = [N] e <a href="#2410_infoBenInicio_dadosBeneficio_tpBeneficio">tpBeneficio</a> pertencer ao grupo [01, 02, 03, 04, 05, 06, 11] da <a href="tabelas.html#25">Tabela 25</a>.<br />
+<strong>Regra de validação:</strong><br />
+<a href="#REGRA_CARACTERE_ESPECIAL">REGRA_CARACTERE_ESPECIAL</a></td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="2410_beneficiario_cnpjOrigem" id="2410_beneficiario_cnpjOrigem">16</td>
@@ -27045,7 +27136,9 @@ Se informado, deve ser um CNPJ válido e diferente do CNPJ do órgão público d
 <td>1</td>
 <td>1-20</td>
 <td>-</td>
-<td>Número do benefício.</td>
+<td>Número do benefício.<br />
+<strong>Regra de validação:</strong><br />
+<a href="#REGRA_CARACTERE_ESPECIAL">REGRA_CARACTERE_ESPECIAL</a></td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="2410_infoBenInicio_dtIniBeneficio" id="2410_infoBenInicio_dtIniBeneficio">21</td>
@@ -29992,10 +30085,28 @@ b) Somar os valores das rubricas cujo <a href="#1010_infoRubrica_inclusao_dadosR
 <td id="r_5002_ideTrabalhador_dmDev_infoIR"><a href="#5002_ideTrabalhador_dmDev_infoIR">infoIR</a></td>
 <td><a href="#r_5002_ideTrabalhador_dmDev">dmDev</a></td>
 <td>5</td>
-<td>Bases, deduções, isenções e retenções do IRRF</td>
+<td>Rendimentos tributáveis, deduções, isenções e retenções do IRRF</td>
 <td>1-999</td>
 <td>-</td>
 <td>O</td>
+</tr>
+<tr>
+<td id="r_5002_ideTrabalhador_dmDev_totApurMen"><a href="#5002_ideTrabalhador_dmDev_totApurMen">totApurMen</a></td>
+<td><a href="#r_5002_ideTrabalhador_dmDev">dmDev</a></td>
+<td>5</td>
+<td>Totalizador de tributos com período de apuração mensal</td>
+<td>0-50</td>
+<td><a href="#5002_ideTrabalhador_dmDev_totApurMen_CRMen">CRMen</a></td>
+<td>OC</td>
+</tr>
+<tr>
+<td id="r_5002_ideTrabalhador_dmDev_totApurDia"><a href="#5002_ideTrabalhador_dmDev_totApurDia">totApurDia</a></td>
+<td><a href="#r_5002_ideTrabalhador_dmDev">dmDev</a></td>
+<td>5</td>
+<td>Totalizador de tributos com período de apuração diário</td>
+<td>0-350</td>
+<td><a href="#5002_ideTrabalhador_dmDev_totApurDia_perApurDia">perApurDia</a>, <a href="#5002_ideTrabalhador_dmDev_totApurDia_CRDia">CRDia</a></td>
+<td>OC</td>
 </tr>
 </tbody>
 </table>
@@ -30230,7 +30341,7 @@ c) Se <a href="#5002_ideTrabalhador_dmDev_tpPgto">tpPgto</a> = [5], retornar [00
 <td>1-999</td>
 <td>-</td>
 <td>-</td>
-<td>Bases, deduções, isenções e retenções do IRRF.</td>
+<td>Rendimentos tributáveis, deduções, isenções e retenções do IRRF.</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="5002_ideTrabalhador_dmDev_infoIR_tpInfoIR" id="5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">19</td>
@@ -30256,8 +30367,8 @@ Retenções do IRRF efetuadas sobre:<br />
 Deduções da base de cálculo do IRRF:<br />
 <strong>41</strong> - Previdência Social Oficial - PSO - Remuneração mensal<br />
 <strong>42</strong> - PSO - 13º salário<br />
-<strong>46</strong> - Previdência privada - Salário mensal<br />
-<strong>47</strong> - Previdência privada - 13º salário<br />
+<strong>46</strong> - Previdência complementar - Salário mensal<br />
+<strong>47</strong> - Previdência complementar - 13º salário<br />
 <strong>51</strong> - Pensão alimentícia - Remuneração mensal<br />
 <strong>52</strong> - Pensão alimentícia - 13º salário<br />
 <strong>54</strong> - Pensão alimentícia - PLR<br />
@@ -30314,8 +30425,8 @@ Exigibilidade suspensa - Retenção do IRRF efetuada sobre:<br />
 Exigibilidade suspensa - Dedução da base de cálculo do IRRF:<br />
 <strong>9041</strong> - Previdência Social Oficial - PSO - Remuneração mensal<br />
 <strong>9042</strong> - PSO - 13º salário<br />
-<strong>9046</strong> - Previdência privada - Salário mensal<br />
-<strong>9047</strong> - Previdência privada - 13º salário<br />
+<strong>9046</strong> - Previdência complementar - Salário mensal<br />
+<strong>9047</strong> - Previdência complementar - 13º salário<br />
 <strong>9051</strong> - Pensão alimentícia - Remuneração mensal<br />
 <strong>9052</strong> - Pensão alimentícia - 13º salário<br />
 <strong>9054</strong> - Pensão alimentícia - PLR<br />
@@ -30339,7 +30450,7 @@ Compensação judicial:<br />
 <td>1-14</td>
 <td>2</td>
 <td>Composição do valor do rendimento tributável, não tributável, retenção, dedução ou isenção do IRRF, de acordo com a classificação apresentada no campo <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a>.<br />
-<strong>Validação:</strong> Deve corresponder ao somatório dos valores informados nas rubricas (campo {vrRubr}) dos eventos de origem do S-1210 (grupos {infoPerApur} e {infoPerAnt} do S-1200, S-1202, S-1207 e S-2299, e grupo {verbasResc} do S-2399), desde que o campo {indApurIR} vinculado às respectivas rubricas seja igual a [0] ou não informado, obedecendo ao que segue:<br />
+<strong>Validação:</strong> Deve corresponder ao somatório dos valores informados nas rubricas (campo {vrRubr}) dos eventos que deram origem ao S-1210 (grupos {infoPerApur} e {infoPerAnt} do S-1200, S-1202, S-1207 e S-2299, e grupo {verbasResc} do S-2399), desde que o campo {indApurIR} vinculado às respectivas rubricas seja igual a [0] ou não informado, obedecendo ao que segue:<br />
 a) Somar os valores das rubricas cujo <a href="#1010_infoRubrica_inclusao_dadosRubrica_tpRubr">tpRubr</a> em S-1010 seja igual a [1, 3] e subtrair os valores das rubricas cujo <a href="#1010_infoRubrica_inclusao_dadosRubrica_tpRubr">tpRubr</a> em S-1010 seja igual a [2, 4], observando a tabela de relacionamento abaixo:<br />
 <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [11], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF">codIncIRRF</a> em S-1010 = [11, 13];<br />
 <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [12], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF">codIncIRRF</a> em S-1010 = [12];<br />
@@ -30413,6 +30524,165 @@ b) Somar os valores das rubricas cujo <a href="#1010_infoRubrica_inclusao_dadosR
 <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [9083], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF">codIncIRRF</a> em S-1010 = [9083].<br />
  <br />
 OBS.: Se o campo {indApurIR} vinculado à rubrica for igual a [1], considerar {vrRubr} = [0].</td>
+</tr>
+<tr class="grupo">
+<td onclick="copiarCaminho.call(this)" title="5002_ideTrabalhador_dmDev_totApurMen" id="5002_ideTrabalhador_dmDev_totApurMen">21</td>
+<td><a href="#r_5002_ideTrabalhador_dmDev_totApurMen">totApurMen</a></td>
+<td><a href="#r_5002_ideTrabalhador_dmDev">dmDev</a></td>
+<td>G</td>
+<td>-</td>
+<td>0-50</td>
+<td>-</td>
+<td>-</td>
+<td>Totalizador de tributos com período de apuração mensal.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="5002_ideTrabalhador_dmDev_totApurMen_CRMen" id="5002_ideTrabalhador_dmDev_totApurMen_CRMen">22</td>
+<td>CRMen</td>
+<td><a href="#r_5002_ideTrabalhador_dmDev_totApurMen">totApurMen</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>6</td>
+<td>-</td>
+<td>Código de Receita - CR relativo ao Imposto de Renda Retido na Fonte sobre rendimentos do trabalho.<br />
+<strong>Valores válidos:</strong><br />
+<strong>056107</strong> - IRRF mensal, 13° salário e férias sobre trabalho assalariado no país ou ausente no exterior a serviço do país, exceto se contratado por empregador doméstico ou por segurado especial sujeito a recolhimento unificado<br />
+<strong>056108</strong> - IRRF mensal e férias - Empregado doméstico<br />
+<strong>056109</strong> - IRRF 13° salário na rescisão de contrato de trabalho - Empregado doméstico<br />
+<strong>056110</strong> - IRRF - Empregado doméstico 13º salário<br />
+<strong>056111</strong> - IRRF - Empregado/Trabalhador rural - Segurado especial<br />
+<strong>056112</strong> - IRRF - Empregado/Trabalhador rural - Segurado especial 13° salário<br />
+<strong>056113</strong> - IRRF - Empregado/Trabalhador rural - Segurado especial 13° salário rescisório<br />
+<strong>058806</strong> - IRRF sobre rendimento do trabalho sem vínculo empregatício<br />
+<strong>061001</strong> - IRRF sobre rendimentos relativos a prestação de serviços de transporte rodoviário internacional de carga, pagos a transportador autônomo PF residente no Paraguai<br />
+<strong>353301</strong> - Proventos de aposentadoria, reserva, reforma ou pensão pagos por previdência pública<br />
+<strong>356201</strong> - IRRF sobre participação dos trabalhadores em lucros ou resultados - PLR<br />
+<strong>188901</strong> - Rendimentos Recebidos Acumuladamente - RRA</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="5002_ideTrabalhador_dmDev_totApurMen_vlrCRMen" id="5002_ideTrabalhador_dmDev_totApurMen_vlrCRMen">23</td>
+<td>vlrCRMen</td>
+<td><a href="#r_5002_ideTrabalhador_dmDev_totApurMen">totApurMen</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1-14</td>
+<td>2</td>
+<td>Valor relativo ao Imposto de Renda Retido na Fonte sobre rendimentos do trabalho.<br />
+<strong>Validação:</strong> Deve ser maior que 0 (zero) e agrupado conforme segue:<br />
+a) Quando o evento de origem for S-1200, S-1202, S-2299, S-2399 e respectivo S-1210:<br />
+<a href="#5002_ideTrabalhador_dmDev_totApurMen_CRMen">CRMen</a> = [056107]: se <a href="#5002_ideTrabalhador_dmDev_codCateg">codCateg</a> = [101, 103, 105, 106, 107, 108, 111, 201, 202, 301, 302, 303, 304, 305, 306, 307, 308, 309, 310, 311, 312, 313, 401, 410, 501, 721, 722, 723, 901, 902, 903, 904], {indApurIR} = [0], os campos {indRRA} e {paisResidExt} não forem informados e <a href="#1000_infoEmpregador_inclusao_infoCadastro_classTrib">classTrib</a> em S-1000 for diferente de [22], efetuar o somatório de <a href="#5002_ideTrabalhador_dmDev_infoIR_valor">valor</a> cujo <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [31, 32];<br />
+<a href="#5002_ideTrabalhador_dmDev_totApurMen_CRMen">CRMen</a> = [056108]: se <a href="#5002_ideTrabalhador_dmDev_codCateg">codCateg</a> = [104], {indApurIR} = [0] e os campos {indRRA} e {paisResidExt} não forem informados, efetuar o somatório de <a href="#5002_ideTrabalhador_dmDev_infoIR_valor">valor</a> cujo <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [31];<br />
+<a href="#5002_ideTrabalhador_dmDev_totApurMen_CRMen">CRMen</a> = [056109]: se <a href="#5002_ideTrabalhador_dmDev_codCateg">codCateg</a> = [104], {indApurIR} = [0] e os campos {indRRA} e {paisResidExt} não forem informados, efetuar o somatório de <a href="#5002_ideTrabalhador_dmDev_infoIR_valor">valor</a> cujo <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [32], apenas se origem for S-2299;<br />
+<a href="#5002_ideTrabalhador_dmDev_totApurMen_CRMen">CRMen</a> = [056110]: se <a href="#5002_ideTrabalhador_dmDev_codCateg">codCateg</a> = [104], {indApurIR} = [0] e os campos {indRRA} e {paisResidExt} não forem informados, efetuar o somatório de <a href="#5002_ideTrabalhador_dmDev_infoIR_valor">valor</a> cujo <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [32], exceto se origem for S-2299;<br />
+<a href="#5002_ideTrabalhador_dmDev_totApurMen_CRMen">CRMen</a> = [056111]: se <a href="#5002_ideTrabalhador_dmDev_codCateg">codCateg</a> = [101, 102, 103, 105, 106, 107, 108, 111, 201, 202], {indApurIR} = [0], os campos {indRRA} e {paisResidExt} não forem informados e <a href="#1000_infoEmpregador_inclusao_infoCadastro_classTrib">classTrib</a> em S-1000 = [22], efetuar o somatório de <a href="#5002_ideTrabalhador_dmDev_infoIR_valor">valor</a> cujo <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [31];<br />
+<a href="#5002_ideTrabalhador_dmDev_totApurMen_CRMen">CRMen</a> = [056112]: se <a href="#5002_ideTrabalhador_dmDev_codCateg">codCateg</a> = [101, 102, 103, 105, 106, 107, 108, 111, 201, 202], {indApurIR} = [0], os campos {indRRA} e {paisResidExt} não forem informados e <a href="#1000_infoEmpregador_inclusao_infoCadastro_classTrib">classTrib</a> em S-1000 = [22], efetuar o somatório de <a href="#5002_ideTrabalhador_dmDev_infoIR_valor">valor</a> cujo <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [32], exceto se origem for S-2299/S-2399;<br />
+<a href="#5002_ideTrabalhador_dmDev_totApurMen_CRMen">CRMen</a> = [056113]: se <a href="#5002_ideTrabalhador_dmDev_codCateg">codCateg</a> = [101, 102, 103, 105, 106, 107, 108, 111, 201, 202], {indApurIR} = [0], os campos {indRRA} e {paisResidExt} não forem informados e <a href="#1000_infoEmpregador_inclusao_infoCadastro_classTrib">classTrib</a> em S-1000 = [22], efetuar o somatório de <a href="#5002_ideTrabalhador_dmDev_infoIR_valor">valor</a> cujo <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [32], apenas se origem for S-2299/S-2399;<br />
+<a href="#5002_ideTrabalhador_dmDev_totApurMen_CRMen">CRMen</a> = [058806]: se <a href="#5002_ideTrabalhador_dmDev_codCateg">codCateg</a> = [701, 711, 712, 731, 734, 738, 741, 751, 761, 771, 781], {indApurIR} = [0] e os campos {indRRA} e {paisResidExt} não forem informados, efetuar o somatório de <a href="#5002_ideTrabalhador_dmDev_infoIR_valor">valor</a> cujo <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [31, 32, 34];<br />
+<a href="#5002_ideTrabalhador_dmDev_totApurMen_CRMen">CRMen</a> = [061001]: se <a href="#5002_ideTrabalhador_dmDev_codCateg">codCateg</a> = [712], {indApurIR} = [0] e {paisResidExt} = [586], efetuar o somatório de <a href="#5002_ideTrabalhador_dmDev_infoIR_valor">valor</a> cujo <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [31];<br />
+<a href="#5002_ideTrabalhador_dmDev_totApurMen_CRMen">CRMen</a> = [356201]: se <a href="#5002_ideTrabalhador_dmDev_codCateg">codCateg</a> = [1XX], {indApurIR} = [0] e os campos {indRRA} e {paisResidExt} não forem informados, efetuar o somatório de <a href="#5002_ideTrabalhador_dmDev_infoIR_valor">valor</a> cujo <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [34];<br />
+<a href="#5002_ideTrabalhador_dmDev_totApurMen_CRMen">CRMen</a> = [188901]: se {paisResidExt} não for informado, {indApurIR} = [0] e {indRRA} = [S], efetuar o somatório de <a href="#5002_ideTrabalhador_dmDev_infoIR_valor">valor</a> cujo <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [31, 32, 34].<br />
+ <br />
+b) Quando o evento de origem for S-1207 e respectivo S-1210:<br />
+<a href="#5002_ideTrabalhador_dmDev_totApurMen_CRMen">CRMen</a> = [353301]: se {indApurIR} = [0] e os campos {paisResidExt} e {indRRA} não forem informados, efetuar o somatório de <a href="#5002_ideTrabalhador_dmDev_infoIR_valor">valor</a> cujo <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [31, 32, 34];<br />
+<a href="#5002_ideTrabalhador_dmDev_totApurMen_CRMen">CRMen</a> = [188901]: se {paisResidExt} não for informado, {indApurIR} = [0] e {indRRA} = [S], efetuar o somatório de <a href="#5002_ideTrabalhador_dmDev_infoIR_valor">valor</a> cujo <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [31, 32, 34].</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="5002_ideTrabalhador_dmDev_totApurMen_vlrCRMenSusp" id="5002_ideTrabalhador_dmDev_totApurMen_vlrCRMenSusp">24</td>
+<td>vlrCRMenSusp</td>
+<td><a href="#r_5002_ideTrabalhador_dmDev_totApurMen">totApurMen</a></td>
+<td>E</td>
+<td>N</td>
+<td>0-1</td>
+<td>1-14</td>
+<td>2</td>
+<td>Valor que deixou de ser descontado relativo ao Imposto de Renda sobre rendimentos do trabalho em decorrência de processos.<br />
+<strong>Validação:</strong> Deve ser maior ou igual a 0 (zero) e agrupado conforme segue:<br />
+a) Quando o evento de origem for S-1200, S-1202, S-2299, S-2399 e respectivo S-1210:<br />
+<a href="#5002_ideTrabalhador_dmDev_totApurMen_CRMen">CRMen</a> = [056107]: se <a href="#5002_ideTrabalhador_dmDev_codCateg">codCateg</a> = [101, 103, 105, 106, 107, 108, 111, 201, 202, 301, 302, 303, 304, 305, 306, 307, 308, 309, 310, 311, 312, 313, 401, 410, 501, 721, 722, 723, 901, 902, 903, 904], {indApurIR} = [0], os campos {indRRA} e {paisResidExt} não forem informados e <a href="#1000_infoEmpregador_inclusao_infoCadastro_classTrib">classTrib</a> em S-1000 for diferente de [22], efetuar o somatório de <a href="#5002_ideTrabalhador_dmDev_infoIR_valor">valor</a> cujo <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [9031, 9032, 9831, 9832];<br />
+<a href="#5002_ideTrabalhador_dmDev_totApurMen_CRMen">CRMen</a> = [056108]: se <a href="#5002_ideTrabalhador_dmDev_codCateg">codCateg</a> = [104], {indApurIR} = [0] e os campos {indRRA} e {paisResidExt} não forem informados, efetuar o somatório de <a href="#5002_ideTrabalhador_dmDev_infoIR_valor">valor</a> cujo <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [9031, 9831];<br />
+<a href="#5002_ideTrabalhador_dmDev_totApurMen_CRMen">CRMen</a> = [056109]: se <a href="#5002_ideTrabalhador_dmDev_codCateg">codCateg</a> = [104], {indApurIR} = [0] e os campos {indRRA} e {paisResidExt} não forem informados, efetuar o somatório de <a href="#5002_ideTrabalhador_dmDev_infoIR_valor">valor</a> cujo <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [9032, 9832], apenas se origem for S-2299;<br />
+<a href="#5002_ideTrabalhador_dmDev_totApurMen_CRMen">CRMen</a> = [056110]: se <a href="#5002_ideTrabalhador_dmDev_codCateg">codCateg</a> = [104], {indApurIR} = [0] e os campos {indRRA} e {paisResidExt} não forem informados, efetuar o somatório de <a href="#5002_ideTrabalhador_dmDev_infoIR_valor">valor</a> cujo <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [9032, 9832], exceto se origem for S-2299;<br />
+<a href="#5002_ideTrabalhador_dmDev_totApurMen_CRMen">CRMen</a> = [056111]: se <a href="#5002_ideTrabalhador_dmDev_codCateg">codCateg</a> = [101, 102, 103, 105, 106, 107, 108, 111, 201, 202], {indApurIR} = [0], os campos {indRRA} e {paisResidExt} não forem informados e <a href="#1000_infoEmpregador_inclusao_infoCadastro_classTrib">classTrib</a> em S-1000 = [22], efetuar o somatório de <a href="#5002_ideTrabalhador_dmDev_infoIR_valor">valor</a> cujo <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [9031, 9831];<br />
+<a href="#5002_ideTrabalhador_dmDev_totApurMen_CRMen">CRMen</a> = [056112]: se <a href="#5002_ideTrabalhador_dmDev_codCateg">codCateg</a> = [101, 102, 103, 105, 106, 107, 108, 111, 201, 202], {indApurIR} = [0], os campos {indRRA} e {paisResidExt} não forem informados e <a href="#1000_infoEmpregador_inclusao_infoCadastro_classTrib">classTrib</a> em S-1000 = [22], efetuar o somatório de <a href="#5002_ideTrabalhador_dmDev_infoIR_valor">valor</a> cujo <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [9032, 9832], exceto se origem for S-2299/S-2399;<br />
+<a href="#5002_ideTrabalhador_dmDev_totApurMen_CRMen">CRMen</a> = [056113]: se <a href="#5002_ideTrabalhador_dmDev_codCateg">codCateg</a> = [101, 102, 103, 105, 106, 107, 108, 111, 201, 202], {indApurIR} = [0], os campos {indRRA} e {paisResidExt} não forem informados e <a href="#1000_infoEmpregador_inclusao_infoCadastro_classTrib">classTrib</a> em S-1000 = [22], efetuar o somatório de <a href="#5002_ideTrabalhador_dmDev_infoIR_valor">valor</a> cujo <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [9032, 9832], apenas se origem for S-2299/S-2399;<br />
+<a href="#5002_ideTrabalhador_dmDev_totApurMen_CRMen">CRMen</a> = [058806]: se <a href="#5002_ideTrabalhador_dmDev_codCateg">codCateg</a> = [701, 711, 712, 731, 734, 738, 741, 751, 761, 771, 781], {indApurIR} = [0] e os campos {indRRA} e {paisResidExt} não forem informados, efetuar o somatório de <a href="#5002_ideTrabalhador_dmDev_infoIR_valor">valor</a> cujo <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [9031,  9032, 9034, 9831, 9832, 9834];<br />
+<a href="#5002_ideTrabalhador_dmDev_totApurMen_CRMen">CRMen</a> = [061001]: se <a href="#5002_ideTrabalhador_dmDev_codCateg">codCateg</a> = [712], {indApurIR} = [0] e {paisResidExt} = [586], efetuar o somatório de <a href="#5002_ideTrabalhador_dmDev_infoIR_valor">valor</a> cujo <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [9031, 9831];<br />
+<a href="#5002_ideTrabalhador_dmDev_totApurMen_CRMen">CRMen</a> = [356201]: se <a href="#5002_ideTrabalhador_dmDev_codCateg">codCateg</a> = [1XX], {indApurIR} = [0] e os campos {indRRA} e {paisResidExt} não forem informados, efetuar o somatório de <a href="#5002_ideTrabalhador_dmDev_infoIR_valor">valor</a> cujo <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [9034, 9834];<br />
+<a href="#5002_ideTrabalhador_dmDev_totApurMen_CRMen">CRMen</a> = [188901]: se {paisResidExt} não for informado, {indApurIR} = [0] e {indRRA} = [S], efetuar o somatório de <a href="#5002_ideTrabalhador_dmDev_infoIR_valor">valor</a> cujo <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [9031, 9032, 9034, 9831, 9832, 9834].<br />
+ <br />
+b) Quando o evento de origem for S-1207 e respectivo S-1210:<br />
+<a href="#5002_ideTrabalhador_dmDev_totApurMen_CRMen">CRMen</a> = [353301]: se {indApurIR} = [0] e os campos {paisResidExt} e {indRRA} não forem informados, efetuar o somatório de <a href="#5002_ideTrabalhador_dmDev_infoIR_valor">valor</a> cujo <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [9031, 9032, 9034, 9831, 9832, 9834];<br />
+<a href="#5002_ideTrabalhador_dmDev_totApurMen_CRMen">CRMen</a> = [188901]: se {paisResidExt} não for informado, {indApurIR} = [0] e {indRRA} = [S], efetuar o somatório de <a href="#5002_ideTrabalhador_dmDev_infoIR_valor">valor</a> cujo <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [9031, 9032, 9034, 9831, 9832, 9834].</td>
+</tr>
+<tr class="grupo">
+<td onclick="copiarCaminho.call(this)" title="5002_ideTrabalhador_dmDev_totApurDia" id="5002_ideTrabalhador_dmDev_totApurDia">25</td>
+<td><a href="#r_5002_ideTrabalhador_dmDev_totApurDia">totApurDia</a></td>
+<td><a href="#r_5002_ideTrabalhador_dmDev">dmDev</a></td>
+<td>G</td>
+<td>-</td>
+<td>0-350</td>
+<td>-</td>
+<td>-</td>
+<td>Totalizador de tributos com período de apuração diário.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="5002_ideTrabalhador_dmDev_totApurDia_perApurDia" id="5002_ideTrabalhador_dmDev_totApurDia_perApurDia">26</td>
+<td>perApurDia</td>
+<td><a href="#r_5002_ideTrabalhador_dmDev_totApurDia">totApurDia</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1-2</td>
+<td>-</td>
+<td>Período de apuração diário do Código de Receita - CR.<br />
+<strong>Validação:</strong> Deve ser igual ao dia (&quot;DD&quot;) da data informada em <a href="#5002_ideTrabalhador_dmDev_dtPgto">dtPgto</a>.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="5002_ideTrabalhador_dmDev_totApurDia_CRDia" id="5002_ideTrabalhador_dmDev_totApurDia_CRDia">27</td>
+<td>CRDia</td>
+<td><a href="#r_5002_ideTrabalhador_dmDev_totApurDia">totApurDia</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>6</td>
+<td>-</td>
+<td>Código de Receita - CR relativo ao Imposto de Renda Retido na Fonte sobre rendimentos do trabalho pagos a residente no exterior para fins fiscais.<br />
+<strong>Valores válidos:</strong><br />
+<strong>047301</strong> - IRRF - Residentes no exterior, para fins fiscais</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="5002_ideTrabalhador_dmDev_totApurDia_vlrCRDia" id="5002_ideTrabalhador_dmDev_totApurDia_vlrCRDia">28</td>
+<td>vlrCRDia</td>
+<td><a href="#r_5002_ideTrabalhador_dmDev_totApurDia">totApurDia</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1-14</td>
+<td>2</td>
+<td>Valor relativo ao Imposto de Renda Retido na Fonte sobre rendimentos do trabalho pagos a residente, para fins fiscais, no exterior.<br />
+<strong>Evento de origem:</strong> S-1200, S-1202, S-2299, S-2399 e respectivo S-1210.<br />
+<strong>Validação:</strong> Deve ser maior que 0 (zero).<br />
+Efetuar o somatório de <a href="#5002_ideTrabalhador_dmDev_infoIR_valor">valor</a> cujo <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [31, 32, 34], se {indApurIR} = [0] e:<br />
+a) <a href="#5002_ideTrabalhador_dmDev_codCateg">codCateg</a> for diferente de [712] e {paisResidExt} for informado com qualquer valor; ou<br />
+b) <a href="#5002_ideTrabalhador_dmDev_codCateg">codCateg</a> = [712] e {paisResidExt} for informado com valor diferente de [586].</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="5002_ideTrabalhador_dmDev_totApurDia_vlrCRDiaSusp" id="5002_ideTrabalhador_dmDev_totApurDia_vlrCRDiaSusp">29</td>
+<td>vlrCRDiaSusp</td>
+<td><a href="#r_5002_ideTrabalhador_dmDev_totApurDia">totApurDia</a></td>
+<td>E</td>
+<td>N</td>
+<td>0-1</td>
+<td>1-14</td>
+<td>2</td>
+<td>Valor que deixou de ser descontado do trabalhador relativo ao Imposto de Renda sobre rendimentos do trabalho pagos a residente, para fins fiscais, no exterior.<br />
+<strong>Evento de origem:</strong> S-1200, S-1202, S-2299, S-2399 e respectivo S-1210.<br />
+<strong>Validação:</strong> Deve ser maior ou igual a 0 (zero).<br />
+Efetuar o somatório de <a href="#5002_ideTrabalhador_dmDev_infoIR_valor">valor</a> cujo <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [9031, 9032, 9034, 9831, 9832, 9834], se {indApurIR} = [0] e:<br />
+a) <a href="#5002_ideTrabalhador_dmDev_codCateg">codCateg</a> for diferente de [712] e {paisResidExt} for informado com qualquer valor; ou<br />
+b) <a href="#5002_ideTrabalhador_dmDev_codCateg">codCateg</a> = [712] e {paisResidExt} for informado com valor diferente de [586].</td>
 </tr>
 </tbody>
 </table>
@@ -32383,7 +32653,7 @@ Caso haja alguma exceção acima, retornar o FAP declarado no evento S-1005.</td
 <strong>Valores válidos:</strong><br />
 <strong>1</strong> - CNPJ<br />
 <strong>2</strong> - CPF<br />
-<strong>Validação:</strong> Retornar <a href="#1020_infoLotacao_inclusao_dadosLotacao_infoEmprParcial_tpInscProp">tpInscProp</a> de S-1020. Caso esse campo não tenha sido informado, retornar <a href="#5011_infoCS_ideEstab_ideLotacao_infoEmprParcial_tpInscContrat">tpInscContrat</a>.</td>
+<strong>Validação:</strong> Retornar o tipo de inscrição do proprietário no CNO. Caso não tenha sido encontrado, retornar <a href="#1020_infoLotacao_inclusao_dadosLotacao_infoEmprParcial_tpInscProp">tpInscProp</a> de S-1020. Se o tipo de inscrição do proprietário no CNO não for encontrado e se não houver informação de <a href="#1020_infoLotacao_inclusao_dadosLotacao_infoEmprParcial_tpInscProp">tpInscProp</a> em S-1020, retornar <a href="#5011_infoCS_ideEstab_ideLotacao_infoEmprParcial_tpInscContrat">tpInscContrat</a>.</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="5011_infoCS_ideEstab_ideLotacao_infoEmprParcial_nrInscProp" id="5011_infoCS_ideEstab_ideLotacao_infoEmprParcial_nrInscProp">53</td>
@@ -32395,7 +32665,7 @@ Caso haja alguma exceção acima, retornar o FAP declarado no evento S-1005.</td
 <td>11 ou 14</td>
 <td>-</td>
 <td>Preencher com o número de inscrição (CNPJ/CPF) do proprietário do CNO.<br />
-<strong>Validação:</strong> Retornar <a href="#1020_infoLotacao_inclusao_dadosLotacao_infoEmprParcial_nrInscProp">nrInscProp</a> de S-1020. Caso esse campo não tenha sido informado, retornar <a href="#5011_infoCS_ideEstab_ideLotacao_infoEmprParcial_nrInscContrat">nrInscContrat</a>.</td>
+<strong>Validação:</strong> Retornar o número de inscrição do proprietário no CNO. Caso não tenha sido encontrado, retornar <a href="#1020_infoLotacao_inclusao_dadosLotacao_infoEmprParcial_nrInscProp">nrInscProp</a> de S-1020. Se o número de inscrição do proprietário no CNO não for encontrado e se não houver informação de <a href="#1020_infoLotacao_inclusao_dadosLotacao_infoEmprParcial_nrInscProp">nrInscProp</a> em S-1020, retornar <a href="#5011_infoCS_ideEstab_ideLotacao_infoEmprParcial_nrInscContrat">nrInscContrat</a>.</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="5011_infoCS_ideEstab_ideLotacao_infoEmprParcial_cnoObra" id="5011_infoCS_ideEstab_ideLotacao_infoEmprParcial_cnoObra">54</td>
@@ -34143,7 +34413,7 @@ Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo
 <td>-</td>
 <td>Código de motivo do desligamento.<br />
 <strong>Validação:</strong> Deve ser um código válido e existente na <a href="tabelas.html#19">Tabela 19</a>, bem como compatível com o código de categoria do trabalhador, conforme <a href="tabelas.html#19">Tabela 19</a>.<br />
-Não podem ser informados motivos que não implicam rescisão do contrato de trabalho (igual a [11, 12, 13, 25, 28, 29, 30, 34, 36, 43]).</td>
+Não podem ser informados motivos que não implicam rescisão do contrato de trabalho (igual a [11, 12, 13, 25, 28, 29, 30, 34, 36, 43, 44]).</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="8299_infoBaixa_dtDeslig" id="8299_infoBaixa_dtDeslig">18</td>
