@@ -332,11 +332,16 @@
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>
-                                                    <xs:element name="dtTermAfast" type="xs:date">
+                                                    <xs:element name="dtTermAfast">
                                                         <xs:annotation>
                                                             <xs:documentation>Preencher com a data do término do afastamento do trabalhador.</xs:documentation>
-                                                            <xs:documentation>Validação: Deve ser igual ou posterior à data de início do afastamento do trabalhador.</xs:documentation>
+                                                            <xs:documentation>Validação: Deve ser igual ou posterior à data de início do afastamento do trabalhador e anterior a [9999-12-31].</xs:documentation>
                                                         </xs:annotation>
+                                                        <xs:simpleType>
+                                                            <xs:restriction base="xs:date">
+                                                                <xs:maxExclusive value="9999-12-31" />
+                                                            </xs:restriction>
+                                                        </xs:simpleType>
                                                     </xs:element>
                                                 </xs:sequence>
                                             </xs:complexType>
