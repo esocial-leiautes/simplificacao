@@ -14,6 +14,7 @@
                         <xs:documentation>CHAVE_GRUPO: {Id}</xs:documentation>
                         <xs:documentation>REGRA:REGRA_BASES_PROC_TRAB</xs:documentation>
                         <xs:documentation>REGRA:REGRA_BLOQUEIA_USO_CPF_EMPREGADOR</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_COMPATIBILIDADE_CATEGORIA_CLASSTRIB</xs:documentation>
                         <xs:documentation>REGRA:REGRA_ENVIO_PROC_FECHAMENTO</xs:documentation>
                         <xs:documentation>REGRA:REGRA_EVENTOS_EXTEMP</xs:documentation>
                         <xs:documentation>REGRA:REGRA_EXISTE_INFO_EMPREGADOR</xs:documentation>
@@ -724,13 +725,16 @@
                                                                 <xs:element name="tpInsc" type="TS_tpInsc_EstabLot">
                                                                     <xs:annotation>
                                                                         <xs:documentation>Preencher com o código correspondente ao tipo de inscrição do estabelecimento, de acordo com as opções da Tabela 05.</xs:documentation>
+                                                                        <xs:documentation>No caso de empregador doméstico, informar [3] (CAEPF).</xs:documentation>
                                                                         <xs:documentation>Validação: Se {ideEmpregador/tpInsc}(2500_ideEmpregador_tpInsc) = [1], deve ser igual a [1, 4]. Se {ideEmpregador/tpInsc}(2500_ideEmpregador_tpInsc) = [2], deve ser igual a [3, 4].</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
                                                                 <xs:element name="nrInsc" type="TS_nrInsc_EstabLot">
                                                                     <xs:annotation>
                                                                         <xs:documentation>Informar o número de inscrição do estabelecimento do contribuinte de acordo com o tipo de inscrição indicado no campo acima.</xs:documentation>
+                                                                        <xs:documentation>No caso de empregador doméstico, informar os 9 (nove) primeiros dígitos do CPF do empregador, seguidos de 5 (cinco) dígitos 0 (zero). Por exemplo, se o CPF do empregador doméstico for 111111111-99, informar 11111111100000.</xs:documentation>
                                                                         <xs:documentation>Validação: A inscrição informada deve ser compatível com {ideEstab/tpInsc}(./tpInsc) e o número deve constar na base da RFB e pertencer a {ideEmpregador/nrInsc}(2500_ideEmpregador_nrInsc).</xs:documentation>
+                                                                        <xs:documentation>Se o processo for referente a empregado doméstico, a inscrição informada deve ser igual aos 9 (nove) primeiros dígitos do CPF do empregador, seguidos de 5 (cinco) dígitos 0 (zero).</xs:documentation>
                                                                     </xs:annotation>    
                                                                 </xs:element>
                                                                 <xs:element name="infoVlr">
