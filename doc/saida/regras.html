@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>eSocial versão S-1.0 - Regras</title>
 <link rel="shortcut icon" type="image/x-icon" href="favicon_doc.ico">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 <link rel="stylesheet" href="esocial_html.css">
 </head>
 <body>
@@ -2436,10 +2436,61 @@ No caso do evento S-2299, se houver remuneração informada no registro {infoPer
 <a href="regras.html">Regras de Validação</a>
 </div>
 </div>
+<div class="navbar-end">
+<div class="navbar-item">
+<div class="field">
+<div class="control">
+<input class="input" type="text" placeholder="Vá para um item" id="ir" title="Informe o número do evento, da tabela ou uma regra" />
+</div>
+</div>
+</div>
+</div>
 </div>
 </nav>
 <input id="copiador" type="text" />
 <script>
+document.addEventListener('keyup', (e) => {
+    if (e.ctrlKey && e.key == 'i') {
+        document.querySelector('#ir').focus();
+    }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelector('#ir').addEventListener('keyup', (e) => {
+        if (e.code == 'Enter' || e.code == 'NumpadEnter') {
+            let destino = null;
+            
+            if (e.currentTarget.value.length == 4)
+            {
+                destino = document.querySelector('#r_' + e.currentTarget.value);
+            }
+
+            if (e.currentTarget.value.length == 6)
+            {
+                destino = document.querySelector('#r_' + e.currentTarget.value.substring(2, 6));
+            }
+
+            if (e.currentTarget.value.length == 2)
+            {
+                destino = document.querySelector('#t_' + e.currentTarget.value);
+            }
+
+            if (e.currentTarget.value.length > 6)
+            {
+                destino = document.querySelector('#' + e.currentTarget.value);
+            }
+
+            if (destino === null) {
+                window.alert('O item não foi encontrado.');
+                e.currentTarget.focus();
+            } else {
+                destino.scrollIntoView({ behavior: 'smooth' });
+                e.currentTarget.value = '';
+            }
+        }
+    });
+});
+
 document.querySelectorAll("a[href^='#REGRA_']").forEach(element => {
     element.onclick = function() {
         var modal_atual = document.querySelector("div[class~='is-active']")
