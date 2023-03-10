@@ -61,9 +61,10 @@ Nível: 5
 Nome: endereco
 Pai: dadosTrabalhador
 Descrição: Endereço do trabalhador
-Ocorrência: 1
+Ocorrência: 0-1
 Chave: -
-Condição: O
+Condição: O (se houver trabalhador ativo no RET com {tpRegPrev} diferente de [4] ou com código de categoria diferente de [308]
+N (nos demais casos)
 
 Nível: 6
 Nome: brasil
@@ -98,7 +99,8 @@ Pai: dadosTrabalhador
 Descrição: Pessoa com deficiência.
 Ocorrência: 0-1
 Chave: -
-Condição: OC
+Condição: OC (se houver trabalhador ativo no RET com {tpRegPrev} diferente de [4] ou com código de categoria diferente de [308]
+N (nos demais casos)
 
 Nível: 5
 Nome: dependente
@@ -114,7 +116,8 @@ Pai: dadosTrabalhador
 Descrição: Informações de contato.
 Ocorrência: 0-1
 Chave: -
-Condição: OC
+Condição: OC (se houver trabalhador ativo no RET com {tpRegPrev} diferente de [4] ou com código de categoria diferente de [308]
+N (nos demais casos)
 
 Nome: eSocial
 Pai: -
@@ -398,7 +401,7 @@ Nome: endereco
 Pai: dadosTrabalhador
 Elem.: CG
 Tipo: -
-Ocorrência: 1
+Ocorrência: 0-1
 Tamanho: -
 Dec.: -
 Descrição: Grupo de informações do endereço do trabalhador.
@@ -694,7 +697,7 @@ Tipo: C
 Ocorrência: 0-1
 Tamanho: 1
 Dec.: -
-Descrição: Informar se o trabalhador preenche cota de pessoas com deficiência habilitadas ou de beneficiários reabilitados.
+Descrição: Informar se o trabalhador deve ser contabilizado no preenchimento de cota de pessoas com deficiência habilitadas ou de beneficiários reabilitados.
 Valores válidos:
 S - Sim
 N - Não
@@ -773,6 +776,7 @@ Valores válidos:
 M - Masculino
 F - Feminino
 Validação: Preenchimento obrigatório e exclusivo quando houver trabalhador cadastrado no evento S-2200, ativo em {dtAlteracao}(2205_alteracao_dtAlteracao) e com {tpRegPrev} = [2] no RET.
+Esta validação não deve ser realizada quando se tratar de recepção de evento extemporâneo.
 
 Nome: depIRRF
 Pai: dependente
@@ -802,13 +806,14 @@ Nome: incTrab
 Pai: dependente
 Elem.: E
 Tipo: C
-Ocorrência: 1
+Ocorrência: 0-1
 Tamanho: 1
 Dec.: -
 Descrição: Informar se o dependente tem incapacidade física ou mental para o trabalho.
 Valores válidos:
 S - Sim
 N - Não
+Validação: Preenchimento obrigatório se o trabalhador estiver cadastrado no evento S-2200, ativo em {dtAlteracao}(2205_alteracao_dtAlteracao) e com {tpRegPrev} diferente de [4] no RET. Não informar nos demais casos.
 
 Nome: contato
 Pai: dadosTrabalhador

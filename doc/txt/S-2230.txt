@@ -392,7 +392,10 @@ Ocorrência: 1
 Tamanho: -
 Dec.: -
 Descrição: Data de início do período aquisitivo de férias.
-Validação: Deve ser igual ou posterior à data de admissão.
+Validação: Deve observar o que segue:
+a) Se o código de categoria no Registro de Eventos Trabalhistas - RET for diferente de [304, 410], deve ser igual ou posterior a {dtAdm}(2200_vinculo_infoRegimeTrab_infoCeletista_dtAdm);
+b) Se o código de categoria no RET for igual a [304], deve ser igual ou posterior a {dtExercOrig}(2300_infoTSVInicio_infoComplementares_infoMandElet_dtExercOrig);
+c) Se o código de categoria no RET for igual a [410], deve ser igual ou posterior a {dtAdmCed}(2300_infoTSVInicio_infoComplementares_infoTrabCedido_dtAdmCed).
 
 Nome: dtFim
 Pai: perAquis
@@ -402,7 +405,7 @@ Ocorrência: 0-1
 Tamanho: -
 Dec.: -
 Descrição: Data de término do período aquisitivo de férias.
-Informar o campo somente se o período aquisitivo for diferente de 1 ano.
+É necessário informar o campo somente se o período aquisitivo for diferente de 1 ano.
 Validação: Se informada, deve ser uma data posterior a {dtInicio}(./dtInicio).
 
 Nome: infoCessao
@@ -575,5 +578,5 @@ Ocorrência: 1
 Tamanho: -
 Dec.: -
 Descrição: Preencher com a data do término do afastamento do trabalhador.
-Validação: Deve ser igual ou posterior à data de início do afastamento do trabalhador.
+Validação: Deve ser igual ou posterior à data de início do afastamento do trabalhador e anterior a [9999-12-31].
 

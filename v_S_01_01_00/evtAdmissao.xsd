@@ -58,7 +58,7 @@
                                             <xs:annotation>
                                                 <xs:documentation>Endereço do trabalhador</xs:documentation>
                                                 <xs:documentation>DESCRICAO_COMPLETA:Grupo de informações do endereço do trabalhador.</xs:documentation>
-                                                <xs:documentation>CONDICAO_GRUPO: O (se grupo {desligamento}(2200_vinculo_desligamento) não estiver preenchido); F (nos demais casos)</xs:documentation>
+                                                <xs:documentation>CONDICAO_GRUPO: N (se {tpRegPrev}(2200_vinculo_tpRegPrev) = [4]); O (se grupo {desligamento}(2200_vinculo_desligamento) não estiver preenchido e se {tpRegPrev}(2200_vinculo_tpRegPrev) for diferente de [4]); F (nos demais casos)</xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>
@@ -99,7 +99,7 @@
                                         <xs:element name="infoDeficiencia" minOccurs="0">
                                             <xs:annotation>
                                                 <xs:documentation>Pessoa com deficiência.</xs:documentation>
-                                                <xs:documentation>CONDICAO_GRUPO: OC (se grupo {desligamento}(2200_vinculo_desligamento) não estiver preenchido); F (nos demais casos)</xs:documentation>
+                                                <xs:documentation>CONDICAO_GRUPO: N (se {tpRegPrev}(2200_vinculo_tpRegPrev) = [4]); OC (se grupo {desligamento}(2200_vinculo_desligamento) não estiver preenchido e se {tpRegPrev}(2200_vinculo_tpRegPrev) for diferente de [4]); F (nos demais casos)</xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>
@@ -111,7 +111,7 @@
                                                     <xs:element name="reabReadap" type="TS_reabReadap" />
                                                     <xs:element name="infoCota" minOccurs="0" type="TS_sim_nao">
                                                         <xs:annotation>
-                                                            <xs:documentation>Informar se o trabalhador preenche cota de pessoas com deficiência habilitadas ou de beneficiários reabilitados.</xs:documentation>
+                                                            <xs:documentation>Informar se o trabalhador deve ser contabilizado no preenchimento de cota de pessoas com deficiência habilitadas ou de beneficiários reabilitados.</xs:documentation>
                                                             <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se {tpRegTrab}(2200_vinculo_tpRegTrab) = [1]. Somente pode ser informado [S] se pelo menos um dos campos a seguir estiver preenchido com [S]: {defFisica}(./defFisica), {defVisual}(./defVisual), {defAuditiva}(./defAuditiva), {defMental}(./defMental), {defIntelectual}(./defIntelectual) e {reabReadap}(./reabReadap).</xs:documentation>
                                                             <xs:documentation>Esta validação não deve ser realizada quando se tratar de evento enviado em versão do leiaute anterior a S-1.0.</xs:documentation>
                                                         </xs:annotation>
@@ -140,14 +140,19 @@
                                                     </xs:element>
                                                     <xs:element name="depIRRF" type="TS_depIRRF" />
                                                     <xs:element name="depSF" type="TS_depSF" />
-                                                    <xs:element name="incTrab" type="TS_incTrab" />
+                                                    <xs:element name="incTrab" minOccurs="0" type="TS_incTrab">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Informar se o dependente tem incapacidade física ou mental para o trabalho.</xs:documentation>
+                                                            <xs:documentation>Validação: Não informar se {tpRegPrev}(2200_vinculo_tpRegPrev) = [4]. Preenchimento obrigatório nos demais casos.</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:element>
                                                 </xs:sequence>
                                             </xs:complexType>
                                         </xs:element>
                                         <xs:element name="contato" minOccurs="0" type="T_contato">
                                             <xs:annotation>
                                                 <xs:documentation>Informações de contato.</xs:documentation>
-                                                <xs:documentation>CONDICAO_GRUPO: OC (se grupo {desligamento}(2200_vinculo_desligamento) não estiver preenchido); F (nos demais casos)</xs:documentation>
+                                                <xs:documentation>CONDICAO_GRUPO: N (se {tpRegPrev}(2200_vinculo_tpRegPrev) = [4]); OC (se grupo {desligamento}(2200_vinculo_desligamento) não estiver preenchido e se {tpRegPrev}(2200_vinculo_tpRegPrev) for diferente de [4]); F (nos demais casos)</xs:documentation>
                                             </xs:annotation>
                                         </xs:element>
                                     </xs:sequence>
@@ -171,7 +176,7 @@
                                         <xs:element name="tpRegTrab" type="TS_tpRegTrab">
                                             <xs:annotation>
                                                 <xs:documentation>Tipo de regime trabalhista.</xs:documentation>
-                                                <xs:documentation>Validação: Se {codCateg}(2200_vinculo_infoContrato_codCateg) = [104], deve ser preenchido com [1].</xs:documentation>
+                                                <xs:documentation>Validação: Se {codCateg}(2200_vinculo_infoContrato_codCateg) = [104], deve ser preenchido com [1]. Se {codCateg}(2200_vinculo_infoContrato_codCateg) = [314], deve ser preenchido com [2].</xs:documentation>
                                             </xs:annotation>
                                         </xs:element>
                                         <xs:element name="tpRegPrev" type="TS_tpRegPrev" />
@@ -344,8 +349,7 @@
                                                                                 </xs:element>
                                                                                 <xs:element name="ideEstabVinc">
                                                                                     <xs:annotation>
-                                                                                        <xs:documentation>Identificação do estabelecimento ao qual o trabalhador está vinculado</xs:documentation>
-                                                                                        <xs:documentation>DESCRICAO_COMPLETA:Identificação do estabelecimento ao qual o trabalhador temporário está vinculado. Se o local da efetiva prestação do serviço não possuir inscrição, deverá ser informado o CNPJ/CPF ao qual o local da efetiva prestação está vinculado.</xs:documentation>
+                                                                                        <xs:documentation>Identificação do estabelecimento do tomador ao qual o trabalhador temporário está vinculado</xs:documentation>
                                                                                     </xs:annotation>
                                                                                     <xs:complexType>
                                                                                         <xs:sequence>
@@ -417,7 +421,7 @@
                                                                                 </xs:enumeration>
                                                                                 <xs:enumeration value="3">
                                                                                     <xs:annotation>
-                                                                                        <xs:documentation>Incorporação, matrícula ou nomeação (militar)</xs:documentation>
+                                                                                        <xs:documentation>Incorporação ou matrícula (militar)</xs:documentation>
                                                                                     </xs:annotation>
                                                                                 </xs:enumeration>
                                                                                 <xs:enumeration value="5">
@@ -522,7 +526,7 @@
                                                     <xs:element name="dtIngrCargo" minOccurs="0" type="xs:date">
                                                         <xs:annotation>
                                                             <xs:documentation>Data de ingresso do servidor no cargo.</xs:documentation>
-                                                            <xs:documentation>Validação: Não preencher se {tpRegTrab}(2200_vinculo_tpRegTrab) = [1] ou se {CBOCargo}(./CBOCargo) não for informado. Se preenchida, devem ser observadas as seguintes regras:</xs:documentation>
+                                                            <xs:documentation>Validação: Não preencher se {tpRegTrab}(2200_vinculo_tpRegTrab) = [1] ou se {tpRegPrev}(2200_vinculo_tpRegPrev) = [4] ou se {CBOCargo}(./CBOCargo) não for informado. Se preenchida, devem ser observadas as seguintes regras:</xs:documentation>
                                                             <xs:documentation>a) Deve ser igual ou posterior à data de exercício do servidor;</xs:documentation>
                                                             <xs:documentation>b) Se {cadIni}(2200_vinculo_cadIni) = [S], deve ser anterior à data de início da obrigatoriedade dos eventos não periódicos para o ente público;</xs:documentation>
                                                             <xs:documentation>c) Se {cadIni}(2200_vinculo_cadIni) = [N], deve ser igual ou anterior à data da transferência ou alteração do CPF do servidor ({sucessaoVinc/dtTransf}(2200_vinculo_sucessaoVinc_dtTransf) ou {dtAltCPF}(2200_vinculo_mudancaCPF_dtAltCPF)). Não informar se {tpProv}(2200_vinculo_infoRegimeTrab_infoEstatutario_tpProv) for diferente de [5, 8, 10].</xs:documentation>

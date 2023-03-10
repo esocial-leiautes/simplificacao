@@ -57,10 +57,11 @@
                                                     <xs:element name="grauInstr" type="TS_grauInstr" />
                                                     <xs:element name="nmSoc" minOccurs="0" type="TS_nmSoc" />
                                                     <xs:element name="paisNac" type="TS_paisNac" />
-                                                    <xs:element name="endereco">
+                                                    <xs:element name="endereco" minOccurs="0">
                                                         <xs:annotation>
                                                             <xs:documentation>Endereço do trabalhador</xs:documentation>
                                                             <xs:documentation>DESCRICAO_COMPLETA:Grupo de informações do endereço do trabalhador.</xs:documentation>
+                                                            <xs:documentation>CONDICAO_GRUPO: O (se houver trabalhador ativo no RET com {tpRegPrev} diferente de [4] ou com código de categoria diferente de [308]; N (nos demais casos)</xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
                                                             <xs:sequence>
@@ -91,7 +92,7 @@
                                                     <xs:element name="infoDeficiencia" minOccurs="0">
                                                         <xs:annotation>
                                                             <xs:documentation>Pessoa com deficiência.</xs:documentation>
-                                                            <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
+                                                            <xs:documentation>CONDICAO_GRUPO: OC (se houver trabalhador ativo no RET com {tpRegPrev} diferente de [4] ou com código de categoria diferente de [308]; N (nos demais casos)</xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
                                                             <xs:sequence>
@@ -103,7 +104,7 @@
                                                                 <xs:element name="reabReadap" type="TS_reabReadap" />
                                                                 <xs:element name="infoCota" minOccurs="0" type="TS_sim_nao">
                                                                     <xs:annotation>
-                                                                        <xs:documentation>Informar se o trabalhador preenche cota de pessoas com deficiência habilitadas ou de beneficiários reabilitados.</xs:documentation>
+                                                                        <xs:documentation>Informar se o trabalhador deve ser contabilizado no preenchimento de cota de pessoas com deficiência habilitadas ou de beneficiários reabilitados.</xs:documentation>
                                                                         <xs:documentation>Validação: Preenchimento obrigatório e exclusivo quando houver trabalhador cadastrado no evento S-2200 com {tpRegTrab}(2200_vinculo_tpRegTrab) = [1] e ativo em {dtAlteracao}(2205_alteracao_dtAlteracao). Somente pode ser informado [S] se pelo menos um dos campos a seguir estiver preenchido com [S]: {defFisica}(./defFisica), {defVisual}(./defVisual), {defAuditiva}(./defAuditiva), {defMental}(./defMental), {defIntelectual}(./defIntelectual) e {reabReadap}(./reabReadap).</xs:documentation>
                                                                         <xs:documentation>Esta validação não deve ser realizada quando se tratar de evento enviado em versão do leiaute anterior a S-1.0.</xs:documentation>
                                                                     </xs:annotation>
@@ -128,18 +129,24 @@
                                                                     <xs:annotation>
                                                                         <xs:documentation>Sexo do dependente.</xs:documentation>
                                                                         <xs:documentation>Validação: Preenchimento obrigatório e exclusivo quando houver trabalhador cadastrado no evento S-2200, ativo em {dtAlteracao}(2205_alteracao_dtAlteracao) e com {tpRegPrev} = [2] no RET.</xs:documentation>
+                                                                        <xs:documentation>Esta validação não deve ser realizada quando se tratar de recepção de evento extemporâneo.</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
                                                                 <xs:element name="depIRRF" type="TS_depIRRF" />
                                                                 <xs:element name="depSF" type="TS_depSF" />
-                                                                <xs:element name="incTrab" type="TS_incTrab" />
+                                                                <xs:element name="incTrab" minOccurs="0" type="TS_incTrab">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Informar se o dependente tem incapacidade física ou mental para o trabalho.</xs:documentation>
+                                                                        <xs:documentation>Validação: Preenchimento obrigatório se o trabalhador estiver cadastrado no evento S-2200, ativo em {dtAlteracao}(2205_alteracao_dtAlteracao) e com {tpRegPrev} diferente de [4] no RET. Não informar nos demais casos.</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:element>
                                                             </xs:sequence>
                                                         </xs:complexType>
                                                     </xs:element>
                                                     <xs:element name="contato" minOccurs="0" type="T_contato">
                                                         <xs:annotation>
                                                             <xs:documentation>Informações de contato.</xs:documentation>
-                                                            <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
+                                                            <xs:documentation>CONDICAO_GRUPO: OC (se houver trabalhador ativo no RET com {tpRegPrev} diferente de [4] ou com código de categoria diferente de [308]; N (nos demais casos)</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
                                                 </xs:sequence>

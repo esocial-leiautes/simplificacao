@@ -49,10 +49,11 @@
                                         <xs:element name="grauInstr" type="TS_grauInstr" />
                                         <xs:element name="nmSoc" minOccurs="0" type="TS_nmSoc" />
                                         <xs:element name="nascimento" type="T_nascimento" />
-                                        <xs:element name="endereco">
+                                        <xs:element name="endereco" minOccurs="0">
                                             <xs:annotation>
                                                 <xs:documentation>Endereço do trabalhador</xs:documentation>
                                                 <xs:documentation>DESCRICAO_COMPLETA:Grupo de informações do endereço do trabalhador.</xs:documentation>
+                                                <xs:documentation>CONDICAO_GRUPO: N (se {codCateg}(2300_infoTSVInicio_codCateg) = [308]); O (nos demais casos)</xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>
@@ -83,7 +84,7 @@
                                         <xs:element name="infoDeficiencia" minOccurs="0">
                                             <xs:annotation>
                                                 <xs:documentation>Pessoa com deficiência.</xs:documentation>
-                                                <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
+                                                <xs:documentation>CONDICAO_GRUPO: N (se {codCateg}(2300_infoTSVInicio_codCateg) = [308]); OC (nos demais casos)</xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>
@@ -111,14 +112,15 @@
                                                     <xs:element name="cpfDep" minOccurs="0" type="TS_cpfDep" />
                                                     <xs:element name="depIRRF" type="TS_depIRRF" />
                                                     <xs:element name="depSF" type="TS_depSF" />
-                                                    <xs:element name="incTrab" type="TS_incTrab" />
+                                                    <xs:element name="incTrab" type="TS_incTrab">
+                                                    </xs:element>
                                                 </xs:sequence>
                                             </xs:complexType>
                                         </xs:element>
                                         <xs:element name="contato" minOccurs="0" type="T_contato">
                                             <xs:annotation>
                                                 <xs:documentation>Informações de contato.</xs:documentation>
-                                                <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
+                                                <xs:documentation>CONDICAO_GRUPO: N (se {codCateg}(2300_infoTSVInicio_codCateg) = [308]); OC (nos demais casos)</xs:documentation>
                                             </xs:annotation>
                                         </xs:element>
                                     </xs:sequence>
@@ -284,9 +286,9 @@
                                                                         <xs:documentation>Validação: O preenchimento é obrigatório e exclusivo se {infoDirigenteSindical/categOrig}(./categOrig) corresponder a "Empregado" ou "Agente Público".</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
-                                                                <xs:element name="tpRegPrev" type="TS_tpRegPrev">
+                                                                <xs:element name="tpRegPrev" type="TS_tpRegPrev_1_2_3">
                                                                     <xs:annotation>
-                                                                        <xs:documentation>Tipo de regime previdenciário (ou Sistema de Proteção Social dos Militares).</xs:documentation>
+                                                                        <xs:documentation>Tipo de regime previdenciário.</xs:documentation>
                                                                         <xs:documentation>Validação: Se {infoDirigenteSindical/categOrig}(./categOrig) for relativa a "Empregado", não pode ser preenchido com [2].</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
@@ -337,8 +339,8 @@
                                                                 </xs:element>
                                                                 <xs:element name="tpRegPrev" type="TS_tpRegPrev">
                                                                     <xs:annotation>
-                                                                        <xs:documentation>Tipo de regime previdenciário (ou Sistema de Proteção Social dos Militares).</xs:documentation>
-                                                                        <xs:documentation>Validação: Se {infoTrabCedido/categOrig}(./categOrig) for relativa a "Empregado", não pode ser preenchido com [2]. Se {codCateg}(2300_infoTSVInicio_codCateg) = [305], deve ser preenchido com [2].</xs:documentation>
+                                                                        <xs:documentation>Tipo de regime previdenciário (ou Sistema de Proteção Social dos Militares das Forças Armadas).</xs:documentation>
+                                                                        <xs:documentation>Validação: Se {infoTrabCedido/categOrig}(./categOrig) for relativa a "Empregado", não pode ser preenchido com [2, 4]. Se {codCateg}(2300_infoTSVInicio_codCateg) = [305], deve ser preenchido com [2].</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
                                                             </xs:sequence>
@@ -385,9 +387,9 @@
                                                                         <xs:documentation>Tipo de regime trabalhista.</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
-                                                                <xs:element name="tpRegPrev" type="TS_tpRegPrev">
+                                                                <xs:element name="tpRegPrev" type="TS_tpRegPrev_1_2_3">
                                                                     <xs:annotation>
-                                                                        <xs:documentation>Tipo de regime previdenciário (ou Sistema de Proteção Social dos Militares).</xs:documentation>
+                                                                        <xs:documentation>Tipo de regime previdenciário.</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
                                                             </xs:sequence>
