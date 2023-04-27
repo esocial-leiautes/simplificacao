@@ -1,0 +1,714 @@
+S-1207 - evtBenPrRP
+Benefícios - Entes Públicos
+
+Nível: 1
+Nome: eSocial
+Pai: -
+Descrição: eSocial
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 2
+Nome: evtBenPrRP
+Pai: eSocial
+Descrição: Evento Benefícios - Entes Públicos.
+Ocorrência: 1
+Chave: Id
+Condição: O
+
+Nível: 3
+Nome: ideEvento
+Pai: evtBenPrRP
+Descrição: Informações de identificação do evento.
+Ocorrência: 1
+Chave: indApuracao*, perApur*
+Condição: O
+
+Nível: 3
+Nome: ideEmpregador
+Pai: evtBenPrRP
+Descrição: Informações de identificação do empregador.
+Ocorrência: 1
+Chave: tpInsc*, nrInsc*
+Condição: O
+
+Nível: 3
+Nome: ideBenef
+Pai: evtBenPrRP
+Descrição: Identificação do beneficiário.
+Ocorrência: 1
+Chave: cpfBenef*
+Condição: O
+
+Nível: 3
+Nome: dmDev
+Pai: evtBenPrRP
+Descrição: Demonstrativo de valores devidos ao beneficiário
+Ocorrência: 1-999
+Chave: ideDmDev
+Condição: O
+
+Nível: 4
+Nome: infoRRA
+Pai: dmDev
+Descrição: Informações complementares de RRA.
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {indRRA}(../indRRA) = [S])
+N (nos demais casos)
+
+Nível: 5
+Nome: despProcJud
+Pai: infoRRA
+Descrição: Despesas com processo judicial
+Ocorrência: 0-1
+Chave: -
+Condição: OC
+
+Nível: 5
+Nome: ideAdv
+Pai: infoRRA
+Descrição: Identificação dos advogados.
+Ocorrência: 0-99
+Chave: tpInsc, nrInsc
+Condição: OC
+
+Nível: 4
+Nome: infoPerApur
+Pai: dmDev
+Descrição: Informações relativas ao período de apuração.
+Ocorrência: 0-1
+Chave: -
+Condição: O (se não existir o grupo {infoPerAnt}(1207_dmDev_infoPerAnt))
+OC (nos demais casos)
+
+Nível: 5
+Nome: ideEstab
+Pai: infoPerApur
+Descrição: Identificação da unidade do órgão público
+Ocorrência: 1-500
+Chave: tpInsc, nrInsc
+Condição: O
+
+Nível: 6
+Nome: itensRemun
+Pai: ideEstab
+Descrição: Itens que compõem o provento ou pensão do beneficiário
+Ocorrência: 1-200
+Chave: -
+Condição: O
+
+Nível: 4
+Nome: infoPerAnt
+Pai: dmDev
+Descrição: Informações relativas a períodos anteriores
+Ocorrência: 0-1
+Chave: -
+Condição: O (se não existir o grupo {infoPerApur}(1207_dmDev_infoPerApur) e {indApuracao}(1207_ideEvento_indApuracao) = [1])
+N (se {indApuracao}(1207_ideEvento_indApuracao) = [2])
+OC (nos demais casos)
+
+Nível: 5
+Nome: idePeriodo
+Pai: infoPerAnt
+Descrição: Identificação do período de referência do provento ou pensão
+Ocorrência: 1-180
+Chave: perRef
+Condição: O
+
+Nível: 6
+Nome: ideEstab
+Pai: idePeriodo
+Descrição: Identificação da unidade do órgão público
+Ocorrência: 1-500
+Chave: tpInsc, nrInsc
+Condição: O
+
+Nível: 7
+Nome: itensRemun
+Pai: ideEstab
+Descrição: Itens que compõem o provento ou pensão do beneficiário
+Ocorrência: 1-200
+Chave: -
+Condição: O
+
+Nome: eSocial
+Pai: -
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: eSocial
+
+Nome: evtBenPrRP
+Pai: eSocial
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Evento Benefícios - Entes Públicos.
+Regras de validação:
+REGRA_CONTROLE_DUPLICIDADE
+REGRA_ENVIO_PROC_FECHAMENTO
+REGRA_EVENTOS_EXTEMP
+REGRA_EXISTE_INFO_EMPREGADOR
+REGRA_GERAL_VALIDA_DADOS_TABCONTRIB
+REGRA_REMUN_ANUAL_DEZEMBRO
+REGRA_REMUN_BENEFICIO_EXISTENTE_RET
+REGRA_REMUN_IND_RETIFICACAO
+REGRA_REMUN_PERMITE_EXCLUSAO
+REGRA_RUBRICA_COMPATIVEL_DECTERCEIRO
+REGRA_VALIDA_EMPREGADOR
+REGRA_VALIDA_PERIODO_APURACAO
+
+Nome: Id
+Pai: evtBenPrRP
+Elem.: A
+Tipo: C
+Ocorrência: 1
+Tamanho: 36
+Dec.: -
+Descrição: Identificação única do evento.
+Regras de validação:
+REGRA_VALIDA_ID_EVENTO
+
+Nome: ideEvento
+Pai: evtBenPrRP
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do evento.
+
+Nome: indRetif
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Informe [1] para arquivo original ou [2] para arquivo de retificação.
+Valores válidos:
+1 - Original
+2 - Retificação
+
+Nome: nrRecibo
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 23
+Dec.: -
+Descrição: Preencher com o número do recibo do arquivo a ser retificado.
+Validação: O preenchimento é obrigatório se {indRetif}(./indRetif) = [2].
+Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo retificado.
+
+Nome: indApuracao
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo de período de apuração.
+Valores válidos:
+1 - Mensal
+2 - Anual (13° salário)
+
+Nome: perApur
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 4 ou 7
+Dec.: -
+Descrição: Informar o mês/ano (formato AAAA-MM) de referência das informações, se {indApuracao}(./indApuracao) for igual a [1], ou apenas o ano (formato AAAA), se {indApuracao}(./indApuracao) for igual a [2].
+Validação: Deve ser um mês/ano ou ano válido, igual ou posterior ao início da obrigatoriedade dos eventos periódicos para o empregador.
+
+Nome: tpAmb
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Identificação do ambiente.
+Valores válidos:
+1 - Produção
+2 - Produção restrita
+7 - Validação (uso interno)
+8 - Teste (uso interno)
+9 - Desenvolvimento (uso interno)
+
+Nome: procEmi
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Processo de emissão do evento.
+Valores válidos:
+1 - Aplicativo do empregador
+3 - Aplicativo governamental - Web Geral
+4 - Aplicativo governamental - Simplificado Pessoa Jurídica
+
+Nome: verProc
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-20
+Dec.: -
+Descrição: Versão do processo de emissão do evento. Informar a versão do aplicativo emissor do evento.
+
+Nome: ideEmpregador
+Pai: evtBenPrRP
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do empregador.
+
+Nome: tpInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+
+Nome: nrInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 8 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {ideEmpregador/tpInsc}(./tpInsc) e conforme informado em S-1000.
+
+Nome: ideBenef
+Pai: evtBenPrRP
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Identificação do beneficiário.
+
+Nome: cpfBenef
+Pai: ideBenef
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11
+Dec.: -
+Descrição: Informar o CPF do beneficiário.
+Validação: Deve ser um CPF válido.
+
+Nome: dmDev
+Pai: evtBenPrRP
+Elem.: G
+Tipo: -
+Ocorrência: 1-999
+Tamanho: -
+Dec.: -
+Descrição: Identificação de cada um dos demonstrativos de valores devidos ao beneficiário.
+Regras de validação:
+REGRA_DEMONSTRATIVO
+
+Nome: ideDmDev
+Pai: dmDev
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-30
+Dec.: -
+Descrição: Identificador atribuído pelo órgão público para o demonstrativo de valores devidos ao beneficiário. O ente público pode preencher este campo utilizando-se de um identificador padrão para todos os beneficiários; no entanto, havendo mais de um demonstrativo relativo a uma mesma competência, devem ser utilizados identificadores diferentes para cada um dos demonstrativos.
+Validação: Deve ser um identificador único dentro do mesmo {perApur}(1207_ideEvento_perApur) para cada um dos demonstrativos do beneficiário.
+Regras de validação:
+REGRA_CARACTERE_ESPECIAL
+
+Nome: nrBeneficio
+Pai: dmDev
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-20
+Dec.: -
+Descrição: Preencher com o número do benefício.
+
+Nome: indRRA
+Pai: dmDev
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo de Rendimentos Recebidos Acumuladamente - RRA.
+Somente preencher este campo se for um demonstrativo de RRA.
+Valores válidos:
+S - Sim
+
+Nome: infoRRA
+Pai: dmDev
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações complementares relativas a Rendimentos Recebidos Acumuladamente - RRA.
+
+Nome: tpProcRRA
+Pai: infoRRA
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de processo.
+Valores válidos:
+1 - Administrativo
+2 - Judicial
+
+Nome: nrProcRRA
+Pai: infoRRA
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 17, 20 ou 21
+Dec.: -
+Descrição: Informar o número do processo/requerimento administrativo/judicial.
+Validação: Informação obrigatória se {tpProcRRA}(./tpProcRRA) = [2] e opcional se {tpProcRRA}(./tpProcRRA) = [1]. Deve ser número de processo válido e:
+a) Se {tpProcRRA}(./tpProcRRA) = [1], deve possuir 17 (dezessete) ou 21 (vinte e um) algarismos;
+b) Se {tpProcRRA}(./tpProcRRA) = [2], deve possuir 20 (vinte) algarismos.
+
+Nome: descRRA
+Pai: infoRRA
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-50
+Dec.: -
+Descrição: Descrição dos Rendimentos Recebidos Acumuladamente - RRA.
+
+Nome: qtdMesesRRA
+Pai: infoRRA
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-4
+Dec.: 1
+Descrição: Número de meses relativo aos Rendimentos Recebidos Acumuladamente - RRA.
+
+Nome: despProcJud
+Pai: infoRRA
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Detalhamento das despesas com processo judicial.
+
+Nome: vlrDespCustas
+Pai: despProcJud
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Preencher com o valor das despesas com custas judiciais.
+
+Nome: vlrDespAdvogados
+Pai: despProcJud
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Preencher com o valor total das despesas com advogado(s).
+
+Nome: ideAdv
+Pai: infoRRA
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição: Identificação dos advogados.
+
+Nome: tpInsc
+Pai: ideAdv
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+
+Nome: nrInsc
+Pai: ideAdv
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do advogado.
+Validação: Deve ser um número de inscrição válido, de acordo com o tipo de inscrição indicado no campo {ideAdv/tpInsc}(./tpInsc), considerando as particularidades aplicadas à informação de CNPJ de órgão público em S-1000.
+Se {ideAdv/tpInsc}(./tpInsc) = [1], deve possuir 14 (catorze) algarismos e, no caso de declarante pessoa jurídica, ser diferente do CNPJ base do empregador (exceto se {ideEmpregador/nrInsc}(/ideEmpregador_nrInsc) tiver 14 (catorze) algarismos).
+Se {ideAdv/tpInsc}(./tpInsc) = [2], deve possuir 11 (onze) algarismos e, no caso de declarante pessoa física, ser diferente do CPF do empregador.
+
+Nome: vlrAdv
+Pai: ideAdv
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da despesa com o advogado, se houver.
+
+Nome: infoPerApur
+Pai: dmDev
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações relativas ao período de apuração.
+
+Nome: ideEstab
+Pai: infoPerApur
+Elem.: G
+Tipo: -
+Ocorrência: 1-500
+Tamanho: -
+Dec.: -
+Descrição: Identificação da unidade do órgão público na qual o beneficiário possui provento ou pensão.
+
+Nome: tpInsc
+Pai: ideEstab
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+
+Nome: nrInsc
+Pai: ideEstab
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 14
+Dec.: -
+Descrição: Informar o número de inscrição da unidade do órgão público.
+
+Nome: itensRemun
+Pai: ideEstab
+Elem.: G
+Tipo: -
+Ocorrência: 1-200
+Tamanho: -
+Dec.: -
+Descrição: Rubricas que compõem o provento ou pensão do beneficiário.
+
+Nome: codRubr
+Pai: itensRemun
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-30
+Dec.: -
+Descrição: Informar o código atribuído pelo empregador que identifica a rubrica em sua folha de pagamento.
+
+Nome: ideTabRubr
+Pai: itensRemun
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-8
+Dec.: -
+Descrição: Preencher com o identificador da Tabela de Rubricas para a rubrica definida em {codRubr}(./codRubr).
+
+Nome: qtdRubr
+Pai: itensRemun
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-12
+Dec.: 2
+Descrição: Informar a quantidade de referência para apuração (em horas, cotas, meses, etc.).
+Validação: Deve ser maior que 0 (zero).
+
+Nome: fatorRubr
+Pai: itensRemun
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-5
+Dec.: 2
+Descrição: Informar o fator, percentual, etc. da rubrica, quando necessário.
+Validação: Deve ser maior que 0 (zero).
+
+Nome: vrRubr
+Pai: itensRemun
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor total da rubrica.
+Validação: Deve ser maior que 0 (zero).
+
+Nome: indApurIR
+Pai: itensRemun
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo de tipo de apuração de IR.
+Valores válidos:
+0 - Normal (apuração sob a folha de pagamento declarada no eSocial)
+1 - Situação especial de apuração de IR
+
+Nome: infoPerAnt
+Pai: dmDev
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Grupo destinado às informações relativas a períodos anteriores. Somente preencher esse grupo se houver proventos ou pensões retroativos.
+
+Nome: idePeriodo
+Pai: infoPerAnt
+Elem.: G
+Tipo: -
+Ocorrência: 1-180
+Tamanho: -
+Dec.: -
+Descrição: Identificação do período ao qual se referem as diferenças de provento ou pensão.
+
+Nome: perRef
+Pai: idePeriodo
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 7
+Dec.: -
+Descrição: Informar o período ao qual se refere o complemento de provento ou pensão, no formato AAAA-MM.
+Validação: Deve ser igual ou anterior ao período de apuração informado em {perApur}(1207_ideEvento_perApur).
+Deve ser informado no formato AAAA-MM.
+
+Nome: ideEstab
+Pai: idePeriodo
+Elem.: G
+Tipo: -
+Ocorrência: 1-500
+Tamanho: -
+Dec.: -
+Descrição: Identificação da unidade do órgão público na qual o beneficiário possui provento ou pensão.
+
+Nome: tpInsc
+Pai: ideEstab
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+
+Nome: nrInsc
+Pai: ideEstab
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 14
+Dec.: -
+Descrição: Informar o número de inscrição da unidade do órgão público.
+
+Nome: itensRemun
+Pai: ideEstab
+Elem.: G
+Tipo: -
+Ocorrência: 1-200
+Tamanho: -
+Dec.: -
+Descrição: Rubricas que compõem o provento ou pensão do beneficiário.
+
+Nome: codRubr
+Pai: itensRemun
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-30
+Dec.: -
+Descrição: Informar o código atribuído pelo empregador que identifica a rubrica em sua folha de pagamento.
+
+Nome: ideTabRubr
+Pai: itensRemun
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-8
+Dec.: -
+Descrição: Preencher com o identificador da Tabela de Rubricas para a rubrica definida em {codRubr}(./codRubr).
+
+Nome: qtdRubr
+Pai: itensRemun
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-12
+Dec.: 2
+Descrição: Informar a quantidade de referência para apuração (em horas, cotas, meses, etc.).
+Validação: Deve ser maior que 0 (zero).
+
+Nome: fatorRubr
+Pai: itensRemun
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-5
+Dec.: 2
+Descrição: Informar o fator, percentual, etc. da rubrica, quando necessário.
+Validação: Deve ser maior que 0 (zero).
+
+Nome: vrRubr
+Pai: itensRemun
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor total da rubrica.
+Validação: Deve ser maior que 0 (zero).
+
+Nome: indApurIR
+Pai: itensRemun
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo de tipo de apuração de IR.
+Valores válidos:
+0 - Normal (apuração sob a folha de pagamento declarada no eSocial)
+1 - Situação especial de apuração de IR
+

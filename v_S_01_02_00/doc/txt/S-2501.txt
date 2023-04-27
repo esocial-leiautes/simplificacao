@@ -1,0 +1,388 @@
+S-2501 - evtContProc
+Informações de Tributos Decorrentes de Processo Trabalhista
+
+Nível: 1
+Nome: eSocial
+Pai: -
+Descrição: eSocial
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 2
+Nome: evtContProc
+Pai: eSocial
+Descrição: Evento Informações de Tributos Decorrentes de Processo Trabalhista.
+Ocorrência: 1
+Chave: Id
+Condição: O
+
+Nível: 3
+Nome: ideEvento
+Pai: evtContProc
+Descrição: Informações de identificação do evento.
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 3
+Nome: ideEmpregador
+Pai: evtContProc
+Descrição: Informações de identificação do empregador ou do contribuinte que está prestando a informação.
+Ocorrência: 1
+Chave: tpInsc*, nrInsc*
+Condição: O
+
+Nível: 3
+Nome: ideProc
+Pai: evtContProc
+Descrição: Identificação do processo.
+Ocorrência: 1
+Chave: nrProcTrab*, perApurPgto*
+Condição: O
+
+Nível: 3
+Nome: ideTrab
+Pai: evtContProc
+Descrição: Identificação do trabalhador.
+Ocorrência: 1-N
+Chave: cpfTrab
+Condição: O
+
+Nível: 4
+Nome: calcTrib
+Pai: ideTrab
+Descrição: Identificação do período e da base de cálculo dos tributos.
+Ocorrência: 1-360
+Chave: perRef
+Condição: O
+
+Nível: 5
+Nome: infoCRContrib
+Pai: calcTrib
+Descrição: Informações das contribuições sociais.
+Ocorrência: 0-99
+Chave: tpCR
+Condição: OC
+
+Nível: 4
+Nome: infoCRIRRF
+Pai: ideTrab
+Descrição: Informações de IRRF.
+Ocorrência: 0-99
+Chave: tpCR
+Condição: OC
+
+Nome: eSocial
+Pai: -
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: eSocial
+
+Nome: evtContProc
+Pai: eSocial
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Evento Informações de Tributos Decorrentes de Processo Trabalhista.
+Regras de validação:
+REGRA_ENVIO_PROC_FECHAMENTO
+REGRA_EXISTE_INFO_EMPREGADOR
+REGRA_VALIDA_EMPREGADOR
+
+Nome: Id
+Pai: evtContProc
+Elem.: A
+Tipo: C
+Ocorrência: 1
+Tamanho: 36
+Dec.: -
+Descrição: Identificação única do evento.
+Regras de validação:
+REGRA_VALIDA_ID_EVENTO
+
+Nome: ideEvento
+Pai: evtContProc
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do evento.
+
+Nome: indRetif
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Informe [1] para arquivo original ou [2] para arquivo de retificação.
+Valores válidos:
+1 - Original
+2 - Retificação
+
+Nome: nrRecibo
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 23
+Dec.: -
+Descrição: Preencher com o número do recibo do arquivo a ser retificado.
+Validação: O preenchimento é obrigatório se {indRetif}(./indRetif) = [2].
+Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo retificado.
+
+Nome: tpAmb
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Identificação do ambiente.
+Valores válidos:
+1 - Produção
+2 - Produção restrita
+7 - Validação (uso interno)
+8 - Teste (uso interno)
+9 - Desenvolvimento (uso interno)
+
+Nome: procEmi
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-2
+Dec.: -
+Descrição: Processo de emissão do evento.
+Valores válidos:
+1 - Aplicativo do empregador
+2 - Aplicativo governamental - Simplificado Pessoa Física
+3 - Aplicativo governamental - Web Geral
+4 - Aplicativo governamental - Simplificado Pessoa Jurídica
+22 - Aplicativo governamental para dispositivos móveis - Empregador Doméstico
+
+Nome: verProc
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-20
+Dec.: -
+Descrição: Versão do processo de emissão do evento. Informar a versão do aplicativo emissor do evento.
+
+Nome: ideEmpregador
+Pai: evtContProc
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do empregador ou do contribuinte que está prestando a informação.
+
+Nome: tpInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição do empregador ou contribuinte que está prestando a informação, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+
+Nome: nrInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 8, 11 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do empregador ou contribuinte que está prestando a informação, de acordo com o tipo de inscrição indicado no campo {ideEmpregador/tpInsc}(./tpInsc) e conforme informado em S-1000.
+
+Nome: ideProc
+Pai: evtContProc
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Identificação do processo.
+
+Nome: nrProcTrab
+Pai: ideProc
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 15 ou 20
+Dec.: -
+Descrição: Número do processo trabalhista, da ata ou número de identificação da conciliação.
+Validação: Deve ser um número de processo válido e declarado no evento S-2500 para o(s) trabalhador(es) informado(s) em {cpfTrab}(2501_ideTrab_cpfTrab).
+
+Nome: perApurPgto
+Pai: ideProc
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 7
+Dec.: -
+Descrição: Mês/ano em que é devida a obrigação de pagar a parcela prevista no acordo/sentença.
+Validação: Deve ser um período igual ou posterior ao mês/ano de {dtSent}(2500_infoProcesso_dadosCompl_infoProcJud_dtSent) ou de {dtCCP}(2500_infoProcesso_dadosCompl_infoCCP_dtCCP) existente no evento S-2500 para o processo indicado em {nrProcTrab}(./nrProcTrab).
+Deve ser informado no formato AAAA-MM.
+
+Nome: obs
+Pai: ideProc
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-999
+Dec.: -
+Descrição: Observação referente ao pagamento de parcela prevista no acordo/sentença.
+
+Nome: ideTrab
+Pai: evtContProc
+Elem.: G
+Tipo: -
+Ocorrência: 1-N
+Tamanho: -
+Dec.: -
+Descrição: Identificação do trabalhador.
+
+Nome: cpfTrab
+Pai: ideTrab
+Elem.: A
+Tipo: C
+Ocorrência: 1
+Tamanho: 11
+Dec.: -
+Descrição: Preencher com o número do CPF do trabalhador.
+Validação: Deve ser um CPF válido e informado no evento S-2500.
+
+Nome: calcTrib
+Pai: ideTrab
+Elem.: G
+Tipo: -
+Ocorrência: 1-360
+Tamanho: -
+Dec.: -
+Descrição: Identificação do período e da base de cálculo dos tributos.
+
+Nome: perRef
+Pai: calcTrib
+Elem.: A
+Tipo: C
+Ocorrência: 1
+Tamanho: 7
+Dec.: -
+Descrição: Informar o mês/ano (formato AAAA-MM) de referência das informações.
+Validação: Deve ser um período existente no evento S-2500 para o trabalhador indicado em {cpfTrab}(../cpfTrab) e igual ou posterior a [2008-12].
+
+Nome: vrBcCpMensal
+Pai: calcTrib
+Elem.: A
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da base de cálculo da contribuição previdenciária sobre a remuneração mensal do trabalhador.
+Validação: Deve ser maior ou igual a 0 (zero).
+
+Nome: vrBcCp13
+Pai: calcTrib
+Elem.: A
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da base de cálculo da contribuição previdenciária sobre a remuneração do trabalhador referente ao 13º salário.
+Validação: Deve ser maior ou igual a 0 (zero).
+
+Nome: vrRendIRRF
+Pai: calcTrib
+Elem.: A
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor do rendimento tributável do Imposto de Renda.
+Validação: Deve ser maior ou igual a 0 (zero).
+
+Nome: vrRendIRRF13
+Pai: calcTrib
+Elem.: A
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor do rendimento tributável do Imposto de Renda referente ao 13º salário - Tributação exclusiva.
+Validação: Deve ser maior ou igual a 0 (zero).
+
+Nome: infoCRContrib
+Pai: calcTrib
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição: Informações das contribuições sociais devidas à Previdência Social e Outras Entidades e Fundos, por Código de Receita - CR.
+
+Nome: tpCR
+Pai: infoCRContrib
+Elem.: A
+Tipo: N
+Ocorrência: 1
+Tamanho: 6
+Dec.: -
+Descrição: Código de Receita - CR relativo a contribuições sociais devidas à Previdência Social e a Outras Entidades e Fundos (Terceiros), conforme legislação em vigor na competência.
+Validação: Deve ser um código válido e existente na Tabela 29.
+
+Nome: vrCR
+Pai: infoCRContrib
+Elem.: A
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor correspondente ao Código de Receita - CR.
+Validação: Deve ser informado de acordo com a legislação em vigor na competência.
+Deve ser maior que 0 (zero).
+
+Nome: infoCRIRRF
+Pai: ideTrab
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição: Informações de Imposto de Renda Retido na Fonte, por Código de Receita - CR.
+
+Nome: tpCR
+Pai: infoCRIRRF
+Elem.: A
+Tipo: N
+Ocorrência: 1
+Tamanho: 6
+Dec.: -
+Descrição: Código de Receita - CR relativo a Imposto de Renda Retido na Fonte.
+Valores válidos:
+593656 - IRRF - Decisão da Justiça do Trabalho
+188951 - IRRF - RRA - Decisão da Justiça do Trabalho
+
+Nome: vrCR
+Pai: infoCRIRRF
+Elem.: A
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor correspondente ao Código de Receita - CR.
+Validação: Deve ser informado de acordo com a legislação em vigor na competência.
+Deve ser maior que 0 (zero).
+

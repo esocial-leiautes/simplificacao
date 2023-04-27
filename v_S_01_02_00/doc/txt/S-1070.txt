@@ -1,0 +1,799 @@
+S-1070 - evtTabProcesso
+Tabela de Processos Administrativos/Judiciais
+
+Nível: 1
+Nome: eSocial
+Pai: -
+Descrição: eSocial
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 2
+Nome: evtTabProcesso
+Pai: eSocial
+Descrição: Evento Tabela de Processos
+Ocorrência: 1
+Chave: Id
+Condição: O
+
+Nível: 3
+Nome: ideEvento
+Pai: evtTabProcesso
+Descrição: Informações de identificação do evento.
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 3
+Nome: ideEmpregador
+Pai: evtTabProcesso
+Descrição: Informações de identificação do empregador.
+Ocorrência: 1
+Chave: tpInsc*, nrInsc*
+Condição: O
+
+Nível: 3
+Nome: infoProcesso
+Pai: evtTabProcesso
+Descrição: Informações do processo.
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 4
+Nome: inclusao
+Pai: infoProcesso
+Descrição: Inclusão de novas informações.
+Ocorrência: 0-1
+Chave: -
+Condição: OC
+
+Nível: 5
+Nome: ideProcesso
+Pai: inclusao
+Descrição: Identificação do processo e validade das informações
+Ocorrência: 1
+Chave: tpProc*, nrProc*, iniValid*, fimValid*
+Condição: O
+
+Nível: 5
+Nome: dadosProc
+Pai: inclusao
+Descrição: Dados do processo.
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 6
+Nome: dadosProcJud
+Pai: dadosProc
+Descrição: Informações complementares do processo judicial.
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {tpProc}(1070_infoProcesso_inclusao_ideProcesso_tpProc) = [2] e {indMatProc}(1070_infoProcesso_inclusao_dadosProc_indMatProc) = [1])
+N (nos demais casos)
+
+Nível: 6
+Nome: infoSusp
+Pai: dadosProc
+Descrição: Informações de suspensão de exigibilidade de tributos
+Ocorrência: 0-99
+Chave: codSusp
+Condição: O (se {indMatProc}(1070_infoProcesso_inclusao_dadosProc_indMatProc) = [1])
+N (nos demais casos)
+
+Nível: 4
+Nome: alteracao
+Pai: infoProcesso
+Descrição: Alteração das informações.
+Ocorrência: 0-1
+Chave: -
+Condição: OC
+
+Nível: 5
+Nome: ideProcesso
+Pai: alteracao
+Descrição: Identificação do processo e validade das informações
+Ocorrência: 1
+Chave: tpProc*, nrProc*, iniValid*, fimValid*
+Condição: O
+
+Nível: 5
+Nome: dadosProc
+Pai: alteracao
+Descrição: Dados do processo.
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 6
+Nome: dadosProcJud
+Pai: dadosProc
+Descrição: Informações complementares do processo judicial.
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {tpProc}(1070_infoProcesso_inclusao_ideProcesso_tpProc) = [2] e {indMatProc}(1070_infoProcesso_inclusao_dadosProc_indMatProc) = [1])
+N (nos demais casos)
+
+Nível: 6
+Nome: infoSusp
+Pai: dadosProc
+Descrição: Informações de suspensão de exigibilidade de tributos
+Ocorrência: 0-99
+Chave: codSusp
+Condição: O (se {indMatProc}(1070_infoProcesso_inclusao_dadosProc_indMatProc) = [1])
+N (nos demais casos)
+
+Nível: 5
+Nome: novaValidade
+Pai: alteracao
+Descrição: Novo período de validade das informações.
+Ocorrência: 0-1
+Chave: -
+Condição: OC
+
+Nível: 4
+Nome: exclusao
+Pai: infoProcesso
+Descrição: Exclusão das informações.
+Ocorrência: 0-1
+Chave: -
+Condição: OC
+
+Nível: 5
+Nome: ideProcesso
+Pai: exclusao
+Descrição: Identificação do processo e validade das informações
+Ocorrência: 1
+Chave: tpProc*, nrProc*, iniValid*, fimValid*
+Condição: O
+
+Nome: eSocial
+Pai: -
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: eSocial
+
+Nome: evtTabProcesso
+Pai: eSocial
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Evento Tabela de Processos Administrativos/Judiciais.
+Regras de validação:
+REGRA_ENVIO_PROC_FECHAMENTO
+REGRA_EXISTE_INFO_EMPREGADOR
+REGRA_PERMITE_ALT_EXCL_CODSUSP
+REGRA_TABGERAL_ALTERACAO_PERIODO_CONFLITANTE
+REGRA_TABGERAL_EXISTE_REGISTRO_ALTERADO
+REGRA_TABGERAL_EXISTE_REGISTRO_EXCLUIDO
+REGRA_TABGERAL_INCLUSAO_PERIODO_CONFLITANTE
+REGRA_TAB_PERMITE_EXCLUSAO
+REGRA_VALIDA_DT_FUTURA
+REGRA_VALIDA_PROCESSO
+
+Nome: Id
+Pai: evtTabProcesso
+Elem.: A
+Tipo: C
+Ocorrência: 1
+Tamanho: 36
+Dec.: -
+Descrição: Identificação única do evento.
+Regras de validação:
+REGRA_VALIDA_ID_EVENTO
+
+Nome: ideEvento
+Pai: evtTabProcesso
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do evento.
+
+Nome: tpAmb
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Identificação do ambiente.
+Valores válidos:
+1 - Produção
+2 - Produção restrita
+7 - Validação (uso interno)
+8 - Teste (uso interno)
+9 - Desenvolvimento (uso interno)
+
+Nome: procEmi
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-2
+Dec.: -
+Descrição: Processo de emissão do evento.
+Valores válidos:
+1 - Aplicativo do empregador
+2 - Aplicativo governamental - Simplificado Pessoa Física
+3 - Aplicativo governamental - Web Geral
+4 - Aplicativo governamental - Simplificado Pessoa Jurídica
+22 - Aplicativo governamental para dispositivos móveis - Empregador Doméstico
+
+Nome: verProc
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-20
+Dec.: -
+Descrição: Versão do processo de emissão do evento. Informar a versão do aplicativo emissor do evento.
+
+Nome: ideEmpregador
+Pai: evtTabProcesso
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do empregador.
+
+Nome: tpInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+
+Nome: nrInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 8, 11 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {ideEmpregador/tpInsc}(./tpInsc) e conforme informado em S-1000.
+
+Nome: infoProcesso
+Pai: evtTabProcesso
+Elem.: CG
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações do processo.
+
+Nome: inclusao
+Pai: infoProcesso
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Inclusão de novas informações.
+
+Nome: ideProcesso
+Pai: inclusao
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Identificação do processo e período de validade das informações.
+
+Nome: tpProc
+Pai: ideProcesso
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de processo.
+Valores válidos:
+1 - Administrativo
+2 - Judicial
+4 - Processo FAP de exercício anterior a 2019
+
+Nome: nrProc
+Pai: ideProcesso
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 16, 17, 20 ou 21
+Dec.: -
+Descrição: Informar o número do processo administrativo/judicial de acordo com o tipo informado em {tpProc}(./tpProc).
+Validação: Deve ser um número de processo válido e:
+a) Se {tpProc}(./tpProc) = [1], deve possuir 17 (dezessete) ou 21 (vinte e um) algarismos;
+b) Se {tpProc}(./tpProc) = [2], deve possuir 20 (vinte) algarismos;
+c) Se {tpProc}(./tpProc) = [4], deve possuir 16 (dezesseis) algarismos.
+
+Nome: iniValid
+Pai: ideProcesso
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 7
+Dec.: -
+Descrição: Preencher com o mês e ano de início da validade das informações prestadas no evento, no formato AAAA-MM.
+Validação: Deve ser uma data válida, igual ou posterior à data de início de obrigatoriedade deste evento para o empregador no eSocial, no formato AAAA-MM.
+
+Nome: fimValid
+Pai: ideProcesso
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 7
+Dec.: -
+Descrição: Preencher com o mês e ano de término da validade das informações, se houver.
+Validação: Se informado, deve estar no formato AAAA-MM e ser um período igual ou posterior a {iniValid}(./iniValid).
+
+Nome: dadosProc
+Pai: inclusao
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Dados do processo.
+
+Nome: indAutoria
+Pai: dadosProc
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo da autoria da ação judicial.
+Valores válidos:
+1 - Próprio contribuinte
+2 - Outra entidade, empresa ou empregado
+Validação: Preenchimento obrigatório se {tpProc}(1070_infoProcesso_inclusao_ideProcesso_tpProc) = [2].
+
+Nome: indMatProc
+Pai: dadosProc
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo da matéria do processo.
+Valores válidos:
+1 - Exclusivamente tributária ou tributária e FGTS
+7 - Exclusivamente FGTS e/ou Contribuição Social Rescisória (Lei Complementar 110/2001)
+
+Nome: observacao
+Pai: dadosProc
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-255
+Dec.: -
+Descrição: Observações relacionadas ao processo.
+
+Nome: dadosProcJud
+Pai: dadosProc
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações complementares do processo judicial.
+
+Nome: ufVara
+Pai: dadosProcJud
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 2
+Dec.: -
+Descrição: Identificação da Unidade da Federação - UF da Seção Judiciária.
+Valores válidos:
+ AC, AL, AP, AM, BA, CE, DF, ES, GO, MA, MT, MS, MG, PA, PB, PR, PE, PI, RJ, RN, RS, RO, RR, SC, SP, SE, TO
+
+Nome: codMunic
+Pai: dadosProcJud
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 7
+Dec.: -
+Descrição: Preencher com o código do município, conforme tabela do IBGE.
+Validação: Deve ser um código válido e existente na tabela do IBGE.
+
+Nome: idVara
+Pai: dadosProcJud
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-4
+Dec.: -
+Descrição: Código de identificação da Vara.
+
+Nome: infoSusp
+Pai: dadosProc
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição: Informações de suspensão de exigibilidade de tributos em virtude de processo administrativo ou judicial.
+
+Nome: codSusp
+Pai: infoSusp
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: -
+Descrição: Código do indicativo da suspensão, atribuído pelo empregador.
+
+Nome: indSusp
+Pai: infoSusp
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 2
+Dec.: -
+Descrição: Indicativo de suspensão da exigibilidade.
+Valores válidos:
+01 - Liminar em mandado de segurança
+02 - Depósito judicial do montante integral
+03 - Depósito administrativo do montante integral
+04 - Antecipação de tutela
+05 - Liminar em medida cautelar
+08 - Sentença em mandado de segurança favorável ao contribuinte
+09 - Sentença em ação ordinária favorável ao contribuinte e confirmada pelo TRF
+10 - Acórdão do TRF favorável ao contribuinte
+11 - Acórdão do STJ em recurso especial favorável ao contribuinte
+12 - Acórdão do STF em recurso extraordinário favorável ao contribuinte
+13 - Sentença 1ª instância não transitada em julgado com efeito suspensivo
+14 - Contestação administrativa FAP
+90 - Decisão definitiva a favor do contribuinte
+92 - Sem suspensão da exigibilidade
+Validação: Se {tpProc}(1070_infoProcesso_inclusao_ideProcesso_tpProc) = [1], deve ser preenchido com [03, 14, 92].
+Se {tpProc}(1070_infoProcesso_inclusao_ideProcesso_tpProc) = [2], deve ser preenchido com [01, 02, 04, 05, 08, 09, 10, 11, 12, 13, 90, 92].
+Se {tpProc}(1070_infoProcesso_inclusao_ideProcesso_tpProc) = [4], deve ser preenchido com [14].
+
+Nome: dtDecisao
+Pai: infoSusp
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Data da decisão, sentença ou despacho administrativo.
+
+Nome: indDeposito
+Pai: infoSusp
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo de depósito do montante integral.
+Valores válidos:
+S - Sim
+N - Não
+Validação: Se {indSusp}(1070_infoProcesso_inclusao_dadosProc_infoSusp_indSusp) = [90], preencher obrigatoriamente com [N].
+Se {indSusp}(1070_infoProcesso_inclusao_dadosProc_infoSusp_indSusp) = [02, 03] preencher obrigatoriamente com [S].
+
+Nome: alteracao
+Pai: infoProcesso
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Alteração das informações.
+
+Nome: ideProcesso
+Pai: alteracao
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Identificação do processo e período de validade das informações.
+
+Nome: tpProc
+Pai: ideProcesso
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de processo.
+Valores válidos:
+1 - Administrativo
+2 - Judicial
+4 - Processo FAP de exercício anterior a 2019
+
+Nome: nrProc
+Pai: ideProcesso
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 16, 17, 20 ou 21
+Dec.: -
+Descrição: Informar o número do processo administrativo/judicial de acordo com o tipo informado em {tpProc}(./tpProc).
+Validação: Deve ser um número de processo válido e:
+a) Se {tpProc}(./tpProc) = [1], deve possuir 17 (dezessete) ou 21 (vinte e um) algarismos;
+b) Se {tpProc}(./tpProc) = [2], deve possuir 20 (vinte) algarismos;
+c) Se {tpProc}(./tpProc) = [4], deve possuir 16 (dezesseis) algarismos.
+
+Nome: iniValid
+Pai: ideProcesso
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 7
+Dec.: -
+Descrição: Preencher com o mês e ano de início da validade das informações prestadas no evento, no formato AAAA-MM.
+Validação: Deve ser uma data válida, igual ou posterior à data de início de obrigatoriedade deste evento para o empregador no eSocial, no formato AAAA-MM.
+
+Nome: fimValid
+Pai: ideProcesso
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 7
+Dec.: -
+Descrição: Preencher com o mês e ano de término da validade das informações, se houver.
+Validação: Se informado, deve estar no formato AAAA-MM e ser um período igual ou posterior a {iniValid}(./iniValid).
+
+Nome: dadosProc
+Pai: alteracao
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Dados do processo.
+
+Nome: indAutoria
+Pai: dadosProc
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo da autoria da ação judicial.
+Valores válidos:
+1 - Próprio contribuinte
+2 - Outra entidade, empresa ou empregado
+Validação: Preenchimento obrigatório se {tpProc}(1070_infoProcesso_inclusao_ideProcesso_tpProc) = [2].
+
+Nome: indMatProc
+Pai: dadosProc
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo da matéria do processo.
+Valores válidos:
+1 - Exclusivamente tributária ou tributária e FGTS
+7 - Exclusivamente FGTS e/ou Contribuição Social Rescisória (Lei Complementar 110/2001)
+
+Nome: observacao
+Pai: dadosProc
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-255
+Dec.: -
+Descrição: Observações relacionadas ao processo.
+
+Nome: dadosProcJud
+Pai: dadosProc
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações complementares do processo judicial.
+
+Nome: ufVara
+Pai: dadosProcJud
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 2
+Dec.: -
+Descrição: Identificação da Unidade da Federação - UF da Seção Judiciária.
+Valores válidos:
+ AC, AL, AP, AM, BA, CE, DF, ES, GO, MA, MT, MS, MG, PA, PB, PR, PE, PI, RJ, RN, RS, RO, RR, SC, SP, SE, TO
+
+Nome: codMunic
+Pai: dadosProcJud
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 7
+Dec.: -
+Descrição: Preencher com o código do município, conforme tabela do IBGE.
+Validação: Deve ser um código válido e existente na tabela do IBGE.
+
+Nome: idVara
+Pai: dadosProcJud
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-4
+Dec.: -
+Descrição: Código de identificação da Vara.
+
+Nome: infoSusp
+Pai: dadosProc
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição: Informações de suspensão de exigibilidade de tributos em virtude de processo administrativo ou judicial.
+
+Nome: codSusp
+Pai: infoSusp
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: -
+Descrição: Código do indicativo da suspensão, atribuído pelo empregador.
+
+Nome: indSusp
+Pai: infoSusp
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 2
+Dec.: -
+Descrição: Indicativo de suspensão da exigibilidade.
+Valores válidos:
+01 - Liminar em mandado de segurança
+02 - Depósito judicial do montante integral
+03 - Depósito administrativo do montante integral
+04 - Antecipação de tutela
+05 - Liminar em medida cautelar
+08 - Sentença em mandado de segurança favorável ao contribuinte
+09 - Sentença em ação ordinária favorável ao contribuinte e confirmada pelo TRF
+10 - Acórdão do TRF favorável ao contribuinte
+11 - Acórdão do STJ em recurso especial favorável ao contribuinte
+12 - Acórdão do STF em recurso extraordinário favorável ao contribuinte
+13 - Sentença 1ª instância não transitada em julgado com efeito suspensivo
+14 - Contestação administrativa FAP
+90 - Decisão definitiva a favor do contribuinte
+92 - Sem suspensão da exigibilidade
+Validação: Se {tpProc}(1070_infoProcesso_inclusao_ideProcesso_tpProc) = [1], deve ser preenchido com [03, 14, 92].
+Se {tpProc}(1070_infoProcesso_inclusao_ideProcesso_tpProc) = [2], deve ser preenchido com [01, 02, 04, 05, 08, 09, 10, 11, 12, 13, 90, 92].
+Se {tpProc}(1070_infoProcesso_inclusao_ideProcesso_tpProc) = [4], deve ser preenchido com [14].
+
+Nome: dtDecisao
+Pai: infoSusp
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Data da decisão, sentença ou despacho administrativo.
+
+Nome: indDeposito
+Pai: infoSusp
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo de depósito do montante integral.
+Valores válidos:
+S - Sim
+N - Não
+Validação: Se {indSusp}(1070_infoProcesso_inclusao_dadosProc_infoSusp_indSusp) = [90], preencher obrigatoriamente com [N].
+Se {indSusp}(1070_infoProcesso_inclusao_dadosProc_infoSusp_indSusp) = [02, 03] preencher obrigatoriamente com [S].
+
+Nome: novaValidade
+Pai: alteracao
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informação preenchida exclusivamente em caso de alteração do período de validade das informações, apresentando o novo período de validade.
+
+Nome: iniValid
+Pai: novaValidade
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 7
+Dec.: -
+Descrição: Preencher com o mês e ano de início da validade das informações prestadas no evento, no formato AAAA-MM.
+Validação: Deve ser uma data válida, igual ou posterior à data de início de obrigatoriedade deste evento para o empregador no eSocial, no formato AAAA-MM.
+
+Nome: fimValid
+Pai: novaValidade
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 7
+Dec.: -
+Descrição: Preencher com o mês e ano de término da validade das informações, se houver.
+Validação: Se informado, deve estar no formato AAAA-MM e ser um período igual ou posterior a {iniValid}(./iniValid).
+
+Nome: exclusao
+Pai: infoProcesso
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Exclusão das informações.
+
+Nome: ideProcesso
+Pai: exclusao
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Identificação do processo e período de validade das informações.
+
+Nome: tpProc
+Pai: ideProcesso
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de processo.
+Valores válidos:
+1 - Administrativo
+2 - Judicial
+4 - Processo FAP de exercício anterior a 2019
+
+Nome: nrProc
+Pai: ideProcesso
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 16, 17, 20 ou 21
+Dec.: -
+Descrição: Informar o número do processo administrativo/judicial de acordo com o tipo informado em {tpProc}(./tpProc).
+Validação: Deve ser um número de processo válido e:
+a) Se {tpProc}(./tpProc) = [1], deve possuir 17 (dezessete) ou 21 (vinte e um) algarismos;
+b) Se {tpProc}(./tpProc) = [2], deve possuir 20 (vinte) algarismos;
+c) Se {tpProc}(./tpProc) = [4], deve possuir 16 (dezesseis) algarismos.
+
+Nome: iniValid
+Pai: ideProcesso
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 7
+Dec.: -
+Descrição: Preencher com o mês e ano de início da validade das informações prestadas no evento, no formato AAAA-MM.
+Validação: Deve ser uma data válida, igual ou posterior à data de início de obrigatoriedade deste evento para o empregador no eSocial, no formato AAAA-MM.
+
+Nome: fimValid
+Pai: ideProcesso
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 7
+Dec.: -
+Descrição: Preencher com o mês e ano de término da validade das informações, se houver.
+Validação: Se informado, deve estar no formato AAAA-MM e ser um período igual ou posterior a {iniValid}(./iniValid).
+
