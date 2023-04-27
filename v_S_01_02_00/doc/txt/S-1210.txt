@@ -66,6 +66,70 @@ Ocorrência: 0-1
 Chave: -
 Condição: OC
 
+Nível: 4
+Nome: infoIR
+Pai: ideBenef
+Descrição: Informações relacionadas à retenção na fonte, aos rendimentos tributáveis e não tributáveis, deduções e/ou isenções de acordo com a legislação aplicada ao imposto de renda.
+Ocorrência: 0-1
+Chave: -
+Condição: O
+
+Nível: 5
+Nome: infoDep
+Pai: infoIR
+Descrição: Informações de dependentes não cadastrados pelo S-2200/S-2205/S-2300.
+Ocorrência: 0-999
+Chave: cpfDep
+Condição: O
+
+Nível: 5
+Nome: dedDepen
+Pai: infoIR
+Descrição: Dedução do rendimento tributável relativa a dependentes.
+Ocorrência: 0-999
+Chave: tpRend, cpfDep
+Condição: O
+
+Nível: 5
+Nome: penAlim
+Pai: infoIR
+Descrição: Informação dos beneficiários da pensão alimentícia.
+Ocorrência: 0-99
+Chave: tpRend, cpfDep
+Condição: O
+
+Nível: 5
+Nome: previdCompl
+Pai: infoIR
+Descrição: Informações relativas a planos de previdência complementar.
+Ocorrência: 0-99
+Chave: tpPrev, cnpjEntidPC
+Condição: O
+
+Nível: 5
+Nome: infoProcRet
+Pai: infoIR
+Descrição: Informações de processos relacionados a não retenção de tributos ou a depósitos judiciais.
+Ocorrência: 0-50
+Chave: tpProcRet, nrProcRet, codSusp
+Condição: O
+
+Nível: 6
+Nome: dedSusp
+Pai: infoProcRet
+Descrição: Detalhamento das deduções com exigibilidade suspensa.
+Ocorrência: 0-25
+Chave: -
+Condição: O
+
+Nível: 7
+Nome: benefPen
+Pai: dedSusp
+Descrição: Informação das deduções suspensas por dependentes e beneficiários da pensão alimentícia.
+Ocorrência: 0-99
+Chave: -
+Condição: O
+
 Nome: eSocial
 Pai: -
 Elem.: G
@@ -461,4 +525,392 @@ Tamanho: 8-15
 Dec.: -
 Descrição: Número do telefone.
 Validação: Devem ser informados apenas caracteres numéricos.
+
+Nome: infoIR
+Pai: ideBenef
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações relacionadas à retenção na fonte, aos rendimentos tributáveis e não tributáveis, deduções e/ou isenções de acordo com a legislação aplicada ao imposto de renda.
+
+Nome: dtLaudo
+Pai: infoIR
+Elem.: E
+Tipo: D
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Data da moléstia grave atribuída pelo laudo.
+Validação: Não pode ser anterior ao ano de 1900.
+
+Nome: infoDep
+Pai: infoIR
+Elem.: G
+Tipo: -
+Ocorrência: 0-999
+Tamanho: -
+Dec.: -
+Descrição: Informações de dependentes não cadastrados pelo S-2200/S-2205/S-2300.
+
+Nome: cpfDep
+Pai: infoDep
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11
+Dec.: -
+Descrição: Número de inscrição no CPF.
+Validação: Deve ser um CPF válido e diferente do CPF do declarante pessoa física ({ideEmpregador/nrInsc}(/ideEmpregador_nrInsc)) e do beneficiário ({cpfBenef}(../../cpfBenef)).
+
+Nome: dtNascto
+Pai: infoDep
+Elem.: E
+Tipo: D
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Preencher com a data de nascimento.
+Validação: Deve ser maior ou igual que 01/01/1890 e menor ou igual à data atual.
+
+Nome: nome
+Pai: infoDep
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 2-70
+Dec.: -
+Descrição: Nome do dependente.
+
+Nome: depIRRF
+Pai: infoDep
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Somente informar este campo em caso de dependente do trabalhador para fins de dedução de seu rendimento tributável pelo Imposto de Renda.
+Valores válidos:
+S - Sim
+
+Nome: tpDep
+Pai: infoDep
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 2
+Dec.: -
+Descrição: Tipo de dependente.
+Validação: Deve ser um código válido e existente na Tabela 07.
+
+Nome: descrDep 
+Pai: infoDep
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-30
+Dec.: -
+Descrição: Informar a descrição da dependência.
+Validação: Informação obrigatória e exclusiva se {tpDep}(./tpDep) = [99].
+
+Nome: dedDepen
+Pai: infoIR
+Elem.: G
+Tipo: -
+Ocorrência: 0-999
+Tamanho: -
+Dec.: -
+Descrição: Dedução do rendimento tributável relativa a dependentes.
+
+Nome: tpRend
+Pai: dedDepen
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 2
+Dec.: -
+Descrição: Tipo de rendimento.
+Valores válidos:
+11 - Remuneração mensal
+12 - 13º salário
+13 - Férias
+
+Nome: cpfDep
+Pai: dedDepen
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11
+Dec.: -
+Descrição: Número de inscrição no CPF.
+Validação: Deve ser um CPF de dependente cadastrado no eSocial (S-2200/S-2205/S-2300 ou no grupo {infoDep}(1210_ideBenef_infoIR_infoDep)).
+
+Nome: vlrDedDep
+Pai: dedDepen
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Preencher com o valor da dedução da base de cálculo.
+Validação: O valor informado neste campo deve ser menor ou igual ao valor unitário da dedução por dependente definido na legislação.
+Em caso de inconsistência na validação, o arquivo será aceito, porém com alerta ao contribuinte.
+
+Nome: penAlim
+Pai: infoIR
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição: Informação dos beneficiários da pensão alimentícia.
+
+Nome: tpRend
+Pai: penAlim
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 2
+Dec.: -
+Descrição: Tipo de rendimento.
+Valores válidos:
+11 - Remuneração mensal
+12 - 13º salário
+13 - Férias
+14 - PLR
+
+Nome: cpfDep
+Pai: penAlim
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11
+Dec.: -
+Descrição: Número do CPF do dependente/beneficiário da pensão alimentícia.
+Validação: Deve ser um CPF de dependente cadastrado no eSocial (S-2200/S-2205/S-2300 ou no grupo {infoDep}(../infoDep)).
+
+Nome: vlrDedPenAlim
+Pai: penAlim
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor relativo à dedução do rendimento tributável correspondente a pagamento de pensão alimentícia.
+Validação: Deve ser maior que 0 (zero).
+
+Nome: previdCompl
+Pai: infoIR
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição: Informações relativas a planos de previdência complementar.
+
+Nome: tpPrev
+Pai: previdCompl
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Tipo de previdência.
+Valores válidos:
+1 - Privada: <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF">codIncIRRF</a> em S-1010 = [46, 47, 48]
+2 - FAPI: <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF">codIncIRRF</a> em S-1010 = [61, 62, 66]
+3 - Funpresp: <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF">codIncIRRF</a> em S-1010 = [63, 64, 65]
+
+Nome: cnpjEntidPC
+Pai: previdCompl
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 14
+Dec.: -
+Descrição: Número de inscrição da entidade de previdência complementar.
+Validação: Deve ser um CNPJ válido no Cadastro CNPJ e não pode estar com situação cadastral "baixada" (situação = 8) ou "nula" (situação = 1) em data anterior ao período de apuração indicado em {perApur}(1210_ideEvento_perApur).
+
+Nome: vlrDedPC
+Pai: previdCompl
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da dedução relativa a previdência complementar.
+Validação: Deve ser maior que 0 (zero).
+
+Nome: vlrPatrocFunp
+Pai: previdCompl
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da contribuição do ente público patrocinador da Fundação de Previdência Complementar do Servidor Público (Funpresp).
+Validação: Informação permitida apenas se {tpPrev}(./tpPrev) = [3].
+
+Nome: infoProcRet
+Pai: infoIR
+Elem.: G
+Tipo: -
+Ocorrência: 0-50
+Tamanho: -
+Dec.: -
+Descrição: Informações de processos relacionados a não retenção de tributos ou a depósitos judiciais.
+
+Nome: tpProcRet
+Pai: infoProcRet
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de processo.
+Valores válidos:
+1 - Administrativo
+2 - Judicial
+
+Nome: nrProcRet
+Pai: infoProcRet
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 17, 20 ou 21
+Dec.: -
+Descrição: Informar o número do processo administrativo/judicial.
+Validação: Deve ser um número de processo administrativo ou judicial válido e existente na Tabela de Processos (S-1070).
+
+Nome: codSusp
+Pai: infoProcRet
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: -
+Descrição: Código do indicativo da suspensão, atribuído pelo empregador em S-1070. Este campo deve ser utilizado se, em um mesmo processo, houver mais de uma matéria tributária objeto de contestação e as decisões forem diferentes para cada uma.
+Validação: Informação obrigatória se houver mais de uma informação de indicativo de suspensão para um mesmo processo.
+Se informado, deve constar na Tabela de Processos (S-1070), campo {codSusp}(1070_infoProcesso_inclusao_dadosProc_infoSusp_codSusp), vinculado ao número do processo informado em {nrProcRet}(./nrProcRet).
+
+Nome: vlrNRetido
+Pai: infoProcRet
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da retenção que deixou de ser efetuada em função de processo administrativo ou judicial.
+Validação: Informação permitida apenas se {indDeposito}(1070_infoProcesso_inclusao_dadosProc_infoSusp_indDeposito) informado em S-1070 for igual a [N].
+Se informado, deve ser maior que 0 (zero).
+
+Nome: vlrDepJud
+Pai: infoProcRet
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor do depósito judicial em função de processo administrativo ou judicial.
+Validação: Informação permitida apenas se {indDeposito}(1070_infoProcesso_inclusao_dadosProc_infoSusp_indDeposito) informado em S-1070 for igual a [S].
+Se informado, deve ser maior que 0 (zero).
+
+Nome: vlrCmpAnoCal
+Pai: infoProcRet
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da compensação relativa ao ano calendário em função de processo judicial.
+Validação: Informação permitida apenas se {tpProcRet}(./tpProcRet) = [2].
+Se informado, deve ser maior que 0 (zero).
+
+Nome: vlrCmpAnoAnt
+Pai: infoProcRet
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da compensação relativa a anos anteriores em função de processo judicial.
+Validação: Informação permitida apenas se {tpProcRet}(./tpProcRet) = [2].
+Se informado, deve ser maior que 0 (zero).
+
+Nome: vlrRendSusp
+Pai: infoProcRet
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor do rendimento com exigibilidade suspensa.
+Validação: Se informado, deve ser maior que 0 (zero).
+
+Nome: dedSusp
+Pai: infoProcRet
+Elem.: G
+Tipo: -
+Ocorrência: 0-25
+Tamanho: -
+Dec.: -
+Descrição: Detalhamento das deduções com exigibilidade suspensa.
+
+Nome: indTpDeducao
+Pai: dedSusp
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo do tipo de dedução.
+Valores válidos:
+1 - Previdência oficial
+2 - Previdência privada
+3 - Fundo de Aposentadoria Programada Individual - FAPI
+4 - Fundação de Previdência Complementar do Servidor Público - Funpresp
+5 - Pensão alimentícia
+7 - Dependentes
+
+Nome: vlrDedSusp
+Pai: dedSusp
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da dedução da base de cálculo do imposto de renda com exigibilidade suspensa.
+Validação: Se {indTpDeducao}(./indTpDeducao) = [5, 7], e o grupo {benefPen}(./benefPen) for preenchido, o valor informado neste campo deve ser a soma do(s) campo(s) {vlrDepenSusp}(./benefPen_vlrDepenSusp) do grupo {benefPen}(./benefPen).
+Deve ser maior que 0 (zero).
+O não preenchimento do grupo {benefPen}(./benefPen) indica que o contribuinte declarante não possui as informações detalhadas por dependente/alimentando.
+
+Nome: benefPen
+Pai: dedSusp
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição: Informação das deduções suspensas por dependentes e beneficiários da pensão alimentícia.
+
+Nome: cpfDep
+Pai: benefPen
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11
+Dec.: -
+Descrição: Número de inscrição no CPF.
+Validação: Deve ser um CPF de dependente cadastrado no eSocial (S-2200/S-2205/S-2300 ou no grupo {infoDep}(1210_ideBenef_infoIR_infoDep)).
+
+Nome: vlrDepenSusp
+Pai: benefPen
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da dedução relativa a dependentes ou a pensão alimentícia com exigibilidade suspensa.
+Validação: Deve ser maior que 0 (zero).
 

@@ -266,6 +266,116 @@
                                                 </xs:sequence>
                                             </xs:complexType>
                                         </xs:element>
+                                        <xs:element name="infoIR" minOccurs="0">
+                                            <xs:annotation>
+                                                <xs:documentation>Informações relacionadas à retenção na fonte, aos rendimentos tributáveis e não tributáveis, deduções e/ou isenções de acordo com a legislação aplicada ao imposto de renda.</xs:documentation>  
+                                            </xs:annotation>
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="dtLaudo" type="xs:date" minOccurs="0">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Data da moléstia grave atribuída pelo laudo.</xs:documentation>
+                                                            <xs:documentation>Validação: Não pode ser anterior ao ano de 1900.</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:element>
+                                                    <xs:element name="infoDep" minOccurs="0" maxOccurs="999">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Informações de dependentes não cadastrados pelo S-2200/S-2205/S-2300.</xs:documentation>
+                                                            <xs:documentation>CHAVE_GRUPO: {cpfDep}</xs:documentation>  
+                                                        </xs:annotation>
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:element name="cpfDep" type="TS_cpfDepIR" />
+                                                                <xs:element name="dtNascto" type="TS_dtNascto" minOccurs="0" />
+                                                                <xs:element name="nome" type="TS_nmDep" minOccurs="0" />
+                                                                <xs:element name="depIRRF" type="TS_depIRRF_IR" minOccurs="0" />
+                                                                <xs:element name="tpDep" type="TS_tpDep" minOccurs="0" />
+                                                                <xs:element name="descrDep " type="TS_descrDep" minOccurs="0" />
+                                                            </xs:sequence>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                    <xs:element name="dedDepen" minOccurs="0" maxOccurs="999">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Dedução do rendimento tributável relativa a dependentes.</xs:documentation>  
+                                                            <xs:documentation>CHAVE_GRUPO: {tpRend}, {cpfDep}</xs:documentation>  
+                                                        </xs:annotation>
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:element name="tpRend" type="TS_tpRendDep" />
+                                                                <xs:element name="cpfDep" type="TS_cpfDepIR2" />
+                                                                <xs:element name="vlrDedDep" type="TS_vlrDedDep" />
+                                                            </xs:sequence>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                    <xs:element name="penAlim" minOccurs="0" maxOccurs="99">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Informação dos beneficiários da pensão alimentícia.</xs:documentation>
+                                                            <xs:documentation>CHAVE_GRUPO: {tpRend}, {cpfDep}</xs:documentation>   
+                                                        </xs:annotation>
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:element name="tpRend" type="TS_tpRendPenAlim" />
+                                                                <xs:element name="cpfDep" type="TS_cpfPenAlim" />
+                                                                <xs:element name="vlrDedPenAlim" type="TS_vlrDedPenAlim" />
+                                                            </xs:sequence>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                    <xs:element name="previdCompl" minOccurs="0" maxOccurs="99">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Informações relativas a planos de previdência complementar.</xs:documentation>
+                                                            <xs:documentation>CHAVE_GRUPO: {tpPrev}, {cnpjEntidPC}</xs:documentation>  
+                                                        </xs:annotation>
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:element name="tpPrev">
+                                                                    <xs:simpleType>
+                                                                        <xs:annotation>
+                                                                            <xs:documentation>Tipo de previdência.</xs:documentation>
+                                                                        </xs:annotation>
+                                                                        <xs:restriction base="xs:byte">
+                                                                            <xs:enumeration value="1">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Privada: {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [46, 47, 48]</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="2">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>FAPI: {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [61, 62, 66]</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                            <xs:enumeration value="3">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Funpresp: {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [63, 64, 65]</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:enumeration>
+                                                                        </xs:restriction>
+                                                                    </xs:simpleType>
+                                                                </xs:element>
+                                                                <xs:element name="cnpjEntidPC" type="TS_cnpj">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Número de inscrição da entidade de previdência complementar.</xs:documentation>
+                                                                        <xs:documentation>Validação: Deve ser um CNPJ válido no Cadastro CNPJ e não pode estar com situação cadastral "baixada" (situação = 8) ou "nula" (situação = 1) em data anterior ao período de apuração indicado em {perApur}(1210_ideEvento_perApur).</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:element>
+                                                                <xs:element name="vlrDedPC" type="TS_valorMonetario_positivo">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Valor da dedução relativa a previdência complementar.</xs:documentation>
+                                                                        <xs:documentation>Validação: Deve ser maior que 0 (zero).</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:element>
+                                                                <xs:element name="vlrPatrocFunp" type="TS_valorMonetario" minOccurs="0">
+                                                                   <xs:annotation>
+                                                                        <xs:documentation>Valor da contribuição do ente público patrocinador da Fundação de Previdência Complementar do Servidor Público (Funpresp).</xs:documentation>
+                                                                        <xs:documentation>Validação: Informação permitida apenas se {tpPrev}(./tpPrev) = [3].</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:element>
+                                                            </xs:sequence>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                    <xs:element name="infoProcRet" type="T_infoProcRet" minOccurs="0" maxOccurs="50" />
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
                                     </xs:sequence>
                                 </xs:complexType>
                             </xs:element>
