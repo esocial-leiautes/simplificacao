@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns="http://www.esocial.gov.br/schema/evt/evtAnotJud/v_S_01_02_00" targetNamespace="http://www.esocial.gov.br/schema/evt/evtAnotJud/v_S_01_02_00" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+    <xs:include schemaLocation="tipos.xsd" />
+    <xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd" />
+    <xs:element name="eSocial">
+        <xs:annotation>
+            <xs:documentation>S-8200 - Anotação Judicial do Vínculo</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="evtAnotJud">
+                    <xs:annotation>
+                        <xs:documentation>Evento Anotação Judicial do Vínculo.</xs:documentation>
+                        <xs:documentation>CHAVE_GRUPO: {Id}</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_ADMISSAO_VALIDA_DT_ADM</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_ADMISSAO_VALIDA_DURACAO_CONTRATO</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_BLOQUEIA_USO_CPF_EMPREGADOR</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_COMPATIBILIDADE_CATEGORIA_CLASSTRIB</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_EMPREGADO_DOMESTICO</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_ENVIO_PROC_FECHAMENTO</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_EVENTOS_EXTEMP</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_EXISTE_INFO_EMPREGADOR</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_MESMO_PROCEMI</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_RETIFICA_MESMO_VINCULO</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_VALIDA_ADMISSAO_PRELIMINAR</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_VALIDA_EMPREGADOR</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_VALIDA_MATRICULA</xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="ideEvento" type="T_ideEvento_trab_jud" />
+                            <xs:element name="ideEmpregador" type="T_ideEmpregador" />
+                            <xs:element name="infoAnotJud">
+                                <xs:annotation>
+                                    <xs:documentation>Informações da anotação judicial do vínculo.</xs:documentation>
+                                    <xs:documentation>CHAVE_GRUPO: {cpfTrab*}, {matricula*}</xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="cpfTrab" type="TS_cpfTrab" />
+                                        <xs:element name="dtNascto" type="xs:date">
+                                            <xs:annotation>
+                                                <xs:documentation>Preencher com a data de nascimento.</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="dtAdm" type="xs:date">
+                                            <xs:annotation>
+                                                <xs:documentation>Preencher com a data de admissão do trabalhador.</xs:documentation>
+                                                <xs:documentation>Validação: Deve ser posterior à data de nascimento do trabalhador.</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="matricula" type="TS_codigo_esocial">
+                                            <xs:annotation>
+                                                <xs:documentation>Matrícula atribuída ao trabalhador.</xs:documentation>
+                                                <xs:documentation>Validação: O valor informado deve conter a expressão 'eSocial-JUD-' nas 12 (doze) primeiras posições.</xs:documentation>
+                                                <xs:documentation>REGRA:REGRA_CARACTERE_ESPECIAL</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="codCateg" type="TS_codCateg">
+                                            <xs:annotation>
+                                                <xs:documentation>Preencher com o código da categoria do trabalhador.</xs:documentation>
+                                                <xs:documentation>Validação: Deve ser um código de categoria referente a "Empregado" ou "Agente Público".</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="natAtividade" type="TS_natAtividade">
+                                            <xs:annotation>
+                                                <xs:documentation>Natureza da atividade.</xs:documentation>
+                                                <xs:documentation>Validação: Se {codCateg}(./codCateg) = [104], deve ser preenchido com [1]. Se {codCateg}(./codCateg) = [102], deve ser preenchido com [2].</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="CBOCargo" type="TS_cbo">
+                                            <xs:annotation>
+                                                <xs:documentation>Informar a Classificação Brasileira de Ocupações - CBO relativa ao cargo.</xs:documentation>
+                                                <xs:documentation>Validação: Deve ser um código válido e existente na tabela de CBO, com 6 (seis) posições.</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="vrSalFx" type="TS_vrSalFx" />
+                                        <xs:element name="undSalFixo" type="TS_undSalFixo" />
+                                        <xs:element name="tpContr" type="TS_tpContr" />
+                                        <xs:element name="dtTerm" minOccurs="0" type="xs:date">
+                                            <xs:annotation>
+                                                <xs:documentation>Data do término do contrato por prazo determinado.</xs:documentation>
+                                                <xs:documentation>Validação: O preenchimento é obrigatório se {tpContr}(./tpContr) = [2]. Não informar se {tpContr}(./tpContr) = [1]. Deve ser igual ou posterior à data de admissão.</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="afastamento" minOccurs="0">
+                                            <xs:annotation>
+                                                <xs:documentation>Informações de afastamento do trabalhador.</xs:documentation>
+                                                <xs:documentation>CONDICAO_GRUPO: N (se grupo {desligamento}(../desligamento) estiver preenchido); O (nos demais casos)</xs:documentation>
+                                            </xs:annotation>
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="dtIniAfast" type="xs:date">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Data de início do afastamento.</xs:documentation>
+                                                            <xs:documentation>Validação: Deve ser igual ou posterior à data de admissão do trabalhador e igual ou posterior a [2019-09-24].</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:element>
+                                                    <xs:element name="codMotAfast" type="TS_codMotAfast">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Preencher com o código do motivo de afastamento temporário.</xs:documentation>
+                                                            <xs:documentation>Validação: Deve ser um código válido e existente na Tabela 18, bem como compatível com o código de categoria do trabalhador, conforme Tabela 18.</xs:documentation>
+                                                            <xs:documentation>Não pode ser utilizado o código [14].</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:element>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="desligamento" minOccurs="0">
+                                            <xs:annotation>
+                                                <xs:documentation>Informações de desligamento do trabalhador.</xs:documentation>
+                                                <xs:documentation>CONDICAO_GRUPO: N (se grupo {afastamento}(../afastamento) estiver preenchido); O (nos demais casos)</xs:documentation>
+                                            </xs:annotation>
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="dtDeslig" type="xs:date">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Preencher com a data de desligamento do vínculo (último dia trabalhado).</xs:documentation>
+                                                            <xs:documentation>Validação: Deve ser igual ou posterior à data de admissão do trabalhador e igual ou posterior a [2019-09-24].</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:element>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="Id" use="required" type="TS_Id" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:element ref="ds:Signature" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
