@@ -67,16 +67,16 @@ Chave: -
 Condição: OC
 
 Nível: 4
-Nome: infoIR
+Nome: infoIRComplem
 Pai: ideBenef
-Descrição: Informações relacionadas à retenção na fonte, aos rendimentos tributáveis e não tributáveis, deduções e/ou isenções de acordo com a legislação aplicada ao imposto de renda.
+Descrição: Informações relacionadas à retenção na fonte, aos rendimentos tributáveis e não tributáveis, deduções e/ou isenções, etc. - de acordo com a legislação aplicada ao imposto de renda.
 Ocorrência: 0-1
 Chave: -
 Condição: O
 
 Nível: 5
 Nome: infoDep
-Pai: infoIR
+Pai: infoIRComplem
 Descrição: Informações de dependentes não cadastrados pelo S-2200/S-2205/S-2300.
 Ocorrência: 0-999
 Chave: cpfDep
@@ -84,7 +84,7 @@ Condição: O
 
 Nível: 5
 Nome: dedDepen
-Pai: infoIR
+Pai: infoIRComplem
 Descrição: Dedução do rendimento tributável relativa a dependentes.
 Ocorrência: 0-999
 Chave: tpRend, cpfDep
@@ -92,7 +92,7 @@ Condição: O
 
 Nível: 5
 Nome: penAlim
-Pai: infoIR
+Pai: infoIRComplem
 Descrição: Informação dos beneficiários da pensão alimentícia.
 Ocorrência: 0-99
 Chave: tpRend, cpfDep
@@ -100,7 +100,7 @@ Condição: O
 
 Nível: 5
 Nome: previdCompl
-Pai: infoIR
+Pai: infoIRComplem
 Descrição: Informações relativas a planos de previdência complementar.
 Ocorrência: 0-99
 Chave: tpPrev, cnpjEntidPC
@@ -108,7 +108,7 @@ Condição: O
 
 Nível: 5
 Nome: infoProcRet
-Pai: infoIR
+Pai: infoIRComplem
 Descrição: Informações de processos relacionados a não retenção de tributos ou a depósitos judiciais.
 Ocorrência: 0-50
 Chave: tpProcRet, nrProcRet, codSusp
@@ -526,17 +526,17 @@ Dec.: -
 Descrição: Número do telefone.
 Validação: Devem ser informados apenas caracteres numéricos.
 
-Nome: infoIR
+Nome: infoIRComplem
 Pai: ideBenef
 Elem.: G
 Tipo: -
 Ocorrência: 0-1
 Tamanho: -
 Dec.: -
-Descrição: Informações relacionadas à retenção na fonte, aos rendimentos tributáveis e não tributáveis, deduções e/ou isenções de acordo com a legislação aplicada ao imposto de renda.
+Descrição: Informações relacionadas à retenção na fonte, aos rendimentos tributáveis e não tributáveis, deduções e/ou isenções, etc. - de acordo com a legislação aplicada ao imposto de renda.
 
 Nome: dtLaudo
-Pai: infoIR
+Pai: infoIRComplem
 Elem.: E
 Tipo: D
 Ocorrência: 0-1
@@ -546,7 +546,7 @@ Descrição: Data da moléstia grave atribuída pelo laudo.
 Validação: Não pode ser anterior ao ano de 1900.
 
 Nome: infoDep
-Pai: infoIR
+Pai: infoIRComplem
 Elem.: G
 Tipo: -
 Ocorrência: 0-999
@@ -609,13 +609,13 @@ Pai: infoDep
 Elem.: E
 Tipo: C
 Ocorrência: 0-1
-Tamanho: 1-30
+Tamanho: 1-100
 Dec.: -
 Descrição: Informar a descrição da dependência.
 Validação: Informação obrigatória e exclusiva se {tpDep}(./tpDep) = [99].
 
 Nome: dedDepen
-Pai: infoIR
+Pai: infoIRComplem
 Elem.: G
 Tipo: -
 Ocorrência: 0-999
@@ -644,7 +644,7 @@ Ocorrência: 1
 Tamanho: 11
 Dec.: -
 Descrição: Número de inscrição no CPF.
-Validação: Deve ser um CPF de dependente cadastrado no eSocial (S-2200/S-2205/S-2300 ou no grupo {infoDep}(1210_ideBenef_infoIR_infoDep)).
+Validação: Deve ser um CPF de dependente cadastrado no eSocial (S-2200/S-2205/S-2300 ou no grupo {infoDep}(1210_ideBenef_infoIRComplem_infoDep)).
 
 Nome: vlrDedDep
 Pai: dedDepen
@@ -658,7 +658,7 @@ Validação: O valor informado neste campo deve ser menor ou igual ao valor unit
 Em caso de inconsistência na validação, o arquivo será aceito, porém com alerta ao contribuinte.
 
 Nome: penAlim
-Pai: infoIR
+Pai: infoIRComplem
 Elem.: G
 Tipo: -
 Ocorrência: 0-99
@@ -701,7 +701,7 @@ Descrição: Valor relativo à dedução do rendimento tributável correspondent
 Validação: Deve ser maior que 0 (zero).
 
 Nome: previdCompl
-Pai: infoIR
+Pai: infoIRComplem
 Elem.: G
 Tipo: -
 Ocorrência: 0-99
@@ -730,7 +730,7 @@ Ocorrência: 1
 Tamanho: 14
 Dec.: -
 Descrição: Número de inscrição da entidade de previdência complementar.
-Validação: Deve ser um CNPJ válido no Cadastro CNPJ e não pode estar com situação cadastral "baixada" (situação = 8) ou "nula" (situação = 1) em data anterior ao período de apuração indicado em {perApur}(1210_ideEvento_perApur).
+Validação: Deve ser um CNPJ válido no Cadastro CNPJ e não pode estar com situação cadastral "baixada" (situação = 8) em data anterior ao período de apuração indicado em {perApur}(1210_ideEvento_perApur) ou "nula" (situação = 1).
 
 Nome: vlrDedPC
 Pai: previdCompl
@@ -753,7 +753,7 @@ Descrição: Valor da contribuição do ente público patrocinador da Fundação
 Validação: Informação permitida apenas se {tpPrev}(./tpPrev) = [3].
 
 Nome: infoProcRet
-Pai: infoIR
+Pai: infoIRComplem
 Elem.: G
 Tipo: -
 Ocorrência: 0-50
@@ -902,7 +902,7 @@ Ocorrência: 1
 Tamanho: 11
 Dec.: -
 Descrição: Número de inscrição no CPF.
-Validação: Deve ser um CPF de dependente cadastrado no eSocial (S-2200/S-2205/S-2300 ou no grupo {infoDep}(1210_ideBenef_infoIR_infoDep)).
+Validação: Deve ser um CPF de dependente cadastrado no eSocial (S-2200/S-2205/S-2300 ou no grupo {infoDep}(1210_ideBenef_infoIRComplem_infoDep)).
 
 Nome: vlrDepenSusp
 Pai: benefPen
