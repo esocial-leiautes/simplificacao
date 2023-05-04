@@ -466,133 +466,32 @@
         </xs:sequence>
     </xs:complexType>
     
-    <!-- Grupo {infoProcRet} -->
+    <!-- Grupos {detReembTit} e {detReembDep} -->
 
-    <xs:complexType name="T_infoProcRet">
-        <xs:annotation>
-            <xs:documentation>Informações de processos relacionados a não retenção de tributos ou a depósitos judiciais.</xs:documentation>
-            <xs:documentation>CHAVE_GRUPO: {tpProcRet}, {nrProcRet}, {codSusp}</xs:documentation>
-        </xs:annotation>
+    <xs:complexType name="T_detReemb">
         <xs:sequence>
-            <xs:element name="tpProcRet" type="TS_tpProc_1_2" />
-            <xs:element name="nrProcRet" type="TS_nrProc_17_20_21">
+            <xs:element name="tpInsc" type="TS_tpInsc_1_2">
                 <xs:annotation>
-                    <xs:documentation>Informar o número do processo administrativo/judicial.</xs:documentation>
-                    <xs:documentation>Validação: Deve ser um número de processo administrativo ou judicial válido e existente na Tabela de Processos (S-1070).</xs:documentation>
+                    <xs:documentation>Informar o código correspondente ao tipo de inscrição do prestador de serviços.</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element name="codSusp" type="TS_codSusp" minOccurs="0">
+            <xs:element name="nrInsc" type="TS_nrInsc_11_14">
                 <xs:annotation>
-                    <xs:documentation>Código do indicativo da suspensão, atribuído pelo empregador em S-1070. Este campo deve ser utilizado se, em um mesmo processo, houver mais de uma matéria tributária objeto de contestação e as decisões forem diferentes para cada uma.</xs:documentation>
-                    <xs:documentation>Validação: Informação obrigatória se houver mais de uma informação de indicativo de suspensão para um mesmo processo.</xs:documentation>
-                    <xs:documentation>Se informado, deve constar na Tabela de Processos (S-1070), campo {codSusp}(1070_infoProcesso_inclusao_dadosProc_infoSusp_codSusp), vinculado ao número do processo informado em {nrProcRet}(./nrProcRet).</xs:documentation>
+                    <xs:documentation>Informar o número de inscrição do prestador de serviços de assistência médica, de acordo com o tipo de inscrição indicado em {tpInsc}(./tpInsc).</xs:documentation>
+                    <xs:documentation>Validação: Deve ser um CNPJ ou CPF válido, de acordo com o tipo de inscrição indicado em {tpInsc}(./tpInsc).</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element name="vlrNRetido" type="TS_valorMonetario_positivo" minOccurs="0">
+            <xs:element name="vlrReemb" type="TS_valorMonetario" minOccurs="0">
                 <xs:annotation>
-                    <xs:documentation>Valor da retenção que deixou de ser efetuada em função de processo administrativo ou judicial.</xs:documentation>
-                    <xs:documentation>Validação: Informação permitida apenas se {indDeposito}(1070_infoProcesso_inclusao_dadosProc_infoSusp_indDeposito) informado em S-1070 for igual a [N].</xs:documentation>
-                    <xs:documentation>Se informado, deve ser maior que 0 (zero).</xs:documentation>
+                    <xs:documentation>Valor do reembolso relativo ao período indicado em {perApur}(1210_ideEvento_perApur).</xs:documentation>
+                    <xs:documentation>Validação: Informação não obrigatória se {vlrReembAnt}(./vlrReembAnt) for maior que zero.</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element name="vlrDepJud" type="TS_valorMonetario_positivo" minOccurs="0">
+            <xs:element name="vlrReembAnt" type="TS_valorMonetario" minOccurs="0">
                 <xs:annotation>
-                    <xs:documentation>Valor do depósito judicial em função de processo administrativo ou judicial.</xs:documentation>
-                    <xs:documentation>Validação: Informação permitida apenas se {indDeposito}(1070_infoProcesso_inclusao_dadosProc_infoSusp_indDeposito) informado em S-1070 for igual a [S].</xs:documentation>
-                    <xs:documentation>Se informado, deve ser maior que 0 (zero).</xs:documentation>
+                    <xs:documentation>Valor do reembolso relativo a anos anteriores.</xs:documentation>
+                    <xs:documentation>Validação: Informação não obrigatória se {vlrReemb}(./vlrReemb) for maior que zero.</xs:documentation>
                 </xs:annotation>
-            </xs:element>
-            <xs:element name="vlrCmpAnoCal" type="TS_valorMonetario_positivo" minOccurs="0">
-                <xs:annotation>
-                    <xs:documentation>Valor da compensação relativa ao ano calendário em função de processo judicial.</xs:documentation>
-                    <xs:documentation>Validação: Informação permitida apenas se {tpProcRet}(./tpProcRet) = [2].</xs:documentation>
-                    <xs:documentation>Se informado, deve ser maior que 0 (zero).</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element name="vlrCmpAnoAnt" type="TS_valorMonetario_positivo" minOccurs="0">
-                <xs:annotation>
-                    <xs:documentation>Valor da compensação relativa a anos anteriores em função de processo judicial.</xs:documentation>
-                    <xs:documentation>Validação: Informação permitida apenas se {tpProcRet}(./tpProcRet) = [2].</xs:documentation>
-                    <xs:documentation>Se informado, deve ser maior que 0 (zero).</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element name="vlrRendSusp" type="TS_valorMonetario_positivo" minOccurs="0">
-                <xs:annotation>
-                    <xs:documentation>Valor do rendimento com exigibilidade suspensa.</xs:documentation>
-                    <xs:documentation>Validação: Se informado, deve ser maior que 0 (zero).</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element name="dedSusp" minOccurs="0" maxOccurs="25">
-                <xs:annotation>
-                    <xs:documentation>Detalhamento das deduções com exigibilidade suspensa.</xs:documentation>
-                </xs:annotation>
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element name="indTpDeducao">
-                            <xs:simpleType>
-                                <xs:annotation>
-                                    <xs:documentation>Indicativo do tipo de dedução.</xs:documentation>
-                                </xs:annotation>
-                                <xs:restriction base="xs:byte">
-                                    <xs:enumeration value="1">
-                                        <xs:annotation>
-                                            <xs:documentation>Previdência oficial</xs:documentation>
-                                        </xs:annotation>
-                                    </xs:enumeration>
-                                    <xs:enumeration value="2">
-                                        <xs:annotation>
-                                            <xs:documentation>Previdência privada</xs:documentation>
-                                        </xs:annotation>
-                                    </xs:enumeration>
-                                    <xs:enumeration value="3">
-                                        <xs:annotation>
-                                            <xs:documentation>Fundo de Aposentadoria Programada Individual - FAPI</xs:documentation>
-                                        </xs:annotation>
-                                    </xs:enumeration>
-                                    <xs:enumeration value="4">
-                                        <xs:annotation>
-                                            <xs:documentation>Fundação de Previdência Complementar do Servidor Público - Funpresp</xs:documentation>
-                                        </xs:annotation>
-                                    </xs:enumeration>
-                                    <xs:enumeration value="5">
-                                        <xs:annotation>
-                                            <xs:documentation>Pensão alimentícia</xs:documentation>
-                                        </xs:annotation>
-                                    </xs:enumeration>
-                                    <xs:enumeration value="7">
-                                        <xs:annotation>
-                                            <xs:documentation>Dependentes</xs:documentation>
-                                        </xs:annotation>
-                                    </xs:enumeration>
-                                </xs:restriction>
-                            </xs:simpleType>
-                        </xs:element>
-                        <xs:element name="vlrDedSusp" type="TS_valorMonetario_positivo" minOccurs="0">
-                            <xs:annotation>
-                                <xs:documentation>Valor da dedução da base de cálculo do imposto de renda com exigibilidade suspensa.</xs:documentation>
-                                <xs:documentation>Validação: Se {indTpDeducao}(./indTpDeducao) = [5, 7], e o grupo {benefPen}(./benefPen) for preenchido, o valor informado neste campo deve ser a soma do(s) campo(s) {vlrDepenSusp}(./benefPen_vlrDepenSusp) do grupo {benefPen}(./benefPen).</xs:documentation>
-                                <xs:documentation>Deve ser maior que 0 (zero).</xs:documentation>
-                                <xs:documentation>O não preenchimento do grupo {benefPen}(./benefPen) indica que o contribuinte declarante não possui as informações detalhadas por dependente/alimentando.</xs:documentation>
-                            </xs:annotation>
-                        </xs:element>
-                        <xs:element name="benefPen" minOccurs="0" maxOccurs="99">
-                            <xs:annotation>
-                                <xs:documentation>Informação das deduções suspensas por dependentes e beneficiários da pensão alimentícia.</xs:documentation>
-                            </xs:annotation>
-                            <xs:complexType>
-                                <xs:sequence>
-                                    <xs:element name="cpfDep" type="TS_cpfDepIR2" />
-                                    <xs:element name="vlrDepenSusp" type="TS_valorMonetario_positivo">
-                                        <xs:annotation>
-                                            <xs:documentation>Valor da dedução relativa a dependentes ou a pensão alimentícia com exigibilidade suspensa.</xs:documentation>
-                                            <xs:documentation>Validação: Deve ser maior que 0 (zero).</xs:documentation>
-                                        </xs:annotation>
-                                    </xs:element>
-                                </xs:sequence>
-                            </xs:complexType>
-                        </xs:element>
-                    </xs:sequence>
-                </xs:complexType>
             </xs:element>
         </xs:sequence>
     </xs:complexType>
