@@ -1813,7 +1813,7 @@
         </xs:restriction>
     </xs:simpleType>
 
-    <!-- Campos {nrProcJud} e {nrProcTrab} -->
+    <!-- Campos {nrProcJud}, {nrProcTrab} e {nrProcRet} -->
 
     <xs:simpleType name="TS_nrProcJud_1">
         <xs:annotation>
@@ -1846,7 +1846,15 @@
         </xs:restriction>
     </xs:simpleType>
 
-    <!-- Campo {codSusp} -->
+    <xs:simpleType name="TS_nrProcRet">
+        <xs:annotation>
+            <xs:documentation>Informar o número do processo administrativo/judicial.</xs:documentation>
+                    <xs:documentation>Validação: Deve ser um número de processo administrativo ou judicial válido e existente na Tabela de Processos (S-1070).</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="TS_nrProc_17_20_21" />
+    </xs:simpleType>
+
+    <!-- Campos {codSusp} -->
 
     <xs:simpleType name="TS_codSusp">
         <xs:annotation>
@@ -1856,6 +1864,15 @@
         <xs:restriction base="xs:integer">
             <xs:pattern value="\d{1,14}" />
         </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="TS_codSuspIR">
+        <xs:annotation>
+            <xs:documentation>Código do indicativo da suspensão, atribuído pelo empregador em S-1070. Este campo deve ser utilizado se, em um mesmo processo, houver mais de uma matéria tributária objeto de contestação e as decisões forem diferentes para cada uma.</xs:documentation>
+            <xs:documentation>Validação: Informação obrigatória se houver mais de uma informação de indicativo de suspensão para um mesmo processo.</xs:documentation>
+            <xs:documentation>Se informado, deve constar na Tabela de Processos (S-1070), campo {codSusp}(1070_infoProcesso_inclusao_dadosProc_infoSusp_codSusp), vinculado ao número do processo informado em {nrProcRet}(./nrProcRet).</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="TS_codSusp" />
     </xs:simpleType>
 
     <!-- Campo {indSubstPatrObra} -->
@@ -2651,6 +2668,130 @@
             <xs:documentation>Validação: Deve ser maior que 0 (zero).</xs:documentation>
         </xs:annotation>
         <xs:restriction base="TS_valorMonetario_positivo" />
+    </xs:simpleType>
+
+    <!-- Campo {vlrNRetido} -->
+
+    <xs:simpleType name="TS_vlrNRetido">
+        <xs:annotation>
+            <xs:documentation>Valor da retenção que deixou de ser efetuada em função de processo administrativo ou judicial.</xs:documentation>
+            <xs:documentation>Validação: Informação permitida apenas se {indDeposito}(1070_infoProcesso_inclusao_dadosProc_infoSusp_indDeposito) informado em S-1070 for igual a [N].</xs:documentation>
+            <xs:documentation>Se informado, deve ser maior que 0 (zero).</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="TS_valorMonetario_positivo" />
+    </xs:simpleType>
+
+    <!-- Campo {vlrDepJud} -->
+
+    <xs:simpleType name="TS_vlrDepJud">
+        <xs:annotation>
+            <xs:documentation>Valor do depósito judicial em função de processo administrativo ou judicial.</xs:documentation>
+            <xs:documentation>Validação: Informação permitida apenas se {indDeposito}(1070_infoProcesso_inclusao_dadosProc_infoSusp_indDeposito) informado em S-1070 for igual a [S].</xs:documentation>
+            <xs:documentation>Se informado, deve ser maior que 0 (zero).</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="TS_valorMonetario_positivo" />
+    </xs:simpleType>
+
+    <!-- Campo {vlrCmpAnoCal} -->
+
+    <xs:simpleType name="TS_vlrCmpAnoCal">
+        <xs:annotation>
+            <xs:documentation>Valor da compensação relativa ao ano calendário em função de processo judicial.</xs:documentation>
+            <xs:documentation>Validação: Informação permitida apenas se {tpProcRet}(./tpProcRet) = [2].</xs:documentation>
+            <xs:documentation>Se informado, deve ser maior que 0 (zero).</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="TS_valorMonetario_positivo" />
+    </xs:simpleType>
+
+    <!-- Campo {vlrCmpAnoAnt} -->
+
+    <xs:simpleType name="TS_vlrCmpAnoAnt">
+        <xs:annotation>
+            <xs:documentation>Valor da compensação relativa a anos anteriores em função de processo judicial.</xs:documentation>
+            <xs:documentation>Validação: Informação permitida apenas se {tpProcRet}(./tpProcRet) = [2].</xs:documentation>
+            <xs:documentation>Se informado, deve ser maior que 0 (zero).</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="TS_valorMonetario_positivo" />
+    </xs:simpleType>
+
+    <!-- Campo {vlrRendSusp} -->
+
+    <xs:simpleType name="TS_vlrRendSusp">
+        <xs:annotation>
+            <xs:documentation>Valor do rendimento com exigibilidade suspensa.</xs:documentation>
+            <xs:documentation>Validação: Se informado, deve ser maior que 0 (zero).</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="TS_valorMonetario_positivo" />
+    </xs:simpleType>
+
+    <!-- Campo {indTpDeducao} -->
+
+    <xs:simpleType name="TS_indTpDeducao">
+        <xs:annotation>
+            <xs:documentation>Indicativo do tipo de dedução.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:byte">
+            <xs:enumeration value="1">
+                <xs:annotation>
+                    <xs:documentation>Previdência oficial</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="2">
+                <xs:annotation>
+                    <xs:documentation>Previdência privada</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="3">
+                <xs:annotation>
+                    <xs:documentation>Fundo de Aposentadoria Programada Individual - FAPI</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="4">
+                <xs:annotation>
+                    <xs:documentation>Fundação de Previdência Complementar do Servidor Público - Funpresp</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="5">
+                <xs:annotation>
+                    <xs:documentation>Pensão alimentícia</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="7">
+                <xs:annotation>
+                    <xs:documentation>Dependentes</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Campo {regANS} -->
+
+    <xs:simpleType name="TS_regANS">
+        <xs:annotation>
+            <xs:documentation>Registro na Agência Nacional de Saúde - ANS.</xs:documentation>
+            <xs:documentation>Validação: Deve ser um número de registro válido.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="TS_cbo" />
+    </xs:simpleType>
+
+    <!-- Campo {indOrgReemb} -->
+
+    <xs:simpleType name="TS_indOrgReemb">
+        <xs:annotation>
+            <xs:documentation>Indicativo da origem do reembolso.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:byte">
+            <xs:enumeration value="1">
+                <xs:annotation>
+                    <xs:documentation>Reembolso efetuado pelo empregador no âmbito do plano de saúde (a operadora reembolsa o empregador)</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="2">
+                <xs:annotation>
+                    <xs:documentation>Reembolso efetuado pelo empregador como benefício do próprio empregador</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
     </xs:simpleType>
 
     <!-- Campo {indComerc} -->

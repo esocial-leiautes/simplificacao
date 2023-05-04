@@ -72,7 +72,7 @@ Pai: ideBenef
 Descrição: Informações relacionadas à retenção na fonte, aos rendimentos tributáveis e não tributáveis, deduções e/ou isenções, etc. - de acordo com a legislação aplicada ao imposto de renda.
 Ocorrência: 0-1
 Chave: -
-Condição: O
+Condição: OC
 
 Nível: 5
 Nome: infoDep
@@ -80,7 +80,7 @@ Pai: infoIRComplem
 Descrição: Informações de dependentes não cadastrados pelo S-2200/S-2205/S-2300.
 Ocorrência: 0-999
 Chave: cpfDep
-Condição: O
+Condição: OC
 
 Nível: 5
 Nome: dedDepen
@@ -88,7 +88,7 @@ Pai: infoIRComplem
 Descrição: Dedução do rendimento tributável relativa a dependentes.
 Ocorrência: 0-999
 Chave: tpRend, cpfDep
-Condição: O
+Condição: OC
 
 Nível: 5
 Nome: penAlim
@@ -96,7 +96,7 @@ Pai: infoIRComplem
 Descrição: Informação dos beneficiários da pensão alimentícia.
 Ocorrência: 0-99
 Chave: tpRend, cpfDep
-Condição: O
+Condição: OC
 
 Nível: 5
 Nome: previdCompl
@@ -104,15 +104,15 @@ Pai: infoIRComplem
 Descrição: Informações relativas a planos de previdência complementar.
 Ocorrência: 0-99
 Chave: tpPrev, cnpjEntidPC
-Condição: O
+Condição: OC
 
 Nível: 5
 Nome: infoProcRet
 Pai: infoIRComplem
 Descrição: Informações de processos relacionados a não retenção de tributos ou a depósitos judiciais.
 Ocorrência: 0-50
-Chave: tpProcRet, nrProcRet, codSusp
-Condição: O
+Chave: CR, tpProcRet, nrProcRet, codSusp
+Condição: OC
 
 Nível: 6
 Nome: dedSusp
@@ -120,7 +120,7 @@ Pai: infoProcRet
 Descrição: Detalhamento das deduções com exigibilidade suspensa.
 Ocorrência: 0-25
 Chave: -
-Condição: O
+Condição: OC
 
 Nível: 7
 Nome: benefPen
@@ -128,7 +128,40 @@ Pai: dedSusp
 Descrição: Informação das deduções suspensas por dependentes e beneficiários da pensão alimentícia.
 Ocorrência: 0-99
 Chave: -
-Condição: O
+Condição: O (se {indTpDeducao}(../indTpDeducao) = [5, 7])
+N (nos demais casos)
+
+Nível: 5
+Nome: planSaude
+Pai: infoIRComplem
+Descrição: Plano de saúde coletivo
+Ocorrência: 0-99
+Chave: cnpjOper
+Condição: OC
+
+Nível: 6
+Nome: infoDepSau
+Pai: planSaude
+Descrição: Informações de dependente de plano de saúde coletivo empresarial.
+Ocorrência: 0-99
+Chave: cpfDep
+Condição: OC
+
+Nível: 5
+Nome: infoReembMed
+Pai: infoIRComplem
+Descrição: Reembolsos de despesas médicas
+Ocorrência: 0-99
+Chave: -
+Condição: OC
+
+Nível: 6
+Nome: detReembTit
+Pai: infoReembMed
+Descrição: Informação de reembolso do titular do plano de saúde coletivo empresarial.
+Ocorrência: 0-99
+Chave: tpInsc, nrInsc
+Condição: OC
 
 Nome: eSocial
 Pai: -
@@ -761,6 +794,29 @@ Tamanho: -
 Dec.: -
 Descrição: Informações de processos relacionados a não retenção de tributos ou a depósitos judiciais.
 
+Nome: CR
+Pai: infoProcRet
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 6
+Dec.: -
+Descrição: Código de Receita - CR relativo ao Imposto de Renda Retido na Fonte sobre rendimentos do trabalho.
+Valores válidos:
+056107 - IRRF mensal, 13° salário e férias sobre trabalho assalariado no país ou ausente no exterior a serviço do país, exceto se contratado por empregador doméstico ou por segurado especial sujeito a recolhimento unificado
+056108 - IRRF mensal e férias - Empregado doméstico
+056109 - IRRF 13° salário na rescisão de contrato de trabalho - Empregado doméstico
+056110 - IRRF - Empregado doméstico 13º salário
+056111 - IRRF - Empregado/Trabalhador rural - Segurado especial
+056112 - IRRF - Empregado/Trabalhador rural - Segurado especial 13° salário
+056113 - IRRF - Empregado/Trabalhador rural - Segurado especial 13° salário rescisório
+058806 - IRRF sobre rendimento do trabalho sem vínculo empregatício
+061001 - IRRF sobre rendimentos relativos a prestação de serviços de transporte rodoviário internacional de carga, pagos a transportador autônomo PF residente no Paraguai
+353301 - Proventos de aposentadoria, reserva, reforma ou pensão pagos por previdência pública
+356201 - IRRF sobre participação dos trabalhadores em lucros ou resultados - PLR
+188901 - Rendimentos Recebidos Acumuladamente - RRA
+047301 - IRRF - Residentes no exterior, para fins fiscais
+
 Nome: tpProcRet
 Pai: infoProcRet
 Elem.: E
@@ -787,7 +843,7 @@ Nome: codSusp
 Pai: infoProcRet
 Elem.: E
 Tipo: N
-Ocorrência: 0-1
+Ocorrência: 1
 Tamanho: 1-14
 Dec.: -
 Descrição: Código do indicativo da suspensão, atribuído pelo empregador em S-1070. Este campo deve ser utilizado se, em um mesmo processo, houver mais de uma matéria tributária objeto de contestação e as decisões forem diferentes para cada uma.
@@ -913,4 +969,168 @@ Tamanho: 1-14
 Dec.: 2
 Descrição: Valor da dedução relativa a dependentes ou a pensão alimentícia com exigibilidade suspensa.
 Validação: Deve ser maior que 0 (zero).
+
+Nome: planSaude
+Pai: infoIRComplem
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição:  Plano de saúde coletivo.
+Identificação da(s) operadora(s) de plano privado coletivo empresarial de assistência à saúde.
+
+Nome: cnpjOper
+Pai: planSaude
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 14
+Dec.: -
+Descrição: Informar o número do CNPJ da operadora de plano privado coletivo empresarial de assistência à saúde.
+Validação: Deve ser um CNPJ válido no Cadastro CNPJ e não pode estar com situação cadastral "baixada" (situação = 8) em data anterior ao período de apuração indicado em {perApur}(1210_ideEvento_perApur) ou "nula" (situação = 1).
+
+Nome: regANS
+Pai: planSaude
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 6
+Dec.: -
+Descrição: Registro na Agência Nacional de Saúde - ANS.
+Validação: Deve ser um número de registro válido.
+
+Nome: vlrSaudeTit
+Pai: planSaude
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor relativo à dedução do rendimento tributável correspondente a pagamento a plano de saúde do titular.
+Validação: Deve ser maior ou igual a 0 (zero).
+Se for igual a 0 (zero), deve haver informações em registro(s) filho(s), relativas a dependentes {infoDepSau}(./infoDepSau) ou reembolso {infoReembMed}(../infoReembMed).
+
+Nome: infoDepSau
+Pai: planSaude
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição: Informações de dependente de plano de saúde coletivo empresarial.
+
+Nome: cpfDep
+Pai: infoDepSau
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11
+Dec.: -
+Descrição: Número de inscrição no CPF do dependente do plano de saúde.
+Validação: Deve ser um CPF de dependente cadastrado no eSocial (S-2200/S-2205/S-2300 ou no grupo {infoDep}(1210_ideBenef_infoIRComplem_infoDep)).
+
+Nome: vlrSaudeDep
+Pai: infoDepSau
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor relativo a dedução do rendimento tributável correspondente a pagamento a plano de saúde do dependente.
+Validação: Deve ser maior ou igual a 0 (zero).
+Se for igual a 0 (zero), deve haver informações de reembolso do dependente em {infoReembMed}(../../infoReembMed).
+
+Nome: infoReembMed
+Pai: infoIRComplem
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição:  Informações relativas a reembolsos efetuados no período de apuração ({perApur}(1210_ideEvento_perApur)) pelo empregador ao trabalhador referente a despesas médicas ou odontológicas pagas pelo trabalhador a prestadores de serviços de saúde.
+
+Nome: indOrgReemb
+Pai: infoReembMed
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo da origem do reembolso.
+Valores válidos:
+1 - Reembolso efetuado pelo empregador no âmbito do plano de saúde (a operadora reembolsa o empregador)
+2 - Reembolso efetuado pelo empregador como benefício do próprio empregador
+
+Nome: cnpjOper
+Pai: infoReembMed
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 14
+Dec.: -
+Descrição: CNPJ da operadora do plano de saúde.
+Validação: Informação obrigatória e exclusiva se {indOrgReemb}(./indOrgReemb) = [1].
+Deve ser um CNPJ válido.
+
+Nome: regANS
+Pai: infoReembMed
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 6
+Dec.: -
+Descrição: Registro na Agência Nacional de Saúde - ANS.
+Validação: Deve ser um número de registro válido.
+
+Nome: detReembTit
+Pai: infoReembMed
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição: Informação de reembolso do titular do plano de saúde coletivo empresarial.
+
+Nome: tpInsc
+Pai: detReembTit
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Informar o código correspondente ao tipo de inscrição do prestador de serviços.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+
+Nome: nrInsc
+Pai: detReembTit
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do prestador de serviços de assistência médica, de acordo com o tipo de inscrição indicado em {tpInsc}(./tpInsc).
+Validação: Deve ser um CNPJ ou CPF válido, de acordo com o tipo de inscrição indicado em {tpInsc}(./tpInsc).
+
+Nome: vlrReemb
+Pai: detReembTit
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor do reembolso relativo ao período indicado em {perApur}(1210_ideEvento_perApur).
+Validação: Informação não obrigatória se {vlrReembAnt}(./vlrReembAnt) for maior que zero.
+
+Nome: vlrReembAnt
+Pai: detReembTit
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor do reembolso relativo a anos anteriores.
+Validação: Informação não obrigatória se {vlrReemb}(./vlrReemb) for maior que zero.
 
