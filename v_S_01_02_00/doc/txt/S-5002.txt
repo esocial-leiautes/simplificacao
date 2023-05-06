@@ -57,6 +57,14 @@ Ocorrência: 1-999
 Chave: -
 Condição: O
 
+Nível: 6
+Nome: infoProcJudRub
+Pai: infoIR
+Descrição: Informações complementares - Demais rendimentos com exigibilidade suspensa decorrentes de decisão judicial aplicável à rubrica.
+Ocorrência: 0-N
+Chave: nrProc
+Condição: OC
+
 Nível: 5
 Nome: totApurMen
 Pai: dmDev
@@ -423,6 +431,57 @@ b) Somar os valores das rubricas cujo {tpRubr}(1010_infoRubrica_inclusao_dadosRu
 {tpInfoIR}(./tpInfoIR) = [9083], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [9083].
  
 OBS.: Se o campo {indApurIR} vinculado à rubrica for igual a [1], considerar {vrRubr} = [0].
+
+Nome: infoProcJudRub
+Pai: infoIR
+Elem.: G
+Tipo: -
+Ocorrência: 0-N
+Tamanho: -
+Dec.: -
+Descrição: Informações complementares - Demais rendimentos com exigibilidade suspensa decorrentes de decisão judicial aplicável à rubrica.
+
+Nome: nrProc
+Pai: infoProcJudRub
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 20
+Dec.: -
+Descrição: Informar o número do processo judicial.
+Origem: Campo {ideProcessoIRRF/nrProc}(1010_infoRubrica_inclusao_dadosRubrica_ideProcessoIRRF_nrProc) de S-1010, quando {codRubr}(1010_infoRubrica_inclusao_ideRubrica_codRubr) e {ideTabRubr}(1010_infoRubrica_inclusao_ideRubrica_ideTabRubr) de S-1010 com {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) = [9X] ou [9XXX] forem informados em {ideDmDev} de evento remuneratório.
+
+Nome: ufVara
+Pai: infoProcJudRub
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 2
+Dec.: -
+Descrição: Identificação da Unidade da Federação - UF da Seção Judiciária.
+Valores válidos:
+ AC, AL, AP, AM, BA, CE, DF, ES, GO, MA, MT, MS, MG, PA, PB, PR, PE, PI, RJ, RN, RS, RO, RR, SC, SP, SE, TO
+Origem: campo {ufVara}(1070_infoProcesso_inclusao_dadosProc_dadosProcJud_ufVara) de S-1070.
+
+Nome: codMunic
+Pai: infoProcJudRub
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 7
+Dec.: -
+Descrição: Preencher com o código do município, conforme tabela do IBGE.
+Origem: campo {codMunic}(1070_infoProcesso_inclusao_dadosProc_dadosProcJud_codMunic) de S-1070.
+
+Nome: idVara
+Pai: infoProcJudRub
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-4
+Dec.: -
+Descrição: Código de identificação da Vara.
+Origem: campo {idVara}(1070_infoProcesso_inclusao_dadosProc_dadosProcJud_idVara) de S-1070.
 
 Nome: totApurMen
 Pai: dmDev

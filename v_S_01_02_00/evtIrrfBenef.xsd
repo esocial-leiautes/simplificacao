@@ -564,6 +564,46 @@
                                                                         <xs:documentation>OBS.: Se o campo {indApurIR} vinculado à rubrica for igual a [1], considerar {vrRubr} = [0].</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
+                                                                <xs:element name="infoProcJudRub" minOccurs="0" maxOccurs="unbounded">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Informações complementares - Demais rendimentos com exigibilidade suspensa decorrentes de decisão judicial aplicável à rubrica.</xs:documentation>
+                                                                        <xs:documentation>CHAVE_GRUPO: {nrProc}</xs:documentation>
+                                                                        <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
+                                                                    </xs:annotation>
+                                                                    <xs:complexType>
+                                                                        <xs:sequence>
+                                                                            <xs:element name="nrProc" type="TS_nrProcJud_1">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Informar o número do processo judicial.</xs:documentation>
+                                                                                    <xs:documentation>Origem: Campo {ideProcessoIRRF/nrProc}(1010_infoRubrica_inclusao_dadosRubrica_ideProcessoIRRF_nrProc) de S-1010, quando {codRubr}(1010_infoRubrica_inclusao_ideRubrica_codRubr) e {ideTabRubr}(1010_infoRubrica_inclusao_ideRubrica_ideTabRubr) de S-1010 com {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) = [9X] ou [9XXX] forem informados em {ideDmDev} de evento remuneratório.</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:element>
+                                                                            <xs:element name="ufVara" type="TS_uf">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Identificação da Unidade da Federação - UF da Seção Judiciária.</xs:documentation>
+                                                                                    <xs:documentation>Origem: campo {ufVara}(1070_infoProcesso_inclusao_dadosProc_dadosProcJud_ufVara) de S-1070.</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:element>
+                                                                            <xs:element name="codMunic" type="TS_codMunic">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Preencher com o código do município, conforme tabela do IBGE.</xs:documentation>
+                                                                                    <xs:documentation>Origem: campo {codMunic}(1070_infoProcesso_inclusao_dadosProc_dadosProcJud_codMunic) de S-1070.</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:element>
+                                                                            <xs:element name="idVara">
+                                                                                <xs:simpleType>
+                                                                                    <xs:annotation>
+                                                                                        <xs:documentation>Código de identificação da Vara.</xs:documentation>
+                                                                                        <xs:documentation>Origem: campo {idVara}(1070_infoProcesso_inclusao_dadosProc_dadosProcJud_idVara) de S-1070.</xs:documentation>
+                                                                                    </xs:annotation>
+                                                                                    <xs:restriction base="xs:integer">
+                                                                                        <xs:pattern value="\d{1,4}" />
+                                                                                    </xs:restriction>
+                                                                                </xs:simpleType>
+                                                                            </xs:element>
+                                                                        </xs:sequence>
+                                                                    </xs:complexType>
+                                                                </xs:element>
                                                             </xs:sequence>
                                                         </xs:complexType>
                                                     </xs:element>
