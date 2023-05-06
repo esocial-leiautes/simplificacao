@@ -147,20 +147,60 @@ Ocorrência: 0-99
 Chave: cpfDep
 Condição: OC
 
-Nível: 5
+Nível: 6
 Nome: infoReembMed
-Pai: infoIRComplem
+Pai: planSaude
 Descrição: Reembolsos de despesas médicas
 Ocorrência: 0-99
 Chave: -
 Condição: OC
 
-Nível: 6
+Nível: 7
 Nome: detReembTit
 Pai: infoReembMed
 Descrição: Informação de reembolso do titular do plano de saúde coletivo empresarial.
 Ocorrência: 0-99
 Chave: tpInsc, nrInsc
+Condição: OC
+
+Nível: 7
+Nome: infoReembDep
+Pai: infoReembMed
+Descrição: Informação de reembolso do dependente do plano de saúde coletivo empresarial.
+Ocorrência: 0-99
+Chave: -
+Condição: OC
+
+Nível: 8
+Nome: detReembDep
+Pai: infoReembDep
+Descrição: Detalhamento dos reembolsos efetuados aos dependentes
+Ocorrência: 0-99
+Chave: tpInsc, nrInsc
+Condição: OC
+
+Nível: 5
+Nome: infoProcJud
+Pai: infoIRComplem
+Descrição: Informações de processo judicial
+Ocorrência: 0-1
+Chave: -
+Condição: OC
+
+Nível: 6
+Nome: despProcJud
+Pai: infoProcJud
+Descrição: Despesas com processo judicial
+Ocorrência: 0-1
+Chave: -
+Condição: OC
+
+Nível: 7
+Nome: ideAdv
+Pai: despProcJud
+Descrição: Identificação dos advogados.
+Ocorrência: 0-99
+Chave: tpInscAdv, nrInscAdv
 Condição: OC
 
 Nome: eSocial
@@ -659,7 +699,7 @@ Descrição: Dedução do rendimento tributável relativa a dependentes.
 Nome: tpRend
 Pai: dedDepen
 Elem.: E
-Tipo: C
+Tipo: N
 Ocorrência: 1
 Tamanho: 2
 Dec.: -
@@ -702,7 +742,7 @@ Descrição: Informação dos beneficiários da pensão alimentícia.
 Nome: tpRend
 Pai: penAlim
 Elem.: E
-Tipo: C
+Tipo: N
 Ocorrência: 1
 Tamanho: 2
 Dec.: -
@@ -1009,7 +1049,7 @@ Tamanho: 1-14
 Dec.: 2
 Descrição: Valor relativo à dedução do rendimento tributável correspondente a pagamento a plano de saúde do titular.
 Validação: Deve ser maior ou igual a 0 (zero).
-Se for igual a 0 (zero), deve haver informações em registro(s) filho(s), relativas a dependentes {infoDepSau}(./infoDepSau) ou reembolso {infoReembMed}(../infoReembMed).
+Se for igual a 0 (zero), deve haver informações em registro(s) filho(s), relativas a dependentes {infoDepSau}(./infoDepSau) ou reembolso {infoReembMed}(./infoReembMed).
 
 Nome: infoDepSau
 Pai: planSaude
@@ -1039,10 +1079,10 @@ Tamanho: 1-14
 Dec.: 2
 Descrição: Valor relativo a dedução do rendimento tributável correspondente a pagamento a plano de saúde do dependente.
 Validação: Deve ser maior ou igual a 0 (zero).
-Se for igual a 0 (zero), deve haver informações de reembolso do dependente em {infoReembMed}(../../infoReembMed).
+Se for igual a 0 (zero), deve haver informações de reembolso do dependente em {infoReembMed}(../infoReembMed).
 
 Nome: infoReembMed
-Pai: infoIRComplem
+Pai: planSaude
 Elem.: G
 Tipo: -
 Ocorrência: 0-99
@@ -1133,4 +1173,195 @@ Tamanho: 1-14
 Dec.: 2
 Descrição: Valor do reembolso relativo a anos anteriores.
 Validação: Informação não obrigatória se {vlrReemb}(./vlrReemb) for maior que zero.
+
+Nome: infoReembDep
+Pai: infoReembMed
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição: Informação de reembolso do dependente do plano de saúde coletivo empresarial.
+
+Nome: cpfBenef
+Pai: infoReembDep
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11
+Dec.: -
+Descrição: Número de inscrição no CPF do dependente.
+Validação: Deve ser um CPF de dependente cadastrado no eSocial (S-2200/S-2205/S-2300 ou no grupo {infoDep}(1210_ideBenef_infoIRComplem_infoDep)).
+
+Nome: detReembDep
+Pai: infoReembDep
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição:  Detalhamento dos reembolsos efetuados em {perApur}(1210_ideEvento_perApur) pelo empregador ao trabalhador referente a despesas médicas ou odontológicas pagas pelo trabalhador a prestadores de serviços de saúde relativo a despesas de seus dependentes.
+
+Nome: tpInsc
+Pai: detReembDep
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Informar o código correspondente ao tipo de inscrição do prestador de serviços.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+
+Nome: nrInsc
+Pai: detReembDep
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do prestador de serviços de assistência médica, de acordo com o tipo de inscrição indicado em {tpInsc}(./tpInsc).
+Validação: Deve ser um CNPJ ou CPF válido, de acordo com o tipo de inscrição indicado em {tpInsc}(./tpInsc).
+
+Nome: vlrReemb
+Pai: detReembDep
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor do reembolso relativo ao período indicado em {perApur}(1210_ideEvento_perApur).
+Validação: Informação não obrigatória se {vlrReembAnt}(./vlrReembAnt) for maior que zero.
+
+Nome: vlrReembAnt
+Pai: detReembDep
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor do reembolso relativo a anos anteriores.
+Validação: Informação não obrigatória se {vlrReemb}(./vlrReemb) for maior que zero.
+
+Nome: infoProcJud
+Pai: infoIRComplem
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição:  Informações complementares - Demais rendimentos decorrentes de decisão judicial não informada como RRA.
+
+Nome: nrProc
+Pai: infoProcJud
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 2-21
+Dec.: -
+Descrição: Informar o número do processo judicial.
+Validação: O número informado deve obedecer às seguintes regras:
+a) Não pode conter caracteres diferentes de [A...Z] e [0...9];
+b) Não pode conter mais caracteres alfabéticos do que numéricos;
+c) Não pode conter somente caracteres alfabéticos.
+
+Nome: indOrigRec
+Pai: infoProcJud
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo da origem dos recursos.
+Valores válidos:
+1 - Recursos do próprio declarante
+2 - Recursos de terceiros - Declarante é a instituição financeira responsável pelo repasse dos valores
+
+Nome: cnpjOrigRecurso
+Pai: infoProcJud
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 14
+Dec.: -
+Descrição: Preencher com o CNPJ da empresa que repassou os recursos.
+Validação: Informação obrigatória e exclusiva se {indOrigRec}(./indOrigRec) = [2].
+
+Nome: desc
+Pai: infoProcJud
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-50
+Dec.: -
+Descrição: Descrição.
+
+Nome: despProcJud
+Pai: infoProcJud
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Detalhamento das despesas com processo judicial.
+
+Nome: vlrDespCustas
+Pai: despProcJud
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Preencher com o valor das despesas com custas judiciais.
+
+Nome: vlrDespAdvogados
+Pai: despProcJud
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Preencher com o valor total das despesas com advogado(s).
+
+Nome: ideAdv
+Pai: despProcJud
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição: Identificação dos advogados.
+
+Nome: tpInscAdv
+Pai: ideAdv
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Tipo de inscrição do advogado.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+
+Nome: nrInscAdv
+Pai: ideAdv
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do advogado.
+Validação: Deve ser um CNPJ ou CPF válido, de acordo com o tipo de inscrição indicado em {tpInscAdv}(./tpInscAdv).
+Não pode ser igual ao número de inscrição do declarante.
+
+Nome: vlrAdv
+Pai: ideAdv
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da despesa com o advogado, se houver.
 
