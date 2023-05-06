@@ -770,6 +770,123 @@
                                                             </xs:sequence>
                                                         </xs:complexType>                                                    
                                                     </xs:element>
+                                                    <xs:element name="infoPgtoExt" minOccurs="0">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Informações complementares relativas a pagamentos no exterior</xs:documentation>
+                                                            <xs:documentation>DESCRICAO_COMPLETA:Informações complementares relativas a pagamentos a residente fiscal no exterior.</xs:documentation>
+                                                            <xs:documentation>Evento de origem: S-1210</xs:documentation>
+                                                            <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
+                                                        </xs:annotation>
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:element name="paisResidExt" minOccurs="0" type="TS_pais">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Código do país de residência para fins fiscais, quando no exterior, conforme Tabela 06.</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:element>
+                                                                <xs:element name="indNIF" type="TS_indNIF" />
+                                                                <xs:element name="nifBenef" minOccurs="0" type="TS_codigo_esocial">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Número de Identificação Fiscal (NIF).</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:element>
+                                                                <xs:element name="frmTribut">
+                                                                    <xs:simpleType>
+                                                                        <xs:annotation>
+                                                                            <xs:documentation>Forma de tributação, conforme opções disponíveis na Tabela 30.</xs:documentation>
+                                                                        </xs:annotation>
+                                                                        <xs:restriction base="xs:string">
+                                                                            <xs:pattern value="\d{2}" />
+                                                                        </xs:restriction>
+                                                                    </xs:simpleType>
+                                                                </xs:element>
+                                                                <xs:element name="endExt" minOccurs="0">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Endereço do beneficiário residente ou domiciliado no exterior.</xs:documentation>
+                                                                        <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
+                                                                    </xs:annotation>
+                                                                    <xs:complexType>
+                                                                        <xs:sequence>
+                                                                            <xs:element name="endDscLograd" minOccurs="0">
+                                                                                <xs:simpleType>
+                                                                                    <xs:annotation>
+                                                                                        <xs:documentation>Descrição do logradouro.</xs:documentation>
+                                                                                    </xs:annotation>
+                                                                                    <xs:restriction base="xs:string">
+                                                                                        <xs:minLength value="1" />
+                                                                                        <xs:maxLength value="80" />
+                                                                                        <xs:pattern value="[^\s]{1}[\S\s]*" />
+                                                                                    </xs:restriction>
+                                                                                </xs:simpleType>
+                                                                            </xs:element>
+                                                                            <xs:element name="endNrLograd" minOccurs="0" type="TS_nrLograd">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Número do logradouro.</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:element>
+                                                                            <xs:element name="endComplem" minOccurs="0" type="TS_complemento" />
+                                                                            <xs:element name="endBairro" minOccurs="0">
+                                                                                <xs:simpleType>
+                                                                                    <xs:annotation>
+                                                                                        <xs:documentation>Nome do bairro/distrito.</xs:documentation>
+                                                                                    </xs:annotation>
+                                                                                    <xs:restriction base="xs:string">
+                                                                                        <xs:minLength value="1" />
+                                                                                        <xs:maxLength value="60" />
+                                                                                        <xs:pattern value=".*[^\s].*" />
+                                                                                    </xs:restriction>
+                                                                                </xs:simpleType>
+                                                                            </xs:element>
+                                                                            <xs:element name="endCidade" minOccurs="0">
+                                                                                <xs:simpleType>
+                                                                                    <xs:annotation>
+                                                                                        <xs:documentation>Nome da cidade.</xs:documentation>
+                                                                                    </xs:annotation>
+                                                                                    <xs:restriction base="xs:string">
+                                                                                        <xs:minLength value="1" />
+                                                                                        <xs:maxLength value="40" />
+                                                                                        <xs:pattern value=".*[^\s].*" />
+                                                                                    </xs:restriction>
+                                                                                </xs:simpleType>
+                                                                            </xs:element>
+                                                                            <xs:element name="endEstado" minOccurs="0">
+                                                                                <xs:simpleType>
+                                                                                    <xs:annotation>
+                                                                                        <xs:documentation>Nome da província/estado.</xs:documentation>
+                                                                                    </xs:annotation>
+                                                                                    <xs:restriction base="xs:string">
+                                                                                        <xs:minLength value="1" />
+                                                                                        <xs:maxLength value="40" />
+                                                                                        <xs:pattern value=".*[^\s].*" />
+                                                                                    </xs:restriction>
+                                                                                </xs:simpleType>
+                                                                            </xs:element>
+                                                                            <xs:element name="endCodPostal" minOccurs="0">
+                                                                                <xs:simpleType>
+                                                                                    <xs:annotation>
+                                                                                        <xs:documentation>Código de Endereçamento Postal.</xs:documentation>
+                                                                                    </xs:annotation>
+                                                                                    <xs:restriction base="xs:string">
+                                                                                        <xs:pattern value="\d{1,12}" />
+                                                                                    </xs:restriction>
+                                                                                </xs:simpleType>
+                                                                            </xs:element>
+                                                                            <xs:element name="telef" minOccurs="0">
+                                                                                <xs:simpleType>
+                                                                                    <xs:annotation>
+                                                                                        <xs:documentation>Número do telefone.</xs:documentation>
+                                                                                    </xs:annotation>
+                                                                                    <xs:restriction base="xs:string">
+                                                                                        <xs:pattern value="\d{8,15}" />
+                                                                                    </xs:restriction>
+                                                                                </xs:simpleType>
+                                                                            </xs:element>
+                                                                        </xs:sequence>
+                                                                    </xs:complexType>
+                                                                </xs:element>
+                                                            </xs:sequence>
+                                                        </xs:complexType>
+                                                    </xs:element>
                                                 </xs:sequence>
                                             </xs:complexType>
                                         </xs:element>
