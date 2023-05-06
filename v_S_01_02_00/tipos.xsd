@@ -353,31 +353,8 @@
                     <xs:documentation>b) Se {tpProcRRA}(./tpProcRRA) = [2], deve possuir 20 (vinte) algarismos.</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element name="descRRA">
-                <xs:simpleType>
-                    <xs:annotation>
-                        <xs:documentation>Descrição dos Rendimentos Recebidos Acumuladamente - RRA.</xs:documentation>
-                    </xs:annotation>
-                    <xs:restriction base="xs:string">
-                        <xs:minLength value="1" />
-                        <xs:maxLength value="50" />
-                        <xs:pattern value=".*[^\s].*" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:element>
-            <xs:element name="qtdMesesRRA">
-                <xs:simpleType>
-                    <xs:annotation>
-                        <xs:documentation>Número de meses relativo aos Rendimentos Recebidos Acumuladamente - RRA.</xs:documentation>
-                    </xs:annotation>
-                    <xs:restriction base="xs:decimal">
-                        <xs:totalDigits value="4" />
-                        <xs:fractionDigits value="1" />
-                        <xs:minExclusive value="0" />
-                        <xs:maxInclusive value="999.9" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:element>
+            <xs:element name="descRRA" type="TS_descRRA" />
+            <xs:element name="qtdMesesRRA" type="TS_qtdMesesRRA" />
             <xs:element name="despProcJud" minOccurs="0">
                 <xs:complexType>
                     <xs:annotation>
@@ -2147,6 +2124,29 @@
             <xs:documentation>Somente preencher este campo se for um demonstrativo de RRA.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="TS_sim" />
+    </xs:simpleType>
+
+    <!-- Campo {descRRA} -->
+
+    <xs:simpleType name="TS_descRRA">
+        <xs:annotation>
+            <xs:documentation>Descrição dos Rendimentos Recebidos Acumuladamente - RRA.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="TS_texto_50" />
+    </xs:simpleType>
+
+    <!-- Campo {qtdMesesRRA} -->
+
+    <xs:simpleType name="TS_qtdMesesRRA">
+        <xs:annotation>
+            <xs:documentation>Número de meses relativo aos Rendimentos Recebidos Acumuladamente - RRA.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:decimal">
+            <xs:totalDigits value="4" />
+            <xs:fractionDigits value="1" />
+            <xs:minExclusive value="0" />
+            <xs:maxInclusive value="999.9" />
+        </xs:restriction>
     </xs:simpleType>
 
     <!-- Campo {sucessaoVinc/matricAnt} -->
@@ -3946,6 +3946,16 @@
         <xs:restriction base="xs:string">
             <xs:length value="7" />
             <xs:pattern value="([2]\d{3}|19[8-9]\d)-(1[0-2]|0[1-9])" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Campo do tipo caractere com tamanho 1-50 -->
+
+    <xs:simpleType name="TS_texto_50">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="1" />
+            <xs:maxLength value="50" />
+            <xs:pattern value=".*[^\s].*" />
         </xs:restriction>
     </xs:simpleType>
 

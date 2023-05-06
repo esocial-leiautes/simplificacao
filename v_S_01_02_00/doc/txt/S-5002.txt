@@ -81,6 +81,30 @@ Ocorrência: 0-350
 Chave: perApurDia, CRDia
 Condição: OC
 
+Nível: 5
+Nome: infoRRA
+Pai: dmDev
+Descrição: Informações complementares - RRA.
+Ocorrência: 0-99
+Chave: tpProcRRA, nrProcRRA
+Condição: OC
+
+Nível: 6
+Nome: despProcJud
+Pai: infoRRA
+Descrição: Despesas com processo judicial
+Ocorrência: 0-1
+Chave: -
+Condição: OC
+
+Nível: 6
+Nome: ideAdv
+Pai: infoRRA
+Descrição: Identificação dos advogados.
+Ocorrência: 0-99
+Chave: -
+Condição: O
+
 Nome: eSocial
 Pai: -
 Elem.: G
@@ -449,7 +473,7 @@ Ocorrência: 1
 Tamanho: 20
 Dec.: -
 Descrição: Informar o número do processo judicial.
-Origem: Campo {ideProcessoIRRF/nrProc}(1010_infoRubrica_inclusao_dadosRubrica_ideProcessoIRRF_nrProc) de S-1010, quando {codRubr}(1010_infoRubrica_inclusao_ideRubrica_codRubr) e {ideTabRubr}(1010_infoRubrica_inclusao_ideRubrica_ideTabRubr) de S-1010 com {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) = [9X] ou [9XXX] forem informados em {ideDmDev} de evento remuneratório.
+Origem: Campo {ideProcessoIRRF/nrProc}(1010_infoRubrica_inclusao_dadosRubrica_ideProcessoIRRF_nrProc) de S-1010, quando {codRubr}(1010_infoRubrica_inclusao_ideRubrica_codRubr) e {ideTabRubr}(1010_infoRubrica_inclusao_ideRubrica_ideTabRubr) de S-1010 com {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) = [9X] ou [9XXX] forem informados em {ideDmDev} de evento remuneratório (S-1200, S-1202, S-1207, S-2299 ou S-2399).
 
 Nome: ufVara
 Pai: infoProcJudRub
@@ -623,4 +647,122 @@ Validação: Deve ser maior ou igual a 0 (zero).
 Efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [9031, 9032, 9034, 9831, 9832, 9834], se {indApurIR} = [0] e:
 a) {codCateg}(../codCateg) for diferente de [712] e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) for informado com qualquer valor; ou
 b) {codCateg}(../codCateg) = [712] e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) for informado com valor diferente de [586].
+
+Nome: infoRRA
+Pai: dmDev
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição: Informações complementares relativas a Rendimentos Recebidos Acumuladamente - RRA.
+Origem: Evento remuneratório (S-1200, S-1202, S-1207, S-2299 ou S-2399) relacionado no evento S-1210 por {tpPgto}(1210_ideBenef_infoPgto_tpPgto), {perRef}(1210_ideBenef_infoPgto_perRef) e {ideDmDev}(1210_ideBenef_infoPgto_ideDmDev).
+
+Nome: tpProcRRA
+Pai: infoRRA
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de processo.
+Valores válidos:
+1 - Administrativo
+2 - Judicial
+
+Nome: nrProcRRA
+Pai: infoRRA
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 17, 20 ou 21
+Dec.: -
+Descrição: Informar o número do processo/requerimento administrativo/judicial.
+
+Nome: descRRA
+Pai: infoRRA
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-50
+Dec.: -
+Descrição: Descrição dos Rendimentos Recebidos Acumuladamente - RRA.
+
+Nome: qtdMesesRRA
+Pai: infoRRA
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-4
+Dec.: 1
+Descrição: Número de meses relativo aos Rendimentos Recebidos Acumuladamente - RRA.
+
+Nome: despProcJud
+Pai: infoRRA
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Detalhamento das despesas com processo judicial.
+
+Nome: vlrDespCustas
+Pai: despProcJud
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Preencher com o valor das despesas com custas judiciais.
+
+Nome: vlrDespAdvogados
+Pai: despProcJud
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Preencher com o valor total das despesas com advogado(s).
+
+Nome: ideAdv
+Pai: infoRRA
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição: Identificação dos advogados.
+
+Nome: tpInsc
+Pai: ideAdv
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+
+Nome: nrInsc
+Pai: ideAdv
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do advogado.
+Validação: Deve ser um número de inscrição válido, de acordo com o tipo de inscrição indicado no campo {ideAdv/tpInsc}(./tpInsc), considerando as particularidades aplicadas à informação de CNPJ de órgão público em S-1000.
+Se {ideAdv/tpInsc}(./tpInsc) = [1], deve possuir 14 (catorze) algarismos e, no caso de declarante pessoa jurídica, ser diferente do CNPJ base do empregador (exceto se {ideEmpregador/nrInsc}(/ideEmpregador_nrInsc) tiver 14 (catorze) algarismos).
+Se {ideAdv/tpInsc}(./tpInsc) = [2], deve possuir 11 (onze) algarismos e, no caso de declarante pessoa física, ser diferente do CPF do empregador.
+
+Nome: vlrAdv
+Pai: ideAdv
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da despesa com o advogado, se houver.
 
