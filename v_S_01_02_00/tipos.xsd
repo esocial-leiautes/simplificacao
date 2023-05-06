@@ -473,6 +473,32 @@
         </xs:sequence>
     </xs:complexType>
 
+    <xs:complexType name="T_detReemb_Tot">
+        <xs:sequence>
+            <xs:element name="tpInsc" type="TS_tpInsc_1_2">
+                <xs:annotation>
+                    <xs:documentation>Informar o código correspondente ao tipo de inscrição do prestador de serviços.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="nrInsc" type="TS_nrInsc_11_14">
+                <xs:annotation>
+                    <xs:documentation>Informar o número de inscrição do prestador de serviços de assistência médica, de acordo com o tipo de inscrição indicado em {tpInsc}(./tpInsc).</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="vlrReemb" type="TS_valorMonetario" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Valor do reembolso relativo ao período indicado em {perApur}(1210_ideEvento_perApur).</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="vlrReembAnt" type="TS_valorMonetario" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Valor do reembolso relativo a anos anteriores.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+
     <!-- Grupo {nascimento} -->
 
     <xs:complexType name="T_nascimento">
@@ -2599,6 +2625,81 @@
             <xs:documentation>Validação: Deve ser maior que 0 (zero).</xs:documentation>
         </xs:annotation>
         <xs:restriction base="TS_valorMonetario_positivo" />
+    </xs:simpleType>
+
+    <!-- Campo {CR} -->
+
+    <xs:simpleType name="TS_CR_IR">
+        <xs:annotation>
+            <xs:documentation>Código de Receita - CR relativo ao Imposto de Renda Retido na Fonte sobre rendimentos do trabalho.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="056107">
+                <xs:annotation>
+                    <xs:documentation>IRRF mensal, 13° salário e férias sobre trabalho assalariado no país ou ausente no exterior a serviço do país, exceto se contratado por empregador doméstico ou por segurado especial sujeito a recolhimento unificado</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="056108">
+                <xs:annotation>
+                    <xs:documentation>IRRF mensal e férias - Empregado doméstico</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="056109">
+                <xs:annotation>
+                    <xs:documentation>IRRF 13° salário na rescisão de contrato de trabalho - Empregado doméstico</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="056110">
+                <xs:annotation>
+                    <xs:documentation>IRRF - Empregado doméstico 13º salário</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="056111">
+                <xs:annotation>
+                    <xs:documentation>IRRF - Empregado/Trabalhador rural - Segurado especial</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="056112">
+                <xs:annotation>
+                    <xs:documentation>IRRF - Empregado/Trabalhador rural - Segurado especial 13° salário</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="056113">
+                <xs:annotation>
+                    <xs:documentation>IRRF - Empregado/Trabalhador rural - Segurado especial 13° salário rescisório</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="058806">
+                <xs:annotation>
+                    <xs:documentation>IRRF sobre rendimento do trabalho sem vínculo empregatício</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="061001">
+                <xs:annotation>
+                    <xs:documentation>IRRF sobre rendimentos relativos a prestação de serviços de transporte rodoviário internacional de carga, pagos a transportador autônomo PF residente no Paraguai</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="353301">
+                <xs:annotation>
+                    <xs:documentation>Proventos de aposentadoria, reserva, reforma ou pensão pagos por previdência pública</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="356201">
+                <xs:annotation>
+                    <xs:documentation>IRRF sobre participação dos trabalhadores em lucros ou resultados - PLR</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>                                                    
+            <xs:enumeration value="188901">
+                <xs:annotation>
+                    <xs:documentation>Rendimentos Recebidos Acumuladamente - RRA</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="047301">
+                <xs:annotation>
+                    <xs:documentation>IRRF - Residentes no exterior, para fins fiscais</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
     </xs:simpleType>
 
     <!-- Campo {vlrNRetido} -->
