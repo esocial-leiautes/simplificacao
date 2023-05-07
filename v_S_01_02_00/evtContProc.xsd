@@ -168,6 +168,93 @@
                                                 <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="infoIR" minOccurs="0" maxOccurs="9">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Informações complementares, vinculadas ao {infoCRIRRF/tpCR}(2501_ideTrab_infoCRIRRF_tpCR), relacionadas a rendimentos tributáveis e a deduções e/ou isenções de acordo com a legislação aplicada ao imposto de renda.</xs:documentation>
+                                                            <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
+                                                        </xs:annotation>
+                                                        <xs:complexType>
+                                                            <xs:attribute name="vrRendTrib" use="optional">
+                                                                <xs:annotation>
+                                                                    <xs:documentation>Valor do rendimento tributável mensal do Imposto de Renda.</xs:documentation>
+                                                                    <xs:documentation>Validação: Deve ser maior ou igual a 0 (zero).</xs:documentation>
+                                                                </xs:annotation>
+                                                                <xs:simpleType>
+                                                                    <xs:restriction base="TS_valorMonetario" />
+                                                                </xs:simpleType>
+                                                            </xs:attribute>
+                                                            <xs:attribute name="vrRendTrib13" use="optional">
+                                                                <xs:annotation>
+                                                                    <xs:documentation>Valor do rendimento tributável do Imposto de Renda referente ao 13º salário - Tributação exclusiva.</xs:documentation>
+                                                                    <xs:documentation>Validação: Deve ser maior ou igual a 0 (zero).</xs:documentation>
+                                                                    <xs:documentation>Não informar se {infoCRIRRF/tpCR}(2501_ideTrab_infoCRIRRF_tpCR) = [188951].</xs:documentation>
+                                                                </xs:annotation>
+                                                                <xs:simpleType>
+                                                                    <xs:restriction base="TS_valorMonetario" />
+                                                                </xs:simpleType>
+                                                            </xs:attribute>
+                                                            <xs:attribute name="vrRendMoleGrave" use="optional">
+                                                                <xs:annotation>
+                                                                    <xs:documentation>Valor do rendimento isento por ser portador de moléstia grave atestada por laudo médico.</xs:documentation>
+                                                                    <xs:documentation>Validação: Deve ser maior ou igual a 0 (zero).</xs:documentation>
+                                                                </xs:annotation>
+                                                                <xs:simpleType>
+                                                                    <xs:restriction base="TS_valorMonetario" />
+                                                                </xs:simpleType>
+                                                            </xs:attribute>
+                                                            <xs:attribute name="vrRendIsen65" use="optional">
+                                                                <xs:annotation>
+                                                                    <xs:documentation>Valor de parcela isenta de aposentadoria para beneficiário de 65 anos ou mais.</xs:documentation>
+                                                                    <xs:documentation>Validação: Deve ser maior ou igual a 0 (zero).</xs:documentation>
+                                                                </xs:annotation>
+                                                                <xs:simpleType>
+                                                                    <xs:restriction base="TS_valorMonetario" />
+                                                                </xs:simpleType>
+                                                            </xs:attribute>
+                                                            <xs:attribute name="vrJurosMora" use="optional">
+                                                                <xs:annotation>
+                                                                    <xs:documentation>Juros de mora recebidos, devidos pelo atraso no pagamento de remuneração por exercício de emprego, cargo ou função.</xs:documentation>
+                                                                    <xs:documentation>Validação: Deve ser maior ou igual a 0 (zero).</xs:documentation>
+                                                                </xs:annotation>
+                                                                <xs:simpleType>
+                                                                    <xs:restriction base="TS_valorMonetario" />
+                                                                </xs:simpleType>
+                                                            </xs:attribute>
+                                                            <xs:attribute name="vrRendIsenNTrib" use="optional">
+                                                                <xs:annotation>
+                                                                    <xs:documentation>Valor de outros rendimentos isentos ou não tributáveis.</xs:documentation>
+                                                                    <xs:documentation>Validação: Deve ser maior ou igual a 0 (zero).</xs:documentation>
+                                                                </xs:annotation>
+                                                                <xs:simpleType>
+                                                                    <xs:restriction base="TS_valorMonetario" />
+                                                                </xs:simpleType>
+                                                            </xs:attribute>
+                                                            <xs:attribute name="descIsenNTrib" use="optional">
+                                                                <xs:annotation>
+                                                                    <xs:documentation>Descrição do rendimento isento ou não tributável informado em {vrRendIsenNTrib}(./vrRendIsenNTrib).</xs:documentation>
+                                                                    <xs:documentation>Validação: Somente informar se {vrRendIsenNTrib}(./vrRendIsenNTrib) > 0.</xs:documentation>
+                                                                </xs:annotation>
+                                                                <xs:simpleType>
+                                                                    <xs:restriction base="xs:string">
+                                                                        <xs:minLength value="1" />
+                                                                        <xs:maxLength value="60" />
+                                                                        <xs:pattern value=".*[^\s].*" />
+                                                                    </xs:restriction>
+                                                                </xs:simpleType>
+                                                            </xs:attribute>
+                                                            <xs:attribute name="vrPrevOficial" use="optional">
+                                                                <xs:annotation>
+                                                                    <xs:documentation>Valor referente à previdência oficial.</xs:documentation>
+                                                                    <xs:documentation>Validação: Deve ser maior ou igual a 0 (zero).</xs:documentation>
+                                                                </xs:annotation>
+                                                                <xs:simpleType>
+                                                                    <xs:restriction base="TS_valorMonetario" />
+                                                                </xs:simpleType>
+                                                            </xs:attribute>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                </xs:sequence>
                                                 <xs:attribute name="tpCR" use="required">
                                                     <xs:annotation>
                                                         <xs:documentation>Código de Receita - CR relativo a Imposto de Renda Retido na Fonte.</xs:documentation>
