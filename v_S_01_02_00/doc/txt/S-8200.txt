@@ -34,11 +34,35 @@ Chave: tpInsc*, nrInsc*
 Condição: O
 
 Nível: 3
+Nome: infoProcesso
+Pai: evtAnotJud
+Descrição: Informações do processo judicial.
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 3
 Nome: infoAnotJud
 Pai: evtAnotJud
 Descrição: Informações da anotação judicial do vínculo.
 Ocorrência: 1
 Chave: cpfTrab*, matricula*
+Condição: O
+
+Nível: 4
+Nome: cargo
+Pai: infoAnotJud
+Descrição: Informações do cargo.
+Ocorrência: 1-99
+Chave: dtCargo
+Condição: O
+
+Nível: 4
+Nome: remuneracao
+Pai: infoAnotJud
+Descrição: Informações da remuneração e periodicidade de pagamento.
+Ocorrência: 1-99
+Chave: dtRemun
 Condição: O
 
 Nível: 4
@@ -199,6 +223,64 @@ Tamanho: 8, 11 ou 14
 Dec.: -
 Descrição: Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {ideEmpregador/tpInsc}(./tpInsc) e conforme informado em S-1000.
 
+Nome: infoProcesso
+Pai: evtAnotJud
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações do processo judicial.
+
+Nome: nrProcTrab
+Pai: infoProcesso
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 20
+Dec.: -
+Descrição: Número que identifica o processo judicial onde a anotação do vínculo foi determinada.
+Validação: Deve ser um processo judicial válido, com 20 (vinte) algarismos.
+
+Nome: dtSent
+Pai: infoProcesso
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informar a data da decisão judicial.
+
+Nome: ufVara
+Pai: infoProcesso
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 2
+Dec.: -
+Descrição: Preencher com a sigla da Unidade da Federação onde está localizada a Vara em que o processo tramitou.
+Valores válidos:
+ AC, AL, AP, AM, BA, CE, DF, ES, GO, MA, MT, MS, MG, PA, PB, PR, PE, PI, RJ, RN, RS, RO, RR, SC, SP, SE, TO
+
+Nome: codMunic
+Pai: infoProcesso
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 7
+Dec.: -
+Descrição: Preencher com o código do município, conforme tabela do IBGE.
+Validação: Deve ser um código válido e existente na tabela do IBGE.
+
+Nome: idVara
+Pai: infoProcesso
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-4
+Dec.: -
+Descrição: Código de identificação da Vara em que o processo tramitou.
+
 Nome: infoAnotJud
 Pai: evtAnotJud
 Elem.: G
@@ -256,7 +338,7 @@ Ocorrência: 1
 Tamanho: 3
 Dec.: -
 Descrição: Preencher com o código da categoria do trabalhador.
-Validação: Deve ser um código de categoria referente a "Empregado" ou "Agente Público".
+Validação: Deve ser um código de categoria referente a "Empregado" ([1XX]) ou igual a [302, 303, 309].
 
 Nome: natAtividade
 Pai: infoAnotJud
@@ -270,43 +352,6 @@ Valores válidos:
 1 - Trabalho urbano
 2 - Trabalho rural
 Validação: Se {codCateg}(./codCateg) = [104], deve ser preenchido com [1]. Se {codCateg}(./codCateg) = [102], deve ser preenchido com [2].
-
-Nome: CBOCargo
-Pai: infoAnotJud
-Elem.: E
-Tipo: C
-Ocorrência: 1
-Tamanho: 6
-Dec.: -
-Descrição: Informar a Classificação Brasileira de Ocupações - CBO relativa ao cargo.
-Validação: Deve ser um código válido e existente na tabela de CBO, com 6 (seis) posições.
-
-Nome: vrSalFx
-Pai: infoAnotJud
-Elem.: E
-Tipo: N
-Ocorrência: 1
-Tamanho: 1-14
-Dec.: 2
-Descrição: Salário base do trabalhador, correspondente à parte fixa da remuneração.
-Validação: Se {undSalFixo}(./undSalFixo) for igual a [7], preencher com 0 (zero).
-
-Nome: undSalFixo
-Pai: infoAnotJud
-Elem.: E
-Tipo: N
-Ocorrência: 1
-Tamanho: 1
-Dec.: -
-Descrição: Unidade de pagamento da parte fixa da remuneração.
-Valores válidos:
-1 - Por hora
-2 - Por dia
-3 - Por semana
-4 - Por quinzena
-5 - Por mês
-6 - Por tarefa
-7 - Não aplicável - Salário exclusivamente variável
 
 Nome: tpContr
 Pai: infoAnotJud
@@ -331,6 +376,91 @@ Dec.: -
 Descrição: Data do término do contrato por prazo determinado.
 Validação: O preenchimento é obrigatório se {tpContr}(./tpContr) = [2]. Não informar se {tpContr}(./tpContr) = [1]. Deve ser igual ou posterior à data de admissão.
 
+Nome: cargo
+Pai: infoAnotJud
+Elem.: G
+Tipo: -
+Ocorrência: 1-99
+Tamanho: -
+Dec.: -
+Descrição: Informações do cargo.
+
+Nome: dtCargo
+Pai: cargo
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Data a partir da qual as informações do cargo estão vigentes.
+Validação: Deve ser igual ou posterior à data de admissão e igual ou anterior à data de desligamento, se informada.
+
+Nome: CBOCargo
+Pai: cargo
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 6
+Dec.: -
+Descrição: Informar a Classificação Brasileira de Ocupações - CBO relativa ao cargo.
+Validação: Deve ser um código válido e existente na tabela de CBO, com 6 (seis) posições.
+
+Nome: remuneracao
+Pai: infoAnotJud
+Elem.: G
+Tipo: -
+Ocorrência: 1-99
+Tamanho: -
+Dec.: -
+Descrição: Informações da remuneração e periodicidade de pagamento.
+
+Nome: dtRemun
+Pai: remuneracao
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Data a partir da qual as informações de remuneração e periodicidade de pagamento estão vigentes.
+Validação: Deve ser igual ou posterior à data de admissão e igual ou anterior à data de desligamento, se informada.
+
+Nome: vrSalFx
+Pai: remuneracao
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Salário base do trabalhador, correspondente à parte fixa da remuneração em {dtRemun}(./dtRemun).
+Validação: Se {undSalFixo}(./undSalFixo) for igual a [7], preencher com 0 (zero).
+
+Nome: undSalFixo
+Pai: remuneracao
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Unidade de pagamento da parte fixa da remuneração.
+Valores válidos:
+1 - Por hora
+2 - Por dia
+3 - Por semana
+4 - Por quinzena
+5 - Por mês
+6 - Por tarefa
+7 - Não aplicável - Salário exclusivamente variável
+
+Nome: dscSalVar
+Pai: remuneracao
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-999
+Dec.: -
+Descrição: Descrição do salário por tarefa ou variável e como este é calculado. Ex.: Comissões pagas no percentual de 10% sobre as vendas.
+Validação: Preenchimento obrigatório se {undSalFixo}(./undSalFixo) for igual a [6, 7].
+
 Nome: afastamento
 Pai: infoAnotJud
 Elem.: G
@@ -349,6 +479,7 @@ Tamanho: -
 Dec.: -
 Descrição: Data de início do afastamento.
 Validação: Deve ser igual ou posterior à data de admissão do trabalhador e igual ou posterior a [2019-09-24].
+Não pode ser posterior à data atual.
 
 Nome: codMotAfast
 Pai: afastamento
@@ -359,7 +490,7 @@ Tamanho: 2
 Dec.: -
 Descrição: Preencher com o código do motivo de afastamento temporário.
 Validação: Deve ser um código válido e existente na Tabela 18, bem como compatível com o código de categoria do trabalhador, conforme Tabela 18.
-Não pode ser utilizado o código [14].
+Somente podem ser informados os códigos [01, 03, 06, 11, 12, 17, 18, 19, 20, 22, 24, 29, 35].
 
 Nome: desligamento
 Pai: infoAnotJud
@@ -370,6 +501,17 @@ Tamanho: -
 Dec.: -
 Descrição: Informações de desligamento do trabalhador.
 
+Nome: mtvDeslig
+Pai: desligamento
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 2
+Dec.: -
+Descrição: Código de motivo do desligamento.
+Validação: Deve ser um código válido e existente na Tabela 19, bem como compatível com o código de categoria do trabalhador, conforme Tabela 19.
+Não podem ser informados motivos que não implicam rescisão do contrato de trabalho (igual a [11, 12, 13, 25, 28, 29, 30, 34, 36, 43, 44]).
+
 Nome: dtDeslig
 Pai: desligamento
 Elem.: E
@@ -379,4 +521,14 @@ Tamanho: -
 Dec.: -
 Descrição: Preencher com a data de desligamento do vínculo (último dia trabalhado).
 Validação: Deve ser igual ou posterior à data de admissão do trabalhador e igual ou posterior a [2019-09-24].
+
+Nome: dtProjFimAPI
+Pai: desligamento
+Elem.: E
+Tipo: D
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Data projetada para o término do aviso prévio indenizado.
+Validação: Se preenchida, deve ser uma data posterior a {dtDeslig}(./dtDeslig).
 

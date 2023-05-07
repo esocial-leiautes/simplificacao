@@ -4087,6 +4087,29 @@
         <xs:restriction base="TS_nrRecibo" />
     </xs:simpleType>
 
+    <!-- Campo {mtvDeslig} -->
+
+    <xs:simpleType name="TS_mtvDeslig">
+        <xs:annotation>
+            <xs:documentation>Código de motivo do desligamento.</xs:documentation>
+            <xs:documentation>Validação: Deve ser um código válido e existente na Tabela 19, bem como compatível com o código de categoria do trabalhador, conforme Tabela 19.</xs:documentation>
+            <xs:documentation>Não podem ser informados motivos que não implicam rescisão do contrato de trabalho (igual a [11, 12, 13, 25, 28, 29, 30, 34, 36, 43, 44]).</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="\d{2}" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Campo {dtProjFimAPI} -->
+
+    <xs:simpleType name="TS_dtProjFimAPI">
+        <xs:annotation>
+            <xs:documentation>Data projetada para o término do aviso prévio indenizado.</xs:documentation>
+            <xs:documentation>Validação: Se preenchida, deve ser uma data posterior a {dtDeslig}(./dtDeslig).</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:date" />
+    </xs:simpleType>
+
     <!-- Campo de período mensal -->
     
     <xs:simpleType name="TS_periodo_mensal">
