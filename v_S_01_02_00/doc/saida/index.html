@@ -10113,7 +10113,7 @@ Em caso de inconsistência na validação, o arquivo será aceito, porém com al
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoProcRet">infoProcRet</a></td>
 <td>E</td>
 <td>N</td>
-<td>1</td>
+<td>0-1</td>
 <td>1-14</td>
 <td>-</td>
 <td>Código do indicativo da suspensão, atribuído pelo empregador em S-1070. Este campo deve ser utilizado se, em um mesmo processo, houver mais de uma matéria tributária objeto de contestação e as decisões forem diferentes para cada uma.<br />
@@ -10224,7 +10224,6 @@ Se informado, deve ser maior que 0 (zero).</td>
 <td>2</td>
 <td>Valor da dedução da base de cálculo do imposto de renda com exigibilidade suspensa.<br />
 <strong>Validação:</strong> Se <a href="#1210_ideBenef_infoIRComplem_infoProcRet_dedSusp_indTpDeducao">indTpDeducao</a> = [5, 7], e o grupo <a href="#1210_ideBenef_infoIRComplem_infoProcRet_dedSusp_benefPen">benefPen</a> for preenchido, o valor informado neste campo deve ser a soma do(s) campo(s) <a href="#1210_ideBenef_infoIRComplem_infoProcRet_dedSusp_benefPen_vlrDepenSusp">vlrDepenSusp</a> do grupo <a href="#1210_ideBenef_infoIRComplem_infoProcRet_dedSusp_benefPen">benefPen</a>.<br />
-Deve ser maior que 0 (zero).<br />
 O não preenchimento do grupo <a href="#1210_ideBenef_infoIRComplem_infoProcRet_dedSusp_benefPen">benefPen</a> indica que o contribuinte declarante não possui as informações detalhadas por dependente/alimentando.</td>
 </tr>
 <tr class="grupo">
@@ -32835,6 +32834,53 @@ N (nos demais casos))</td>
 <td>-</td>
 <td>OC</td>
 </tr>
+<tr>
+<td id="r_2501_ideTrab_infoCRIRRF_dedDepen"><a href="#2501_ideTrab_infoCRIRRF_dedDepen">dedDepen</a></td>
+<td><a href="#r_2501_ideTrab_infoCRIRRF">infoCRIRRF</a></td>
+<td>5</td>
+<td>Dedução do rendimento tributável relativa a dependentes</td>
+<td>0-999</td>
+<td><a href="#2501_ideTrab_infoCRIRRF_dedDepen_cpfDep">cpfDep</a></td>
+<td>OC (se <a href="#2501_ideTrab_infoCRIRRF_tpCR">infoCRIRRF/tpCR</a> = [593656];<br />
+N (nos demais casos)</td>
+</tr>
+<tr>
+<td id="r_2501_ideTrab_infoCRIRRF_penAlim"><a href="#2501_ideTrab_infoCRIRRF_penAlim">penAlim</a></td>
+<td><a href="#r_2501_ideTrab_infoCRIRRF">infoCRIRRF</a></td>
+<td>5</td>
+<td>Informação dos beneficiários da pensão alimentícia</td>
+<td>0-99</td>
+<td><a href="#2501_ideTrab_infoCRIRRF_penAlim_cpfDep">cpfDep</a></td>
+<td>OC</td>
+</tr>
+<tr>
+<td id="r_2501_ideTrab_infoCRIRRF_infoProcRet"><a href="#2501_ideTrab_infoCRIRRF_infoProcRet">infoProcRet</a></td>
+<td><a href="#r_2501_ideTrab_infoCRIRRF">infoCRIRRF</a></td>
+<td>5</td>
+<td>Informações de processos relacionados a não retenção de tributos ou a depósitos judiciais</td>
+<td>0-50</td>
+<td>-</td>
+<td>OC (se <a href="#2501_ideTrab_infoCRIRRF_tpCR">infoCRIRRF/tpCR</a> = [593656];<br />
+N (nos demais casos)</td>
+</tr>
+<tr>
+<td id="r_2501_ideTrab_infoCRIRRF_infoProcRet_dedSusp"><a href="#2501_ideTrab_infoCRIRRF_infoProcRet_dedSusp">dedSusp</a></td>
+<td><a href="#r_2501_ideTrab_infoCRIRRF_infoProcRet">infoProcRet</a></td>
+<td>6</td>
+<td>Detalhamento das deduções com exigibilidade suspensa</td>
+<td>0-25</td>
+<td>-</td>
+<td>OC</td>
+</tr>
+<tr>
+<td id="r_2501_ideTrab_infoCRIRRF_infoProcRet_dedSusp_benefPen"><a href="#2501_ideTrab_infoCRIRRF_infoProcRet_dedSusp_benefPen">benefPen</a></td>
+<td><a href="#r_2501_ideTrab_infoCRIRRF_infoProcRet_dedSusp">dedSusp</a></td>
+<td>7</td>
+<td>Informação das deduções suspensas por dependentes e beneficiários da pensão alimentícia</td>
+<td>0-99</td>
+<td><a href="#2501_ideTrab_infoCRIRRF_infoProcRet_dedSusp_benefPen_cpfDep">cpfDep</a></td>
+<td>OC</td>
+</tr>
 </tbody>
 </table>
 
@@ -33426,6 +33472,295 @@ Se <a href="#2501_ideTrab_infoCRIRRF_infoRRA_ideAdv_tpInsc">ideAdv/tpInsc</a> = 
 <td>1-14</td>
 <td>2</td>
 <td>Valor da despesa com o advogado, se houver.</td>
+</tr>
+<tr class="grupo">
+<td onclick="copiarCaminho.call(this)" title="2501_ideTrab_infoCRIRRF_dedDepen" id="2501_ideTrab_infoCRIRRF_dedDepen">48</td>
+<td><a href="#r_2501_ideTrab_infoCRIRRF_dedDepen">dedDepen</a></td>
+<td><a href="#r_2501_ideTrab_infoCRIRRF">infoCRIRRF</a></td>
+<td>G</td>
+<td>-</td>
+<td>0-999</td>
+<td>-</td>
+<td>-</td>
+<td>Dedução do rendimento tributável relativa a dependentes.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="2501_ideTrab_infoCRIRRF_dedDepen_tpRend" id="2501_ideTrab_infoCRIRRF_dedDepen_tpRend">49</td>
+<td>tpRend</td>
+<td><a href="#r_2501_ideTrab_infoCRIRRF_dedDepen">dedDepen</a></td>
+<td>A</td>
+<td>N</td>
+<td>1</td>
+<td>2</td>
+<td>-</td>
+<td>Tipo de rendimento.<br />
+<strong>Valores válidos:</strong><br />
+<strong>11</strong> - Remuneração mensal<br />
+<strong>12</strong> - 13º salário</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="2501_ideTrab_infoCRIRRF_dedDepen_cpfDep" id="2501_ideTrab_infoCRIRRF_dedDepen_cpfDep">50</td>
+<td>cpfDep</td>
+<td><a href="#r_2501_ideTrab_infoCRIRRF_dedDepen">dedDepen</a></td>
+<td>A</td>
+<td>C</td>
+<td>1</td>
+<td>11</td>
+<td>-</td>
+<td>Informar o número de inscrição do dependente no CPF.<br />
+<strong>Validação:</strong> Deve ser um CPF de dependente cadastrado no eSocial (S-2200/S-2205/S-2300 ou no grupo <a href="#2501_ideBenef_infoIRComplem_infoDep">infoDep</a>).</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="2501_ideTrab_infoCRIRRF_dedDepen_vlrDeducao" id="2501_ideTrab_infoCRIRRF_dedDepen_vlrDeducao">51</td>
+<td>vlrDeducao</td>
+<td><a href="#r_2501_ideTrab_infoCRIRRF_dedDepen">dedDepen</a></td>
+<td>A</td>
+<td>N</td>
+<td>1</td>
+<td>1-14</td>
+<td>2</td>
+<td>Preencher com o valor da dedução da base de cálculo.<br />
+<strong>Validação:</strong> O valor informado neste campo deve ser menor ou igual ao valor unitário da dedução por dependente definido na legislação.<br />
+Em caso de inconsistência na validação, o arquivo será aceito, porém com alerta ao contribuinte.</td>
+</tr>
+<tr class="grupo">
+<td onclick="copiarCaminho.call(this)" title="2501_ideTrab_infoCRIRRF_penAlim" id="2501_ideTrab_infoCRIRRF_penAlim">52</td>
+<td><a href="#r_2501_ideTrab_infoCRIRRF_penAlim">penAlim</a></td>
+<td><a href="#r_2501_ideTrab_infoCRIRRF">infoCRIRRF</a></td>
+<td>G</td>
+<td>-</td>
+<td>0-99</td>
+<td>-</td>
+<td>-</td>
+<td>Informação dos beneficiários da pensão alimentícia.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="2501_ideTrab_infoCRIRRF_penAlim_tpRend" id="2501_ideTrab_infoCRIRRF_penAlim_tpRend">53</td>
+<td>tpRend</td>
+<td><a href="#r_2501_ideTrab_infoCRIRRF_penAlim">penAlim</a></td>
+<td>A</td>
+<td>N</td>
+<td>1</td>
+<td>2</td>
+<td>-</td>
+<td>Tipo de rendimento.<br />
+<strong>Valores válidos:</strong><br />
+<strong>11</strong> - Remuneração mensal<br />
+<strong>12</strong> - 13º salário</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="2501_ideTrab_infoCRIRRF_penAlim_cpfDep" id="2501_ideTrab_infoCRIRRF_penAlim_cpfDep">54</td>
+<td>cpfDep</td>
+<td><a href="#r_2501_ideTrab_infoCRIRRF_penAlim">penAlim</a></td>
+<td>A</td>
+<td>C</td>
+<td>1</td>
+<td>11</td>
+<td>-</td>
+<td>Número do CPF do dependente/beneficiário da pensão alimentícia.<br />
+<strong>Validação:</strong> Deve ser um CPF de dependente cadastrado no eSocial (S-2200/S-2205/S-2300 ou no grupo <a href="#2501_ideBenef_infoIRComplem_infoDep">infoDep</a>).</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="2501_ideTrab_infoCRIRRF_penAlim_vlrPensao" id="2501_ideTrab_infoCRIRRF_penAlim_vlrPensao">55</td>
+<td>vlrPensao</td>
+<td><a href="#r_2501_ideTrab_infoCRIRRF_penAlim">penAlim</a></td>
+<td>A</td>
+<td>N</td>
+<td>1</td>
+<td>1-14</td>
+<td>2</td>
+<td>Valor relativo à dedução do rendimento tributável correspondente a pagamento de pensão alimentícia.<br />
+<strong>Validação:</strong> Deve ser maior que 0 (zero).</td>
+</tr>
+<tr class="grupo">
+<td onclick="copiarCaminho.call(this)" title="2501_ideTrab_infoCRIRRF_infoProcRet" id="2501_ideTrab_infoCRIRRF_infoProcRet">56</td>
+<td><a href="#r_2501_ideTrab_infoCRIRRF_infoProcRet">infoProcRet</a></td>
+<td><a href="#r_2501_ideTrab_infoCRIRRF">infoCRIRRF</a></td>
+<td>G</td>
+<td>-</td>
+<td>0-50</td>
+<td>-</td>
+<td>-</td>
+<td>Informações de processos relacionados a não retenção de tributos ou a depósitos judiciais.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="2501_ideTrab_infoCRIRRF_infoProcRet_tpProcRet" id="2501_ideTrab_infoCRIRRF_infoProcRet_tpProcRet">57</td>
+<td>tpProcRet</td>
+<td><a href="#r_2501_ideTrab_infoCRIRRF_infoProcRet">infoProcRet</a></td>
+<td>A</td>
+<td>N</td>
+<td>1</td>
+<td>1</td>
+<td>-</td>
+<td>Preencher com o código correspondente ao tipo de processo.<br />
+<strong>Valores válidos:</strong><br />
+<strong>1</strong> - Administrativo<br />
+<strong>2</strong> - Judicial</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="2501_ideTrab_infoCRIRRF_infoProcRet_nrProcRet" id="2501_ideTrab_infoCRIRRF_infoProcRet_nrProcRet">58</td>
+<td>nrProcRet</td>
+<td><a href="#r_2501_ideTrab_infoCRIRRF_infoProcRet">infoProcRet</a></td>
+<td>A</td>
+<td>C</td>
+<td>1</td>
+<td>17, 20 ou 21</td>
+<td>-</td>
+<td>Informar o número do processo administrativo/judicial.<br />
+<strong>Validação:</strong> Deve ser um número de processo administrativo ou judicial válido e existente na Tabela de Processos (S-1070).</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="2501_ideTrab_infoCRIRRF_infoProcRet_codSusp" id="2501_ideTrab_infoCRIRRF_infoProcRet_codSusp">59</td>
+<td>codSusp</td>
+<td><a href="#r_2501_ideTrab_infoCRIRRF_infoProcRet">infoProcRet</a></td>
+<td>A</td>
+<td>N</td>
+<td>0-1</td>
+<td>1-14</td>
+<td>-</td>
+<td>Código do indicativo da suspensão, atribuído pelo empregador em S-1070. Este campo deve ser utilizado se, em um mesmo processo, houver mais de uma matéria tributária objeto de contestação e as decisões forem diferentes para cada uma.<br />
+<strong>Validação:</strong> Informação obrigatória se houver mais de uma informação de indicativo de suspensão para um mesmo processo.<br />
+Se informado, deve constar na Tabela de Processos (S-1070), campo <a href="#1070_infoProcesso_inclusao_dadosProc_infoSusp_codSusp">codSusp</a>, vinculado ao número do processo informado em <a href="#2501_ideTrab_infoCRIRRF_infoProcRet_nrProcRet">nrProcRet</a>.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="2501_ideTrab_infoCRIRRF_infoProcRet_vlrNRetido" id="2501_ideTrab_infoCRIRRF_infoProcRet_vlrNRetido">60</td>
+<td>vlrNRetido</td>
+<td><a href="#r_2501_ideTrab_infoCRIRRF_infoProcRet">infoProcRet</a></td>
+<td>A</td>
+<td>N</td>
+<td>0-1</td>
+<td>1-14</td>
+<td>2</td>
+<td>Valor da retenção que deixou de ser efetuada em função de processo administrativo ou judicial.<br />
+<strong>Validação:</strong> Informação permitida apenas se <a href="#1070_infoProcesso_inclusao_dadosProc_infoSusp_indDeposito">indDeposito</a> informado em S-1070 for igual a [N].<br />
+Se informado, deve ser maior que 0 (zero).</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="2501_ideTrab_infoCRIRRF_infoProcRet_vlrDepJud" id="2501_ideTrab_infoCRIRRF_infoProcRet_vlrDepJud">61</td>
+<td>vlrDepJud</td>
+<td><a href="#r_2501_ideTrab_infoCRIRRF_infoProcRet">infoProcRet</a></td>
+<td>A</td>
+<td>N</td>
+<td>0-1</td>
+<td>1-14</td>
+<td>2</td>
+<td>Valor do depósito judicial em função de processo administrativo ou judicial.<br />
+<strong>Validação:</strong> Informação permitida apenas se <a href="#1070_infoProcesso_inclusao_dadosProc_infoSusp_indDeposito">indDeposito</a> informado em S-1070 for igual a [S].<br />
+Se informado, deve ser maior que 0 (zero).</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="2501_ideTrab_infoCRIRRF_infoProcRet_vlrCmpAnoCal" id="2501_ideTrab_infoCRIRRF_infoProcRet_vlrCmpAnoCal">62</td>
+<td>vlrCmpAnoCal</td>
+<td><a href="#r_2501_ideTrab_infoCRIRRF_infoProcRet">infoProcRet</a></td>
+<td>A</td>
+<td>N</td>
+<td>0-1</td>
+<td>1-14</td>
+<td>2</td>
+<td>Valor da compensação relativa ao ano calendário em função de processo judicial.<br />
+<strong>Validação:</strong> Informação permitida apenas se <a href="#2501_ideTrab_infoCRIRRF_infoProcRet_tpProcRet">tpProcRet</a> = [2].<br />
+Se informado, deve ser maior que 0 (zero).</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="2501_ideTrab_infoCRIRRF_infoProcRet_vlrCmpAnoAnt" id="2501_ideTrab_infoCRIRRF_infoProcRet_vlrCmpAnoAnt">63</td>
+<td>vlrCmpAnoAnt</td>
+<td><a href="#r_2501_ideTrab_infoCRIRRF_infoProcRet">infoProcRet</a></td>
+<td>A</td>
+<td>N</td>
+<td>0-1</td>
+<td>1-14</td>
+<td>2</td>
+<td>Valor da compensação relativa a anos anteriores em função de processo judicial.<br />
+<strong>Validação:</strong> Informação permitida apenas se <a href="#2501_ideTrab_infoCRIRRF_infoProcRet_tpProcRet">tpProcRet</a> = [2].<br />
+Se informado, deve ser maior que 0 (zero).</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="2501_ideTrab_infoCRIRRF_infoProcRet_vlrRendSusp" id="2501_ideTrab_infoCRIRRF_infoProcRet_vlrRendSusp">64</td>
+<td>vlrRendSusp</td>
+<td><a href="#r_2501_ideTrab_infoCRIRRF_infoProcRet">infoProcRet</a></td>
+<td>A</td>
+<td>N</td>
+<td>0-1</td>
+<td>1-14</td>
+<td>2</td>
+<td>Valor do rendimento com exigibilidade suspensa.<br />
+<strong>Validação:</strong> Não pode ser maior que <a href="#2501_ideTrab_infoCRIRRF_infoIR_vrRendTrib">vrRendTrib</a>.<br />
+Se informado, deve ser maior que 0 (zero).</td>
+</tr>
+<tr class="grupo">
+<td onclick="copiarCaminho.call(this)" title="2501_ideTrab_infoCRIRRF_infoProcRet_dedSusp" id="2501_ideTrab_infoCRIRRF_infoProcRet_dedSusp">65</td>
+<td><a href="#r_2501_ideTrab_infoCRIRRF_infoProcRet_dedSusp">dedSusp</a></td>
+<td><a href="#r_2501_ideTrab_infoCRIRRF_infoProcRet">infoProcRet</a></td>
+<td>G</td>
+<td>-</td>
+<td>0-25</td>
+<td>-</td>
+<td>-</td>
+<td>Detalhamento das deduções com exigibilidade suspensa.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="2501_ideTrab_infoCRIRRF_infoProcRet_dedSusp_indTpDeducao" id="2501_ideTrab_infoCRIRRF_infoProcRet_dedSusp_indTpDeducao">66</td>
+<td>indTpDeducao</td>
+<td><a href="#r_2501_ideTrab_infoCRIRRF_infoProcRet_dedSusp">dedSusp</a></td>
+<td>A</td>
+<td>N</td>
+<td>1</td>
+<td>1</td>
+<td>-</td>
+<td>Indicativo do tipo de dedução.<br />
+<strong>Valores válidos:</strong><br />
+<strong>1</strong> - Previdência oficial<br />
+<strong>5</strong> - Pensão alimentícia<br />
+<strong>7</strong> - Dependentes</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="2501_ideTrab_infoCRIRRF_infoProcRet_dedSusp_vlrDedSusp" id="2501_ideTrab_infoCRIRRF_infoProcRet_dedSusp_vlrDedSusp">67</td>
+<td>vlrDedSusp</td>
+<td><a href="#r_2501_ideTrab_infoCRIRRF_infoProcRet_dedSusp">dedSusp</a></td>
+<td>A</td>
+<td>N</td>
+<td>0-1</td>
+<td>1-14</td>
+<td>2</td>
+<td>Valor da dedução da base de cálculo do imposto de renda com exigibilidade suspensa.<br />
+<strong>Validação:</strong> Informação permitida apenas se <a href="#2501_ideTrab_infoCRIRRF_infoProcRet_vlrRendSusp">vlrRendSusp</a> &gt; 0.<br />
+Se <a href="#2501_ideTrab_infoCRIRRF_infoProcRet_dedSusp_indTpDeducao">indTpDeducao</a> = [5, 7], e o grupo <a href="#2501_ideTrab_infoCRIRRF_infoProcRet_dedSusp_benefPen">benefPen</a> for preenchido, o valor informado neste campo deve ser a soma do(s) campo(s) <a href="#2501_ideTrab_infoCRIRRF_infoProcRet_dedSusp_benefPen_vlrDepenSusp">vlrDepenSusp</a> do grupo <a href="#2501_ideTrab_infoCRIRRF_infoProcRet_dedSusp_benefPen">benefPen</a>.<br />
+O não preenchimento do grupo <a href="#2501_ideTrab_infoCRIRRF_infoProcRet_dedSusp_benefPen">benefPen</a> indica que o contribuinte declarante não possui as informações detalhadas por dependente/alimentando.</td>
+</tr>
+<tr class="grupo">
+<td onclick="copiarCaminho.call(this)" title="2501_ideTrab_infoCRIRRF_infoProcRet_dedSusp_benefPen" id="2501_ideTrab_infoCRIRRF_infoProcRet_dedSusp_benefPen">68</td>
+<td><a href="#r_2501_ideTrab_infoCRIRRF_infoProcRet_dedSusp_benefPen">benefPen</a></td>
+<td><a href="#r_2501_ideTrab_infoCRIRRF_infoProcRet_dedSusp">dedSusp</a></td>
+<td>G</td>
+<td>-</td>
+<td>0-99</td>
+<td>-</td>
+<td>-</td>
+<td>Informação das deduções suspensas por dependentes e beneficiários da pensão alimentícia</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="2501_ideTrab_infoCRIRRF_infoProcRet_dedSusp_benefPen_cpfDep" id="2501_ideTrab_infoCRIRRF_infoProcRet_dedSusp_benefPen_cpfDep">69</td>
+<td>cpfDep</td>
+<td><a href="#r_2501_ideTrab_infoCRIRRF_infoProcRet_dedSusp_benefPen">benefPen</a></td>
+<td>A</td>
+<td>C</td>
+<td>1</td>
+<td>11</td>
+<td>-</td>
+<td>Número de inscrição no CPF.<br />
+<strong>Validação:</strong> Deve ser um CPF de dependente cadastrado no eSocial (S-2200/S-2205/S-2300 ou no grupo <a href="#2501_ideBenef_infoIRComplem_infoDep">infoDep</a>).</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="2501_ideTrab_infoCRIRRF_infoProcRet_dedSusp_benefPen_vlrDepenSusp" id="2501_ideTrab_infoCRIRRF_infoProcRet_dedSusp_benefPen_vlrDepenSusp">70</td>
+<td>vlrDepenSusp</td>
+<td><a href="#r_2501_ideTrab_infoCRIRRF_infoProcRet_dedSusp_benefPen">benefPen</a></td>
+<td>A</td>
+<td>N</td>
+<td>1</td>
+<td>1-14</td>
+<td>2</td>
+<td>Valor da dedução relativa a dependentes ou a pensão alimentícia com exigibilidade suspensa.<br />
+<strong>Validação:</strong> Deve ser maior que 0 (zero).</td>
 </tr>
 </tbody>
 </table>
