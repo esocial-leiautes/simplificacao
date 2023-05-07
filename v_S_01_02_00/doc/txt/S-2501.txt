@@ -81,6 +81,31 @@ Ocorrência: 0-9
 Chave: -
 Condição: OC
 
+Nível: 5
+Nome: infoRRA
+Pai: infoCRIRRF
+Descrição: Informações complementares de RRA
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {infoCRIRRF/tpCR}(../tpCR) = [188951]
+N (nos demais casos))
+
+Nível: 6
+Nome: despProcJud
+Pai: infoRRA
+Descrição: Detalhamento das despesas com processo judicial.
+Ocorrência: 1
+Chave: -
+Condição: OC
+
+Nível: 6
+Nome: ideAdv
+Pai: infoRRA
+Descrição: Identificação dos advogados.
+Ocorrência: 1
+Chave: -
+Condição: OC
+
 Nome: eSocial
 Pai: -
 Elem.: G
@@ -463,4 +488,100 @@ Tamanho: 1-14
 Dec.: 2
 Descrição: Valor referente à previdência oficial.
 Validação: Deve ser maior ou igual a 0 (zero).
+
+Nome: infoRRA
+Pai: infoCRIRRF
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição:  Informações complementares relativas a Rendimentos Recebidos Acumuladamente - RRA.
+
+Nome: descRRA
+Pai: infoRRA
+Elem.: A
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-50
+Dec.: -
+Descrição: Descrição dos Rendimentos Recebidos Acumuladamente - RRA.
+
+Nome: qtdMesesRRA
+Pai: infoRRA
+Elem.: A
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-4
+Dec.: 1
+Descrição: Número de meses relativo aos Rendimentos Recebidos Acumuladamente - RRA.
+
+Nome: despProcJud
+Pai: infoRRA
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Detalhamento das despesas com processo judicial.
+
+Nome: vlrDespCustas
+Pai: despProcJud
+Elem.: A
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Preencher com o valor das despesas com custas judiciais.
+
+Nome: vlrDespAdvogados
+Pai: despProcJud
+Elem.: A
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Preencher com o valor total das despesas com advogado(s).
+
+Nome: ideAdv
+Pai: infoRRA
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Identificação dos advogados.
+
+Nome: tpInsc
+Pai: ideAdv
+Elem.: A
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+
+Nome: nrInsc
+Pai: ideAdv
+Elem.: A
+Tipo: C
+Ocorrência: 1
+Tamanho: 11 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do advogado.
+Validação: Deve ser um número de inscrição válido, de acordo com o tipo de inscrição indicado no campo {ideAdv/tpInsc}(./tpInsc), considerando as particularidades aplicadas à informação de CNPJ de órgão público em S-1000.
+Se {ideAdv/tpInsc}(./tpInsc) = [1], deve possuir 14 (catorze) algarismos e, no caso de declarante pessoa jurídica, ser diferente do CNPJ base do empregador (exceto se {ideEmpregador/nrInsc}(/ideEmpregador_nrInsc) tiver 14 (catorze) algarismos).
+Se {ideAdv/tpInsc}(./tpInsc) = [2], deve possuir 11 (onze) algarismos e, no caso de declarante pessoa física, ser diferente do CPF do empregador.
+
+Nome: vlrAdv
+Pai: ideAdv
+Elem.: A
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da despesa com o advogado, se houver.
 

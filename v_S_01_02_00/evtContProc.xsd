@@ -236,6 +236,92 @@
                                                             </xs:attribute>
                                                         </xs:complexType>
                                                     </xs:element>
+                                                    <xs:element name="infoRRA" minOccurs="0">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Informações complementares de RRA</xs:documentation>
+                                                            <xs:documentation>DESCRICAO_COMPLETA: Informações complementares relativas a Rendimentos Recebidos Acumuladamente - RRA.</xs:documentation>
+                                                            <xs:documentation>CONDICAO_GRUPO: O (se {infoCRIRRF/tpCR}(../tpCR) = [188951]; N (nos demais casos))</xs:documentation>
+                                                        </xs:annotation>
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:element name="despProcJud">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Detalhamento das despesas com processo judicial.</xs:documentation>
+                                                                        <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
+                                                                    </xs:annotation>
+                                                                    <xs:complexType>
+                                                                        <xs:attribute name="vlrDespCustas">
+                                                                            <xs:annotation>
+                                                                                <xs:documentation>Preencher com o valor das despesas com custas judiciais.</xs:documentation>
+                                                                            </xs:annotation>
+                                                                            <xs:simpleType>
+                                                                                <xs:restriction base="TS_valorMonetario" />
+                                                                            </xs:simpleType>
+                                                                        </xs:attribute>
+                                                                        <xs:attribute name="vlrDespAdvogados">
+                                                                            <xs:annotation>
+                                                                                <xs:documentation>Preencher com o valor total das despesas com advogado(s).</xs:documentation>
+                                                                            </xs:annotation>
+                                                                            <xs:simpleType>
+                                                                                <xs:restriction base="TS_valorMonetario" />
+                                                                            </xs:simpleType>
+                                                                        </xs:attribute>
+                                                                    </xs:complexType>
+                                                                </xs:element>
+                                                                <xs:element name="ideAdv">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Identificação dos advogados.</xs:documentation>
+                                                                        <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
+                                                                    </xs:annotation>
+                                                                    <xs:complexType>
+                                                                        <xs:attribute name="tpInsc">
+                                                                            <xs:annotation>
+                                                                                <xs:documentation>Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.</xs:documentation>
+                                                                            </xs:annotation>
+                                                                            <xs:simpleType>
+                                                                                <xs:restriction base="TS_tpInsc_1_2" />
+                                                                            </xs:simpleType>
+                                                                        </xs:attribute>
+                                                                        <xs:attribute name="nrInsc">
+                                                                            <xs:annotation>
+                                                                                <xs:documentation>Informar o número de inscrição do advogado.</xs:documentation>
+                                                                                <xs:documentation>Validação: Deve ser um número de inscrição válido, de acordo com o tipo de inscrição indicado no campo {ideAdv/tpInsc}(./tpInsc), considerando as particularidades aplicadas à informação de CNPJ de órgão público em S-1000.</xs:documentation>
+                                                                                <xs:documentation>Se {ideAdv/tpInsc}(./tpInsc) = [1], deve possuir 14 (catorze) algarismos e, no caso de declarante pessoa jurídica, ser diferente do CNPJ base do empregador (exceto se {ideEmpregador/nrInsc}(/ideEmpregador_nrInsc) tiver 14 (catorze) algarismos).</xs:documentation>
+                                                                                <xs:documentation>Se {ideAdv/tpInsc}(./tpInsc) = [2], deve possuir 11 (onze) algarismos e, no caso de declarante pessoa física, ser diferente do CPF do empregador.</xs:documentation>
+                                                                            </xs:annotation>
+                                                                            <xs:simpleType>
+                                                                                <xs:restriction base="TS_nrInsc_11_14" />
+                                                                            </xs:simpleType>
+                                                                        </xs:attribute>
+                                                                        <xs:attribute name="vlrAdv" use="optional">
+                                                                            <xs:annotation>
+                                                                                <xs:documentation>Valor da despesa com o advogado, se houver.</xs:documentation>
+                                                                            </xs:annotation>
+                                                                            <xs:simpleType>
+                                                                                <xs:restriction base="TS_valorMonetario" />
+                                                                            </xs:simpleType>
+                                                                        </xs:attribute>
+                                                                    </xs:complexType>
+                                                                </xs:element>
+                                                            </xs:sequence>
+                                                            <xs:attribute name="descRRA">
+                                                                <xs:annotation>
+                                                                    <xs:documentation>Descrição dos Rendimentos Recebidos Acumuladamente - RRA.</xs:documentation>
+                                                                </xs:annotation>
+                                                                <xs:simpleType>
+                                                                    <xs:restriction base="TS_descRRA" />
+                                                                </xs:simpleType>
+                                                            </xs:attribute>
+                                                            <xs:attribute name="qtdMesesRRA">
+                                                                <xs:annotation>
+                                                                    <xs:documentation>Número de meses relativo aos Rendimentos Recebidos Acumuladamente - RRA.</xs:documentation>
+                                                                </xs:annotation>
+                                                                <xs:simpleType>
+                                                                    <xs:restriction base="TS_qtdMesesRRA" />
+                                                                </xs:simpleType>
+                                                            </xs:attribute>
+                                                        </xs:complexType>
+                                                    </xs:element>
                                                 </xs:sequence>
                                                 <xs:attribute name="tpCR" use="required">
                                                     <xs:annotation>
