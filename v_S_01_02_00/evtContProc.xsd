@@ -351,7 +351,7 @@
                                                             <xs:attribute name="cpfDep">
                                                                 <xs:annotation>
                                                                     <xs:documentation>Informar o número de inscrição do dependente no CPF.</xs:documentation>
-                                                                    <xs:documentation>Validação: Deve ser um CPF de dependente cadastrado no eSocial (S-2200/S-2205/S-2300 ou no grupo {infoDep}(2501_ideBenef_infoIRComplem_infoDep)).</xs:documentation>
+                                                                    <xs:documentation>Validação: Deve ser um CPF de dependente cadastrado no eSocial (S-2200/S-2205/S-2300 ou no grupo {infoDep}(2501_ideTrab_infoIRComplem_infoDep)).</xs:documentation>
                                                                 </xs:annotation>
                                                                 <xs:simpleType>
                                                                     <xs:restriction base="TS_cpfDepIR2" />
@@ -398,7 +398,7 @@
                                                             <xs:attribute name="cpfDep">
                                                                 <xs:annotation>
                                                                     <xs:documentation>Número do CPF do dependente/beneficiário da pensão alimentícia.</xs:documentation>
-                                                                    <xs:documentation>Validação: Deve ser um CPF de dependente cadastrado no eSocial (S-2200/S-2205/S-2300 ou no grupo {infoDep}(2501_ideBenef_infoIRComplem_infoDep)).</xs:documentation>
+                                                                    <xs:documentation>Validação: Deve ser um CPF de dependente cadastrado no eSocial (S-2200/S-2205/S-2300 ou no grupo {infoDep}(2501_ideTrab_infoIRComplem_infoDep)).</xs:documentation>
                                                                 </xs:annotation>
                                                                 <xs:simpleType>
                                                                     <xs:restriction base="TS_cpfPenAlim" />
@@ -439,7 +439,7 @@
                                                                                     <xs:attribute name="cpfDep">
                                                                                         <xs:annotation>
                                                                                             <xs:documentation>Número de inscrição no CPF.</xs:documentation>
-                                                                                            <xs:documentation>Validação: Deve ser um CPF de dependente cadastrado no eSocial (S-2200/S-2205/S-2300 ou no grupo {infoDep}(2501_ideBenef_infoIRComplem_infoDep)).</xs:documentation>
+                                                                                            <xs:documentation>Validação: Deve ser um CPF de dependente cadastrado no eSocial (S-2200/S-2205/S-2300 ou no grupo {infoDep}(2501_ideTrab_infoIRComplem_infoDep)).</xs:documentation>
                                                                                         </xs:annotation>
                                                                                         <xs:simpleType>
                                                                                             <xs:restriction base="TS_cpfDepIR2" />
@@ -606,7 +606,85 @@
                                                 </xs:attribute>
                                             </xs:complexType>
                                         </xs:element>
-                                        
+                                        <xs:element name="infoIRComplem" minOccurs="0">
+                                            <xs:annotation>
+                                                <xs:documentation>Informações relacionadas à retenção na fonte, aos rendimentos tributáveis e não tributáveis, deduções e/ou isenções, etc., de acordo com a legislação aplicada ao imposto de renda.</xs:documentation>
+                                            </xs:annotation>
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="infoDep" minOccurs="0" maxOccurs="999">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Informações de dependentes não cadastrados pelo S-2200/S-2205/S-2300.</xs:documentation>
+                                                            <xs:documentation>CHAVE_GRUPO: {cpfDep}</xs:documentation>
+                                                            <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
+                                                        </xs:annotation>
+                                                        <xs:complexType>
+                                                            <xs:attribute name="cpfDep">
+                                                                <xs:annotation>
+                                                                    <xs:documentation>Número de inscrição no CPF.</xs:documentation>
+                                                                    <xs:documentation>Validação: Deve ser um CPF válido e diferente do CPF do declarante pessoa física ({ideEmpregador/nrInsc}(/ideEmpregador_nrInsc)) e do beneficiário ({cpfTrab}(../../cpfTrab)).</xs:documentation>
+                                                                </xs:annotation>
+                                                                <xs:simpleType>
+                                                                    <xs:restriction base="TS_cpfDepIR" />
+                                                                </xs:simpleType>
+                                                            </xs:attribute>
+                                                            <xs:attribute name="dtNascto" use="optional">
+                                                                <xs:annotation>
+                                                                    <xs:documentation>Preencher com a data de nascimento.</xs:documentation>
+                                                                    <xs:documentation>Validação: Deve ser maior ou igual que 01/01/1890 e menor ou igual à data atual.</xs:documentation>
+                                                                </xs:annotation>
+                                                                <xs:simpleType>
+                                                                    <xs:restriction base="TS_dtNascto" />
+                                                                </xs:simpleType>
+                                                            </xs:attribute>
+                                                            <xs:attribute name="nome" use="optional">
+                                                                <xs:annotation>
+                                                                    <xs:documentation>Nome do dependente.</xs:documentation>
+                                                                </xs:annotation>
+                                                                <xs:simpleType>
+                                                                    <xs:restriction base="TS_nmDep" />
+                                                                </xs:simpleType>
+                                                            </xs:attribute>
+                                                            <xs:attribute name="depIRRF" use="optional">
+                                                                <xs:annotation>
+                                                                    <xs:documentation>Somente informar este campo em caso de dependente do trabalhador para fins de dedução de seu rendimento tributável pelo Imposto de Renda.</xs:documentation>
+                                                                </xs:annotation>
+                                                                <xs:simpleType>
+                                                                    <xs:restriction base="TS_depIRRF_IR" />
+                                                                </xs:simpleType>
+                                                            </xs:attribute>
+                                                            <xs:attribute name="tpDep" use="optional">
+                                                                <xs:annotation>
+                                                                    <xs:documentation>Tipo de dependente.</xs:documentation>
+                                                                    <xs:documentation>Validação: Deve ser um código válido e existente na Tabela 07.</xs:documentation>
+                                                                </xs:annotation>
+                                                                <xs:simpleType>
+                                                                    <xs:restriction base="TS_tpDep" />
+                                                                </xs:simpleType>
+                                                            </xs:attribute>
+                                                            <xs:attribute name="descrDep" use="optional">
+                                                                <xs:annotation>
+                                                                    <xs:documentation>Informar a descrição da dependência.</xs:documentation>
+                                                                    <xs:documentation>Validação: Informação obrigatória e exclusiva se {tpDep}(./tpDep) = [99].</xs:documentation>
+                                                                </xs:annotation>
+                                                                <xs:simpleType>
+                                                                    <xs:restriction base="TS_descrDep" />
+                                                                </xs:simpleType>
+                                                            </xs:attribute>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                </xs:sequence>
+                                                <xs:attribute name="dtLaudo" use="optional">
+                                                    <xs:annotation>
+                                                        <xs:documentation>Data da moléstia grave atribuída pelo laudo.</xs:documentation>
+                                                        <xs:documentation>Validação: Não pode ser anterior ao ano de 1900.</xs:documentation>
+                                                    </xs:annotation>
+                                                    <xs:simpleType>
+                                                        <xs:restriction base="xs:date" />
+                                                    </xs:simpleType>
+                                                </xs:attribute>
+                                            </xs:complexType>
+                                        </xs:element>
                                     </xs:sequence>
                                     <xs:attribute name="cpfTrab" use="required">
                                         <xs:annotation>

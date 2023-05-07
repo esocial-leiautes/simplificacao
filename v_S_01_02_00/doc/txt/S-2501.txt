@@ -148,6 +148,22 @@ Ocorrência: 0-99
 Chave: cpfDep
 Condição: OC
 
+Nível: 4
+Nome: infoIRComplem
+Pai: ideTrab
+Descrição: Informações relacionadas à retenção na fonte, aos rendimentos tributáveis e não tributáveis, deduções e/ou isenções, etc., de acordo com a legislação aplicada ao imposto de renda.
+Ocorrência: 0-1
+Chave: -
+Condição: O
+
+Nível: 5
+Nome: infoDep
+Pai: infoIRComplem
+Descrição: Informações de dependentes não cadastrados pelo S-2200/S-2205/S-2300.
+Ocorrência: 0-999
+Chave: cpfDep
+Condição: OC
+
 Nome: eSocial
 Pai: -
 Elem.: G
@@ -656,7 +672,7 @@ Ocorrência: 1
 Tamanho: 11
 Dec.: -
 Descrição: Informar o número de inscrição do dependente no CPF.
-Validação: Deve ser um CPF de dependente cadastrado no eSocial (S-2200/S-2205/S-2300 ou no grupo {infoDep}(2501_ideBenef_infoIRComplem_infoDep)).
+Validação: Deve ser um CPF de dependente cadastrado no eSocial (S-2200/S-2205/S-2300 ou no grupo {infoDep}(2501_ideTrab_infoIRComplem_infoDep)).
 
 Nome: vlrDeducao
 Pai: dedDepen
@@ -698,7 +714,7 @@ Ocorrência: 1
 Tamanho: 11
 Dec.: -
 Descrição: Número do CPF do dependente/beneficiário da pensão alimentícia.
-Validação: Deve ser um CPF de dependente cadastrado no eSocial (S-2200/S-2205/S-2300 ou no grupo {infoDep}(2501_ideBenef_infoIRComplem_infoDep)).
+Validação: Deve ser um CPF de dependente cadastrado no eSocial (S-2200/S-2205/S-2300 ou no grupo {infoDep}(2501_ideTrab_infoIRComplem_infoDep)).
 
 Nome: vlrPensao
 Pai: penAlim
@@ -858,7 +874,7 @@ Ocorrência: 1
 Tamanho: 11
 Dec.: -
 Descrição: Número de inscrição no CPF.
-Validação: Deve ser um CPF de dependente cadastrado no eSocial (S-2200/S-2205/S-2300 ou no grupo {infoDep}(2501_ideBenef_infoIRComplem_infoDep)).
+Validação: Deve ser um CPF de dependente cadastrado no eSocial (S-2200/S-2205/S-2300 ou no grupo {infoDep}(2501_ideTrab_infoIRComplem_infoDep)).
 
 Nome: vlrDepenSusp
 Pai: benefPen
@@ -869,4 +885,92 @@ Tamanho: 1-14
 Dec.: 2
 Descrição: Valor da dedução relativa a dependentes ou a pensão alimentícia com exigibilidade suspensa.
 Validação: Deve ser maior que 0 (zero).
+
+Nome: infoIRComplem
+Pai: ideTrab
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações relacionadas à retenção na fonte, aos rendimentos tributáveis e não tributáveis, deduções e/ou isenções, etc., de acordo com a legislação aplicada ao imposto de renda.
+
+Nome: dtLaudo
+Pai: infoIRComplem
+Elem.: A
+Tipo: D
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Data da moléstia grave atribuída pelo laudo.
+Validação: Não pode ser anterior ao ano de 1900.
+
+Nome: infoDep
+Pai: infoIRComplem
+Elem.: G
+Tipo: -
+Ocorrência: 0-999
+Tamanho: -
+Dec.: -
+Descrição: Informações de dependentes não cadastrados pelo S-2200/S-2205/S-2300.
+
+Nome: cpfDep
+Pai: infoDep
+Elem.: A
+Tipo: C
+Ocorrência: 1
+Tamanho: 11
+Dec.: -
+Descrição: Número de inscrição no CPF.
+Validação: Deve ser um CPF válido e diferente do CPF do declarante pessoa física ({ideEmpregador/nrInsc}(/ideEmpregador_nrInsc)) e do beneficiário ({cpfTrab}(../../cpfTrab)).
+
+Nome: dtNascto
+Pai: infoDep
+Elem.: A
+Tipo: D
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Preencher com a data de nascimento.
+Validação: Deve ser maior ou igual que 01/01/1890 e menor ou igual à data atual.
+
+Nome: nome
+Pai: infoDep
+Elem.: A
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 2-70
+Dec.: -
+Descrição: Nome do dependente.
+
+Nome: depIRRF
+Pai: infoDep
+Elem.: A
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Somente informar este campo em caso de dependente do trabalhador para fins de dedução de seu rendimento tributável pelo Imposto de Renda.
+Valores válidos:
+S - Sim
+
+Nome: tpDep
+Pai: infoDep
+Elem.: A
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 2
+Dec.: -
+Descrição: Tipo de dependente.
+Validação: Deve ser um código válido e existente na Tabela 07.
+
+Nome: descrDep
+Pai: infoDep
+Elem.: A
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-100
+Dec.: -
+Descrição: Informar a descrição da dependência.
+Validação: Informação obrigatória e exclusiva se {tpDep}(./tpDep) = [99].
 
