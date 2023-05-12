@@ -133,14 +133,22 @@ Condição: OC (se {infoCRIRRF/tpCR}(../tpCR) = [593656]
 N (nos demais casos)
 
 Nível: 6
-Nome: dedSusp
+Nome: infoValores
 Pai: infoProcRet
+Descrição: Informações de valores relacionados a não retenção de tributos ou a depósitos judiciais.
+Ocorrência: 0-2
+Chave: indApuracao
+Condição: OC
+
+Nível: 7
+Nome: dedSusp
+Pai: infoValores
 Descrição: Detalhamento das deduções com exigibilidade suspensa.
 Ocorrência: 0-25
 Chave: -
 Condição: OC
 
-Nível: 7
+Nível: 8
 Nome: benefPen
 Pai: dedSusp
 Descrição: Informação das deduções suspensas por dependentes e beneficiários da pensão alimentícia
@@ -768,8 +776,29 @@ Descrição: Código do indicativo da suspensão, atribuído pelo empregador em 
 Validação: Informação obrigatória se houver mais de uma informação de indicativo de suspensão para um mesmo processo.
 Se informado, deve constar na Tabela de Processos (S-1070), campo {codSusp}(1070_infoProcesso_inclusao_dadosProc_infoSusp_codSusp), vinculado ao número do processo informado em {nrProcRet}(./nrProcRet).
 
-Nome: vlrNRetido
+Nome: infoValores
 Pai: infoProcRet
+Elem.: G
+Tipo: -
+Ocorrência: 0-2
+Tamanho: -
+Dec.: -
+Descrição: Informações de valores relacionados a não retenção de tributos ou a depósitos judiciais.
+
+Nome: indApuracao
+Pai: infoValores
+Elem.: A
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo de período de apuração.
+Valores válidos:
+1 - Mensal
+2 - Anual (13° salário)
+
+Nome: vlrNRetido
+Pai: infoValores
 Elem.: A
 Tipo: N
 Ocorrência: 0-1
@@ -780,7 +809,7 @@ Validação: Informação permitida apenas se {indDeposito}(1070_infoProcesso_in
 Se informado, deve ser maior que 0 (zero).
 
 Nome: vlrDepJud
-Pai: infoProcRet
+Pai: infoValores
 Elem.: A
 Tipo: N
 Ocorrência: 0-1
@@ -791,7 +820,7 @@ Validação: Informação permitida apenas se {indDeposito}(1070_infoProcesso_in
 Se informado, deve ser maior que 0 (zero).
 
 Nome: vlrCmpAnoCal
-Pai: infoProcRet
+Pai: infoValores
 Elem.: A
 Tipo: N
 Ocorrência: 0-1
@@ -802,7 +831,7 @@ Validação: Informação permitida apenas se {tpProcRet}(./tpProcRet) = [2].
 Se informado, deve ser maior que 0 (zero).
 
 Nome: vlrCmpAnoAnt
-Pai: infoProcRet
+Pai: infoValores
 Elem.: A
 Tipo: N
 Ocorrência: 0-1
@@ -813,7 +842,7 @@ Validação: Informação permitida apenas se {tpProcRet}(./tpProcRet) = [2].
 Se informado, deve ser maior que 0 (zero).
 
 Nome: vlrRendSusp
-Pai: infoProcRet
+Pai: infoValores
 Elem.: A
 Tipo: N
 Ocorrência: 0-1
@@ -824,7 +853,7 @@ Validação: Não pode ser maior que {vrRendTrib}(2501_ideTrab_infoCRIRRF_infoIR
 Se informado, deve ser maior que 0 (zero).
 
 Nome: dedSusp
-Pai: infoProcRet
+Pai: infoValores
 Elem.: G
 Tipo: -
 Ocorrência: 0-25
