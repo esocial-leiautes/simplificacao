@@ -484,10 +484,10 @@
                                                                         </xs:restriction>
                                                                     </xs:simpleType>
                                                                 </xs:element>
-                                                                <xs:element name="valor" type="TS_valorMonetario_positivo">
+                                                                <xs:element name="valor" type="TS_valor">
                                                                     <xs:annotation>
                                                                         <xs:documentation>Composição do valor do rendimento tributável, não tributável, retenção, dedução ou isenção do IRRF, de acordo com a classificação apresentada no campo {tpInfoIR}(./tpInfoIR).</xs:documentation>
-                                                                        <xs:documentation>Validação: Deve ser maior que 0 (zero).</xs:documentation>
+                                                                        <xs:documentation>Validação: Deve ser maior que 0 (zero), exceto para {tpInfoIR}(./tpInfoIR) = [7900].</xs:documentation>
                                                                         <xs:documentation>Deve corresponder ao somatório dos valores informados nas rubricas (campo {vrRubr}) dos eventos que deram origem ao S-1210 (grupos {infoPerApur} e {infoPerAnt} do S-1200, S-1202, S-1207 e S-2299, e grupo {verbasResc} do S-2399), desde que o campo {indApurIR} vinculado às respectivas rubricas seja igual a [0] ou não informado, obedecendo ao que segue:</xs:documentation>
                                                                         <xs:documentation>a) Somar os valores das rubricas cujo {tpRubr}(1010_infoRubrica_inclusao_dadosRubrica_tpRubr) em S-1010 seja igual a [1, 3] e subtrair os valores das rubricas cujo {tpRubr}(1010_infoRubrica_inclusao_dadosRubrica_tpRubr) em S-1010 seja igual a [2, 4], observando a tabela de relacionamento abaixo:</xs:documentation>
                                                                         <xs:documentation>{tpInfoIR}(./tpInfoIR) = [11], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [11, 13];</xs:documentation>
@@ -701,12 +701,11 @@
                                                             </xs:sequence>
                                                         </xs:complexType>
                                                     </xs:element>                                                        
-                                                    <xs:element name="infoRRA" minOccurs="0" maxOccurs="99">
+                                                    <xs:element name="infoRRA" minOccurs="0">
                                                         <xs:annotation>
                                                             <xs:documentation>Informações complementares - RRA.</xs:documentation>
                                                             <xs:documentation>DESCRICAO_COMPLETA:Informações complementares relativas a Rendimentos Recebidos Acumuladamente - RRA.</xs:documentation>
                                                             <xs:documentation>Origem: Evento remuneratório (S-1200, S-1202, S-1207, S-2299 ou S-2399) relacionado no evento S-1210 por {tpPgto}(1210_ideBenef_infoPgto_tpPgto), {perRef}(1210_ideBenef_infoPgto_perRef) e {ideDmDev}(1210_ideBenef_infoPgto_ideDmDev).</xs:documentation>
-                                                            <xs:documentation>CHAVE_GRUPO: {tpProcRRA}, {nrProcRRA}</xs:documentation>
                                                             <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
@@ -908,214 +907,234 @@
                                                                             <xs:element name="cpfDep" type="TS_cpfDepIR">
                                                                                 <xs:annotation>
                                                                                     <xs:documentation>CPF do dependente.</xs:documentation>
-                                                                                    <xs:documentation>Origem: campo {cpfDep} de S-2200/S-2205/S-2300 ou {infoDep/cpfDep}(1210_ideBenef_infoIRComplem_infoDep_cpfDep) de S-1210.</xs:documentation>
+                                                                                    <xs:documentation>Origem: campo {cpfDep} de S-2200/S-2205/S-2300/S-2400/S-2405 ou {infoDep/cpfDep}(1210_ideBenef_infoIRComplem_infoDep_cpfDep) de S-1210.</xs:documentation>
                                                                                 </xs:annotation>
                                                                             </xs:element>
                                                                             <xs:element name="depIRRF" type="TS_sim_nao" minOccurs="0">
                                                                                 <xs:annotation>
                                                                                     <xs:documentation>Este campo somente é informado em caso de dependente do trabalhador para fins de dedução de seu rendimento tributável pelo Imposto de Renda.</xs:documentation>
-                                                                                    <xs:documentation>Origem: campo {depIRRF} de S-2200/S-2205/S-2300 ou {depIRRF}(1210_ideBenef_infoIRComplem_infoDep_depIRRF) de S-1210.</xs:documentation>
+                                                                                    <xs:documentation>Origem: campo {depIRRF} de S-2200/S-2205/S-2300/S-2400/S-2405 ou {depIRRF}(1210_ideBenef_infoIRComplem_infoDep_depIRRF) de S-1210.</xs:documentation>
                                                                                 </xs:annotation>
                                                                             </xs:element>
                                                                             <xs:element name="dtNascto" type="TS_dtNascto" minOccurs="0">
                                                                                 <xs:annotation>
                                                                                     <xs:documentation>Data de nascimento do dependente.</xs:documentation>
-                                                                                    <xs:documentation>Origem: campo {dependente/dtNascto} de S-2200/S-2205/S-2300 ou {dtNascto}(1210_ideBenef_infoIRComplem_infoDep_dtNascto) de S-1210.</xs:documentation>
+                                                                                    <xs:documentation>Origem: campo {dependente/dtNascto} de S-2200/S-2205/S-2300/S-2400/S-2405 ou {dtNascto}(1210_ideBenef_infoIRComplem_infoDep_dtNascto) de S-1210.</xs:documentation>
                                                                                 </xs:annotation>
                                                                             </xs:element>
                                                                             <xs:element name="nome" type="TS_nmDep" minOccurs="0">
                                                                                 <xs:annotation>
                                                                                     <xs:documentation>Nome do dependente.</xs:documentation>
-                                                                                    <xs:documentation>Origem: campo {nmDep} de S-2200/S-2205/S-2300 ou {nome}(1210_ideBenef_infoIRComplem_infoDep_nome) de S-1210.</xs:documentation>
+                                                                                    <xs:documentation>Origem: campo {nmDep} de S-2200/S-2205/S-2300/S-2400/S-2405 ou {nome}(1210_ideBenef_infoIRComplem_infoDep_nome) de S-1210.</xs:documentation>
                                                                                 </xs:annotation>
                                                                             </xs:element>
-                                                                            <xs:element name="relDep" type="TS_tpDep" minOccurs="0">
+                                                                            <xs:element name="tpDep" type="TS_tpDep" minOccurs="0">
                                                                                 <xs:annotation>
                                                                                     <xs:documentation>Relação de dependência.</xs:documentation>
-                                                                                    <xs:documentation>Origem: campo {tpDep} de S-2200/S-2205/S-2300 ou {tpDep}(1210_ideBenef_infoIRComplem_infoDep_tpDep) de S-1210.</xs:documentation>
+                                                                                    <xs:documentation>Origem: campo {tpDep} de S-2200/S-2205/S-2300/S-2400/S-2405 ou {tpDep}(1210_ideBenef_infoIRComplem_infoDep_tpDep) de S-1210.</xs:documentation>
                                                                                 </xs:annotation>
                                                                             </xs:element>
                                                                             <xs:element name="descrDep" type="TS_descrDep" minOccurs="0">
                                                                                 <xs:annotation>
                                                                                     <xs:documentation>Informar a descrição da dependência.</xs:documentation>
-                                                                                    <xs:documentation>Origem: campo {descrDep} de S-2200/S-2205/S-2300 ou {descrDep}(1210_ideBenef_infoIRComplem_infoDep_descrDep) de S-1210.</xs:documentation>
+                                                                                    <xs:documentation>Origem: campo {descrDep} de S-2200/S-2205/S-2300/S-2400/S-2405 ou {descrDep}(1210_ideBenef_infoIRComplem_infoDep_descrDep) de S-1210.</xs:documentation>
                                                                                 </xs:annotation>
                                                                             </xs:element>
                                                                         </xs:sequence>
                                                                     </xs:complexType>
                                                                 </xs:element>
-                                                                <xs:element name="dedDepen" minOccurs="0" maxOccurs="999">
+                                                                <xs:element name="infoIRCR" minOccurs="0" maxOccurs="99">
                                                                     <xs:annotation>
-                                                                        <xs:documentation>Dedução do rendimento tributável relativa a dependentes.</xs:documentation>  
+                                                                        <xs:documentation>Informações de Imposto de Renda, por Código de Receita - CR.</xs:documentation>
                                                                         <xs:documentation>Evento de origem: S-1210.</xs:documentation>
-                                                                        <xs:documentation>CHAVE_GRUPO: {tpRend}, {cpfDep}</xs:documentation>
+                                                                        <xs:documentation>CHAVE_GRUPO: {tpCR}</xs:documentation> 
                                                                         <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation> 
                                                                     </xs:annotation>
                                                                     <xs:complexType>
                                                                         <xs:sequence>
-                                                                            <xs:element name="tpRend" type="TS_tpRendDep" />
-                                                                            <xs:element name="cpfDep" type="TS_cpfDepIR2">
+                                                                            <xs:element name="tpCR" type="TS_CR_IR" />
+                                                                            <xs:element name="dedDepen" minOccurs="0" maxOccurs="999">
                                                                                 <xs:annotation>
-                                                                                    <xs:documentation>Informar o número de inscrição do dependente no CPF.</xs:documentation>
+                                                                                    <xs:documentation>Dedução do rendimento tributável relativa a dependentes.</xs:documentation>  
+                                                                                    <xs:documentation>CHAVE_GRUPO: {tpRend}, {cpfDep}</xs:documentation>
+                                                                                    <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation> 
                                                                                 </xs:annotation>
-                                                                            </xs:element>
-                                                                            <xs:element name="vlrDedDep" type="TS_vlrDedDep">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Preencher com o valor da dedução da base de cálculo.</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:element>
-                                                                        </xs:sequence>
-                                                                    </xs:complexType>
-                                                                </xs:element>
-                                                                <xs:element name="penAlim" minOccurs="0" maxOccurs="99">
-                                                                    <xs:annotation>
-                                                                        <xs:documentation>Informação dos beneficiários da pensão alimentícia.</xs:documentation>
-                                                                        <xs:documentation>Evento de origem: S-1210.</xs:documentation>
-                                                                        <xs:documentation>CHAVE_GRUPO: {tpRend}, {cpfDep}</xs:documentation>   
-                                                                        <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
-                                                                    </xs:annotation>
-                                                                    <xs:complexType>
-                                                                        <xs:sequence>
-                                                                            <xs:element name="tpRend" type="TS_tpRendPenAlim" />
-                                                                            <xs:element name="cpfDep" type="TS_cpfPenAlim">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Número do CPF do dependente/beneficiário da pensão alimentícia.</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:element>
-                                                                            <xs:element name="vlrDedPenAlim" type="TS_vlrDedPenAlim">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Valor relativo à dedução do rendimento tributável correspondente a pagamento de pensão alimentícia.</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:element>
-                                                                        </xs:sequence>
-                                                                    </xs:complexType>
-                                                                </xs:element>
-                                                                <xs:element name="previdCompl" minOccurs="0" maxOccurs="99">
-                                                                    <xs:annotation>
-                                                                        <xs:documentation>Informações relativas a planos de previdência complementar.</xs:documentation>
-                                                                        <xs:documentation>Evento de origem: S-1210.</xs:documentation>
-                                                                        <xs:documentation>CHAVE_GRUPO: {tpPrev}, {cnpjEntidPC}</xs:documentation>
-                                                                        <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>  
-                                                                    </xs:annotation>
-                                                                    <xs:complexType>
-                                                                        <xs:sequence>
-                                                                            <xs:element name="tpPrev">
-                                                                                <xs:simpleType>
-                                                                                    <xs:annotation>
-                                                                                        <xs:documentation>Tipo de previdência.</xs:documentation>
-                                                                                    </xs:annotation>
-                                                                                    <xs:restriction base="xs:byte">
-                                                                                        <xs:enumeration value="1">
+                                                                                <xs:complexType>
+                                                                                    <xs:sequence>
+                                                                                        <xs:element name="tpRend" type="TS_tpRendDep" />
+                                                                                        <xs:element name="cpfDep" type="TS_cpfDepIR2">
                                                                                             <xs:annotation>
-                                                                                                <xs:documentation>Privada: {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [46, 47, 48]</xs:documentation>
+                                                                                                <xs:documentation>Informar o número de inscrição do dependente no CPF.</xs:documentation>
                                                                                             </xs:annotation>
-                                                                                        </xs:enumeration>
-                                                                                        <xs:enumeration value="2">
+                                                                                        </xs:element>
+                                                                                        <xs:element name="vlrDedDep" type="TS_vlrDedDep">
                                                                                             <xs:annotation>
-                                                                                                <xs:documentation>FAPI: {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [61, 62, 66]</xs:documentation>
+                                                                                                <xs:documentation>Preencher com o valor da dedução da base de cálculo.</xs:documentation>
                                                                                             </xs:annotation>
-                                                                                        </xs:enumeration>
-                                                                                        <xs:enumeration value="3">
-                                                                                            <xs:annotation>
-                                                                                                <xs:documentation>Funpresp: {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [63, 64, 65]</xs:documentation>
-                                                                                            </xs:annotation>
-                                                                                        </xs:enumeration>
-                                                                                    </xs:restriction>
-                                                                                </xs:simpleType>
+                                                                                        </xs:element>
+                                                                                    </xs:sequence>
+                                                                                </xs:complexType>
                                                                             </xs:element>
-                                                                            <xs:element name="cnpjEntidPC" type="TS_cnpj">
+                                                                            <xs:element name="penAlim" minOccurs="0" maxOccurs="99">
                                                                                 <xs:annotation>
-                                                                                    <xs:documentation>Número de inscrição da entidade de previdência complementar.</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:element>
-                                                                            <xs:element name="vlrDedPC" type="TS_valorMonetario_positivo">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Valor da dedução relativa a previdência complementar.</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:element>
-                                                                            <xs:element name="vlrPatrocFunp" type="TS_valorMonetario" minOccurs="0">
-                                                                            <xs:annotation>
-                                                                                    <xs:documentation>Valor da contribuição do ente público patrocinador da Fundação de Previdência Complementar do Servidor Público (Funpresp).</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:element>
-                                                                        </xs:sequence>
-                                                                    </xs:complexType>
-                                                                </xs:element>
-                                                                <xs:element name="infoProcRet" minOccurs="0" maxOccurs="50">
-                                                                    <xs:annotation>
-                                                                        <xs:documentation>Informações de processos relacionados a não retenção de tributos ou a depósitos judiciais.</xs:documentation>
-                                                                        <xs:documentation>Evento de origem: S-1210.</xs:documentation>
-                                                                        <xs:documentation>CHAVE_GRUPO: {CR}, {tpProcRet}, {nrProcRet}, {codSusp}</xs:documentation>
-                                                                        <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
-                                                                    </xs:annotation>
-                                                                    <xs:complexType>
-                                                                        <xs:sequence>
-                                                                            <xs:element name="CR" type="TS_CR_IR" />
-                                                                            <xs:element name="tpProcRet" type="TS_tpProc_1_2" />
-                                                                            <xs:element name="nrProcRet" type="TS_nrProcRet">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Informar o número do processo administrativo/judicial.</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:element>
-                                                                            <xs:element name="codSusp" type="TS_codSuspIR">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Código do indicativo da suspensão, atribuído pelo contribuinte.</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:element>
-                                                                            <xs:element name="vlrNRetido" type="TS_vlrNRetido" minOccurs="0">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Valor da retenção que deixou de ser efetuada em função de processo administrativo ou judicial.</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:element>
-                                                                            <xs:element name="vlrDepJud" type="TS_vlrDepJud" minOccurs="0">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Valor do depósito judicial em função de processo administrativo ou judicial.</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:element>
-                                                                            <xs:element name="vlrCmpAnoCal" type="TS_vlrCmpAnoCal" minOccurs="0">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Valor da compensação relativa ao ano calendário em função de processo judicial.</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:element>
-                                                                            <xs:element name="vlrCmpAnoAnt" type="TS_vlrCmpAnoAnt" minOccurs="0">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Valor da compensação relativa a anos anteriores, em função de processo judicial.</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:element>
-                                                                            <xs:element name="vlrRendSusp" type="TS_vlrRendSusp" minOccurs="0">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Valor do rendimento com exigibilidade suspensa.</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:element>
-                                                                            <xs:element name="dedSusp" minOccurs="0" maxOccurs="25">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Detalhamento das deduções com exigibilidade suspensa.</xs:documentation>
+                                                                                    <xs:documentation>Informação dos beneficiários da pensão alimentícia.</xs:documentation>
+                                                                                    <xs:documentation>CHAVE_GRUPO: {tpRend}, {cpfDep}</xs:documentation>   
                                                                                     <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
                                                                                 </xs:annotation>
                                                                                 <xs:complexType>
                                                                                     <xs:sequence>
-                                                                                        <xs:element name="indTpDeducao" type="TS_indTpDeducao" />
-                                                                                        <xs:element name="vlrDedSusp" type="TS_valorMonetario_positivo" minOccurs="0">
+                                                                                        <xs:element name="tpRend" type="TS_tpRendPenAlim" />
+                                                                                        <xs:element name="cpfDep" type="TS_cpfPenAlim">
                                                                                             <xs:annotation>
-                                                                                                <xs:documentation>Valor da dedução da base de cálculo do imposto de renda com exigibilidade suspensa.</xs:documentation>
+                                                                                                <xs:documentation>Número do CPF do dependente/beneficiário da pensão alimentícia.</xs:documentation>
                                                                                             </xs:annotation>
                                                                                         </xs:element>
-                                                                                        <xs:element name="benefPen" minOccurs="0" maxOccurs="99">
+                                                                                        <xs:element name="vlrDedPenAlim" type="TS_vlrDedPenAlim">
                                                                                             <xs:annotation>
-                                                                                                <xs:documentation>Informação das deduções suspensas por dependentes e beneficiários da pensão alimentícia.</xs:documentation>
-                                                                                                <xs:documentation>CONDICAO_GRUPO: O (se {indTpDeducao}(../indTpDeducao) = [5, 7]); N (nos demais casos)</xs:documentation>
+                                                                                                <xs:documentation>Valor relativo à dedução do rendimento tributável correspondente a pagamento de pensão alimentícia.</xs:documentation>
+                                                                                            </xs:annotation>
+                                                                                        </xs:element>
+                                                                                    </xs:sequence>
+                                                                                </xs:complexType>
+                                                                            </xs:element>
+                                                                            <xs:element name="previdCompl" minOccurs="0" maxOccurs="99">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Informações relativas a planos de previdência complementar.</xs:documentation>
+                                                                                    <xs:documentation>CHAVE_GRUPO: {tpPrev}, {cnpjEntidPC}</xs:documentation>
+                                                                                    <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>  
+                                                                                </xs:annotation>
+                                                                                <xs:complexType>
+                                                                                    <xs:sequence>
+                                                                                        <xs:element name="tpPrev">
+                                                                                            <xs:simpleType>
+                                                                                                <xs:annotation>
+                                                                                                    <xs:documentation>Tipo de previdência.</xs:documentation>
+                                                                                                </xs:annotation>
+                                                                                                <xs:restriction base="xs:byte">
+                                                                                                    <xs:enumeration value="1">
+                                                                                                        <xs:annotation>
+                                                                                                            <xs:documentation>Privada: {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [46, 47, 48]</xs:documentation>
+                                                                                                        </xs:annotation>
+                                                                                                    </xs:enumeration>
+                                                                                                    <xs:enumeration value="2">
+                                                                                                        <xs:annotation>
+                                                                                                            <xs:documentation>FAPI: {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [61, 62, 66]</xs:documentation>
+                                                                                                        </xs:annotation>
+                                                                                                    </xs:enumeration>
+                                                                                                    <xs:enumeration value="3">
+                                                                                                        <xs:annotation>
+                                                                                                            <xs:documentation>Funpresp: {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [63, 64, 65]</xs:documentation>
+                                                                                                        </xs:annotation>
+                                                                                                    </xs:enumeration>
+                                                                                                </xs:restriction>
+                                                                                            </xs:simpleType>
+                                                                                        </xs:element>
+                                                                                        <xs:element name="cnpjEntidPC" type="TS_cnpj">
+                                                                                            <xs:annotation>
+                                                                                                <xs:documentation>Número de inscrição da entidade de previdência complementar.</xs:documentation>
+                                                                                            </xs:annotation>
+                                                                                        </xs:element>
+                                                                                        <xs:element name="vlrDedPC" type="TS_valorMonetario_positivo">
+                                                                                            <xs:annotation>
+                                                                                                <xs:documentation>Valor da dedução relativa a previdência complementar.</xs:documentation>
+                                                                                            </xs:annotation>
+                                                                                        </xs:element>
+                                                                                        <xs:element name="vlrPatrocFunp" type="TS_valorMonetario" minOccurs="0">
+                                                                                        <xs:annotation>
+                                                                                                <xs:documentation>Valor da contribuição do ente público patrocinador da Fundação de Previdência Complementar do Servidor Público (Funpresp).</xs:documentation>
+                                                                                            </xs:annotation>
+                                                                                        </xs:element>
+                                                                                    </xs:sequence>
+                                                                                </xs:complexType>
+                                                                            </xs:element>
+                                                                            <xs:element name="infoProcRet" minOccurs="0" maxOccurs="50">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Informações de processos relacionados a não retenção de tributos ou a depósitos judiciais.</xs:documentation>
+                                                                                    <xs:documentation>CHAVE_GRUPO: {tpProcRet}, {nrProcRet}, {codSusp}</xs:documentation>
+                                                                                    <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
+                                                                                </xs:annotation>
+                                                                                <xs:complexType>
+                                                                                    <xs:sequence>
+                                                                                        <xs:element name="tpProcRet" type="TS_tpProc_1_2" />
+                                                                                        <xs:element name="nrProcRet" type="TS_nrProcRet">
+                                                                                            <xs:annotation>
+                                                                                                <xs:documentation>Informar o número do processo administrativo/judicial.</xs:documentation>
+                                                                                            </xs:annotation>
+                                                                                        </xs:element>
+                                                                                        <xs:element name="codSusp" type="TS_codSuspIR">
+                                                                                            <xs:annotation>
+                                                                                                <xs:documentation>Código do indicativo da suspensão, atribuído pelo contribuinte.</xs:documentation>
+                                                                                            </xs:annotation>
+                                                                                        </xs:element>
+                                                                                        <xs:element name="infoValores" minOccurs="0" maxOccurs="2">
+                                                                                            <xs:annotation>
+                                                                                                <xs:documentation>Informações de valores relacionados a não retenção de tributos ou a depósitos judiciais.</xs:documentation>
+                                                                                                <xs:documentation>CHAVE_GRUPO: {indApuracao}</xs:documentation>
+                                                                                                <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
                                                                                             </xs:annotation>
                                                                                             <xs:complexType>
                                                                                                 <xs:sequence>
-                                                                                                    <xs:element name="cpfDep" type="TS_cpfDepIR2">
+                                                                                                    <xs:element name="indApuracao" type="TS_indApuracao" />
+                                                                                                    <xs:element name="vlrNRetido" type="TS_vlrNRetido" minOccurs="0">
                                                                                                         <xs:annotation>
-                                                                                                            <xs:documentation>Número de inscrição no CPF.</xs:documentation>
+                                                                                                            <xs:documentation>Valor da retenção que deixou de ser efetuada em função de processo administrativo ou judicial.</xs:documentation>
                                                                                                         </xs:annotation>
                                                                                                     </xs:element>
-                                                                                                    <xs:element name="vlrDepenSusp" type="TS_valorMonetario_positivo">
+                                                                                                    <xs:element name="vlrDepJud" type="TS_vlrDepJud" minOccurs="0">
                                                                                                         <xs:annotation>
-                                                                                                            <xs:documentation>Valor da dedução relativa a dependentes ou a pensão alimentícia com exigibilidade suspensa.</xs:documentation>
+                                                                                                            <xs:documentation>Valor do depósito judicial em função de processo administrativo ou judicial.</xs:documentation>
                                                                                                         </xs:annotation>
+                                                                                                    </xs:element>
+                                                                                                    <xs:element name="vlrCmpAnoCal" type="TS_vlrCmpAnoCal" minOccurs="0">
+                                                                                                        <xs:annotation>
+                                                                                                            <xs:documentation>Valor da compensação relativa ao ano calendário em função de processo judicial.</xs:documentation>
+                                                                                                        </xs:annotation>
+                                                                                                    </xs:element>
+                                                                                                    <xs:element name="vlrCmpAnoAnt" type="TS_vlrCmpAnoAnt" minOccurs="0">
+                                                                                                        <xs:annotation>
+                                                                                                            <xs:documentation>Valor da compensação relativa a anos anteriores, em função de processo judicial.</xs:documentation>
+                                                                                                        </xs:annotation>
+                                                                                                    </xs:element>
+                                                                                                    <xs:element name="vlrRendSusp" type="TS_vlrRendSusp" minOccurs="0">
+                                                                                                        <xs:annotation>
+                                                                                                            <xs:documentation>Valor do rendimento com exigibilidade suspensa.</xs:documentation>
+                                                                                                        </xs:annotation>
+                                                                                                    </xs:element>
+                                                                                                    <xs:element name="dedSusp" minOccurs="0" maxOccurs="25">
+                                                                                                        <xs:annotation>
+                                                                                                            <xs:documentation>Detalhamento das deduções com exigibilidade suspensa.</xs:documentation>
+                                                                                                            <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
+                                                                                                        </xs:annotation>
+                                                                                                        <xs:complexType>
+                                                                                                            <xs:sequence>
+                                                                                                                <xs:element name="indTpDeducao" type="TS_indTpDeducao" />
+                                                                                                                <xs:element name="vlrDedSusp" type="TS_valorMonetario_positivo" minOccurs="0">
+                                                                                                                    <xs:annotation>
+                                                                                                                        <xs:documentation>Valor da dedução da base de cálculo do imposto de renda com exigibilidade suspensa.</xs:documentation>
+                                                                                                                    </xs:annotation>
+                                                                                                                </xs:element>
+                                                                                                                <xs:element name="benefPen" minOccurs="0" maxOccurs="99">
+                                                                                                                    <xs:annotation>
+                                                                                                                        <xs:documentation>Informação das deduções suspensas por dependentes e beneficiários da pensão alimentícia.</xs:documentation>
+                                                                                                                        <xs:documentation>CONDICAO_GRUPO: O (se {indTpDeducao}(../indTpDeducao) = [5, 7]); N (nos demais casos)</xs:documentation>
+                                                                                                                    </xs:annotation>
+                                                                                                                    <xs:complexType>
+                                                                                                                        <xs:sequence>
+                                                                                                                            <xs:element name="cpfDep" type="TS_cpfDepIR2">
+                                                                                                                                <xs:annotation>
+                                                                                                                                    <xs:documentation>Número de inscrição no CPF.</xs:documentation>
+                                                                                                                                </xs:annotation>
+                                                                                                                            </xs:element>
+                                                                                                                            <xs:element name="vlrDepenSusp" type="TS_valorMonetario_positivo">
+                                                                                                                                <xs:annotation>
+                                                                                                                                    <xs:documentation>Valor da dedução relativa a dependentes ou a pensão alimentícia com exigibilidade suspensa.</xs:documentation>
+                                                                                                                                </xs:annotation>
+                                                                                                                            </xs:element>
+                                                                                                                        </xs:sequence>
+                                                                                                                    </xs:complexType>
+                                                                                                                </xs:element>
+                                                                                                            </xs:sequence>
+                                                                                                        </xs:complexType>
                                                                                                     </xs:element>
                                                                                                 </xs:sequence>
                                                                                             </xs:complexType>
@@ -1177,7 +1196,6 @@
                                                                                 <xs:annotation>
                                                                                     <xs:documentation>Reembolsos de despesas médicas</xs:documentation>
                                                                                     <xs:documentation>DESCRICAO_COMPLETA: Informações relativas a reembolsos efetuados no período de apuração ({perApur}(1210_ideEvento_perApur)) pelo empregador ao trabalhador referente a despesas médicas ou odontológicas pagas pelo trabalhador a prestadores de serviços de saúde.</xs:documentation>
-                                                                                    <xs:documentation>Evento de origem: S-1210.</xs:documentation>
                                                                                     <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
                                                                                 </xs:annotation>
                                                                                 <xs:complexType>
@@ -1228,82 +1246,6 @@
                                                                             </xs:element> 
                                                                         </xs:sequence>
                                                                     </xs:complexType>    
-                                                                </xs:element>
-                                                                <xs:element name="infoProcJud" minOccurs="0">
-                                                                    <xs:annotation>
-                                                                        <xs:documentation>Informações de processo judicial</xs:documentation>
-                                                                        <xs:documentation>DESCRICAO_COMPLETA: Informações complementares - Demais rendimentos decorrentes de decisão judicial não informada como RRA.</xs:documentation>
-                                                                        <xs:documentation>Evento de origem: S-1210.</xs:documentation>
-                                                                        <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
-                                                                    </xs:annotation>
-                                                                    <xs:complexType>
-                                                                        <xs:sequence>
-                                                                            <xs:element name="nrProc" type="TS_nrProcIR">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Informar o número do processo judicial.</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:element>
-                                                                            <xs:element name="indOrigRec" type="TS_indOrigRec" />
-                                                                            <xs:element name="cnpjOrigRecurso" type="TS_cnpj" minOccurs="0">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Preencher com o CNPJ da empresa que repassou os recursos.</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:element>
-                                                                            <xs:element name="desc" type="TS_texto_50" minOccurs="0">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Descrição.</xs:documentation>
-                                                                                </xs:annotation>
-                                                                            </xs:element>
-                                                                            <xs:element name="despProcJud" minOccurs="0">
-                                                                                <xs:complexType>
-                                                                                    <xs:annotation>
-                                                                                        <xs:documentation>Despesas com processo judicial</xs:documentation>
-                                                                                        <xs:documentation>DESCRICAO_COMPLETA:Detalhamento das despesas com processo judicial.</xs:documentation>
-                                                                                        <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
-                                                                                    </xs:annotation>
-                                                                                    <xs:sequence>
-                                                                                        <xs:element name="vlrDespCustas" type="TS_valorMonetario">
-                                                                                            <xs:annotation>
-                                                                                                <xs:documentation>Preencher com o valor das despesas com custas judiciais.</xs:documentation>
-                                                                                            </xs:annotation>
-                                                                                        </xs:element>
-                                                                                        <xs:element name="vlrDespAdvogados" type="TS_valorMonetario">
-                                                                                            <xs:annotation>
-                                                                                                <xs:documentation>Preencher com o valor total das despesas com advogado(s).</xs:documentation>
-                                                                                            </xs:annotation>
-                                                                                        </xs:element>
-                                                                                        <xs:element name="ideAdv" minOccurs="0" maxOccurs="99">
-                                                                                            <xs:annotation>
-                                                                                                <xs:documentation>Identificação dos advogados.</xs:documentation>
-                                                                                                <xs:documentation>CHAVE_GRUPO: {tpInscAdv}, {nrInscAdv}</xs:documentation>
-                                                                                                <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
-                                                                                            </xs:annotation>
-                                                                                            <xs:complexType>
-                                                                                                <xs:sequence>
-                                                                                                    <xs:element name="tpInscAdv" type="TS_tpInsc_1_2">
-                                                                                                        <xs:annotation>
-                                                                                                            <xs:documentation>Tipo de inscrição do advogado.</xs:documentation>
-                                                                                                        </xs:annotation>
-                                                                                                    </xs:element>
-                                                                                                    <xs:element name="nrInscAdv" type="TS_nrInsc_11_14">
-                                                                                                        <xs:annotation>
-                                                                                                            <xs:documentation>Informar o número de inscrição do advogado.</xs:documentation>
-                                                                                                        </xs:annotation>
-                                                                                                    </xs:element>
-                                                                                                    <xs:element name="vlrAdv" minOccurs="0" type="TS_valorMonetario">
-                                                                                                        <xs:annotation>
-                                                                                                            <xs:documentation>Valor da despesa com o advogado, se houver.</xs:documentation>
-                                                                                                        </xs:annotation>
-                                                                                                    </xs:element>
-                                                                                                </xs:sequence>
-                                                                                            </xs:complexType>
-                                                                                        </xs:element>
-                                                                                    </xs:sequence>
-                                                                                </xs:complexType>
-                                                                            </xs:element>
-                                                                            
-                                                                        </xs:sequence>
-                                                                    </xs:complexType>
                                                                 </xs:element>
                                                             </xs:sequence>
                                                         </xs:complexType>
