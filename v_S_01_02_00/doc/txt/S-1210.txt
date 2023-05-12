@@ -77,52 +77,68 @@ Condição: OC
 Nível: 5
 Nome: infoDep
 Pai: infoIRComplem
-Descrição: Informações de dependentes não cadastrados pelo S-2200/S-2205/S-2300.
+Descrição: Informações de dependentes não cadastrados pelo S-2200/S-2205/S-2300/S-2400/S-2405.
 Ocorrência: 0-999
 Chave: cpfDep
 Condição: OC
 
 Nível: 5
-Nome: dedDepen
+Nome: infoIRCR
 Pai: infoIRComplem
+Descrição: Informações de Imposto de Renda, por Código de Receita - CR.
+Ocorrência: 0-99
+Chave: tpCR
+Condição: OC
+
+Nível: 6
+Nome: dedDepen
+Pai: infoIRCR
 Descrição: Dedução do rendimento tributável relativa a dependentes.
 Ocorrência: 0-999
 Chave: tpRend, cpfDep
 Condição: OC
 
-Nível: 5
+Nível: 6
 Nome: penAlim
-Pai: infoIRComplem
+Pai: infoIRCR
 Descrição: Informação dos beneficiários da pensão alimentícia.
 Ocorrência: 0-99
 Chave: tpRend, cpfDep
 Condição: OC
 
-Nível: 5
+Nível: 6
 Nome: previdCompl
-Pai: infoIRComplem
+Pai: infoIRCR
 Descrição: Informações relativas a planos de previdência complementar.
 Ocorrência: 0-99
 Chave: tpPrev, cnpjEntidPC
 Condição: OC
 
-Nível: 5
+Nível: 6
 Nome: infoProcRet
-Pai: infoIRComplem
+Pai: infoIRCR
 Descrição: Informações de processos relacionados a não retenção de tributos ou a depósitos judiciais.
 Ocorrência: 0-50
-Chave: CR, tpProcRet, nrProcRet, codSusp
+Chave: tpProcRet, nrProcRet, codSusp
 Condição: OC
 
-Nível: 6
-Nome: dedSusp
+Nível: 7
+Nome: infoValores
 Pai: infoProcRet
+Descrição: Informações de valores relacionados a não retenção de tributos ou a depósitos judiciais.
+Ocorrência: 0-2
+Chave: indApuracao
+Condição: OC
+
+Nível: 8
+Nome: dedSusp
+Pai: infoValores
 Descrição: Detalhamento das deduções com exigibilidade suspensa.
 Ocorrência: 0-25
 Chave: -
 Condição: OC
 
-Nível: 7
+Nível: 9
 Nome: benefPen
 Pai: dedSusp
 Descrição: Informação das deduções suspensas por dependentes e beneficiários da pensão alimentícia.
@@ -177,30 +193,6 @@ Pai: infoReembDep
 Descrição: Detalhamento dos reembolsos efetuados aos dependentes
 Ocorrência: 0-99
 Chave: tpInsc, nrInsc
-Condição: OC
-
-Nível: 5
-Nome: infoProcJud
-Pai: infoIRComplem
-Descrição: Informações de processo judicial
-Ocorrência: 0-1
-Chave: -
-Condição: OC
-
-Nível: 6
-Nome: despProcJud
-Pai: infoProcJud
-Descrição: Despesas com processo judicial
-Ocorrência: 0-1
-Chave: -
-Condição: OC
-
-Nível: 7
-Nome: ideAdv
-Pai: despProcJud
-Descrição: Identificação dos advogados.
-Ocorrência: 0-99
-Chave: tpInscAdv, nrInscAdv
 Condição: OC
 
 Nome: eSocial
@@ -625,7 +617,7 @@ Tipo: -
 Ocorrência: 0-999
 Tamanho: -
 Dec.: -
-Descrição: Informações de dependentes não cadastrados pelo S-2200/S-2205/S-2300.
+Descrição: Informações de dependentes não cadastrados pelo S-2200/S-2205/S-2300/S-2400/S-2405.
 
 Nome: cpfDep
 Pai: infoDep
@@ -687,8 +679,40 @@ Dec.: -
 Descrição: Informar a descrição da dependência.
 Validação: Informação obrigatória e exclusiva se {tpDep}(./tpDep) = [99].
 
-Nome: dedDepen
+Nome: infoIRCR
 Pai: infoIRComplem
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição: Informações de Imposto de Renda, por Código de Receita - CR.
+
+Nome: tpCR
+Pai: infoIRCR
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 6
+Dec.: -
+Descrição: Código de Receita - CR relativo ao Imposto de Renda Retido na Fonte sobre rendimentos do trabalho.
+Valores válidos:
+056107 - IRRF mensal, 13° salário e férias sobre trabalho assalariado no país ou ausente no exterior a serviço do país, exceto se contratado por empregador doméstico ou por segurado especial sujeito a recolhimento unificado
+056108 - IRRF mensal e férias - Empregado doméstico
+056109 - IRRF 13° salário na rescisão de contrato de trabalho - Empregado doméstico
+056110 - IRRF - Empregado doméstico 13º salário
+056111 - IRRF - Empregado/Trabalhador rural - Segurado especial
+056112 - IRRF - Empregado/Trabalhador rural - Segurado especial 13° salário
+056113 - IRRF - Empregado/Trabalhador rural - Segurado especial 13° salário rescisório
+058806 - IRRF sobre rendimento do trabalho sem vínculo empregatício
+061001 - IRRF sobre rendimentos relativos a prestação de serviços de transporte rodoviário internacional de carga, pagos a transportador autônomo PF residente no Paraguai
+353301 - Proventos de aposentadoria, reserva, reforma ou pensão pagos por previdência pública
+356201 - IRRF sobre participação dos trabalhadores em lucros ou resultados - PLR
+188901 - Rendimentos Recebidos Acumuladamente - RRA
+047301 - IRRF - Residentes no exterior, para fins fiscais
+
+Nome: dedDepen
+Pai: infoIRCR
 Elem.: G
 Tipo: -
 Ocorrência: 0-999
@@ -717,7 +741,7 @@ Ocorrência: 1
 Tamanho: 11
 Dec.: -
 Descrição: Número de inscrição no CPF.
-Validação: Deve ser um CPF de dependente cadastrado no eSocial (S-2200/S-2205/S-2300 ou no grupo {infoDep}(1210_ideBenef_infoIRComplem_infoDep)).
+Validação: Deve ser um CPF de dependente cadastrado no eSocial (S-2200/S-2205/S-2300/S-2400/S-2405 ou no grupo {infoDep}(1210_ideBenef_infoIRComplem_infoDep)).
 
 Nome: vlrDedDep
 Pai: dedDepen
@@ -731,7 +755,7 @@ Validação: O valor informado neste campo deve ser menor ou igual ao valor unit
 Em caso de inconsistência na validação, o arquivo será aceito, porém com alerta ao contribuinte.
 
 Nome: penAlim
-Pai: infoIRComplem
+Pai: infoIRCR
 Elem.: G
 Tipo: -
 Ocorrência: 0-99
@@ -761,7 +785,7 @@ Ocorrência: 1
 Tamanho: 11
 Dec.: -
 Descrição: Número do CPF do dependente/beneficiário da pensão alimentícia.
-Validação: Deve ser um CPF de dependente cadastrado no eSocial (S-2200/S-2205/S-2300 ou no grupo {infoDep}(../infoDep)).
+Validação: Deve ser um CPF de dependente cadastrado no eSocial (S-2200/S-2205/S-2300/S-2400/S-2405 ou no grupo {infoDep}(../../infoDep)).
 
 Nome: vlrDedPenAlim
 Pai: penAlim
@@ -774,7 +798,7 @@ Descrição: Valor relativo à dedução do rendimento tributável correspondent
 Validação: Deve ser maior que 0 (zero).
 
 Nome: previdCompl
-Pai: infoIRComplem
+Pai: infoIRCR
 Elem.: G
 Tipo: -
 Ocorrência: 0-99
@@ -826,36 +850,13 @@ Descrição: Valor da contribuição do ente público patrocinador da Fundação
 Validação: Informação permitida apenas se {tpPrev}(./tpPrev) = [3].
 
 Nome: infoProcRet
-Pai: infoIRComplem
+Pai: infoIRCR
 Elem.: G
 Tipo: -
 Ocorrência: 0-50
 Tamanho: -
 Dec.: -
 Descrição: Informações de processos relacionados a não retenção de tributos ou a depósitos judiciais.
-
-Nome: CR
-Pai: infoProcRet
-Elem.: E
-Tipo: C
-Ocorrência: 1
-Tamanho: 6
-Dec.: -
-Descrição: Código de Receita - CR relativo ao Imposto de Renda Retido na Fonte sobre rendimentos do trabalho.
-Valores válidos:
-056107 - IRRF mensal, 13° salário e férias sobre trabalho assalariado no país ou ausente no exterior a serviço do país, exceto se contratado por empregador doméstico ou por segurado especial sujeito a recolhimento unificado
-056108 - IRRF mensal e férias - Empregado doméstico
-056109 - IRRF 13° salário na rescisão de contrato de trabalho - Empregado doméstico
-056110 - IRRF - Empregado doméstico 13º salário
-056111 - IRRF - Empregado/Trabalhador rural - Segurado especial
-056112 - IRRF - Empregado/Trabalhador rural - Segurado especial 13° salário
-056113 - IRRF - Empregado/Trabalhador rural - Segurado especial 13° salário rescisório
-058806 - IRRF sobre rendimento do trabalho sem vínculo empregatício
-061001 - IRRF sobre rendimentos relativos a prestação de serviços de transporte rodoviário internacional de carga, pagos a transportador autônomo PF residente no Paraguai
-353301 - Proventos de aposentadoria, reserva, reforma ou pensão pagos por previdência pública
-356201 - IRRF sobre participação dos trabalhadores em lucros ou resultados - PLR
-188901 - Rendimentos Recebidos Acumuladamente - RRA
-047301 - IRRF - Residentes no exterior, para fins fiscais
 
 Nome: tpProcRet
 Pai: infoProcRet
@@ -890,8 +891,29 @@ Descrição: Código do indicativo da suspensão, atribuído pelo empregador em 
 Validação: Informação obrigatória se houver mais de uma informação de indicativo de suspensão para um mesmo processo.
 Se informado, deve constar na Tabela de Processos (S-1070), campo {codSusp}(1070_infoProcesso_inclusao_dadosProc_infoSusp_codSusp), vinculado ao número do processo informado em {nrProcRet}(./nrProcRet).
 
-Nome: vlrNRetido
+Nome: infoValores
 Pai: infoProcRet
+Elem.: G
+Tipo: -
+Ocorrência: 0-2
+Tamanho: -
+Dec.: -
+Descrição: Informações de valores relacionados a não retenção de tributos ou a depósitos judiciais.
+
+Nome: indApuracao
+Pai: infoValores
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo de período de apuração.
+Valores válidos:
+1 - Mensal
+2 - Anual (13° salário)
+
+Nome: vlrNRetido
+Pai: infoValores
 Elem.: E
 Tipo: N
 Ocorrência: 0-1
@@ -902,7 +924,7 @@ Validação: Informação permitida apenas se {indDeposito}(1070_infoProcesso_in
 Se informado, deve ser maior que 0 (zero).
 
 Nome: vlrDepJud
-Pai: infoProcRet
+Pai: infoValores
 Elem.: E
 Tipo: N
 Ocorrência: 0-1
@@ -913,29 +935,29 @@ Validação: Informação permitida apenas se {indDeposito}(1070_infoProcesso_in
 Se informado, deve ser maior que 0 (zero).
 
 Nome: vlrCmpAnoCal
-Pai: infoProcRet
+Pai: infoValores
 Elem.: E
 Tipo: N
 Ocorrência: 0-1
 Tamanho: 1-14
 Dec.: 2
 Descrição: Valor da compensação relativa ao ano calendário em função de processo judicial.
-Validação: Informação permitida apenas se {tpProcRet}(./tpProcRet) = [2].
+Validação: Informação permitida apenas se {tpProcRet}(../tpProcRet) = [2].
 Se informado, deve ser maior que 0 (zero).
 
 Nome: vlrCmpAnoAnt
-Pai: infoProcRet
+Pai: infoValores
 Elem.: E
 Tipo: N
 Ocorrência: 0-1
 Tamanho: 1-14
 Dec.: 2
 Descrição: Valor da compensação relativa a anos anteriores em função de processo judicial.
-Validação: Informação permitida apenas se {tpProcRet}(./tpProcRet) = [2].
+Validação: Informação permitida apenas se {tpProcRet}(../tpProcRet) = [2].
 Se informado, deve ser maior que 0 (zero).
 
 Nome: vlrRendSusp
-Pai: infoProcRet
+Pai: infoValores
 Elem.: E
 Tipo: N
 Ocorrência: 0-1
@@ -945,7 +967,7 @@ Descrição: Valor do rendimento com exigibilidade suspensa.
 Validação: Se informado, deve ser maior que 0 (zero).
 
 Nome: dedSusp
-Pai: infoProcRet
+Pai: infoValores
 Elem.: G
 Tipo: -
 Ocorrência: 0-25
@@ -980,6 +1002,16 @@ Descrição: Valor da dedução da base de cálculo do imposto de renda com exig
 Validação: Se {indTpDeducao}(./indTpDeducao) = [5, 7], e o grupo {benefPen}(./benefPen) for preenchido, o valor informado neste campo deve ser a soma do(s) campo(s) {vlrDepenSusp}(./benefPen_vlrDepenSusp) do grupo {benefPen}(./benefPen).
 O não preenchimento do grupo {benefPen}(./benefPen) indica que o contribuinte declarante não possui as informações detalhadas por dependente/alimentando.
 
+Nome: vlrPatrocFunp
+Pai: dedSusp
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da contribuição do ente público patrocinador da Fundação de Previdência Complementar do Servidor Público (Funpresp).
+Validação: Informação permitida apenas se {indTpDeducao}(./indTpDeducao) = [4].
+
 Nome: benefPen
 Pai: dedSusp
 Elem.: G
@@ -997,7 +1029,7 @@ Ocorrência: 1
 Tamanho: 11
 Dec.: -
 Descrição: Número de inscrição no CPF.
-Validação: Deve ser um CPF de dependente cadastrado no eSocial (S-2200/S-2205/S-2300 ou no grupo {infoDep}(1210_ideBenef_infoIRComplem_infoDep)).
+Validação: Deve ser um CPF de dependente cadastrado no eSocial (S-2200/S-2205/S-2300/S-2400/S-2405 ou no grupo {infoDep}(1210_ideBenef_infoIRComplem_infoDep)).
 
 Nome: vlrDepenSusp
 Pai: benefPen
@@ -1067,7 +1099,7 @@ Ocorrência: 1
 Tamanho: 11
 Dec.: -
 Descrição: Número de inscrição no CPF do dependente do plano de saúde.
-Validação: Deve ser um CPF de dependente cadastrado no eSocial (S-2200/S-2205/S-2300 ou no grupo {infoDep}(1210_ideBenef_infoIRComplem_infoDep)).
+Validação: Deve ser um CPF de dependente cadastrado no eSocial (S-2200/S-2205/S-2300/S-2400/S-2405 ou no grupo {infoDep}(1210_ideBenef_infoIRComplem_infoDep)).
 
 Nome: vlrSaudeDep
 Pai: infoDepSau
@@ -1190,7 +1222,7 @@ Ocorrência: 1
 Tamanho: 11
 Dec.: -
 Descrição: Número de inscrição no CPF do dependente.
-Validação: Deve ser um CPF de dependente cadastrado no eSocial (S-2200/S-2205/S-2300 ou no grupo {infoDep}(1210_ideBenef_infoIRComplem_infoDep)).
+Validação: Deve ser um CPF de dependente cadastrado no eSocial (S-2200/S-2205/S-2300/S-2400/S-2405 ou no grupo {infoDep}(1210_ideBenef_infoIRComplem_infoDep)).
 
 Nome: detReembDep
 Pai: infoReembDep
@@ -1242,125 +1274,4 @@ Tamanho: 1-14
 Dec.: 2
 Descrição: Valor do reembolso relativo a anos anteriores.
 Validação: Informação não obrigatória se {vlrReemb}(./vlrReemb) for maior que zero.
-
-Nome: infoProcJud
-Pai: infoIRComplem
-Elem.: G
-Tipo: -
-Ocorrência: 0-1
-Tamanho: -
-Dec.: -
-Descrição:  Informações complementares - Demais rendimentos decorrentes de decisão judicial não informada como RRA.
-
-Nome: nrProc
-Pai: infoProcJud
-Elem.: E
-Tipo: C
-Ocorrência: 1
-Tamanho: 2-21
-Dec.: -
-Descrição: Informar o número do processo judicial.
-Validação: O número informado deve obedecer às seguintes regras:
-a) Não pode conter caracteres diferentes de [A...Z] e [0...9];
-b) Não pode conter mais caracteres alfabéticos do que numéricos;
-c) Não pode conter somente caracteres alfabéticos.
-
-Nome: indOrigRec
-Pai: infoProcJud
-Elem.: E
-Tipo: N
-Ocorrência: 1
-Tamanho: 1
-Dec.: -
-Descrição: Indicativo da origem dos recursos.
-Valores válidos:
-1 - Recursos do próprio declarante
-2 - Recursos de terceiros - Declarante é a instituição financeira responsável pelo repasse dos valores
-
-Nome: cnpjOrigRecurso
-Pai: infoProcJud
-Elem.: E
-Tipo: C
-Ocorrência: 0-1
-Tamanho: 14
-Dec.: -
-Descrição: Preencher com o CNPJ da empresa que repassou os recursos.
-Validação: Informação obrigatória e exclusiva se {indOrigRec}(./indOrigRec) = [2].
-
-Nome: desc
-Pai: infoProcJud
-Elem.: E
-Tipo: C
-Ocorrência: 0-1
-Tamanho: 1-50
-Dec.: -
-Descrição: Descrição.
-
-Nome: despProcJud
-Pai: infoProcJud
-Elem.: G
-Tipo: -
-Ocorrência: 0-1
-Tamanho: -
-Dec.: -
-Descrição: Detalhamento das despesas com processo judicial.
-
-Nome: vlrDespCustas
-Pai: despProcJud
-Elem.: E
-Tipo: N
-Ocorrência: 1
-Tamanho: 1-14
-Dec.: 2
-Descrição: Preencher com o valor das despesas com custas judiciais.
-
-Nome: vlrDespAdvogados
-Pai: despProcJud
-Elem.: E
-Tipo: N
-Ocorrência: 1
-Tamanho: 1-14
-Dec.: 2
-Descrição: Preencher com o valor total das despesas com advogado(s).
-
-Nome: ideAdv
-Pai: despProcJud
-Elem.: G
-Tipo: -
-Ocorrência: 0-99
-Tamanho: -
-Dec.: -
-Descrição: Identificação dos advogados.
-
-Nome: tpInscAdv
-Pai: ideAdv
-Elem.: E
-Tipo: N
-Ocorrência: 1
-Tamanho: 1
-Dec.: -
-Descrição: Tipo de inscrição do advogado.
-Valores válidos:
-1 - CNPJ
-2 - CPF
-
-Nome: nrInscAdv
-Pai: ideAdv
-Elem.: E
-Tipo: C
-Ocorrência: 1
-Tamanho: 11 ou 14
-Dec.: -
-Descrição: Informar o número de inscrição do advogado.
-Validação: Deve ser um CNPJ ou CPF válido, de acordo com o tipo de inscrição indicado em {tpInscAdv}(./tpInscAdv).
-Não pode ser igual ao número de inscrição do declarante.
-
-Nome: vlrAdv
-Pai: ideAdv
-Elem.: E
-Tipo: N
-Ocorrência: 0-1
-Tamanho: 1-14
-Dec.: 2
-Descrição: Valor da despesa com o advogado, se houver.
 
