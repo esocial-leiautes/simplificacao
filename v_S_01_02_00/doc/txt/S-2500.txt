@@ -1074,6 +1074,43 @@ Dec.: -
 Descrição: Data projetada para o término do aviso prévio indenizado.
 Validação: Se informada, deve ser igual ou posterior a {dtDeslig}(./dtDeslig).
 
+Nome: pensAlim
+Pai: infoDeslig
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo de pensão alimentícia para fins de retenção de FGTS.
+Valores válidos:
+0 - Não existe pensão alimentícia
+1 - Percentual de pensão alimentícia
+2 - Valor de pensão alimentícia
+3 - Percentual e valor de pensão alimentícia
+Validação: Preenchimento obrigatório e exclusivo se o vínculo for celetista ({tpRegTrab}(../tpRegTrab) = [1]).
+
+Nome: percAliment
+Pai: infoDeslig
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-5
+Dec.: 2
+Descrição: Percentual a ser destinado a pensão alimentícia.
+Validação: Deve ser maior que 0 (zero) e menor ou igual a 100 (cem).
+Informação obrigatória e exclusiva se {pensAlim}(./pensAlim) = [1, 3].
+
+Nome: vrAlim
+Pai: infoDeslig
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da pensão alimentícia.
+Validação: Deve ser maior que 0 (zero).
+Informação obrigatória e exclusiva se {pensAlim}(./pensAlim) = [2, 3].
+
 Nome: infoTerm
 Pai: infoCompl
 Elem.: G
