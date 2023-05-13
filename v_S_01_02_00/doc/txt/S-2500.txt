@@ -84,15 +84,6 @@ Chave: cpfTrab*
 Condição: O
 
 Nível: 4
-Nome: dependente
-Pai: ideTrab
-Descrição: Informações dos dependentes.
-Ocorrência: 0-99
-Chave: cpfDep
-Condição: OC (se existir contrato com {indContr}(2500_ideTrab_infoContr_indContr) = [N])
-N (nos demais casos)
-
-Nível: 4
 Nome: infoContr
 Pai: ideTrab
 Descrição: Informações do contrato de trabalho.
@@ -604,46 +595,6 @@ Tamanho: -
 Dec.: -
 Descrição: Preencher com a data de nascimento.
 Validação: Preenchimento obrigatório se não existir contrato com {indContr}(2500_ideTrab_infoContr_indContr) = [S]. Deve ser maior ou igual que 01/01/1890 e menor ou igual à data atual.
-
-Nome: dependente
-Pai: ideTrab
-Elem.: G
-Tipo: -
-Ocorrência: 0-99
-Tamanho: -
-Dec.: -
-Descrição: Informações dos dependentes.
-
-Nome: cpfDep
-Pai: dependente
-Elem.: E
-Tipo: C
-Ocorrência: 1
-Tamanho: 11
-Dec.: -
-Descrição: Número de inscrição no CPF.
-Validação: Deve ser um número de CPF válido e diferente do CPF do trabalhador. Em arquivo de empregador Pessoa Física, também deve ser diferente do CPF informado em {ideEmpregador/nrInsc}(2500_ideEmpregador_nrInsc).
-
-Nome: tpDep
-Pai: dependente
-Elem.: E
-Tipo: C
-Ocorrência: 1
-Tamanho: 2
-Dec.: -
-Descrição: Tipo de dependente.
-Validação: Preenchimento obrigatório se {depIRRF}(./depIRRF) = [S].
-Deve ser um código válido e existente na Tabela 07.
-
-Nome: descDep
-Pai: dependente
-Elem.: E
-Tipo: C
-Ocorrência: 0-1
-Tamanho: 1-30
-Dec.: -
-Descrição: Informar a descrição da dependência.
-Validação: Informação obrigatória e exclusiva se {tpDep}(./tpDep) = [99].
 
 Nome: infoContr
 Pai: ideTrab
