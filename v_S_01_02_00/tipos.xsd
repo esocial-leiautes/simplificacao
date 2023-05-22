@@ -1777,8 +1777,8 @@
 
     <xs:simpleType name="TS_codSuspIR">
         <xs:annotation>
-            <xs:documentation>Código do indicativo da suspensão, atribuído pelo empregador em S-1070. Este campo deve ser utilizado se, em um mesmo processo, houver mais de uma matéria tributária objeto de contestação e as decisões forem diferentes para cada uma.</xs:documentation>
-            <xs:documentation>Validação: Informação obrigatória se houver mais de uma informação de indicativo de suspensão para um mesmo processo.</xs:documentation>
+            <xs:documentation>Código do indicativo da suspensão, atribuído pelo empregador em S-1070.</xs:documentation>
+            <xs:documentation>Validação: Preenchimento obrigatório se houver informação de {codSusp}(1070_infoProcesso_inclusao_dadosProc_infoSusp_codSusp) em S-1070.</xs:documentation>
             <xs:documentation>Se informado, deve constar na Tabela de Processos (S-1070), campo {codSusp}(1070_infoProcesso_inclusao_dadosProc_infoSusp_codSusp), vinculado ao número do processo informado em {nrProcRet}(./nrProcRet).</xs:documentation>
         </xs:annotation>
         <xs:restriction base="TS_codSusp" />
@@ -2612,9 +2612,10 @@
         <xs:annotation>
             <xs:documentation>Preencher com o valor da dedução da base de cálculo.</xs:documentation>
             <xs:documentation>Validação: O valor informado neste campo deve ser menor ou igual ao valor unitário da dedução por dependente definido na legislação.</xs:documentation>
+            <xs:documentation>Deve ser maior que 0 (zero).</xs:documentation>
             <xs:documentation>Em caso de inconsistência na validação, o arquivo será aceito, porém com alerta ao contribuinte.</xs:documentation>
         </xs:annotation>
-        <xs:restriction base="TS_valorMonetario" />
+        <xs:restriction base="TS_valorMonetario_positivo" />
     </xs:simpleType>
 
     <!-- Campo {vlrDedPenAlim} -->

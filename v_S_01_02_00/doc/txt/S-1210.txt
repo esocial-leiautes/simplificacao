@@ -143,7 +143,7 @@ Nome: benefPen
 Pai: dedSusp
 Descrição: Deduções suspensas por dependentes e beneficiários da pensão alimentícia
 Ocorrência: 0-99
-Chave: -
+Chave: cpfDep
 Condição: O (se {indTpDeducao}(../indTpDeducao) = [5, 7])
 N (nos demais casos)
 
@@ -163,15 +163,15 @@ Ocorrência: 0-99
 Chave: cpfDep
 Condição: OC
 
-Nível: 6
+Nível: 5
 Nome: infoReembMed
-Pai: planSaude
+Pai: infoIRComplem
 Descrição: Reembolsos de despesas médicas
 Ocorrência: 0-99
 Chave: -
 Condição: OC
 
-Nível: 7
+Nível: 6
 Nome: detReembTit
 Pai: infoReembMed
 Descrição: Informação de reembolso do titular do plano de saúde coletivo empresarial.
@@ -179,15 +179,15 @@ Ocorrência: 0-99
 Chave: tpInsc, nrInsc
 Condição: OC
 
-Nível: 7
+Nível: 6
 Nome: infoReembDep
 Pai: infoReembMed
 Descrição: Informação de reembolso do dependente do plano de saúde coletivo empresarial.
 Ocorrência: 0-99
-Chave: -
+Chave: cpfBenef
 Condição: OC
 
-Nível: 8
+Nível: 7
 Nome: detReembDep
 Pai: infoReembDep
 Descrição: Detalhamento dos reembolsos efetuados aos dependentes
@@ -753,6 +753,7 @@ Tamanho: 1-14
 Dec.: 2
 Descrição: Preencher com o valor da dedução da base de cálculo.
 Validação: O valor informado neste campo deve ser menor ou igual ao valor unitário da dedução por dependente definido na legislação.
+Deve ser maior que 0 (zero).
 Em caso de inconsistência na validação, o arquivo será aceito, porém com alerta ao contribuinte.
 
 Nome: penAlim
@@ -849,6 +850,7 @@ Tamanho: 1-14
 Dec.: 2
 Descrição: Valor da contribuição do ente público patrocinador da Fundação de Previdência Complementar do Servidor Público (Funpresp).
 Validação: Informação permitida apenas se {tpPrev}(./tpPrev) = [3].
+Deve ser maior que 0 (zero).
 
 Nome: infoProcRet
 Pai: infoIRCR
@@ -888,8 +890,8 @@ Tipo: N
 Ocorrência: 0-1
 Tamanho: 1-14
 Dec.: -
-Descrição: Código do indicativo da suspensão, atribuído pelo empregador em S-1070. Este campo deve ser utilizado se, em um mesmo processo, houver mais de uma matéria tributária objeto de contestação e as decisões forem diferentes para cada uma.
-Validação: Informação obrigatória se houver mais de uma informação de indicativo de suspensão para um mesmo processo.
+Descrição: Código do indicativo da suspensão, atribuído pelo empregador em S-1070.
+Validação: Preenchimento obrigatório se houver informação de {codSusp}(1070_infoProcesso_inclusao_dadosProc_infoSusp_codSusp) em S-1070.
 Se informado, deve constar na Tabela de Processos (S-1070), campo {codSusp}(1070_infoProcesso_inclusao_dadosProc_infoSusp_codSusp), vinculado ao número do processo informado em {nrProcRet}(./nrProcRet).
 
 Nome: infoValores
@@ -1001,6 +1003,7 @@ Tamanho: 1-14
 Dec.: 2
 Descrição: Valor da dedução da base de cálculo do imposto de renda com exigibilidade suspensa.
 Validação: Se {indTpDeducao}(./indTpDeducao) = [5, 7], e o grupo {benefPen}(./benefPen) for preenchido, o valor informado neste campo deve ser a soma do(s) campo(s) {vlrDepenSusp}(./benefPen_vlrDepenSusp) do grupo {benefPen}(./benefPen).
+Deve ser maior que 0 (zero).
 O não preenchimento do grupo {benefPen}(./benefPen) indica que o contribuinte declarante não possui as informações detalhadas por dependente/alimentando.
 
 Nome: vlrPatrocFunp
@@ -1012,6 +1015,7 @@ Tamanho: 1-14
 Dec.: 2
 Descrição: Valor da contribuição do ente público patrocinador da Fundação de Previdência Complementar do Servidor Público (Funpresp).
 Validação: Informação permitida apenas se {indTpDeducao}(./indTpDeducao) = [4].
+Deve ser maior que 0 (zero).
 
 Nome: benefPen
 Pai: dedSusp
@@ -1081,7 +1085,7 @@ Tamanho: 1-14
 Dec.: 2
 Descrição: Valor relativo à dedução do rendimento tributável correspondente a pagamento a plano de saúde do titular.
 Validação: Deve ser maior ou igual a 0 (zero).
-Se for igual a 0 (zero), deve haver informações em registro(s) filho(s), relativas a dependentes ({infoDepSau}(./infoDepSau)) ou reembolso ({infoReembMed}(./infoReembMed)).
+Se for igual a 0 (zero), deve haver informações em registro(s) filho(s), relativas a dependentes ({infoDepSau}(./infoDepSau)).
 
 Nome: infoDepSau
 Pai: planSaude
@@ -1114,7 +1118,7 @@ Validação: Deve ser maior ou igual a 0 (zero).
 Se for igual a 0 (zero), {vlrSaudeTit}(../vlrSaudeTit) deve ser maior que 0 (zero).
 
 Nome: infoReembMed
-Pai: planSaude
+Pai: infoIRComplem
 Elem.: G
 Tipo: -
 Ocorrência: 0-99

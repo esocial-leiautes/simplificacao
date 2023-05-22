@@ -360,10 +360,11 @@
                                                                                     <xs:documentation>Validação: Deve ser maior que 0 (zero).</xs:documentation>
                                                                                 </xs:annotation>
                                                                             </xs:element>
-                                                                            <xs:element name="vlrPatrocFunp" type="TS_valorMonetario" minOccurs="0">
+                                                                            <xs:element name="vlrPatrocFunp" type="TS_valorMonetario_positivo" minOccurs="0">
                                                                             <xs:annotation>
                                                                                     <xs:documentation>Valor da contribuição do ente público patrocinador da Fundação de Previdência Complementar do Servidor Público (Funpresp).</xs:documentation>
                                                                                     <xs:documentation>Validação: Informação permitida apenas se {tpPrev}(./tpPrev) = [3].</xs:documentation>
+                                                                                    <xs:documentation>Deve ser maior que 0 (zero).</xs:documentation>
                                                                                 </xs:annotation>
                                                                             </xs:element>
                                                                         </xs:sequence>
@@ -404,23 +405,26 @@
                                                                                             <xs:complexType>
                                                                                                 <xs:sequence>
                                                                                                     <xs:element name="indTpDeducao" type="TS_indTpDeducao" />
-                                                                                                    <xs:element name="vlrDedSusp" type="TS_valorMonetario" minOccurs="0">
+                                                                                                    <xs:element name="vlrDedSusp" type="TS_valorMonetario_positivo" minOccurs="0">
                                                                                                         <xs:annotation>
                                                                                                             <xs:documentation>Valor da dedução da base de cálculo do imposto de renda com exigibilidade suspensa.</xs:documentation>
                                                                                                             <xs:documentation>Validação: Se {indTpDeducao}(./indTpDeducao) = [5, 7], e o grupo {benefPen}(./benefPen) for preenchido, o valor informado neste campo deve ser a soma do(s) campo(s) {vlrDepenSusp}(./benefPen_vlrDepenSusp) do grupo {benefPen}(./benefPen).</xs:documentation>
+                                                                                                            <xs:documentation>Deve ser maior que 0 (zero).</xs:documentation>
                                                                                                             <xs:documentation>O não preenchimento do grupo {benefPen}(./benefPen) indica que o contribuinte declarante não possui as informações detalhadas por dependente/alimentando.</xs:documentation>
                                                                                                         </xs:annotation>
                                                                                                     </xs:element>
-                                                                                                    <xs:element name="vlrPatrocFunp" type="TS_valorMonetario" minOccurs="0">
+                                                                                                    <xs:element name="vlrPatrocFunp" type="TS_valorMonetario_positivo" minOccurs="0">
                                                                                                         <xs:annotation>
                                                                                                             <xs:documentation>Valor da contribuição do ente público patrocinador da Fundação de Previdência Complementar do Servidor Público (Funpresp).</xs:documentation>
                                                                                                             <xs:documentation>Validação: Informação permitida apenas se {indTpDeducao}(./indTpDeducao) = [4].</xs:documentation>
+                                                                                                            <xs:documentation>Deve ser maior que 0 (zero).</xs:documentation>
                                                                                                         </xs:annotation>
                                                                                                     </xs:element>
                                                                                                     <xs:element name="benefPen" minOccurs="0" maxOccurs="99">
                                                                                                         <xs:annotation>
                                                                                                             <xs:documentation>Deduções suspensas por dependentes e beneficiários da pensão alimentícia</xs:documentation>
                                                                                                             <xs:documentation>DESCRICAO_COMPLETA: Informação das deduções suspensas por dependentes e beneficiários da pensão alimentícia.</xs:documentation>
+                                                                                                            <xs:documentation>CHAVE_GRUPO: {cpfDep}</xs:documentation>
                                                                                                             <xs:documentation>CONDICAO_GRUPO: O (se {indTpDeducao}(../indTpDeducao) = [5, 7]); N (nos demais casos)</xs:documentation>
                                                                                                         </xs:annotation>
                                                                                                         <xs:complexType>
@@ -468,7 +472,7 @@
                                                                     <xs:annotation>
                                                                         <xs:documentation>Valor relativo à dedução do rendimento tributável correspondente a pagamento a plano de saúde do titular.</xs:documentation>
                                                                         <xs:documentation>Validação: Deve ser maior ou igual a 0 (zero).</xs:documentation>
-                                                                        <xs:documentation>Se for igual a 0 (zero), deve haver informações em registro(s) filho(s), relativas a dependentes ({infoDepSau}(./infoDepSau)) ou reembolso ({infoReembMed}(./infoReembMed)).</xs:documentation>
+                                                                        <xs:documentation>Se for igual a 0 (zero), deve haver informações em registro(s) filho(s), relativas a dependentes ({infoDepSau}(./infoDepSau)).</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
                                                                 <xs:element name="infoDepSau" minOccurs="0" maxOccurs="99">
@@ -495,59 +499,60 @@
                                                                         </xs:sequence>
                                                                     </xs:complexType>
                                                                 </xs:element>
-                                                                <xs:element name="infoReembMed" minOccurs="0" maxOccurs="99">
+                                                            </xs:sequence>
+                                                        </xs:complexType>    
+                                                    </xs:element>
+                                                    <xs:element name="infoReembMed" minOccurs="0" maxOccurs="99">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Reembolsos de despesas médicas</xs:documentation>
+                                                            <xs:documentation>DESCRICAO_COMPLETA: Informações relativas a reembolsos efetuados no período de apuração ({perApur}(1210_ideEvento_perApur)) pelo empregador ao trabalhador referente a despesas médicas ou odontológicas pagas pelo trabalhador a prestadores de serviços de saúde.</xs:documentation>
+                                                            <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
+                                                        </xs:annotation>
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:element name="indOrgReemb" type="TS_indOrgReemb" />
+                                                                <xs:element name="cnpjOper" type="TS_cnpj" minOccurs="0">
                                                                     <xs:annotation>
-                                                                        <xs:documentation>Reembolsos de despesas médicas</xs:documentation>
-                                                                        <xs:documentation>DESCRICAO_COMPLETA: Informações relativas a reembolsos efetuados no período de apuração ({perApur}(1210_ideEvento_perApur)) pelo empregador ao trabalhador referente a despesas médicas ou odontológicas pagas pelo trabalhador a prestadores de serviços de saúde.</xs:documentation>
+                                                                        <xs:documentation>CNPJ da operadora do plano de saúde.</xs:documentation>
+                                                                        <xs:documentation>Validação: Informação obrigatória e exclusiva se {indOrgReemb}(./indOrgReemb) = [1].</xs:documentation>
+                                                                        <xs:documentation>Deve ser um CNPJ válido.</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:element>
+                                                                <xs:element name="regANS" type="TS_regANS" minOccurs="0" />
+                                                                <xs:element name="detReembTit" type="T_detReemb" minOccurs="0" maxOccurs="99">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Informação de reembolso do titular do plano de saúde coletivo empresarial.</xs:documentation>
+                                                                        <xs:documentation>CHAVE_GRUPO: {tpInsc}, {nrInsc}</xs:documentation>
+                                                                        <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:element>
+                                                                <xs:element name="infoReembDep" minOccurs="0" maxOccurs="99">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Informação de reembolso do dependente do plano de saúde coletivo empresarial.</xs:documentation>
+                                                                        <xs:documentation>CHAVE_GRUPO: {cpfBenef}</xs:documentation>
                                                                         <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
                                                                     </xs:annotation>
                                                                     <xs:complexType>
                                                                         <xs:sequence>
-                                                                            <xs:element name="indOrgReemb" type="TS_indOrgReemb" />
-                                                                            <xs:element name="cnpjOper" type="TS_cnpj" minOccurs="0">
+                                                                            <xs:element name="cpfBenef" type="TS_cpfDepIR2">
                                                                                 <xs:annotation>
-                                                                                    <xs:documentation>CNPJ da operadora do plano de saúde.</xs:documentation>
-                                                                                    <xs:documentation>Validação: Informação obrigatória e exclusiva se {indOrgReemb}(./indOrgReemb) = [1].</xs:documentation>
-                                                                                    <xs:documentation>Deve ser um CNPJ válido.</xs:documentation>
+                                                                                    <xs:documentation>Número de inscrição no CPF do dependente.</xs:documentation>
+                                                                                    <xs:documentation>Validação: Deve ser um CPF de dependente cadastrado no eSocial (S-2200/S-2205/S-2300/S-2400/S-2405 ou no grupo {infoDep}(1210_ideBenef_infoIRComplem_infoDep)).</xs:documentation>
                                                                                 </xs:annotation>
                                                                             </xs:element>
-                                                                            <xs:element name="regANS" type="TS_regANS" minOccurs="0" />
-                                                                            <xs:element name="detReembTit" type="T_detReemb" minOccurs="0" maxOccurs="99">
+                                                                            <xs:element name="detReembDep" type="T_detReemb" minOccurs="0" maxOccurs="99">
                                                                                 <xs:annotation>
-                                                                                    <xs:documentation>Informação de reembolso do titular do plano de saúde coletivo empresarial.</xs:documentation>
+                                                                                    <xs:documentation>Detalhamento dos reembolsos efetuados aos dependentes</xs:documentation>
+                                                                                    <xs:documentation>DESCRICAO_COMPLETA: Detalhamento dos reembolsos efetuados em {perApur}(1210_ideEvento_perApur) pelo empregador ao trabalhador referente a despesas médicas ou odontológicas pagas pelo trabalhador a prestadores de serviços de saúde relativo a despesas de seus dependentes.</xs:documentation>
                                                                                     <xs:documentation>CHAVE_GRUPO: {tpInsc}, {nrInsc}</xs:documentation>
                                                                                     <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
                                                                                 </xs:annotation>
                                                                             </xs:element>
-                                                                            <xs:element name="infoReembDep" minOccurs="0" maxOccurs="99">
-                                                                                <xs:annotation>
-                                                                                    <xs:documentation>Informação de reembolso do dependente do plano de saúde coletivo empresarial.</xs:documentation>
-                                                                                    <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
-                                                                                </xs:annotation>
-                                                                                <xs:complexType>
-                                                                                    <xs:sequence>
-                                                                                        <xs:element name="cpfBenef" type="TS_cpfDepIR2">
-                                                                                            <xs:annotation>
-                                                                                                <xs:documentation>Número de inscrição no CPF do dependente.</xs:documentation>
-                                                                                                <xs:documentation>Validação: Deve ser um CPF de dependente cadastrado no eSocial (S-2200/S-2205/S-2300/S-2400/S-2405 ou no grupo {infoDep}(1210_ideBenef_infoIRComplem_infoDep)).</xs:documentation>
-                                                                                            </xs:annotation>
-                                                                                        </xs:element>
-                                                                                        <xs:element name="detReembDep" type="T_detReemb" minOccurs="0" maxOccurs="99">
-                                                                                            <xs:annotation>
-                                                                                                <xs:documentation>Detalhamento dos reembolsos efetuados aos dependentes</xs:documentation>
-                                                                                                <xs:documentation>DESCRICAO_COMPLETA: Detalhamento dos reembolsos efetuados em {perApur}(1210_ideEvento_perApur) pelo empregador ao trabalhador referente a despesas médicas ou odontológicas pagas pelo trabalhador a prestadores de serviços de saúde relativo a despesas de seus dependentes.</xs:documentation>
-                                                                                                <xs:documentation>CHAVE_GRUPO: {tpInsc}, {nrInsc}</xs:documentation>
-                                                                                                <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
-                                                                                            </xs:annotation>
-                                                                                        </xs:element>
-                                                                                </xs:sequence>
-                                                                                </xs:complexType>
-                                                                            </xs:element>
                                                                         </xs:sequence>
                                                                     </xs:complexType>
-                                                                </xs:element> 
+                                                                </xs:element>
                                                             </xs:sequence>
-                                                        </xs:complexType>    
+                                                        </xs:complexType>
                                                     </xs:element>
                                                 </xs:sequence>
                                             </xs:complexType>
