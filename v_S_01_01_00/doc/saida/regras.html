@@ -12,11 +12,11 @@
 <section id="folha-rosto">
 <img alt="Logomarca do eSocial" src="esocial-full.png" class="center">
 <h1 class="title has-text-centered is-3">ANEXO II DOS LEIAUTES DO eSOCIAL<br />REGRAS DE VALIDAÇÃO</h1>
-<h1 class="title has-text-centered is-3">Versão S-1.1 (consolidada até NT nº 01/2023)</h1>
+<h1 class="title has-text-centered is-3">Versão S-1.1 (consolidada até NT nº 02/2023)</h1>
 </section>
 <section class="section">
 <div class="container is-fluid">
-<h1 class="title has-text-centered is-1">eSocial versão S-1.1 - Regras (cons. até NT 01/2023)</h1>
+<h1 class="title has-text-centered is-1">eSocial versão S-1.1 - Regras (cons. até NT 02/2023)</h1>
 <div class="modal" id="r_REGRA_ADMISSAO_POSTERIOR_INICIO_ATIVIDADES">
 <div class="modal-background"></div>
 <div class="modal-card">
@@ -125,18 +125,6 @@
 </header>
 <div class="modal-card-body">
 <ul><li><a href="index.html#8299">evtBaixa</a></li></ul>
-</div>
-</div>
-</div>
-<div class="modal" id="r_REGRA_BASES_PROC_TRAB">
-<div class="modal-background"></div>
-<div class="modal-card">
-<header class="modal-card-head">
-<p class="modal-card-title">REGRA_BASES_PROC_TRAB</p>
-<button class="delete" aria-label="close"></button>
-</header>
-<div class="modal-card-body">
-<ul><li><a href="index.html#2500">evtProcTrab</a></li></ul>
 </div>
 </div>
 </div>
@@ -1770,10 +1758,6 @@ e) Grupo [05]: pode ser alterado para tipo de benefício do grupo [04].</td>
 <td>É permitido o envio de evento de Baixa Judicial para trabalhador afastado temporariamente, independentemente do motivo de afastamento.</td>
 </tr>
 <tr>
-<td id="REGRA_BASES_PROC_TRAB"><a title="Ver ocorrências"><strong>REGRA_BASES_PROC_TRAB</strong></a></td>
-<td>Se {repercProc} = [1], devem ser informadas bases de cálculo para todos os períodos de referência compreendidos entre {compIni} e {compFim}.</td>
-</tr>
-<tr>
 <td id="REGRA_BENEFICIO_ATIVO_NA_DTEVENTO"><a title="Ver ocorrências"><strong>REGRA_BENEFICIO_ATIVO_NA_DTEVENTO</strong></a></td>
 <td>O benefício identificado por CPF + número do benefício deve estar ativo na data do evento.<br />
 No caso do evento S-2416, a data de alteração deve ser posterior à data de início do benefício (no caso de sucessão ou mudança de CPF, posterior à data da transferência ou à data de alteração do CPF, respectivamente) e igual ou anterior à data de cessação.<br />
@@ -2101,13 +2085,13 @@ Caso algum item acima não seja atendido, retornar "alerta".</td>
 a) A nova admissão somente deve ser permitida se houver um Desligamento (S-2299) com {mtvDeslig} = [36]. Nesse evento S-2299:<br />
 a1) Os campos {cpfTrab}, {matricula} e {novoCPF} devem ser idênticos aos campos {cpfAnt}, {mudancaCPF/matricAnt} e {cpfTrab}, respectivamente, do novo evento S-2200.<br />
 a2) O campo {dtDeslig} deve corresponder ao dia imediatamente anterior ao campo {dtAltCPF} do novo evento S-2200.<br />
-b) Os seguintes campos do novo evento S-2200 devem ser idênticos aos existentes no Registro de Eventos Trabalhistas - RET: {nascimento/dtNascto}, {tpRegTrab}, {tpRegPrev}, {dtAdm} e {codCateg}.<br />
+b) Os seguintes campos do novo evento S-2200 devem ser idênticos aos existentes no Registro de Eventos Trabalhistas - RET: {tpRegTrab}, {tpRegPrev}, {dtAdm} e {codCateg}.<br />
 c) Após o envio do evento S-2299 com {mtvDeslig} = [36], os campos citados na alínea "b" acima não podem ser retificados de forma extemporânea para o CPF antigo, ainda que sejam atendidos os requisitos da <a href="#REGRA_EVENTOS_EXTEMP">REGRA_EVENTOS_EXTEMP</a>.<br />
 2) No caso de mudança de CPF de TSVE (novo S-2300, com grupo {mudancaCPF} preenchido):<br />
 a) O novo TSVE - Início somente deve ser permitido se houver um TSVE - Término (S-2399) com {mtvDesligTSV} = [07]. Nesse evento S-2399:<br />
 a1) Os campos {cpfTrab}, {matricula} e {novoCPF} devem ser idênticos aos campos {cpfAnt}, {matricAnt} e {cpfTrab}, respectivamente, do novo evento S-2300.<br />
 a2) O campo {dtTerm} deve corresponder ao dia imediatamente anterior ao campo {dtAltCPF} do novo evento S-2300.<br />
-b) Os seguintes campos do novo evento S-2300 devem ser idênticos aos existentes no RET: {nascimento/dtNascto}, {codCateg} e {dtInicio}.<br />
+b) Os seguintes campos do novo evento S-2300 devem ser idênticos aos existentes no RET: {codCateg} e {dtInicio}.<br />
 c) Após o envio do evento S-2399 com {mtvDesligTSV} = [07], os campos citados na alínea "b" acima não podem ser retificados de forma extemporânea para o CPF antigo, ainda que sejam atendidos os requisitos da <a href="#REGRA_EVENTOS_EXTEMP">REGRA_EVENTOS_EXTEMP</a>.<br />
 3) No caso de mudança de CPF de beneficiário (novo S-2410, com grupo {mudancaCPF} preenchido):<br />
 a) O novo Cadastro de Benefício - Início somente deve ser permitido se houver um Cadastro de Benefício - Término (S-2420) com {mtvTermino} = [10]. Nesse evento S-2420:<br />
@@ -2117,7 +2101,8 @@ b) Os seguintes campos do novo evento S-2410 devem ser idênticos aos existentes
 c) Após o envio do evento S-2420 com {mtvTermino} = [10], os campos citados na alínea "b" acima não podem ser retificados de forma extemporânea para o CPF antigo, ainda que sejam atendidos os requisitos da <a href="#REGRA_EVENTOS_EXTEMP">REGRA_EVENTOS_EXTEMP</a>.<br />
 4) Não é permitida a exclusão ou a retificação do motivo de desligamento de evento de Desligamento (S-2299) com {mtvDeslig} = [36] se existir novo evento S-2200 para o novo CPF com {tpAdmissao) = [6].<br />
 5) Não é permitida a exclusão ou a retificação do motivo do término de evento de TSVE - Término (S-2399) com {mtvDesligTSV} = [07] se existir novo evento S-2300 para o novo CPF com o grupo {mudancaCPF} preenchido.<br />
-6) Não é permitida a exclusão ou a retificação do motivo de cessação de evento Cadastro de Benefício - Término (S-2420) com {mtvTermino} = [10] se existir novo evento S-2410 para o novo CPF com {indSitBenef) = [3].</td>
+6) Não é permitida a exclusão ou a retificação do motivo de cessação de evento Cadastro de Benefício - Término (S-2420) com {mtvTermino} = [10] se existir novo evento S-2410 para o novo CPF com {indSitBenef) = [3].<br />
+7) As informações de mudança de CPF (antigo CPF e novo CPF) são validadas na base de dados do CPF.</td>
 </tr>
 <tr>
 <td id="REGRA_PAGTO_IND_RETIFICACAO"><a title="Ver ocorrências"><strong>REGRA_PAGTO_IND_RETIFICACAO</strong></a></td>
@@ -2350,7 +2335,7 @@ b) Para cada evento S-2190 pode haver apenas um evento de Admissão ou TSVE - In
 <td>O CNPJ deve existir na base da RFB e obedecer às seguintes condições:<br />
 a) Não pode pertencer a pessoa jurídica Inapta (situação=4) pelo motivo de Inexistência de Fato (motivo=15), exceto quando se tratar de evento S-2299 com {mtvDeslig} = [43];<br />
 b) Se estiver baixado:<br />
-b1) No caso de evento de tabela, {fimValid} deve ser igual ou anterior ao mês/ano da data de baixa (se {fimValid} não estiver preenchido, o mês/ano corrente deve ser igual ou anterior ao mês/ano da data de baixa);<br />
+b1) No caso de evento de tabela, {iniValid} deve ser igual ou anterior ao mês/ano da data de baixa;<br />
 b2) No caso de evento não periódico, a data de ocorrência do evento deve ser igual ou anterior à data de baixa, exceto quando se tratar de evento S-2299 com {mtvDeslig} = [10, 14];<br />
 b3) No caso de evento periódico, {perApur} deve ser igual ou anterior ao mês/ano da data de baixa;<br />
 c) Não pode estar anulado ou cancelado.<br />
