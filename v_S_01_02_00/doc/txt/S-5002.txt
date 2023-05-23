@@ -102,8 +102,8 @@ Nome: ideAdv
 Pai: infoRRA
 Descrição: Identificação dos advogados.
 Ocorrência: 0-99
-Chave: -
-Condição: O
+Chave: tpInsc, nrInsc
+Condição: OC
 
 Nível: 5
 Nome: infoPgtoExt
@@ -121,15 +121,15 @@ Ocorrência: 0-1
 Chave: -
 Condição: OC
 
-Nível: 5
+Nível: 4
 Nome: infoIRComplem
-Pai: dmDev
+Pai: ideTrabalhador
 Descrição: Informações complementares para a DIRF ou para a DAA, com a legislação aplicada ao imposto de renda.
 Ocorrência: 0-1
 Chave: -
 Condição: OC
 
-Nível: 6
+Nível: 5
 Nome: ideDep
 Pai: infoIRComplem
 Descrição: Identificação dos dependentes.
@@ -137,7 +137,7 @@ Ocorrência: 0-999
 Chave: cpfDep
 Condição: OC
 
-Nível: 6
+Nível: 5
 Nome: infoIRCR
 Pai: infoIRComplem
 Descrição: Informações de Imposto de Renda, por Código de Receita - CR.
@@ -145,7 +145,7 @@ Ocorrência: 0-99
 Chave: tpCR
 Condição: OC
 
-Nível: 7
+Nível: 6
 Nome: dedDepen
 Pai: infoIRCR
 Descrição: Dedução do rendimento tributável relativa a dependentes.
@@ -153,7 +153,7 @@ Ocorrência: 0-999
 Chave: tpRend, cpfDep
 Condição: OC
 
-Nível: 7
+Nível: 6
 Nome: penAlim
 Pai: infoIRCR
 Descrição: Informação dos beneficiários da pensão alimentícia.
@@ -161,7 +161,7 @@ Ocorrência: 0-99
 Chave: tpRend, cpfDep
 Condição: OC
 
-Nível: 7
+Nível: 6
 Nome: previdCompl
 Pai: infoIRCR
 Descrição: Informações relativas a planos de previdência complementar.
@@ -169,7 +169,7 @@ Ocorrência: 0-99
 Chave: tpPrev, cnpjEntidPC
 Condição: OC
 
-Nível: 7
+Nível: 6
 Nome: infoProcRet
 Pai: infoIRCR
 Descrição: Informações de processos relacionados a não retenção de tributos ou a depósitos judiciais.
@@ -177,7 +177,7 @@ Ocorrência: 0-50
 Chave: tpProcRet, nrProcRet, codSusp
 Condição: OC
 
-Nível: 8
+Nível: 7
 Nome: infoValores
 Pai: infoProcRet
 Descrição: Informações de valores relacionados a não retenção de tributos ou a depósitos judiciais.
@@ -185,7 +185,7 @@ Ocorrência: 0-2
 Chave: indApuracao
 Condição: OC
 
-Nível: 9
+Nível: 8
 Nome: dedSusp
 Pai: infoValores
 Descrição: Detalhamento das deduções com exigibilidade suspensa.
@@ -193,7 +193,7 @@ Ocorrência: 0-25
 Chave: -
 Condição: OC
 
-Nível: 10
+Nível: 9
 Nome: benefPen
 Pai: dedSusp
 Descrição: Informação das deduções suspensas por dependentes e beneficiários da pensão alimentícia.
@@ -202,7 +202,7 @@ Chave: -
 Condição: O (se {indTpDeducao}(../indTpDeducao) = [5, 7])
 N (nos demais casos)
 
-Nível: 6
+Nível: 5
 Nome: planSaude
 Pai: infoIRComplem
 Descrição: Plano de saúde coletivo
@@ -210,7 +210,7 @@ Ocorrência: 0-99
 Chave: cnpjOper
 Condição: OC
 
-Nível: 7
+Nível: 6
 Nome: infoDepSau
 Pai: planSaude
 Descrição: Informações de dependente de plano de saúde coletivo empresarial.
@@ -218,15 +218,15 @@ Ocorrência: 0-99
 Chave: cpfDep
 Condição: OC
 
-Nível: 7
+Nível: 5
 Nome: infoReembMed
-Pai: planSaude
+Pai: infoIRComplem
 Descrição: Reembolsos de despesas médicas
 Ocorrência: 0-99
 Chave: -
 Condição: OC
 
-Nível: 8
+Nível: 6
 Nome: detReembTit
 Pai: infoReembMed
 Descrição: Informação de reembolso do titular do plano de saúde coletivo empresarial.
@@ -234,7 +234,7 @@ Ocorrência: 0-99
 Chave: tpInsc, nrInsc
 Condição: OC
 
-Nível: 8
+Nível: 6
 Nome: infoReembDep
 Pai: infoReembMed
 Descrição: Informação de reembolso do dependente do plano de saúde coletivo empresarial.
@@ -242,7 +242,7 @@ Ocorrência: 0-99
 Chave: -
 Condição: OC
 
-Nível: 9
+Nível: 7
 Nome: detReembDep
 Pai: infoReembDep
 Descrição: Detalhamento dos reembolsos efetuados aos dependentes
@@ -1040,7 +1040,7 @@ Dec.: -
 Descrição: Número do telefone.
 
 Nome: infoIRComplem
-Pai: dmDev
+Pai: ideTrabalhador
 Elem.: G
 Tipo: -
 Ocorrência: 0-1
@@ -1534,7 +1534,7 @@ Dec.: 2
 Descrição: Valor relativo a dedução do rendimento tributável correspondente a pagamento a plano de saúde do dependente.
 
 Nome: infoReembMed
-Pai: planSaude
+Pai: infoIRComplem
 Elem.: G
 Tipo: -
 Ocorrência: 0-99
