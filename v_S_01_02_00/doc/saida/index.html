@@ -203,18 +203,6 @@ b) O campo {tpRegTrab} deve ser igual a [1] e o campo {tpRegPrev} deve ser igual
 </div>
 </div>
 </div>
-<div class="modal" id="REGRA_BASES_PROC_TRAB">
-<div class="modal-background"></div>
-<div class="modal-card">
-<header class="modal-card-head">
-<p class="modal-card-title"><a href="regras.html#REGRA_BASES_PROC_TRAB">REGRA_BASES_PROC_TRAB</a></p>
-<button class="delete" aria-label="close"></button>
-</header>
-<div class="modal-card-body">
-<p>Se {repercProc} = [1], devem ser informadas bases de cálculo para todos os períodos de referência compreendidos entre {compIni} e {compFim}.</p>
-</div>
-</div>
-</div>
 <div class="modal" id="REGRA_BENEFICIO_ATIVO_NA_DTEVENTO">
 <div class="modal-background"></div>
 <div class="modal-card">
@@ -933,13 +921,13 @@ Caso algum item acima não seja atendido, retornar "alerta".</p>
 a) A nova admissão somente deve ser permitida se houver um Desligamento (S-2299) com {mtvDeslig} = [36]. Nesse evento S-2299:<br />
 a1) Os campos {cpfTrab}, {matricula} e {novoCPF} devem ser idênticos aos campos {cpfAnt}, {mudancaCPF/matricAnt} e {cpfTrab}, respectivamente, do novo evento S-2200.<br />
 a2) O campo {dtDeslig} deve corresponder ao dia imediatamente anterior ao campo {dtAltCPF} do novo evento S-2200.<br />
-b) Os seguintes campos do novo evento S-2200 devem ser idênticos aos existentes no Registro de Eventos Trabalhistas - RET: {nascimento/dtNascto}, {tpRegTrab}, {tpRegPrev}, {dtAdm} e {codCateg}.<br />
+b) Os seguintes campos do novo evento S-2200 devem ser idênticos aos existentes no Registro de Eventos Trabalhistas - RET: {tpRegTrab}, {tpRegPrev}, {dtAdm} e {codCateg}.<br />
 c) Após o envio do evento S-2299 com {mtvDeslig} = [36], os campos citados na alínea "b" acima não podem ser retificados de forma extemporânea para o CPF antigo, ainda que sejam atendidos os requisitos da <a href="#REGRA_EVENTOS_EXTEMP">REGRA_EVENTOS_EXTEMP</a>.<br />
 2) No caso de mudança de CPF de TSVE (novo S-2300, com grupo {mudancaCPF} preenchido):<br />
 a) O novo TSVE - Início somente deve ser permitido se houver um TSVE - Término (S-2399) com {mtvDesligTSV} = [07]. Nesse evento S-2399:<br />
 a1) Os campos {cpfTrab}, {matricula} e {novoCPF} devem ser idênticos aos campos {cpfAnt}, {matricAnt} e {cpfTrab}, respectivamente, do novo evento S-2300.<br />
 a2) O campo {dtTerm} deve corresponder ao dia imediatamente anterior ao campo {dtAltCPF} do novo evento S-2300.<br />
-b) Os seguintes campos do novo evento S-2300 devem ser idênticos aos existentes no RET: {nascimento/dtNascto}, {codCateg} e {dtInicio}.<br />
+b) Os seguintes campos do novo evento S-2300 devem ser idênticos aos existentes no RET: {codCateg} e {dtInicio}.<br />
 c) Após o envio do evento S-2399 com {mtvDesligTSV} = [07], os campos citados na alínea "b" acima não podem ser retificados de forma extemporânea para o CPF antigo, ainda que sejam atendidos os requisitos da <a href="#REGRA_EVENTOS_EXTEMP">REGRA_EVENTOS_EXTEMP</a>.<br />
 3) No caso de mudança de CPF de beneficiário (novo S-2410, com grupo {mudancaCPF} preenchido):<br />
 a) O novo Cadastro de Benefício - Início somente deve ser permitido se houver um Cadastro de Benefício - Término (S-2420) com {mtvTermino} = [10]. Nesse evento S-2420:<br />
@@ -949,7 +937,8 @@ b) Os seguintes campos do novo evento S-2410 devem ser idênticos aos existentes
 c) Após o envio do evento S-2420 com {mtvTermino} = [10], os campos citados na alínea "b" acima não podem ser retificados de forma extemporânea para o CPF antigo, ainda que sejam atendidos os requisitos da <a href="#REGRA_EVENTOS_EXTEMP">REGRA_EVENTOS_EXTEMP</a>.<br />
 4) Não é permitida a exclusão ou a retificação do motivo de desligamento de evento de Desligamento (S-2299) com {mtvDeslig} = [36] se existir novo evento S-2200 para o novo CPF com {tpAdmissao) = [6].<br />
 5) Não é permitida a exclusão ou a retificação do motivo do término de evento de TSVE - Término (S-2399) com {mtvDesligTSV} = [07] se existir novo evento S-2300 para o novo CPF com o grupo {mudancaCPF} preenchido.<br />
-6) Não é permitida a exclusão ou a retificação do motivo de cessação de evento Cadastro de Benefício - Término (S-2420) com {mtvTermino} = [10] se existir novo evento S-2410 para o novo CPF com {indSitBenef) = [3].</p>
+6) Não é permitida a exclusão ou a retificação do motivo de cessação de evento Cadastro de Benefício - Término (S-2420) com {mtvTermino} = [10] se existir novo evento S-2410 para o novo CPF com {indSitBenef) = [3].<br />
+7) As informações de mudança de CPF (antigo CPF e novo CPF) são validadas na base de dados do CPF.</p>
 </div>
 </div>
 </div>
@@ -1486,7 +1475,7 @@ b) Para cada evento S-2190 pode haver apenas um evento de Admissão ou TSVE - In
 <p>O CNPJ deve existir na base da RFB e obedecer às seguintes condições:<br />
 a) Não pode pertencer a pessoa jurídica Inapta (situação=4) pelo motivo de Inexistência de Fato (motivo=15), exceto quando se tratar de evento S-2299 com {mtvDeslig} = [43];<br />
 b) Se estiver baixado:<br />
-b1) No caso de evento de tabela, {fimValid} deve ser igual ou anterior ao mês/ano da data de baixa (se {fimValid} não estiver preenchido, o mês/ano corrente deve ser igual ou anterior ao mês/ano da data de baixa);<br />
+b1) No caso de evento de tabela, {iniValid} deve ser igual ou anterior ao mês/ano da data de baixa;<br />
 b2) No caso de evento não periódico, a data de ocorrência do evento deve ser igual ou anterior à data de baixa, exceto quando se tratar de evento S-2299 com {mtvDeslig} = [10, 14];<br />
 b3) No caso de evento periódico, {perApur} deve ser igual ou anterior ao mês/ano da data de baixa;<br />
 c) Não pode estar anulado ou cancelado.<br />
@@ -7696,7 +7685,8 @@ Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo
 <td>-</td>
 <td>Preencher com o código correspondente ao tipo de inscrição, conforme <a href="tabelas.html#05">Tabela 05</a>.<br />
 <strong>Valores válidos:</strong><br />
-<strong>1</strong> - CNPJ</td>
+<strong>1</strong> - CNPJ<br />
+<strong>2</strong> - CPF</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="1202_ideEmpregador_nrInsc" id="1202_ideEmpregador_nrInsc">14</td>
@@ -7705,7 +7695,7 @@ Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo
 <td>E</td>
 <td>C</td>
 <td>1</td>
-<td>8 ou 14</td>
+<td>8, 11 ou 14</td>
 <td>-</td>
 <td>Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo <a href="#1202_ideEmpregador_tpInsc">ideEmpregador/tpInsc</a> e conforme informado em S-1000.</td>
 </tr>
@@ -8052,7 +8042,8 @@ Se <a href="#1202_dmDev_infoRRA_ideAdv_tpInsc">ideAdv/tpInsc</a> = [2], deve pos
 <td>-</td>
 <td>Preencher com o código correspondente ao tipo de inscrição, conforme <a href="tabelas.html#05">Tabela 05</a>.<br />
 <strong>Valores válidos:</strong><br />
-<strong>1</strong> - CNPJ</td>
+<strong>1</strong> - CNPJ<br />
+<strong>2</strong> - CPF</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="1202_dmDev_infoPerApur_ideEstab_nrInsc" id="1202_dmDev_infoPerApur_ideEstab_nrInsc">44</td>
@@ -8063,7 +8054,7 @@ Se <a href="#1202_dmDev_infoRRA_ideAdv_tpInsc">ideAdv/tpInsc</a> = [2], deve pos
 <td>1</td>
 <td>14</td>
 <td>-</td>
-<td>Informar o número de inscrição da unidade do órgão público.</td>
+<td>Informar o número de inscrição da unidade do órgão público ou do estabelecimento, de acordo com o tipo de inscrição indicado no campo <a href="#1202_dmDev_infoPerApur_ideEstab_tpInsc">ideEstab/tpInsc</a>.</td>
 </tr>
 <tr class="grupo">
 <td onclick="copiarCaminho.call(this)" title="1202_dmDev_infoPerApur_ideEstab_remunPerApur" id="1202_dmDev_infoPerApur_ideEstab_remunPerApur">45</td>
@@ -8246,7 +8237,8 @@ Deve ser informado no formato AAAA-MM.</td>
 <td>-</td>
 <td>Preencher com o código correspondente ao tipo de inscrição, conforme <a href="tabelas.html#05">Tabela 05</a>.<br />
 <strong>Valores válidos:</strong><br />
-<strong>1</strong> - CNPJ</td>
+<strong>1</strong> - CNPJ<br />
+<strong>2</strong> - CPF</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="1202_dmDev_infoPerAnt_idePeriodo_ideEstab_nrInsc" id="1202_dmDev_infoPerAnt_idePeriodo_ideEstab_nrInsc">60</td>
@@ -8257,7 +8249,7 @@ Deve ser informado no formato AAAA-MM.</td>
 <td>1</td>
 <td>14</td>
 <td>-</td>
-<td>Informar o número de inscrição da unidade do órgão público.</td>
+<td>Informar o número de inscrição da unidade do órgão público ou do estabelecimento, de acordo com o tipo de inscrição indicado no campo <a href="#1202_dmDev_infoPerAnt_idePeriodo_ideEstab_tpInsc">ideEstab/tpInsc</a>.</td>
 </tr>
 <tr class="grupo">
 <td onclick="copiarCaminho.call(this)" title="1202_dmDev_infoPerAnt_idePeriodo_ideEstab_remunPerAnt" id="1202_dmDev_infoPerAnt_idePeriodo_ideEstab_remunPerAnt">61</td>
@@ -15355,8 +15347,7 @@ c) Se <a href="#2200_vinculo_cadIni">cadIni</a> = [N], deve ser igual ou anterio
 <strong>2</strong> - CPF<br />
 <strong>5</strong> - CGC<br />
 <strong>6</strong> - CEI<br />
-<strong>Validação:</strong> Somente é possível informar [5] se <a href="#2200_vinculo_sucessaoVinc_dtTransf">dtTransf</a> for igual ou anterior a [1999-06-30].<br />
-Somente é possível informar [6] se <a href="#2200_vinculo_sucessaoVinc_dtTransf">dtTransf</a> for igual ou anterior a [2011-12-31].</td>
+<strong>Validação:</strong> Somente é possível informar [5] se <a href="#2200_vinculo_sucessaoVinc_dtTransf">dtTransf</a> for igual ou anterior a [1999-06-30].</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="2200_vinculo_sucessaoVinc_nrInsc" id="2200_vinculo_sucessaoVinc_nrInsc">141</td>
@@ -16595,7 +16586,7 @@ Esta validação não deve ser realizada quando se tratar de recepção de event
 <strong>Valores válidos:</strong><br />
 <strong>S</strong> - Sim<br />
 <strong>N</strong> - Não<br />
-<strong>Validação:</strong> Preenchimento obrigatório se o trabalhador estiver cadastrado no evento S-2200, ativo em <a href="#2205_alteracao_dtAlteracao">dtAlteracao</a> e com {tpRegPrev} diferente de [4] no RET. Não informar nos demais casos.</td>
+<strong>Validação:</strong> Preenchimento obrigatório se o trabalhador estiver cadastrado no evento S-2200, ativo em <a href="#2205_alteracao_dtAlteracao">dtAlteracao</a> e com {tpRegPrev} diferente de [4] no RET, ou cadastrado no evento S-2300 e ativo em <a href="#2205_alteracao_dtAlteracao">dtAlteracao</a>. Não informar nos demais casos.</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="2205_alteracao_dadosTrabalhador_dependente_descrDep" id="2205_alteracao_dadosTrabalhador_dependente_descrDep">64</td>
@@ -31112,7 +31103,7 @@ N (nos demais casos)</td>
 <td><a href="#r_2500_ideTrab_infoContr_ideEstab_infoVlr">infoVlr</a></td>
 <td>7</td>
 <td>Identificação do período ao qual se referem as bases de cálculo</td>
-<td>0-360</td>
+<td>0-999</td>
 <td><a href="#2500_ideTrab_infoContr_ideEstab_infoVlr_idePeriodo_perRef">perRef</a></td>
 <td>O (se <a href="#2500_ideTrab_infoContr_ideEstab_infoVlr_repercProc">repercProc</a> = [1]);<br />
 OC (nos demais casos)</td>
@@ -31196,7 +31187,6 @@ N (nos demais casos)</td>
 <td>-</td>
 <td>Evento Processo Trabalhista.<br />
 <strong>Regras de validação:</strong><br />
-<a href="#REGRA_BASES_PROC_TRAB">REGRA_BASES_PROC_TRAB</a><br />
 <a href="#REGRA_BLOQUEIA_USO_CPF_EMPREGADOR">REGRA_BLOQUEIA_USO_CPF_EMPREGADOR</a><br />
 <a href="#REGRA_COMPATIBILIDADE_CATEGORIA_CLASSTRIB">REGRA_COMPATIBILIDADE_CATEGORIA_CLASSTRIB</a><br />
 <a href="#REGRA_ENVIO_PROC_FECHAMENTO">REGRA_ENVIO_PROC_FECHAMENTO</a><br />
@@ -31624,7 +31614,11 @@ c) Trânsito em julgado da decisão homologatória dos cálculos de liquidação
 <strong>3</strong> - Trabalhador com vínculo formalizado, com inclusão ou alteração de data de desligamento<br />
 <strong>4</strong> - Trabalhador com vínculo formalizado, com alteração nas datas de admissão e de desligamento<br />
 <strong>5</strong> - Empregado com reconhecimento de vínculo<br />
-<strong>6</strong> - Trabalhador sem vínculo de emprego/estatutário (TSVE), sem reconhecimento de vínculo empregatício</td>
+<strong>6</strong> - Trabalhador sem vínculo de emprego/estatutário (TSVE), sem reconhecimento de vínculo empregatício<br />
+<strong>7</strong> - Trabalhador com vínculo de emprego formalizado em período anterior ao eSocial<br />
+<strong>8</strong> - Responsabilidade indireta<br />
+<strong>9</strong> - Trabalhador cujos contratos foram unificados (unicidade contratual)<br />
+<strong>Validação:</strong> Deve ser igual a [8] se o grupo <a href="#2500_ideEmpregador_ideResp">ideResp</a> for informado.</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="2500_ideTrab_infoContr_indContr" id="2500_ideTrab_infoContr_indContr">36</td>
@@ -31651,7 +31645,7 @@ c) Trânsito em julgado da decisão homologatória dos cálculos de liquidação
 <td>-</td>
 <td>-</td>
 <td>Preencher com a data de admissão original do vínculo (data de admissão antes da alteração).<br />
-<strong>Validação:</strong> Preenchimento obrigatório e exclusivo se <a href="#2500_ideTrab_infoContr_tpContr">infoContr/tpContr</a> = [2, 4] e se <a href="#2500_ideTrab_infoContr_indContr">indContr</a> = [N]. Deve ser posterior à data de nascimento do trabalhador.</td>
+<strong>Validação:</strong> Preenchimento obrigatório se <a href="#2500_ideTrab_infoContr_tpContr">infoContr/tpContr</a> = [2, 4]. Deve ser posterior à data de nascimento do trabalhador.</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="2500_ideTrab_infoContr_indReint" id="2500_ideTrab_infoContr_indReint">38</td>
@@ -32053,8 +32047,7 @@ Informar este campo apenas no caso de empregado submetido a horário de trabalho
 <strong>2</strong> - CPF<br />
 <strong>5</strong> - CGC<br />
 <strong>6</strong> - CEI<br />
-<strong>Validação:</strong> Somente é possível informar [5] se <a href="#2500_ideTrab_infoContr_infoCompl_infoVinc_sucessaoVinc_dtTransf">dtTransf</a> for igual ou anterior a [1999-06-30].<br />
-Somente é possível informar [6] se <a href="#2500_ideTrab_infoContr_infoCompl_infoVinc_sucessaoVinc_dtTransf">dtTransf</a> for igual ou anterior a [2011-12-31].</td>
+<strong>Validação:</strong> Somente é possível informar [5] se <a href="#2500_ideTrab_infoContr_infoCompl_infoVinc_sucessaoVinc_dtTransf">dtTransf</a> for igual ou anterior a [1999-06-30].</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="2500_ideTrab_infoContr_infoCompl_infoVinc_sucessaoVinc_nrInsc" id="2500_ideTrab_infoContr_infoCompl_infoVinc_sucessaoVinc_nrInsc">67</td>
@@ -32526,7 +32519,7 @@ c) Se <a href="#2500_ideTrab_infoContr_tpContr">infoContr/tpContr</a> = [6], dev
 <td><a href="#r_2500_ideTrab_infoContr_ideEstab_infoVlr">infoVlr</a></td>
 <td>G</td>
 <td>-</td>
-<td>0-360</td>
+<td>0-999</td>
 <td>-</td>
 <td>-</td>
 <td>Identificação do período ao qual se referem as bases de cálculo.</td>
@@ -36470,7 +36463,7 @@ OBS.: Se o campo {indApurIR} vinculado à rubrica for igual a [1], considerar {v
 <td>Valor relativo ao Imposto de Renda Retido na Fonte sobre rendimentos do trabalho.<br />
 <strong>Validação:</strong> Deve ser maior que 0 (zero) e agrupado conforme segue:<br />
 a) Quando o evento de origem for S-1200, S-1202, S-2299, S-2399 e respectivo S-1210:<br />
-<a href="#5002_ideTrabalhador_dmDev_totApurMen_CRMen">CRMen</a> = [056107]: se <a href="#5002_ideTrabalhador_dmDev_codCateg">codCateg</a> = [101, 103, 105, 106, 107, 108, 111, 201, 202, 301, 302, 303, 304, 305, 306, 307, 308, 309, 310, 311, 312, 313, 314, 401, 410, 501, 721, 722, 723, 901, 902, 903, 904], {indApurIR} = [0], os campos {indRRA} e <a href="#1210_ideBenef_infoPgto_paisResidExt">paisResidExt</a> não forem informados e <a href="#1000_infoEmpregador_inclusao_infoCadastro_classTrib">classTrib</a> em S-1000 for diferente de [22], efetuar o somatório de <a href="#5002_ideTrabalhador_dmDev_infoIR_valor">valor</a> cujo <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [31, 32];<br />
+<a href="#5002_ideTrabalhador_dmDev_totApurMen_CRMen">CRMen</a> = [056107]: se <a href="#5002_ideTrabalhador_dmDev_codCateg">codCateg</a> = [101, 103, 105, 106, 107, 108, 111, 201, 202, 301, 302, 303, 304, 305, 306, 307, 308, 309, 310, 311, 312, 313, 314, 401, 410, 501, 721, 722, 723, 901, 902, 903, 904, 906], {indApurIR} = [0], os campos {indRRA} e <a href="#1210_ideBenef_infoPgto_paisResidExt">paisResidExt</a> não forem informados e <a href="#1000_infoEmpregador_inclusao_infoCadastro_classTrib">classTrib</a> em S-1000 for diferente de [22], efetuar o somatório de <a href="#5002_ideTrabalhador_dmDev_infoIR_valor">valor</a> cujo <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [31, 32];<br />
 <a href="#5002_ideTrabalhador_dmDev_totApurMen_CRMen">CRMen</a> = [056108]: se <a href="#5002_ideTrabalhador_dmDev_codCateg">codCateg</a> = [104], {indApurIR} = [0] e os campos {indRRA} e <a href="#1210_ideBenef_infoPgto_paisResidExt">paisResidExt</a> não forem informados, efetuar o somatório de <a href="#5002_ideTrabalhador_dmDev_infoIR_valor">valor</a> cujo <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [31];<br />
 <a href="#5002_ideTrabalhador_dmDev_totApurMen_CRMen">CRMen</a> = [056109]: se <a href="#5002_ideTrabalhador_dmDev_codCateg">codCateg</a> = [104], {indApurIR} = [0] e os campos {indRRA} e <a href="#1210_ideBenef_infoPgto_paisResidExt">paisResidExt</a> não forem informados, efetuar o somatório de <a href="#5002_ideTrabalhador_dmDev_infoIR_valor">valor</a> cujo <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [32], apenas se origem for S-2299;<br />
 <a href="#5002_ideTrabalhador_dmDev_totApurMen_CRMen">CRMen</a> = [056110]: se <a href="#5002_ideTrabalhador_dmDev_codCateg">codCateg</a> = [104], {indApurIR} = [0] e os campos {indRRA} e <a href="#1210_ideBenef_infoPgto_paisResidExt">paisResidExt</a> não forem informados, efetuar o somatório de <a href="#5002_ideTrabalhador_dmDev_infoIR_valor">valor</a> cujo <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [32], exceto se origem for S-2299;<br />
@@ -41656,7 +41649,9 @@ Deve ser maior que 0 (zero).</td>
 <td>6</td>
 <td>-</td>
 <td>Código de Receita - CR relativo a Imposto de Renda Retido na Fonte.<br />
-<strong>Validação:</strong> Deve ser um código válido e existente na <a href="tabelas.html#29">Tabela 29</a>.</td>
+<strong>Valores válidos:</strong><br />
+<strong>593656</strong> - IRRF - Decisão da Justiça do Trabalho<br />
+<strong>188951</strong> - IRRF - RRA - Decisão da Justiça do Trabalho</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="5501_ideProc_infoCRIRRF_vrCR" id="5501_ideProc_infoCRIRRF_vrCR">19</td>

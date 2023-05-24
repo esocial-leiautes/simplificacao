@@ -208,7 +208,7 @@ Nível: 7
 Nome: idePeriodo
 Pai: infoVlr
 Descrição: Identificação do período ao qual se referem as bases de cálculo.
-Ocorrência: 0-360
+Ocorrência: 0-999
 Chave: perRef
 Condição: O (se {repercProc}(../repercProc) = [1])
 OC (nos demais casos)
@@ -265,7 +265,6 @@ Tamanho: -
 Dec.: -
 Descrição: Evento Processo Trabalhista.
 Regras de validação:
-REGRA_BASES_PROC_TRAB
 REGRA_BLOQUEIA_USO_CPF_EMPREGADOR
 REGRA_COMPATIBILIDADE_CATEGORIA_CLASSTRIB
 REGRA_ENVIO_PROC_FECHAMENTO
@@ -629,6 +628,10 @@ Valores válidos:
 4 - Trabalhador com vínculo formalizado, com alteração nas datas de admissão e de desligamento
 5 - Empregado com reconhecimento de vínculo
 6 - Trabalhador sem vínculo de emprego/estatutário (TSVE), sem reconhecimento de vínculo empregatício
+7 - Trabalhador com vínculo de emprego formalizado em período anterior ao eSocial
+8 - Responsabilidade indireta
+9 - Trabalhador cujos contratos foram unificados (unicidade contratual)
+Validação: Deve ser igual a [8] se o grupo {ideResp}(2500_ideEmpregador_ideResp) for informado.
 
 Nome: indContr
 Pai: infoContr
@@ -651,7 +654,7 @@ Ocorrência: 0-1
 Tamanho: -
 Dec.: -
 Descrição: Preencher com a data de admissão original do vínculo (data de admissão antes da alteração).
-Validação: Preenchimento obrigatório e exclusivo se {infoContr/tpContr}(./tpContr) = [2, 4] e se {indContr}(./indContr) = [N]. Deve ser posterior à data de nascimento do trabalhador.
+Validação: Preenchimento obrigatório se {infoContr/tpContr}(./tpContr) = [2, 4]. Deve ser posterior à data de nascimento do trabalhador.
 
 Nome: indReint
 Pai: infoContr
@@ -996,7 +999,6 @@ Valores válidos:
 5 - CGC
 6 - CEI
 Validação: Somente é possível informar [5] se {dtTransf}(./dtTransf) for igual ou anterior a [1999-06-30].
-Somente é possível informar [6] se {dtTransf}(./dtTransf) for igual ou anterior a [2011-12-31].
 
 Nome: nrInsc
 Pai: sucessaoVinc
@@ -1394,7 +1396,7 @@ Nome: idePeriodo
 Pai: infoVlr
 Elem.: G
 Tipo: -
-Ocorrência: 0-360
+Ocorrência: 0-999
 Tamanho: -
 Dec.: -
 Descrição: Identificação do período ao qual se referem as bases de cálculo.
