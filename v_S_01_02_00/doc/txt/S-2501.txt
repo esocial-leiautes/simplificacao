@@ -87,14 +87,14 @@ Pai: infoCRIRRF
 Descrição: Informações complementares de RRA
 Ocorrência: 0-1
 Chave: -
-Condição: O (se {infoCRIRRF/tpCR}(../tpCR) = [188951]
-N (nos demais casos))
+Condição: O (se {infoCRIRRF/tpCR}(../tpCR) = [188951])
+N (nos demais casos)
 
 Nível: 6
 Nome: despProcJud
 Pai: infoRRA
 Descrição: Detalhamento das despesas com processo judicial.
-Ocorrência: 1
+Ocorrência: 0-1
 Chave: -
 Condição: OC
 
@@ -102,8 +102,8 @@ Nível: 6
 Nome: ideAdv
 Pai: infoRRA
 Descrição: Identificação dos advogados.
-Ocorrência: 1
-Chave: -
+Ocorrência: 0-99
+Chave: tpInsc, nrInsc
 Condição: OC
 
 Nível: 5
@@ -112,7 +112,7 @@ Pai: infoCRIRRF
 Descrição: Dedução do rendimento tributável relativa a dependentes.
 Ocorrência: 0-999
 Chave: cpfDep
-Condição: OC (se {infoCRIRRF/tpCR}(../tpCR) = [593656]
+Condição: OC (se {infoCRIRRF/tpCR}(../tpCR) = [593656])
 N (nos demais casos)
 
 Nível: 5
@@ -129,7 +129,7 @@ Pai: infoCRIRRF
 Descrição: Informações de processos relacionados a não retenção de tributos ou a depósitos judiciais.
 Ocorrência: 0-50
 Chave: tpProcRet, nrProcRet, codSusp
-Condição: OC (se {infoCRIRRF/tpCR}(../tpCR) = [593656]
+Condição: OC (se {infoCRIRRF/tpCR}(../tpCR) = [593656])
 N (nos demais casos)
 
 Nível: 6
@@ -162,7 +162,7 @@ Pai: ideTrab
 Descrição: Informações relacionadas à retenção na fonte, aos rendimentos tributáveis e não tributáveis, deduções e/ou isenções, etc., de acordo com a legislação aplicada ao imposto de renda.
 Ocorrência: 0-1
 Chave: -
-Condição: O
+Condição: OC
 
 Nível: 5
 Nome: infoDep
@@ -440,7 +440,7 @@ Tipo: -
 Ocorrência: 0-99
 Tamanho: -
 Dec.: -
-Descrição: Informações de Imposto de Renda Retido na Fonte, por Código de Receita - CR.
+Descrição: Informações de Imposto de Renda, por Código de Receita - CR.
 
 Nome: tpCR
 Pai: infoCRIRRF
@@ -586,7 +586,7 @@ Nome: despProcJud
 Pai: infoRRA
 Elem.: G
 Tipo: -
-Ocorrência: 1
+Ocorrência: 0-1
 Tamanho: -
 Dec.: -
 Descrição: Detalhamento das despesas com processo judicial.
@@ -613,7 +613,7 @@ Nome: ideAdv
 Pai: infoRRA
 Elem.: G
 Tipo: -
-Ocorrência: 1
+Ocorrência: 0-99
 Tamanho: -
 Dec.: -
 Descrição: Identificação dos advogados.
@@ -772,8 +772,8 @@ Tipo: N
 Ocorrência: 0-1
 Tamanho: 1-14
 Dec.: -
-Descrição: Código do indicativo da suspensão, atribuído pelo empregador em S-1070. Este campo deve ser utilizado se, em um mesmo processo, houver mais de uma matéria tributária objeto de contestação e as decisões forem diferentes para cada uma.
-Validação: Informação obrigatória se houver mais de uma informação de indicativo de suspensão para um mesmo processo.
+Descrição: Código do indicativo da suspensão, atribuído pelo empregador em S-1070.
+Validação: Preenchimento obrigatório se houver informação de {codSusp}(1070_infoProcesso_inclusao_dadosProc_infoSusp_codSusp) em S-1070.
 Se informado, deve constar na Tabela de Processos (S-1070), campo {codSusp}(1070_infoProcesso_inclusao_dadosProc_infoSusp_codSusp), vinculado ao número do processo informado em {nrProcRet}(./nrProcRet).
 
 Nome: infoValores

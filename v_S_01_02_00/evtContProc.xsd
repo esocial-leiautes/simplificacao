@@ -145,7 +145,7 @@
                                         <xs:element name="infoCRIRRF" minOccurs="0" maxOccurs="99">
                                             <xs:annotation>
                                                 <xs:documentation>Informações de IRRF.</xs:documentation>
-                                                <xs:documentation>DESCRICAO_COMPLETA:Informações de Imposto de Renda Retido na Fonte, por Código de Receita - CR.</xs:documentation>
+                                                <xs:documentation>DESCRICAO_COMPLETA:Informações de Imposto de Renda, por Código de Receita - CR.</xs:documentation>
                                                 <xs:documentation>CHAVE_GRUPO: {tpCR}</xs:documentation>
                                                 <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
                                             </xs:annotation>
@@ -240,11 +240,11 @@
                                                         <xs:annotation>
                                                             <xs:documentation>Informações complementares de RRA</xs:documentation>
                                                             <xs:documentation>DESCRICAO_COMPLETA: Informações complementares relativas a Rendimentos Recebidos Acumuladamente - RRA.</xs:documentation>
-                                                            <xs:documentation>CONDICAO_GRUPO: O (se {infoCRIRRF/tpCR}(../tpCR) = [188951]; N (nos demais casos))</xs:documentation>
+                                                            <xs:documentation>CONDICAO_GRUPO: O (se {infoCRIRRF/tpCR}(../tpCR) = [188951]); N (nos demais casos)</xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
                                                             <xs:sequence>
-                                                                <xs:element name="despProcJud">
+                                                                <xs:element name="despProcJud" minOccurs="0">
                                                                     <xs:annotation>
                                                                         <xs:documentation>Detalhamento das despesas com processo judicial.</xs:documentation>
                                                                         <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
@@ -268,9 +268,10 @@
                                                                         </xs:attribute>
                                                                     </xs:complexType>
                                                                 </xs:element>
-                                                                <xs:element name="ideAdv">
+                                                                <xs:element name="ideAdv" minOccurs="0" maxOccurs="99">
                                                                     <xs:annotation>
                                                                         <xs:documentation>Identificação dos advogados.</xs:documentation>
+                                                                        <xs:documentation>CHAVE_GRUPO: {tpInsc}, {nrInsc}</xs:documentation>
                                                                         <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
                                                                     </xs:annotation>
                                                                     <xs:complexType>
@@ -326,7 +327,7 @@
                                                         <xs:annotation>
                                                             <xs:documentation>Dedução do rendimento tributável relativa a dependentes.</xs:documentation>
                                                             <xs:documentation>CHAVE_GRUPO: {cpfDep}</xs:documentation>
-                                                            <xs:documentation>CONDICAO_GRUPO: OC (se {infoCRIRRF/tpCR}(../tpCR) = [593656]; N (nos demais casos)</xs:documentation>
+                                                            <xs:documentation>CONDICAO_GRUPO: OC (se {infoCRIRRF/tpCR}(../tpCR) = [593656]); N (nos demais casos)</xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
                                                             <xs:attribute name="tpRend">
@@ -419,7 +420,7 @@
                                                         <xs:annotation>
                                                             <xs:documentation>Informações de processos relacionados a não retenção de tributos ou a depósitos judiciais.</xs:documentation>
                                                             <xs:documentation>CHAVE_GRUPO: {tpProcRet}, {nrProcRet}, {codSusp}</xs:documentation>
-                                                            <xs:documentation>CONDICAO_GRUPO: OC (se {infoCRIRRF/tpCR}(../tpCR) = [593656]; N (nos demais casos)</xs:documentation>
+                                                            <xs:documentation>CONDICAO_GRUPO: OC (se {infoCRIRRF/tpCR}(../tpCR) = [593656]); N (nos demais casos)</xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
                                                             <xs:sequence>
@@ -584,8 +585,8 @@
                                                             </xs:attribute>
                                                             <xs:attribute name="codSusp" use="optional">
                                                                 <xs:annotation>
-                                                                    <xs:documentation>Código do indicativo da suspensão, atribuído pelo empregador em S-1070. Este campo deve ser utilizado se, em um mesmo processo, houver mais de uma matéria tributária objeto de contestação e as decisões forem diferentes para cada uma.</xs:documentation>
-                                                                    <xs:documentation>Validação: Informação obrigatória se houver mais de uma informação de indicativo de suspensão para um mesmo processo.</xs:documentation>
+                                                                    <xs:documentation>Código do indicativo da suspensão, atribuído pelo empregador em S-1070.</xs:documentation>
+                                                                    <xs:documentation>Validação: Preenchimento obrigatório se houver informação de {codSusp}(1070_infoProcesso_inclusao_dadosProc_infoSusp_codSusp) em S-1070.</xs:documentation>
                                                                     <xs:documentation>Se informado, deve constar na Tabela de Processos (S-1070), campo {codSusp}(1070_infoProcesso_inclusao_dadosProc_infoSusp_codSusp), vinculado ao número do processo informado em {nrProcRet}(./nrProcRet).</xs:documentation>
                                                                 </xs:annotation>
                                                                 <xs:simpleType>
@@ -629,6 +630,7 @@
                                         <xs:element name="infoIRComplem" minOccurs="0">
                                             <xs:annotation>
                                                 <xs:documentation>Informações relacionadas à retenção na fonte, aos rendimentos tributáveis e não tributáveis, deduções e/ou isenções, etc., de acordo com a legislação aplicada ao imposto de renda.</xs:documentation>
+                                                <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>
