@@ -745,7 +745,7 @@
                                                         </xs:annotation>
                                                         <xs:complexType>
                                                             <xs:sequence>
-                                                                <xs:element name="paisResidExt" minOccurs="0" type="TS_pais">
+                                                                <xs:element name="paisResidExt" type="TS_pais">
                                                                     <xs:annotation>
                                                                         <xs:documentation>Código do país de residência para fins fiscais, quando no exterior, conforme Tabela 06.</xs:documentation>
                                                                     </xs:annotation>
@@ -978,30 +978,7 @@
                                                                     </xs:annotation>
                                                                     <xs:complexType>
                                                                         <xs:sequence>
-                                                                            <xs:element name="tpPrev">
-                                                                                <xs:simpleType>
-                                                                                    <xs:annotation>
-                                                                                        <xs:documentation>Tipo de previdência.</xs:documentation>
-                                                                                    </xs:annotation>
-                                                                                    <xs:restriction base="xs:byte">
-                                                                                        <xs:enumeration value="1">
-                                                                                            <xs:annotation>
-                                                                                                <xs:documentation>Privada: {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [46, 47, 48]</xs:documentation>
-                                                                                            </xs:annotation>
-                                                                                        </xs:enumeration>
-                                                                                        <xs:enumeration value="2">
-                                                                                            <xs:annotation>
-                                                                                                <xs:documentation>FAPI: {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [61, 62, 66]</xs:documentation>
-                                                                                            </xs:annotation>
-                                                                                        </xs:enumeration>
-                                                                                        <xs:enumeration value="3">
-                                                                                            <xs:annotation>
-                                                                                                <xs:documentation>Funpresp: {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [63, 64, 65]</xs:documentation>
-                                                                                            </xs:annotation>
-                                                                                        </xs:enumeration>
-                                                                                    </xs:restriction>
-                                                                                </xs:simpleType>
-                                                                            </xs:element>
+                                                                            <xs:element name="tpPrev" type="TS_tpPrevCompl" />
                                                                             <xs:element name="cnpjEntidPC" type="TS_cnpj">
                                                                                 <xs:annotation>
                                                                                     <xs:documentation>Número de inscrição da entidade de previdência complementar.</xs:documentation>
@@ -1034,7 +1011,7 @@
                                                                                     <xs:documentation>Informar o número do processo administrativo/judicial.</xs:documentation>
                                                                                 </xs:annotation>
                                                                             </xs:element>
-                                                                            <xs:element name="codSusp" type="TS_codSuspIR">
+                                                                            <xs:element name="codSusp" type="TS_codSuspIR" minOccurs="0">
                                                                                 <xs:annotation>
                                                                                     <xs:documentation>Código do indicativo da suspensão, atribuído pelo contribuinte.</xs:documentation>
                                                                                 </xs:annotation>
@@ -1177,6 +1154,7 @@
                                                         <xs:annotation>
                                                             <xs:documentation>Reembolsos de despesas médicas</xs:documentation>
                                                             <xs:documentation>DESCRICAO_COMPLETA: Informações relativas a reembolsos efetuados no período de apuração ({perApur}(1210_ideEvento_perApur)) pelo empregador ao trabalhador referente a despesas médicas ou odontológicas pagas pelo trabalhador a prestadores de serviços de saúde.</xs:documentation>
+                                                            <xs:documentation>Evento de origem: S-1210.</xs:documentation>
                                                             <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
