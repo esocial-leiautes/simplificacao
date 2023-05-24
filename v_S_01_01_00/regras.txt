@@ -38,9 +38,6 @@ Para recepção do evento de Baixa Judicial, não pode existir evento de Desliga
 REGRA_BAIXA_TRABALHADOR_AFASTADO
 É permitido o envio de evento de Baixa Judicial para trabalhador afastado temporariamente, independentemente do motivo de afastamento.
 
-REGRA_BASES_PROC_TRAB
-Se {repercProc} = [1], devem ser informadas bases de cálculo para todos os períodos de referência compreendidos entre {compIni} e {compFim}.
-
 REGRA_BENEFICIO_ATIVO_NA_DTEVENTO
 O benefício identificado por CPF + número do benefício deve estar ativo na data do evento.
 No caso do evento S-2416, a data de alteração deve ser posterior à data de início do benefício (no caso de sucessão ou mudança de CPF, posterior à data da transferência ou à data de alteração do CPF, respectivamente) e igual ou anterior à data de cessação.
@@ -320,13 +317,13 @@ REGRA_MUDANCA_CPF
 a) A nova admissão somente deve ser permitida se houver um Desligamento (S-2299) com {mtvDeslig} = [36]. Nesse evento S-2299:
 a1) Os campos {cpfTrab}, {matricula} e {novoCPF} devem ser idênticos aos campos {cpfAnt}, {mudancaCPF/matricAnt} e {cpfTrab}, respectivamente, do novo evento S-2200.
 a2) O campo {dtDeslig} deve corresponder ao dia imediatamente anterior ao campo {dtAltCPF} do novo evento S-2200.
-b) Os seguintes campos do novo evento S-2200 devem ser idênticos aos existentes no Registro de Eventos Trabalhistas - RET: {nascimento/dtNascto}, {tpRegTrab}, {tpRegPrev}, {dtAdm} e {codCateg}.
+b) Os seguintes campos do novo evento S-2200 devem ser idênticos aos existentes no Registro de Eventos Trabalhistas - RET: {tpRegTrab}, {tpRegPrev}, {dtAdm} e {codCateg}.
 c) Após o envio do evento S-2299 com {mtvDeslig} = [36], os campos citados na alínea "b" acima não podem ser retificados de forma extemporânea para o CPF antigo, ainda que sejam atendidos os requisitos da REGRA_EVENTOS_EXTEMP.
 2) No caso de mudança de CPF de TSVE (novo S-2300, com grupo {mudancaCPF} preenchido):
 a) O novo TSVE - Início somente deve ser permitido se houver um TSVE - Término (S-2399) com {mtvDesligTSV} = [07]. Nesse evento S-2399:
 a1) Os campos {cpfTrab}, {matricula} e {novoCPF} devem ser idênticos aos campos {cpfAnt}, {matricAnt} e {cpfTrab}, respectivamente, do novo evento S-2300.
 a2) O campo {dtTerm} deve corresponder ao dia imediatamente anterior ao campo {dtAltCPF} do novo evento S-2300.
-b) Os seguintes campos do novo evento S-2300 devem ser idênticos aos existentes no RET: {nascimento/dtNascto}, {codCateg} e {dtInicio}.
+b) Os seguintes campos do novo evento S-2300 devem ser idênticos aos existentes no RET: {codCateg} e {dtInicio}.
 c) Após o envio do evento S-2399 com {mtvDesligTSV} = [07], os campos citados na alínea "b" acima não podem ser retificados de forma extemporânea para o CPF antigo, ainda que sejam atendidos os requisitos da REGRA_EVENTOS_EXTEMP.
 3) No caso de mudança de CPF de beneficiário (novo S-2410, com grupo {mudancaCPF} preenchido):
 a) O novo Cadastro de Benefício - Início somente deve ser permitido se houver um Cadastro de Benefício - Término (S-2420) com {mtvTermino} = [10]. Nesse evento S-2420:
@@ -337,6 +334,7 @@ c) Após o envio do evento S-2420 com {mtvTermino} = [10], os campos citados na 
 4) Não é permitida a exclusão ou a retificação do motivo de desligamento de evento de Desligamento (S-2299) com {mtvDeslig} = [36] se existir novo evento S-2200 para o novo CPF com {tpAdmissao) = [6].
 5) Não é permitida a exclusão ou a retificação do motivo do término de evento de TSVE - Término (S-2399) com {mtvDesligTSV} = [07] se existir novo evento S-2300 para o novo CPF com o grupo {mudancaCPF} preenchido.
 6) Não é permitida a exclusão ou a retificação do motivo de cessação de evento Cadastro de Benefício - Término (S-2420) com {mtvTermino} = [10] se existir novo evento S-2410 para o novo CPF com {indSitBenef) = [3].
+7) As informações de mudança de CPF (antigo CPF e novo CPF) são validadas na base de dados do CPF.
 
 REGRA_PAGTO_IND_RETIFICACAO
 a) Se {indRetif} = [2], o evento correspondente ao número de recibo original informado em {nrRecibo} deve referir-se ao mesmo beneficiário indicado no evento retificador. Caso o erro que deu origem à retificação tenha ocorrido em relação à identificação do beneficiário, o evento incorreto deve ser "excluído", através do evento específico de Exclusão, e um novo evento com a correta identificação de beneficiário deve ser transmitido como "original".
@@ -531,7 +529,7 @@ REGRA_VALIDA_CNPJ
 O CNPJ deve existir na base da RFB e obedecer às seguintes condições:
 a) Não pode pertencer a pessoa jurídica Inapta (situação=4) pelo motivo de Inexistência de Fato (motivo=15), exceto quando se tratar de evento S-2299 com {mtvDeslig} = [43];
 b) Se estiver baixado:
-b1) No caso de evento de tabela, {fimValid} deve ser igual ou anterior ao mês/ano da data de baixa (se {fimValid} não estiver preenchido, o mês/ano corrente deve ser igual ou anterior ao mês/ano da data de baixa);
+b1) No caso de evento de tabela, {iniValid} deve ser igual ou anterior ao mês/ano da data de baixa;
 b2) No caso de evento não periódico, a data de ocorrência do evento deve ser igual ou anterior à data de baixa, exceto quando se tratar de evento S-2299 com {mtvDeslig} = [10, 14];
 b3) No caso de evento periódico, {perApur} deve ser igual ou anterior ao mês/ano da data de baixa;
 c) Não pode estar anulado ou cancelado.

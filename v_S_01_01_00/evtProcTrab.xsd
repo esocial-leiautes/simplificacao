@@ -12,7 +12,6 @@
                     <xs:annotation>
                         <xs:documentation>Evento Processo Trabalhista.</xs:documentation>
                         <xs:documentation>CHAVE_GRUPO: {Id}</xs:documentation>
-                        <xs:documentation>REGRA:REGRA_BASES_PROC_TRAB</xs:documentation>
                         <xs:documentation>REGRA:REGRA_BLOQUEIA_USO_CPF_EMPREGADOR</xs:documentation>
                         <xs:documentation>REGRA:REGRA_COMPATIBILIDADE_CATEGORIA_CLASSTRIB</xs:documentation>
                         <xs:documentation>REGRA:REGRA_ENVIO_PROC_FECHAMENTO</xs:documentation>
@@ -257,6 +256,7 @@
                                                         <xs:simpleType>
                                                             <xs:annotation>
                                                                 <xs:documentation>Tipo de contrato a que se refere o processo judicial ou a demanda submetida à CCP ou ao NINTER.</xs:documentation>
+                                                                <xs:documentation>Validação: Deve ser igual a [8] se o grupo {ideResp}(2500_ideEmpregador_ideResp) for informado.</xs:documentation>
                                                             </xs:annotation>
                                                             <xs:restriction base="xs:byte">
                                                                 <xs:enumeration value="1">
@@ -289,6 +289,21 @@
                                                                         <xs:documentation>Trabalhador sem vínculo de emprego/estatutário (TSVE), sem reconhecimento de vínculo empregatício</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:enumeration>
+                                                                <xs:enumeration value="7">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Trabalhador com vínculo de emprego formalizado em período anterior ao eSocial</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:enumeration>
+                                                                <xs:enumeration value="8">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Responsabilidade indireta</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:enumeration>
+                                                                <xs:enumeration value="9">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Trabalhador cujos contratos foram unificados (unicidade contratual)</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:enumeration>
                                                             </xs:restriction>
                                                         </xs:simpleType>
                                                     </xs:element>
@@ -301,7 +316,7 @@
                                                     <xs:element name="dtAdmOrig" minOccurs="0" type="xs:date">
                                                         <xs:annotation>
                                                             <xs:documentation>Preencher com a data de admissão original do vínculo (data de admissão antes da alteração).</xs:documentation>
-                                                            <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se {infoContr/tpContr}(./tpContr) = [2, 4] e se {indContr}(./indContr) = [N]. Deve ser posterior à data de nascimento do trabalhador.</xs:documentation>
+                                                            <xs:documentation>Validação: Preenchimento obrigatório se {infoContr/tpContr}(./tpContr) = [2, 4]. Deve ser posterior à data de nascimento do trabalhador.</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
                                                     <xs:element name="indReint" minOccurs="0" type="TS_sim_nao">
@@ -502,7 +517,6 @@
                                                                                                 <xs:annotation>
                                                                                                     <xs:documentation>Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.</xs:documentation>
                                                                                                     <xs:documentation>Validação: Somente é possível informar [5] se {dtTransf}(./dtTransf) for igual ou anterior a [1999-06-30].</xs:documentation>
-                                                                                                    <xs:documentation>Somente é possível informar [6] se {dtTransf}(./dtTransf) for igual ou anterior a [2011-12-31].</xs:documentation>
                                                                                                 </xs:annotation>
                                                                                                 <xs:restriction base="xs:byte">
                                                                                                     <xs:enumeration value="1">
@@ -821,7 +835,7 @@
                                                                                     <xs:documentation>Validação: Informação obrigatória e exclusiva se {vrBaseIndenFGTS}(./vrBaseIndenFGTS) estiver preenchido.</xs:documentation>
                                                                                 </xs:annotation>
                                                                             </xs:element>
-                                                                            <xs:element name="idePeriodo" minOccurs="0" maxOccurs="360">
+                                                                            <xs:element name="idePeriodo" minOccurs="0" maxOccurs="999">
                                                                                 <xs:annotation>
                                                                                     <xs:documentation>Identificação do período ao qual se referem as bases de cálculo.</xs:documentation>
                                                                                     <xs:documentation>CHAVE_GRUPO: {perRef}</xs:documentation>
