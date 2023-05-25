@@ -363,6 +363,7 @@
                                                                 <xs:annotation>
                                                                     <xs:documentation>Preencher com o valor da dedução da base de cálculo.</xs:documentation>
                                                                     <xs:documentation>Validação: O valor informado neste campo deve ser menor ou igual ao valor unitário da dedução por dependente definido na legislação.</xs:documentation>
+                                                                    <xs:documentation>Deve ser maior que 0 (zero).</xs:documentation>
                                                                     <xs:documentation>Em caso de inconsistência na validação, o arquivo será aceito, porém com alerta ao contribuinte.</xs:documentation>
                                                                 </xs:annotation>
                                                                 <xs:simpleType>
@@ -497,10 +498,11 @@
                                                                                             <xs:documentation>Valor da dedução da base de cálculo do imposto de renda com exigibilidade suspensa.</xs:documentation>
                                                                                             <xs:documentation>Validação: Informação permitida apenas se {vlrRendSusp}(../vlrRendSusp) > 0.</xs:documentation>
                                                                                             <xs:documentation>Se {indTpDeducao}(./indTpDeducao) = [5, 7], e o grupo {benefPen}(./benefPen) for preenchido, o valor informado neste campo deve ser a soma do(s) campo(s) {vlrDepenSusp}(./benefPen_vlrDepenSusp) do grupo {benefPen}(./benefPen).</xs:documentation>
+                                                                                            <xs:documentation>Deve ser maior que 0 (zero).</xs:documentation>
                                                                                             <xs:documentation>O não preenchimento do grupo {benefPen}(./benefPen) indica que o contribuinte declarante não possui as informações detalhadas por dependente/alimentando.</xs:documentation>
                                                                                         </xs:annotation>
                                                                                         <xs:simpleType>
-                                                                                            <xs:restriction base="TS_valorMonetario" />
+                                                                                            <xs:restriction base="TS_valorMonetario_positivo" />
                                                                                         </xs:simpleType>
                                                                                     </xs:attribute>
                                                                                 </xs:complexType>
