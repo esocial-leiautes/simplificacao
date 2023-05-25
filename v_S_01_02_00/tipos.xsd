@@ -615,7 +615,37 @@
 
     <xs:complexType name="T_aprend">
         <xs:sequence>
-            <xs:element name="tpInsc" type="TS_tpInsc_1_2" />
+            <xs:element name="indAprend">
+                <xs:simpleType>
+                    <xs:annotation>
+                        <xs:documentation>Indicativo de modalidade de contratação de aprendiz.</xs:documentation>
+                    </xs:annotation>
+                    <xs:restriction base="xs:byte">
+                        <xs:enumeration value="1">
+                            <xs:annotation>
+                                <xs:documentation>Contratação direta: contratação do aprendiz efetivada pelo estabelecimento cumpridor da cota de aprendizagem</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="2">
+                            <xs:annotation>
+                                <xs:documentation>Contratação indireta: contratação do aprendiz efetivada por entidades sem fins lucrativos ou por entidades de prática desportiva a serviço do estabelecimento cumpridor da cota</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="cnpjEntQual" type="TS_cnpj" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Informar o número de inscrição no CNPJ da entidade qualificadora, no caso de contratação direta.</xs:documentation>
+                    <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se {indAprend}(./indAprend) = [1]</xs:documentation>
+                    <xs:documentation>Deve ser um CNPJ válido, com 14 (catorze) algarismos.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="tpInsc" type="TS_tpInsc_1_2">
+                <xs:annotation>
+                    <xs:documentation>Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
             <xs:element name="nrInsc" type="TS_nrInsc_11_14">
                 <xs:annotation>
                     <xs:documentation>Informar o número de inscrição do estabelecimento para o qual a contratação de aprendiz foi efetivada, de acordo com o tipo de inscrição indicado no campo {aprend/tpInsc}(./tpInsc).</xs:documentation>
