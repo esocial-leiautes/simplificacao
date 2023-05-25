@@ -280,7 +280,7 @@ Ocorrência: 1
 Tamanho: 1-14
 Dec.: 2
 Descrição: Valor total de FGTS a recolher no processo trabalhista.
-Validação: Deve corresponder ao somatório dos valores retornados nos campos {dpsFGTSCompl}(./ideEstab_basePerRef_dpsFGTSCompl) e {dpsFGTSDecAnt}(./ideEstab_basePerRef_dpsFGTSDecAnt) abaixo.
+Validação: Deve corresponder ao somatório dos valores retornados nos campos {dpsFGTSProcTrab}(./ideEstab_basePerRef_dpsFGTSProcTrab), {dpsFGTSSefip}(./ideEstab_basePerRef_dpsFGTSSefip) e {dpsFGTSDecAnt}(./ideEstab_basePerRef_dpsFGTSDecAnt) abaixo.
 Se o evento de origem for S-3500, retornar 0 (zero).
 
 Nome: ideEstab
@@ -362,27 +362,50 @@ Valores válidos:
 72 - FGTS Origem Processo Trabalhista - Aprendiz/Contrato Verde e Amarelo: quando <a href="#5503_infoTrabFGTS_infoFGTSProcTrab_ideEstab_basePerRef_codCateg">codCateg</a> = [103, 107, 108] ou ([401, 410], se <a href="#5503_infoTrabFGTS_categOrig">categOrig</a> = [103, 107, 108])
 73 - FGTS Origem Processo Trabalhista - Indenização compensatória do empregado doméstico: quando <a href="#5503_infoTrabFGTS_infoFGTSProcTrab_ideEstab_basePerRef_codCateg">codCateg</a> = [104]
 
-Nome: remFGTSCompl
+Nome: remFGTSProcTrab
 Pai: basePerRef
 Elem.: E
 Tipo: N
 Ocorrência: 1
 Tamanho: 1-14
 Dec.: 2
-Descrição: Valor da base de cálculo complementar em aberto ainda não declarada no eSocial.
-Origem: campo {vrBcFgtsCompl}(2500_ideTrab_infoContr_ideEstab_infoVlr_idePeriodo_infoFGTS_vrBcFgtsCompl) de S-2500.
-Validação: Deve ser maior ou igual a 0 (zero).
+Descrição: Valor da base de cálculo de FGTS ainda não declarada, reconhecida no processo trabalhista.
+Origem: campo {vrBcFGTSProcTrab}(2500_ideTrab_infoContr_ideEstab_infoVlr_idePeriodo_infoFGTS_vrBcFGTSProcTrab) de S-2500.
 
-Nome: dpsFGTSCompl
+Nome: dpsFGTSProcTrab
 Pai: basePerRef
 Elem.: E
 Tipo: N
 Ocorrência: 0-1
 Tamanho: 1-14
 Dec.: 2
-Descrição: Valor histórico do FGTS a ser depositado na conta vinculada do trabalhador sobre valor complementar.
+Descrição: Valor histórico do FGTS a ser depositado na conta vinculada do trabalhador sobre base reconhecida no processo trabalhista.
 Validação: Deve ser maior que 0 (zero).
-Deve corresponder à multiplicação de {remFGTSCompl}(./remFGTSCompl) pela alíquota abaixo:
+Deve corresponder à multiplicação de {remFGTSProcTrab}(./remFGTSProcTrab) pela alíquota abaixo:
+a) Se {tpValorProcTrab}(./tpValorProcTrab) = [71], alíquota de 8%;
+b) Se {tpValorProcTrab}(./tpValorProcTrab) = [72], alíquota de 2%;
+c) Se {tpValorProcTrab}(./tpValorProcTrab) = [73], alíquota de 3,2%.
+
+Nome: remFGTSSefip
+Pai: basePerRef
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da base de cálculo declarada anteriormente em SEFIP e ainda não recolhida.
+Origem: campo {vrBcFGTSSefip}(2500_ideTrab_infoContr_ideEstab_infoVlr_idePeriodo_infoFGTS_vrBcFGTSSefip) de S-2500.
+
+Nome: dpsFGTSSefip
+Pai: basePerRef
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor histórico do FGTS a ser depositado na conta vinculada do trabalhador sobre base já declarada anteriormente em SEFIP.
+Validação: Deve ser maior que 0 (zero).
+Deve corresponder à multiplicação de {remFGTSSefip}(./remFGTSSefip) pela alíquota abaixo:
 a) Se {tpValorProcTrab}(./tpValorProcTrab) = [71], alíquota de 8%;
 b) Se {tpValorProcTrab}(./tpValorProcTrab) = [72], alíquota de 2%;
 c) Se {tpValorProcTrab}(./tpValorProcTrab) = [73], alíquota de 3,2%.
@@ -395,8 +418,7 @@ Ocorrência: 0-1
 Tamanho: 1-14
 Dec.: 2
 Descrição: Valor da base de cálculo declarada anteriormente no eSocial e ainda não recolhida.
-Origem: campo {vrBcFgtsDecAnt}(2500_ideTrab_infoContr_ideEstab_infoVlr_idePeriodo_infoFGTS_vrBcFgtsDecAnt) de S-2500.
-Validação: Deve ser maior ou igual a 0 (zero).
+Origem: campo {vrBcFGTSDecAnt}(2500_ideTrab_infoContr_ideEstab_infoVlr_idePeriodo_infoFGTS_vrBcFGTSDecAnt) de S-2500.
 
 Nome: dpsFGTSDecAnt
 Pai: basePerRef
