@@ -217,6 +217,15 @@ Chave: -
 Condição: OC (se o código de categoria for igual a [901])
 N (nos demais casos)
 
+Nível: 5
+Nome: localTrabGeral
+Pai: infoComplementares
+Descrição: Estabelecimento onde o trabalhador exercerá suas atividades
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {codCateg}(2300_infoTSVInicio_codCateg) = [2XX, 304, 305, 4XX, 721, 722, 723, 731, 734, 738, 761, 771, 901, 902, 906] e {dtInicio}(2300_infoTSVInicio_dtInicio) >= [2024-01-22])
+N (nos demais casos)
+
 Nível: 4
 Nome: mudancaCPF
 Pai: infoTSVInicio
@@ -1621,6 +1630,47 @@ Tamanho: 11
 Dec.: -
 Descrição: CPF do responsável pela supervisão do estagiário.
 Validação: Deve ser um CPF válido.
+
+Nome: localTrabGeral
+Pai: infoComplementares
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Estabelecimento (CNPJ, CNO, CAEPF) onde o trabalhador exercerá suas atividades. Caso o trabalhador exerça suas atividades em instalações de terceiros, este campo deve ser preenchido com o estabelecimento do próprio declarante ao qual o trabalhador esteja vinculado.
+
+Nome: tpInsc
+Pai: localTrabGeral
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+3 - CAEPF
+4 - CNO
+
+Nome: nrInsc
+Pai: localTrabGeral
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 12 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {localTrabGeral/tpInsc}(./tpInsc).
+Validação: Deve ser um número de inscrição válido e existente na Tabela de Estabelecimentos (S-1005), bem como compatível com {localTrabGeral/tpInsc}(./tpInsc).
+
+Nome: descComp
+Pai: localTrabGeral
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-80
+Dec.: -
+Descrição: Descrição complementar do local de trabalho.
 
 Nome: mudancaCPF
 Pai: infoTSVInicio
