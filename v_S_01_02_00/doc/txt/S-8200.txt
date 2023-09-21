@@ -1,0 +1,567 @@
+S-8200 - evtAnotJud
+Anotação Judicial do Vínculo
+
+Nível: 1
+Nome: eSocial
+Pai: -
+Descrição: eSocial
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 2
+Nome: evtAnotJud
+Pai: eSocial
+Descrição: Evento Anotação Judicial do Vínculo.
+Ocorrência: 1
+Chave: Id
+Condição: O
+
+Nível: 3
+Nome: ideEvento
+Pai: evtAnotJud
+Descrição: Informações de identificação do evento.
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 3
+Nome: ideEmpregador
+Pai: evtAnotJud
+Descrição: Informações de identificação do empregador.
+Ocorrência: 1
+Chave: tpInsc*, nrInsc*
+Condição: O
+
+Nível: 3
+Nome: infoProcesso
+Pai: evtAnotJud
+Descrição: Informações do processo judicial.
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 3
+Nome: infoAnotJud
+Pai: evtAnotJud
+Descrição: Informações da anotação judicial do vínculo.
+Ocorrência: 1
+Chave: cpfTrab*, matricula*
+Condição: O
+
+Nível: 4
+Nome: cargo
+Pai: infoAnotJud
+Descrição: Informações do cargo.
+Ocorrência: 1-99
+Chave: dtCargo
+Condição: O
+
+Nível: 4
+Nome: remuneracao
+Pai: infoAnotJud
+Descrição: Informações da remuneração e periodicidade de pagamento.
+Ocorrência: 1-99
+Chave: dtRemun
+Condição: O
+
+Nível: 4
+Nome: incorporacao
+Pai: infoAnotJud
+Descrição: Informação do(s) vínculo(s)/contrato(s) já declarado(s) no eSocial pelo empregador e incorporado(s) ao vínculo reconhecido judicialmente.
+Ocorrência: 0-9
+Chave: matIncorp
+Condição: OC
+
+Nível: 4
+Nome: afastamento
+Pai: infoAnotJud
+Descrição: Informações de afastamento do trabalhador.
+Ocorrência: 0-1
+Chave: -
+Condição: N (se grupo {desligamento}(../desligamento) estiver preenchido)
+O (nos demais casos)
+
+Nível: 4
+Nome: desligamento
+Pai: infoAnotJud
+Descrição: Informações de desligamento do trabalhador.
+Ocorrência: 0-1
+Chave: -
+Condição: N (se grupo {afastamento}(../afastamento) estiver preenchido)
+O (nos demais casos)
+
+Nome: eSocial
+Pai: -
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: eSocial
+
+Nome: evtAnotJud
+Pai: eSocial
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Evento Anotação Judicial do Vínculo.
+Regras de validação:
+REGRA_ADMISSAO_VALIDA_DT_ADM
+REGRA_ADMISSAO_VALIDA_DURACAO_CONTRATO
+REGRA_BLOQUEIA_USO_CPF_EMPREGADOR
+REGRA_COMPATIBILIDADE_CATEGORIA_CLASSTRIB
+REGRA_ENVIO_PROC_FECHAMENTO
+REGRA_EVENTOS_EXTEMP
+REGRA_EXISTE_INFO_EMPREGADOR
+REGRA_RETIFICA_MESMO_VINCULO
+REGRA_VALIDA_MATRICULA
+REGRA_VALIDA_TRABALHADOR_BASE_CPF
+
+Nome: Id
+Pai: evtAnotJud
+Elem.: A
+Tipo: C
+Ocorrência: 1
+Tamanho: 36
+Dec.: -
+Descrição: Identificação única do evento.
+Regras de validação:
+REGRA_VALIDA_ID_EVENTO
+
+Nome: ideEvento
+Pai: evtAnotJud
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do evento.
+
+Nome: indRetif
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Informe [1] para arquivo original ou [2] para arquivo de retificação.
+Valores válidos:
+1 - Original
+2 - Retificação
+
+Nome: nrRecibo
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 23
+Dec.: -
+Descrição: Preencher com o número do recibo do arquivo a ser retificado.
+Validação: O preenchimento é obrigatório se {indRetif}(./indRetif) = [2].
+Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo retificado.
+
+Nome: tpAmb
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Identificação do ambiente.
+Valores válidos:
+1 - Produção
+2 - Produção restrita
+7 - Validação (uso interno)
+8 - Teste (uso interno)
+9 - Desenvolvimento (uso interno)
+
+Nome: procEmi
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Processo de emissão do evento.
+Valores válidos:
+8 - Aplicativo governamental para envio de eventos pelo Judiciário
+
+Nome: verProc
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-20
+Dec.: -
+Descrição: Versão do processo de emissão do evento. Informar a versão do aplicativo emissor do evento.
+
+Nome: ideEmpregador
+Pai: evtAnotJud
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do empregador.
+
+Nome: tpInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+
+Nome: nrInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 8, 11 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {ideEmpregador/tpInsc}(./tpInsc) e conforme informado em S-1000.
+
+Nome: infoProcesso
+Pai: evtAnotJud
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações do processo judicial.
+
+Nome: nrProcTrab
+Pai: infoProcesso
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 20
+Dec.: -
+Descrição: Número que identifica o processo judicial onde a anotação do vínculo foi determinada.
+Validação: Deve ser um processo judicial válido, com 20 (vinte) algarismos.
+
+Nome: dtSent
+Pai: infoProcesso
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informar a data da decisão judicial.
+
+Nome: ufVara
+Pai: infoProcesso
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 2
+Dec.: -
+Descrição: Preencher com a sigla da Unidade da Federação onde está localizada a Vara em que o processo tramitou.
+Valores válidos:
+ AC, AL, AP, AM, BA, CE, DF, ES, GO, MA, MT, MS, MG, PA, PB, PR, PE, PI, RJ, RN, RS, RO, RR, SC, SP, SE, TO
+
+Nome: codMunic
+Pai: infoProcesso
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 7
+Dec.: -
+Descrição: Preencher com o código do município, conforme tabela do IBGE.
+Validação: Deve ser um código válido e existente na tabela do IBGE.
+
+Nome: idVara
+Pai: infoProcesso
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-4
+Dec.: -
+Descrição: Código de identificação da Vara em que o processo tramitou.
+
+Nome: infoAnotJud
+Pai: evtAnotJud
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações da anotação judicial do vínculo.
+
+Nome: cpfTrab
+Pai: infoAnotJud
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11
+Dec.: -
+Descrição: Preencher com o número do CPF do trabalhador.
+
+Nome: nmTrab
+Pai: infoAnotJud
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 2-70
+Dec.: -
+Descrição: Informar o nome do trabalhador.
+
+Nome: dtNascto
+Pai: infoAnotJud
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Preencher com a data de nascimento.
+
+Nome: dtAdm
+Pai: infoAnotJud
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Preencher com a data de admissão do trabalhador.
+Validação: Deve ser posterior à data de nascimento do trabalhador.
+
+Nome: matricula
+Pai: infoAnotJud
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-30
+Dec.: -
+Descrição: Matrícula atribuída ao trabalhador.
+Validação: O valor informado deve conter a expressão 'eSocial-JUD-' nas 12 (doze) primeiras posições.
+Regras de validação:
+REGRA_CARACTERE_ESPECIAL
+
+Nome: codCateg
+Pai: infoAnotJud
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 3
+Dec.: -
+Descrição: Preencher com o código da categoria do trabalhador.
+Validação: Deve ser um código de categoria referente a "Empregado" ([1XX]) ou igual a [302, 303, 309].
+
+Nome: natAtividade
+Pai: infoAnotJud
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Natureza da atividade.
+Valores válidos:
+1 - Trabalho urbano
+2 - Trabalho rural
+Validação: Se {codCateg}(./codCateg) = [104], deve ser preenchido com [1]. Se {codCateg}(./codCateg) = [102], deve ser preenchido com [2].
+
+Nome: tpContr
+Pai: infoAnotJud
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Tipo de contrato de trabalho.
+Valores válidos:
+1 - Prazo indeterminado
+2 - Prazo determinado, definido em dias
+3 - Prazo determinado, vinculado à ocorrência de um fato
+
+Nome: dtTerm
+Pai: infoAnotJud
+Elem.: E
+Tipo: D
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Data do término do contrato por prazo determinado.
+Validação: O preenchimento é obrigatório se {tpContr}(./tpContr) = [2]. Não informar se {tpContr}(./tpContr) = [1]. Deve ser igual ou posterior à data de admissão.
+
+Nome: cargo
+Pai: infoAnotJud
+Elem.: G
+Tipo: -
+Ocorrência: 1-99
+Tamanho: -
+Dec.: -
+Descrição: Informações do cargo.
+
+Nome: dtCargo
+Pai: cargo
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Data a partir da qual as informações do cargo estão vigentes.
+Validação: Deve ser igual ou posterior à data de admissão e igual ou anterior à data de desligamento, se informada.
+
+Nome: CBOCargo
+Pai: cargo
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 6
+Dec.: -
+Descrição: Informar a Classificação Brasileira de Ocupações - CBO relativa ao cargo.
+Validação: Deve ser um código válido e existente na tabela de CBO, com 6 (seis) posições.
+
+Nome: remuneracao
+Pai: infoAnotJud
+Elem.: G
+Tipo: -
+Ocorrência: 1-99
+Tamanho: -
+Dec.: -
+Descrição: Informações da remuneração e periodicidade de pagamento.
+
+Nome: dtRemun
+Pai: remuneracao
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Data a partir da qual as informações de remuneração e periodicidade de pagamento estão vigentes.
+Validação: Deve ser igual ou posterior à data de admissão e igual ou anterior à data de desligamento, se informada.
+
+Nome: vrSalFx
+Pai: remuneracao
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Salário base do trabalhador, correspondente à parte fixa da remuneração em {dtRemun}(./dtRemun).
+Validação: Se {undSalFixo}(./undSalFixo) for igual a [7], preencher com 0 (zero).
+
+Nome: undSalFixo
+Pai: remuneracao
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Unidade de pagamento da parte fixa da remuneração.
+Valores válidos:
+1 - Por hora
+2 - Por dia
+3 - Por semana
+4 - Por quinzena
+5 - Por mês
+6 - Por tarefa
+7 - Não aplicável - Salário exclusivamente variável
+
+Nome: dscSalVar
+Pai: remuneracao
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-999
+Dec.: -
+Descrição: Descrição do salário por tarefa ou variável e como este é calculado. Ex.: Comissões pagas no percentual de 10% sobre as vendas.
+Validação: Preenchimento obrigatório se {undSalFixo}(./undSalFixo) for igual a [6, 7].
+
+Nome: incorporacao
+Pai: infoAnotJud
+Elem.: G
+Tipo: -
+Ocorrência: 0-9
+Tamanho: -
+Dec.: -
+Descrição: Informação do(s) vínculo(s)/contrato(s) já declarado(s) no eSocial pelo empregador e incorporado(s) ao vínculo reconhecido judicialmente.
+
+Nome: matIncorp
+Pai: incorporacao
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-30
+Dec.: -
+Descrição: Informar a matrícula incorporada (matrícula cujo vínculo/contrato passou a integrar o vínculo reconhecido judicialmente).
+Validação: Deve corresponder a uma matrícula informada pelo empregador no evento S-2190, S-2200 ou S-2300, pertencente ao trabalhador preenchido em {cpfTrab}(../cpfTrab).
+
+Nome: afastamento
+Pai: infoAnotJud
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações de afastamento do trabalhador.
+
+Nome: dtIniAfast
+Pai: afastamento
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Data de início do afastamento.
+Validação: Deve ser igual ou posterior à data de admissão do trabalhador e igual ou posterior a [2019-09-24].
+Não pode ser posterior à data atual.
+
+Nome: codMotAfast
+Pai: afastamento
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 2
+Dec.: -
+Descrição: Preencher com o código do motivo de afastamento temporário.
+Validação: Deve ser um código válido e existente na Tabela 18, bem como compatível com o código de categoria do trabalhador, conforme Tabela 18.
+Somente podem ser informados os códigos [01, 03, 06, 11, 12, 17, 18, 19, 20, 22, 24, 29, 35].
+
+Nome: desligamento
+Pai: infoAnotJud
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações de desligamento do trabalhador.
+
+Nome: mtvDeslig
+Pai: desligamento
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 2
+Dec.: -
+Descrição: Código de motivo do desligamento.
+Validação: Deve ser um código válido e existente na Tabela 19, bem como compatível com o código de categoria do trabalhador, conforme Tabela 19.
+Não podem ser informados motivos que não implicam rescisão do contrato de trabalho (igual a [11, 12, 13, 25, 28, 29, 30, 34, 36, 43, 44]).
+
+Nome: dtDeslig
+Pai: desligamento
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Preencher com a data de desligamento do vínculo (último dia trabalhado).
+Validação: Deve ser igual ou posterior à data de admissão do trabalhador e igual ou posterior a [2019-09-24].
+
+Nome: dtProjFimAPI
+Pai: desligamento
+Elem.: E
+Tipo: D
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Data projetada para o término do aviso prévio indenizado.
+Validação: Se preenchida, deve ser uma data posterior a {dtDeslig}(./dtDeslig).
+

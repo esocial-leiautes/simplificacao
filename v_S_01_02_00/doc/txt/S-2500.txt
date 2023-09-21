@@ -1,0 +1,1494 @@
+S-2500 - evtProcTrab
+Processo Trabalhista
+
+Nível: 1
+Nome: eSocial
+Pai: -
+Descrição: eSocial
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 2
+Nome: evtProcTrab
+Pai: eSocial
+Descrição: Evento Processo Trabalhista.
+Ocorrência: 1
+Chave: Id
+Condição: O
+
+Nível: 3
+Nome: ideEvento
+Pai: evtProcTrab
+Descrição: Informações de identificação do evento.
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 3
+Nome: ideEmpregador
+Pai: evtProcTrab
+Descrição: Informações de identificação do empregador ou do contribuinte que está prestando a informação.
+Ocorrência: 1
+Chave: tpInsc*, nrInsc*
+Condição: O
+
+Nível: 4
+Nome: ideResp
+Pai: ideEmpregador
+Descrição: Identificação do contribuinte, caso tenha havido imposição de responsabilidade indireta.
+Ocorrência: 0-1
+Chave: -
+Condição: OC
+
+Nível: 3
+Nome: infoProcesso
+Pai: evtProcTrab
+Descrição: Informações do processo judicial ou de demanda submetida à CCP ou ao NINTER.
+Ocorrência: 1
+Chave: nrProcTrab*
+Condição: O
+
+Nível: 4
+Nome: dadosCompl
+Pai: infoProcesso
+Descrição: Informações complementares do processo ou da demanda.
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 5
+Nome: infoProcJud
+Pai: dadosCompl
+Descrição: Informações complementares do processo judicial.
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {origem}(2500_infoProcesso_origem) = [1])
+N (nos demais casos)
+
+Nível: 5
+Nome: infoCCP
+Pai: dadosCompl
+Descrição: Informações complementares da demanda submetida à CCP ou ao NINTER.
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {origem}(2500_infoProcesso_origem) = [2])
+N (nos demais casos)
+
+Nível: 3
+Nome: ideTrab
+Pai: evtProcTrab
+Descrição: Informações do trabalhador.
+Ocorrência: 1
+Chave: cpfTrab*
+Condição: O
+
+Nível: 4
+Nome: infoContr
+Pai: ideTrab
+Descrição: Informações do contrato de trabalho.
+Ocorrência: 1-99
+Chave: matricula, codCateg, dtInicio
+Condição: O
+
+Nível: 5
+Nome: infoCompl
+Pai: infoContr
+Descrição: Informações complementares do contrato de trabalho.
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {indContr}(../indContr) = [N])
+N (nos demais casos)
+
+Nível: 6
+Nome: remuneracao
+Pai: infoCompl
+Descrição: Informações da remuneração e periodicidade de pagamento.
+Ocorrência: 0-99
+Chave: dtRemun
+Condição: N (se ({infoContr/tpContr}(../../tpContr) for diferente de [6] e {tpRegTrab}(../infoVinc_tpRegTrab) = [2])
+O (se ({infoContr/tpContr}(../../tpContr) for diferente de [6] e {tpRegTrab}(../infoVinc_tpRegTrab) = [1]) ou se {infoContr/codCateg}(../../codCateg) = [721, 722, 771])
+OC (nos demais casos)
+
+Nível: 6
+Nome: infoVinc
+Pai: infoCompl
+Descrição: Informações sobre o vínculo trabalhista.
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {infoContr/tpContr}(2500_ideTrab_infoContr_tpContr) for diferente de [6])
+N (nos demais casos)
+
+Nível: 7
+Nome: duracao
+Pai: infoVinc
+Descrição: Duração do contrato de trabalho.
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {tpRegTrab}(../tpRegTrab) = [1])
+N (nos demais casos)
+
+Nível: 7
+Nome: observacoes
+Pai: infoVinc
+Descrição: Observações do contrato de trabalho.
+Ocorrência: 0-99
+Chave: -
+Condição: OC
+
+Nível: 7
+Nome: sucessaoVinc
+Pai: infoVinc
+Descrição: Grupo de informações da sucessão de vínculo trabalhista/estatutário.
+Ocorrência: 0-1
+Chave: -
+Condição: OC
+
+Nível: 7
+Nome: infoDeslig
+Pai: infoVinc
+Descrição: Informações do desligamento.
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 6
+Nome: infoTerm
+Pai: infoCompl
+Descrição: Informações de término de TSVE.
+Ocorrência: 0-1
+Chave: -
+Condição: OC (se {infoContr/tpContr}(2500_ideTrab_infoContr_tpContr) = [6]
+N (nos demais casos)
+
+Nível: 5
+Nome: mudCategAtiv
+Pai: infoContr
+Descrição: Informação do novo código de categoria e/ou da nova natureza da atividade.
+Ocorrência: 0-99
+Chave: dtMudCategAtiv
+Condição: OC (se {indCateg}(../indCateg) = [S] ou se {indNatAtiv}(../indNatAtiv) = [S])
+N (nos demais casos)
+
+Nível: 5
+Nome: unicContr
+Pai: infoContr
+Descrição: Informações dos vínculos/contratos incorporados.
+Ocorrência: 0-99
+Chave: matUnic, codCateg, dtInicio
+Condição: O (se {infoContr/tpContr}(2500_ideTrab_infoContr_tpContr) = [9])
+N (nos demais casos)
+
+Nível: 5
+Nome: ideEstab
+Pai: infoContr
+Descrição: Identificação do estabelecimento.
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 6
+Nome: infoVlr
+Pai: ideEstab
+Descrição: Informações dos períodos e valores.
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 7
+Nome: abono
+Pai: infoVlr
+Descrição: Identificação do(s) ano(s)-base em que houve indenização substitutiva de abono salarial.
+Ocorrência: 0-9
+Chave: anoBase
+Condição: O (se {indenAbono}(../indenAbono) = [S])
+N (nos demais casos)
+
+Nível: 7
+Nome: idePeriodo
+Pai: infoVlr
+Descrição: Identificação do período ao qual se referem as bases de cálculo.
+Ocorrência: 0-999
+Chave: perRef
+Condição: O (se {indReperc}(../indReperc) = [1])
+N (nos demais casos)
+
+Nível: 8
+Nome: baseCalculo
+Pai: idePeriodo
+Descrição: Bases de cálculo de contribuição previdenciária decorrentes de processo trabalhista e ainda não declaradas.
+Ocorrência: 0-1
+Chave: -
+Condição: OC
+
+Nível: 9
+Nome: infoAgNocivo
+Pai: baseCalculo
+Descrição: Grau de exposição a agentes nocivos
+Ocorrência: 0-1
+Chave: -
+Condição: O (se o código de categoria for igual a [1XX, 2XX, 3XX, 731, 734, 738] ou se o código de categoria for igual a [4XX] com {categOrig} em S-2300 = [1XX, 2XX, 3XX, 731, 734, 738])
+N (nos demais casos)
+
+Nível: 8
+Nome: infoFGTS
+Pai: idePeriodo
+Descrição: Informações referentes a bases de cálculo de FGTS para geração de guia.
+Ocorrência: 0-1
+Chave: -
+Condição: OC
+
+Nível: 8
+Nome: baseMudCateg
+Pai: idePeriodo
+Descrição: Bases de cálculo já declaradas em GFIP, no caso de reconhecimento de mudança de código de categoria.
+Ocorrência: 0-1
+Chave: -
+Condição: OC (se {indCateg}(2500_ideTrab_infoContr_indCateg) = [S])
+N (nos demais casos)
+
+Nome: eSocial
+Pai: -
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: eSocial
+
+Nome: evtProcTrab
+Pai: eSocial
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Evento Processo Trabalhista.
+Regras de validação:
+REGRA_BLOQUEIA_USO_CPF_EMPREGADOR
+REGRA_COMPATIBILIDADE_CATEGORIA_CLASSTRIB
+REGRA_ENVIO_PROC_FECHAMENTO
+REGRA_EVENTOS_EXTEMP
+REGRA_EXISTE_INFO_EMPREGADOR
+REGRA_MESMO_PROCEMI
+REGRA_MUDANCA_CATEG_NAT_ATIV
+REGRA_UNICIDADE_CONTRATUAL
+REGRA_VALIDA_EMPREGADOR
+REGRA_VALIDA_MATRICULA
+REGRA_VALIDA_PROC_TRAB
+REGRA_VALIDA_TRABALHADOR_BASE_CPF
+
+Nome: Id
+Pai: evtProcTrab
+Elem.: A
+Tipo: C
+Ocorrência: 1
+Tamanho: 36
+Dec.: -
+Descrição: Identificação única do evento.
+Regras de validação:
+REGRA_VALIDA_ID_EVENTO
+
+Nome: ideEvento
+Pai: evtProcTrab
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do evento.
+
+Nome: indRetif
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Informe [1] para arquivo original ou [2] para arquivo de retificação.
+Valores válidos:
+1 - Original
+2 - Retificação
+
+Nome: nrRecibo
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 23
+Dec.: -
+Descrição: Preencher com o número do recibo do arquivo a ser retificado.
+Validação: O preenchimento é obrigatório se {indRetif}(./indRetif) = [2].
+Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo retificado.
+
+Nome: tpAmb
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Identificação do ambiente.
+Valores válidos:
+1 - Produção
+2 - Produção restrita
+7 - Validação (uso interno)
+8 - Teste (uso interno)
+9 - Desenvolvimento (uso interno)
+
+Nome: procEmi
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-2
+Dec.: -
+Descrição: Processo de emissão do evento.
+Valores válidos:
+1 - Aplicativo do empregador
+2 - Aplicativo governamental - Simplificado Pessoa Física
+3 - Aplicativo governamental - Web Geral
+4 - Aplicativo governamental - Simplificado Pessoa Jurídica
+22 - Aplicativo governamental para dispositivos móveis - Empregador Doméstico
+
+Nome: verProc
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-20
+Dec.: -
+Descrição: Versão do processo de emissão do evento. Informar a versão do aplicativo emissor do evento.
+
+Nome: ideEmpregador
+Pai: evtProcTrab
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do empregador ou do contribuinte que está prestando a informação.
+
+Nome: tpInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição do empregador ou contribuinte que está prestando a informação, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+
+Nome: nrInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 8, 11 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do empregador ou contribuinte que está prestando a informação, de acordo com o tipo de inscrição indicado no campo {ideEmpregador/tpInsc}(./tpInsc) e conforme informado em S-1000.
+
+Nome: ideResp
+Pai: ideEmpregador
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição:  Informações de identificação do contribuinte (responsável direto), caso tenha havido imposição de responsabilidade indireta.
+
+Nome: tpInsc
+Pai: ideResp
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+
+Nome: nrInsc
+Pai: ideResp
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {ideResp/tpInsc}(./tpInsc).
+Validação: Deve ser um identificador válido e:
+a) Se {ideResp/tpInsc}(./tpInsc) = [1], deve ser informado com 14 (catorze) algarismos. Se o empregador for pessoa jurídica, a raiz do CNPJ informado deve ser diferente de {ideEmpregador/nrInsc}(../nrInsc), exceto se {ideEmpregador/nrInsc}(../nrInsc) tiver 14 (catorze) algarismos.
+b) Se {ideResp/tpInsc}(./tpInsc) = [2], deve ser diferente do CPF do trabalhador. Se o empregador for pessoa física, também deve ser diferente do CPF do empregador.
+
+Nome: infoProcesso
+Pai: evtProcTrab
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição:  Informações do processo judicial ou de demanda submetida à Comissão de Conciliação Prévia (CCP) ou ao Núcleo Intersindical de Conciliação Trabalhista (NINTER).
+
+Nome: origem
+Pai: infoProcesso
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Informar a origem do processo/demanda.
+Valores válidos:
+1 - Processo judicial
+2 - Demanda submetida à CCP ou ao NINTER
+
+Nome: nrProcTrab
+Pai: infoProcesso
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 15 ou 20
+Dec.: -
+Descrição: Número do processo trabalhista, da ata ou número de identificação da conciliação.
+Validação: Se {origem}(./origem) = [1], deve ser um processo judicial válido, com 20 (vinte) algarismos. Se {origem}(./origem) = [2], deve possuir 15 (quinze) algarismos.
+
+Nome: obsProcTrab
+Pai: infoProcesso
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-999
+Dec.: -
+Descrição: Observações relacionadas ao processo judicial ou à demanda submetida à CCP ou ao NINTER.
+
+Nome: dadosCompl
+Pai: infoProcesso
+Elem.: CG
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações complementares do processo ou da demanda.
+
+Nome: infoProcJud
+Pai: dadosCompl
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações complementares do processo judicial.
+
+Nome: dtSent
+Pai: infoProcJud
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informar a data do(a):
+a) Trânsito em julgado da decisão líquida proferida no processo trabalhista;
+b) Homologação de acordo judicial; ou
+c) Trânsito em julgado da decisão homologatória dos cálculos de liquidação da sentença.
+Validação: Deve ser igual ou anterior à data atual.
+
+Nome: ufVara
+Pai: infoProcJud
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 2
+Dec.: -
+Descrição: Preencher com a sigla da Unidade da Federação onde está localizada a Vara em que o processo tramitou.
+Valores válidos:
+ AC, AL, AP, AM, BA, CE, DF, ES, GO, MA, MT, MS, MG, PA, PB, PR, PE, PI, RJ, RN, RS, RO, RR, SC, SP, SE, TO
+
+Nome: codMunic
+Pai: infoProcJud
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 7
+Dec.: -
+Descrição: Preencher com o código do município, conforme tabela do IBGE.
+Validação: Deve ser um código válido e existente na tabela do IBGE.
+
+Nome: idVara
+Pai: infoProcJud
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-4
+Dec.: -
+Descrição: Código de identificação da Vara em que o processo tramitou.
+
+Nome: infoCCP
+Pai: dadosCompl
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações complementares da demanda submetida à CCP ou ao NINTER.
+
+Nome: dtCCP
+Pai: infoCCP
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Data da celebração do acordo celebrado perante CCP ou Ninter.
+Validação: Deve ser igual ou anterior à data atual.
+
+Nome: tpCCP
+Pai: infoCCP
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Indicar o âmbito de celebração do acordo.
+Valores válidos:
+1 - CCP no âmbito de empresa
+2 - CCP no âmbito de sindicato
+3 - NINTER
+
+Nome: cnpjCCP
+Pai: infoCCP
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 14
+Dec.: -
+Descrição: Identificar o CNPJ do sindicato representativo do trabalhador, no âmbito da CCP ou NINTER.
+Validação: O preenchimento é obrigatório e exclusivo se {tpCCP}(./tpCCP) for igual a [2] ou [3]. Deve ser um número de CNPJ válido.
+
+Nome: ideTrab
+Pai: evtProcTrab
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações do trabalhador.
+
+Nome: cpfTrab
+Pai: ideTrab
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11
+Dec.: -
+Descrição: Preencher com o número do CPF do trabalhador.
+
+Nome: nmTrab
+Pai: ideTrab
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 2-70
+Dec.: -
+Descrição: Informar o nome do trabalhador.
+Validação: Preenchimento obrigatório se não existir contrato com {indContr}(2500_ideTrab_infoContr_indContr) = [S].
+
+Nome: dtNascto
+Pai: ideTrab
+Elem.: E
+Tipo: D
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Preencher com a data de nascimento.
+Validação: Preenchimento obrigatório se não existir contrato com {indContr}(2500_ideTrab_infoContr_indContr) = [S]. Deve ser maior ou igual que 01/01/1890 e menor ou igual à data atual.
+
+Nome: infoContr
+Pai: ideTrab
+Elem.: G
+Tipo: -
+Ocorrência: 1-99
+Tamanho: -
+Dec.: -
+Descrição: Informações do contrato de trabalho.
+
+Nome: tpContr
+Pai: infoContr
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Tipo de contrato a que se refere o processo judicial ou a demanda submetida à CCP ou ao NINTER.
+Valores válidos:
+1 - Trabalhador com vínculo formalizado, sem alteração nas datas de admissão e de desligamento
+2 - Trabalhador com vínculo formalizado, com alteração na data de admissão
+3 - Trabalhador com vínculo formalizado, com inclusão ou alteração de data de desligamento
+4 - Trabalhador com vínculo formalizado, com alteração nas datas de admissão e de desligamento
+5 - Empregado com reconhecimento de vínculo
+6 - Trabalhador sem vínculo de emprego/estatutário (TSVE), sem reconhecimento de vínculo empregatício
+7 - Trabalhador com vínculo de emprego formalizado em período anterior ao eSocial
+8 - Responsabilidade indireta
+9 - Trabalhador cujos contratos foram unificados (unicidade contratual)
+Validação: Deve ser igual a [8] se o grupo {ideResp}(2500_ideEmpregador_ideResp) for informado.
+
+Nome: indContr
+Pai: infoContr
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo se o contrato possui informação no evento S-2190, S-2200 ou S-2300 no declarante.
+Valores válidos:
+S - Sim
+N - Não
+Validação: Deve ser igual a [N] se o grupo {ideResp}(2500_ideEmpregador_ideResp) for informado.
+
+Nome: dtAdmOrig
+Pai: infoContr
+Elem.: E
+Tipo: D
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Preencher com a data de admissão original do vínculo (data de admissão antes da alteração).
+Validação: Preenchimento obrigatório se {infoContr/tpContr}(./tpContr) = [2, 4]. Deve ser posterior à data de nascimento do trabalhador.
+
+Nome: indReint
+Pai: infoContr
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo de reintegração do empregado.
+Valores válidos:
+S - Sim
+N - Não
+Validação: Preenchimento obrigatório e exclusivo se {infoContr/tpContr}(./tpContr) for diferente de [6] e {indContr}(./indContr) = [S]. Caso seja informado [S], deve existir evento de reintegração (S-2298) para a matrícula abaixo informada, com o número de processo nesse evento igual a {nrProcTrab}(2500_infoProcesso_nrProcTrab).
+
+Nome: indCateg
+Pai: infoContr
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo se houve reconhecimento de categoria do trabalhador diferente da informada (no eSocial ou na GFIP) pelo declarante.
+Valores válidos:
+S - Sim
+N - Não
+
+Nome: indNatAtiv
+Pai: infoContr
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo se houve reconhecimento de natureza da atividade diferente da cadastrada pelo declarante.
+Valores válidos:
+S - Sim
+N - Não
+
+Nome: indMotDeslig
+Pai: infoContr
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo se houve reconhecimento de motivo de desligamento diferente do informado pelo declarante.
+Valores válidos:
+S - Sim
+N - Não
+
+Nome: matricula
+Pai: infoContr
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-30
+Dec.: -
+Descrição: Matrícula atribuída ao trabalhador pela empresa ou, no caso de servidor público, a matrícula constante no Sistema de Administração de Recursos Humanos do órgão.
+Se {indContr}(./indContr) = [N], deve ser criada uma matrícula para o trabalhador.
+Se {indContr}(./indContr) = [S], deve corresponder à matrícula informada pelo empregador no evento S-2190, S-2200, S-2300 ou S-8200 do respectivo contrato. O campo não deve ser informado somente no caso de TSVE cadastrado em versão do leiaute anterior a S-1.0.
+Se {infoContr/tpContr}(./tpContr) = [9], deve ser preenchida a matrícula que incorporará as demais (informadas no grupo {unicContr}(2500_ideTrab_infoContr_unicContr)).
+Validação: Se {indContr}(./indContr) = [N], deve ser aplicada a regra de validação abaixo. Além disso, o valor informado neste campo não pode conter a expressão 'eSocial' nas 7 (sete) primeiras posições. Se {indContr}(./indContr) = [S], deve corresponder a uma matrícula existente no Registro de Eventos Trabalhistas - RET para o respectivo trabalhador.
+Regras de validação:
+REGRA_CARACTERE_ESPECIAL
+
+Nome: codCateg
+Pai: infoContr
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 3
+Dec.: -
+Descrição: Preencher com o código da categoria do trabalhador.
+Validação: Informação obrigatória e exclusiva se {indContr}(./indContr) = [N] ou se o campo {matricula}(./matricula) não estiver preenchido. Deve ser um código válido e existente na Tabela 01 e obedecer ao que segue:
+a) Se o campo {matricula}(./matricula) não estiver preenchido, deve ser igual ao código de categoria informado no evento S-2300;
+b) Se {indContr}(./indContr) = [N] e {infoContr/tpContr}(./tpContr) for diferente de [6], deve ser um código de categoria compatível com o evento S-2200 (conforme regra de validação abaixo);
+c) Se {indContr}(./indContr) = [N] e {infoContr/tpContr}(./tpContr) = [6], deve ser um código de categoria compatível com o evento S-2300 (conforme regra de validação abaixo).
+Regras de validação:
+REGRA_COMPATIB_CATEG_EVENTO
+
+Nome: dtInicio
+Pai: infoContr
+Elem.: E
+Tipo: D
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Data de início de TSVE, que pode ser:
+a) Para o cooperado, a data de ingresso na cooperativa;
+b) Para o diretor não empregado, a data de posse no cargo;
+c) Para o dirigente sindical, a data de início do mandato no sindicato;
+d) Para o estagiário, a data de início do estágio;
+e) Para o trabalhador avulso, a data de ingresso no Órgão Gestor de Mão de Obra - OGMO ou no sindicato;
+f) Para o servidor público exercente de cargo eletivo, a data de início do mandato;
+g) Para os demais trabalhadores, a data de início das atividades.
+Validação: Informação obrigatória e exclusiva se ({infoContr/tpContr}(./tpContr) = [6] e {indContr}(./indContr) = [N]) ou se o campo {matricula}(./matricula) não estiver preenchido. Deve ser posterior à data de nascimento do trabalhador. Se o campo {matricula}(./matricula) não estiver preenchido, deve ser igual à data de início informada no evento S-2300.
+
+Nome: infoCompl
+Pai: infoContr
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações complementares do contrato de trabalho.
+
+Nome: codCBO
+Pai: infoCompl
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 6
+Dec.: -
+Descrição: Classificação Brasileira de Ocupações - CBO.
+Validação: Preenchimento obrigatório se {infoContr/codCateg}(../codCateg) for diferente de [901, 903, 904]). Se informado, deve ser um código válido e existente na tabela de CBO, com 6 (seis) posições.
+
+Nome: natAtividade
+Pai: infoCompl
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Natureza da atividade.
+Valores válidos:
+1 - Trabalho urbano
+2 - Trabalho rural
+Validação: Preenchimento obrigatório se {infoContr/codCateg}(../codCateg) for relativo a "Empregado", "Agente Público", "Avulso" ou igual a [401, 731, 734, 738]. Não deve ser preenchido se {infoContr/codCateg}(../codCateg) = [721, 722, 771, 901].
+Se {infoContr/codCateg}(../codCateg) = [104], deve ser preenchido com [1]. Se {infoContr/codCateg}(../codCateg) = [102], deve ser preenchido com [2].
+
+Nome: remuneracao
+Pai: infoCompl
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição: Informações da remuneração e periodicidade de pagamento.
+
+Nome: dtRemun
+Pai: remuneracao
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Data a partir da qual as informações de remuneração e periodicidade de pagamento estão vigentes.
+Validação: Deve ser igual ou posterior à data de admissão (ou de início) e igual ou anterior à data de desligamento (ou de término), se informada.
+
+Nome: vrSalFx
+Pai: remuneracao
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Salário base do trabalhador, correspondente à parte fixa da remuneração em {dtRemun}(./dtRemun).
+Validação: Se {undSalFixo}(./undSalFixo) for igual a [7], preencher com 0 (zero).
+
+Nome: undSalFixo
+Pai: remuneracao
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Unidade de pagamento da parte fixa da remuneração.
+Valores válidos:
+1 - Por hora
+2 - Por dia
+3 - Por semana
+4 - Por quinzena
+5 - Por mês
+6 - Por tarefa
+7 - Não aplicável - Salário exclusivamente variável
+
+Nome: dscSalVar
+Pai: remuneracao
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-999
+Dec.: -
+Descrição: Descrição do salário por tarefa ou variável e como este é calculado. Ex.: Comissões pagas no percentual de 10% sobre as vendas.
+Validação: Preenchimento obrigatório se {undSalFixo}(./undSalFixo) for igual a [6, 7].
+
+Nome: infoVinc
+Pai: infoCompl
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações sobre o vínculo trabalhista.
+
+Nome: tpRegTrab
+Pai: infoVinc
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Tipo de regime trabalhista.
+Valores válidos:
+1 - CLT - Consolidação das Leis de Trabalho e legislações trabalhistas específicas
+2 - Estatutário/legislações específicas (servidor temporário, militar, agente político, etc.)
+Validação: Se {infoContr/codCateg}(../../codCateg) = [104], deve ser preenchido com [1].
+
+Nome: tpRegPrev
+Pai: infoVinc
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Tipo de regime previdenciário.
+Valores válidos:
+1 - Regime Geral de Previdência Social - RGPS
+2 - Regime Próprio de Previdência Social - RPPS
+3 - Regime de Previdência Social no exterior
+Validação: Se {infoContr/codCateg}(../../codCateg) = [104], deve ser preenchido com [1]. Se {infoContr/codCateg}(../../codCateg) = [101, 102, 103, 105, 106, 107, 108, 111], não pode ser preenchido com [2].
+
+Nome: dtAdm
+Pai: infoVinc
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Preencher com a data de admissão do trabalhador.
+Validação: Deve ser posterior à data de nascimento do trabalhador.
+
+Nome: tmpParc
+Pai: infoVinc
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código relativo ao tipo de contrato em tempo parcial.
+Informar este campo apenas no caso de empregado submetido a horário de trabalho (Capítulo II do Título II da CLT).
+Valores válidos:
+0 - Não é contrato em tempo parcial
+1 - Limitado a 25 horas semanais
+2 - Limitado a 30 horas semanais
+3 - Limitado a 26 horas semanais
+Validação: Informação obrigatória e exclusiva se {tpRegTrab}(./tpRegTrab) = [1]. O código [1] só é válido se {infoContr/codCateg}(../../codCateg) = [104]. Os códigos [2, 3] não são válidos se {infoContr/codCateg}(../../codCateg) = [104].
+
+Nome: duracao
+Pai: infoVinc
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Duração do contrato de trabalho.
+
+Nome: tpContr
+Pai: duracao
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Tipo de contrato de trabalho.
+Valores válidos:
+1 - Prazo indeterminado
+2 - Prazo determinado, definido em dias
+3 - Prazo determinado, vinculado à ocorrência de um fato
+
+Nome: dtTerm
+Pai: duracao
+Elem.: E
+Tipo: D
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Data do término do contrato por prazo determinado.
+Validação: O preenchimento é obrigatório se {duracao/tpContr}(./tpContr) = [2]. Não informar se {duracao/tpContr}(./tpContr) = [1]. Se preenchido, deve ser igual ou posterior à data de admissão (no caso de transferência, igual ou posterior a {sucessaoVinc/dtTransf}(../sucessaoVinc_dtTransf)).
+
+Nome: clauAssec
+Pai: duracao
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Indicar se o contrato por prazo determinado contém cláusula assecuratória do direito recíproco de rescisão antes da data de seu término.
+Valores válidos:
+S - Sim
+N - Não
+Validação: O preenchimento é obrigatório se {duracao/tpContr}(./tpContr) = [2, 3]. Não preencher se {duracao/tpContr}(./tpContr) = [1].
+
+Nome: objDet
+Pai: duracao
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-255
+Dec.: -
+Descrição: Indicação do objeto determinante da contratação por prazo determinado (obra, serviço, safra, etc.).
+Validação: O preenchimento é obrigatório e exclusivo se {duracao/tpContr}(./tpContr) = [3].
+
+Nome: observacoes
+Pai: infoVinc
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição: Observações do contrato de trabalho.
+
+Nome: observacao
+Pai: observacoes
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-255
+Dec.: -
+Descrição: Observação relacionada ao contrato de trabalho.
+
+Nome: sucessaoVinc
+Pai: infoVinc
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Grupo de informações da sucessão de vínculo trabalhista/estatutário.
+
+Nome: tpInsc
+Pai: sucessaoVinc
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+5 - CGC
+6 - CEI
+Validação: Somente é possível informar [5] se {dtTransf}(./dtTransf) for igual ou anterior a [1999-06-30].
+
+Nome: nrInsc
+Pai: sucessaoVinc
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 8-14
+Dec.: -
+Descrição: Informar o número de inscrição do empregador anterior, de acordo com o tipo de inscrição indicado no campo {sucessaoVinc/tpInsc}(./tpInsc).
+Validação: Deve ser um número de inscrição válido e diferente da inscrição do declarante, considerando as particularidades aplicadas à informação de CNPJ de órgão público em S-1000.
+Se {sucessaoVinc/tpInsc}(./tpInsc) = [1], deve possuir 14 (catorze) algarismos e ser diferente do CNPJ base do empregador (exceto se {ideEmpregador/nrInsc}(2500_ideEmpregador_nrInsc) tiver 14 (catorze) algarismos).
+Se {sucessaoVinc/tpInsc}(./tpInsc) = [2], deve possuir 11 (onze) algarismos.
+Se {sucessaoVinc/tpInsc}(./tpInsc) = [5], deve possuir somente algarismos.
+Se {sucessaoVinc/tpInsc}(./tpInsc) = [6], deve possuir 12 (doze) algarismos.
+
+Nome: matricAnt
+Pai: sucessaoVinc
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-30
+Dec.: -
+Descrição: Matrícula do trabalhador no empregador anterior.
+
+Nome: dtTransf
+Pai: sucessaoVinc
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Preencher com a data da transferência do empregado para o empregador declarante.
+Validação: Deve ser posterior à data de admissão do trabalhador.
+
+Nome: infoDeslig
+Pai: infoVinc
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações do desligamento.
+
+Nome: dtDeslig
+Pai: infoDeslig
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Preencher com a data de desligamento do vínculo (último dia trabalhado).
+Validação: Deve ser igual ou posterior a {dtAdm}(../dtAdm) e não superior à data atual (data do envio do evento) acrescida de 10 dias corridos.
+
+Nome: mtvDeslig
+Pai: infoDeslig
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 2
+Dec.: -
+Descrição: Código de motivo do desligamento.
+Validação: Deve ser um código válido e existente na Tabela 19.
+
+Nome: dtProjFimAPI
+Pai: infoDeslig
+Elem.: E
+Tipo: D
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Data projetada para o término do aviso prévio indenizado.
+Validação: Se informada, deve ser igual ou posterior a {dtDeslig}(./dtDeslig).
+
+Nome: pensAlim
+Pai: infoDeslig
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo de pensão alimentícia para fins de retenção de FGTS.
+Valores válidos:
+0 - Não existe pensão alimentícia
+1 - Percentual de pensão alimentícia
+2 - Valor de pensão alimentícia
+3 - Percentual e valor de pensão alimentícia
+Validação: Preenchimento obrigatório e exclusivo se o vínculo for celetista ({tpRegTrab}(../tpRegTrab) = [1]).
+Se ({dtSent}(2500_infoProcesso_dadosCompl_infoProcJud_dtSent) ou {dtCCP}(2500_infoProcesso_dadosCompl_infoCCP_dtCCP)) < [2024-01-22], o preenchimento é opcional.
+
+Nome: percAliment
+Pai: infoDeslig
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-5
+Dec.: 2
+Descrição: Percentual a ser destinado a pensão alimentícia.
+Validação: Deve ser maior que 0 (zero) e menor ou igual a 100 (cem).
+Informação obrigatória e exclusiva se {pensAlim}(./pensAlim) = [1, 3].
+
+Nome: vrAlim
+Pai: infoDeslig
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da pensão alimentícia.
+Validação: Deve ser maior que 0 (zero).
+Informação obrigatória e exclusiva se {pensAlim}(./pensAlim) = [2, 3].
+
+Nome: infoTerm
+Pai: infoCompl
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações de término de TSVE.
+
+Nome: dtTerm
+Pai: infoTerm
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Data do término.
+Validação: Deve ser igual ou posterior a {dtInicio}(../../dtInicio) e igual ou anterior à data atual acrescida de 10 (dez) dias.
+
+Nome: mtvDesligTSV
+Pai: infoTerm
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 2
+Dec.: -
+Descrição: Motivo do término do diretor não empregado, com FGTS.
+Valores válidos:
+01 - Exoneração do diretor não empregado sem justa causa, por deliberação da assembleia, dos sócios cotistas ou da autoridade competente
+02 - Término de mandato do diretor não empregado que não tenha sido reconduzido ao cargo
+03 - Exoneração a pedido de diretor não empregado
+04 - Exoneração do diretor não empregado por culpa recíproca ou força maior
+05 - Morte do diretor não empregado
+06 - Exoneração do diretor não empregado por falência, encerramento ou supressão de parte da empresa
+99 - Outros
+Validação: Informação obrigatória e exclusiva se {infoContr/codCateg}(2500_ideTrab_infoContr_codCateg) = [721].
+
+Nome: mudCategAtiv
+Pai: infoContr
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição: Informação do novo código de categoria e/ou da nova natureza da atividade, no caso de reconhecimento judicial nesse sentido.
+
+Nome: codCateg
+Pai: mudCategAtiv
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 3
+Dec.: -
+Descrição: Preencher com o código da categoria do trabalhador.
+Validação: Deve ser um código válido e existente na Tabela 01.
+
+Nome: natAtividade
+Pai: mudCategAtiv
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Natureza da atividade.
+Valores válidos:
+1 - Trabalho urbano
+2 - Trabalho rural
+Validação: Não informar se {mudCategAtiv/codCateg}(./codCateg) = [721, 722, 771, 901].
+Se {mudCategAtiv/codCateg}(./codCateg) = [104], não pode ser preenchido com [2]. Se {mudCategAtiv/codCateg}(./codCateg) = [102], não pode ser preenchido com [1].
+
+Nome: dtMudCategAtiv
+Pai: mudCategAtiv
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Data a partir da qual foi reconhecida a nova categoria e/ou a nova natureza da atividade.
+Validação: Deve ser igual ou posterior à data de admissão (ou de início) e igual ou anterior à data de desligamento, se informada.
+Se {indContr}(../indContr) = [N], deve ser uma data posterior à data de admissão (ou de início).
+
+Nome: unicContr
+Pai: infoContr
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição: Informações dos vínculos/contratos incorporados, no caso de reconhecimento de unicidade contratual.
+
+Nome: matUnic
+Pai: unicContr
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-30
+Dec.: -
+Descrição: Informar a matrícula incorporada (matrícula cujo vínculo/contrato passou a integrar período de unicidade contratual reconhecido judicialmente). O campo não deve ser informado somente no caso de TSVE cadastrado em versão do leiaute anterior a S-1.0.
+Validação: Deve corresponder a uma matrícula existente no RET para o respectivo trabalhador e diferente do vínculo/contrato informado em {infoContr}(2500_ideTrab_infoContr).
+
+Nome: codCateg
+Pai: unicContr
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 3
+Dec.: -
+Descrição: Preencher com o código da categoria do trabalhador (código de categoria cujo contrato passou a integrar período de unicidade contratual reconhecido judicialmente).
+Validação: Informação obrigatória e exclusiva se o campo {matUnic}(./matUnic) não estiver preenchido. Deve ser igual a um código de categoria de contrato cadastrado no evento S-2300 e diferente do contrato informado em {infoContr}(2500_ideTrab_infoContr).
+
+Nome: dtInicio
+Pai: unicContr
+Elem.: E
+Tipo: D
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Data de início de TSVE (data de início cujo contrato passou a integrar período de unicidade contratual reconhecido judicialmente).
+Validação: Informação obrigatória e exclusiva se o campo {matUnic}(./matUnic) não estiver preenchido. Deve ser igual a uma data de início de contrato cadastrado no evento S-2300 e diferente do contrato informado em {infoContr}(2500_ideTrab_infoContr).
+
+Nome: ideEstab
+Pai: infoContr
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Identificação do estabelecimento responsável pelo pagamento ao trabalhador dos valores informados neste evento.
+
+Nome: tpInsc
+Pai: ideEstab
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição do estabelecimento, de acordo com as opções da Tabela 05.
+No caso de empregador doméstico, informar [3] (CAEPF).
+Valores válidos:
+1 - CNPJ
+3 - CAEPF
+4 - CNO
+Validação: Se {ideEmpregador/tpInsc}(2500_ideEmpregador_tpInsc) = [1], deve ser igual a [1, 4]. Se {ideEmpregador/tpInsc}(2500_ideEmpregador_tpInsc) = [2], deve ser igual a [3, 4].
+
+Nome: nrInsc
+Pai: ideEstab
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 12 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do estabelecimento do contribuinte de acordo com o tipo de inscrição indicado no campo acima.
+No caso de empregador doméstico, informar os 9 (nove) primeiros dígitos do CPF do empregador, seguidos de 5 (cinco) dígitos 0 (zero). Por exemplo, se o CPF do empregador doméstico for 111111111-99, informar 11111111100000.
+Validação: A inscrição informada deve ser compatível com {ideEstab/tpInsc}(./tpInsc) e o número deve constar na base da RFB e pertencer a {ideEmpregador/nrInsc}(2500_ideEmpregador_nrInsc).
+Se o processo for referente a empregado doméstico, a inscrição informada deve ser igual aos 9 (nove) primeiros dígitos do CPF do empregador, seguidos de 5 (cinco) dígitos 0 (zero).
+
+Nome: infoVlr
+Pai: ideEstab
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações dos períodos e valores decorrentes de processo trabalhista.
+
+Nome: compIni
+Pai: infoVlr
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 7
+Dec.: -
+Descrição: Competência inicial a que se refere o processo ou conciliação, no formato AAAA-MM.
+Validação: Devem ser obedecidas as seguintes regras:
+a) Se {infoContr/tpContr}(../../tpContr) = [1, 3, 7, 8, 9], deve ser igual ou posterior ao mês/ano da data de admissão;
+b) Se {infoContr/tpContr}(../../tpContr) = [2, 4, 5], deve ser igual ao mês/ano da data de admissão;
+c) Se {infoContr/tpContr}(../../tpContr) = [6], deve ser igual ou posterior ao mês/ano da data de início do TSVE.
+
+Nome: compFim
+Pai: infoVlr
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 7
+Dec.: -
+Descrição: Competência final a que se refere o processo ou conciliação, no formato AAAA-MM.
+Validação: Deve ser igual ou posterior a {compIni}(./compIni) e igual ou anterior ao mês/ano de {dtSent}(2500_infoProcesso_dadosCompl_infoProcJud_dtSent) ou {dtCCP}(2500_infoProcesso_dadosCompl_infoCCP_dtCCP).
+
+Nome: indReperc
+Pai: infoVlr
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo de repercussão do processo trabalhista ou de demanda submetida à CCP ou ao NINTER.
+Valores válidos:
+1 - Decisão com repercussão tributária e/ou FGTS
+2 - Decisão sem repercussão tributária ou FGTS
+3 - Decisão com repercussão exclusiva para declaração de rendimentos para fins de Imposto de Renda
+
+Nome: indenSD
+Pai: infoVlr
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Houve decisão para pagamento da indenização substitutiva do seguro-desemprego?
+Valores válidos:
+S - Sim
+
+Nome: indenAbono
+Pai: infoVlr
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Houve decisão para pagamento da indenização substitutiva de abono salarial?
+Valores válidos:
+S - Sim
+
+Nome: abono
+Pai: infoVlr
+Elem.: G
+Tipo: -
+Ocorrência: 0-9
+Tamanho: -
+Dec.: -
+Descrição: Identificação do(s) ano(s)-base em que houve indenização substitutiva de abono salarial.
+
+Nome: anoBase
+Pai: abono
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 4
+Dec.: -
+Descrição: Ano-base em que houve indenização substitutiva do abono salarial.
+
+Nome: idePeriodo
+Pai: infoVlr
+Elem.: G
+Tipo: -
+Ocorrência: 0-999
+Tamanho: -
+Dec.: -
+Descrição: Identificação do período ao qual se referem as bases de cálculo.
+
+Nome: perRef
+Pai: idePeriodo
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 7
+Dec.: -
+Descrição: Informar o mês/ano (formato AAAA-MM) de referência das informações.
+Validação: Deve ser um período compreendido entre {compIni}(../compIni) e {compFim}(../compFim), informado no formato AAAA-MM.
+
+Nome: baseCalculo
+Pai: idePeriodo
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Bases de cálculo de contribuição previdenciária decorrentes de processo trabalhista e ainda não declaradas.
+
+Nome: vrBcCpMensal
+Pai: baseCalculo
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da base de cálculo da contribuição previdenciária sobre a remuneração mensal do trabalhador.
+Validação: Deve ser maior ou igual a 0 (zero).
+
+Nome: vrBcCp13
+Pai: baseCalculo
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da base de cálculo da contribuição previdenciária sobre a remuneração do trabalhador referente ao 13º salário.
+Validação: Deve ser maior ou igual a 0 (zero).
+
+Nome: infoAgNocivo
+Pai: baseCalculo
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Grupo referente ao detalhamento do grau de exposição do trabalhador aos agentes nocivos que ensejam a cobrança da contribuição adicional para financiamento dos benefícios de aposentadoria especial.
+
+Nome: grauExp
+Pai: infoAgNocivo
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código que representa o grau de exposição a agentes nocivos, conforme Tabela 02.
+Valores válidos:
+1 - Não ensejador de aposentadoria especial
+2 - Ensejador de aposentadoria especial - FAE15_12% (15 anos de contribuição e alíquota de 12%)
+3 - Ensejador de aposentadoria especial - FAE20_09% (20 anos de contribuição e alíquota de 9%)
+4 - Ensejador de aposentadoria especial - FAE25_06% (25 anos de contribuição e alíquota de 6%)
+
+Nome: infoFGTS
+Pai: idePeriodo
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações referentes a bases de cálculo de FGTS (valores históricos, sem atualização), inclusive valores de 13º salário, aviso prévio indenizado e seu reflexo sobre o 13º salário, para geração de guia no FGTS Digital.
+Os campos deste grupo serão somados para compor a base de cálculo para geração de guia.
+
+Nome: vrBcFGTSProcTrab
+Pai: infoFGTS
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da base de cálculo de FGTS ainda não declarada em SEFIP ou no eSocial, inclusive de verba reconhecida no processo trabalhista.
+Validação: Deve ser maior ou igual a 0 (zero).
+
+Nome: vrBcFGTSSefip
+Pai: infoFGTS
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da base de cálculo de FGTS declarada apenas em SEFIP (não informada no eSocial) e ainda não recolhida.
+Validação: Deve ser maior que 0 (zero).
+
+Nome: vrBcFGTSDecAnt
+Pai: infoFGTS
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da base de cálculo de FGTS declarada anteriormente no eSocial e ainda não recolhida.
+Validação: Somente pode ser informado se {perRef}(../perRef) for anterior ao início do FGTS Digital.
+Deve ser maior que 0 (zero).
+
+Nome: baseMudCateg
+Pai: idePeriodo
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Bases de cálculo de contribuição previdenciária já declaradas anteriormente em GFIP ou no evento S-1200 (exclusivamente para remuneração de trabalhador sem cadastro no S-2300), no caso de reconhecimento de mudança de código de categoria.
+
+Nome: codCateg
+Pai: baseMudCateg
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 3
+Dec.: -
+Descrição: Preencher com o código da categoria do trabalhador declarado no período de referência.
+Validação: Deve ser um código válido e existente na Tabela 01.
+
+Nome: vrBcCPrev
+Pai: baseMudCateg
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da remuneração do trabalhador a ser considerada para fins previdenciários declarada em GFIP ou em S-1200 de trabalhador sem cadastro no S-2300.
+Validação: Deve ser maior que 0 (zero).
+

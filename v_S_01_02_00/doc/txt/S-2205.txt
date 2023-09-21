@@ -1,0 +1,859 @@
+S-2205 - evtAltCadastral
+Alteração de Dados Cadastrais do Trabalhador
+
+Nível: 1
+Nome: eSocial
+Pai: -
+Descrição: eSocial
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 2
+Nome: evtAltCadastral
+Pai: eSocial
+Descrição: Evento Alteração de Dados Cadastrais do Trabalhador.
+Ocorrência: 1
+Chave: Id
+Condição: O
+
+Nível: 3
+Nome: ideEvento
+Pai: evtAltCadastral
+Descrição: Informações de identificação do evento.
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 3
+Nome: ideEmpregador
+Pai: evtAltCadastral
+Descrição: Informações de identificação do empregador.
+Ocorrência: 1
+Chave: tpInsc*, nrInsc*
+Condição: O
+
+Nível: 3
+Nome: ideTrabalhador
+Pai: evtAltCadastral
+Descrição: Identificação do trabalhador.
+Ocorrência: 1
+Chave: cpfTrab*
+Condição: O
+
+Nível: 3
+Nome: alteracao
+Pai: evtAltCadastral
+Descrição: Alteração de dados cadastrais do trabalhador.
+Ocorrência: 1
+Chave: dtAlteracao*
+Condição: O
+
+Nível: 4
+Nome: dadosTrabalhador
+Pai: alteracao
+Descrição: Informações pessoais do trabalhador.
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 5
+Nome: endereco
+Pai: dadosTrabalhador
+Descrição: Endereço do trabalhador
+Ocorrência: 0-1
+Chave: -
+Condição: O (se houver trabalhador ativo no RET com {tpRegPrev} diferente de [4] ou com código de categoria diferente de [308]
+N (nos demais casos)
+
+Nível: 6
+Nome: brasil
+Pai: endereco
+Descrição: Endereço no Brasil.
+Ocorrência: 0-1
+Chave: -
+Condição: O (se não informado o grupo {exterior}(../exterior))
+N (nos demais casos)
+
+Nível: 6
+Nome: exterior
+Pai: endereco
+Descrição: Endereço no exterior.
+Ocorrência: 0-1
+Chave: -
+Condição: O (se não informado o grupo {brasil}(../brasil))
+N (nos demais casos)
+
+Nível: 5
+Nome: trabImig
+Pai: dadosTrabalhador
+Descrição: Informações do trabalhador imigrante.
+Ocorrência: 0-1
+Chave: -
+Condição: OC (se {paisNac}(2205_alteracao_dadosTrabalhador_paisNac) for diferente de [105])
+N (nos demais casos)
+
+Nível: 5
+Nome: infoDeficiencia
+Pai: dadosTrabalhador
+Descrição: Pessoa com deficiência.
+Ocorrência: 0-1
+Chave: -
+Condição: OC (se houver trabalhador ativo no RET com {tpRegPrev} diferente de [4] ou com código de categoria diferente de [308]
+N (nos demais casos)
+
+Nível: 5
+Nome: dependente
+Pai: dadosTrabalhador
+Descrição: Informações dos dependentes.
+Ocorrência: 0-99
+Chave: tpDep, nmDep, dtNascto
+Condição: OC
+
+Nível: 5
+Nome: contato
+Pai: dadosTrabalhador
+Descrição: Informações de contato.
+Ocorrência: 0-1
+Chave: -
+Condição: OC (se houver trabalhador ativo no RET com {tpRegPrev} diferente de [4] ou com código de categoria diferente de [308]
+N (nos demais casos)
+
+Nome: eSocial
+Pai: -
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: eSocial
+
+Nome: evtAltCadastral
+Pai: eSocial
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Evento Alteração de Dados Cadastrais do Trabalhador.
+Regras de validação:
+REGRA_ENVIO_PROC_FECHAMENTO
+REGRA_EVENTOS_EXTEMP
+REGRA_EVENTO_POSTERIOR_CAT_OBITO
+REGRA_EXISTE_INFO_EMPREGADOR
+REGRA_EXISTE_TRABALHADOR
+REGRA_EXTEMP_DOMESTICO
+REGRA_EXTEMP_REINTEGRACAO
+REGRA_VALIDA_TRABALHADOR_BASE_CPF
+
+Nome: Id
+Pai: evtAltCadastral
+Elem.: A
+Tipo: C
+Ocorrência: 1
+Tamanho: 36
+Dec.: -
+Descrição: Identificação única do evento.
+Regras de validação:
+REGRA_VALIDA_ID_EVENTO
+
+Nome: ideEvento
+Pai: evtAltCadastral
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do evento.
+
+Nome: indRetif
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Informe [1] para arquivo original ou [2] para arquivo de retificação.
+Valores válidos:
+1 - Original
+2 - Retificação
+
+Nome: nrRecibo
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 23
+Dec.: -
+Descrição: Preencher com o número do recibo do arquivo a ser retificado.
+Validação: O preenchimento é obrigatório se {indRetif}(./indRetif) = [2].
+Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo retificado.
+
+Nome: tpAmb
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Identificação do ambiente.
+Valores válidos:
+1 - Produção
+2 - Produção restrita
+7 - Validação (uso interno)
+8 - Teste (uso interno)
+9 - Desenvolvimento (uso interno)
+
+Nome: procEmi
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-2
+Dec.: -
+Descrição: Processo de emissão do evento.
+Valores válidos:
+1 - Aplicativo do empregador
+2 - Aplicativo governamental - Simplificado Pessoa Física
+3 - Aplicativo governamental - Web Geral
+4 - Aplicativo governamental - Simplificado Pessoa Jurídica
+22 - Aplicativo governamental para dispositivos móveis - Empregador Doméstico
+
+Nome: verProc
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-20
+Dec.: -
+Descrição: Versão do processo de emissão do evento. Informar a versão do aplicativo emissor do evento.
+
+Nome: ideEmpregador
+Pai: evtAltCadastral
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do empregador.
+
+Nome: tpInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+
+Nome: nrInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 8, 11 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {ideEmpregador/tpInsc}(./tpInsc) e conforme informado em S-1000.
+
+Nome: ideTrabalhador
+Pai: evtAltCadastral
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Identificação do trabalhador.
+
+Nome: cpfTrab
+Pai: ideTrabalhador
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11
+Dec.: -
+Descrição: Preencher com o número do CPF do trabalhador.
+
+Nome: alteracao
+Pai: evtAltCadastral
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Alteração de dados cadastrais do trabalhador.
+
+Nome: dtAlteracao
+Pai: alteracao
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Preencher com a data da alteração das informações.
+Validação: Não pode ser posterior a 180 (cento e oitenta) dias da data atual.
+
+Nome: dadosTrabalhador
+Pai: alteracao
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações pessoais do trabalhador.
+
+Nome: nmTrab
+Pai: dadosTrabalhador
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 2-70
+Dec.: -
+Descrição: Informar o nome do trabalhador.
+
+Nome: sexo
+Pai: dadosTrabalhador
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Sexo do trabalhador.
+Valores válidos:
+M - Masculino
+F - Feminino
+
+Nome: racaCor
+Pai: dadosTrabalhador
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Etnia e raça do trabalhador, conforme sua autoclassificação (art. 39, § 8º, da Lei 12.288/2010).
+Valores válidos:
+1 - Branca
+2 - Preta
+3 - Parda
+4 - Amarela
+5 - Indígena
+6 - Não informado
+Validação: Se {dtAlteracao}(../dtAlteracao) for igual ou posterior a [2023-07-01], retornar alerta caso seja informado o valor [6].
+
+Nome: estCiv
+Pai: dadosTrabalhador
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Estado civil do trabalhador.
+Valores válidos:
+1 - Solteiro
+2 - Casado
+3 - Divorciado
+4 - Separado
+5 - Viúvo
+
+Nome: grauInstr
+Pai: dadosTrabalhador
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 2
+Dec.: -
+Descrição: Grau de instrução do trabalhador.
+Valores válidos:
+01 - Analfabeto, inclusive o que, embora tenha recebido instrução, não se alfabetizou
+02 - Até o 5º ano incompleto do ensino fundamental (antiga 4ª série) ou que se tenha alfabetizado sem ter frequentado escola regular
+03 - 5º ano completo do ensino fundamental
+04 - Do 6º ao 9º ano do ensino fundamental incompleto (antiga 5ª a 8ª série)
+05 - Ensino fundamental completo
+06 - Ensino médio incompleto
+07 - Ensino médio completo
+08 - Educação superior incompleta
+09 - Educação superior completa
+10 - Pós-graduação completa
+11 - Mestrado completo
+12 - Doutorado completo
+
+Nome: nmSoc
+Pai: dadosTrabalhador
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 2-70
+Dec.: -
+Descrição: Nome social para travesti ou transexual.
+Validação: Informação validada na base de dados do CPF.
+
+Nome: paisNac
+Pai: dadosTrabalhador
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 3
+Dec.: -
+Descrição: Preencher com o código do país de nacionalidade do trabalhador.
+Validação: Deve ser um código válido e existente na Tabela 06.
+
+Nome: endereco
+Pai: dadosTrabalhador
+Elem.: CG
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Grupo de informações do endereço do trabalhador.
+
+Nome: brasil
+Pai: endereco
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Endereço no Brasil.
+
+Nome: tpLograd
+Pai: brasil
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-4
+Dec.: -
+Descrição: Tipo de logradouro.
+Validação: Se informado, deve ser um código válido e existente na Tabela 20.
+
+Nome: dscLograd
+Pai: brasil
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-100
+Dec.: -
+Descrição: Descrição do logradouro.
+
+Nome: nrLograd
+Pai: brasil
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-10
+Dec.: -
+Descrição: Número do logradouro.
+Se não houver número a ser informado, preencher com "S/N".
+
+Nome: complemento
+Pai: brasil
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-30
+Dec.: -
+Descrição: Complemento do logradouro.
+
+Nome: bairro
+Pai: brasil
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-90
+Dec.: -
+Descrição: Nome do bairro/distrito.
+
+Nome: cep
+Pai: brasil
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 8
+Dec.: -
+Descrição: Código de Endereçamento Postal - CEP.
+Validação: Deve ser preenchido apenas com números, com 8 (oito) posições.
+
+Nome: codMunic
+Pai: brasil
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 7
+Dec.: -
+Descrição: Preencher com o código do município, conforme tabela do IBGE.
+Validação: Deve ser um código válido e existente na tabela do IBGE.
+
+Nome: uf
+Pai: brasil
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 2
+Dec.: -
+Descrição: Preencher com a sigla da Unidade da Federação - UF.
+Valores válidos:
+ AC, AL, AP, AM, BA, CE, DF, ES, GO, MA, MT, MS, MG, PA, PB, PR, PE, PI, RJ, RN, RS, RO, RR, SC, SP, SE, TO
+
+Nome: exterior
+Pai: endereco
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Endereço no exterior.
+
+Nome: paisResid
+Pai: exterior
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 3
+Dec.: -
+Descrição: Preencher com o código do país.
+Validação: Deve ser um código válido e existente na Tabela 06.
+
+Nome: dscLograd
+Pai: exterior
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-100
+Dec.: -
+Descrição: Descrição do logradouro.
+
+Nome: nrLograd
+Pai: exterior
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-10
+Dec.: -
+Descrição: Número do logradouro.
+Se não houver número a ser informado, preencher com "S/N".
+
+Nome: complemento
+Pai: exterior
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-30
+Dec.: -
+Descrição: Complemento do logradouro.
+
+Nome: bairro
+Pai: exterior
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-90
+Dec.: -
+Descrição: Nome do bairro/distrito.
+
+Nome: nmCid
+Pai: exterior
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 2-50
+Dec.: -
+Descrição: Nome da cidade.
+
+Nome: codPostal
+Pai: exterior
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 4-12
+Dec.: -
+Descrição: Código de Endereçamento Postal.
+
+Nome: trabImig
+Pai: dadosTrabalhador
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações do trabalhador imigrante.
+
+Nome: tmpResid
+Pai: trabImig
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Tempo de residência do trabalhador imigrante.
+Valores válidos:
+1 - Prazo indeterminado
+2 - Prazo determinado
+Validação: Preenchimento obrigatório quando houver trabalhador com ({dtAdm}(2200_vinculo_infoRegimeTrab_infoCeletista_dtAdm) ou {dtExercicio}(2200_vinculo_infoRegimeTrab_infoEstatutario_dtExercicio) ou {dtInicio}(2300_infoTSVInicio_dtInicio)) no Registro de Eventos Trabalhistas - RET >= [2021-07-19].
+
+Nome: condIng
+Pai: trabImig
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Condição de ingresso do trabalhador imigrante.
+Valores válidos:
+1 - Refugiado
+2 - Solicitante de refúgio
+3 - Permanência no Brasil em razão de reunião familiar
+4 - Beneficiado pelo acordo entre países do Mercosul
+5 - Dependente de agente diplomático e/ou consular de países que mantêm acordo de reciprocidade para o exercício de atividade remunerada no Brasil
+6 - Beneficiado pelo Tratado de Amizade, Cooperação e Consulta entre a República Federativa do Brasil e a República Portuguesa
+7 - Outra condição
+Validação: Se {tmpResid}(./tmpResid) = [1], não pode ser informado [2, 5]. Se {tmpResid}(./tmpResid) = [2], não pode ser informado [1].
+
+Nome: infoDeficiencia
+Pai: dadosTrabalhador
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Pessoa com deficiência.
+
+Nome: defFisica
+Pai: infoDeficiencia
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Deficiência física.
+Valores válidos:
+S - Sim
+N - Não
+
+Nome: defVisual
+Pai: infoDeficiencia
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Deficiência visual.
+Valores válidos:
+S - Sim
+N - Não
+
+Nome: defAuditiva
+Pai: infoDeficiencia
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Deficiência auditiva.
+Valores válidos:
+S - Sim
+N - Não
+
+Nome: defMental
+Pai: infoDeficiencia
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Deficiência mental.
+Valores válidos:
+S - Sim
+N - Não
+
+Nome: defIntelectual
+Pai: infoDeficiencia
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Deficiência intelectual.
+Valores válidos:
+S - Sim
+N - Não
+
+Nome: reabReadap
+Pai: infoDeficiencia
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Informar se o trabalhador é reabilitado (empregado) ou readaptado (servidor público/militar).
+Reabilitado: estando o empregado incapacitado parcial ou totalmente para o trabalho, cumpriu programa de reabilitação profissional no INSS, recebendo certificado e sendo proporcionados os meios indicados para participar do mercado de trabalho.
+Readaptado: o servidor está investido em cargo de atribuições e responsabilidades compatíveis com a limitação que tenha sofrido em sua capacidade física ou mental verificada em inspeção médica.
+Valores válidos:
+S - Sim
+N - Não
+
+Nome: infoCota
+Pai: infoDeficiencia
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Informar se o trabalhador deve ser contabilizado no preenchimento de cota de pessoas com deficiência habilitadas ou de beneficiários reabilitados.
+Valores válidos:
+S - Sim
+N - Não
+Validação: Preenchimento obrigatório e exclusivo quando houver trabalhador cadastrado no evento S-2200 com {tpRegTrab}(2200_vinculo_tpRegTrab) = [1] e ativo em {dtAlteracao}(2205_alteracao_dtAlteracao). Somente pode ser informado [S] se pelo menos um dos campos a seguir estiver preenchido com [S]: {defFisica}(./defFisica), {defVisual}(./defVisual), {defAuditiva}(./defAuditiva), {defMental}(./defMental), {defIntelectual}(./defIntelectual) e {reabReadap}(./reabReadap).
+Esta validação não deve ser realizada quando se tratar de evento enviado em versão do leiaute anterior a S-1.0.
+
+Nome: observacao
+Pai: infoDeficiencia
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-255
+Dec.: -
+Descrição: Observação.
+
+Nome: dependente
+Pai: dadosTrabalhador
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição: Informações dos dependentes.
+
+Nome: tpDep
+Pai: dependente
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 2
+Dec.: -
+Descrição: Tipo de dependente.
+Validação: Preenchimento obrigatório se {depIRRF}(./depIRRF) = [S].
+Deve ser um código válido e existente na Tabela 07.
+
+Nome: nmDep
+Pai: dependente
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 2-70
+Dec.: -
+Descrição: Nome do dependente.
+
+Nome: dtNascto
+Pai: dependente
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Preencher com a data de nascimento.
+Validação: Deve ser maior ou igual que 01/01/1890 e menor ou igual à data atual.
+
+Nome: cpfDep
+Pai: dependente
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 11
+Dec.: -
+Descrição: Número de inscrição no CPF.
+Validação: Deve ser um número de CPF válido, observando o que segue:
+a) O preenchimento é obrigatório se {depIRRF}(./depIRRF) = [S];
+b) Em arquivo de empregador Pessoa Física, deve ser diferente do CPF informado em {ideEmpregador}(/ideEmpregador);
+c) Não pode haver mais de um dependente com o mesmo número de CPF.
+
+Nome: sexoDep
+Pai: dependente
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Sexo do dependente.
+Valores válidos:
+M - Masculino
+F - Feminino
+Validação: Preenchimento obrigatório e exclusivo quando houver trabalhador cadastrado no evento S-2200, ativo em {dtAlteracao}(2205_alteracao_dtAlteracao) e com {tpRegPrev} = [2] no RET.
+Esta validação não deve ser realizada quando se tratar de recepção de evento extemporâneo.
+
+Nome: depIRRF
+Pai: dependente
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Informar se é dependente do trabalhador para fins de dedução de seu rendimento tributável pelo Imposto de Renda.
+Valores válidos:
+S - Sim
+N - Não
+
+Nome: depSF
+Pai: dependente
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Informar se é dependente para fins de recebimento do benefício de salário-família.
+Valores válidos:
+S - Sim
+N - Não
+
+Nome: incTrab
+Pai: dependente
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Informar se o dependente tem incapacidade física ou mental para o trabalho.
+Valores válidos:
+S - Sim
+N - Não
+Validação: Preenchimento obrigatório se o trabalhador estiver cadastrado no evento S-2200, ativo em {dtAlteracao}(2205_alteracao_dtAlteracao) e com {tpRegPrev} diferente de [4] no RET, ou cadastrado no evento S-2300 e ativo em {dtAlteracao}(2205_alteracao_dtAlteracao). Não informar nos demais casos.
+
+Nome: descrDep
+Pai: dependente
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-100
+Dec.: -
+Descrição: Informar a descrição da dependência.
+Validação: Informação obrigatória e exclusiva se {tpDep}(./tpDep) = [99].
+
+Nome: contato
+Pai: dadosTrabalhador
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações de contato.
+
+Nome: fonePrinc
+Pai: contato
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 8-13
+Dec.: -
+Descrição: Número de telefone do trabalhador, com DDD.
+Validação: Se preenchido, deve conter apenas números, com o mínimo de dez dígitos.
+
+Nome: emailPrinc
+Pai: contato
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 6-60
+Dec.: -
+Descrição: Endereço eletrônico.
+Validação: O e-mail deve ser possuir o caractere "@" e este não pode estar no início e no fim do e-mail. Deve possuir no mínimo um caractere "." depois do @ e não pode estar no início ou no final do e-mail.
+

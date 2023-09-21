@@ -1,0 +1,436 @@
+S-5503 - evtFGTSProcTrab
+Informações do FGTS por Trabalhador em Processo Trabalhista
+
+Nível: 1
+Nome: eSocial
+Pai: -
+Descrição: eSocial
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 2
+Nome: evtFGTSProcTrab
+Pai: eSocial
+Descrição: Evento Informações do FGTS por Trabalhador em Processo Trabalhista.
+Ocorrência: 1
+Chave: Id
+Condição: O
+
+Nível: 3
+Nome: ideEvento
+Pai: evtFGTSProcTrab
+Descrição: Informações de identificação do evento.
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 3
+Nome: ideEmpregador
+Pai: evtFGTSProcTrab
+Descrição: Informações de identificação do empregador ou do contribuinte que prestou a informação.
+Ocorrência: 1
+Chave: tpInsc*, nrInsc*
+Condição: O
+
+Nível: 3
+Nome: ideProc
+Pai: evtFGTSProcTrab
+Descrição: Identificação do processo.
+Ocorrência: 1
+Chave: nrProcTrab*
+Condição: O
+
+Nível: 3
+Nome: ideTrabalhador
+Pai: evtFGTSProcTrab
+Descrição: Identificação do trabalhador
+Ocorrência: 1
+Chave: cpfTrab*
+Condição: O
+
+Nível: 3
+Nome: infoTrabFGTS
+Pai: evtFGTSProcTrab
+Descrição: Informações relativas à matrícula e categoria do trabalhador.
+Ocorrência: 1-99
+Chave: matricula, codCateg
+Condição: O
+
+Nível: 4
+Nome: infoFGTSProcTrab
+Pai: infoTrabFGTS
+Descrição: Informações relativas ao FGTS do processo trabalhista.
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 5
+Nome: ideEstab
+Pai: infoFGTSProcTrab
+Descrição: Identificação do estabelecimento responsável pelo pagamento ao trabalhador dos valores informados.
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {totalFGTS}(../totalFGTS) > 0)
+N (nos demais casos)
+
+Nível: 6
+Nome: basePerRef
+Pai: ideEstab
+Descrição: Informações sobre bases de cálculo e valores do FGTS por período de referência.
+Ocorrência: 1-N
+Chave: perRef, tpValorProcTrab
+Condição: O
+
+Nome: eSocial
+Pai: -
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: eSocial
+
+Nome: evtFGTSProcTrab
+Pai: eSocial
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Evento Informações do FGTS por Trabalhador em Processo Trabalhista.
+
+Nome: Id
+Pai: evtFGTSProcTrab
+Elem.: A
+Tipo: C
+Ocorrência: 1
+Tamanho: 36
+Dec.: -
+Descrição: Identificação única do evento.
+
+Nome: ideEvento
+Pai: evtFGTSProcTrab
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do evento.
+
+Nome: nrRecArqBase
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 23
+Dec.: -
+Descrição: Preencher com o número do recibo do arquivo que deu origem ao presente arquivo de retorno.
+Validação: Deve ser um recibo de entrega válido, correspondente ao arquivo que deu origem ao presente arquivo de retorno (S-2500 ou S-3500).
+
+Nome: perApur
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 4 ou 7
+Dec.: -
+Descrição: Informar o mês/ano (formato AAAA-MM) de referência das informações.
+Origem: mês/ano do campo {dtSent}(2500_infoProcesso_dadosCompl_infoProcJud_dtSent) ou {dtCCP}(2500_infoProcesso_dadosCompl_infoCCP_dtCCP) de S-2500.
+
+Nome: ideEmpregador
+Pai: evtFGTSProcTrab
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do empregador ou do contribuinte que prestou a informação.
+
+Nome: tpInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição do empregador ou contribuinte que prestou a informação, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+
+Nome: nrInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 8, 11 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do empregador ou contribuinte que prestou a informação, de acordo com o tipo de inscrição indicado no campo {ideEmpregador/tpInsc}(./tpInsc) e conforme informado em S-1000.
+
+Nome: ideProc
+Pai: evtFGTSProcTrab
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Identificação do processo.
+
+Nome: origem
+Pai: ideProc
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Informar a origem do processo/demanda.
+Valores válidos:
+1 - Processo judicial
+2 - Demanda submetida à CCP ou ao NINTER
+
+Nome: nrProcTrab
+Pai: ideProc
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 15 ou 20
+Dec.: -
+Descrição: Número do processo trabalhista, da ata ou número de identificação da conciliação.
+Validação: a) Se o evento de origem for S-2500, retornar o campo {nrProcTrab}(2500_infoProcesso_nrProcTrab) desse evento;
+b) Se o evento de origem for S-3500, retornar o campo {nrProcTrab}(2500_infoProcesso_nrProcTrab) do evento S-2500 objeto da exclusão.
+
+Nome: ideTrabalhador
+Pai: evtFGTSProcTrab
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Grupo que apresenta a identificação básica do trabalhador ao qual se refere o evento de retorno.
+
+Nome: cpfTrab
+Pai: ideTrabalhador
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11
+Dec.: -
+Descrição: Preencher com o número do CPF do trabalhador.
+Validação: Deve ser um CPF constante no arquivo gerado pelo empregador no evento de origem.
+
+Nome: infoTrabFGTS
+Pai: evtFGTSProcTrab
+Elem.: G
+Tipo: -
+Ocorrência: 1-99
+Tamanho: -
+Dec.: -
+Descrição: Informações relativas à matrícula e categoria do trabalhador.
+
+Nome: matricula
+Pai: infoTrabFGTS
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-30
+Dec.: -
+Descrição: Matrícula atribuída ao trabalhador pela empresa ou, no caso de servidor público, a matrícula constante no Sistema de Administração de Recursos Humanos do órgão.
+Evento de origem: S-2500 ou S-3500.
+Validação: a) Se o evento de origem for S-2500, retornar a {matricula}(2500_ideTrab_infoContr_matricula) informada nesse evento;
+b) Se o evento de origem for S-3500, retornar a matrícula informada no evento objeto da exclusão.
+
+Nome: codCateg
+Pai: infoTrabFGTS
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 3
+Dec.: -
+Descrição: Preencher com o código da categoria do trabalhador, conforme Tabela 01.
+Evento de origem: S-2500 ou S-3500.
+Validação: Informação obrigatória e exclusiva se o campo {matricula}(./matricula) não for informado. Além disso:
+a) Se o evento de origem for S-2500, retornar o {codCateg}(2500_ideTrab_infoContr_codCateg) informado nesse evento;
+b) Se o evento de origem for S-3500, retornar o código de categoria informado no evento objeto da exclusão.
+
+Nome: categOrig
+Pai: infoTrabFGTS
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 3
+Dec.: -
+Descrição: Preencher com o código correspondente à categoria de origem do dirigente sindical ou do trabalhador cedido.
+Origem: campo {infoDirigenteSindical/categOrig}(2300_infoTSVInicio_infoComplementares_infoDirigenteSindical_categOrig) ou {infoTrabCedido/categOrig}(2300_infoTSVInicio_infoComplementares_infoTrabCedido_categOrig) de S-2300.
+
+Nome: infoFGTSProcTrab
+Pai: infoTrabFGTS
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações relativas ao FGTS do processo trabalhista.
+
+Nome: totalFGTS
+Pai: infoFGTSProcTrab
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor total de FGTS a recolher no processo trabalhista.
+Validação: Deve corresponder ao somatório dos valores retornados nos campos {dpsFGTSProcTrab}(./ideEstab_basePerRef_dpsFGTSProcTrab), {dpsFGTSSefip}(./ideEstab_basePerRef_dpsFGTSSefip) e {dpsFGTSDecAnt}(./ideEstab_basePerRef_dpsFGTSDecAnt) abaixo.
+Se o evento de origem for S-3500, retornar 0 (zero).
+
+Nome: ideEstab
+Pai: infoFGTSProcTrab
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Identificação do estabelecimento responsável pelo pagamento ao trabalhador dos valores informados.
+
+Nome: tpInsc
+Pai: ideEstab
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição do estabelecimento, de acordo com as opções da Tabela 05.
+Valores válidos:
+1 - CNPJ
+3 - CAEPF
+4 - CNO
+Origem: campo {ideEstab/tpInsc}(2500_ideTrab_infoContr_ideEstab_tpInsc) de S-2500.
+
+Nome: nrInsc
+Pai: ideEstab
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 12 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do estabelecimento do contribuinte de acordo com o tipo de inscrição indicado no campo acima.
+Origem: campo {ideEstab/nrInsc}(2500_ideTrab_infoContr_ideEstab_nrInsc) de S-2500.
+
+Nome: basePerRef
+Pai: ideEstab
+Elem.: G
+Tipo: -
+Ocorrência: 1-N
+Tamanho: -
+Dec.: -
+Descrição: Informações sobre bases de cálculo e valores do FGTS por período de referência.
+
+Nome: perRef
+Pai: basePerRef
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 7
+Dec.: -
+Descrição: Informar o mês/ano (formato AAAA-MM) de referência das informações.
+Origem: campo {perRef}(2500_ideTrab_infoContr_ideEstab_infoVlr_idePeriodo_perRef) de S-2500.
+
+Nome: codCateg
+Pai: basePerRef
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 3
+Dec.: -
+Descrição: Preencher com o código da categoria do trabalhador, conforme Tabela 01.
+Validação: a) Se {indContr}(2500_ideTrab_infoContr_indContr) em S-2500 = [N], retornar o código informado no campo {infoContr/codCateg}(2500_ideTrab_infoContr_codCateg) do evento S-2500;
+b) Se {indContr}(2500_ideTrab_infoContr_indContr) em S-2500 = [S]:
+b1) Se {indCateg}(2500_ideTrab_infoContr_indCateg) em S-2500 = [N], retornar o código de categoria existente no Registro de Eventos Trabalhistas - RET no último dia da competência de referência;
+b2) Se {indCateg}(2500_ideTrab_infoContr_indCateg) em S-2500 = [S] e o mês/ano de {dtMudCategAtiv}(2500_ideTrab_infoContr_mudCategAtiv_dtMudCategAtiv) de S-2500 for maior que {perRef}(./perRef), retornar o código de categoria existente no RET no último dia da competência de referência;
+b3) Se {indCateg}(2500_ideTrab_infoContr_indCateg) em S-2500 = [S] e o mês/ano de {dtMudCategAtiv}(2500_ideTrab_infoContr_mudCategAtiv_dtMudCategAtiv) de S-2500 for menor ou igual a {perRef}(./perRef), retornar {mudCategAtiv/codCateg}(2500_ideTrab_infoContr_mudCategAtiv_codCateg) do evento S-2500.
+
+Nome: tpValorProcTrab
+Pai: basePerRef
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 2
+Dec.: -
+Descrição: Tipo de valor que influi na apuração do FGTS.
+Valores válidos:
+71 - FGTS Origem Processo Trabalhista: quando <a href="#5503_infoTrabFGTS_infoFGTSProcTrab_ideEstab_basePerRef_codCateg">codCateg</a> = [101, 102, 104, 105, 106, 111, 201, 202, 301, 302, 303, 304, 306, 307, 309, 310, 312, 721] ou ([401, 410], se <a href="#5503_infoTrabFGTS_categOrig">categOrig</a> for diferente de [103, 107, 108])
+72 - FGTS Origem Processo Trabalhista - Aprendiz/Contrato Verde e Amarelo: quando <a href="#5503_infoTrabFGTS_infoFGTSProcTrab_ideEstab_basePerRef_codCateg">codCateg</a> = [103, 107, 108] ou ([401, 410], se <a href="#5503_infoTrabFGTS_categOrig">categOrig</a> = [103, 107, 108])
+73 - FGTS Origem Processo Trabalhista - Indenização compensatória do empregado doméstico: quando <a href="#5503_infoTrabFGTS_infoFGTSProcTrab_ideEstab_basePerRef_codCateg">codCateg</a> = [104]
+
+Nome: remFGTSProcTrab
+Pai: basePerRef
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da base de cálculo de FGTS ainda não declarada, reconhecida no processo trabalhista.
+Origem: campo {vrBcFGTSProcTrab}(2500_ideTrab_infoContr_ideEstab_infoVlr_idePeriodo_infoFGTS_vrBcFGTSProcTrab) de S-2500.
+
+Nome: dpsFGTSProcTrab
+Pai: basePerRef
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor histórico do FGTS a ser depositado na conta vinculada do trabalhador sobre base reconhecida no processo trabalhista.
+Validação: Deve ser maior que 0 (zero).
+Deve corresponder à multiplicação de {remFGTSProcTrab}(./remFGTSProcTrab) pela alíquota abaixo:
+a) Se {tpValorProcTrab}(./tpValorProcTrab) = [71], alíquota de 8%;
+b) Se {tpValorProcTrab}(./tpValorProcTrab) = [72], alíquota de 2%;
+c) Se {tpValorProcTrab}(./tpValorProcTrab) = [73], alíquota de 3,2%.
+
+Nome: remFGTSSefip
+Pai: basePerRef
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da base de cálculo declarada anteriormente em SEFIP e ainda não recolhida.
+Origem: campo {vrBcFGTSSefip}(2500_ideTrab_infoContr_ideEstab_infoVlr_idePeriodo_infoFGTS_vrBcFGTSSefip) de S-2500.
+
+Nome: dpsFGTSSefip
+Pai: basePerRef
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor histórico do FGTS a ser depositado na conta vinculada do trabalhador sobre base já declarada anteriormente em SEFIP.
+Validação: Deve ser maior que 0 (zero).
+Deve corresponder à multiplicação de {remFGTSSefip}(./remFGTSSefip) pela alíquota abaixo:
+a) Se {tpValorProcTrab}(./tpValorProcTrab) = [71], alíquota de 8%;
+b) Se {tpValorProcTrab}(./tpValorProcTrab) = [72], alíquota de 2%;
+c) Se {tpValorProcTrab}(./tpValorProcTrab) = [73], alíquota de 3,2%.
+
+Nome: remFGTSDecAnt
+Pai: basePerRef
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da base de cálculo declarada anteriormente no eSocial e ainda não recolhida.
+Origem: campo {vrBcFGTSDecAnt}(2500_ideTrab_infoContr_ideEstab_infoVlr_idePeriodo_infoFGTS_vrBcFGTSDecAnt) de S-2500.
+
+Nome: dpsFGTSDecAnt
+Pai: basePerRef
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor histórico do FGTS a ser depositado na conta vinculada do trabalhador sobre base já declarada anteriormente no eSocial.
+Validação: Deve ser maior que 0 (zero).
+Deve corresponder à multiplicação de {remFGTSDecAnt}(./remFGTSDecAnt) pela alíquota abaixo:
+a) Se {tpValorProcTrab}(./tpValorProcTrab) = [71], alíquota de 8%;
+b) Se {tpValorProcTrab}(./tpValorProcTrab) = [72], alíquota de 2%;
+c) Se {tpValorProcTrab}(./tpValorProcTrab) = [73], alíquota de 3,2%.
+

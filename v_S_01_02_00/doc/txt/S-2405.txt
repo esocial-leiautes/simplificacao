@@ -1,0 +1,605 @@
+S-2405 - evtCdBenefAlt
+Cadastro de Beneficiário - Entes Públicos - Alteração
+
+Nível: 1
+Nome: eSocial
+Pai: -
+Descrição: eSocial
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 2
+Nome: evtCdBenefAlt
+Pai: eSocial
+Descrição: Evento Cadastro de Beneficiário - Alteração
+Ocorrência: 1
+Chave: Id
+Condição: O
+
+Nível: 3
+Nome: ideEvento
+Pai: evtCdBenefAlt
+Descrição: Informações de identificação do evento.
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 3
+Nome: ideEmpregador
+Pai: evtCdBenefAlt
+Descrição: Informações de identificação do empregador.
+Ocorrência: 1
+Chave: tpInsc*, nrInsc*
+Condição: O
+
+Nível: 3
+Nome: ideBenef
+Pai: evtCdBenefAlt
+Descrição: Identificação do beneficiário.
+Ocorrência: 1
+Chave: cpfBenef*
+Condição: O
+
+Nível: 3
+Nome: alteracao
+Pai: evtCdBenefAlt
+Descrição: Alteração de dados do beneficiário.
+Ocorrência: 1
+Chave: dtAlteracao*
+Condição: O
+
+Nível: 4
+Nome: dadosBenef
+Pai: alteracao
+Descrição: Dados do beneficiário.
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 5
+Nome: endereco
+Pai: dadosBenef
+Descrição: Endereço do beneficiário.
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 6
+Nome: brasil
+Pai: endereco
+Descrição: Endereço no Brasil.
+Ocorrência: 0-1
+Chave: -
+Condição: O (se não informado o grupo {exterior}(../exterior))
+N (nos demais casos)
+
+Nível: 6
+Nome: exterior
+Pai: endereco
+Descrição: Endereço no exterior.
+Ocorrência: 0-1
+Chave: -
+Condição: O (se não informado o grupo {brasil}(../brasil))
+N (nos demais casos)
+
+Nível: 5
+Nome: dependente
+Pai: dadosBenef
+Descrição: Informações dos dependentes.
+Ocorrência: 0-99
+Chave: tpDep, nmDep, dtNascto
+Condição: OC
+
+Nome: eSocial
+Pai: -
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: eSocial
+
+Nome: evtCdBenefAlt
+Pai: eSocial
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Evento Cadastro de Beneficiário - Entes Públicos - Alteração.
+Regras de validação:
+REGRA_ENVIO_PROC_FECHAMENTO
+REGRA_EVENTOS_EXTEMP
+REGRA_EVENTO_EXT_SEM_IMPACTO_FOPAG
+REGRA_EXISTE_INFO_EMPREGADOR
+REGRA_VALIDA_TRABALHADOR_BASE_CPF
+
+Nome: Id
+Pai: evtCdBenefAlt
+Elem.: A
+Tipo: C
+Ocorrência: 1
+Tamanho: 36
+Dec.: -
+Descrição: Identificação única do evento.
+Regras de validação:
+REGRA_VALIDA_ID_EVENTO
+
+Nome: ideEvento
+Pai: evtCdBenefAlt
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do evento.
+
+Nome: indRetif
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Informe [1] para arquivo original ou [2] para arquivo de retificação.
+Valores válidos:
+1 - Original
+2 - Retificação
+
+Nome: nrRecibo
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 23
+Dec.: -
+Descrição: Preencher com o número do recibo do arquivo a ser retificado.
+Validação: O preenchimento é obrigatório se {indRetif}(./indRetif) = [2].
+Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo retificado.
+
+Nome: tpAmb
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Identificação do ambiente.
+Valores válidos:
+1 - Produção
+2 - Produção restrita
+7 - Validação (uso interno)
+8 - Teste (uso interno)
+9 - Desenvolvimento (uso interno)
+
+Nome: procEmi
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Processo de emissão do evento.
+Valores válidos:
+1 - Aplicativo do empregador
+3 - Aplicativo governamental - Web Geral
+4 - Aplicativo governamental - Simplificado Pessoa Jurídica
+
+Nome: verProc
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-20
+Dec.: -
+Descrição: Versão do processo de emissão do evento. Informar a versão do aplicativo emissor do evento.
+
+Nome: ideEmpregador
+Pai: evtCdBenefAlt
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do empregador.
+
+Nome: tpInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+
+Nome: nrInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 8 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {ideEmpregador/tpInsc}(./tpInsc) e conforme informado em S-1000.
+
+Nome: ideBenef
+Pai: evtCdBenefAlt
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Identificação do beneficiário.
+
+Nome: cpfBenef
+Pai: ideBenef
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11
+Dec.: -
+Descrição: Informar o CPF do beneficiário.
+Validação: Deve ser um CPF válido e cadastrado pelo órgão público declarante por meio do evento S-2400.
+
+Nome: alteracao
+Pai: evtCdBenefAlt
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Alteração de dados do beneficiário.
+
+Nome: dtAlteracao
+Pai: alteracao
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Preencher com a data de alteração.
+Validação: Deve ser posterior à data de início informada no evento S-2400 e igual ou anterior à data atual.
+
+Nome: dadosBenef
+Pai: alteracao
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Dados do beneficiário.
+
+Nome: nmBenefic
+Pai: dadosBenef
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 2-70
+Dec.: -
+Descrição: Informar o nome do beneficiário.
+
+Nome: sexo
+Pai: dadosBenef
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Sexo do beneficiário.
+Valores válidos:
+M - Masculino
+F - Feminino
+
+Nome: racaCor
+Pai: dadosBenef
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Etnia e raça do beneficiário, conforme sua autoclassificação (art. 39, § 8º, da Lei 12.288/2010).
+Valores válidos:
+1 - Branca
+2 - Preta
+3 - Parda
+4 - Amarela
+5 - Indígena
+6 - Não informado
+Validação: Se {dtAlteracao}(../dtAlteracao) for igual ou posterior a [2023-07-01], retornar alerta caso seja informado o valor [6].
+
+Nome: estCiv
+Pai: dadosBenef
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Estado civil do beneficiário.
+Valores válidos:
+1 - Solteiro
+2 - Casado
+3 - Divorciado
+4 - Separado
+5 - Viúvo
+
+Nome: incFisMen
+Pai: dadosBenef
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Informar se o beneficiário é pessoa com doença incapacitante que isenta da contribuição previdenciária, total ou parcialmente, reconhecida administrativa ou judicialmente, na forma da lei.
+Valores válidos:
+S - Sim
+N - Não
+
+Nome: endereco
+Pai: dadosBenef
+Elem.: CG
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Grupo de informações do endereço do beneficiário.
+
+Nome: brasil
+Pai: endereco
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Endereço no Brasil.
+
+Nome: tpLograd
+Pai: brasil
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-4
+Dec.: -
+Descrição: Tipo de logradouro.
+Validação: Se informado, deve ser um código válido e existente na Tabela 20.
+
+Nome: dscLograd
+Pai: brasil
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-100
+Dec.: -
+Descrição: Descrição do logradouro.
+
+Nome: nrLograd
+Pai: brasil
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-10
+Dec.: -
+Descrição: Número do logradouro.
+Se não houver número a ser informado, preencher com "S/N".
+
+Nome: complemento
+Pai: brasil
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-30
+Dec.: -
+Descrição: Complemento do logradouro.
+
+Nome: bairro
+Pai: brasil
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-90
+Dec.: -
+Descrição: Nome do bairro/distrito.
+
+Nome: cep
+Pai: brasil
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 8
+Dec.: -
+Descrição: Código de Endereçamento Postal - CEP.
+Validação: Deve ser preenchido apenas com números, com 8 (oito) posições.
+
+Nome: codMunic
+Pai: brasil
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 7
+Dec.: -
+Descrição: Preencher com o código do município, conforme tabela do IBGE.
+Validação: Deve ser um código válido e existente na tabela do IBGE.
+
+Nome: uf
+Pai: brasil
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 2
+Dec.: -
+Descrição: Preencher com a sigla da Unidade da Federação - UF.
+Valores válidos:
+ AC, AL, AP, AM, BA, CE, DF, ES, GO, MA, MT, MS, MG, PA, PB, PR, PE, PI, RJ, RN, RS, RO, RR, SC, SP, SE, TO
+
+Nome: exterior
+Pai: endereco
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Endereço no exterior.
+
+Nome: paisResid
+Pai: exterior
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 3
+Dec.: -
+Descrição: Preencher com o código do país.
+Validação: Deve ser um código válido e existente na Tabela 06.
+
+Nome: dscLograd
+Pai: exterior
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-100
+Dec.: -
+Descrição: Descrição do logradouro.
+
+Nome: nrLograd
+Pai: exterior
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-10
+Dec.: -
+Descrição: Número do logradouro.
+Se não houver número a ser informado, preencher com "S/N".
+
+Nome: complemento
+Pai: exterior
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-30
+Dec.: -
+Descrição: Complemento do logradouro.
+
+Nome: bairro
+Pai: exterior
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-90
+Dec.: -
+Descrição: Nome do bairro/distrito.
+
+Nome: nmCid
+Pai: exterior
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 2-50
+Dec.: -
+Descrição: Nome da cidade.
+
+Nome: codPostal
+Pai: exterior
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 4-12
+Dec.: -
+Descrição: Código de Endereçamento Postal.
+
+Nome: dependente
+Pai: dadosBenef
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição: Informações dos dependentes.
+
+Nome: tpDep
+Pai: dependente
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 2
+Dec.: -
+Descrição: Tipo de dependente.
+Validação: Preenchimento obrigatório se {depIRRF}(./depIRRF) = [S].
+Deve ser um código válido e existente na Tabela 07.
+
+Nome: nmDep
+Pai: dependente
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 2-70
+Dec.: -
+Descrição: Nome do dependente.
+
+Nome: dtNascto
+Pai: dependente
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Preencher com a data de nascimento.
+Validação: Deve ser maior ou igual que 01/01/1890 e menor ou igual à data atual.
+
+Nome: cpfDep
+Pai: dependente
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 11
+Dec.: -
+Descrição: Número de inscrição no CPF.
+Validação: Deve ser um número de CPF válido, observando o que segue:
+a) O preenchimento é obrigatório se {depIRRF}(./depIRRF) = [S];
+b) Não pode haver mais de um dependente com o mesmo número de CPF.
+
+Nome: sexoDep
+Pai: dependente
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Sexo do dependente.
+Valores válidos:
+M - Masculino
+F - Feminino
+
+Nome: depIRRF
+Pai: dependente
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Informar se é dependente do beneficiário para fins de dedução de seu rendimento tributável pelo Imposto de Renda.
+Valores válidos:
+S - Sim
+N - Não
+
+Nome: incFisMen
+Pai: dependente
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Informar se o dependente é pessoa com doença incapacitante, na forma da lei.
+Valores válidos:
+S - Sim
+N - Não
+
+Nome: descrDep
+Pai: dependente
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-100
+Dec.: -
+Descrição: Informar a descrição da dependência.
+Validação: Informação obrigatória e exclusiva se {tpDep}(./tpDep) = [99].
+
