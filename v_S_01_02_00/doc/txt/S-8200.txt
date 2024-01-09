@@ -68,9 +68,17 @@ Condição: O
 Nível: 4
 Nome: incorporacao
 Pai: infoAnotJud
-Descrição: Informação do(s) vínculo(s)/contrato(s) já declarado(s) no eSocial pelo empregador e incorporado(s) ao vínculo reconhecido judicialmente.
+Descrição: Informação do(s) vínculo(s)/contrato(s) já declarado(s) no eSocial e incorporado(s) ao vínculo ou sucedido(s) pelo vínculo reconhecido judicialmente.
 Ocorrência: 0-9
-Chave: matIncorp
+Chave: tpInsc, nrInsc, matIncorp
+Condição: OC
+
+Nível: 5
+Nome: sucessaoVinc
+Pai: incorporacao
+Descrição: Informações de sucessão do vínculo.
+Ocorrência: 0-1
+Chave: -
 Condição: OC
 
 Nível: 4
@@ -352,7 +360,7 @@ Ocorrência: 1
 Tamanho: 3
 Dec.: -
 Descrição: Preencher com o código da categoria do trabalhador.
-Validação: Deve ser um código de categoria referente a "Empregado" ([1XX]) ou igual a [302, 303, 309].
+Validação: Deve ser um código de categoria referente a "Empregado" ([1XX]).
 
 Nome: natAtividade
 Pai: infoAnotJud
@@ -389,6 +397,16 @@ Tamanho: -
 Dec.: -
 Descrição: Data do término do contrato por prazo determinado.
 Validação: O preenchimento é obrigatório se {tpContr}(./tpContr) = [2]. Não informar se {tpContr}(./tpContr) = [1]. Deve ser igual ou posterior à data de admissão.
+
+Nome: localTrabalho
+Pai: infoAnotJud
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 12 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do estabelecimento relativo ao local de trabalho.
+Validação: Deve ser um identificador (CNPJ, CAEPF ou CNO) válido, constante das bases da RFB.
 
 Nome: cargo
 Pai: infoAnotJud
@@ -482,7 +500,30 @@ Tipo: -
 Ocorrência: 0-9
 Tamanho: -
 Dec.: -
-Descrição: Informação do(s) vínculo(s)/contrato(s) já declarado(s) no eSocial pelo empregador e incorporado(s) ao vínculo reconhecido judicialmente.
+Descrição: Informação do(s) vínculo(s)/contrato(s) já declarado(s) no eSocial e incorporado(s) ao vínculo ou sucedido(s) pelo vínculo reconhecido judicialmente.
+
+Nome: tpInsc
+Pai: incorporacao
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+Validação: Informação obrigatória e exclusiva se a data de transmissão do evento for igual ou posterior a [2024-04-22].
+
+Nome: nrInsc
+Pai: incorporacao
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 8, 11 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do empregador no qual consta a matrícula incorporada ou sucedida, de acordo com o tipo de inscrição indicado no campo {incorporacao/tpInsc}(./tpInsc).
+Validação: Preenchimento obrigatório e exclusivo se o campo {incorporacao/tpInsc}(./tpInsc) for informado.
 
 Nome: matIncorp
 Pai: incorporacao
@@ -491,8 +532,27 @@ Tipo: C
 Ocorrência: 1
 Tamanho: 1-30
 Dec.: -
-Descrição: Informar a matrícula incorporada (matrícula cujo vínculo/contrato passou a integrar o vínculo reconhecido judicialmente).
-Validação: Deve corresponder a uma matrícula informada pelo empregador no evento S-2190, S-2200 ou S-2300, pertencente ao trabalhador preenchido em {cpfTrab}(../cpfTrab).
+Descrição: Informar a matrícula incorporada (matrícula cujo vínculo/contrato passou a integrar o vínculo reconhecido judicialmente) ou a matrícula no empregador anterior.
+Validação: Deve corresponder a uma matrícula informada pelo empregador no evento S-2190, S-2200 ou S-2300, pertencente ao trabalhador preenchido em {cpfTrab}(../cpfTrab), no empregador informado em {incorporacao/nrInsc}(./nrInsc).
+
+Nome: sucessaoVinc
+Pai: incorporacao
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações de sucessão do vínculo.
+
+Nome: dtTransf
+Pai: sucessaoVinc
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Preencher com a data da transferência do empregado para o empregador declarante.
+Validação: Deve ser posterior à data de admissão do trabalhador.
 
 Nome: afastamento
 Pai: infoAnotJud

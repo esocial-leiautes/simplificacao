@@ -39,7 +39,8 @@ Pai: ideEmpregador
 Descrição: Identificação do contribuinte, caso tenha havido imposição de responsabilidade indireta.
 Ocorrência: 0-1
 Chave: -
-Condição: OC
+Condição: O (se {infoContr/tpContr}(2500_ideTrab_infoContr_tpContr) = [8])
+N (nos demais casos)
 
 Nível: 3
 Nome: infoProcesso
@@ -272,6 +273,7 @@ REGRA_EVENTOS_EXTEMP
 REGRA_EXISTE_INFO_EMPREGADOR
 REGRA_MESMO_PROCEMI
 REGRA_MUDANCA_CATEG_NAT_ATIV
+REGRA_RETIFICA_MESMO_VINCULO
 REGRA_UNICIDADE_CONTRATUAL
 REGRA_VALIDA_EMPREGADOR
 REGRA_VALIDA_MATRICULA
@@ -488,10 +490,10 @@ Tipo: D
 Ocorrência: 1
 Tamanho: -
 Dec.: -
-Descrição: Informar a data do(a):
-a) Trânsito em julgado da decisão líquida proferida no processo trabalhista;
+Descrição: Informar a data da:
+a) Determinação judicial para o cumprimento da decisão líquida transitada em julgado;
 b) Homologação de acordo judicial; ou
-c) Trânsito em julgado da decisão homologatória dos cálculos de liquidação da sentença.
+c) Decisão que determinar o cumprimento antecipado de obrigação.
 Validação: Deve ser igual ou anterior à data atual.
 
 Nome: ufVara
@@ -540,7 +542,7 @@ Tipo: D
 Ocorrência: 1
 Tamanho: -
 Dec.: -
-Descrição: Data da celebração do acordo celebrado perante CCP ou Ninter.
+Descrição: Data da celebração do acordo celebrado perante CCP ou NINTER.
 Validação: Deve ser igual ou anterior à data atual.
 
 Nome: tpCCP
@@ -625,7 +627,7 @@ Valores válidos:
 1 - Trabalhador com vínculo formalizado, sem alteração nas datas de admissão e de desligamento
 2 - Trabalhador com vínculo formalizado, com alteração na data de admissão
 3 - Trabalhador com vínculo formalizado, com inclusão ou alteração de data de desligamento
-4 - Trabalhador com vínculo formalizado, com alteração nas datas de admissão e de desligamento
+4 - Trabalhador com vínculo formalizado, com alteração na data de admissão e inclusão ou alteração de data de desligamento
 5 - Empregado com reconhecimento de vínculo
 6 - Trabalhador sem vínculo de emprego/estatutário (TSVE), sem reconhecimento de vínculo empregatício
 7 - Trabalhador com vínculo de emprego formalizado em período anterior ao eSocial
@@ -644,7 +646,7 @@ Descrição: Indicativo se o contrato possui informação no evento S-2190, S-22
 Valores válidos:
 S - Sim
 N - Não
-Validação: Deve ser igual a [N] se o grupo {ideResp}(2500_ideEmpregador_ideResp) for informado.
+Validação: Deve ser igual a [N] se o grupo {ideResp}(2500_ideEmpregador_ideResp) for informado. Além disso, somente pode haver um contrato com o valor igual a [N].
 
 Nome: dtAdmOrig
 Pai: infoContr
@@ -885,7 +887,7 @@ Ocorrência: 1
 Tamanho: -
 Dec.: -
 Descrição: Preencher com a data de admissão do trabalhador.
-Validação: Deve ser posterior à data de nascimento do trabalhador.
+Validação: Deve ser posterior à data de nascimento do trabalhador e igual ou anterior ao ano do óbito, se existente.
 
 Nome: tmpParc
 Pai: infoVinc
@@ -1022,6 +1024,7 @@ Ocorrência: 0-1
 Tamanho: 1-30
 Dec.: -
 Descrição: Matrícula do trabalhador no empregador anterior.
+Validação: Se {sucessaoVinc/dtTransf}(./dtTransf) for igual ou posterior a [2024-04-22], a matrícula informada neste campo deve ser idêntica à matricula do trabalhador no empregador anterior.
 
 Nome: dtTransf
 Pai: sucessaoVinc
@@ -1031,7 +1034,7 @@ Ocorrência: 1
 Tamanho: -
 Dec.: -
 Descrição: Preencher com a data da transferência do empregado para o empregador declarante.
-Validação: Deve ser posterior à data de admissão do trabalhador.
+Validação: Deve ser posterior à data de admissão do trabalhador e igual ou anterior ao ano do óbito, se existente.
 
 Nome: infoDeslig
 Pai: infoVinc

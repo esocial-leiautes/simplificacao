@@ -380,7 +380,7 @@
                 <xs:annotation>
                     <xs:documentation>Identificação dos advogados.</xs:documentation>
                     <xs:documentation>CHAVE_GRUPO: {tpInsc}, {nrInsc}</xs:documentation>
-                    <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
+                    <xs:documentation>CONDICAO_GRUPO: O (se {vlrDespAdvogados}(../despProcJud_vlrDespAdvogados) > 0); N (nos demais casos)</xs:documentation>
                 </xs:annotation>
                 <xs:complexType>
                     <xs:sequence>
@@ -2280,6 +2280,7 @@
             <xs:documentation>Dia do mês efetivamente trabalhado pelo empregado com contrato de trabalho intermitente.</xs:documentation>
             <xs:documentation>Caso não tenha havido trabalho no mês, informar 0 (zero).</xs:documentation>
             <xs:documentation>Validação: Deve ser um número entre 0 e 31, de acordo com o calendário anual.</xs:documentation>
+            <xs:documentation>Retornar alerta caso seja informado 0 (zero).</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:byte">
             <xs:minInclusive value="0" />
@@ -2514,6 +2515,11 @@
                     <xs:documentation>Sentença judicial (exceto reclamatória trabalhista)</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
+            <xs:enumeration value="J">
+                <xs:annotation>
+                    <xs:documentation>Parcelas complementares conhecidas após o fechamento da folha</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
         </xs:restriction>
     </xs:simpleType>
 
@@ -2532,6 +2538,11 @@
             <xs:enumeration value="H">
                 <xs:annotation>
                     <xs:documentation>Declaração de base de cálculo de FGTS anterior ao início do FGTS Digital</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="I">
+                <xs:annotation>
+                    <xs:documentation>Sentença judicial (exceto reclamatória trabalhista)</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
         </xs:restriction>
@@ -3111,7 +3122,7 @@
     <xs:simpleType name="TS_racaCorTrab">
         <xs:annotation>
             <xs:documentation>Etnia e raça do trabalhador, conforme sua autoclassificação (art. 39, § 8º, da Lei 12.288/2010).</xs:documentation>
-            <xs:documentation>Validação: Retornar alerta caso seja informado o valor [6].</xs:documentation>
+            <xs:documentation>Validação: Não pode ser informado o valor [6].</xs:documentation>
         </xs:annotation>
         <xs:restriction base="TS_racaCor" />
     </xs:simpleType>
@@ -3119,7 +3130,7 @@
     <xs:simpleType name="TS_racaCorBenef">
         <xs:annotation>
             <xs:documentation>Etnia e raça do beneficiário, conforme sua autoclassificação (art. 39, § 8º, da Lei 12.288/2010).</xs:documentation>
-            <xs:documentation>Validação: Retornar alerta caso seja informado o valor [6].</xs:documentation>
+            <xs:documentation>Validação: Não pode ser informado o valor [6].</xs:documentation>
         </xs:annotation>
         <xs:restriction base="TS_racaCor" />
     </xs:simpleType>

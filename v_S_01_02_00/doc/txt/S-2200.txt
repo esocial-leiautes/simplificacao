@@ -555,7 +555,7 @@ Valores válidos:
 4 - Amarela
 5 - Indígena
 6 - Não informado
-Validação: Se {dtAdm}(2200_vinculo_infoRegimeTrab_infoCeletista_dtAdm), {dtExercicio}(2200_vinculo_infoRegimeTrab_infoEstatutario_dtExercicio), {sucessaoVinc/dtTransf}(2200_vinculo_sucessaoVinc_dtTransf) ou {transfDom/dtTransf}(2200_vinculo_transfDom_dtTransf) (maior data entre elas) for igual ou posterior a [2023-07-01], retornar alerta caso seja informado o valor [6].
+Validação: Se {dtAdm}(2200_vinculo_infoRegimeTrab_infoCeletista_dtAdm), {dtExercicio}(2200_vinculo_infoRegimeTrab_infoEstatutario_dtExercicio), {sucessaoVinc/dtTransf}(2200_vinculo_sucessaoVinc_dtTransf) ou {transfDom/dtTransf}(2200_vinculo_transfDom_dtTransf) (maior data entre elas) for igual ou posterior a [2024-04-22], não pode ser informado o valor [6].
 
 Nome: estCiv
 Pai: trabalhador
@@ -1188,7 +1188,7 @@ Dec.: -
 Descrição: Preencher com a data de admissão do trabalhador.
 No caso de transferência do empregado ou de mudança de CPF, preencher com a data inicial do vínculo no primeiro empregador (data de início do vínculo).
 Validação: Devem ser observadas as seguintes regras:
-a) Deve ser posterior à data de nascimento do trabalhador;
+a) Deve ser posterior à data de nascimento do trabalhador e igual ou anterior ao ano do óbito, se existente;
 b) Se {cadIni}(2200_vinculo_cadIni) = [S], deve ser anterior à data de início da obrigatoriedade dos eventos não periódicos para o empregador no eSocial;
 c) Se {cadIni}(2200_vinculo_cadIni) = [N] e {tpAdmissao}(2200_vinculo_infoRegimeTrab_infoCeletista_tpAdmissao) = [1], deve ser igual ou posterior à data de início da obrigatoriedade dos eventos não periódicos para o empregador no eSocial.
 
@@ -1368,7 +1368,9 @@ Ocorrência: 1
 Tamanho: 11 ou 14
 Dec.: -
 Descrição: Informar o número de inscrição do contratante de serviços, de acordo com o tipo de inscrição informado em {ideEstabVinc/tpInsc}(./tpInsc).
-Validação: Se {ideEstabVinc/tpInsc}(./tpInsc) for igual a [1], deve ser um CNPJ válido, com 14 (catorze) algarismos. Se {ideEstabVinc/tpInsc}(./tpInsc) for igual a [2], deve ser um CPF válido.
+Validação: Deve ser um identificador válido. Se {dtAdm}(../../dtAdm) >= [2024-04-22] e:
+a) Se {ideEstabVinc/tpInsc}(./tpInsc) = [1], deve ser informado com 14 (catorze) algarismos. Se o empregador for pessoa jurídica, a raiz do CNPJ informado deve ser diferente de {ideEmpregador/nrInsc}(/ideEmpregador_nrInsc).
+b) Se {ideEstabVinc/tpInsc}(./tpInsc) = [2], deve ser diferente do CPF do empregado. Se o empregador for pessoa física, também deve ser diferente do CPF do empregador.
 
 Nome: ideTrabSubstituido
 Pai: trabTemporario
@@ -1489,7 +1491,7 @@ Valores válidos:
 10 - Mudança de CPF
 11 - Estabilizados - Art. 19 do ADCT
 99 - Outros não relacionados acima
-Validação: Os valores [3, 5, 6, 7, 8, 9] só são permitidos se a natureza jurídica do declarante for Administração Pública (grupo [1]).
+Validação: Os valores [3, 5, 6, 8, 9] só são permitidos se a natureza jurídica do declarante for Administração Pública (grupo [1]).
 Se {codCateg}(2200_vinculo_infoContrato_codCateg) = [302], deve ser preenchido com [2, 5, 8, 10].
 
 Nome: dtExercicio
@@ -1711,6 +1713,7 @@ Valores válidos:
 1 - Prazo indeterminado
 2 - Prazo determinado, definido em dias
 3 - Prazo determinado, vinculado à ocorrência de um fato
+Validação: Se {codCateg}(../codCateg) = [103] e {dtAdm}(2200_vinculo_infoRegimeTrab_infoCeletista_dtAdm) >= [2024-04-22], deve ser informado [2].
 
 Nome: dtTerm
 Pai: duracao
@@ -2057,7 +2060,7 @@ Ocorrência: 0-1
 Tamanho: 1-30
 Dec.: -
 Descrição: Matrícula do trabalhador no empregador anterior.
-Validação: O preenchimento é obrigatório se {cadIni}(2200_vinculo_cadIni) = [N].
+Validação: O preenchimento é obrigatório se {cadIni}(2200_vinculo_cadIni) = [N]. Se {sucessaoVinc/dtTransf}(./dtTransf) for igual ou posterior a [2024-04-22], a matrícula informada neste campo deve ser idêntica à matricula do trabalhador no empregador anterior.
 
 Nome: dtTransf
 Pai: sucessaoVinc
@@ -2068,7 +2071,7 @@ Tamanho: -
 Dec.: -
 Descrição: Preencher com a data da transferência do empregado para o empregador declarante.
 Validação: Devem ser observadas as seguintes regras:
-a) Deve ser posterior à data de admissão do trabalhador;
+a) Deve ser posterior à data de admissão do trabalhador e igual ou anterior ao ano do óbito, se existente;
 b) Se {cadIni}(2200_vinculo_cadIni) = [S], deve ser anterior à data de início da obrigatoriedade dos eventos não periódicos para o empregador;
 c) Se {cadIni}(2200_vinculo_cadIni) = [N], deve ser igual ou posterior à data de início da obrigatoriedade dos eventos não periódicos para o empregador.
 

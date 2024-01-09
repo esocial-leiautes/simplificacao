@@ -124,7 +124,8 @@ Pai: infoRRA
 Descrição: Identificação dos advogados.
 Ocorrência: 0-99
 Chave: tpInsc, nrInsc
-Condição: OC
+Condição: O (se {vlrDespAdvogados}(../despProcJud_vlrDespAdvogados) > 0)
+N (nos demais casos)
 
 Nível: 4
 Nome: infoPerApur
@@ -671,6 +672,7 @@ Dec.: -
 Descrição: Dia do mês efetivamente trabalhado pelo empregado com contrato de trabalho intermitente.
 Caso não tenha havido trabalho no mês, informar 0 (zero).
 Validação: Deve ser um número entre 0 e 31, de acordo com o calendário anual.
+Retornar alerta caso seja informado 0 (zero).
 
 Nome: dmDev
 Pai: evtRemun
@@ -1082,7 +1084,8 @@ F - Outras verbas de natureza salarial ou não salarial devidas após o desligam
 G - Antecipação de diferenças de acordo, convenção ou dissídio coletivo
 H - Declaração de base de cálculo de FGTS anterior ao início do FGTS Digital
 I - Sentença judicial (exceto reclamatória trabalhista)
-Validação: Se {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [04, 22], não pode ser informado [E, H].
+J - Parcelas complementares conhecidas após o fechamento da folha
+Validação: Se {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [04, 22], não pode ser informado [E, H, I].
 
 Nome: dsc
 Pai: ideADC

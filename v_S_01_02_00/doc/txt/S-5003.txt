@@ -94,7 +94,7 @@ N (nos demais casos)
 Nível: 8
 Nome: basePerApur
 Pai: infoBaseFGTS
-Descrição: Bases de cálculo e valores, exceto se {tpAcConv} = [E, H]
+Descrição: Bases de cálculo e valores, exceto se {tpAcConv} = [E, H, I]
 Ocorrência: 0-99
 Chave: tpValor, indIncid
 Condição: OC
@@ -119,7 +119,7 @@ Condição: O
 Nível: 8
 Nome: infoBasePerAntE
 Pai: infoBaseFGTS
-Descrição: Informações sobre bases e valores do FGTS quando {tpAcConv}(5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_tpAcConv) = [E, H]
+Descrição: Informações sobre bases e valores do FGTS quando {tpAcConv}(5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_tpAcConv) = [E, H, I]
 Ocorrência: 0-180
 Chave: perRef, tpAcConv
 Condição: OC
@@ -127,7 +127,7 @@ Condição: OC
 Nível: 9
 Nome: basePerAntE
 Pai: infoBasePerAntE
-Descrição: Bases de cálculo e valores quando {tpAcConv}(5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_tpAcConv) = [E, H]
+Descrição: Bases de cálculo e valores quando {tpAcConv}(5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_tpAcConv) = [E, H, I]
 Ocorrência: 1-99
 Chave: tpValorE, indIncidE
 Condição: O
@@ -290,7 +290,7 @@ Ocorrência: 0-1
 Tamanho: -
 Dec.: -
 Descrição: Data de vencimento do FGTS mensal.
-Validação: Preencher somente se houver informação no grupo {infoBaseFGTS}(./ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS).
+Validação: Preencher somente se houver informação no grupo {infoBaseFGTS}(./ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS) e se {perApur}(5003_ideEvento_perApur) for anterior ao início do FGTS Digital.
 Se informada, deve corresponder ao dia 7 (sete) do mês subsequente ao indicado em {perApur}(5003_ideEvento_perApur), se esse dia for útil. Caso não seja, deve corresponder ao dia útil imediatamente anterior.
 Considera-se como dia não útil o sábado, o domingo e todo aquele constante do Calendário Nacional de feriados bancários divulgados pelo Banco Central do Brasil.
 
@@ -586,7 +586,7 @@ Tipo: -
 Ocorrência: 0-99
 Tamanho: -
 Dec.: -
-Descrição: Informações sobre bases de cálculo e valores do FGTS referentes à remuneração do período de apuração e de períodos anteriores, exceto se {tpAcConv} = [E, H].
+Descrição: Informações sobre bases de cálculo e valores do FGTS referentes à remuneração do período de apuração e de períodos anteriores, exceto se {tpAcConv} = [E, H, I].
 Evento de origem: S-1200, S-2299 ou S-2399.
 
 Nome: tpValor
@@ -652,7 +652,7 @@ Tamanho: 1-14
 Dec.: 2
 Descrição: Remuneração (valor da base de cálculo) do FGTS, conforme definido nos campos {tpValor}(./tpValor) e {indIncid}(./indIncid).
 Validação: Deve ser maior que 0 (zero).
-Deve corresponder ao somatório dos valores informados no campo {vrRubr} em S-1200 e S-2299 (grupos {infoPerApur} e {infoPerAnt}, quando {tpAcConv} for diferente de [E, H]), e também em S-2399, devendo somar os valores das rubricas cujo {tpRubr}(1010_infoRubrica_inclusao_dadosRubrica_tpRubr) em S-1010 seja igual a [1, 3] e subtrair os valores das rubricas cujo {tpRubr}(1010_infoRubrica_inclusao_dadosRubrica_tpRubr) em S-1010 seja igual a [2, 4], observando a Tabela 23.
+Deve corresponder ao somatório dos valores informados no campo {vrRubr} em S-1200 e S-2299 (grupos {infoPerApur} e {infoPerAnt}, quando {tpAcConv} for diferente de [E, H, I]), e também em S-2399, devendo somar os valores das rubricas cujo {tpRubr}(1010_infoRubrica_inclusao_dadosRubrica_tpRubr) em S-1010 seja igual a [1, 3] e subtrair os valores das rubricas cujo {tpRubr}(1010_infoRubrica_inclusao_dadosRubrica_tpRubr) em S-1010 seja igual a [2, 4], observando a Tabela 23.
 
 Nome: dpsFGTS
 Pai: basePerApur
@@ -734,7 +734,7 @@ Tipo: -
 Ocorrência: 0-180
 Tamanho: -
 Dec.: -
-Descrição: Informações referentes a bases de cálculo e valores do FGTS de períodos anteriores quando {tpAcConv}(./tpAcConv) = [E, H].
+Descrição: Informações referentes a bases de cálculo e valores do FGTS de períodos anteriores quando {tpAcConv}(./tpAcConv) = [E, H, I].
 
 Nome: perRef
 Pai: infoBasePerAntE
@@ -758,6 +758,7 @@ Descrição: Tipo do instrumento ou situação ensejadora da remuneração relat
 Valores válidos:
 E - Conversão de licença saúde em acidente de trabalho
 H - Declaração de base de cálculo de FGTS anterior ao início do FGTS Digital
+I - Sentença judicial (exceto reclamatória trabalhista)
 
 Nome: basePerAntE
 Pai: infoBasePerAntE
@@ -766,7 +767,7 @@ Tipo: -
 Ocorrência: 1-99
 Tamanho: -
 Dec.: -
-Descrição: Informações sobre bases de cálculo e valores do FGTS referentes à remuneração de períodos anteriores quando {tpAcConv}(../tpAcConv) = [E, H].
+Descrição: Informações sobre bases de cálculo e valores do FGTS referentes à remuneração de períodos anteriores quando {tpAcConv}(../tpAcConv) = [E, H, I].
 
 Nome: tpValorE
 Pai: basePerAntE
