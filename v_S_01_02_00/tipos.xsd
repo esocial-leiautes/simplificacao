@@ -826,7 +826,7 @@
         </xs:annotation>
         <xs:sequence>
             <xs:element name="cpfTrab" type="TS_cpfTrab" />
-            <xs:element name="matricula" type="TS_codigo_esocial">
+            <xs:element name="matricula" type="TS_matricula">
                 <xs:annotation>
                     <xs:documentation>Matrícula atribuída ao trabalhador pela empresa ou, no caso de servidor público, a matrícula constante no Sistema de Administração de Recursos Humanos do órgão.</xs:documentation>
                     <xs:documentation>Validação: Deve corresponder à matrícula informada pelo empregador no evento S-2200 do respectivo vínculo trabalhista.</xs:documentation>
@@ -842,7 +842,7 @@
         </xs:annotation>
         <xs:sequence>
             <xs:element name="cpfTrab" type="TS_cpfTrab" />
-            <xs:element name="matricula" minOccurs="0" type="TS_codigo_esocial">
+            <xs:element name="matricula" minOccurs="0" type="TS_matricula">
                 <xs:annotation>
                     <xs:documentation>Matrícula atribuída ao trabalhador pela empresa ou, no caso de servidor público, a matrícula constante no Sistema de Administração de Recursos Humanos do órgão.</xs:documentation>
                     <xs:documentation>Validação: Deve corresponder à matrícula informada pelo empregador no evento S-2190, S-2200 ou S-2300 do respectivo contrato. Não preencher no caso de Trabalhador Sem Vínculo de Emprego/Estatutário - TSVE sem informação de matrícula no evento S-2300.</xs:documentation>
@@ -865,7 +865,7 @@
         </xs:annotation>
         <xs:sequence>
             <xs:element name="cpfTrab" type="TS_cpfTrab" />
-            <xs:element name="matricula" type="TS_codigo_esocial">
+            <xs:element name="matricula" type="TS_matricula">
                 <xs:annotation>
                     <xs:documentation>Matrícula atribuída ao trabalhador pela empresa ou, no caso de servidor público, a matrícula constante no Sistema de Administração de Recursos Humanos do órgão.</xs:documentation>
                     <xs:documentation>Validação: Deve corresponder à matrícula informada pelo empregador no evento S-2190 ou S-2200 do respectivo vínculo trabalhista.</xs:documentation>
@@ -1155,7 +1155,7 @@
                     <xs:documentation>Informar o número de inscrição do empregador anterior, de acordo com o tipo de inscrição indicado no campo {sucessaoVinc/tpInsc}(./tpInsc).</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element name="matricAnt" minOccurs="0" type="TS_codigo_esocial">
+            <xs:element name="matricAnt" minOccurs="0" type="TS_matricula">
                 <xs:annotation>
                     <xs:documentation>Matrícula do trabalhador no empregador anterior.</xs:documentation>
                 </xs:annotation>
@@ -2202,6 +2202,15 @@
         </xs:restriction>
     </xs:simpleType>
 
+    <!-- Campo {matricula} -->
+
+    <xs:simpleType name="TS_matricula">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="1" />
+            <xs:maxLength value="30" />
+        </xs:restriction>
+    </xs:simpleType>
+
     <!-- Campo {indRRA} -->
 
     <xs:simpleType name="TS_indRRA">
@@ -2241,7 +2250,7 @@
         <xs:annotation>
             <xs:documentation>Matrícula do trabalhador no empregador anterior.</xs:documentation>
         </xs:annotation>
-        <xs:restriction base="TS_codigo_esocial" />
+        <xs:restriction base="TS_matricula" />
     </xs:simpleType>    
 
     <!-- Campo {sucessaoVinc/dtAdm} -->
@@ -3975,15 +3984,6 @@
                     <xs:documentation>13° salário ({codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 = [12, 14, 16, 22, 26, 32, 92, 94, 96, 98])</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
-        </xs:restriction>
-    </xs:simpleType>
-
-    <!-- Campo {matricula} (S-5001 e S-5003) -->
-
-    <xs:simpleType name="TS_matricula_retorno">
-        <xs:restriction base="xs:string">
-            <xs:minLength value="1" />
-            <xs:maxLength value="30" />
         </xs:restriction>
     </xs:simpleType>
 
