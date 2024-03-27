@@ -109,10 +109,17 @@
                                                 <xs:documentation>Validação: O preenchimento é obrigatório se {tpContr}(./tpContr) = [2]. Não informar se {tpContr}(./tpContr) = [1]. Deve ser igual ou posterior à data de admissão.</xs:documentation>
                                             </xs:annotation>
                                         </xs:element>
+                                        <xs:element name="tpInscTrab" type="TS_tpInsc_1_3_4" minOccurs="0">
+                                            <xs:annotation>
+                                                <xs:documentation>Preencher com o código correspondente ao tipo de inscrição do estabelecimento relativo ao local de trabalho.</xs:documentation>
+                                                <xs:documentation>Validação: Não preencher se {codCateg}(./codCateg) = [104].</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
                                         <xs:element name="localTrabalho" type="TS_nrInsc_12_14" minOccurs="0">
                                             <xs:annotation>
                                                 <xs:documentation>Informar o número de inscrição do estabelecimento relativo ao local de trabalho.</xs:documentation>
-                                                <xs:documentation>Validação: Deve ser um identificador (CNPJ, CAEPF ou CNO) válido, constante das bases da RFB.</xs:documentation>
+                                                <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se {tpInscTrab}(./tpInscTrab) for informado.</xs:documentation>
+                                                <xs:documentation>Deve ser um identificador válido, constante das bases da RFB, conforme indicado em {tpInscTrab}(./tpInscTrab).</xs:documentation>
                                             </xs:annotation>
                                         </xs:element>
                                         <xs:element name="cargo" maxOccurs="99">
@@ -186,7 +193,7 @@
                                                             <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se o campo {incorporacao/tpInsc}(./tpInsc) for informado.</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
-                                                    <xs:element name="matIncorp" type="TS_codigo_esocial">
+                                                    <xs:element name="matIncorp" type="TS_matricula">
                                                         <xs:annotation>
                                                             <xs:documentation>Informar a matrícula incorporada (matrícula cujo vínculo/contrato passou a integrar o vínculo reconhecido judicialmente) ou a matrícula no empregador anterior.</xs:documentation>
                                                             <xs:documentation>Validação: Deve corresponder a uma matrícula informada pelo empregador no evento S-2190, S-2200 ou S-2300, pertencente ao trabalhador preenchido em {cpfTrab}(../cpfTrab), no empregador informado em {incorporacao/nrInsc}(./nrInsc).</xs:documentation>
