@@ -11,13 +11,13 @@
 <body>
 <section id="folha-rosto">
 <img alt="Logomarca do eSocial" src="esocial-full.png" class="center">
-<h1 class="title has-text-centered is-3">LEIAUTES DO eSOCIAL<br /><br />Versão S-1.2 (cons. até NT 03/2024)</h1><h2 class="title has-text-centered is-5">(aprovada pela Portaria Conjunta RFB/MPS/MTE nº 44, de 11/08/2023 – DOU de 17/08/2023)</h2><h2 class="title has-text-centered is-5" style="font-weight: normal">Observações: Implantação no ambiente de produção: 01/08/2024</h2><br />
+<h1 class="title has-text-centered is-3">LEIAUTES DO eSOCIAL<br /><br />Versão S-1.2 (cons. até NT 03/2024)</h1><h2 class="title has-text-centered is-5">(aprovada pela Portaria Conjunta RFB/MPS/MTE nº 44, de 11/08/2023 – DOU de 17/08/2023)</h2><h2 class="title has-text-centered is-5" style="font-weight: normal">Observações: O evento S-2221, com as informações do exame de que trata a portaria MTE 672, de 8 de novembro de 2021, alterada pela Portaria 612, de 25 de abril de 2024, será implantado em 01/08/2024</h2><br />
 <h1 class="title has-text-centered is-3">Abril de 2024</h1>
 </section>
 <section class="section">
 <div class="container is-fluid">
 <h1 class="title has-text-centered is-1">eSocial versão S-1.2 - Leiautes (cons. até NT 03/2024)</h1>
-<div class="is-hidden-print"><h2 class="title has-text-centered is-5">(aprovada pela Portaria Conjunta RFB/MPS/MTE nº 44, de 11/08/2023 – DOU de 17/08/2023)</h2><h2 class="title has-text-centered is-5" style="font-weight: normal">Observações: Implantação no ambiente de produção: 01/08/2024</h2><br /></div>
+<div class="is-hidden-print"><h2 class="title has-text-centered is-5">(aprovada pela Portaria Conjunta RFB/MPS/MTE nº 44, de 11/08/2023 – DOU de 17/08/2023)</h2><h2 class="title has-text-centered is-5" style="font-weight: normal">Observações: O evento S-2221, com as informações do exame de que trata a portaria MTE 672, de 8 de novembro de 2021, alterada pela Portaria 612, de 25 de abril de 2024, será implantado em 01/08/2024</h2><br /></div>
 <h2 class="title has-text-centered is-3">Sumário</h2>
 <ul class="sumario">
 <li><a href="#evtInfoEmpregador">S-1000 - Informações do Empregador/Contribuinte/Órgão Público</a></li>
@@ -1687,6 +1687,21 @@ No caso dos eventos S-2210, S-2230 e S-2231, considerar como data de desligament
 No caso do evento S-2230 (ou S-2231), se houver afastamento (ou cessão/exercício em outro órgão) com início em data igual ou posterior a {dtDeslig} do evento S-2299 ou S-8299, a data de término do afastamento (ou da cessão) deve ser igual ou anterior a {dtProjFimAPI} do S-2299 ou S-8299. Se {dtProjFimAPI} não existir, a data de término do afastamento (ou da cessão) deve ser igual a {dtDeslig}.<br />
 No caso dos eventos S-1200 e S-1202, {perApur} deve ser igual ou posterior ao mês/ano da data de admissão/data de exercício (no caso de transferência ou mudança de CPF, igual ou posterior ao mês/ano de {sucessaoVinc/dtTransf}, {transfDom/dtTransf} ou {dtAltCPF} do evento S-2200, conforme o caso) e igual ou anterior ao mês/ano da data de desligamento (informada em S-2200, S-2299 ou S-8299).<br />
 No caso do evento S-2299, se houver remuneração informada no registro {infoPerAnt}, o mês/ano do evento (aqui considerado o período ao qual se refere a remuneração, indicado em {perRef}) deve ser igual ou posterior ao mês/ano da data de admissão.</p>
+</div>
+</div>
+</div>
+<div class="modal" id="REGRA_RUBRICA_ECONSIGNADO">
+<div class="modal-background"></div>
+<div class="modal-card">
+<header class="modal-card-head">
+<p class="modal-card-title"><a href="regras.html#REGRA_RUBRICA_ECONSIGNADO">REGRA_RUBRICA_ECONSIGNADO</a></p>
+<button class="delete" aria-label="close"></button>
+</header>
+<div class="modal-card-body">
+<p>a) Validar a categoria do trabalhador que tiver rubrica de eConsignado no respectivo evento remuneratório;<br />
+b) Não é possível o uso de rubricas eConsignado em folha anual;<br />
+c) Não é possível o uso de rubrica de eConsignado em infoPerAnt;<br />
+d) Não permitir envio de rubricas de eConsignado se no respectivo evento tenha campo indGuia ou se o empregador for MEI (classTri=04 em S-1000).</p>
 </div>
 </div>
 </div>
@@ -3836,7 +3851,8 @@ N (nos demais casos)</td>
 <td>4</td>
 <td>-</td>
 <td>Informar o código de classificação da rubrica.<br />
-<strong>Validação:</strong> Deve ser um código válido e existente na <a href="tabelas.html#03">Tabela 03</a>.</td>
+<strong>Validação:</strong> Deve ser um código válido e existente na <a href="tabelas.html#03">Tabela 03</a>.<br />
+Para utilização de código [9253], é necessário que <a href="#1010_infoRubrica_inclusao_ideRubrica_iniValid">iniValid</a> seja igual ou anterior ao mês de início do eConsignado no eSocial.</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="1010_infoRubrica_inclusao_dadosRubrica_tpRubr" id="1010_infoRubrica_inclusao_dadosRubrica_tpRubr">21</td>
@@ -3852,7 +3868,8 @@ N (nos demais casos)</td>
 <strong>1</strong> - Vencimento, provento ou pensão<br />
 <strong>2</strong> - Desconto<br />
 <strong>3</strong> - Informativa<br />
-<strong>4</strong> - Informativa dedutora</td>
+<strong>4</strong> - Informativa dedutora<br />
+<strong>Validação:</strong> Se <a href="#1010_infoRubrica_inclusao_dadosRubrica_natRubr">natRubr</a> = [9253], deve ser preenchido com [2].</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="1010_infoRubrica_inclusao_dadosRubrica_codIncCP" id="1010_infoRubrica_inclusao_dadosRubrica_codIncCP">22</td>
@@ -3928,6 +3945,7 @@ Para utilização de código [9X] ou [9XXX], é necessária a existência de gru
 <strong>11</strong> - Base de cálculo do FGTS mensal<br />
 <strong>12</strong> - Base de cálculo do FGTS 13° salário<br />
 <strong>21</strong> - Base de cálculo do FGTS aviso prévio indenizado<br />
+<strong>31</strong> - Desconto eConsignado<br />
 <strong>91</strong> - Incidência suspensa em decorrência de decisão judicial - FGTS mensal<br />
 <strong>92</strong> - Incidência suspensa em decorrência de decisão judicial - FGTS 13º salário<br />
 <strong>93</strong> - Incidência suspensa em decorrência de decisão judicial - FGTS aviso prévio indenizado<br />
@@ -6093,6 +6111,7 @@ N (nos demais casos)</td>
 <a href="#REGRA_RUBRICA_COMPATIVEL_CATEGORIA">REGRA_RUBRICA_COMPATIVEL_CATEGORIA</a><br />
 <a href="#REGRA_RUBRICA_COMPATIVEL_DECTERCEIRO">REGRA_RUBRICA_COMPATIVEL_DECTERCEIRO</a><br />
 <a href="#REGRA_RUBRICA_COMPATIVEL_RESC">REGRA_RUBRICA_COMPATIVEL_RESC</a><br />
+<a href="#REGRA_RUBRICA_ECONSIGNADO">REGRA_RUBRICA_ECONSIGNADO</a><br />
 <a href="#REGRA_TSV_ATIVO_NA_DTEVENTO">REGRA_TSV_ATIVO_NA_DTEVENTO</a><br />
 <a href="#REGRA_VALIDA_EMPREGADOR">REGRA_VALIDA_EMPREGADOR</a><br />
 <a href="#REGRA_VALIDA_PERIODO_APURACAO">REGRA_VALIDA_PERIODO_APURACAO</a></td>
@@ -6920,7 +6939,12 @@ b) cuja <a href="#1010_infoRubrica_inclusao_dadosRubrica_natRubr">natRubr</a> em
 <td>1-12</td>
 <td>2</td>
 <td>Informar a quantidade de referência para apuração (em horas, cotas, meses, etc.). Ex.: Quantidade de horas extras trabalhadas relacionada com uma rubrica de hora extra, quantidade de dias trabalhados relacionada com uma rubrica de salário, etc.<br />
-<strong>Validação:</strong> Deve ser maior que 0 (zero).</td>
+<strong>Validação:</strong> Deve ser maior que 0 (zero).<br />
+Informação obrigatória se <a href="#1010_infoRubrica_inclusao_dadosRubrica_natRubr">natRubr</a> em S-1010 igual a [9253]. Neste caso, deve ser informada com 12 posições, conforme o que segue:<br />
+1IIICCCCCC.CC<br />
+1 - Texto fixo &quot;1&quot;;<br />
+III - Instituição financeira, conforme tabela do Banco Central;<br />
+CCCCCC.CC - Número do contrato eConsignado (preencher com zeros à esquerda caso o número não tenha 8 dígitos.</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="1200_dmDev_infoPerApur_ideEstabLot_remunPerApur_itensRemun_fatorRubr" id="1200_dmDev_infoPerApur_ideEstabLot_remunPerApur_itensRemun_fatorRubr">69</td>
@@ -22778,6 +22802,7 @@ OC (nos demais casos)</td>
 <a href="#REGRA_REMUN_PERMITE_EXCLUSAO">REGRA_REMUN_PERMITE_EXCLUSAO</a><br />
 <a href="#REGRA_RETIFICA_MESMO_VINCULO">REGRA_RETIFICA_MESMO_VINCULO</a><br />
 <a href="#REGRA_RUBRICA_COMPATIVEL_CATEGORIA">REGRA_RUBRICA_COMPATIVEL_CATEGORIA</a><br />
+<a href="#REGRA_RUBRICA_ECONSIGNADO">REGRA_RUBRICA_ECONSIGNADO</a><br />
 <a href="#REGRA_VALIDA_EMPREGADOR">REGRA_VALIDA_EMPREGADOR</a><br />
 <a href="#REGRA_VALIDA_PERIODO_APURACAO">REGRA_VALIDA_PERIODO_APURACAO</a><br />
 <a href="#REGRA_VINCULO_ATIVO_NA_DTEVENTO">REGRA_VINCULO_ATIVO_NA_DTEVENTO</a></td>
@@ -23550,7 +23575,12 @@ Nos demais casos (<a href="#1000_infoEmpregador_inclusao_infoCadastro_classTrib"
 <td>1-12</td>
 <td>2</td>
 <td>Informar a quantidade de referência para apuração (em horas, cotas, meses, etc.). Ex.: Quantidade de horas extras trabalhadas relacionada com uma rubrica de hora extra, quantidade de dias trabalhados relacionada com uma rubrica de salário, etc.<br />
-<strong>Validação:</strong> Deve ser maior que 0 (zero).</td>
+<strong>Validação:</strong> Deve ser maior que 0 (zero).<br />
+Informação obrigatória se <a href="#1010_infoRubrica_inclusao_dadosRubrica_natRubr">natRubr</a> em S-1010 igual a [9253]. Neste caso, deve ser informada com 12 posições, conforme o que segue:<br />
+1IIICCCCCC.CC<br />
+1 - Texto fixo &quot;1&quot;;<br />
+III - Instituição financeira, conforme tabela do Banco Central;<br />
+CCCCCC.CC - Número do contrato eConsignado (preencher com zeros à esquerda caso o número não tenha 8 dígitos.</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="2299_infoDeslig_verbasResc_dmDev_infoPerApur_ideEstabLot_detVerbas_fatorRubr" id="2299_infoDeslig_verbasResc_dmDev_infoPerApur_ideEstabLot_detVerbas_fatorRubr">65</td>
@@ -27307,6 +27337,7 @@ N (nos demais casos)</td>
 <a href="#REGRA_REMUN_PERMITE_EXCLUSAO">REGRA_REMUN_PERMITE_EXCLUSAO</a><br />
 <a href="#REGRA_RETIFICA_MESMO_VINCULO">REGRA_RETIFICA_MESMO_VINCULO</a><br />
 <a href="#REGRA_RUBRICA_COMPATIVEL_CATEGORIA">REGRA_RUBRICA_COMPATIVEL_CATEGORIA</a><br />
+<a href="#REGRA_RUBRICA_ECONSIGNADO">REGRA_RUBRICA_ECONSIGNADO</a><br />
 <a href="#REGRA_TSV_ATIVO_NA_DTEVENTO">REGRA_TSV_ATIVO_NA_DTEVENTO</a><br />
 <a href="#REGRA_VALIDA_EMPREGADOR">REGRA_VALIDA_EMPREGADOR</a><br />
 <a href="#REGRA_VALIDA_PERIODO_APURACAO">REGRA_VALIDA_PERIODO_APURACAO</a></td>
@@ -27917,7 +27948,12 @@ b) cuja <a href="#1010_infoRubrica_inclusao_dadosRubrica_natRubr">natRubr</a> em
 <td>1-12</td>
 <td>2</td>
 <td>Informar a quantidade de referência para apuração (em horas, cotas, meses, etc.). Ex.: Quantidade de horas extras trabalhadas relacionada com uma rubrica de hora extra, quantidade de dias trabalhados relacionada com uma rubrica de salário, etc.<br />
-<strong>Validação:</strong> Deve ser maior que 0 (zero).</td>
+<strong>Validação:</strong> Deve ser maior que 0 (zero).<br />
+Informação obrigatória se <a href="#1010_infoRubrica_inclusao_dadosRubrica_natRubr">natRubr</a> em S-1010 igual a [9253]. Neste caso, deve ser informada com 12 posições, conforme o que segue:<br />
+1IIICCCCCC.CC<br />
+1 - Texto fixo &quot;1&quot;;<br />
+III - Instituição financeira, conforme tabela do Banco Central;<br />
+CCCCCC.CC - Número do contrato eConsignado (preencher com zeros à esquerda caso o número não tenha 8 dígitos.</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="2399_infoTSVTermino_verbasResc_dmDev_ideEstabLot_detVerbas_fatorRubr" id="2399_infoTSVTermino_verbasResc_dmDev_ideEstabLot_detVerbas_fatorRubr">51</td>
@@ -38385,6 +38421,16 @@ N (nos demais casos)</td>
 <td>-</td>
 <td>OC</td>
 </tr>
+<tr>
+<td id="r_5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_eConsignado"><a href="#5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_eConsignado">eConsignado</a></td>
+<td><a href="#r_5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS">infoTrabFGTS</a></td>
+<td>7</td>
+<td>eConsignado - Descrição simplificada</td>
+<td>0-N</td>
+<td><a href="#5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_eConsignado_instFinanc">instFinanc</a>, <a href="#5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_eConsignado_nrContrato">nrContrato</a></td>
+<td>O (se existir rubrica com <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncFGTS">codIncFGTS</a> em S-1010 igual a [31] e <a href="#5003_ideEvento_perApur">perApur</a> maior ou igual a data de início do eConsignado no eSocial);<br />
+N (nos demais casos)</td>
+</tr>
 </tbody>
 </table>
 
@@ -39240,6 +39286,53 @@ c) Se <a href="#5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_info
 <td>20</td>
 <td>-</td>
 <td>Informar o número de processo judicial cadastrado.</td>
+</tr>
+<tr class="grupo">
+<td onclick="copiarCaminho.call(this)" title="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_eConsignado" id="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_eConsignado">62</td>
+<td><a href="#r_5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_eConsignado">eConsignado</a></td>
+<td><a href="#r_5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS">infoTrabFGTS</a></td>
+<td>G</td>
+<td>-</td>
+<td>0-N</td>
+<td>-</td>
+<td>-</td>
+<td>eConsignado - Descrição completa.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_eConsignado_instFinanc" id="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_eConsignado_instFinanc">63</td>
+<td>instFinanc</td>
+<td><a href="#r_5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_eConsignado">eConsignado</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>3</td>
+<td>-</td>
+<td>instFinanc<br />
+<strong>Origem:</strong> posições 2, 3 e 4 da informação do campo {qtdRubr} do evento remuneratório de origem.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_eConsignado_nrContrato" id="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_eConsignado_nrContrato">64</td>
+<td>nrContrato</td>
+<td><a href="#r_5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_eConsignado">eConsignado</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>8</td>
+<td>-</td>
+<td>nrContrato<br />
+<strong>Origem:</strong> posições 5 a 12 da informação do campo {qtdRubr} do evento remuneratório de origem.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_eConsignado_vreConsignado" id="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_eConsignado_vreConsignado">65</td>
+<td>vreConsignado</td>
+<td><a href="#r_5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_eConsignado">eConsignado</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1-14</td>
+<td>2</td>
+<td>vreConsignado<br />
+<strong>Origem:</strong> soma das rubricas com <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncFGTS">codIncFGTS</a> em S-1010 igual a [31].</td>
 </tr>
 </tbody>
 </table>

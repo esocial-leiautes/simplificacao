@@ -157,6 +157,15 @@ Ocorrência: 0-1
 Chave: -
 Condição: OC
 
+Nível: 7
+Nome: eConsignado
+Pai: infoTrabFGTS
+Descrição: eConsignado - Descrição simplificada
+Ocorrência: 0-N
+Chave: instFinanc, nrContrato
+Condição: O (se existir rubrica com {codIncFGTS}(1010_infoRubrica_inclusao_dadosRubrica_codIncFGTS) em S-1010 igual a [31] e {perApur}(5003_ideEvento_perApur) maior ou igual a data de início do eConsignado no eSocial)
+N (nos demais casos)
+
 Nome: eSocial
 Pai: -
 Elem.: G
@@ -910,4 +919,43 @@ Ocorrência: 1
 Tamanho: 20
 Dec.: -
 Descrição: Informar o número de processo judicial cadastrado.
+
+Nome: eConsignado
+Pai: infoTrabFGTS
+Elem.: G
+Tipo: -
+Ocorrência: 0-N
+Tamanho: -
+Dec.: -
+Descrição: eConsignado - Descrição completa.
+
+Nome: instFinanc
+Pai: eConsignado
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 3
+Dec.: -
+Descrição: instFinanc
+Origem: posições 2, 3 e 4 da informação do campo {qtdRubr} do evento remuneratório de origem.
+
+Nome: nrContrato
+Pai: eConsignado
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 8
+Dec.: -
+Descrição: nrContrato
+Origem: posições 5 a 12 da informação do campo {qtdRubr} do evento remuneratório de origem.
+
+Nome: vreConsignado
+Pai: eConsignado
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: vreConsignado
+Origem: soma das rubricas com {codIncFGTS}(1010_infoRubrica_inclusao_dadosRubrica_codIncFGTS) em S-1010 igual a [31].
 

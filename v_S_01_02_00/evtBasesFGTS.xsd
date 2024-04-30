@@ -498,6 +498,46 @@
                                                                                     </xs:sequence>
                                                                                 </xs:complexType>
                                                                             </xs:element>
+                                                                            <xs:element name="eConsignado" minOccurs="0" maxOccurs="unbounded">
+                                                                                <xs:complexType>
+                                                                                    <xs:annotation>
+                                                                                        <xs:documentation>eConsignado - Descrição simplificada</xs:documentation>
+                                                                                        <xs:documentation>DESCRICAO_COMPLETA:eConsignado - Descrição completa.</xs:documentation>
+                                                                                        <xs:documentation>CHAVE_GRUPO: {instFinanc}, {nrContrato}</xs:documentation>
+                                                                                        <xs:documentation>CONDICAO_GRUPO: O (se existir rubrica com {codIncFGTS}(1010_infoRubrica_inclusao_dadosRubrica_codIncFGTS) em S-1010 igual a [31] e {perApur}(5003_ideEvento_perApur) maior ou igual a data de início do eConsignado no eSocial); N (nos demais casos)</xs:documentation>
+                                                                                    </xs:annotation>
+                                                                                    <xs:sequence>
+                                                                                        <xs:element name="instFinanc">
+                                                                                            <xs:simpleType>
+                                                                                                <xs:annotation>
+                                                                                                    <xs:documentation>instFinanc</xs:documentation>
+                                                                                                    <xs:documentation>Origem: posições 2, 3 e 4 da informação do campo {qtdRubr} do evento remuneratório de origem.</xs:documentation>
+                                                                                                </xs:annotation>
+                                                                                                <xs:restriction base="xs:string">
+                                                                                                    <xs:pattern value="\d{3}" />
+                                                                                                </xs:restriction>
+                                                                                            </xs:simpleType>
+                                                                                        </xs:element>
+                                                                                        <xs:element name="nrContrato">
+                                                                                            <xs:simpleType>
+                                                                                                <xs:annotation>
+                                                                                                    <xs:documentation>nrContrato</xs:documentation>
+                                                                                                    <xs:documentation>Origem: posições 5 a 12 da informação do campo {qtdRubr} do evento remuneratório de origem.</xs:documentation>
+                                                                                                </xs:annotation>
+                                                                                                <xs:restriction base="xs:string">
+                                                                                                    <xs:pattern value="\d{8}" />
+                                                                                                </xs:restriction>
+                                                                                            </xs:simpleType>
+                                                                                        </xs:element>
+                                                                                        <xs:element name="vreConsignado" type="TS_valorMonetario_positivo">
+                                                                                            <xs:annotation>
+                                                                                                <xs:documentation>vreConsignado</xs:documentation>
+                                                                                                <xs:documentation>Origem: soma das rubricas com {codIncFGTS}(1010_infoRubrica_inclusao_dadosRubrica_codIncFGTS) em S-1010 igual a [31].</xs:documentation>
+                                                                                            </xs:annotation>
+                                                                                        </xs:element>
+                                                                                    </xs:sequence>
+                                                                                </xs:complexType>
+                                                                            </xs:element>
                                                                         </xs:sequence>
                                                                     </xs:complexType>
                                                                 </xs:element>
@@ -506,7 +546,7 @@
                                                     </xs:element>
                                                 </xs:sequence>
                                             </xs:complexType>
-                                        </xs:element>                                                    
+                                        </xs:element>
                                     </xs:sequence>
                                 </xs:complexType>
                             </xs:element>
