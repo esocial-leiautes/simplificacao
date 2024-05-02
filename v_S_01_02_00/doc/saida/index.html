@@ -1270,8 +1270,9 @@ c) somente é possível retificar processo com {infoContr/tpContr} diferente de 
 2d) {codIncCP} em S-1010 = [31] se {classTrib} em S-1000 = [21, 22] (Pessoa Física) e a categoria do trabalhador pertencer ao grupo "Contribuinte Individual" (7XX);<br />
 3) Se for relativa a dirigente sindical ({codCateg} = [401]), observar a categoria de origem (informada no evento S-2300) para determinar se o trabalhador é empregado ou contribuinte individual, e aplicar uma das duas regras anteriores;<br />
 4) Se for relativa a estagiário ({codCateg} = [901]), não podem ser aceitas rubricas cujo {codIncCP} em S-1010 seja diferente de [00, 01] ou {codIncFGTS} em S-1010 seja diferente de [00];<br />
-5) Se for relativa a grupo diferente de "Empregado" (1XX), não podem ser aceitas rubricas cujo {codIncIRRF} em S-1010 seja igual a [14, 34, 54, 94, 9014, 9034, 9054, 9834].<br />
-Retornar "erro" se o item 2d) ou o item 5) não for atendido. Retornar "alerta" se algum outro item não for obedecido.</p>
+5) Se for relativa a grupo diferente de "Empregado" (1XX), não podem ser aceitas rubricas cujo {codIncIRRF} em S-1010 seja igual a [14, 34, 54, 94, 9014, 9034, 9054, 9834];<br />
+5) Se não for relativa ao grupo "Empregado" (1XX) ou a diretor não empregado, com FGTS, não podem ser aceitas rubricas cuja {natRubr} em S-1010 seja igual a [9253].<br />
+Retornar "erro" se o item 2d), o item 5) ou o item 6) não for atendido. Retornar "alerta" se algum outro item não for obedecido.</p>
 </div>
 </div>
 </div>
@@ -1284,7 +1285,7 @@ Retornar "erro" se o item 2d) ou o item 5) não for atendido. Retornar "alerta" 
 </header>
 <div class="modal-card-body">
 <p>Se {indApuracao} for igual a [2] (décimo terceiro salário):<br />
-a) No caso do evento S-1200, são permitidas apenas as rubricas cujo {codIncCP} em S-1010 seja igual a [00, 01, 12, 14, 16, 22, 26, 32, 92, 94, 96, 98], cujo {codIncIRRF} em S-1010 seja igual a [0, 1, 9, 12, 14, 32, 34, 42, 47, 52, 54, 62, 64, 71, 77, 81, 82, 83, 92, 94, 9014, 9034, 9054, 9834] e cujo {codIncFGTS} em S-1010 seja igual a [00, 12, 92]. Caso sejam informadas rubricas com {codIncCP}, {codIncIRRF} e/ou {codIncFGTS} diferentes dos valores acima citados, retornar "alerta";<br />
+a) No caso do evento S-1200, são permitidas apenas as rubricas cujo {codIncCP} em S-1010 seja igual a [00, 01, 12, 14, 16, 22, 26, 32, 92, 94, 96, 98], cujo {codIncIRRF} em S-1010 seja igual a [0, 1, 9, 12, 14, 32, 34, 42, 47, 52, 54, 62, 64, 71, 77, 81, 82, 83, 92, 94, 9014, 9034, 9054, 9834], cujo {codIncFGTS} em S-1010 seja igual a [00, 12, 92] e cuja {natRubr} seja diferente de [9253]. Caso sejam informadas rubricas com {codIncCP}, {codIncIRRF} e/ou {codIncFGTS} diferentes dos valores acima citados, retornar "alerta";<br />
 b) Nos casos dos eventos S-1202 e S-1207, são permitidas apenas as rubricas cujo {codIncCPRP} em S-1010 seja igual a [00, 12, 32, 91, 92] e cujo {codIncIRRF} em S-1010 seja igual a [0, 1, 9, 12, 14, 32, 34, 42, 47, 52, 54, 62, 64, 71, 77, 81, 82, 83, 92, 94, 9014, 9034, 9054, 9834].</p>
 </div>
 </div>
@@ -1698,10 +1699,7 @@ No caso do evento S-2299, se houver remuneração informada no registro {infoPer
 <button class="delete" aria-label="close"></button>
 </header>
 <div class="modal-card-body">
-<p>a) Validar a categoria do trabalhador que tiver rubrica de eConsignado no respectivo evento remuneratório;<br />
-b) Não é possível o uso de rubricas eConsignado em folha anual;<br />
-c) Não é possível o uso de rubrica de eConsignado em infoPerAnt;<br />
-d) Não permitir envio de rubricas de eConsignado se no respectivo evento tenha campo indGuia ou se o empregador for MEI (classTri=04 em S-1000).</p>
+<p>Rubrica com {natRubr} em S-1010 igual [9253] não pode ser utilizada no grupo {remunPerAnt}, em evento que tenha o campo {indGuia} ou por empregador com {classTrib} igual a [04] em S-1000.</p>
 </div>
 </div>
 </div>
@@ -3852,7 +3850,7 @@ N (nos demais casos)</td>
 <td>-</td>
 <td>Informar o código de classificação da rubrica.<br />
 <strong>Validação:</strong> Deve ser um código válido e existente na <a href="tabelas.html#03">Tabela 03</a>.<br />
-Para utilização de código [9253], é necessário que <a href="#1010_infoRubrica_inclusao_ideRubrica_iniValid">iniValid</a> seja igual ou anterior ao mês de início do eConsignado no eSocial.</td>
+Para utilização de código [9253], é necessário que <a href="#1010_infoRubrica_inclusao_ideRubrica_iniValid">iniValid</a> seja igual ou posterior ao mês de início do eConsignado no eSocial.</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="1010_infoRubrica_inclusao_dadosRubrica_tpRubr" id="1010_infoRubrica_inclusao_dadosRubrica_tpRubr">21</td>
@@ -3949,7 +3947,7 @@ Para utilização de código [9X] ou [9XXX], é necessária a existência de gru
 <strong>91</strong> - Incidência suspensa em decorrência de decisão judicial - FGTS mensal<br />
 <strong>92</strong> - Incidência suspensa em decorrência de decisão judicial - FGTS 13º salário<br />
 <strong>93</strong> - Incidência suspensa em decorrência de decisão judicial - FGTS aviso prévio indenizado<br />
-<strong>Validação:</strong> Para utilização de código [91, 92, 93], é necessária a existência de grupo com informações relativas ao processo.</td>
+<strong>Validação:</strong> Para utilização de código [91, 92, 93], é necessária a existência de grupo com informações relativas ao processo. Para utilização de código [31], é necessário que <a href="#1010_infoRubrica_inclusao_dadosRubrica_natRubr">natRubr</a> seja igual a [9253].</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="1010_infoRubrica_inclusao_dadosRubrica_codIncCPRP" id="1010_infoRubrica_inclusao_dadosRubrica_codIncCPRP">25</td>
