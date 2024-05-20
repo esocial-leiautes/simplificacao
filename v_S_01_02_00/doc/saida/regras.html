@@ -12,11 +12,11 @@
 <section id="folha-rosto">
 <img alt="Logomarca do eSocial" src="esocial-full.png" class="center">
 <h1 class="title has-text-centered is-3">ANEXO II DOS LEIAUTES DO eSOCIAL<br />REGRAS DE VALIDAÇÃO</h1>
-<h1 class="title has-text-centered is-3">Versão S-1.2 (cons. até NT 03/2024)</h1>
+<h1 class="title has-text-centered is-3">Versão S-1.2 (cons. até NT 04/2024)</h1>
 </section>
 <section class="section">
 <div class="container is-fluid">
-<h1 class="title has-text-centered is-1">eSocial versão S-1.2 - Regras (cons. até NT 03/2024)</h1>
+<h1 class="title has-text-centered is-1">eSocial versão S-1.2 - Regras (cons. até NT 04/2024)</h1>
 <div class="modal" id="r_REGRA_ADMISSAO_POSTERIOR_INICIO_ATIVIDADES">
 <div class="modal-background"></div>
 <div class="modal-card">
@@ -1838,7 +1838,8 @@ OBS.: A presente regra não se aplica a eventos retificadores, periódicos e nã
 <tr>
 <td id="REGRA_COMPATIBILIDADE_CATEGORIA_CLASSTRIB"><a title="Ver ocorrências"><strong>REGRA_COMPATIBILIDADE_CATEGORIA_CLASSTRIB</strong></a></td>
 <td>A categoria do trabalhador deve ser compatível com a classificação tributária do contribuinte (informada no evento S-1000), conforme Tabela 11.<br />
-No caso dos eventos S-1200 e S-1202, retornar "alerta" caso não seja compatível.</td>
+No caso dos eventos S-1200 e S-1202, retornar "alerta" caso não seja compatível.<br />
+No caso do evento S-2500, não executar a regra se {infoContr/tpContr} = [8].</td>
 </tr>
 <tr>
 <td id="REGRA_COMPATIB_CATEG_EVENTO"><a title="Ver ocorrências"><strong>REGRA_COMPATIB_CATEG_EVENTO</strong></a></td>
@@ -2372,6 +2373,7 @@ Caso algum item acima não seja atendido, retornar "alerta".</td>
 <tr>
 <td id="REGRA_TSV_ATIVO_NA_DTEVENTO"><a title="Ver ocorrências"><strong>REGRA_TSV_ATIVO_NA_DTEVENTO</strong></a></td>
 <td>O contrato identificado por CPF + matrícula (ou CPF + categoria, no caso de TSVE sem informação de matrícula no evento S-2300) deve estar ativo na data do evento, ou seja, a data do evento deve ser igual ou posterior à data de início (no caso de mudança de CPF, igual ou posterior à data de alteração do CPF) e igual ou anterior à data de término.<br />
+Exclusivamente na recepção do evento S-2306, a data do evento deve ser posterior à data de início.<br />
 Quanto aos eventos S-2230, S-2306 e S-2399, deve existir prévio envio do evento de TSVE - Início (S-2300) para o contrato.<br />
 No caso dos eventos S-1200 e S-1202, o período de apuração deve ser igual ou posterior ao mês/ano da data de início (no caso de mudança de CPF, igual ou posterior à data de alteração do CPF) e igual ou anterior ao mês/ano da data de término. Se o período de apuração for posterior ao mês/ano da data de término, observar a <a href="#REGRA_REMUN_JA_EXISTE_DESLIGAMENTO">REGRA_REMUN_JA_EXISTE_DESLIGAMENTO</a>.</td>
 </tr>
@@ -2391,9 +2393,10 @@ b) Para cada evento S-2190 pode haver apenas um evento de Admissão ou TSVE - In
 </tr>
 <tr>
 <td id="REGRA_VALIDA_CNPJ"><a title="Ver ocorrências"><strong>REGRA_VALIDA_CNPJ</strong></a></td>
-<td>O CNPJ deve existir na base da RFB e obedecer às seguintes condições:<br />
+<td>O CNPJ deve existir na base da RFB e o evento deve ser recebido se o CNPJ estiver na situação Ativa na data da transmissão do evento.<br />
+Se o CNPJ não estiver na situação Ativa, a recepção do evento deve obedecer às seguintes condições:<br />
 a) Não pode pertencer a pessoa jurídica Inapta (situação=4) pelo motivo de Inexistência de Fato (motivo=15), exceto quando se tratar de evento S-2299 com {mtvDeslig} = [43];<br />
-b) Se estiver baixado:<br />
+b) Se estiver baixado na data da transmissão do evento:<br />
 b1) No caso de evento de tabela, {iniValid} deve ser igual ou anterior ao mês/ano da data de baixa;<br />
 b2) No caso de evento não periódico, a data de ocorrência do evento deve ser igual ou anterior à data de baixa, exceto quando se tratar de evento S-2299 com {mtvDeslig} = [10, 14];<br />
 b3) No caso de evento periódico, {perApur} deve ser igual ou anterior ao mês/ano da data de baixa;<br />
@@ -2498,8 +2501,9 @@ OBS.: Nos eventos de Admissão (S-2200) e TSVE - Início (S-2300), não efetuar 
 <td>O vínculo identificado por CPF + matrícula deve estar ativo na data do evento, ou seja, a data do evento deve ser igual ou posterior à data de admissão/data de exercício (no caso de transferência ou mudança de CPF, igual ou posterior a {sucessaoVinc/dtTransf}, {transfDom/dtTransf} ou {dtAltCPF} do evento S-2200, conforme o caso) e igual ou anterior à data de desligamento (informada em S-2200, S-2299 ou S-8299).<br />
 Quanto aos eventos S-2206, S-2230, S-2231 e S-2299, deve existir prévio envio do evento de Admissão (S-2200) para o vínculo.<br />
 Exclusivamente na recepção do evento S-2206:<br />
-a) considerar como data do evento a informação prestada no campo {dtEf} se este estiver preenchido (nessa situação, a data do evento deve ser igual ou posterior à data de admissão); caso contrário, considerar a informação do campo {dtAlteracao};<br />
-b) considerar como data de desligamento a maior data entre {dtDeslig}, {dtProjFimAPI} e {dtFimRemun} do evento S-2299 (ou a maior data entre {dtDeslig} e {dtProjFimAPI} do evento S-8299, caso não haja S-2299).<br />
+a) considerar como data do evento a informação prestada no campo {dtEf} se este estiver preenchido; caso contrário, considerar a informação do campo {dtAlteracao};<br />
+b) considerar como data de desligamento a maior data entre {dtDeslig}, {dtProjFimAPI} e {dtFimRemun} do evento S-2299 (ou a maior data entre {dtDeslig} e {dtProjFimAPI} do evento S-8299, caso não haja S-2299);<br />
+c) a data do evento deve ser posterior à data de admissão.<br />
 No caso do evento S-2210, quando {tpCat} = [2, 3], considerar vínculo ativo a partir da {dtAdm}, mesmo no caso de sucessão, transferência de titularidade do empregado doméstico ou mudança de CPF.<br />
 No caso dos eventos S-2210, S-2230 e S-2231, considerar como data de desligamento a maior data entre {dtDeslig} e {dtProjFimAPI} do evento S-2299 ou S-8299.<br />
 No caso do evento S-2230 (ou S-2231), se houver afastamento (ou cessão/exercício em outro órgão) com início em data igual ou posterior a {dtDeslig} do evento S-2299 ou S-8299, a data de término do afastamento (ou da cessão) deve ser igual ou anterior a {dtProjFimAPI} do S-2299 ou S-8299. Se {dtProjFimAPI} não existir, a data de término do afastamento (ou da cessão) deve ser igual a {dtDeslig}.<br />

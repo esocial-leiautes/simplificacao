@@ -11,13 +11,13 @@
 <body>
 <section id="folha-rosto">
 <img alt="Logomarca do eSocial" src="esocial-full.png" class="center">
-<h1 class="title has-text-centered is-3">LEIAUTES DO eSOCIAL<br /><br />Versão S-1.2 (cons. até NT 03/2024)</h1><h2 class="title has-text-centered is-5">(aprovada pela Portaria Conjunta RFB/MPS/MTE nº 44, de 11/08/2023 – DOU de 17/08/2023)</h2><h2 class="title has-text-centered is-5" style="font-weight: normal">Observações: O evento S-2221, com as informações do exame de que trata a portaria MTE 672, de 8 de novembro de 2021, alterada pela Portaria 612, de 25 de abril de 2024, será implantado em 01/08/2024</h2><br />
-<h1 class="title has-text-centered is-3">Abril de 2024</h1>
+<h1 class="title has-text-centered is-3">LEIAUTES DO eSOCIAL<br /><br />Versão S-1.2 (cons. até NT 04/2024)</h1><h2 class="title has-text-centered is-5">(aprovada pela Portaria Conjunta RFB/MPS/MTE nº 44, de 11/08/2023 – DOU de 17/08/2023)</h2><br />
+<h1 class="title has-text-centered is-3">Maio de 2024</h1>
 </section>
 <section class="section">
 <div class="container is-fluid">
-<h1 class="title has-text-centered is-1">eSocial versão S-1.2 - Leiautes (cons. até NT 03/2024)</h1>
-<div class="is-hidden-print"><h2 class="title has-text-centered is-5">(aprovada pela Portaria Conjunta RFB/MPS/MTE nº 44, de 11/08/2023 – DOU de 17/08/2023)</h2><h2 class="title has-text-centered is-5" style="font-weight: normal">Observações: O evento S-2221, com as informações do exame de que trata a portaria MTE 672, de 8 de novembro de 2021, alterada pela Portaria 612, de 25 de abril de 2024, será implantado em 01/08/2024</h2><br /></div>
+<h1 class="title has-text-centered is-1">eSocial versão S-1.2 - Leiautes (cons. até NT 04/2024)</h1>
+<div class="is-hidden-print"><h2 class="title has-text-centered is-5">(aprovada pela Portaria Conjunta RFB/MPS/MTE nº 44, de 11/08/2023 – DOU de 17/08/2023)</h2><br /></div>
 <h2 class="title has-text-centered is-3">Sumário</h2>
 <ul class="sumario">
 <li><a href="#evtInfoEmpregador">S-1000 - Informações do Empregador/Contribuinte/Órgão Público</a></li>
@@ -269,7 +269,8 @@ OBS.: A presente regra não se aplica a eventos retificadores, periódicos e nã
 </header>
 <div class="modal-card-body">
 <p>A categoria do trabalhador deve ser compatível com a classificação tributária do contribuinte (informada no evento S-1000), conforme Tabela 11.<br />
-No caso dos eventos S-1200 e S-1202, retornar "alerta" caso não seja compatível.</p>
+No caso dos eventos S-1200 e S-1202, retornar "alerta" caso não seja compatível.<br />
+No caso do evento S-2500, não executar a regra se {infoContr/tpContr} = [8].</p>
 </div>
 </div>
 </div>
@@ -1427,6 +1428,7 @@ Caso algum item acima não seja atendido, retornar "alerta".</p>
 </header>
 <div class="modal-card-body">
 <p>O contrato identificado por CPF + matrícula (ou CPF + categoria, no caso de TSVE sem informação de matrícula no evento S-2300) deve estar ativo na data do evento, ou seja, a data do evento deve ser igual ou posterior à data de início (no caso de mudança de CPF, igual ou posterior à data de alteração do CPF) e igual ou anterior à data de término.<br />
+Exclusivamente na recepção do evento S-2306, a data do evento deve ser posterior à data de início.<br />
 Quanto aos eventos S-2230, S-2306 e S-2399, deve existir prévio envio do evento de TSVE - Início (S-2300) para o contrato.<br />
 No caso dos eventos S-1200 e S-1202, o período de apuração deve ser igual ou posterior ao mês/ano da data de início (no caso de mudança de CPF, igual ou posterior à data de alteração do CPF) e igual ou anterior ao mês/ano da data de término. Se o período de apuração for posterior ao mês/ano da data de término, observar a <a href="#REGRA_REMUN_JA_EXISTE_DESLIGAMENTO">REGRA_REMUN_JA_EXISTE_DESLIGAMENTO</a>.</p>
 </div>
@@ -1478,9 +1480,10 @@ b) Para cada evento S-2190 pode haver apenas um evento de Admissão ou TSVE - In
 <button class="delete" aria-label="close"></button>
 </header>
 <div class="modal-card-body">
-<p>O CNPJ deve existir na base da RFB e obedecer às seguintes condições:<br />
+<p>O CNPJ deve existir na base da RFB e o evento deve ser recebido se o CNPJ estiver na situação Ativa na data da transmissão do evento.<br />
+Se o CNPJ não estiver na situação Ativa, a recepção do evento deve obedecer às seguintes condições:<br />
 a) Não pode pertencer a pessoa jurídica Inapta (situação=4) pelo motivo de Inexistência de Fato (motivo=15), exceto quando se tratar de evento S-2299 com {mtvDeslig} = [43];<br />
-b) Se estiver baixado:<br />
+b) Se estiver baixado na data da transmissão do evento:<br />
 b1) No caso de evento de tabela, {iniValid} deve ser igual ou anterior ao mês/ano da data de baixa;<br />
 b2) No caso de evento não periódico, a data de ocorrência do evento deve ser igual ou anterior à data de baixa, exceto quando se tratar de evento S-2299 com {mtvDeslig} = [10, 14];<br />
 b3) No caso de evento periódico, {perApur} deve ser igual ou anterior ao mês/ano da data de baixa;<br />
@@ -1681,8 +1684,9 @@ OBS.: Nos eventos de Admissão (S-2200) e TSVE - Início (S-2300), não efetuar 
 <p>O vínculo identificado por CPF + matrícula deve estar ativo na data do evento, ou seja, a data do evento deve ser igual ou posterior à data de admissão/data de exercício (no caso de transferência ou mudança de CPF, igual ou posterior a {sucessaoVinc/dtTransf}, {transfDom/dtTransf} ou {dtAltCPF} do evento S-2200, conforme o caso) e igual ou anterior à data de desligamento (informada em S-2200, S-2299 ou S-8299).<br />
 Quanto aos eventos S-2206, S-2230, S-2231 e S-2299, deve existir prévio envio do evento de Admissão (S-2200) para o vínculo.<br />
 Exclusivamente na recepção do evento S-2206:<br />
-a) considerar como data do evento a informação prestada no campo {dtEf} se este estiver preenchido (nessa situação, a data do evento deve ser igual ou posterior à data de admissão); caso contrário, considerar a informação do campo {dtAlteracao};<br />
-b) considerar como data de desligamento a maior data entre {dtDeslig}, {dtProjFimAPI} e {dtFimRemun} do evento S-2299 (ou a maior data entre {dtDeslig} e {dtProjFimAPI} do evento S-8299, caso não haja S-2299).<br />
+a) considerar como data do evento a informação prestada no campo {dtEf} se este estiver preenchido; caso contrário, considerar a informação do campo {dtAlteracao};<br />
+b) considerar como data de desligamento a maior data entre {dtDeslig}, {dtProjFimAPI} e {dtFimRemun} do evento S-2299 (ou a maior data entre {dtDeslig} e {dtProjFimAPI} do evento S-8299, caso não haja S-2299);<br />
+c) a data do evento deve ser posterior à data de admissão.<br />
 No caso do evento S-2210, quando {tpCat} = [2, 3], considerar vínculo ativo a partir da {dtAdm}, mesmo no caso de sucessão, transferência de titularidade do empregado doméstico ou mudança de CPF.<br />
 No caso dos eventos S-2210, S-2230 e S-2231, considerar como data de desligamento a maior data entre {dtDeslig} e {dtProjFimAPI} do evento S-2299 ou S-8299.<br />
 No caso do evento S-2230 (ou S-2231), se houver afastamento (ou cessão/exercício em outro órgão) com início em data igual ou posterior a {dtDeslig} do evento S-2299 ou S-8299, a data de término do afastamento (ou da cessão) deve ser igual ou anterior a {dtProjFimAPI} do S-2299 ou S-8299. Se {dtProjFimAPI} não existir, a data de término do afastamento (ou da cessão) deve ser igual a {dtDeslig}.<br />
@@ -17219,7 +17223,7 @@ Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo
 <td>-</td>
 <td>Data dos efeitos remuneratórios da alteração contratual.<br />
 Se a alteração foi fruto de lei, acordo coletivo, convenção coletiva ou sentença normativa, informar a data a partir da qual a alteração produz efeitos remuneratórios.<br />
-<strong>Validação:</strong> Deve ser uma data válida, igual ou posterior à data de admissão.</td>
+<strong>Validação:</strong> Deve ser uma data válida, posterior à data de admissão.</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="2206_altContratual_dscAlt" id="2206_altContratual_dscAlt">19</td>
@@ -43653,7 +43657,7 @@ Deve ser um identificador válido, constante das bases da RFB, conforme indicado
 <td>-</td>
 <td>-</td>
 <td>Data de início do afastamento.<br />
-<strong>Validação:</strong> Deve ser igual ou posterior à data de admissão do trabalhador e igual ou posterior a [2019-09-24].<br />
+<strong>Validação:</strong> Deve ser igual ou posterior à data de admissão do trabalhador.<br />
 Não pode ser posterior à data atual.</td>
 </tr>
 <tr>
@@ -43703,7 +43707,8 @@ Não podem ser informados motivos que não implicam rescisão do contrato de tra
 <td>-</td>
 <td>-</td>
 <td>Preencher com a data de desligamento do vínculo (último dia trabalhado).<br />
-<strong>Validação:</strong> Deve ser igual ou posterior à data de admissão do trabalhador e igual ou posterior a [2019-09-24].</td>
+<strong>Validação:</strong> Deve ser igual ou posterior à data de admissão do trabalhador e igual ou posterior a [2019-09-24].<br />
+Não pode ser posterior à data atual.</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="8200_infoAnotJud_desligamento_dtProjFimAPI" id="8200_infoAnotJud_desligamento_dtProjFimAPI">51</td>
