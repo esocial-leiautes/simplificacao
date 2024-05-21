@@ -126,6 +126,18 @@ b) Em caso de transferência, a data informada no campo {sucessaoVinc/dtTransf} 
 </div>
 </div>
 </div>
+<div class="modal" id="REGRA_ALERTA_RETIFICA_EXCLUI_CONSIGNADO">
+<div class="modal-background"></div>
+<div class="modal-card">
+<header class="modal-card-head">
+<p class="modal-card-title"><a href="regras.html#REGRA_ALERTA_RETIFICA_EXCLUI_CONSIGNADO">REGRA_ALERTA_RETIFICA_EXCLUI_CONSIGNADO</a></p>
+<button class="delete" aria-label="close"></button>
+</header>
+<div class="modal-card-body">
+<p>As inclusões, alterações ou exclusões dos dados que compõem o grupo {eConsignado} não surtirão efeito se a guia já estiver paga ou vencida.</p>
+</div>
+</div>
+</div>
 <div class="modal" id="REGRA_ALTERA_CATEG">
 <div class="modal-background"></div>
 <div class="modal-card">
@@ -1286,8 +1298,9 @@ Retornar "erro" se o item 2d), o item 5) ou o item 6) não for atendido. Retorna
 </header>
 <div class="modal-card-body">
 <p>Se {indApuracao} for igual a [2] (décimo terceiro salário):<br />
-a) No caso do evento S-1200, são permitidas apenas as rubricas cujo {codIncCP} em S-1010 seja igual a [00, 01, 12, 14, 16, 22, 26, 32, 92, 94, 96, 98], cujo {codIncIRRF} em S-1010 seja igual a [0, 1, 9, 12, 14, 32, 34, 42, 47, 52, 54, 62, 64, 71, 77, 81, 82, 83, 92, 94, 9014, 9034, 9054, 9834], cujo {codIncFGTS} em S-1010 seja igual a [00, 12, 92] e cuja {natRubr} seja diferente de [9253]. Caso sejam informadas rubricas com {codIncCP}, {codIncIRRF} e/ou {codIncFGTS} diferentes dos valores acima citados, retornar "alerta";<br />
-b) Nos casos dos eventos S-1202 e S-1207, são permitidas apenas as rubricas cujo {codIncCPRP} em S-1010 seja igual a [00, 12, 32, 91, 92] e cujo {codIncIRRF} em S-1010 seja igual a [0, 1, 9, 12, 14, 32, 34, 42, 47, 52, 54, 62, 64, 71, 77, 81, 82, 83, 92, 94, 9014, 9034, 9054, 9834].</p>
+a) No caso do evento S-1200, são permitidas apenas as rubricas cujo {codIncCP} em S-1010 seja igual a [00, 01, 12, 14, 16, 22, 26, 32, 92, 94, 96, 98], cujo {codIncIRRF} em S-1010 seja igual a [0, 1, 9, 12, 14, 32, 34, 42, 47, 52, 54, 62, 64, 71, 77, 81, 82, 83, 92, 94, 9014, 9034, 9054, 9834] e cujo {codIncFGTS} em S-1010 seja igual a [00, 12, 92]. Caso sejam informadas rubricas com {codIncCP}, {codIncIRRF} e/ou {codIncFGTS} diferentes dos valores acima citados, retornar "alerta";<br />
+b) Nos casos dos eventos S-1202 e S-1207, são permitidas apenas as rubricas cujo {codIncCPRP} em S-1010 seja igual a [00, 12, 32, 91, 92] e cujo {codIncIRRF} em S-1010 seja igual a [0, 1, 9, 12, 14, 32, 34, 42, 47, 52, 54, 62, 64, 71, 77, 81, 82, 83, 92, 94, 9014, 9034, 9054, 9834];<br />
+c) No caso do evento S-1200, são permitidas apenas as rubricas cuja {natRubr} seja diferente de [9253].</p>
 </div>
 </div>
 </div>
@@ -38428,7 +38441,7 @@ N (nos demais casos)</td>
 <td id="r_5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_eConsignado"><a href="#5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_eConsignado">eConsignado</a></td>
 <td><a href="#r_5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS">infoTrabFGTS</a></td>
 <td>7</td>
-<td>eConsignado - Descrição simplificada</td>
+<td>Informações relativas ao desconto do eConsignado</td>
 <td>0-N</td>
 <td><a href="#5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_eConsignado_instFinanc">instFinanc</a>, <a href="#5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_eConsignado_nrContrato">nrContrato</a></td>
 <td>O (se existir rubrica com <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncFGTS">codIncFGTS</a> em S-1010 igual a [31] e <a href="#5003_ideEvento_perApur">perApur</a> maior ou igual a data de início do eConsignado no eSocial);<br />
@@ -38473,7 +38486,9 @@ N (nos demais casos)</td>
 <td>1</td>
 <td>-</td>
 <td>-</td>
-<td>Evento Informações do FGTS por Trabalhador.</td>
+<td>Evento Informações do FGTS por Trabalhador.<br />
+<strong>Regra de validação:</strong><br />
+<a href="#REGRA_ALERTA_RETIFICA_EXCLUI_CONSIGNADO">REGRA_ALERTA_RETIFICA_EXCLUI_CONSIGNADO</a></td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="5003_Id" id="5003_Id">3</td>
@@ -39299,7 +39314,7 @@ c) Se <a href="#5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_info
 <td>0-N</td>
 <td>-</td>
 <td>-</td>
-<td>eConsignado - Descrição completa.</td>
+<td>Informações relativas ao desconto do eConsignado.</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_eConsignado_instFinanc" id="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_eConsignado_instFinanc">63</td>
@@ -39310,7 +39325,7 @@ c) Se <a href="#5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_info
 <td>1</td>
 <td>3</td>
 <td>-</td>
-<td>instFinanc<br />
+<td>Instituição financeira do empréstimo eConsignado<br />
 <strong>Origem:</strong> posições 2, 3 e 4 da informação do campo {qtdRubr} do evento remuneratório de origem.</td>
 </tr>
 <tr>
@@ -39322,7 +39337,7 @@ c) Se <a href="#5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_info
 <td>1</td>
 <td>8</td>
 <td>-</td>
-<td>nrContrato<br />
+<td>Número do contrato do empréstimo eConsignado<br />
 <strong>Origem:</strong> posições 5 a 12 da informação do campo {qtdRubr} do evento remuneratório de origem.</td>
 </tr>
 <tr>
@@ -39334,7 +39349,7 @@ c) Se <a href="#5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_info
 <td>1</td>
 <td>1-14</td>
 <td>2</td>
-<td>vreConsignado<br />
+<td>Valor do desconto do empréstimo eConsignado<br />
 <strong>Origem:</strong> soma das rubricas com <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncFGTS">codIncFGTS</a> em S-1010 igual a [31].</td>
 </tr>
 </tbody>
