@@ -1,0 +1,365 @@
+S-2416 - evtCdBenAlt
+Cadastro de Benefício - Entes Públicos - Alteração
+
+Nível: 1
+Nome: eSocial
+Pai: -
+Descrição: eSocial
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 2
+Nome: evtCdBenAlt
+Pai: eSocial
+Descrição: Evento Cadastro de Benefício - Alteração
+Ocorrência: 1
+Chave: Id
+Condição: O
+
+Nível: 3
+Nome: ideEvento
+Pai: evtCdBenAlt
+Descrição: Informações de identificação do evento.
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 3
+Nome: ideEmpregador
+Pai: evtCdBenAlt
+Descrição: Informações de identificação do empregador.
+Ocorrência: 1
+Chave: tpInsc*, nrInsc*
+Condição: O
+
+Nível: 3
+Nome: ideBeneficio
+Pai: evtCdBenAlt
+Descrição: Identificação do beneficiário e do benefício.
+Ocorrência: 1
+Chave: cpfBenef*, nrBeneficio*
+Condição: O
+
+Nível: 3
+Nome: infoBenAlteracao
+Pai: evtCdBenAlt
+Descrição: Informações do benefício - Alteração.
+Ocorrência: 1
+Chave: dtAltBeneficio*
+Condição: O
+
+Nível: 4
+Nome: dadosBeneficio
+Pai: infoBenAlteracao
+Descrição: Dados relativos ao benefício.
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 5
+Nome: infoPenMorte
+Pai: dadosBeneficio
+Descrição: Informações relativas à pensão por morte.
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {tpBeneficio}(../tpBeneficio) pertencer ao grupo [06])
+N (nos demais casos)
+
+Nível: 5
+Nome: suspensao
+Pai: dadosBeneficio
+Descrição: Informações referentes à suspensão do benefício.
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {indSuspensao}(../indSuspensao) = [S]
+N (se {indSuspensao}(../indSuspensao) = [N]
+
+Nome: eSocial
+Pai: -
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: eSocial
+
+Nome: evtCdBenAlt
+Pai: eSocial
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Evento Cadastro de Benefício - Entes Públicos - Alteração.
+Regras de validação:
+REGRA_ALTERA_TIPO_BENEFICIO
+REGRA_BENEFICIO_ATIVO_NA_DTEVENTO
+REGRA_ENVIO_PROC_FECHAMENTO
+REGRA_EVENTOS_EXTEMP
+REGRA_EXISTE_INFO_EMPREGADOR
+REGRA_EXTEMP_REATIVACAO
+REGRA_RETIFICA_MESMO_BENEFICIO
+
+Nome: Id
+Pai: evtCdBenAlt
+Elem.: A
+Tipo: C
+Ocorrência: 1
+Tamanho: 36
+Dec.: -
+Descrição: Identificação única do evento.
+Regras de validação:
+REGRA_VALIDA_ID_EVENTO
+
+Nome: ideEvento
+Pai: evtCdBenAlt
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do evento.
+
+Nome: indRetif
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Informe [1] para arquivo original ou [2] para arquivo de retificação.
+Valores válidos:
+1 - Original
+2 - Retificação
+
+Nome: nrRecibo
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 23
+Dec.: -
+Descrição: Preencher com o número do recibo do arquivo a ser retificado.
+Validação: O preenchimento é obrigatório se {indRetif}(./indRetif) = [2].
+Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo retificado.
+
+Nome: tpAmb
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Identificação do ambiente.
+Valores válidos:
+1 - Produção
+2 - Produção restrita
+7 - Validação (uso interno)
+8 - Teste (uso interno)
+9 - Desenvolvimento (uso interno)
+
+Nome: procEmi
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Processo de emissão do evento.
+Valores válidos:
+1 - Aplicativo do empregador
+3 - Aplicativo governamental - Web Geral
+4 - Aplicativo governamental - Simplificado Pessoa Jurídica
+
+Nome: verProc
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-20
+Dec.: -
+Descrição: Versão do processo de emissão do evento. Informar a versão do aplicativo emissor do evento.
+
+Nome: ideEmpregador
+Pai: evtCdBenAlt
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do empregador.
+
+Nome: tpInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+
+Nome: nrInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 8 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {ideEmpregador/tpInsc}(./tpInsc) e conforme informado em S-1000.
+
+Nome: ideBeneficio
+Pai: evtCdBenAlt
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Identificação do beneficiário e do benefício.
+
+Nome: cpfBenef
+Pai: ideBeneficio
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11
+Dec.: -
+Descrição: Informar o CPF do beneficiário.
+
+Nome: nrBeneficio
+Pai: ideBeneficio
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-20
+Dec.: -
+Descrição: Número do benefício.
+
+Nome: infoBenAlteracao
+Pai: evtCdBenAlt
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações do benefício - Alteração.
+
+Nome: dtAltBeneficio
+Pai: infoBenAlteracao
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Data de alteração das informações relativas ao benefício.
+Validação: Deve ser igual ou anterior à data atual.
+
+Nome: dadosBeneficio
+Pai: infoBenAlteracao
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Dados relativos ao benefício.
+
+Nome: tpBeneficio
+Pai: dadosBeneficio
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 4
+Dec.: -
+Descrição: Tipo de benefício.
+Validação: Deve ser um código válido e existente na Tabela 25. Se {cadIni}(2410_infoBenInicio_cadIni) em S-2410 for igual a [N], não é permitido utilizar código do grupo [08] dessa tabela.
+
+Nome: tpPlanRP
+Pai: dadosBeneficio
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Tipo de plano de segregação da massa.
+Valores válidos:
+0 - Sem segregação da massa
+1 - Fundo em capitalização
+2 - Fundo em repartição
+3 - Mantido pelo Tesouro
+
+Nome: dsc
+Pai: dadosBeneficio
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-255
+Dec.: -
+Descrição: Descrição do instrumento ou situação que originou o pagamento do benefício.
+Validação: Preenchimento obrigatório se {tpBeneficio}(./tpBeneficio) = [0909, 1001, 1009].
+
+Nome: indSuspensao
+Pai: dadosBeneficio
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo de suspensão do benefício.
+Valores válidos:
+S - Sim
+N - Não
+
+Nome: infoPenMorte
+Pai: dadosBeneficio
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações relativas à pensão por morte.
+
+Nome: tpPenMorte
+Pai: infoPenMorte
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Tipo de pensão por morte.
+Valores válidos:
+1 - Vitalícia
+2 - Temporária
+
+Nome: suspensao
+Pai: dadosBeneficio
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações referentes à suspensão do benefício.
+
+Nome: mtvSuspensao
+Pai: suspensao
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 2
+Dec.: -
+Descrição: Motivo da suspensão do benefício.
+Valores válidos:
+01 - Suspensão por não recadastramento
+99 - Outros motivos de suspensão
+
+Nome: dscSuspensao
+Pai: suspensao
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-255
+Dec.: -
+Descrição: Descrição do motivo da suspensão do benefício.
+Validação: Preenchimento obrigatório e exclusivo se {mtvSuspensao}(./mtvSuspensao) = [99].
+

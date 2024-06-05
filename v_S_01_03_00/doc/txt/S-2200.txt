@@ -1,0 +1,2247 @@
+S-2200 - evtAdmissao
+Cadastramento Inicial do Vínculo e Admissão/Ingresso de Trabalhador
+
+Nível: 1
+Nome: eSocial
+Pai: -
+Descrição: eSocial
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 2
+Nome: evtAdmissao
+Pai: eSocial
+Descrição: Evento Cadastramento Inicial do Vínculo e Admissão/Ingresso de Trabalhador.
+Ocorrência: 1
+Chave: Id
+Condição: O
+
+Nível: 3
+Nome: ideEvento
+Pai: evtAdmissao
+Descrição: Informações de identificação do evento.
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 3
+Nome: ideEmpregador
+Pai: evtAdmissao
+Descrição: Informações de identificação do empregador.
+Ocorrência: 1
+Chave: tpInsc*, nrInsc*
+Condição: O
+
+Nível: 3
+Nome: trabalhador
+Pai: evtAdmissao
+Descrição: Informações pessoais do trabalhador.
+Ocorrência: 1
+Chave: cpfTrab*
+Condição: O
+
+Nível: 4
+Nome: nascimento
+Pai: trabalhador
+Descrição: Grupo de informações do nascimento do trabalhador.
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 4
+Nome: endereco
+Pai: trabalhador
+Descrição: Endereço do trabalhador
+Ocorrência: 0-1
+Chave: -
+Condição: N (se {tpRegPrev}(2200_vinculo_tpRegPrev) = [4])
+O (se grupo {desligamento}(2200_vinculo_desligamento) não estiver preenchido e se {tpRegPrev}(2200_vinculo_tpRegPrev) for diferente de [4])
+F (nos demais casos)
+
+Nível: 5
+Nome: brasil
+Pai: endereco
+Descrição: Endereço no Brasil.
+Ocorrência: 0-1
+Chave: -
+Condição: O (se não informados os grupos {exterior}(2200_trabalhador_endereco_exterior) e {desligamento}(2200_vinculo_desligamento))
+N (se grupo {exterior}(2200_trabalhador_endereco_exterior) estiver preenchido)
+F (nos demais casos)
+
+Nível: 5
+Nome: exterior
+Pai: endereco
+Descrição: Endereço no exterior.
+Ocorrência: 0-1
+Chave: -
+Condição: O (se não informados os grupos {brasil}(2200_trabalhador_endereco_brasil) e {desligamento}(2200_vinculo_desligamento))
+N (se grupo {brasil}(2200_trabalhador_endereco_brasil) estiver preenchido)
+F (nos demais casos)
+
+Nível: 4
+Nome: trabImig
+Pai: trabalhador
+Descrição: Informações do trabalhador imigrante.
+Ocorrência: 0-1
+Chave: -
+Condição: N (se {paisNac}(2200_trabalhador_nascimento_paisNac) = [105])
+OC (se {paisNac}(2200_trabalhador_nascimento_paisNac) for diferente de [105]) e se grupo {desligamento}(2200_vinculo_desligamento) não estiver preenchido)
+F (nos demais casos)
+
+Nível: 4
+Nome: infoDeficiencia
+Pai: trabalhador
+Descrição: Pessoa com deficiência.
+Ocorrência: 0-1
+Chave: -
+Condição: N (se {tpRegPrev}(2200_vinculo_tpRegPrev) = [4])
+OC (se grupo {desligamento}(2200_vinculo_desligamento) não estiver preenchido e se {tpRegPrev}(2200_vinculo_tpRegPrev) for diferente de [4])
+F (nos demais casos)
+
+Nível: 4
+Nome: dependente
+Pai: trabalhador
+Descrição: Informações dos dependentes.
+Ocorrência: 0-99
+Chave: tpDep, nmDep, dtNascto
+Condição: OC
+
+Nível: 4
+Nome: contato
+Pai: trabalhador
+Descrição: Informações de contato.
+Ocorrência: 0-1
+Chave: -
+Condição: N (se {tpRegPrev}(2200_vinculo_tpRegPrev) = [4])
+OC (se grupo {desligamento}(2200_vinculo_desligamento) não estiver preenchido e se {tpRegPrev}(2200_vinculo_tpRegPrev) for diferente de [4])
+F (nos demais casos)
+
+Nível: 3
+Nome: vinculo
+Pai: evtAdmissao
+Descrição: Informações do vínculo.
+Ocorrência: 1
+Chave: matricula*
+Condição: O
+
+Nível: 4
+Nome: infoRegimeTrab
+Pai: vinculo
+Descrição: Informações do regime trabalhista.
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 5
+Nome: infoCeletista
+Pai: infoRegimeTrab
+Descrição: Informações de trabalhador celetista.
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {tpRegTrab}(2200_vinculo_tpRegTrab) = [1])
+N (nos demais casos)
+
+Nível: 6
+Nome: FGTS
+Pai: infoCeletista
+Descrição: Informações do FGTS
+Ocorrência: 0-1
+Chave: -
+Condição: N (se {tpAdmissao}(../tpAdmissao) = [6] OU (se {codCateg}(2200_vinculo_infoContrato_codCateg) for diferente de [104] e {dtAdm}(../dtAdm) >= [1988-10-05]) OU (se {codCateg}(2200_vinculo_infoContrato_codCateg) = [104] e {dtAdm}(../dtAdm) >= [2015-10-01]))
+O (nos demais casos)
+
+Nível: 6
+Nome: trabTemporario
+Pai: infoCeletista
+Descrição: Dados sobre trabalho temporário
+Ocorrência: 0-1
+Chave: -
+Condição: N (se {codCateg}(2200_vinculo_infoContrato_codCateg) for diferente de [106])
+O (se {codCateg}(2200_vinculo_infoContrato_codCateg) = [106] e se grupo {desligamento}(2200_vinculo_desligamento) não estiver preenchido)
+F (nos demais casos)
+
+Nível: 7
+Nome: ideEstabVinc
+Pai: trabTemporario
+Descrição: Identificação do estabelecimento do tomador ao qual o trabalhador temporário está vinculado
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 7
+Nome: ideTrabSubstituido
+Pai: trabTemporario
+Descrição: Identificação do(s) trabalhador(es) substituído(s).
+Ocorrência: 0-9
+Chave: cpfTrabSubst
+Condição: O (se {hipLeg}(2200_vinculo_infoRegimeTrab_infoCeletista_trabTemporario_hipLeg) = [1])
+N (nos demais casos)
+
+Nível: 6
+Nome: aprend
+Pai: infoCeletista
+Descrição: Informações relacionadas ao aprendiz.
+Ocorrência: 0-1
+Chave: -
+Condição: N (se {codCateg}(2200_vinculo_infoContrato_codCateg) for diferente de [103])
+O (se {codCateg}(2200_vinculo_infoContrato_codCateg) = [103] e se {dtAdm}(../dtAdm) >= [2024-01-22])
+OC (se {codCateg}(2200_vinculo_infoContrato_codCateg) = [103], se {dtAdm}(../dtAdm) < [2024-01-22] e se grupo {desligamento}(2200_vinculo_desligamento) não estiver preenchido)
+F (nos demais casos)
+
+Nível: 5
+Nome: infoEstatutario
+Pai: infoRegimeTrab
+Descrição: Informações de trabalhador estatutário.
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {tpRegTrab}(2200_vinculo_tpRegTrab) = [2])
+N (nos demais casos)
+
+Nível: 4
+Nome: infoContrato
+Pai: vinculo
+Descrição: Informações do contrato de trabalho.
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 5
+Nome: remuneracao
+Pai: infoContrato
+Descrição: Informações da remuneração e periodicidade de pagamento.
+Ocorrência: 0-1
+Chave: -
+Condição: N (se {tpRegTrab}(2200_vinculo_tpRegTrab) = [2])
+O (se {tpRegTrab}(2200_vinculo_tpRegTrab) = [1] e se grupo {desligamento}(2200_vinculo_desligamento) não estiver preenchido)
+F (nos demais casos)
+
+Nível: 5
+Nome: duracao
+Pai: infoContrato
+Descrição: Duração do contrato de trabalho.
+Ocorrência: 0-1
+Chave: -
+Condição: N (se {tpRegTrab}(2200_vinculo_tpRegTrab) = [2])
+O (se {tpRegTrab}(2200_vinculo_tpRegTrab) = [1] e se grupo {desligamento}(2200_vinculo_desligamento) não estiver preenchido)
+F (nos demais casos)
+
+Nível: 5
+Nome: localTrabalho
+Pai: infoContrato
+Descrição: Informações do local de trabalho.
+Ocorrência: 0-1
+Chave: -
+Condição: O (se grupo {desligamento}(2200_vinculo_desligamento) não estiver preenchido)
+F (nos demais casos)
+
+Nível: 6
+Nome: localTrabGeral
+Pai: localTrabalho
+Descrição: Estabelecimento onde o trabalhador exercerá suas atividades
+Ocorrência: 0-1
+Chave: -
+Condição: N (se {codCateg}(2200_vinculo_infoContrato_codCateg) = [104])
+O (se {codCateg}(2200_vinculo_infoContrato_codCateg) for diferente de [104] e se grupo {desligamento}(2200_vinculo_desligamento) não estiver preenchido)
+F (nos demais casos)
+
+Nível: 6
+Nome: localTempDom
+Pai: localTrabalho
+Descrição: Endereço de trabalho do trabalhador doméstico e trabalhador temporário
+Ocorrência: 0-1
+Chave: -
+Condição: N (se {codCateg}(2200_vinculo_infoContrato_codCateg) for diferente de [104, 106])
+O (se {codCateg}(2200_vinculo_infoContrato_codCateg) = [104, 106] e se grupo {desligamento}(2200_vinculo_desligamento) não estiver preenchido)
+F (nos demais casos)
+
+Nível: 5
+Nome: horContratual
+Pai: infoContrato
+Descrição: Informações do horário contratual do trabalhador.
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {tpRegJor}(2200_vinculo_infoRegimeTrab_infoCeletista_tpRegJor) = [1] e se grupo {desligamento}(2200_vinculo_desligamento) não estiver preenchido)
+OC (se {tpRegJor}(2200_vinculo_infoRegimeTrab_infoCeletista_tpRegJor) for diferente de [1] e se grupo {desligamento}(2200_vinculo_desligamento) não estiver preenchido)
+F (nos demais casos)
+
+Nível: 5
+Nome: alvaraJudicial
+Pai: infoContrato
+Descrição: Dados do alvará judicial
+Ocorrência: 0-1
+Chave: -
+Condição: OC (se grupo {desligamento}(2200_vinculo_desligamento) não estiver preenchido)
+F (nos demais casos)
+
+Nível: 5
+Nome: observacoes
+Pai: infoContrato
+Descrição: Observações do contrato de trabalho.
+Ocorrência: 0-99
+Chave: -
+Condição: OC (se grupo {desligamento}(2200_vinculo_desligamento) não estiver preenchido)
+F (nos demais casos)
+
+Nível: 5
+Nome: treiCap
+Pai: infoContrato
+Descrição: Treinamentos, capacitações, exercícios simulados e outras anotações
+Ocorrência: 0-99
+Chave: codTreiCap
+Condição: OC (se grupo {desligamento}(2200_vinculo_desligamento) não estiver preenchido)
+F (nos demais casos)
+
+Nível: 4
+Nome: sucessaoVinc
+Pai: vinculo
+Descrição: Grupo de informações da sucessão de vínculo trabalhista/estatutário.
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {tpAdmissao}(2200_vinculo_infoRegimeTrab_infoCeletista_tpAdmissao) = [2, 3, 4, 7] ou {tpProv}(2200_vinculo_infoRegimeTrab_infoEstatutario_tpProv) = [5, 8])
+N (nos demais casos)
+
+Nível: 4
+Nome: transfDom
+Pai: vinculo
+Descrição: Informações do empregado doméstico transferido de outro representante da mesma unidade familiar.
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {tpAdmissao}(2200_vinculo_infoRegimeTrab_infoCeletista_tpAdmissao) for igual [5])
+N (nos demais casos)
+
+Nível: 4
+Nome: mudancaCPF
+Pai: vinculo
+Descrição: Informações de mudança de CPF do trabalhador.
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {tpAdmissao}(2200_vinculo_infoRegimeTrab_infoCeletista_tpAdmissao) = [6] ou {tpProv}(2200_vinculo_infoRegimeTrab_infoEstatutario_tpProv) = [10])
+N (nos demais casos)
+
+Nível: 4
+Nome: afastamento
+Pai: vinculo
+Descrição: Informações de afastamento do trabalhador
+Ocorrência: 0-1
+Chave: -
+Condição: N (se grupo {desligamento}(2200_vinculo_desligamento) estiver preenchido)
+OC (nos demais casos)
+
+Nível: 4
+Nome: desligamento
+Pai: vinculo
+Descrição: Informação do desligamento do trabalhador
+Ocorrência: 0-1
+Chave: -
+Condição: N (se (grupo {afastamento}(2200_vinculo_afastamento) ou {cessao}(2200_vinculo_cessao) estiver preenchido) ou (se {tpAdmissao}(2200_vinculo_infoRegimeTrab_infoCeletista_tpAdmissao) = [6] ou {tpProv}(2200_vinculo_infoRegimeTrab_infoEstatutario_tpProv) = [10]))
+OC (nos demais casos)
+
+Nível: 4
+Nome: cessao
+Pai: vinculo
+Descrição: Informação de cessão/exercício em outro órgão do trabalhador
+Ocorrência: 0-1
+Chave: -
+Condição: N (se grupo {desligamento}(2200_vinculo_desligamento) estiver preenchido)
+OC (nos demais casos)
+
+Nome: eSocial
+Pai: -
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: eSocial
+
+Nome: evtAdmissao
+Pai: eSocial
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Evento Cadastramento Inicial do Vínculo e Admissão/Ingresso de Trabalhador.
+Regras de validação:
+REGRA_ADMISSAO_POSTERIOR_INICIO_ATIVIDADES
+REGRA_ADMISSAO_VALIDA_DT_ADM
+REGRA_ADMISSAO_VALIDA_DURACAO_CONTRATO
+REGRA_ANOTACAO_JUDICIAL
+REGRA_BLOQUEIA_USO_CPF_EMPREGADOR
+REGRA_COMPATIBILIDADE_CATEGORIA_CLASSTRIB
+REGRA_COMPATIB_CATEG_EVENTO
+REGRA_EMPREGADO_DOMESTICO
+REGRA_ENVIO_PROC_FECHAMENTO
+REGRA_EVENTOS_EXTEMP
+REGRA_EVETRAB_VALIDA_OPCAO_FGTS
+REGRA_EXCLUSAO_ADMISSAO_TSVE_INICIO
+REGRA_EXISTE_INFO_EMPREGADOR
+REGRA_EXTEMP_DOMESTICO
+REGRA_EXTEMP_REINTEGRACAO
+REGRA_GERAL_VALIDA_DADOS_TABCONTRIB
+REGRA_MESMO_PROCEMI
+REGRA_MUDANCA_CPF
+REGRA_REGISTRO_PRELIMINAR
+REGRA_RETIFICA_MESMO_VINCULO
+REGRA_VALIDA_EMPREGADOR
+REGRA_VALIDA_MATRICULA
+REGRA_VALIDA_TRABALHADOR_BASE_CPF
+
+Nome: Id
+Pai: evtAdmissao
+Elem.: A
+Tipo: C
+Ocorrência: 1
+Tamanho: 36
+Dec.: -
+Descrição: Identificação única do evento.
+Regras de validação:
+REGRA_VALIDA_ID_EVENTO
+
+Nome: ideEvento
+Pai: evtAdmissao
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do evento.
+
+Nome: indRetif
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Informe [1] para arquivo original ou [2] para arquivo de retificação.
+Valores válidos:
+1 - Original
+2 - Retificação
+
+Nome: nrRecibo
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 23
+Dec.: -
+Descrição: Preencher com o número do recibo do arquivo a ser retificado.
+Validação: O preenchimento é obrigatório se {indRetif}(./indRetif) = [2].
+Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo retificado.
+
+Nome: tpAmb
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Identificação do ambiente.
+Valores válidos:
+1 - Produção
+2 - Produção restrita
+7 - Validação (uso interno)
+8 - Teste (uso interno)
+9 - Desenvolvimento (uso interno)
+
+Nome: procEmi
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-2
+Dec.: -
+Descrição: Processo de emissão do evento.
+Valores válidos:
+1 - Aplicativo do empregador
+2 - Aplicativo governamental - Simplificado Pessoa Física
+3 - Aplicativo governamental - Web Geral
+4 - Aplicativo governamental - Simplificado Pessoa Jurídica
+9 - Aplicativo governamental - Integração com a Junta Comercial
+22 - Aplicativo governamental para dispositivos móveis - Empregador Doméstico
+
+Nome: verProc
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-20
+Dec.: -
+Descrição: Versão do processo de emissão do evento. Informar a versão do aplicativo emissor do evento.
+
+Nome: ideEmpregador
+Pai: evtAdmissao
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do empregador.
+
+Nome: tpInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+
+Nome: nrInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 8, 11 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {ideEmpregador/tpInsc}(./tpInsc) e conforme informado em S-1000.
+
+Nome: trabalhador
+Pai: evtAdmissao
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações pessoais do trabalhador.
+
+Nome: cpfTrab
+Pai: trabalhador
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11
+Dec.: -
+Descrição: Preencher com o número do CPF do trabalhador.
+
+Nome: nmTrab
+Pai: trabalhador
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 2-70
+Dec.: -
+Descrição: Informar o nome do trabalhador.
+
+Nome: sexo
+Pai: trabalhador
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Sexo do trabalhador.
+Valores válidos:
+M - Masculino
+F - Feminino
+
+Nome: racaCor
+Pai: trabalhador
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Etnia e raça do trabalhador, conforme sua autoclassificação (art. 39, § 8º, da Lei 12.288/2010).
+Valores válidos:
+1 - Branca
+2 - Preta
+3 - Parda
+4 - Amarela
+5 - Indígena
+6 - Não informado
+Validação: Se {dtAdm}(2200_vinculo_infoRegimeTrab_infoCeletista_dtAdm), {dtExercicio}(2200_vinculo_infoRegimeTrab_infoEstatutario_dtExercicio), {sucessaoVinc/dtTransf}(2200_vinculo_sucessaoVinc_dtTransf) ou {transfDom/dtTransf}(2200_vinculo_transfDom_dtTransf) (maior data entre elas) for igual ou posterior a [2024-04-22], não pode ser informado o valor [6].
+
+Nome: estCiv
+Pai: trabalhador
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Estado civil do trabalhador.
+Valores válidos:
+1 - Solteiro
+2 - Casado
+3 - Divorciado
+4 - Separado
+5 - Viúvo
+
+Nome: grauInstr
+Pai: trabalhador
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 2
+Dec.: -
+Descrição: Grau de instrução do trabalhador.
+Valores válidos:
+01 - Analfabeto, inclusive o que, embora tenha recebido instrução, não se alfabetizou
+02 - Até o 5º ano incompleto do ensino fundamental (antiga 4ª série) ou que se tenha alfabetizado sem ter frequentado escola regular
+03 - 5º ano completo do ensino fundamental
+04 - Do 6º ao 9º ano do ensino fundamental incompleto (antiga 5ª a 8ª série)
+05 - Ensino fundamental completo
+06 - Ensino médio incompleto
+07 - Ensino médio completo
+08 - Educação superior incompleta
+09 - Educação superior completa
+10 - Pós-graduação completa
+11 - Mestrado completo
+12 - Doutorado completo
+
+Nome: nmSoc
+Pai: trabalhador
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 2-70
+Dec.: -
+Descrição: Nome social para travesti ou transexual.
+Validação: Informação validada na base de dados do CPF.
+
+Nome: nascimento
+Pai: trabalhador
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Grupo de informações do nascimento do trabalhador.
+
+Nome: dtNascto
+Pai: nascimento
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Preencher com a data de nascimento.
+
+Nome: paisNascto
+Pai: nascimento
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 3
+Dec.: -
+Descrição: Preencher com o código do país de nascimento do trabalhador.
+Validação: Deve ser um código válido e existente na Tabela 06.
+
+Nome: paisNac
+Pai: nascimento
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 3
+Dec.: -
+Descrição: Preencher com o código do país de nacionalidade do trabalhador.
+Validação: Deve ser um código válido e existente na Tabela 06.
+
+Nome: endereco
+Pai: trabalhador
+Elem.: CG
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Grupo de informações do endereço do trabalhador.
+
+Nome: brasil
+Pai: endereco
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Endereço no Brasil.
+
+Nome: tpLograd
+Pai: brasil
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-4
+Dec.: -
+Descrição: Tipo de logradouro.
+Validação: Se informado, deve ser um código válido e existente na Tabela 20.
+
+Nome: dscLograd
+Pai: brasil
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-100
+Dec.: -
+Descrição: Descrição do logradouro.
+
+Nome: nrLograd
+Pai: brasil
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-10
+Dec.: -
+Descrição: Número do logradouro.
+Se não houver número a ser informado, preencher com "S/N".
+
+Nome: complemento
+Pai: brasil
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-30
+Dec.: -
+Descrição: Complemento do logradouro.
+
+Nome: bairro
+Pai: brasil
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-90
+Dec.: -
+Descrição: Nome do bairro/distrito.
+
+Nome: cep
+Pai: brasil
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 8
+Dec.: -
+Descrição: Código de Endereçamento Postal - CEP.
+Validação: Deve ser preenchido apenas com números, com 8 (oito) posições.
+
+Nome: codMunic
+Pai: brasil
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 7
+Dec.: -
+Descrição: Preencher com o código do município, conforme tabela do IBGE.
+Validação: Deve ser um código válido e existente na tabela do IBGE.
+
+Nome: uf
+Pai: brasil
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 2
+Dec.: -
+Descrição: Preencher com a sigla da Unidade da Federação - UF.
+Valores válidos:
+ AC, AL, AP, AM, BA, CE, DF, ES, GO, MA, MT, MS, MG, PA, PB, PR, PE, PI, RJ, RN, RS, RO, RR, SC, SP, SE, TO
+
+Nome: exterior
+Pai: endereco
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Endereço no exterior.
+
+Nome: paisResid
+Pai: exterior
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 3
+Dec.: -
+Descrição: Preencher com o código do país.
+Validação: Deve ser um código válido e existente na Tabela 06.
+
+Nome: dscLograd
+Pai: exterior
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-100
+Dec.: -
+Descrição: Descrição do logradouro.
+
+Nome: nrLograd
+Pai: exterior
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-10
+Dec.: -
+Descrição: Número do logradouro.
+Se não houver número a ser informado, preencher com "S/N".
+
+Nome: complemento
+Pai: exterior
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-30
+Dec.: -
+Descrição: Complemento do logradouro.
+
+Nome: bairro
+Pai: exterior
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-90
+Dec.: -
+Descrição: Nome do bairro/distrito.
+
+Nome: nmCid
+Pai: exterior
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 2-50
+Dec.: -
+Descrição: Nome da cidade.
+
+Nome: codPostal
+Pai: exterior
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 4-12
+Dec.: -
+Descrição: Código de Endereçamento Postal.
+
+Nome: trabImig
+Pai: trabalhador
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações do trabalhador imigrante.
+
+Nome: tmpResid
+Pai: trabImig
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Tempo de residência do trabalhador imigrante.
+Valores válidos:
+1 - Prazo indeterminado
+2 - Prazo determinado
+Validação: Preenchimento obrigatório se ({dtAdm}(2200_vinculo_infoRegimeTrab_infoCeletista_dtAdm) ou {dtExercicio}(2200_vinculo_infoRegimeTrab_infoEstatutario_dtExercicio)) >= [2021-07-19].
+
+Nome: condIng
+Pai: trabImig
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Condição de ingresso do trabalhador imigrante.
+Valores válidos:
+1 - Refugiado
+2 - Solicitante de refúgio
+3 - Permanência no Brasil em razão de reunião familiar
+4 - Beneficiado pelo acordo entre países do Mercosul
+5 - Dependente de agente diplomático e/ou consular de países que mantêm acordo de reciprocidade para o exercício de atividade remunerada no Brasil
+6 - Beneficiado pelo Tratado de Amizade, Cooperação e Consulta entre a República Federativa do Brasil e a República Portuguesa
+7 - Outra condição
+Validação: Se {tmpResid}(./tmpResid) = [1], não pode ser informado [2, 5]. Se {tmpResid}(./tmpResid) = [2], não pode ser informado [1].
+
+Nome: infoDeficiencia
+Pai: trabalhador
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Pessoa com deficiência.
+
+Nome: defFisica
+Pai: infoDeficiencia
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Deficiência física.
+Valores válidos:
+S - Sim
+N - Não
+
+Nome: defVisual
+Pai: infoDeficiencia
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Deficiência visual.
+Valores válidos:
+S - Sim
+N - Não
+
+Nome: defAuditiva
+Pai: infoDeficiencia
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Deficiência auditiva.
+Valores válidos:
+S - Sim
+N - Não
+
+Nome: defMental
+Pai: infoDeficiencia
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Deficiência mental.
+Valores válidos:
+S - Sim
+N - Não
+
+Nome: defIntelectual
+Pai: infoDeficiencia
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Deficiência intelectual.
+Valores válidos:
+S - Sim
+N - Não
+
+Nome: reabReadap
+Pai: infoDeficiencia
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Informar se o trabalhador é reabilitado (empregado) ou readaptado (servidor público/militar).
+Reabilitado: estando o empregado incapacitado parcial ou totalmente para o trabalho, cumpriu programa de reabilitação profissional no INSS, recebendo certificado e sendo proporcionados os meios indicados para participar do mercado de trabalho.
+Readaptado: o servidor está investido em cargo de atribuições e responsabilidades compatíveis com a limitação que tenha sofrido em sua capacidade física ou mental verificada em inspeção médica.
+Valores válidos:
+S - Sim
+N - Não
+
+Nome: infoCota
+Pai: infoDeficiencia
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Informar se o trabalhador deve ser contabilizado no preenchimento de cota de pessoas com deficiência habilitadas ou de beneficiários reabilitados.
+Valores válidos:
+S - Sim
+N - Não
+Validação: Preenchimento obrigatório e exclusivo se {tpRegTrab}(2200_vinculo_tpRegTrab) = [1]. Somente pode ser informado [S] se pelo menos um dos campos a seguir estiver preenchido com [S]: {defFisica}(./defFisica), {defVisual}(./defVisual), {defAuditiva}(./defAuditiva), {defMental}(./defMental), {defIntelectual}(./defIntelectual) e {reabReadap}(./reabReadap).
+Esta validação não deve ser realizada quando se tratar de evento enviado em versão do leiaute anterior a S-1.0.
+
+Nome: observacao
+Pai: infoDeficiencia
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-255
+Dec.: -
+Descrição: Observação.
+
+Nome: dependente
+Pai: trabalhador
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição: Informações dos dependentes.
+
+Nome: tpDep
+Pai: dependente
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 2
+Dec.: -
+Descrição: Tipo de dependente.
+Validação: Preenchimento obrigatório se {depIRRF}(./depIRRF) = [S].
+Deve ser um código válido e existente na Tabela 07.
+
+Nome: nmDep
+Pai: dependente
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 2-70
+Dec.: -
+Descrição: Nome do dependente.
+
+Nome: dtNascto
+Pai: dependente
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Preencher com a data de nascimento.
+Validação: Deve ser maior ou igual que 01/01/1890 e menor ou igual à data atual.
+
+Nome: cpfDep
+Pai: dependente
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 11
+Dec.: -
+Descrição: Número de inscrição no CPF.
+Validação: Deve ser um número de CPF válido, observando o que segue:
+a) O preenchimento é obrigatório se {depIRRF}(./depIRRF) = [S];
+b) Em arquivo de empregador Pessoa Física, deve ser diferente do CPF informado em {ideEmpregador}(/ideEmpregador);
+c) Não pode haver mais de um dependente com o mesmo número de CPF.
+
+Nome: sexoDep
+Pai: dependente
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Sexo do dependente.
+Valores válidos:
+M - Masculino
+F - Feminino
+Validação: Preenchimento obrigatório se {tpRegPrev}(2200_vinculo_tpRegPrev) = [2] e {cadIni}(2200_vinculo_cadIni) = [N]. Não informar se {tpRegPrev}(2200_vinculo_tpRegPrev) for diferente de [2].
+
+Nome: depIRRF
+Pai: dependente
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Informar se é dependente do trabalhador para fins de dedução de seu rendimento tributável pelo Imposto de Renda.
+Valores válidos:
+S - Sim
+N - Não
+
+Nome: depSF
+Pai: dependente
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Informar se é dependente para fins de recebimento do benefício de salário-família.
+Valores válidos:
+S - Sim
+N - Não
+
+Nome: incTrab
+Pai: dependente
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Informar se o dependente tem incapacidade física ou mental para o trabalho.
+Valores válidos:
+S - Sim
+N - Não
+Validação: Não informar se {tpRegPrev}(2200_vinculo_tpRegPrev) = [4]. Preenchimento obrigatório nos demais casos.
+
+Nome: descrDep
+Pai: dependente
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-100
+Dec.: -
+Descrição: Informar a descrição da dependência.
+Validação: Informação obrigatória e exclusiva se {tpDep}(./tpDep) = [99].
+
+Nome: contato
+Pai: trabalhador
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações de contato.
+
+Nome: fonePrinc
+Pai: contato
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 8-13
+Dec.: -
+Descrição: Número de telefone do trabalhador, com DDD.
+Validação: Se preenchido, deve conter apenas números, com o mínimo de dez dígitos.
+
+Nome: emailPrinc
+Pai: contato
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 6-60
+Dec.: -
+Descrição: Endereço eletrônico.
+Validação: O e-mail deve ser possuir o caractere "@" e este não pode estar no início e no fim do e-mail. Deve possuir no mínimo um caractere "." depois do @ e não pode estar no início ou no final do e-mail.
+
+Nome: vinculo
+Pai: evtAdmissao
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Grupo de informações do vínculo.
+
+Nome: matricula
+Pai: vinculo
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-30
+Dec.: -
+Descrição: Matrícula atribuída ao trabalhador pela empresa ou, no caso de servidor público, a matrícula constante no Sistema de Administração de Recursos Humanos do órgão.
+Validação: O valor informado não pode conter a expressão 'eSocial' nas 7 (sete) primeiras posições.
+Regras de validação:
+REGRA_CARACTERE_ESPECIAL
+
+Nome: tpRegTrab
+Pai: vinculo
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Tipo de regime trabalhista.
+Valores válidos:
+1 - CLT - Consolidação das Leis de Trabalho e legislações trabalhistas específicas
+2 - Estatutário/legislações específicas (servidor temporário, militar, agente político, etc.)
+Validação: Se {codCateg}(2200_vinculo_infoContrato_codCateg) = [104], deve ser preenchido com [1]. Se {codCateg}(2200_vinculo_infoContrato_codCateg) = [314], deve ser preenchido com [2].
+
+Nome: tpRegPrev
+Pai: vinculo
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Tipo de regime previdenciário (ou Sistema de Proteção Social dos Militares das Forças Armadas).
+Valores válidos:
+1 - Regime Geral de Previdência Social - RGPS
+2 - Regime Próprio de Previdência Social - RPPS
+3 - Regime de Previdência Social no exterior
+4 - Sistema de Proteção Social dos Militares das Forças Armadas - SPSMFA
+Validação: Se {codCateg}(./infoContrato_codCateg) = [104], deve ser preenchido com [1]. Se {codCateg}(./infoContrato_codCateg) = [101, 102, 103, 105, 106, 107, 108, 111], não pode ser preenchido com [2, 4].
+
+Nome: cadIni
+Pai: vinculo
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Indicar se o evento se refere a cadastramento inicial de vínculo (o ingresso do trabalhador no empregador declarante, por admissão ou transferência, é anterior à data de início da obrigatoriedade de envio de seus eventos não periódicos) ou se refere a admissão (o ingresso do trabalhador no empregador declarante é igual ou posterior à data de início de obrigatoriedade de envio de seus eventos não periódicos).
+Valores válidos:
+S - Sim (Cadastramento Inicial)
+N - Não (Admissão)
+
+Nome: infoRegimeTrab
+Pai: vinculo
+Elem.: CG
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações do regime trabalhista.
+
+Nome: infoCeletista
+Pai: infoRegimeTrab
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações de trabalhador celetista.
+
+Nome: dtAdm
+Pai: infoCeletista
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Preencher com a data de admissão do trabalhador.
+No caso de transferência do empregado ou de mudança de CPF, preencher com a data inicial do vínculo no primeiro empregador (data de início do vínculo).
+Validação: Devem ser observadas as seguintes regras:
+a) Deve ser posterior à data de nascimento do trabalhador e igual ou anterior ao ano do óbito, se existente;
+b) Se {cadIni}(2200_vinculo_cadIni) = [S], deve ser anterior à data de início da obrigatoriedade dos eventos não periódicos para o empregador no eSocial;
+c) Se {cadIni}(2200_vinculo_cadIni) = [N] e {tpAdmissao}(2200_vinculo_infoRegimeTrab_infoCeletista_tpAdmissao) = [1], deve ser igual ou posterior à data de início da obrigatoriedade dos eventos não periódicos para o empregador no eSocial.
+
+Nome: tpAdmissao
+Pai: infoCeletista
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Tipo de admissão do trabalhador.
+Valores válidos:
+1 - Admissão
+2 - Transferência de empresa do mesmo grupo econômico ou transferência entre órgãos do mesmo Ente Federativo
+3 - Transferência de empresa consorciada ou de consórcio
+4 - Transferência por motivo de sucessão, incorporação, cisão ou fusão
+5 - Transferência do empregado doméstico para outro representante da mesma unidade familiar
+6 - Mudança de CPF
+7 - Transferência quando a empresa sucedida é considerada inapta por inexistência de fato
+Validação: Se for igual a [5], {codCateg}(2200_vinculo_infoContrato_codCateg) deve ser igual a [104] e {procEmi}(2200_ideEvento_procEmi) deve ser igual a [2, 22].
+Se for igual a [6], {cadIni}(2200_vinculo_cadIni) deve ser igual a [N].
+
+Nome: indAdmissao
+Pai: infoCeletista
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo de admissão.
+Valores válidos:
+1 - Normal
+2 - Decorrente de ação fiscal
+3 - Decorrente de decisão judicial
+
+Nome: nrProcTrab
+Pai: infoCeletista
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 20
+Dec.: -
+Descrição: Número que identifica o processo trabalhista, quando a admissão se der por decisão judicial.
+Validação: Informação obrigatória e exclusiva se {indAdmissao}(./indAdmissao) = [3]. Se preenchido, deve ser um processo judicial válido, com 20 (vinte) algarismos.
+
+Nome: tpRegJor
+Pai: infoCeletista
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Regime de jornada do empregado.
+Valores válidos:
+1 - Submetido a horário de trabalho (Capítulo II do Título II da CLT)
+2 - Atividade externa especificada no inciso I do art. 62 da CLT
+3 - Função especificada no inciso II do art. 62 da CLT
+4 - Teletrabalho, previsto no inciso III do art. 62 da CLT
+
+Nome: natAtividade
+Pai: infoCeletista
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Natureza da atividade.
+Valores válidos:
+1 - Trabalho urbano
+2 - Trabalho rural
+Validação: Se {codCateg}(../../infoContrato_codCateg) = [104], deve ser preenchido com [1]. Se {codCateg}(../../infoContrato_codCateg) = [102], deve ser preenchido com [2].
+
+Nome: dtBase
+Pai: infoCeletista
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-2
+Dec.: -
+Descrição: Mês relativo à data base da categoria profissional do trabalhador.
+Validação: Se informado, deve ser maior ou igual a 1 e menor ou igual a 12.
+
+Nome: cnpjSindCategProf
+Pai: infoCeletista
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 14
+Dec.: -
+Descrição: Preencher com o CNPJ do sindicato representativo da categoria (preponderante ou diferenciada).
+Validação: Deve ser um CNPJ válido, com 14 (catorze) algarismos.
+
+Nome: matAnotJud
+Pai: infoCeletista
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-30
+Dec.: -
+Descrição: Matrícula informada no evento S-8200.
+Validação: Deve corresponder à matrícula cadastrada no evento S-8200 para o CPF informado em {cpfTrab}(2200_trabalhador_cpfTrab).
+
+Nome: FGTS
+Pai: infoCeletista
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações do Fundo de Garantia do Tempo de Serviço - FGTS.
+
+Nome: dtOpcFGTS
+Pai: FGTS
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informar a data de opção do trabalhador pelo FGTS.
+
+Nome: trabTemporario
+Pai: infoCeletista
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Dados sobre trabalho temporário. Preenchimento obrigatório no caso de contratação de trabalhador temporário.
+
+Nome: hipLeg
+Pai: trabTemporario
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Hipótese legal para contratação de trabalhador temporário.
+Valores válidos:
+1 - Necessidade de substituição transitória de pessoal permanente
+2 - Demanda complementar de serviços
+
+Nome: justContr
+Pai: trabTemporario
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-999
+Dec.: -
+Descrição: Descrição do fato determinado que, no caso concreto, justifica a hipótese legal para a contratação de trabalho temporário. O prazo de contratação do trabalho temporário deve ser compatível com o motivo justificador alegado.
+
+Nome: ideEstabVinc
+Pai: trabTemporario
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Identificação do estabelecimento do tomador ao qual o trabalhador temporário está vinculado
+
+Nome: tpInsc
+Pai: ideEstabVinc
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+
+Nome: nrInsc
+Pai: ideEstabVinc
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do contratante de serviços, de acordo com o tipo de inscrição informado em {ideEstabVinc/tpInsc}(./tpInsc).
+Validação: Deve ser um identificador válido. Se {dtAdm}(../../dtAdm) >= [2024-04-22] e:
+a) Se {ideEstabVinc/tpInsc}(./tpInsc) = [1], deve ser informado com 14 (catorze) algarismos. Se o empregador for pessoa jurídica, a raiz do CNPJ informado deve ser diferente de {ideEmpregador/nrInsc}(/ideEmpregador_nrInsc).
+b) Se {ideEstabVinc/tpInsc}(./tpInsc) = [2], deve ser diferente do CPF do empregado. Se o empregador for pessoa física, também deve ser diferente do CPF do empregador.
+
+Nome: ideTrabSubstituido
+Pai: trabTemporario
+Elem.: G
+Tipo: -
+Ocorrência: 0-9
+Tamanho: -
+Dec.: -
+Descrição: Identificação do(s) trabalhador(es) substituído(s).
+
+Nome: cpfTrabSubst
+Pai: ideTrabSubstituido
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11
+Dec.: -
+Descrição: CPF do trabalhador substituído.
+Validação: Deve ser um CPF válido.
+
+Nome: aprend
+Pai: infoCeletista
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações relacionadas ao aprendiz.
+
+Nome: indAprend
+Pai: aprend
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo de modalidade de contratação de aprendiz.
+Valores válidos:
+1 - Contratação direta: contratação do aprendiz efetivada pelo estabelecimento cumpridor da cota de aprendizagem
+2 - Contratação indireta: contratação do aprendiz efetivada por entidades sem fins lucrativos ou por entidades de prática desportiva a serviço do estabelecimento cumpridor da cota
+
+Nome: cnpjEntQual
+Pai: aprend
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 14
+Dec.: -
+Descrição: Informar o número de inscrição no CNPJ da entidade qualificadora, no caso de contratação direta.
+Validação: Preenchimento obrigatório e exclusivo se {indAprend}(./indAprend) = [1].
+Deve ser um CNPJ válido, com 14 (catorze) algarismos.
+
+Nome: tpInsc
+Pai: aprend
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição do estabelecimento para o qual a contratação de aprendiz foi efetivada, no caso de contratação indireta, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+Validação: Preenchimento obrigatório e exclusivo se {indAprend}(./indAprend) = [2].
+
+Nome: nrInsc
+Pai: aprend
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 11 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do estabelecimento para o qual a contratação de aprendiz foi efetivada, no caso de contratação indireta, de acordo com o tipo de inscrição indicado no campo {aprend/tpInsc}(./tpInsc).
+Validação: Preenchimento obrigatório e exclusivo se {indAprend}(./indAprend) = [2].
+Deve ser um identificador válido e:
+a) Se {aprend/tpInsc}(./tpInsc) = [1], deve ser informado com 14 (catorze) algarismos. Se o empregador for pessoa jurídica, a raiz do CNPJ informado deve ser diferente de {ideEmpregador/nrInsc}(/ideEmpregador_nrInsc).
+b) Se {aprend/tpInsc}(./tpInsc) = [2], deve ser diferente do CPF do empregado. Se o empregador for pessoa física, também deve ser diferente do CPF do empregador.
+
+Nome: cnpjPrat
+Pai: aprend
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 14
+Dec.: -
+Descrição: Informar o número de inscrição no CNPJ do estabelecimento onde estão sendo realizadas as atividades práticas, quando ocorrer uma das seguintes situações:
+a) Modalidade alternativa de cumprimento de cota de aprendizagem (neste caso, informar o CNPJ da entidade concedente da parte prática);
+b) Realização das atividades práticas na empresa contratante do serviço terceirizado;
+c) Centralização das atividades práticas em estabelecimento da própria empresa, diverso do estabelecimento responsável pelo cumprimento da cota.
+Validação: Deve ser um CNPJ válido, com 14 (catorze) algarismos.
+
+Nome: infoEstatutario
+Pai: infoRegimeTrab
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações de trabalhador estatutário.
+
+Nome: tpProv
+Pai: infoEstatutario
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-2
+Dec.: -
+Descrição: Preencher com o tipo de provimento.
+Valores válidos:
+1 - Nomeação em cargo efetivo
+2 - Nomeação exclusivamente em cargo em comissão
+3 - Incorporação ou matrícula (militar)
+5 - Redistribuição ou Reforma Administrativa
+6 - Diplomação
+7 - Contratação por tempo determinado
+8 - Remoção (em caso de alteração do órgão declarante)
+9 - Designação
+10 - Mudança de CPF
+11 - Estabilizados - Art. 19 do ADCT
+99 - Outros não relacionados acima
+Validação: Os valores [3, 5, 6, 8, 9] só são permitidos se a natureza jurídica do declarante for Administração Pública (grupo [1]).
+Se {codCateg}(2200_vinculo_infoContrato_codCateg) = [302], deve ser preenchido com [2, 5, 8, 10].
+
+Nome: dtExercicio
+Pai: infoEstatutario
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Data da entrada em exercício pelo servidor.
+Validação: Devem ser observadas as seguintes regras:
+a) Deve ser posterior à data de nascimento do trabalhador;
+b) Se {cadIni}(2200_vinculo_cadIni) = [S], deve ser anterior à data de início da obrigatoriedade dos eventos não periódicos para o empregador/ente público no eSocial;
+c) Se {cadIni}(2200_vinculo_cadIni) = [N] e {tpProv}(2200_vinculo_infoRegimeTrab_infoEstatutario_tpProv) for diferente de [5, 8, 10], deve ser igual ou posterior à data de início da obrigatoriedade dos eventos não periódicos para o empregador/ente público no eSocial.
+
+Nome: tpPlanRP
+Pai: infoEstatutario
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Tipo de plano de segregação da massa.
+Valores válidos:
+0 - Sem segregação da massa
+1 - Fundo em capitalização
+2 - Fundo em repartição
+3 - Mantido pelo Tesouro
+Validação: Preenchimento obrigatório e exclusivo se {tpRegPrev}(2200_vinculo_tpRegPrev) = [2].
+
+Nome: indTetoRGPS
+Pai: infoEstatutario
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Informar se o servidor está sujeito ao teto do RGPS pela instituição do regime de previdência complementar.
+Valores válidos:
+S - Sim
+N - Não
+Validação: Preenchimento obrigatório e exclusivo se {tpRegPrev}(2200_vinculo_tpRegPrev) = [2].
+
+Nome: indAbonoPerm
+Pai: infoEstatutario
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Indicar se o servidor recebe abono permanência.
+Valores válidos:
+S - Sim
+N - Não
+Validação: Preenchimento obrigatório e exclusivo se {tpRegPrev}(2200_vinculo_tpRegPrev) = [2].
+
+Nome: dtIniAbono
+Pai: infoEstatutario
+Elem.: E
+Tipo: D
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informar a data de inicio do abono permanência.
+Validação: Preenchimento obrigatório se {indAbonoPerm}(./indAbonoPerm) = [S] e {cadIni}(2200_vinculo_cadIni) = [N]. Não informar se {indAbonoPerm}(./indAbonoPerm) = [N]. Se preenchida, devem ser observadas as seguintes regras:
+a) Deve ser igual ou posterior à data de exercício do servidor;
+b) Se {cadIni}(2200_vinculo_cadIni) = [S], deve ser anterior à data de início da obrigatoriedade dos eventos não periódicos para o ente público;
+c) Se {cadIni}(2200_vinculo_cadIni) = [N], deve ser igual ou anterior à data da transferência ou alteração do CPF do servidor ({sucessaoVinc/dtTransf}(2200_vinculo_sucessaoVinc_dtTransf) ou {dtAltCPF}(2200_vinculo_mudancaCPF_dtAltCPF)). Não informar se {tpProv}(2200_vinculo_infoRegimeTrab_infoEstatutario_tpProv) for diferente de [5, 8, 10].
+
+Nome: infoContrato
+Pai: vinculo
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações do contrato de trabalho.
+
+Nome: nmCargo
+Pai: infoContrato
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-100
+Dec.: -
+Descrição: Informar o nome do cargo.
+Validação: O preenchimento é obrigatório, exceto se for relativo a servidor nomeado em cargo em comissão ({tpRegTrab}(2200_vinculo_tpRegTrab) = [2] e {tpProv}(2200_vinculo_infoRegimeTrab_infoEstatutario_tpProv) = [2]).
+
+Nome: CBOCargo
+Pai: infoContrato
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 6
+Dec.: -
+Descrição: Informar a Classificação Brasileira de Ocupações - CBO relativa ao cargo.
+Validação: Informação obrigatória e exclusiva se {nmCargo}(./nmCargo) for preenchido. Se informado, deve ser um código válido e existente na tabela de CBO, com 6 (seis) posições.
+
+Nome: dtIngrCargo
+Pai: infoContrato
+Elem.: E
+Tipo: D
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Data de ingresso do servidor no cargo.
+Validação: Não preencher se {tpRegTrab}(2200_vinculo_tpRegTrab) = [1] ou se {tpRegPrev}(2200_vinculo_tpRegPrev) = [4] ou se {CBOCargo}(./CBOCargo) não for informado. Se preenchida, devem ser observadas as seguintes regras:
+a) Deve ser igual ou posterior à data de exercício do servidor;
+b) Se {cadIni}(2200_vinculo_cadIni) = [S], deve ser anterior à data de início da obrigatoriedade dos eventos não periódicos para o ente público;
+c) Se {cadIni}(2200_vinculo_cadIni) = [N], deve ser igual ou anterior à data da transferência ou alteração do CPF do servidor ({sucessaoVinc/dtTransf}(2200_vinculo_sucessaoVinc_dtTransf) ou {dtAltCPF}(2200_vinculo_mudancaCPF_dtAltCPF)). Não informar se {tpProv}(2200_vinculo_infoRegimeTrab_infoEstatutario_tpProv) for diferente de [5, 8, 10].
+
+Nome: nmFuncao
+Pai: infoContrato
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-100
+Dec.: -
+Descrição: Informar o nome da função de confiança/cargo em comissão.
+Validação: Preenchimento obrigatório se for relativo a servidor nomeado em cargo em comissão ({tpRegTrab}(2200_vinculo_tpRegTrab) = [2] e {tpProv}(2200_vinculo_infoRegimeTrab_infoEstatutario_tpProv) = [2]).
+
+Nome: CBOFuncao
+Pai: infoContrato
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 6
+Dec.: -
+Descrição: Informar a CBO relativa à função de confiança/cargo em comissão.
+Validação: Informação obrigatória e exclusiva se {nmFuncao}(./nmFuncao) for preenchido. Se informado, deve ser um código válido e existente na tabela de CBO, com 6 (seis) posições.
+
+Nome: acumCargo
+Pai: infoContrato
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Informar se o cargo, emprego ou função pública é acumulável.
+Valores válidos:
+S - Sim
+N - Não
+Validação: Preenchimento obrigatório se {cadIni}(2200_vinculo_cadIni) = [N] e se a natureza jurídica do declarante for igual a 1XX-X, 201-1 ou 203-8.
+
+Nome: codCateg
+Pai: infoContrato
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 3
+Dec.: -
+Descrição: Preencher com o código da categoria do trabalhador.
+Validação: Deve ser um código válido e existente na Tabela 01.
+
+Nome: remuneracao
+Pai: infoContrato
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações da remuneração e periodicidade de pagamento.
+
+Nome: vrSalFx
+Pai: remuneracao
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Salário base do trabalhador, correspondente à parte fixa da remuneração.
+Validação: Se {undSalFixo}(./undSalFixo) for igual a [7], preencher com 0 (zero).
+
+Nome: undSalFixo
+Pai: remuneracao
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Unidade de pagamento da parte fixa da remuneração.
+Valores válidos:
+1 - Por hora
+2 - Por dia
+3 - Por semana
+4 - Por quinzena
+5 - Por mês
+6 - Por tarefa
+7 - Não aplicável - Salário exclusivamente variável
+
+Nome: dscSalVar
+Pai: remuneracao
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-999
+Dec.: -
+Descrição: Descrição do salário por tarefa ou variável e como este é calculado. Ex.: Comissões pagas no percentual de 10% sobre as vendas.
+Validação: Preenchimento obrigatório se {undSalFixo}(./undSalFixo) for igual a [6, 7].
+
+Nome: duracao
+Pai: infoContrato
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Duração do contrato de trabalho.
+
+Nome: tpContr
+Pai: duracao
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Tipo de contrato de trabalho.
+Valores válidos:
+1 - Prazo indeterminado
+2 - Prazo determinado, definido em dias
+3 - Prazo determinado, vinculado à ocorrência de um fato
+Validação: Se {codCateg}(../codCateg) = [103] e {dtAdm}(2200_vinculo_infoRegimeTrab_infoCeletista_dtAdm) >= [2024-04-22], deve ser informado [2].
+
+Nome: dtTerm
+Pai: duracao
+Elem.: E
+Tipo: D
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Data do término do contrato por prazo determinado.
+Validação: O preenchimento é obrigatório se {tpContr}(./tpContr) = [2]. Não informar se {tpContr}(./tpContr) = [1]. Se preenchido, deve ser igual ou posterior à data de admissão (no caso de transferência ou mudança de CPF, igual ou posterior a {sucessaoVinc/dtTransf}(2200_vinculo_sucessaoVinc_dtTransf), {transfDom/dtTransf}(2200_vinculo_transfDom_dtTransf) ou {dtAltCPF}(2200_vinculo_mudancaCPF_dtAltCPF) do evento S-2200, conforme o caso).
+
+Nome: clauAssec
+Pai: duracao
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Indicar se o contrato por prazo determinado contém cláusula assecuratória do direito recíproco de rescisão antes da data de seu término.
+Valores válidos:
+S - Sim
+N - Não
+Validação: O preenchimento é obrigatório se {tpContr}(./tpContr) = [2, 3]. Não preencher se {tpContr}(./tpContr) = [1].
+
+Nome: objDet
+Pai: duracao
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-255
+Dec.: -
+Descrição: Indicação do objeto determinante da contratação por prazo determinado (obra, serviço, safra, etc.).
+Validação: O preenchimento é obrigatório e exclusivo se {tpContr}(./tpContr) = [3].
+
+Nome: localTrabalho
+Pai: infoContrato
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações do local de trabalho.
+
+Nome: localTrabGeral
+Pai: localTrabalho
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Estabelecimento (CNPJ, CNO, CAEPF) onde o trabalhador (exceto doméstico) exercerá suas atividades. Caso o trabalhador exerça suas atividades em instalações de terceiros, este campo deve ser preenchido com o estabelecimento do próprio empregador ao qual o trabalhador esteja vinculado.
+
+Nome: tpInsc
+Pai: localTrabGeral
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+3 - CAEPF
+4 - CNO
+
+Nome: nrInsc
+Pai: localTrabGeral
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 12 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {localTrabGeral/tpInsc}(./tpInsc).
+Validação: Deve ser um número de inscrição válido e existente na Tabela de Estabelecimentos (S-1005), bem como compatível com {localTrabGeral/tpInsc}(./tpInsc).
+
+Nome: descComp
+Pai: localTrabGeral
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-80
+Dec.: -
+Descrição: Descrição complementar do local de trabalho.
+
+Nome: localTempDom
+Pai: localTrabalho
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Grupo preenchido exclusivamente em caso de trabalhador doméstico e trabalhador temporário, indicando o endereço onde o trabalhador exerce suas atividades.
+
+Nome: tpLograd
+Pai: localTempDom
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-4
+Dec.: -
+Descrição: Tipo de logradouro.
+Validação: Se informado, deve ser um código válido e existente na Tabela 20.
+
+Nome: dscLograd
+Pai: localTempDom
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-100
+Dec.: -
+Descrição: Descrição do logradouro.
+
+Nome: nrLograd
+Pai: localTempDom
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-10
+Dec.: -
+Descrição: Número do logradouro.
+Se não houver número a ser informado, preencher com "S/N".
+
+Nome: complemento
+Pai: localTempDom
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-30
+Dec.: -
+Descrição: Complemento do logradouro.
+
+Nome: bairro
+Pai: localTempDom
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-90
+Dec.: -
+Descrição: Nome do bairro/distrito.
+
+Nome: cep
+Pai: localTempDom
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 8
+Dec.: -
+Descrição: Código de Endereçamento Postal - CEP.
+Validação: Deve ser preenchido apenas com números, com 8 (oito) posições.
+
+Nome: codMunic
+Pai: localTempDom
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 7
+Dec.: -
+Descrição: Preencher com o código do município, conforme tabela do IBGE.
+Validação: Deve ser um código válido e existente na tabela do IBGE.
+
+Nome: uf
+Pai: localTempDom
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 2
+Dec.: -
+Descrição: Preencher com a sigla da Unidade da Federação - UF.
+Valores válidos:
+ AC, AL, AP, AM, BA, CE, DF, ES, GO, MA, MT, MS, MG, PA, PB, PR, PE, PI, RJ, RN, RS, RO, RR, SC, SP, SE, TO
+
+Nome: horContratual
+Pai: infoContrato
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações do horário contratual do trabalhador.
+
+Nome: qtdHrsSem
+Pai: horContratual
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-4
+Dec.: 2
+Descrição: Quantidade média de horas relativas à jornada semanal do trabalhador.
+Validação: Deve ser preenchida se {codCateg}(../codCateg) for diferente de [111]. Se informada, deve ser maior que 0 (zero).
+
+Nome: tpJornada
+Pai: horContratual
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Tipo de jornada.
+Valores válidos:
+2 - Jornada 12 x 36 (12 horas de trabalho seguidas de 36 horas ininterruptas de descanso)
+3 - Jornada com horário diário fixo e folga variável
+4 - Jornada com horário diário fixo e folga fixa (no domingo)
+5 - Jornada com horário diário fixo e folga fixa (exceto no domingo)
+6 - Jornada com horário diário fixo e folga fixa (em outro dia da semana), com folga adicional periódica no domingo
+7 - Turno ininterrupto de revezamento
+9 - Demais tipos de jornada
+
+Nome: tmpParc
+Pai: horContratual
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código relativo ao tipo de contrato em tempo parcial.
+Valores válidos:
+0 - Não é contrato em tempo parcial
+1 - Limitado a 25 horas semanais
+2 - Limitado a 30 horas semanais
+3 - Limitado a 26 horas semanais
+Validação: O código [1] só é válido se {codCateg}(../codCateg) = [104]. Os códigos [2, 3] não são válidos se {codCateg}(../codCateg) = [104].
+
+Nome: horNoturno
+Pai: horContratual
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Indicar se a jornada semanal possui horário noturno (no todo ou em parte).
+Valores válidos:
+S - Sim
+N - Não
+Validação: Informação obrigatória se {codCateg}(../codCateg) for diferente de [111].
+
+Nome: dscJorn
+Pai: horContratual
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-999
+Dec.: -
+Descrição: Descrição da jornada semanal contratual, contendo os dias da semana e os respectivos horários contratuais (entrada, saída e intervalos).
+
+Nome: alvaraJudicial
+Pai: infoContrato
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações do alvará judicial em caso de contratação de menores de 14 anos, em qualquer categoria, e de maiores de 14 e menores de 16, em categoria diferente de "Aprendiz".
+
+Nome: nrProcJud
+Pai: alvaraJudicial
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 20
+Dec.: -
+Descrição: Preencher com o número do processo judicial.
+Validação: Deve ser um número de processo judicial válido.
+
+Nome: observacoes
+Pai: infoContrato
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição: Observações do contrato de trabalho.
+
+Nome: observacao
+Pai: observacoes
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-255
+Dec.: -
+Descrição: Observação relacionada ao contrato de trabalho.
+
+Nome: treiCap
+Pai: infoContrato
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição: Treinamentos, capacitações, exercícios simulados, autorizações ou outras anotações que devam ser anotadas no registro de empregados e/ou na CTPS, por determinação de Norma Regulamentadora - NR.
+
+Nome: codTreiCap
+Pai: treiCap
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 4
+Dec.: -
+Descrição: Informar o código do treinamento, capacitação, exercício simulado ou outra anotação, conforme Tabela 28.
+Validação: Deve ser um código válido e existente na Tabela 28.
+
+Nome: sucessaoVinc
+Pai: vinculo
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Grupo de informações da sucessão de vínculo trabalhista/estatutário.
+
+Nome: tpInsc
+Pai: sucessaoVinc
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+5 - CGC
+6 - CEI
+Validação: Somente é possível informar [5] se {dtTransf}(./dtTransf) for igual ou anterior a [1999-06-30].
+
+Nome: nrInsc
+Pai: sucessaoVinc
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 8-14
+Dec.: -
+Descrição: Informar o número de inscrição do empregador anterior, de acordo com o tipo de inscrição indicado no campo {sucessaoVinc/tpInsc}(./tpInsc).
+Validação: Deve ser um número de inscrição válido e diferente da inscrição do declarante, considerando as particularidades aplicadas à informação de CNPJ de órgão público em S-1000.
+Se {sucessaoVinc/tpInsc}(./tpInsc) = [1], deve possuir 14 (catorze) algarismos e ser diferente do CNPJ base do empregador (exceto se {ideEmpregador/nrInsc}(2200_ideEmpregador_nrInsc) tiver 14 (catorze) algarismos) e dos estabelecimentos informados através do evento S-1005.
+Se {sucessaoVinc/tpInsc}(./tpInsc) = [2], deve possuir 11 (onze) algarismos.
+Se {sucessaoVinc/tpInsc}(./tpInsc) = [5], deve possuir somente algarismos.
+Se {sucessaoVinc/tpInsc}(./tpInsc) = [6], deve possuir 12 (doze) algarismos.
+
+Nome: matricAnt
+Pai: sucessaoVinc
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-30
+Dec.: -
+Descrição: Matrícula do trabalhador no empregador anterior.
+Validação: O preenchimento é obrigatório se {cadIni}(2200_vinculo_cadIni) = [N]. Se {sucessaoVinc/dtTransf}(./dtTransf) for igual ou posterior a [2024-04-22], a matrícula informada neste campo deve ser idêntica à matricula do trabalhador no empregador anterior.
+
+Nome: dtTransf
+Pai: sucessaoVinc
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Preencher com a data da transferência do empregado para o empregador declarante.
+Validação: Devem ser observadas as seguintes regras:
+a) Deve ser posterior à data de admissão do trabalhador e igual ou anterior ao ano do óbito, se existente;
+b) Se {cadIni}(2200_vinculo_cadIni) = [S], deve ser anterior à data de início da obrigatoriedade dos eventos não periódicos para o empregador;
+c) Se {cadIni}(2200_vinculo_cadIni) = [N], deve ser igual ou posterior à data de início da obrigatoriedade dos eventos não periódicos para o empregador.
+
+Nome: observacao
+Pai: sucessaoVinc
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-255
+Dec.: -
+Descrição: Observação.
+
+Nome: transfDom
+Pai: vinculo
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações do empregado doméstico transferido de outro representante da mesma unidade familiar.
+
+Nome: cpfSubstituido
+Pai: transfDom
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11
+Dec.: -
+Descrição: Preencher com o número do CPF do representante anterior da unidade familiar.
+Validação: Deve ser um CPF válido e diferente do CPF do declarante e do empregado.
+
+Nome: matricAnt
+Pai: transfDom
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-30
+Dec.: -
+Descrição: Matrícula do trabalhador no representante anterior da unidade familiar.
+
+Nome: dtTransf
+Pai: transfDom
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Data da transferência do vínculo ao novo representante da unidade familiar.
+
+Nome: mudancaCPF
+Pai: vinculo
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações de mudança de CPF do trabalhador.
+
+Nome: cpfAnt
+Pai: mudancaCPF
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11
+Dec.: -
+Descrição: Preencher com o número do CPF antigo do trabalhador.
+
+Nome: matricAnt
+Pai: mudancaCPF
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-30
+Dec.: -
+Descrição: Preencher com a matrícula anterior do trabalhador.
+
+Nome: dtAltCPF
+Pai: mudancaCPF
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Data de alteração do CPF.
+
+Nome: observacao
+Pai: mudancaCPF
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-255
+Dec.: -
+Descrição: Observação.
+
+Nome: afastamento
+Pai: vinculo
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações de afastamento do trabalhador.
+Preenchimento exclusivo em caso de trabalhador que permaneça afastado na data de início da obrigatoriedade dos eventos não periódicos para o empregador no eSocial ou na data de transferência ou alteração de CPF do empregado.
+
+Nome: dtIniAfast
+Pai: afastamento
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Data de início do afastamento.
+Validação: Devem ser observadas as seguintes regras:
+a) Deve ser igual ou posterior à data de admissão/exercício do trabalhador;
+b) Se {cadIni}(2200_vinculo_cadIni) = [S], deve ser anterior à data de início da obrigatoriedade dos eventos não periódicos para o empregador;
+c) Se {cadIni}(2200_vinculo_cadIni) = [N], deve ser anterior à data da transferência ou alteração do CPF do empregado ({sucessaoVinc/dtTransf}(2200_vinculo_sucessaoVinc_dtTransf), {transfDom/dtTransf}(2200_vinculo_transfDom_dtTransf) ou {dtAltCPF}(2200_vinculo_mudancaCPF_dtAltCPF)). Não informar se {tpAdmissao}(2200_vinculo_infoRegimeTrab_infoCeletista_tpAdmissao) = [1] ou se {tpProv}(2200_vinculo_infoRegimeTrab_infoEstatutario_tpProv) for diferente de [5, 8, 10].
+
+Nome: codMotAfast
+Pai: afastamento
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 2
+Dec.: -
+Descrição: Preencher com o código do motivo de afastamento temporário.
+Validação: Deve ser um código válido e existente na Tabela 18, bem como compatível com o código de categoria do trabalhador, conforme Tabela 18. Se a natureza jurídica do declarante for Administração Pública (grupo [1]), não pode ser informado [14].
+
+Nome: desligamento
+Pai: vinculo
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informação do desligamento do trabalhador.
+Grupo preenchido exclusivamente caso seja necessário enviar cadastramento inicial referente a trabalhador que já tenha sido desligado da empresa antes do início dos eventos não periódicos para o empregador no eSocial (por exemplo, envio para pagamento de diferenças salariais - acordo/dissídio/convenção coletiva - em meses posteriores ao desligamento e sob vigência dos eventos periódicos para o empregador no eSocial) ou no caso de desligamento em data anterior à transferência do empregado.
+
+Nome: dtDeslig
+Pai: desligamento
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Preencher com a data de desligamento do vínculo (último dia trabalhado).
+Validação: Devem ser observadas as seguintes regras:
+a) Deve ser igual ou posterior à data de admissão/exercício do trabalhador;
+b) Se {cadIni}(2200_vinculo_cadIni) = [S], deve ser anterior à data de início da obrigatoriedade dos eventos não periódicos para o empregador;
+c) Se {cadIni}(2200_vinculo_cadIni) = [N], deve ser anterior à data da transferência do empregado ({sucessaoVinc/dtTransf}(2200_vinculo_sucessaoVinc_dtTransf) ou {transfDom/dtTransf}(2200_vinculo_transfDom_dtTransf)). Não informar se {tpAdmissao}(2200_vinculo_infoRegimeTrab_infoCeletista_tpAdmissao) = [1] ou se {tpProv}(2200_vinculo_infoRegimeTrab_infoEstatutario_tpProv) for diferente de [5, 8].
+
+Nome: cessao
+Pai: vinculo
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informação de cessão/exercício em outro órgão do trabalhador.
+Preenchimento exclusivo em caso de trabalhador que permaneça cedido/em exercício em outro órgão na data de início da obrigatoriedade dos eventos não periódicos para o empregador/ente público no eSocial ou na data de transferência ou alteração de CPF do empregado.
+
+Nome: dtIniCessao
+Pai: cessao
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Data de início da cessão/exercício em outro órgão.
+Validação: Devem ser observadas as seguintes regras:
+a) Deve ser igual ou posterior à data de admissão/exercício do trabalhador;
+b) Se {cadIni}(2200_vinculo_cadIni) = [S], deve ser anterior à data de início da obrigatoriedade dos eventos não periódicos para o ente público e a natureza jurídica do declarante deve ser Administração Pública (grupo [1]);
+c) Se {cadIni}(2200_vinculo_cadIni) = [N], deve ser anterior à data da transferência ou alteração do CPF do empregado ({sucessaoVinc/dtTransf}(2200_vinculo_sucessaoVinc_dtTransf) ou {dtAltCPF}(2200_vinculo_mudancaCPF_dtAltCPF)) e igual ou posterior a [2021-07-19]. Não informar se {tpAdmissao}(2200_vinculo_infoRegimeTrab_infoCeletista_tpAdmissao) = [1] ou se {tpProv}(2200_vinculo_infoRegimeTrab_infoEstatutario_tpProv) for diferente de [5, 8, 10].
+

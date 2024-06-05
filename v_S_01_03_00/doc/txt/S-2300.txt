@@ -1,0 +1,1775 @@
+S-2300 - evtTSVInicio
+Trabalhador Sem Vínculo de Emprego/Estatutário - Início
+
+Nível: 1
+Nome: eSocial
+Pai: -
+Descrição: eSocial
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 2
+Nome: evtTSVInicio
+Pai: eSocial
+Descrição: Evento TSVE - Início
+Ocorrência: 1
+Chave: Id
+Condição: O
+
+Nível: 3
+Nome: ideEvento
+Pai: evtTSVInicio
+Descrição: Informações de identificação do evento.
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 3
+Nome: ideEmpregador
+Pai: evtTSVInicio
+Descrição: Informações de identificação do empregador.
+Ocorrência: 1
+Chave: tpInsc*, nrInsc*
+Condição: O
+
+Nível: 3
+Nome: trabalhador
+Pai: evtTSVInicio
+Descrição: Grupo de informações do trabalhador.
+Ocorrência: 1
+Chave: cpfTrab*
+Condição: O
+
+Nível: 4
+Nome: nascimento
+Pai: trabalhador
+Descrição: Grupo de informações do nascimento do trabalhador.
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 4
+Nome: endereco
+Pai: trabalhador
+Descrição: Endereço do trabalhador
+Ocorrência: 0-1
+Chave: -
+Condição: N (se {codCateg}(2300_infoTSVInicio_codCateg) = [308])
+O (nos demais casos)
+
+Nível: 5
+Nome: brasil
+Pai: endereco
+Descrição: Endereço no Brasil.
+Ocorrência: 0-1
+Chave: -
+Condição: O (se não informado o grupo {exterior}(../exterior))
+N (nos demais casos)
+
+Nível: 5
+Nome: exterior
+Pai: endereco
+Descrição: Endereço no exterior.
+Ocorrência: 0-1
+Chave: -
+Condição: O (se não informado o grupo {brasil}(../brasil))
+N (nos demais casos)
+
+Nível: 4
+Nome: trabImig
+Pai: trabalhador
+Descrição: Informações do trabalhador imigrante.
+Ocorrência: 0-1
+Chave: -
+Condição: OC (se {paisNac}(2300_trabalhador_nascimento_paisNac) for diferente de [105])
+N (nos demais casos)
+
+Nível: 4
+Nome: infoDeficiencia
+Pai: trabalhador
+Descrição: Pessoa com deficiência.
+Ocorrência: 0-1
+Chave: -
+Condição: N (se {codCateg}(2300_infoTSVInicio_codCateg) = [308])
+OC (nos demais casos)
+
+Nível: 4
+Nome: dependente
+Pai: trabalhador
+Descrição: Informações dos dependentes.
+Ocorrência: 0-99
+Chave: tpDep, nmDep, dtNascto
+Condição: OC
+
+Nível: 4
+Nome: contato
+Pai: trabalhador
+Descrição: Informações de contato.
+Ocorrência: 0-1
+Chave: -
+Condição: N (se {codCateg}(2300_infoTSVInicio_codCateg) = [308])
+OC (nos demais casos)
+
+Nível: 3
+Nome: infoTSVInicio
+Pai: evtTSVInicio
+Descrição: TSVE - Início
+Ocorrência: 1
+Chave: matricula*, codCateg*, dtInicio*
+Condição: O
+
+Nível: 4
+Nome: infoComplementares
+Pai: infoTSVInicio
+Descrição: Informações complementares
+Ocorrência: 0-1
+Chave: -
+Condição: O (de acordo com a condição dos grupos inferiores)
+OC (nos demais casos)
+
+Nível: 5
+Nome: cargoFuncao
+Pai: infoComplementares
+Descrição: Cargo/Função ocupado pelo TSVE
+Ocorrência: 0-1
+Chave: -
+Condição: OC (se {codCateg}(2300_infoTSVInicio_codCateg) = [901, 903, 904, 906])
+O (nos demais casos)
+
+Nível: 5
+Nome: remuneracao
+Pai: infoComplementares
+Descrição: Informações da remuneração e periodicidade de pagamento.
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {codCateg}(2300_infoTSVInicio_codCateg) = [721, 722, 771, 906])
+OC (nos demais casos)
+
+Nível: 5
+Nome: FGTS
+Pai: infoComplementares
+Descrição: Informações do FGTS
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {codCateg}(2300_infoTSVInicio_codCateg) = [721])
+N (nos demais casos)
+
+Nível: 5
+Nome: infoDirigenteSindical
+Pai: infoComplementares
+Descrição: Informações relativas ao dirigente sindical.
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {codCateg}(2300_infoTSVInicio_codCateg) = [401])
+N (nos demais casos)
+
+Nível: 5
+Nome: infoTrabCedido
+Pai: infoComplementares
+Descrição: Informações relativas ao trabalhador cedido ou servidor público indicado para conselho
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {codCateg}(2300_infoTSVInicio_codCateg) = [305, 410])
+N (nos demais casos)
+
+Nível: 5
+Nome: infoMandElet
+Pai: infoComplementares
+Descrição: Informações relativas a servidor público exercente de mandato eletivo.
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {codCateg}(2300_infoTSVInicio_codCateg) = [304])
+N (nos demais casos)
+
+Nível: 5
+Nome: infoEstagiario
+Pai: infoComplementares
+Descrição: Informações relativas ao estagiário ou ao beneficiário do Programa Nacional de Prestação de Serviço Civil Voluntário.
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {codCateg}(2300_infoTSVInicio_codCateg) = [901, 906])
+N (nos demais casos)
+
+Nível: 6
+Nome: instEnsino
+Pai: infoEstagiario
+Descrição: Instituição de ensino ou entidade de formação/qualificação.
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 6
+Nome: ageIntegracao
+Pai: infoEstagiario
+Descrição: Agente de integração.
+Ocorrência: 0-1
+Chave: -
+Condição: OC (se o código de categoria for igual a [901])
+N (nos demais casos)
+
+Nível: 6
+Nome: supervisorEstagio
+Pai: infoEstagiario
+Descrição: Supervisor do estágio.
+Ocorrência: 0-1
+Chave: -
+Condição: OC (se o código de categoria for igual a [901])
+N (nos demais casos)
+
+Nível: 5
+Nome: localTrabGeral
+Pai: infoComplementares
+Descrição: Estabelecimento onde o trabalhador exercerá suas atividades
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {codCateg}(2300_infoTSVInicio_codCateg) = [2XX, 304, 305, 4XX, 721, 722, 723, 731, 734, 738, 761, 771, 901, 902, 906] e {dtInicio}(2300_infoTSVInicio_dtInicio) >= [2024-01-22])
+F (se {codCateg}(2300_infoTSVInicio_codCateg) = [2XX, 304, 305, 4XX, 721, 722, 723, 731, 734, 738, 761, 771, 901, 902, 906] e {dtInicio}(2300_infoTSVInicio_dtInicio) < [2024-01-22])
+N (nos demais casos)
+
+Nível: 4
+Nome: mudancaCPF
+Pai: infoTSVInicio
+Descrição: Informações de mudança de CPF do trabalhador.
+Ocorrência: 0-1
+Chave: -
+Condição: N (se {cadIni}(2300_infoTSVInicio_cadIni) = [S])
+OC (nos demais casos)
+
+Nível: 4
+Nome: afastamento
+Pai: infoTSVInicio
+Descrição: Informações de afastamento do TSVE
+Ocorrência: 0-1
+Chave: -
+Condição: N (se grupo {termino}(2300_infoTSVInicio_termino) estiver preenchido)
+OC (nos demais casos)
+
+Nível: 4
+Nome: termino
+Pai: infoTSVInicio
+Descrição: Informação do término do TSVE
+Ocorrência: 0-1
+Chave: -
+Condição: N (se {cadIni}(2300_infoTSVInicio_cadIni) = [N] ou grupo {afastamento}(2300_infoTSVInicio_afastamento) estiver preenchido)
+OC (nos demais casos)
+
+Nome: eSocial
+Pai: -
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: eSocial
+
+Nome: evtTSVInicio
+Pai: eSocial
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Evento Trabalhador Sem Vínculo de Emprego/Estatutário - Início.
+Regras de validação:
+REGRA_COMPATIBILIDADE_CATEGORIA_CLASSTRIB
+REGRA_COMPATIB_CATEG_EVENTO
+REGRA_ENVIO_PROC_FECHAMENTO
+REGRA_EVENTOS_EXTEMP
+REGRA_EVETRAB_VALIDA_OPCAO_FGTS
+REGRA_EXCLUSAO_ADMISSAO_TSVE_INICIO
+REGRA_EXISTE_INFO_EMPREGADOR
+REGRA_GERAL_VALIDA_DADOS_TABCONTRIB
+REGRA_MESMO_PROCEMI
+REGRA_MUDANCA_CPF
+REGRA_REGISTRO_PRELIMINAR
+REGRA_RETIFICA_MESMO_VINCULO
+REGRA_TSV_VERIFICA_DUPLICIDADE
+REGRA_VALIDA_EMPREGADOR
+REGRA_VALIDA_MATRICULA
+REGRA_VALIDA_TRABALHADOR_BASE_CPF
+
+Nome: Id
+Pai: evtTSVInicio
+Elem.: A
+Tipo: C
+Ocorrência: 1
+Tamanho: 36
+Dec.: -
+Descrição: Identificação única do evento.
+Regras de validação:
+REGRA_VALIDA_ID_EVENTO
+
+Nome: ideEvento
+Pai: evtTSVInicio
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do evento.
+
+Nome: indRetif
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Informe [1] para arquivo original ou [2] para arquivo de retificação.
+Valores válidos:
+1 - Original
+2 - Retificação
+
+Nome: nrRecibo
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 23
+Dec.: -
+Descrição: Preencher com o número do recibo do arquivo a ser retificado.
+Validação: O preenchimento é obrigatório se {indRetif}(./indRetif) = [2].
+Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo retificado.
+
+Nome: tpAmb
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Identificação do ambiente.
+Valores válidos:
+1 - Produção
+2 - Produção restrita
+7 - Validação (uso interno)
+8 - Teste (uso interno)
+9 - Desenvolvimento (uso interno)
+
+Nome: procEmi
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-2
+Dec.: -
+Descrição: Processo de emissão do evento.
+Valores válidos:
+1 - Aplicativo do empregador
+2 - Aplicativo governamental - Simplificado Pessoa Física
+3 - Aplicativo governamental - Web Geral
+4 - Aplicativo governamental - Simplificado Pessoa Jurídica
+22 - Aplicativo governamental para dispositivos móveis - Empregador Doméstico
+
+Nome: verProc
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-20
+Dec.: -
+Descrição: Versão do processo de emissão do evento. Informar a versão do aplicativo emissor do evento.
+
+Nome: ideEmpregador
+Pai: evtTSVInicio
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do empregador.
+
+Nome: tpInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+
+Nome: nrInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 8, 11 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {ideEmpregador/tpInsc}(./tpInsc) e conforme informado em S-1000.
+
+Nome: trabalhador
+Pai: evtTSVInicio
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Grupo de informações do trabalhador.
+
+Nome: cpfTrab
+Pai: trabalhador
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11
+Dec.: -
+Descrição: Preencher com o número do CPF do trabalhador.
+
+Nome: nmTrab
+Pai: trabalhador
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 2-70
+Dec.: -
+Descrição: Informar o nome do trabalhador.
+
+Nome: sexo
+Pai: trabalhador
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Sexo do trabalhador.
+Valores válidos:
+M - Masculino
+F - Feminino
+
+Nome: racaCor
+Pai: trabalhador
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Etnia e raça do trabalhador, conforme sua autoclassificação (art. 39, § 8º, da Lei 12.288/2010).
+Valores válidos:
+1 - Branca
+2 - Preta
+3 - Parda
+4 - Amarela
+5 - Indígena
+6 - Não informado
+Validação: Se {dtInicio}(2300_infoTSVInicio_dtInicio) for igual ou posterior a [2024-04-22], não pode ser informado o valor [6].
+
+Nome: estCiv
+Pai: trabalhador
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Estado civil do trabalhador.
+Valores válidos:
+1 - Solteiro
+2 - Casado
+3 - Divorciado
+4 - Separado
+5 - Viúvo
+
+Nome: grauInstr
+Pai: trabalhador
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 2
+Dec.: -
+Descrição: Grau de instrução do trabalhador.
+Valores válidos:
+01 - Analfabeto, inclusive o que, embora tenha recebido instrução, não se alfabetizou
+02 - Até o 5º ano incompleto do ensino fundamental (antiga 4ª série) ou que se tenha alfabetizado sem ter frequentado escola regular
+03 - 5º ano completo do ensino fundamental
+04 - Do 6º ao 9º ano do ensino fundamental incompleto (antiga 5ª a 8ª série)
+05 - Ensino fundamental completo
+06 - Ensino médio incompleto
+07 - Ensino médio completo
+08 - Educação superior incompleta
+09 - Educação superior completa
+10 - Pós-graduação completa
+11 - Mestrado completo
+12 - Doutorado completo
+
+Nome: nmSoc
+Pai: trabalhador
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 2-70
+Dec.: -
+Descrição: Nome social para travesti ou transexual.
+Validação: Informação validada na base de dados do CPF.
+
+Nome: nascimento
+Pai: trabalhador
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Grupo de informações do nascimento do trabalhador.
+
+Nome: dtNascto
+Pai: nascimento
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Preencher com a data de nascimento.
+
+Nome: paisNascto
+Pai: nascimento
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 3
+Dec.: -
+Descrição: Preencher com o código do país de nascimento do trabalhador.
+Validação: Deve ser um código válido e existente na Tabela 06.
+
+Nome: paisNac
+Pai: nascimento
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 3
+Dec.: -
+Descrição: Preencher com o código do país de nacionalidade do trabalhador.
+Validação: Deve ser um código válido e existente na Tabela 06.
+
+Nome: endereco
+Pai: trabalhador
+Elem.: CG
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Grupo de informações do endereço do trabalhador.
+
+Nome: brasil
+Pai: endereco
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Endereço no Brasil.
+
+Nome: tpLograd
+Pai: brasil
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-4
+Dec.: -
+Descrição: Tipo de logradouro.
+Validação: Se informado, deve ser um código válido e existente na Tabela 20.
+
+Nome: dscLograd
+Pai: brasil
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-100
+Dec.: -
+Descrição: Descrição do logradouro.
+
+Nome: nrLograd
+Pai: brasil
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-10
+Dec.: -
+Descrição: Número do logradouro.
+Se não houver número a ser informado, preencher com "S/N".
+
+Nome: complemento
+Pai: brasil
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-30
+Dec.: -
+Descrição: Complemento do logradouro.
+
+Nome: bairro
+Pai: brasil
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-90
+Dec.: -
+Descrição: Nome do bairro/distrito.
+
+Nome: cep
+Pai: brasil
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 8
+Dec.: -
+Descrição: Código de Endereçamento Postal - CEP.
+Validação: Deve ser preenchido apenas com números, com 8 (oito) posições.
+
+Nome: codMunic
+Pai: brasil
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 7
+Dec.: -
+Descrição: Preencher com o código do município, conforme tabela do IBGE.
+Validação: Deve ser um código válido e existente na tabela do IBGE.
+
+Nome: uf
+Pai: brasil
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 2
+Dec.: -
+Descrição: Preencher com a sigla da Unidade da Federação - UF.
+Valores válidos:
+ AC, AL, AP, AM, BA, CE, DF, ES, GO, MA, MT, MS, MG, PA, PB, PR, PE, PI, RJ, RN, RS, RO, RR, SC, SP, SE, TO
+
+Nome: exterior
+Pai: endereco
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Endereço no exterior.
+
+Nome: paisResid
+Pai: exterior
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 3
+Dec.: -
+Descrição: Preencher com o código do país.
+Validação: Deve ser um código válido e existente na Tabela 06.
+
+Nome: dscLograd
+Pai: exterior
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-100
+Dec.: -
+Descrição: Descrição do logradouro.
+
+Nome: nrLograd
+Pai: exterior
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-10
+Dec.: -
+Descrição: Número do logradouro.
+Se não houver número a ser informado, preencher com "S/N".
+
+Nome: complemento
+Pai: exterior
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-30
+Dec.: -
+Descrição: Complemento do logradouro.
+
+Nome: bairro
+Pai: exterior
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-90
+Dec.: -
+Descrição: Nome do bairro/distrito.
+
+Nome: nmCid
+Pai: exterior
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 2-50
+Dec.: -
+Descrição: Nome da cidade.
+
+Nome: codPostal
+Pai: exterior
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 4-12
+Dec.: -
+Descrição: Código de Endereçamento Postal.
+
+Nome: trabImig
+Pai: trabalhador
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações do trabalhador imigrante.
+
+Nome: tmpResid
+Pai: trabImig
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Tempo de residência do trabalhador imigrante.
+Valores válidos:
+1 - Prazo indeterminado
+2 - Prazo determinado
+Validação: Preenchimento obrigatório se {dtInicio}(2300_infoTSVInicio_dtInicio) >= [2021-07-19].
+
+Nome: condIng
+Pai: trabImig
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Condição de ingresso do trabalhador imigrante.
+Valores válidos:
+1 - Refugiado
+2 - Solicitante de refúgio
+3 - Permanência no Brasil em razão de reunião familiar
+4 - Beneficiado pelo acordo entre países do Mercosul
+5 - Dependente de agente diplomático e/ou consular de países que mantêm acordo de reciprocidade para o exercício de atividade remunerada no Brasil
+6 - Beneficiado pelo Tratado de Amizade, Cooperação e Consulta entre a República Federativa do Brasil e a República Portuguesa
+7 - Outra condição
+Validação: Se {tmpResid}(./tmpResid) = [1], não pode ser informado [2, 5]. Se {tmpResid}(./tmpResid) = [2], não pode ser informado [1].
+
+Nome: infoDeficiencia
+Pai: trabalhador
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Pessoa com deficiência.
+
+Nome: defFisica
+Pai: infoDeficiencia
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Deficiência física.
+Valores válidos:
+S - Sim
+N - Não
+
+Nome: defVisual
+Pai: infoDeficiencia
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Deficiência visual.
+Valores válidos:
+S - Sim
+N - Não
+
+Nome: defAuditiva
+Pai: infoDeficiencia
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Deficiência auditiva.
+Valores válidos:
+S - Sim
+N - Não
+
+Nome: defMental
+Pai: infoDeficiencia
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Deficiência mental.
+Valores válidos:
+S - Sim
+N - Não
+
+Nome: defIntelectual
+Pai: infoDeficiencia
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Deficiência intelectual.
+Valores válidos:
+S - Sim
+N - Não
+
+Nome: reabReadap
+Pai: infoDeficiencia
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Informar se o trabalhador é reabilitado (empregado) ou readaptado (servidor público/militar).
+Reabilitado: estando o empregado incapacitado parcial ou totalmente para o trabalho, cumpriu programa de reabilitação profissional no INSS, recebendo certificado e sendo proporcionados os meios indicados para participar do mercado de trabalho.
+Readaptado: o servidor está investido em cargo de atribuições e responsabilidades compatíveis com a limitação que tenha sofrido em sua capacidade física ou mental verificada em inspeção médica.
+Valores válidos:
+S - Sim
+N - Não
+
+Nome: observacao
+Pai: infoDeficiencia
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-255
+Dec.: -
+Descrição: Observação.
+
+Nome: dependente
+Pai: trabalhador
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição: Informações dos dependentes.
+
+Nome: tpDep
+Pai: dependente
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 2
+Dec.: -
+Descrição: Tipo de dependente.
+Validação: Preenchimento obrigatório se {depIRRF}(./depIRRF) = [S].
+Deve ser um código válido e existente na Tabela 07.
+
+Nome: nmDep
+Pai: dependente
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 2-70
+Dec.: -
+Descrição: Nome do dependente.
+
+Nome: dtNascto
+Pai: dependente
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Preencher com a data de nascimento.
+Validação: Deve ser maior ou igual que 01/01/1890 e menor ou igual à data atual.
+
+Nome: cpfDep
+Pai: dependente
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 11
+Dec.: -
+Descrição: Número de inscrição no CPF.
+Validação: Deve ser um número de CPF válido, observando o que segue:
+a) O preenchimento é obrigatório se {depIRRF}(./depIRRF) = [S];
+b) Em arquivo de empregador Pessoa Física, deve ser diferente do CPF informado em {ideEmpregador}(/ideEmpregador);
+c) Não pode haver mais de um dependente com o mesmo número de CPF.
+
+Nome: depIRRF
+Pai: dependente
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Informar se é dependente do trabalhador para fins de dedução de seu rendimento tributável pelo Imposto de Renda.
+Valores válidos:
+S - Sim
+N - Não
+
+Nome: depSF
+Pai: dependente
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Informar se é dependente para fins de recebimento do benefício de salário-família.
+Valores válidos:
+S - Sim
+N - Não
+
+Nome: incTrab
+Pai: dependente
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Informar se o dependente tem incapacidade física ou mental para o trabalho.
+Valores válidos:
+S - Sim
+N - Não
+
+Nome: descrDep
+Pai: dependente
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-100
+Dec.: -
+Descrição: Informar a descrição da dependência.
+Validação: Informação obrigatória e exclusiva se {tpDep}(./tpDep) = [99].
+
+Nome: contato
+Pai: trabalhador
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações de contato.
+
+Nome: fonePrinc
+Pai: contato
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 8-13
+Dec.: -
+Descrição: Número de telefone do trabalhador, com DDD.
+Validação: Se preenchido, deve conter apenas números, com o mínimo de dez dígitos.
+
+Nome: emailPrinc
+Pai: contato
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 6-60
+Dec.: -
+Descrição: Endereço eletrônico.
+Validação: O e-mail deve ser possuir o caractere "@" e este não pode estar no início e no fim do e-mail. Deve possuir no mínimo um caractere "." depois do @ e não pode estar no início ou no final do e-mail.
+
+Nome: infoTSVInicio
+Pai: evtTSVInicio
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Trabalhador Sem Vínculo de Emprego/Estatutário - TSVE - Início.
+
+Nome: cadIni
+Pai: infoTSVInicio
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Indicar se o evento se refere a cadastramento inicial (o ingresso do trabalhador no empregador declarante é anterior à data de início da obrigatoriedade de envio de seus eventos não periódicos) ou se refere a início de TSVE (o ingresso do trabalhador no empregador declarante é igual ou posterior à data de início da obrigatoriedade de envio de seus eventos não periódicos).
+Valores válidos:
+S - Sim (Cadastramento Inicial)
+N - Não (Início de TSVE)
+
+Nome: matricula
+Pai: infoTSVInicio
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-30
+Dec.: -
+Descrição: Matrícula atribuída ao trabalhador pela empresa.
+Validação: Preenchimento obrigatório se {indRetif}(2300_ideEvento_indRetif) = [1]. No caso de retificação ({indRetif}(2300_ideEvento_indRetif) = [2]), a matrícula deve ser preenchida caso tenha sido informada no evento original.
+O valor informado não pode conter a expressão 'eSocial' nas 7 (sete) primeiras posições.
+Regras de validação:
+REGRA_CARACTERE_ESPECIAL
+
+Nome: codCateg
+Pai: infoTSVInicio
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 3
+Dec.: -
+Descrição: Preencher com o código da categoria do trabalhador.
+Validação: Deve ser um código válido e existente na Tabela 01.
+
+Nome: dtInicio
+Pai: infoTSVInicio
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Data de início, que pode ser:
+a) Para o cooperado, a data de ingresso na cooperativa;
+b) Para o diretor não empregado, a data de posse no cargo;
+c) Para o dirigente sindical, a data de início do mandato no sindicato;
+d) Para o estagiário, a data de início do estágio;
+e) Para o trabalhador avulso, a data de ingresso no Órgão Gestor de Mão de Obra - OGMO ou no sindicato;
+f) Para o servidor público exercente de cargo eletivo, a data de início do mandato;
+g) Para os demais trabalhadores, a data de início das atividades.
+Validação: Devem ser observadas as seguintes regras:
+a) Deve ser posterior à data de nascimento do trabalhador, não pode ser posterior a 30 (trinta) dias da data atual e deve ser igual ou anterior ao ano do óbito, se existente;
+b) Se {cadIni}(./cadIni) = [S], deve ser anterior à data de início da obrigatoriedade dos eventos não periódicos para o empregador no eSocial;
+c) Se {cadIni}(./cadIni) = [N], deve ser igual ou posterior à data de início da obrigatoriedade dos eventos não periódicos para o empregador no eSocial.
+
+Nome: nrProcTrab
+Pai: infoTSVInicio
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 20
+Dec.: -
+Descrição: Número que identifica o processo trabalhista, quando o início de TSVE se der por decisão judicial.
+Validação: Se preenchido, deve ser um processo judicial válido, com 20 (vinte) algarismos.
+
+Nome: natAtividade
+Pai: infoTSVInicio
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Natureza da atividade.
+Valores válidos:
+1 - Trabalho urbano
+2 - Trabalho rural
+Validação: Preenchimento obrigatório se {codCateg}(./codCateg) = [201, 202, 401, 731, 734, 738]. Não deve ser preenchido se {codCateg}(./codCateg) = [721, 722, 771, 901].
+
+Nome: infoComplementares
+Pai: infoTSVInicio
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Grupo onde são fornecidas informações complementares, preenchidas conforme a categoria do TSVE.
+
+Nome: cargoFuncao
+Pai: infoComplementares
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Grupo que apresenta o cargo e/ou função ocupada pelo TSVE.
+
+Nome: nmCargo
+Pai: cargoFuncao
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-100
+Dec.: -
+Descrição: Informar o nome do cargo.
+Validação: Preenchimento obrigatório se {codCateg}(2300_infoTSVInicio_codCateg) for diferente de [410].
+
+Nome: CBOCargo
+Pai: cargoFuncao
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 6
+Dec.: -
+Descrição: Informar a Classificação Brasileira de Ocupações - CBO relativa ao cargo.
+Validação: Informação obrigatória e exclusiva se {nmCargo}(./nmCargo) for preenchido. Se informado, deve ser um código válido e existente na tabela de CBO, com 6 (seis) posições.
+
+Nome: nmFuncao
+Pai: cargoFuncao
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-100
+Dec.: -
+Descrição: Informar o nome da função de confiança.
+Validação: Preenchimento obrigatório se {codCateg}(2300_infoTSVInicio_codCateg) = [410] e não houver informação de {nmCargo}(./nmCargo).
+
+Nome: CBOFuncao
+Pai: cargoFuncao
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 6
+Dec.: -
+Descrição: Informar a CBO relativa à função de confiança/cargo em comissão.
+Validação: Informação obrigatória e exclusiva se {nmFuncao}(./nmFuncao) for preenchido. Se informado, deve ser um código válido e existente na tabela de CBO, com 6 (seis) posições.
+
+Nome: remuneracao
+Pai: infoComplementares
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações da remuneração e periodicidade de pagamento.
+
+Nome: vrSalFx
+Pai: remuneracao
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Salário base do trabalhador, correspondente à parte fixa da remuneração.
+Validação: Se {undSalFixo}(./undSalFixo) for igual a [7], preencher com 0 (zero).
+
+Nome: undSalFixo
+Pai: remuneracao
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Unidade de pagamento da parte fixa da remuneração.
+Valores válidos:
+1 - Por hora
+2 - Por dia
+3 - Por semana
+4 - Por quinzena
+5 - Por mês
+6 - Por tarefa
+7 - Não aplicável - Salário exclusivamente variável
+
+Nome: dscSalVar
+Pai: remuneracao
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-999
+Dec.: -
+Descrição: Descrição do salário por tarefa ou variável e como este é calculado. Ex.: Comissões pagas no percentual de 10% sobre as vendas.
+Validação: Preenchimento obrigatório se {undSalFixo}(./undSalFixo) for igual a [6, 7].
+
+Nome: FGTS
+Pai: infoComplementares
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações do Fundo de Garantia do Tempo de Serviço - FGTS.
+
+Nome: dtOpcFGTS
+Pai: FGTS
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informar a data de opção do trabalhador pelo FGTS.
+
+Nome: infoDirigenteSindical
+Pai: infoComplementares
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações relativas ao dirigente sindical.
+
+Nome: categOrig
+Pai: infoDirigenteSindical
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 3
+Dec.: -
+Descrição: Preencher com o código correspondente à categoria de origem do dirigente sindical.
+Validação: Deve ser um código válido e existente na Tabela 01, diferente de [401].
+
+Nome: tpInsc
+Pai: infoDirigenteSindical
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+Validação: O preenchimento é obrigatório e exclusivo se {infoDirigenteSindical/categOrig}(./categOrig) corresponder a "Empregado", "Agente Público", "Avulso" ou for igual a [721].
+
+Nome: nrInsc
+Pai: infoDirigenteSindical
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 11 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do empregador de origem do dirigente sindical, de acordo com o tipo de inscrição indicado no campo {infoDirigenteSindical/tpInsc}(./tpInsc).
+Validação: Preenchimento obrigatório e exclusivo se {infoDirigenteSindical/tpInsc}(./tpInsc) for informado. Se preenchido, deve ser um número de inscrição válido e diferente da inscrição do declarante, considerando as particularidades aplicadas à informação de CNPJ de órgão público em S-1000.
+Se {infoDirigenteSindical/tpInsc}(./tpInsc) = [1], deve possuir 14 (catorze) algarismos e ser diferente do CNPJ base do empregador e dos estabelecimentos informados através do evento S-1005.
+Se {infoDirigenteSindical/tpInsc}(./tpInsc) = [2], deve possuir 11 (onze) algarismos.
+
+Nome: dtAdmOrig
+Pai: infoDirigenteSindical
+Elem.: E
+Tipo: D
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Preencher com a data de admissão (ou de início) do dirigente sindical na empresa de origem.
+Validação: O preenchimento é obrigatório se {infoDirigenteSindical/categOrig}(./categOrig) corresponder a "Empregado", "Agente Público", "Avulso" ou for igual a [721].
+
+Nome: matricOrig
+Pai: infoDirigenteSindical
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-30
+Dec.: -
+Descrição: Preencher com a matrícula do trabalhador na empresa de origem.
+Validação: Preenchimento obrigatório se {infoDirigenteSindical/categOrig}(./categOrig) corresponder a "Empregado" ou "Agente Público".
+
+Nome: tpRegTrab
+Pai: infoDirigenteSindical
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Tipo de regime trabalhista.
+Valores válidos:
+1 - CLT - Consolidação das Leis de Trabalho e legislações trabalhistas específicas
+2 - Estatutário/legislações específicas (servidor temporário, militar, agente político, etc.)
+Validação: O preenchimento é obrigatório e exclusivo se {infoDirigenteSindical/categOrig}(./categOrig) corresponder a "Empregado" ou "Agente Público".
+
+Nome: tpRegPrev
+Pai: infoDirigenteSindical
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Tipo de regime previdenciário.
+Valores válidos:
+1 - Regime Geral de Previdência Social - RGPS
+2 - Regime Próprio de Previdência Social - RPPS
+3 - Regime de Previdência Social no exterior
+Validação: Se {infoDirigenteSindical/categOrig}(./categOrig) for relativa a "Empregado", não pode ser preenchido com [2].
+
+Nome: infoTrabCedido
+Pai: infoComplementares
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações relativas ao trabalhador cedido/em exercício em outro órgão ou servidor público indicado para conselho, preenchidas exclusivamente pelo cessionário/órgão de destino.
+
+Nome: categOrig
+Pai: infoTrabCedido
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 3
+Dec.: -
+Descrição: Preencher com o código correspondente à categoria de origem do trabalhador cedido ou do servidor público indicado para conselho.
+Validação: Deve ser um código válido e existente na Tabela 01, diferente de [305, 410].
+
+Nome: cnpjCednt
+Pai: infoTrabCedido
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 14
+Dec.: -
+Descrição: Informar o CNPJ do empregador/órgão público cedente/de origem.
+Validação: Deve ser um CNPJ diferente do CNPJ do empregador/órgão público e diferente dos estabelecimentos informados através do evento S-1005.
+Regras de validação:
+REGRA_VALIDA_CNPJ
+
+Nome: matricCed
+Pai: infoTrabCedido
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-30
+Dec.: -
+Descrição: Preencher com a matrícula do trabalhador no empregador/órgão público cedente/de origem.
+
+Nome: dtAdmCed
+Pai: infoTrabCedido
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Preencher com a data de admissão (ou de exercício) do trabalhador no empregador/órgão público cedente/de origem.
+Validação: Deve ser uma data igual ou anterior a {dtInicio}(2300_infoTSVInicio_dtInicio) e posterior a {nascimento/dtNascto}(2300_trabalhador_nascimento_dtNascto).
+
+Nome: tpRegTrab
+Pai: infoTrabCedido
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Tipo de regime trabalhista.
+Valores válidos:
+1 - CLT - Consolidação das Leis de Trabalho e legislações trabalhistas específicas
+2 - Estatutário/legislações específicas (servidor temporário, militar, agente político, etc.)
+
+Nome: tpRegPrev
+Pai: infoTrabCedido
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Tipo de regime previdenciário (ou Sistema de Proteção Social dos Militares das Forças Armadas).
+Valores válidos:
+1 - Regime Geral de Previdência Social - RGPS
+2 - Regime Próprio de Previdência Social - RPPS
+3 - Regime de Previdência Social no exterior
+4 - Sistema de Proteção Social dos Militares das Forças Armadas - SPSMFA
+Validação: Se {infoTrabCedido/categOrig}(./categOrig) for relativa a "Empregado", não pode ser preenchido com [2, 4]. Se {codCateg}(2300_infoTSVInicio_codCateg) = [305], deve ser preenchido com [2].
+
+Nome: infoMandElet
+Pai: infoComplementares
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações relativas a servidor público exercente de mandato eletivo.
+
+Nome: categOrig
+Pai: infoMandElet
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 3
+Dec.: -
+Descrição: Preencher com o código correspondente à categoria de origem do servidor.
+Validação: Deve ser um código válido e existente na Tabela 01, diferente de [304].
+
+Nome: cnpjOrig
+Pai: infoMandElet
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 14
+Dec.: -
+Descrição: Informar o CNPJ do órgão público de origem.
+Regras de validação:
+REGRA_VALIDA_CNPJ
+
+Nome: matricOrig
+Pai: infoMandElet
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-30
+Dec.: -
+Descrição: Preencher com a matrícula do servidor no órgão público de origem.
+
+Nome: dtExercOrig
+Pai: infoMandElet
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Preencher com a data de exercício do servidor no órgão público de origem.
+Validação: Deve ser uma data anterior a {dtInicio}(2300_infoTSVInicio_dtInicio) e igual ou posterior a 01/01/1890.
+
+Nome: indRemunCargo
+Pai: infoMandElet
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Indicar se o servidor optou pela remuneração do cargo efetivo.
+Valores válidos:
+S - Sim
+N - Não
+Validação: Informação obrigatória e exclusiva se {CBOCargo}(../cargoFuncao_CBOCargo) = [111120, 111250, 111255]).
+
+Nome: tpRegTrab
+Pai: infoMandElet
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Tipo de regime trabalhista.
+Valores válidos:
+1 - CLT - Consolidação das Leis de Trabalho e legislações trabalhistas específicas
+2 - Estatutário/legislações específicas (servidor temporário, militar, agente político, etc.)
+
+Nome: tpRegPrev
+Pai: infoMandElet
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Tipo de regime previdenciário.
+Valores válidos:
+1 - Regime Geral de Previdência Social - RGPS
+2 - Regime Próprio de Previdência Social - RPPS
+3 - Regime de Previdência Social no exterior
+
+Nome: infoEstagiario
+Pai: infoComplementares
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações relativas ao estagiário ou ao beneficiário do Programa Nacional de Prestação de Serviço Civil Voluntário.
+
+Nome: natEstagio
+Pai: infoEstagiario
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Natureza do estágio ou da prestação de serviço civil voluntário.
+Valores válidos:
+O - Obrigatório
+N - Não obrigatório
+Validação: Se o código de categoria for igual a [906], deve ser preenchido com [N].
+
+Nome: nivEstagio
+Pai: infoEstagiario
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Informar o nível do estágio ou da prestação de serviço civil voluntário.
+Valores válidos:
+1 - Fundamental
+2 - Médio
+3 - Formação profissional
+4 - Superior
+8 - Especial
+9 - Mãe social (Lei 7.644/1987)
+Validação: Preenchimento obrigatório se o código de categoria for igual a [901]. Se o código de categoria for igual a [906], não pode ser informado [9].
+
+Nome: areaAtuacao
+Pai: infoEstagiario
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-100
+Dec.: -
+Descrição: Área de atuação do estagiário ou, no caso de prestação de serviço civil voluntário, jornada semanal do desempenho de atividades em formato decimal.
+
+Nome: nrApol
+Pai: infoEstagiario
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-30
+Dec.: -
+Descrição: Número da apólice de seguro.
+
+Nome: dtPrevTerm
+Pai: infoEstagiario
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Data prevista para o término do estágio ou da prestação de serviço civil voluntário.
+Validação: Deve ser uma data posterior à data de início do estágio ou da prestação de serviço civil voluntário.
+
+Nome: instEnsino
+Pai: infoEstagiario
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Instituição de ensino ou entidade de formação/qualificação.
+
+Nome: cnpjInstEnsino
+Pai: instEnsino
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 14
+Dec.: -
+Descrição: Preencher com o CNPJ da instituição de ensino, no caso de estágio, ou da entidade de formação/qualificação, no caso de prestação de serviço civil voluntário. Deve ser preenchido apenas se a instituição/entidade for brasileira.
+Validação: Se informado, deve ser um CNPJ válido, com 14 (catorze) algarismos.
+
+Nome: nmRazao
+Pai: instEnsino
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-100
+Dec.: -
+Descrição: Informar a razão social.
+Validação: Preenchimento obrigatório e exclusivo se o campo {cnpjInstEnsino}(./cnpjInstEnsino) não estiver preenchido.
+
+Nome: dscLograd
+Pai: instEnsino
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-100
+Dec.: -
+Descrição: Descrição do logradouro.
+Validação: Preenchimento obrigatório e exclusivo se o campo {cnpjInstEnsino}(./cnpjInstEnsino) não estiver preenchido.
+
+Nome: nrLograd
+Pai: instEnsino
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-10
+Dec.: -
+Descrição: Número do logradouro.
+Se não houver número a ser informado, preencher com "S/N".
+Validação: Preenchimento obrigatório e exclusivo se o campo {cnpjInstEnsino}(./cnpjInstEnsino) não estiver preenchido.
+
+Nome: bairro
+Pai: instEnsino
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-90
+Dec.: -
+Descrição: Nome do bairro/distrito.
+Validação: Preenchimento obrigatório e exclusivo se o campo {cnpjInstEnsino}(./cnpjInstEnsino) não estiver preenchido.
+
+Nome: cep
+Pai: instEnsino
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 8
+Dec.: -
+Descrição: Código de Endereçamento Postal - CEP.
+Validação: Não informar se o campo {cnpjInstEnsino}(./cnpjInstEnsino) estiver preenchido. Se informado, deve ser preenchido apenas com números, com 8 (oito) posições.
+
+Nome: codMunic
+Pai: instEnsino
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 7
+Dec.: -
+Descrição: Preencher com o código do município, conforme tabela do IBGE.
+Validação: Não informar se o campo {cnpjInstEnsino}(./cnpjInstEnsino) estiver preenchido. Se informado, deve ser um código válido e existente na tabela do IBGE.
+
+Nome: uf
+Pai: instEnsino
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 2
+Dec.: -
+Descrição: Preencher com a sigla da Unidade da Federação - UF.
+Valores válidos:
+ AC, AL, AP, AM, BA, CE, DF, ES, GO, MA, MT, MS, MG, PA, PB, PR, PE, PI, RJ, RN, RS, RO, RR, SC, SP, SE, TO
+Validação: Não informar se o campo {cnpjInstEnsino}(./cnpjInstEnsino) estiver preenchido.
+
+Nome: ageIntegracao
+Pai: infoEstagiario
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Agente de integração.
+
+Nome: cnpjAgntInteg
+Pai: ageIntegracao
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 14
+Dec.: -
+Descrição: CNPJ do agente de integração.
+Validação: Deve ser um CNPJ válido, com 14 (catorze) algarismos.
+
+Nome: supervisorEstagio
+Pai: infoEstagiario
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Supervisor do estágio.
+
+Nome: cpfSupervisor
+Pai: supervisorEstagio
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11
+Dec.: -
+Descrição: CPF do responsável pela supervisão do estagiário.
+Validação: Deve ser um CPF válido.
+
+Nome: localTrabGeral
+Pai: infoComplementares
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Estabelecimento (CNPJ, CNO, CAEPF) onde o trabalhador exercerá suas atividades. Caso o trabalhador exerça suas atividades em instalações de terceiros, este campo deve ser preenchido com o estabelecimento do próprio declarante ao qual o trabalhador esteja vinculado.
+
+Nome: tpInsc
+Pai: localTrabGeral
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+3 - CAEPF
+4 - CNO
+
+Nome: nrInsc
+Pai: localTrabGeral
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 12 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {localTrabGeral/tpInsc}(./tpInsc).
+Validação: Deve ser um número de inscrição válido e existente na Tabela de Estabelecimentos (S-1005), bem como compatível com {localTrabGeral/tpInsc}(./tpInsc).
+
+Nome: descComp
+Pai: localTrabGeral
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-80
+Dec.: -
+Descrição: Descrição complementar do local de trabalho.
+
+Nome: mudancaCPF
+Pai: infoTSVInicio
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações de mudança de CPF do trabalhador.
+
+Nome: cpfAnt
+Pai: mudancaCPF
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11
+Dec.: -
+Descrição: Preencher com o número do CPF antigo do trabalhador.
+
+Nome: matricAnt
+Pai: mudancaCPF
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-30
+Dec.: -
+Descrição: Preencher com a matrícula anterior do trabalhador.
+
+Nome: dtAltCPF
+Pai: mudancaCPF
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Data de alteração do CPF.
+
+Nome: observacao
+Pai: mudancaCPF
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-255
+Dec.: -
+Descrição: Observação.
+
+Nome: afastamento
+Pai: infoTSVInicio
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações de afastamento do TSVE.
+Preenchimento exclusivo em caso de trabalhador que permaneça afastado na data de início da obrigatoriedade dos eventos não periódicos para o empregador no eSocial ou na data de alteração do CPF.
+
+Nome: dtIniAfast
+Pai: afastamento
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Data de início do afastamento.
+Validação: Devem ser observadas as seguintes regras:
+a) Deve ser igual ou posterior à data de início do TSVE;
+b) Se {cadIni}(2300_infoTSVInicio_cadIni) = [S], deve ser anterior à data de início da obrigatoriedade dos eventos não periódicos para o empregador;
+c) Se {cadIni}(2300_infoTSVInicio_cadIni) = [N], deve ser anterior à data de alteração do CPF do trabalhador ({dtAltCPF}(2300_infoTSVInicio_mudancaCPF_dtAltCPF)).
+
+Nome: codMotAfast
+Pai: afastamento
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 2
+Dec.: -
+Descrição: Preencher com o código do motivo de afastamento temporário.
+Validação: Deve ser um código válido e existente na Tabela 18, bem como compatível com o código de categoria do trabalhador, conforme Tabela 18.
+
+Nome: termino
+Pai: infoTSVInicio
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informação do término do TSVE.
+Grupo preenchido exclusivamente caso seja necessário enviar cadastramento inicial referente a trabalhador com data de término anterior ao início dos eventos não periódicos para o empregador no eSocial (por exemplo, envio para pagamento de retiradas em meses posteriores à data de término e sob vigência dos eventos periódicos para o empregador no eSocial).
+
+Nome: dtTerm
+Pai: termino
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Preencher com a data do término.
+Validação: Devem ser observadas as seguintes regras:
+a) Deve ser igual ou posterior à data de início do TSVE;
+b) Deve ser anterior à data de início da obrigatoriedade dos eventos não periódicos para o empregador.
+
