@@ -92,6 +92,15 @@ Chave: nrProc
 Condição: O (se {codIncFGTS}(1010_infoRubrica_inclusao_dadosRubrica_codIncFGTS) = [9X])
 N (nos demais casos)
 
+Nível: 6
+Nome: ideProcessoPisPasep
+Pai: dadosRubrica
+Descrição: Identificação de processo - Incidência para o PIS/PASEP
+Ocorrência: 0-99
+Chave: nrProc
+Condição: O (se {}(1010_infoRubrica_inclusao_dadosRubrica_codIncPisPasep) = [9X])
+N (nos demais casos)
+
 Nível: 4
 Nome: alteracao
 Pai: infoRubrica
@@ -141,6 +150,15 @@ Descrição: Identificação de processo - Incidência de FGTS
 Ocorrência: 0-99
 Chave: nrProc
 Condição: O (se {codIncFGTS}(1010_infoRubrica_inclusao_dadosRubrica_codIncFGTS) = [9X])
+N (nos demais casos)
+
+Nível: 6
+Nome: ideProcessoPisPasep
+Pai: dadosRubrica
+Descrição: Identificação de processo - Incidência para o PIS/PASEP
+Ocorrência: 0-99
+Chave: nrProc
+Condição: O (se {}(1010_infoRubrica_inclusao_dadosRubrica_codIncPisPasep) = [9X])
 N (nos demais casos)
 
 Nível: 5
@@ -483,6 +501,22 @@ Valores válidos:
 91 - Suspensão de incidência em decorrência de decisão judicial
 92 - Suspensão de incidência em decorrência de decisão judicial - 13º salário
 
+Nome: codIncPisPasep
+Pai: dadosRubrica
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 2
+Dec.: -
+Descrição: Código de incidência da rubrica para o PIS/PASEP sobre a folha de salários a ser utilizado quando {}(1000_infoEmpregador_inclusao_infoCadastro_indTribFolhaPisPasep) = [S] em S-1000.
+Valores válidos:
+00 - Não é base de cálculo do PIS/PASEP
+11 - Base de cálculo do PIS/PASEP mensal
+12 - Base de cálculo do PIS/PASEP 13° salário
+91 - Incidência suspensa em decorrência de decisão judicial - PIS/PASEP mensal
+92 - Incidência suspensa em decorrência de decisão judicial - PIS/PASEP 13º salário
+Validação: Para utilização de código [91, 92], é necessária a existência de grupo com informações relativas ao processo.
+
 Nome: tetoRemun
 Pai: dadosRubrica
 Elem.: E
@@ -598,6 +632,25 @@ Descrição: Caso a empresa possua processo judicial com decisão/sentença favo
 
 Nome: nrProc
 Pai: ideProcessoFGTS
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 20
+Dec.: -
+Descrição: Informar um número de processo judicial cadastrado através do evento S-1070, cujo {indMatProc}(1070_infoProcesso_inclusao_dadosProc_indMatProc) seja igual a [1, 7].
+Validação: Deve ser um número de processo judicial válido e existente na Tabela de Processos (S-1070), com {indMatProc}(1070_infoProcesso_inclusao_dadosProc_indMatProc) = [1, 7].
+
+Nome: ideProcessoPisPasep
+Pai: dadosRubrica
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição: Caso a empresa possua processo judicial com decisão/sentença favorável, determinando a não incidência de contribuição para o PIS/PASEP relativo à rubrica identificada no evento, as informações deverão ser incluídas neste grupo, e o detalhamento do processo deverá ser efetuado através de evento específico na Tabela de Processos (S-1070).
+
+Nome: nrProc
+Pai: ideProcessoPisPasep
 Elem.: E
 Tipo: C
 Ocorrência: 1
@@ -796,6 +849,22 @@ Valores válidos:
 91 - Suspensão de incidência em decorrência de decisão judicial
 92 - Suspensão de incidência em decorrência de decisão judicial - 13º salário
 
+Nome: codIncPisPasep
+Pai: dadosRubrica
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 2
+Dec.: -
+Descrição: Código de incidência da rubrica para o PIS/PASEP sobre a folha de salários a ser utilizado quando {}(1000_infoEmpregador_inclusao_infoCadastro_indTribFolhaPisPasep) = [S] em S-1000.
+Valores válidos:
+00 - Não é base de cálculo do PIS/PASEP
+11 - Base de cálculo do PIS/PASEP mensal
+12 - Base de cálculo do PIS/PASEP 13° salário
+91 - Incidência suspensa em decorrência de decisão judicial - PIS/PASEP mensal
+92 - Incidência suspensa em decorrência de decisão judicial - PIS/PASEP 13º salário
+Validação: Para utilização de código [91, 92], é necessária a existência de grupo com informações relativas ao processo.
+
 Nome: tetoRemun
 Pai: dadosRubrica
 Elem.: E
@@ -911,6 +980,25 @@ Descrição: Caso a empresa possua processo judicial com decisão/sentença favo
 
 Nome: nrProc
 Pai: ideProcessoFGTS
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 20
+Dec.: -
+Descrição: Informar um número de processo judicial cadastrado através do evento S-1070, cujo {indMatProc}(1070_infoProcesso_inclusao_dadosProc_indMatProc) seja igual a [1, 7].
+Validação: Deve ser um número de processo judicial válido e existente na Tabela de Processos (S-1070), com {indMatProc}(1070_infoProcesso_inclusao_dadosProc_indMatProc) = [1, 7].
+
+Nome: ideProcessoPisPasep
+Pai: dadosRubrica
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição: Caso a empresa possua processo judicial com decisão/sentença favorável, determinando a não incidência de contribuição para o PIS/PASEP relativo à rubrica identificada no evento, as informações deverão ser incluídas neste grupo, e o detalhamento do processo deverá ser efetuado através de evento específico na Tabela de Processos (S-1070).
+
+Nome: nrProc
+Pai: ideProcessoPisPasep
 Elem.: E
 Tipo: C
 Ocorrência: 1
