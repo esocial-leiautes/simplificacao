@@ -9683,9 +9683,20 @@ N (nos demais casos)</td>
 <td><a href="#r_1210_ideBenef">ideBenef</a></td>
 <td>4</td>
 <td>Informações relacionadas à retenção na fonte, aos rendimentos tributáveis e não tributáveis, deduções e/ou isenções, etc., de acordo com a legislação aplicada ao imposto de renda</td>
+<td>0-13</td>
+<td><a href="#1210_ideBenef_infoIRComplem_perAnt_perRefAjuste">perAnt/perRefAjuste</a></td>
+<td>O (conforme as condições dos grupos <a href="#1210_ideBenef_infoIRComplem_infoIRCR_penAlim">penAlim</a>, <a href="#1210_ideBenef_infoIRComplem_infoIRCR_previdCompl">previdCompl</a>, <a href="#1210_ideBenef_infoIRComplem_planSaude">planSaude</a> e <a href="#1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores">infoValores</a>} e se <a href="#1210_ideEvento_perApur">perApur</a> posterior ou igual 01/2025 (início da substituição da DIRF));<br />
+F (nos demais casos)</td>
+</tr>
+<tr>
+<td id="r_1210_ideBenef_infoIRComplem_perAnt"><a href="#1210_ideBenef_infoIRComplem_perAnt">perAnt</a></td>
+<td><a href="#r_1210_ideBenef_infoIRComplem">infoIRComplem</a></td>
+<td>5</td>
+<td>Informações complementares de períodos anteriores</td>
 <td>0-1</td>
 <td>-</td>
-<td>OC</td>
+<td>F (se o mês de <a href="#1210_ideEvento_perApur">perApur</a> = [01]);<br />
+N (nos demais casos)</td>
 </tr>
 <tr>
 <td id="r_1210_ideBenef_infoIRComplem_infoDep"><a href="#1210_ideBenef_infoIRComplem_infoDep">infoDep</a></td>
@@ -9777,7 +9788,7 @@ N (nos demais casos)</td>
 <td>5</td>
 <td>Plano de saúde coletivo</td>
 <td>0-99</td>
-<td><a href="#1210_ideBenef_infoIRComplem_planSaude_cnpjOper">cnpjOper</a></td>
+<td><a href="#1210_ideBenef_infoIRComplem_planSaude_cnpjOper">cnpjOper</a>, <a href="#1210_ideBenef_infoIRComplem_planSaude_regANS">regANS</a></td>
 <td>OC</td>
 </tr>
 <tr>
@@ -9795,7 +9806,7 @@ N (nos demais casos)</td>
 <td>5</td>
 <td>Reembolsos de despesas médicas</td>
 <td>0-99</td>
-<td>-</td>
+<td><a href="#1210_ideBenef_infoIRComplem_infoReembMed_cnpjOper">cnpjOper</a>, <a href="#1210_ideBenef_infoIRComplem_infoReembMed_regANS">regANS</a></td>
 <td>OC</td>
 </tr>
 <tr>
@@ -10194,7 +10205,7 @@ Somente informar este campo caso o país de residência para fins fiscais seja d
 <td>1-30</td>
 <td>-</td>
 <td>Número de Identificação Fiscal (NIF).<br />
-<strong>Validação:</strong> Preenchimento obrigatório se <a href="#1210_ideBenef_infoPgto_infoPgtoExt_indNIF">indNIF</a> = [1].</td>
+<strong>Validação:</strong> Preenchimento obrigatório e exclusivo se <a href="#1210_ideBenef_infoPgto_infoPgtoExt_indNIF">indNIF</a> = [1].</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoPgto_infoPgtoExt_frmTribut" id="1210_ideBenef_infoPgto_infoPgtoExt_frmTribut">27</td>
@@ -10206,7 +10217,7 @@ Somente informar este campo caso o país de residência para fins fiscais seja d
 <td>2</td>
 <td>-</td>
 <td>Forma de tributação, conforme opções disponíveis na <a href="tabelas.html#30">Tabela 30</a>.<br />
-<strong>Validação:</strong> Deve ser um código válido e existente na <a href="tabelas.html#30">Tabela 30</a>.</td>
+<strong>Validação:</strong> Deve ser um código válido e existente na <a href="tabelas.html#30">Tabela 30</a>. Para os códigos [1X, 30], deve existir informação relativa ao imposto retido na fonte; para os códigos [4X, 50] não é permitida a informação do imposto retido na fonte.</td>
 </tr>
 <tr class="grupo">
 <td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoPgto_infoPgtoExt_endExt" id="1210_ideBenef_infoPgto_infoPgtoExt_endExt">28</td>
@@ -10318,7 +10329,7 @@ Somente informar este campo caso o país de residência para fins fiscais seja d
 <td><a href="#r_1210_ideBenef">ideBenef</a></td>
 <td>G</td>
 <td>-</td>
-<td>0-1</td>
+<td>0-13</td>
 <td>-</td>
 <td>-</td>
 <td>Informações relacionadas à retenção na fonte, aos rendimentos tributáveis e não tributáveis, deduções e/ou isenções, etc., de acordo com a legislação aplicada ao imposto de renda.</td>
@@ -10333,10 +10344,46 @@ Somente informar este campo caso o país de residência para fins fiscais seja d
 <td>-</td>
 <td>-</td>
 <td>Data da moléstia grave atribuída pelo laudo.<br />
-<strong>Validação:</strong> Não pode ser anterior ao ano de 1900.</td>
+<strong>Validação:</strong> Não pode ser anterior ao ano de 1900. Deve ser anterior ou igual a <a href="#1210_ideEvento_perApur">perApur</a>.</td>
 </tr>
 <tr class="grupo">
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoDep" id="1210_ideBenef_infoIRComplem_infoDep">39</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_perAnt" id="1210_ideBenef_infoIRComplem_perAnt">39</td>
+<td><a href="#r_1210_ideBenef_infoIRComplem_perAnt">perAnt</a></td>
+<td><a href="#r_1210_ideBenef_infoIRComplem">infoIRComplem</a></td>
+<td>G</td>
+<td>-</td>
+<td>0-1</td>
+<td>-</td>
+<td>-</td>
+<td> Identificação do evento S-1210 original e <a href="#1210_ideBenef_infoPgto_perRef">perRef</a> cujas informações de <a href="#1210_ideBenef_infoIRComplem">infoIRComplem</a> serão alteradas.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_perAnt_perRefAjuste" id="1210_ideBenef_infoIRComplem_perAnt_perRefAjuste">40</td>
+<td>perRefAjuste</td>
+<td><a href="#r_1210_ideBenef_infoIRComplem_perAnt">perAnt</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>7</td>
+<td>-</td>
+<td>Informar <a href="#1210_ideEvento_perApur">perApur</a> do S-1210 cujo <a href="#1210_ideBenef_infoIRComplem">infoIRComplem</a> será alterado.<br />
+<strong>Validação:</strong> Deve corresponder a um mês do ano anterior  (ano de <a href="#1210_ideEvento_perApur">perApur</a> - 1)</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_perAnt_nrRec1210Orig" id="1210_ideBenef_infoIRComplem_perAnt_nrRec1210Orig">41</td>
+<td>nrRec1210Orig</td>
+<td><a href="#r_1210_ideBenef_infoIRComplem_perAnt">perAnt</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>23</td>
+<td>-</td>
+<td>Número do recibo do S-1210 original cujas informações de <a href="#1210_ideBenef_infoIRComplem">infoIRComplem</a> serão alteradas.<br />
+<strong>Validação:</strong> Deve corresponder ao recibo de um arquivo com informações de rendimentos sujeitos a Imposto de Renda Retido na Fonte - IRRF (S-1210).<br />
+Deve corresponder ao recibo de um evento S-1210 válido, com <a href="#1210_ideEvento_perApur">perApur</a> igual a <a href="#1210_ideBenef_infoIRComplem_perAnt_perRefAjuste">perRefAjuste</a></td>
+</tr>
+<tr class="grupo">
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoDep" id="1210_ideBenef_infoIRComplem_infoDep">42</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoDep">infoDep</a></td>
 <td><a href="#r_1210_ideBenef_infoIRComplem">infoIRComplem</a></td>
 <td>G</td>
@@ -10347,7 +10394,7 @@ Somente informar este campo caso o país de residência para fins fiscais seja d
 <td>Informações de dependentes não cadastrados pelo S-2200/S-2205/S-2300/S-2400/S-2405.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoDep_cpfDep" id="1210_ideBenef_infoIRComplem_infoDep_cpfDep">40</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoDep_cpfDep" id="1210_ideBenef_infoIRComplem_infoDep_cpfDep">43</td>
 <td>cpfDep</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoDep">infoDep</a></td>
 <td>E</td>
@@ -10359,7 +10406,7 @@ Somente informar este campo caso o país de residência para fins fiscais seja d
 <strong>Validação:</strong> Deve ser um CPF válido e diferente do CPF do declarante pessoa física (<a href="#1210_ideEmpregador_nrInsc">ideEmpregador/nrInsc</a>) e do beneficiário (<a href="#1210_ideBenef_cpfBenef">cpfBenef</a>).</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoDep_dtNascto" id="1210_ideBenef_infoIRComplem_infoDep_dtNascto">41</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoDep_dtNascto" id="1210_ideBenef_infoIRComplem_infoDep_dtNascto">44</td>
 <td>dtNascto</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoDep">infoDep</a></td>
 <td>E</td>
@@ -10371,7 +10418,7 @@ Somente informar este campo caso o país de residência para fins fiscais seja d
 <strong>Validação:</strong> Deve ser maior ou igual que 01/01/1890 e menor ou igual à data atual.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoDep_nome" id="1210_ideBenef_infoIRComplem_infoDep_nome">42</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoDep_nome" id="1210_ideBenef_infoIRComplem_infoDep_nome">45</td>
 <td>nome</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoDep">infoDep</a></td>
 <td>E</td>
@@ -10382,7 +10429,7 @@ Somente informar este campo caso o país de residência para fins fiscais seja d
 <td>Nome do dependente.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoDep_depIRRF" id="1210_ideBenef_infoIRComplem_infoDep_depIRRF">43</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoDep_depIRRF" id="1210_ideBenef_infoIRComplem_infoDep_depIRRF">46</td>
 <td>depIRRF</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoDep">infoDep</a></td>
 <td>E</td>
@@ -10395,7 +10442,7 @@ Somente informar este campo caso o país de residência para fins fiscais seja d
 <strong>S</strong> - Sim</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoDep_tpDep" id="1210_ideBenef_infoIRComplem_infoDep_tpDep">44</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoDep_tpDep" id="1210_ideBenef_infoIRComplem_infoDep_tpDep">47</td>
 <td>tpDep</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoDep">infoDep</a></td>
 <td>E</td>
@@ -10408,7 +10455,7 @@ Somente informar este campo caso o país de residência para fins fiscais seja d
 Deve ser um código válido e existente na <a href="tabelas.html#07">Tabela 07</a>.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoDep_descrDep" id="1210_ideBenef_infoIRComplem_infoDep_descrDep">45</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoDep_descrDep" id="1210_ideBenef_infoIRComplem_infoDep_descrDep">48</td>
 <td>descrDep</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoDep">infoDep</a></td>
 <td>E</td>
@@ -10420,7 +10467,7 @@ Deve ser um código válido e existente na <a href="tabelas.html#07">Tabela 07</
 <strong>Validação:</strong> Informação obrigatória e exclusiva se <a href="#1210_ideBenef_infoIRComplem_infoDep_tpDep">tpDep</a> = [99].</td>
 </tr>
 <tr class="grupo">
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR" id="1210_ideBenef_infoIRComplem_infoIRCR">46</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR" id="1210_ideBenef_infoIRComplem_infoIRCR">49</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoIRCR">infoIRCR</a></td>
 <td><a href="#r_1210_ideBenef_infoIRComplem">infoIRComplem</a></td>
 <td>G</td>
@@ -10431,7 +10478,7 @@ Deve ser um código válido e existente na <a href="tabelas.html#07">Tabela 07</
 <td>Informações de Imposto de Renda, por Código de Receita - CR.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_tpCR" id="1210_ideBenef_infoIRComplem_infoIRCR_tpCR">47</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_tpCR" id="1210_ideBenef_infoIRComplem_infoIRCR_tpCR">50</td>
 <td>tpCR</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoIRCR">infoIRCR</a></td>
 <td>E</td>
@@ -10456,7 +10503,7 @@ Deve ser um código válido e existente na <a href="tabelas.html#07">Tabela 07</
 <strong>047301</strong> - IRRF - Residentes no exterior, para fins fiscais</td>
 </tr>
 <tr class="grupo">
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_dedDepen" id="1210_ideBenef_infoIRComplem_infoIRCR_dedDepen">48</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_dedDepen" id="1210_ideBenef_infoIRComplem_infoIRCR_dedDepen">51</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoIRCR_dedDepen">dedDepen</a></td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoIRCR">infoIRCR</a></td>
 <td>G</td>
@@ -10467,7 +10514,7 @@ Deve ser um código válido e existente na <a href="tabelas.html#07">Tabela 07</
 <td>Dedução do rendimento tributável relativa a dependentes.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_dedDepen_tpRend" id="1210_ideBenef_infoIRComplem_infoIRCR_dedDepen_tpRend">49</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_dedDepen_tpRend" id="1210_ideBenef_infoIRComplem_infoIRCR_dedDepen_tpRend">52</td>
 <td>tpRend</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoIRCR_dedDepen">dedDepen</a></td>
 <td>E</td>
@@ -10482,7 +10529,7 @@ Deve ser um código válido e existente na <a href="tabelas.html#07">Tabela 07</
 <strong>13</strong> - Férias</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_dedDepen_cpfDep" id="1210_ideBenef_infoIRComplem_infoIRCR_dedDepen_cpfDep">50</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_dedDepen_cpfDep" id="1210_ideBenef_infoIRComplem_infoIRCR_dedDepen_cpfDep">53</td>
 <td>cpfDep</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoIRCR_dedDepen">dedDepen</a></td>
 <td>E</td>
@@ -10494,7 +10541,7 @@ Deve ser um código válido e existente na <a href="tabelas.html#07">Tabela 07</
 <strong>Validação:</strong> Deve ser um CPF de dependente cadastrado no eSocial (S-2200/S-2205/S-2300/S-2400/S-2405 ou no grupo <a href="#1210_ideBenef_infoIRComplem_infoDep">infoDep</a>).</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_dedDepen_vlrDedDep" id="1210_ideBenef_infoIRComplem_infoIRCR_dedDepen_vlrDedDep">51</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_dedDepen_vlrDedDep" id="1210_ideBenef_infoIRComplem_infoIRCR_dedDepen_vlrDedDep">54</td>
 <td>vlrDedDep</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoIRCR_dedDepen">dedDepen</a></td>
 <td>E</td>
@@ -10508,7 +10555,7 @@ Deve ser maior que 0 (zero).<br />
 Em caso de inconsistência na validação, o arquivo será aceito, porém com alerta ao contribuinte.</td>
 </tr>
 <tr class="grupo">
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_penAlim" id="1210_ideBenef_infoIRComplem_infoIRCR_penAlim">52</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_penAlim" id="1210_ideBenef_infoIRComplem_infoIRCR_penAlim">55</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoIRCR_penAlim">penAlim</a></td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoIRCR">infoIRCR</a></td>
 <td>G</td>
@@ -10519,7 +10566,7 @@ Em caso de inconsistência na validação, o arquivo será aceito, porém com al
 <td>Informação dos beneficiários da pensão alimentícia.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_penAlim_tpRend" id="1210_ideBenef_infoIRComplem_infoIRCR_penAlim_tpRend">53</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_penAlim_tpRend" id="1210_ideBenef_infoIRComplem_infoIRCR_penAlim_tpRend">56</td>
 <td>tpRend</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoIRCR_penAlim">penAlim</a></td>
 <td>E</td>
@@ -10538,7 +10585,7 @@ Em caso de inconsistência na validação, o arquivo será aceito, porém com al
 <strong>Validação:</strong> Se <a href="#1210_ideBenef_infoIRComplem_infoIRCR_tpCR">tpCR</a> = [188901], deve ser igual a [18].</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_penAlim_cpfDep" id="1210_ideBenef_infoIRComplem_infoIRCR_penAlim_cpfDep">54</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_penAlim_cpfDep" id="1210_ideBenef_infoIRComplem_infoIRCR_penAlim_cpfDep">57</td>
 <td>cpfDep</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoIRCR_penAlim">penAlim</a></td>
 <td>E</td>
@@ -10550,7 +10597,7 @@ Em caso de inconsistência na validação, o arquivo será aceito, porém com al
 <strong>Validação:</strong> Deve ser um CPF de dependente cadastrado no eSocial (S-2200/S-2205/S-2300/S-2400/S-2405 ou no grupo <a href="#1210_ideBenef_infoIRComplem_infoDep">infoDep</a>).</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_penAlim_vlrDedPenAlim" id="1210_ideBenef_infoIRComplem_infoIRCR_penAlim_vlrDedPenAlim">55</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_penAlim_vlrDedPenAlim" id="1210_ideBenef_infoIRComplem_infoIRCR_penAlim_vlrDedPenAlim">58</td>
 <td>vlrDedPenAlim</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoIRCR_penAlim">penAlim</a></td>
 <td>E</td>
@@ -10562,7 +10609,7 @@ Em caso de inconsistência na validação, o arquivo será aceito, porém com al
 <strong>Validação:</strong> Deve ser maior que 0 (zero).</td>
 </tr>
 <tr class="grupo">
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_previdCompl" id="1210_ideBenef_infoIRComplem_infoIRCR_previdCompl">56</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_previdCompl" id="1210_ideBenef_infoIRComplem_infoIRCR_previdCompl">59</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoIRCR_previdCompl">previdCompl</a></td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoIRCR">infoIRCR</a></td>
 <td>G</td>
@@ -10573,7 +10620,7 @@ Em caso de inconsistência na validação, o arquivo será aceito, porém com al
 <td>Informações relativas a planos de previdência complementar.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_previdCompl_tpPrev" id="1210_ideBenef_infoIRComplem_infoIRCR_previdCompl_tpPrev">57</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_previdCompl_tpPrev" id="1210_ideBenef_infoIRComplem_infoIRCR_previdCompl_tpPrev">60</td>
 <td>tpPrev</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoIRCR_previdCompl">previdCompl</a></td>
 <td>E</td>
@@ -10588,7 +10635,7 @@ Em caso de inconsistência na validação, o arquivo será aceito, porém com al
 <strong>3</strong> - Funpresp: <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF">codIncIRRF</a> em S-1010 = [63, 64, 65]</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_previdCompl_cnpjEntidPC" id="1210_ideBenef_infoIRComplem_infoIRCR_previdCompl_cnpjEntidPC">58</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_previdCompl_cnpjEntidPC" id="1210_ideBenef_infoIRComplem_infoIRCR_previdCompl_cnpjEntidPC">61</td>
 <td>cnpjEntidPC</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoIRCR_previdCompl">previdCompl</a></td>
 <td>E</td>
@@ -10600,7 +10647,7 @@ Em caso de inconsistência na validação, o arquivo será aceito, porém com al
 <strong>Validação:</strong> Deve ser um CNPJ válido no Cadastro CNPJ e não pode estar com situação cadastral &quot;baixada&quot; (situação = 8) em data anterior ao período de apuração indicado em <a href="#1210_ideEvento_perApur">perApur</a> ou &quot;nula&quot; (situação = 1).</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_previdCompl_vlrDedPC" id="1210_ideBenef_infoIRComplem_infoIRCR_previdCompl_vlrDedPC">59</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_previdCompl_vlrDedPC" id="1210_ideBenef_infoIRComplem_infoIRCR_previdCompl_vlrDedPC">62</td>
 <td>vlrDedPC</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoIRCR_previdCompl">previdCompl</a></td>
 <td>E</td>
@@ -10612,7 +10659,19 @@ Em caso de inconsistência na validação, o arquivo será aceito, porém com al
 <strong>Validação:</strong> Deve ser maior que 0 (zero).</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_previdCompl_vlrPatrocFunp" id="1210_ideBenef_infoIRComplem_infoIRCR_previdCompl_vlrPatrocFunp">60</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_previdCompl_vlrDedPC13" id="1210_ideBenef_infoIRComplem_infoIRCR_previdCompl_vlrDedPC13">63</td>
+<td>vlrDedPC13</td>
+<td><a href="#r_1210_ideBenef_infoIRComplem_infoIRCR_previdCompl">previdCompl</a></td>
+<td>E</td>
+<td>N</td>
+<td>0-1</td>
+<td>1-14</td>
+<td>2</td>
+<td>Valor da dedução do 13º Salário relativa a previdência complementar.<br />
+<strong>Validação:</strong> Deve ser maior que 0 (zero).</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_previdCompl_vlrPatrocFunp" id="1210_ideBenef_infoIRComplem_infoIRCR_previdCompl_vlrPatrocFunp">64</td>
 <td>vlrPatrocFunp</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoIRCR_previdCompl">previdCompl</a></td>
 <td>E</td>
@@ -10624,8 +10683,21 @@ Em caso de inconsistência na validação, o arquivo será aceito, porém com al
 <strong>Validação:</strong> Informação permitida apenas se <a href="#1210_ideBenef_infoIRComplem_infoIRCR_previdCompl_tpPrev">tpPrev</a> = [3].<br />
 Deve ser maior que 0 (zero).</td>
 </tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_previdCompl_vlrPatrocFunp13" id="1210_ideBenef_infoIRComplem_infoIRCR_previdCompl_vlrPatrocFunp13">65</td>
+<td>vlrPatrocFunp13</td>
+<td><a href="#r_1210_ideBenef_infoIRComplem_infoIRCR_previdCompl">previdCompl</a></td>
+<td>E</td>
+<td>N</td>
+<td>0-1</td>
+<td>1-14</td>
+<td>2</td>
+<td>Valor da contribuição do 13º Salário do ente público patrocinador da Fundação de Previdência Complementar do Servidor Público (Funpresp).<br />
+<strong>Validação:</strong> Informação permitida apenas se <a href="#1210_ideBenef_infoIRComplem_infoIRCR_previdCompl_tpPrev">tpPrev</a> = [3].<br />
+Deve ser maior que 0 (zero).</td>
+</tr>
 <tr class="grupo">
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet" id="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet">61</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet" id="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet">66</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet">infoProcRet</a></td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoIRCR">infoIRCR</a></td>
 <td>G</td>
@@ -10636,7 +10708,7 @@ Deve ser maior que 0 (zero).</td>
 <td> Informações de processos relacionados a não retenção de tributos ou a depósitos judiciais.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_tpProcRet" id="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_tpProcRet">62</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_tpProcRet" id="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_tpProcRet">67</td>
 <td>tpProcRet</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet">infoProcRet</a></td>
 <td>E</td>
@@ -10650,7 +10722,7 @@ Deve ser maior que 0 (zero).</td>
 <strong>2</strong> - Judicial</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_nrProcRet" id="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_nrProcRet">63</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_nrProcRet" id="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_nrProcRet">68</td>
 <td>nrProcRet</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet">infoProcRet</a></td>
 <td>E</td>
@@ -10662,7 +10734,7 @@ Deve ser maior que 0 (zero).</td>
 <strong>Validação:</strong> Deve ser um número de processo administrativo ou judicial válido e existente na Tabela de Processos (S-1070).</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_codSusp" id="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_codSusp">64</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_codSusp" id="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_codSusp">69</td>
 <td>codSusp</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet">infoProcRet</a></td>
 <td>E</td>
@@ -10675,7 +10747,7 @@ Deve ser maior que 0 (zero).</td>
 Se informado, deve constar na Tabela de Processos (S-1070), campo <a href="#1070_infoProcesso_inclusao_dadosProc_infoSusp_codSusp">codSusp</a>, vinculado ao número do processo informado em <a href="#1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_nrProcRet">nrProcRet</a>.</td>
 </tr>
 <tr class="grupo">
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores" id="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores">65</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores" id="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores">70</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores">infoValores</a></td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet">infoProcRet</a></td>
 <td>G</td>
@@ -10686,7 +10758,7 @@ Se informado, deve constar na Tabela de Processos (S-1070), campo <a href="#1070
 <td>Informações de valores relacionados a não retenção de tributos ou a depósitos judiciais.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_indApuracao" id="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_indApuracao">66</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_indApuracao" id="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_indApuracao">71</td>
 <td>indApuracao</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores">infoValores</a></td>
 <td>E</td>
@@ -10700,7 +10772,7 @@ Se informado, deve constar na Tabela de Processos (S-1070), campo <a href="#1070
 <strong>2</strong> - Anual (13° salário)</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_vlrNRetido" id="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_vlrNRetido">67</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_vlrNRetido" id="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_vlrNRetido">72</td>
 <td>vlrNRetido</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores">infoValores</a></td>
 <td>E</td>
@@ -10712,7 +10784,7 @@ Se informado, deve constar na Tabela de Processos (S-1070), campo <a href="#1070
 <strong>Validação:</strong> Deve ser maior que 0 (zero).</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_vlrDepJud" id="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_vlrDepJud">68</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_vlrDepJud" id="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_vlrDepJud">73</td>
 <td>vlrDepJud</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores">infoValores</a></td>
 <td>E</td>
@@ -10725,7 +10797,7 @@ Se informado, deve constar na Tabela de Processos (S-1070), campo <a href="#1070
 Se informado, deve ser maior que 0 (zero).</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_vlrCmpAnoCal" id="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_vlrCmpAnoCal">69</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_vlrCmpAnoCal" id="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_vlrCmpAnoCal">74</td>
 <td>vlrCmpAnoCal</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores">infoValores</a></td>
 <td>E</td>
@@ -10738,7 +10810,7 @@ Se informado, deve ser maior que 0 (zero).</td>
 Se informado, deve ser maior que 0 (zero).</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_vlrCmpAnoAnt" id="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_vlrCmpAnoAnt">70</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_vlrCmpAnoAnt" id="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_vlrCmpAnoAnt">75</td>
 <td>vlrCmpAnoAnt</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores">infoValores</a></td>
 <td>E</td>
@@ -10751,7 +10823,7 @@ Se informado, deve ser maior que 0 (zero).</td>
 Se informado, deve ser maior que 0 (zero).</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_vlrRendSusp" id="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_vlrRendSusp">71</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_vlrRendSusp" id="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_vlrRendSusp">76</td>
 <td>vlrRendSusp</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores">infoValores</a></td>
 <td>E</td>
@@ -10763,7 +10835,7 @@ Se informado, deve ser maior que 0 (zero).</td>
 <strong>Validação:</strong> Se informado, deve ser maior que 0 (zero).</td>
 </tr>
 <tr class="grupo">
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_dedSusp" id="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_dedSusp">72</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_dedSusp" id="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_dedSusp">77</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_dedSusp">dedSusp</a></td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores">infoValores</a></td>
 <td>G</td>
@@ -10774,7 +10846,7 @@ Se informado, deve ser maior que 0 (zero).</td>
 <td> Detalhamento das deduções com exigibilidade suspensa.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_dedSusp_indTpDeducao" id="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_dedSusp_indTpDeducao">73</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_dedSusp_indTpDeducao" id="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_dedSusp_indTpDeducao">78</td>
 <td>indTpDeducao</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_dedSusp">dedSusp</a></td>
 <td>E</td>
@@ -10792,7 +10864,7 @@ Se informado, deve ser maior que 0 (zero).</td>
 <strong>7</strong> - Dependentes</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_dedSusp_vlrDedSusp" id="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_dedSusp_vlrDedSusp">74</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_dedSusp_vlrDedSusp" id="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_dedSusp_vlrDedSusp">79</td>
 <td>vlrDedSusp</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_dedSusp">dedSusp</a></td>
 <td>E</td>
@@ -10806,7 +10878,7 @@ Deve ser maior que 0 (zero).<br />
 O não preenchimento do grupo <a href="#1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_dedSusp_benefPen">benefPen</a> indica que o contribuinte declarante não possui as informações detalhadas por dependente/alimentando.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_dedSusp_cnpjEntidPC" id="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_dedSusp_cnpjEntidPC">75</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_dedSusp_cnpjEntidPC" id="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_dedSusp_cnpjEntidPC">80</td>
 <td>cnpjEntidPC</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_dedSusp">dedSusp</a></td>
 <td>E</td>
@@ -10819,7 +10891,7 @@ O não preenchimento do grupo <a href="#1210_ideBenef_infoIRComplem_infoIRCR_inf
 Deve ser um CNPJ válido no Cadastro CNPJ e não pode estar com situação cadastral &quot;baixada&quot; (situação = 8) em data anterior ao período de apuração indicado em <a href="#1210_ideEvento_perApur">perApur</a> ou &quot;nula&quot; (situação = 1).</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_dedSusp_vlrPatrocFunp" id="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_dedSusp_vlrPatrocFunp">76</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_dedSusp_vlrPatrocFunp" id="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_dedSusp_vlrPatrocFunp">81</td>
 <td>vlrPatrocFunp</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_dedSusp">dedSusp</a></td>
 <td>E</td>
@@ -10832,7 +10904,7 @@ Deve ser um CNPJ válido no Cadastro CNPJ e não pode estar com situação cadas
 Deve ser maior que 0 (zero).</td>
 </tr>
 <tr class="grupo">
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_dedSusp_benefPen" id="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_dedSusp_benefPen">77</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_dedSusp_benefPen" id="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_dedSusp_benefPen">82</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_dedSusp_benefPen">benefPen</a></td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_dedSusp">dedSusp</a></td>
 <td>G</td>
@@ -10843,7 +10915,7 @@ Deve ser maior que 0 (zero).</td>
 <td> Informação das deduções suspensas por dependentes e beneficiários da pensão alimentícia.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_dedSusp_benefPen_cpfDep" id="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_dedSusp_benefPen_cpfDep">78</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_dedSusp_benefPen_cpfDep" id="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_dedSusp_benefPen_cpfDep">83</td>
 <td>cpfDep</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_dedSusp_benefPen">benefPen</a></td>
 <td>E</td>
@@ -10855,7 +10927,7 @@ Deve ser maior que 0 (zero).</td>
 <strong>Validação:</strong> Deve ser um CPF de dependente cadastrado no eSocial (S-2200/S-2205/S-2300/S-2400/S-2405 ou no grupo <a href="#1210_ideBenef_infoIRComplem_infoDep">infoDep</a>).</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_dedSusp_benefPen_vlrDepenSusp" id="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_dedSusp_benefPen_vlrDepenSusp">79</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_dedSusp_benefPen_vlrDepenSusp" id="1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_dedSusp_benefPen_vlrDepenSusp">84</td>
 <td>vlrDepenSusp</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores_dedSusp_benefPen">benefPen</a></td>
 <td>E</td>
@@ -10867,7 +10939,7 @@ Deve ser maior que 0 (zero).</td>
 <strong>Validação:</strong> Deve ser maior que 0 (zero).</td>
 </tr>
 <tr class="grupo">
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_planSaude" id="1210_ideBenef_infoIRComplem_planSaude">80</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_planSaude" id="1210_ideBenef_infoIRComplem_planSaude">85</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_planSaude">planSaude</a></td>
 <td><a href="#r_1210_ideBenef_infoIRComplem">infoIRComplem</a></td>
 <td>G</td>
@@ -10879,7 +10951,7 @@ Deve ser maior que 0 (zero).</td>
 Identificação da(s) operadora(s) de plano privado coletivo empresarial de assistência à saúde.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_planSaude_cnpjOper" id="1210_ideBenef_infoIRComplem_planSaude_cnpjOper">81</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_planSaude_cnpjOper" id="1210_ideBenef_infoIRComplem_planSaude_cnpjOper">86</td>
 <td>cnpjOper</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_planSaude">planSaude</a></td>
 <td>E</td>
@@ -10888,10 +10960,11 @@ Identificação da(s) operadora(s) de plano privado coletivo empresarial de assi
 <td>14</td>
 <td>-</td>
 <td>Informar o número do CNPJ da operadora de plano privado coletivo empresarial de assistência à saúde.<br />
-<strong>Validação:</strong> Deve ser um CNPJ válido no Cadastro CNPJ e não pode estar com situação cadastral &quot;baixada&quot; (situação = 8) em data anterior ao período de apuração indicado em <a href="#1210_ideEvento_perApur">perApur</a> ou &quot;nula&quot; (situação = 1).</td>
+<strong>Validação:</strong> Deve ser um CNPJ válido no Cadastro CNPJ e não pode estar com situação cadastral &quot;baixada&quot; (situação = 8) em data anterior ao período de apuração indicado em <a href="#1210_ideEvento_perApur">perApur</a> ou &quot;nula&quot; (situação = 1).<br />
+Não deve ser igual ao número de inscrição das pessoas jurídicas informadas nos grupos <a href="#1210_ideBenef_infoIRComplem_infoIRCR_previdCompl">previdCompl</a> e {ideAdv} do evento remuneratório.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_planSaude_regANS" id="1210_ideBenef_infoIRComplem_planSaude_regANS">82</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_planSaude_regANS" id="1210_ideBenef_infoIRComplem_planSaude_regANS">87</td>
 <td>regANS</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_planSaude">planSaude</a></td>
 <td>E</td>
@@ -10903,7 +10976,7 @@ Identificação da(s) operadora(s) de plano privado coletivo empresarial de assi
 <strong>Validação:</strong> Deve ser um número de registro válido.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_planSaude_vlrSaudeTit" id="1210_ideBenef_infoIRComplem_planSaude_vlrSaudeTit">83</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_planSaude_vlrSaudeTit" id="1210_ideBenef_infoIRComplem_planSaude_vlrSaudeTit">88</td>
 <td>vlrSaudeTit</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_planSaude">planSaude</a></td>
 <td>E</td>
@@ -10916,7 +10989,7 @@ Identificação da(s) operadora(s) de plano privado coletivo empresarial de assi
 Se for igual a 0 (zero), deve haver informações em registro(s) filho(s), relativas a dependentes (<a href="#1210_ideBenef_infoIRComplem_planSaude_infoDepSau">infoDepSau</a>).</td>
 </tr>
 <tr class="grupo">
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_planSaude_infoDepSau" id="1210_ideBenef_infoIRComplem_planSaude_infoDepSau">84</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_planSaude_infoDepSau" id="1210_ideBenef_infoIRComplem_planSaude_infoDepSau">89</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_planSaude_infoDepSau">infoDepSau</a></td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_planSaude">planSaude</a></td>
 <td>G</td>
@@ -10927,7 +11000,7 @@ Se for igual a 0 (zero), deve haver informações em registro(s) filho(s), relat
 <td>Informações de dependente de plano de saúde coletivo empresarial.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_planSaude_infoDepSau_cpfDep" id="1210_ideBenef_infoIRComplem_planSaude_infoDepSau_cpfDep">85</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_planSaude_infoDepSau_cpfDep" id="1210_ideBenef_infoIRComplem_planSaude_infoDepSau_cpfDep">90</td>
 <td>cpfDep</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_planSaude_infoDepSau">infoDepSau</a></td>
 <td>E</td>
@@ -10939,7 +11012,7 @@ Se for igual a 0 (zero), deve haver informações em registro(s) filho(s), relat
 <strong>Validação:</strong> Deve ser um CPF de dependente cadastrado no eSocial (S-2200/S-2205/S-2300/S-2400/S-2405 ou no grupo <a href="#1210_ideBenef_infoIRComplem_infoDep">infoDep</a>).</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_planSaude_infoDepSau_vlrSaudeDep" id="1210_ideBenef_infoIRComplem_planSaude_infoDepSau_vlrSaudeDep">86</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_planSaude_infoDepSau_vlrSaudeDep" id="1210_ideBenef_infoIRComplem_planSaude_infoDepSau_vlrSaudeDep">91</td>
 <td>vlrSaudeDep</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_planSaude_infoDepSau">infoDepSau</a></td>
 <td>E</td>
@@ -10949,10 +11022,10 @@ Se for igual a 0 (zero), deve haver informações em registro(s) filho(s), relat
 <td>2</td>
 <td>Valor relativo a dedução do rendimento tributável correspondente a pagamento a plano de saúde do dependente.<br />
 <strong>Validação:</strong> Deve ser maior ou igual a 0 (zero).<br />
-Se for igual a 0 (zero), <a href="#1210_ideBenef_infoIRComplem_planSaude_vlrSaudeTit">vlrSaudeTit</a> deve ser maior que 0 (zero).</td>
+Se for igual a 0 (zero), deve haver informações de reembolso do dependente no grupo <a href="#1210_ideBenef_infoIRComplem_infoReembMed_infoReembDep">infoReembDep</a>.</td>
 </tr>
 <tr class="grupo">
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoReembMed" id="1210_ideBenef_infoIRComplem_infoReembMed">87</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoReembMed" id="1210_ideBenef_infoIRComplem_infoReembMed">92</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoReembMed">infoReembMed</a></td>
 <td><a href="#r_1210_ideBenef_infoIRComplem">infoIRComplem</a></td>
 <td>G</td>
@@ -10963,7 +11036,7 @@ Se for igual a 0 (zero), <a href="#1210_ideBenef_infoIRComplem_planSaude_vlrSaud
 <td> Informações relativas a reembolsos efetuados no período de apuração (<a href="#1210_ideEvento_perApur">perApur</a>) pelo empregador ao trabalhador referente a despesas médicas ou odontológicas pagas pelo trabalhador a prestadores de serviços de saúde.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoReembMed_indOrgReemb" id="1210_ideBenef_infoIRComplem_infoReembMed_indOrgReemb">88</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoReembMed_indOrgReemb" id="1210_ideBenef_infoIRComplem_infoReembMed_indOrgReemb">93</td>
 <td>indOrgReemb</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoReembMed">infoReembMed</a></td>
 <td>E</td>
@@ -10977,7 +11050,7 @@ Se for igual a 0 (zero), <a href="#1210_ideBenef_infoIRComplem_planSaude_vlrSaud
 <strong>2</strong> - Reembolso efetuado pelo empregador como benefício do próprio empregador</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoReembMed_cnpjOper" id="1210_ideBenef_infoIRComplem_infoReembMed_cnpjOper">89</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoReembMed_cnpjOper" id="1210_ideBenef_infoIRComplem_infoReembMed_cnpjOper">94</td>
 <td>cnpjOper</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoReembMed">infoReembMed</a></td>
 <td>E</td>
@@ -10987,10 +11060,11 @@ Se for igual a 0 (zero), <a href="#1210_ideBenef_infoIRComplem_planSaude_vlrSaud
 <td>-</td>
 <td>CNPJ da operadora do plano de saúde.<br />
 <strong>Validação:</strong> Informação obrigatória e exclusiva se <a href="#1210_ideBenef_infoIRComplem_infoReembMed_indOrgReemb">indOrgReemb</a> = [1].<br />
-Deve ser um CNPJ válido.</td>
+Deve ser um CNPJ válido no Cadastro CNPJ e não pode estar com situação cadastral &quot;baixada&quot; (situação = 8) em data anterior ao período de apuração indicado em <a href="#1210_ideEvento_perApur">perApur</a> ou &quot;nula&quot; (situação = 1).<br />
+Não deve ser igual ao número de inscrição das pessoas jurídicas informadas nos grupos <a href="#1210_ideBenef_infoIRComplem_infoIRCR_previdCompl">previdCompl</a> e {ideAdv} do evento remuneratório.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoReembMed_regANS" id="1210_ideBenef_infoIRComplem_infoReembMed_regANS">90</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoReembMed_regANS" id="1210_ideBenef_infoIRComplem_infoReembMed_regANS">95</td>
 <td>regANS</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoReembMed">infoReembMed</a></td>
 <td>E</td>
@@ -11002,7 +11076,7 @@ Deve ser um CNPJ válido.</td>
 <strong>Validação:</strong> Deve ser um número de registro válido.</td>
 </tr>
 <tr class="grupo">
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoReembMed_detReembTit" id="1210_ideBenef_infoIRComplem_infoReembMed_detReembTit">91</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoReembMed_detReembTit" id="1210_ideBenef_infoIRComplem_infoReembMed_detReembTit">96</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoReembMed_detReembTit">detReembTit</a></td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoReembMed">infoReembMed</a></td>
 <td>G</td>
@@ -11013,7 +11087,7 @@ Deve ser um CNPJ válido.</td>
 <td>Informação de reembolso do titular do plano de saúde coletivo empresarial.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoReembMed_detReembTit_tpInsc" id="1210_ideBenef_infoIRComplem_infoReembMed_detReembTit_tpInsc">92</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoReembMed_detReembTit_tpInsc" id="1210_ideBenef_infoIRComplem_infoReembMed_detReembTit_tpInsc">97</td>
 <td>tpInsc</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoReembMed_detReembTit">detReembTit</a></td>
 <td>E</td>
@@ -11027,7 +11101,7 @@ Deve ser um CNPJ válido.</td>
 <strong>2</strong> - CPF</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoReembMed_detReembTit_nrInsc" id="1210_ideBenef_infoIRComplem_infoReembMed_detReembTit_nrInsc">93</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoReembMed_detReembTit_nrInsc" id="1210_ideBenef_infoIRComplem_infoReembMed_detReembTit_nrInsc">98</td>
 <td>nrInsc</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoReembMed_detReembTit">detReembTit</a></td>
 <td>E</td>
@@ -11039,7 +11113,7 @@ Deve ser um CNPJ válido.</td>
 <strong>Validação:</strong> Deve ser um CNPJ ou CPF válido, de acordo com o tipo de inscrição indicado em <a href="#1210_ideBenef_infoIRComplem_infoReembMed_detReembTit_tpInsc">tpInsc</a>.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoReembMed_detReembTit_vlrReemb" id="1210_ideBenef_infoIRComplem_infoReembMed_detReembTit_vlrReemb">94</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoReembMed_detReembTit_vlrReemb" id="1210_ideBenef_infoIRComplem_infoReembMed_detReembTit_vlrReemb">99</td>
 <td>vlrReemb</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoReembMed_detReembTit">detReembTit</a></td>
 <td>E</td>
@@ -11051,7 +11125,7 @@ Deve ser um CNPJ válido.</td>
 <strong>Validação:</strong> Informação não obrigatória se <a href="#1210_ideBenef_infoIRComplem_infoReembMed_detReembTit_vlrReembAnt">vlrReembAnt</a> for maior que zero.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoReembMed_detReembTit_vlrReembAnt" id="1210_ideBenef_infoIRComplem_infoReembMed_detReembTit_vlrReembAnt">95</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoReembMed_detReembTit_vlrReembAnt" id="1210_ideBenef_infoIRComplem_infoReembMed_detReembTit_vlrReembAnt">100</td>
 <td>vlrReembAnt</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoReembMed_detReembTit">detReembTit</a></td>
 <td>E</td>
@@ -11063,7 +11137,7 @@ Deve ser um CNPJ válido.</td>
 <strong>Validação:</strong> Informação não obrigatória se <a href="#1210_ideBenef_infoIRComplem_infoReembMed_detReembTit_vlrReemb">vlrReemb</a> for maior que zero.</td>
 </tr>
 <tr class="grupo">
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoReembMed_infoReembDep" id="1210_ideBenef_infoIRComplem_infoReembMed_infoReembDep">96</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoReembMed_infoReembDep" id="1210_ideBenef_infoIRComplem_infoReembMed_infoReembDep">101</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoReembMed_infoReembDep">infoReembDep</a></td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoReembMed">infoReembMed</a></td>
 <td>G</td>
@@ -11074,7 +11148,7 @@ Deve ser um CNPJ válido.</td>
 <td>Informação de reembolso do dependente do plano de saúde coletivo empresarial.</td>
 </tr>
 <tr>
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoReembMed_infoReembDep_cpfBenef" id="1210_ideBenef_infoIRComplem_infoReembMed_infoReembDep_cpfBenef">97</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoReembMed_infoReembDep_cpfBenef" id="1210_ideBenef_infoIRComplem_infoReembMed_infoReembDep_cpfBenef">102</td>
 <td>cpfBenef</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoReembMed_infoReembDep">infoReembDep</a></td>
 <td>E</td>
@@ -11083,10 +11157,11 @@ Deve ser um CNPJ válido.</td>
 <td>11</td>
 <td>-</td>
 <td>Número de inscrição no CPF do dependente.<br />
-<strong>Validação:</strong> Deve ser um CPF de dependente cadastrado no eSocial (S-2200/S-2205/S-2300/S-2400/S-2405 ou no grupo <a href="#1210_ideBenef_infoIRComplem_infoDep">infoDep</a>).</td>
+<strong>Validação:</strong> Deve ser um CPF de dependente cadastrado no eSocial (S-2200/S-2205/S-2300/S-2400/S-2405 ou no grupo <a href="#1210_ideBenef_infoIRComplem_infoDep">infoDep</a>).<br />
+Não pode ser igual a <a href="#1210_ideBenef_cpfBenef">cpfBenef</a>.</td>
 </tr>
 <tr class="grupo">
-<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoReembMed_infoReembDep_detReembDep" id="1210_ideBenef_infoIRComplem_infoReembMed_infoReembDep_detReembDep">98</td>
+<td onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoReembMed_infoReembDep_detReembDep" id="1210_ideBenef_infoIRComplem_infoReembMed_infoReembDep_detReembDep">103</td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoReembMed_infoReembDep_detReembDep">detReembDep</a></td>
 <td><a href="#r_1210_ideBenef_infoIRComplem_infoReembMed_infoReembDep">infoReembDep</a></td>
 <td>G</td>

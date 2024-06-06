@@ -70,9 +70,19 @@ Nível: 4
 Nome: infoIRComplem
 Pai: ideBenef
 Descrição: Informações relacionadas à retenção na fonte, aos rendimentos tributáveis e não tributáveis, deduções e/ou isenções, etc., de acordo com a legislação aplicada ao imposto de renda.
+Ocorrência: 0-13
+Chave: perAnt_perRefAjuste
+Condição: O (conforme as condições dos grupos {}(1210_ideBenef_infoIRComplem_infoIRCR_penAlim), {}(1210_ideBenef_infoIRComplem_infoIRCR_previdCompl), {}(1210_ideBenef_infoIRComplem_planSaude) e {}(1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet_infoValores)} e se {}(1210_ideEvento_perApur) posterior ou igual 01/2025 (início da substituição da DIRF))
+F (nos demais casos)
+
+Nível: 5
+Nome: perAnt
+Pai: infoIRComplem
+Descrição: Informações complementares de períodos anteriores
 Ocorrência: 0-1
 Chave: -
-Condição: OC
+Condição: F (se o mês de {}(1210_ideEvento_perApur) = [01])
+N (nos demais casos)
 
 Nível: 5
 Nome: infoDep
@@ -154,7 +164,7 @@ Nome: planSaude
 Pai: infoIRComplem
 Descrição: Plano de saúde coletivo
 Ocorrência: 0-99
-Chave: cnpjOper
+Chave: cnpjOper, regANS
 Condição: OC
 
 Nível: 6
@@ -170,7 +180,7 @@ Nome: infoReembMed
 Pai: infoIRComplem
 Descrição: Reembolsos de despesas médicas
 Ocorrência: 0-99
-Chave: -
+Chave: cnpjOper, regANS
 Condição: OC
 
 Nível: 6
@@ -495,7 +505,7 @@ Ocorrência: 0-1
 Tamanho: 1-30
 Dec.: -
 Descrição: Número de Identificação Fiscal (NIF).
-Validação: Preenchimento obrigatório se {indNIF}(./indNIF) = [1].
+Validação: Preenchimento obrigatório e exclusivo se {indNIF}(./indNIF) = [1].
 
 Nome: frmTribut
 Pai: infoPgtoExt
@@ -505,7 +515,7 @@ Ocorrência: 1
 Tamanho: 2
 Dec.: -
 Descrição: Forma de tributação, conforme opções disponíveis na Tabela 30.
-Validação: Deve ser um código válido e existente na Tabela 30.
+Validação: Deve ser um código válido e existente na Tabela 30. Para os códigos [1X, 30], deve existir informação relativa ao imposto retido na fonte; para os códigos [4X, 50] não é permitida a informação do imposto retido na fonte.
 
 Nome: endExt
 Pai: infoPgtoExt
@@ -597,7 +607,7 @@ Nome: infoIRComplem
 Pai: ideBenef
 Elem.: G
 Tipo: -
-Ocorrência: 0-1
+Ocorrência: 0-13
 Tamanho: -
 Dec.: -
 Descrição: Informações relacionadas à retenção na fonte, aos rendimentos tributáveis e não tributáveis, deduções e/ou isenções, etc., de acordo com a legislação aplicada ao imposto de renda.
@@ -610,7 +620,37 @@ Ocorrência: 0-1
 Tamanho: -
 Dec.: -
 Descrição: Data da moléstia grave atribuída pelo laudo.
-Validação: Não pode ser anterior ao ano de 1900.
+Validação: Não pode ser anterior ao ano de 1900. Deve ser anterior ou igual a {}(1210_ideEvento_perApur).
+
+Nome: perAnt
+Pai: infoIRComplem
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição:  Identificação do evento S-1210 original e {}(1210_ideBenef_infoPgto_perRef) cujas informações de {}(1210_ideBenef_infoIRComplem) serão alteradas.
+
+Nome: perRefAjuste
+Pai: perAnt
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 7
+Dec.: -
+Descrição: Informar {}(1210_ideEvento_perApur) do S-1210 cujo {}(1210_ideBenef_infoIRComplem) será alterado.
+Validação: Deve corresponder a um mês do ano anterior  (ano de {}(1210_ideEvento_perApur) - 1)
+
+Nome: nrRec1210Orig
+Pai: perAnt
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 23
+Dec.: -
+Descrição: Número do recibo do S-1210 original cujas informações de {}(1210_ideBenef_infoIRComplem) serão alteradas.
+Validação: Deve corresponder ao recibo de um arquivo com informações de rendimentos sujeitos a Imposto de Renda Retido na Fonte - IRRF (S-1210).
+Deve corresponder ao recibo de um evento S-1210 válido, com {}(1210_ideEvento_perApur) igual a {}(./perRefAjuste)
 
 Nome: infoDep
 Pai: infoIRComplem
@@ -846,6 +886,16 @@ Dec.: 2
 Descrição: Valor da dedução mensal relativa a previdência complementar.
 Validação: Deve ser maior que 0 (zero).
 
+Nome: vlrDedPC13
+Pai: previdCompl
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da dedução do 13º Salário relativa a previdência complementar.
+Validação: Deve ser maior que 0 (zero).
+
 Nome: vlrPatrocFunp
 Pai: previdCompl
 Elem.: E
@@ -854,6 +904,17 @@ Ocorrência: 0-1
 Tamanho: 1-14
 Dec.: 2
 Descrição: Valor da contribuição mensal do ente público patrocinador da Fundação de Previdência Complementar do Servidor Público (Funpresp).
+Validação: Informação permitida apenas se {tpPrev}(./tpPrev) = [3].
+Deve ser maior que 0 (zero).
+
+Nome: vlrPatrocFunp13
+Pai: previdCompl
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da contribuição do 13º Salário do ente público patrocinador da Fundação de Previdência Complementar do Servidor Público (Funpresp).
 Validação: Informação permitida apenas se {tpPrev}(./tpPrev) = [3].
 Deve ser maior que 0 (zero).
 
@@ -1080,6 +1141,7 @@ Tamanho: 14
 Dec.: -
 Descrição: Informar o número do CNPJ da operadora de plano privado coletivo empresarial de assistência à saúde.
 Validação: Deve ser um CNPJ válido no Cadastro CNPJ e não pode estar com situação cadastral "baixada" (situação = 8) em data anterior ao período de apuração indicado em {perApur}(1210_ideEvento_perApur) ou "nula" (situação = 1).
+Não deve ser igual ao número de inscrição das pessoas jurídicas informadas nos grupos {}(1210_ideBenef_infoIRComplem_infoIRCR_previdCompl) e {ideAdv} do evento remuneratório.
 
 Nome: regANS
 Pai: planSaude
@@ -1130,7 +1192,7 @@ Tamanho: 1-14
 Dec.: 2
 Descrição: Valor relativo a dedução do rendimento tributável correspondente a pagamento a plano de saúde do dependente.
 Validação: Deve ser maior ou igual a 0 (zero).
-Se for igual a 0 (zero), {vlrSaudeTit}(../vlrSaudeTit) deve ser maior que 0 (zero).
+Se for igual a 0 (zero), deve haver informações de reembolso do dependente no grupo {}(1210_ideBenef_infoIRComplem_infoReembMed_infoReembDep).
 
 Nome: infoReembMed
 Pai: infoIRComplem
@@ -1162,7 +1224,8 @@ Tamanho: 14
 Dec.: -
 Descrição: CNPJ da operadora do plano de saúde.
 Validação: Informação obrigatória e exclusiva se {indOrgReemb}(./indOrgReemb) = [1].
-Deve ser um CNPJ válido.
+Deve ser um CNPJ válido no Cadastro CNPJ e não pode estar com situação cadastral "baixada" (situação = 8) em data anterior ao período de apuração indicado em {}(1210_ideEvento_perApur) ou "nula" (situação = 1).
+Não deve ser igual ao número de inscrição das pessoas jurídicas informadas nos grupos {}(1210_ideBenef_infoIRComplem_infoIRCR_previdCompl) e {ideAdv} do evento remuneratório.
 
 Nome: regANS
 Pai: infoReembMed
@@ -1243,6 +1306,7 @@ Tamanho: 11
 Dec.: -
 Descrição: Número de inscrição no CPF do dependente.
 Validação: Deve ser um CPF de dependente cadastrado no eSocial (S-2200/S-2205/S-2300/S-2400/S-2405 ou no grupo {infoDep}(1210_ideBenef_infoIRComplem_infoDep)).
+Não pode ser igual a {}(1210_ideBenef_cpfBenef).
 
 Nome: detReembDep
 Pai: infoReembDep
