@@ -81,6 +81,15 @@ Ocorrência: 0-1
 Chave: -
 Condição: OC
 
+Nível: 6
+Nome: rendIsen0561
+Pai: infoIR
+Descrição: Rendimentos Isentos exclusivos do CR 0561.
+Ocorrência: 0-1
+Chave: -
+Condição: OC (se {}(../../tpCR) = [056152])
+N (demais casos)
+
 Nível: 5
 Nome: infoRRA
 Pai: infoCRIRRF
@@ -450,7 +459,7 @@ Tipo: N
 Ocorrência: 1
 Tamanho: 6
 Dec.: -
-Descrição: Código de Receita - CR relativo a Imposto de Renda Retido na Fonte.
+Descrição: Código de Receita - CR relativo a Imposto sobre a renda retido na fonte.
 Valores válidos:
 593656 - IRRF - Decisão da Justiça do Trabalho
 056152 - IRRF - CCP/NINTER
@@ -463,9 +472,20 @@ Tipo: N
 Ocorrência: 1
 Tamanho: 1-14
 Dec.: 2
-Descrição: Valor correspondente ao Código de Receita - CR.
+Descrição: Valor relativo ao Imposto sobre a renda retido na fonte para o código de receita - rendimento mensal.
 Validação: Deve ser informado de acordo com a legislação em vigor na competência.
 Deve ser maior ou igual a 0 (zero).
+
+Nome: vrCR13
+Pai: infoCRIRRF
+Elem.: A
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor relativo ao Imposto sobre a renda retido na fonte para o código de receita - 13º Salário.
+Validação: Deve ser informado de acordo com a legislação em vigor na competência.
+Deve ser maior que 0 (zero).
 
 Nome: infoIR
 Pai: infoCRIRRF
@@ -507,6 +527,16 @@ Dec.: 2
 Descrição: Valor do rendimento isento por ser portador de moléstia grave atestada por laudo médico.
 Validação: Deve ser maior ou igual a 0 (zero).
 
+Nome: vrRendMoleGrave13
+Pai: infoIR
+Elem.: A
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor do rendimento isento por ser portador de moléstia grave atestada por laudo médico - 13º salário.
+Validação: Deve ser maior ou igual a 0 (zero).
+
 Nome: vrRendIsen65
 Pai: infoIR
 Elem.: A
@@ -517,6 +547,16 @@ Dec.: 2
 Descrição: Valor de parcela isenta de aposentadoria para beneficiário de 65 anos ou mais.
 Validação: Deve ser maior ou igual a 0 (zero).
 
+Nome: vrRendIsen65Dec
+Pai: infoIR
+Elem.: A
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor de parcela isenta de aposentadoria para beneficiário de 65 anos ou mais - 13º salário.
+Validação: Deve ser maior ou igual a 0 (zero).
+
 Nome: vrJurosMora
 Pai: infoIR
 Elem.: A
@@ -525,6 +565,16 @@ Ocorrência: 0-1
 Tamanho: 1-14
 Dec.: 2
 Descrição: Juros de mora recebidos, devidos pelo atraso no pagamento de remuneração por exercício de emprego, cargo ou função.
+Validação: Deve ser maior ou igual a 0 (zero).
+
+Nome: vrJurosMora13
+Pai: infoIR
+Elem.: A
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Juros de mora recebidos, devidos pelo atraso no pagamento de remuneração por exercício de emprego, cargo ou função - 13º salário.
 Validação: Deve ser maior ou igual a 0 (zero).
 
 Nome: vrRendIsenNTrib
@@ -545,7 +595,7 @@ Ocorrência: 0-1
 Tamanho: 1-60
 Dec.: -
 Descrição: Descrição do rendimento isento ou não tributável informado em {vrRendIsenNTrib}(./vrRendIsenNTrib).
-Validação: Somente informar se {vrRendIsenNTrib}(./vrRendIsenNTrib) > 0.
+Validação: Preenchimento obrigatório e exclusivo se {}(./vrRendIsenNTrib) > 0.
 
 Nome: vrPrevOficial
 Pai: infoIR
@@ -555,6 +605,75 @@ Ocorrência: 0-1
 Tamanho: 1-14
 Dec.: 2
 Descrição: Valor referente à previdência oficial.
+Validação: Deve ser maior ou igual a 0 (zero).
+
+Nome: vrPrevOficial13
+Pai: infoIR
+Elem.: A
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor referente à previdência oficial - 13º salário.
+Validação: Deve ser maior ou igual a 0 (zero).
+
+Nome: rendIsen0561
+Pai: infoIR
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Rendimentos Isentos exclusivos do CR 0561.
+
+Nome: vlrDiarias
+Pai: rendIsen0561
+Elem.: A
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor relativo a diárias.
+Validação: Deve ser maior ou igual a 0 (zero).
+
+Nome: vlrAjudaCusto
+Pai: rendIsen0561
+Elem.: A
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor relativo a ajuda de custo.
+Validação: Deve ser maior ou igual a 0 (zero).
+
+Nome: vlrIndResContrato
+Pai: rendIsen0561
+Elem.: A
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor relativo a indenização e rescisão de contrato, inclusive a título de PDV e acidentes de trabalho.
+Validação: Deve ser maior ou igual a 0 (zero).
+
+Nome: vlrAbonoPec
+Pai: rendIsen0561
+Elem.: A
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor relativo ao abono pecuniário.
+Validação: Deve ser maior ou igual a 0 (zero).
+
+Nome: vlrAuxMoradia
+Pai: rendIsen0561
+Elem.: A
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor relativo ao auxílio moradia.
 Validação: Deve ser maior ou igual a 0 (zero).
 
 Nome: infoRRA
@@ -938,7 +1057,7 @@ Ocorrência: 0-1
 Tamanho: -
 Dec.: -
 Descrição: Data da moléstia grave atribuída pelo laudo.
-Validação: Não pode ser anterior ao ano de 1900.
+Validação: Não pode ser anterior ao ano de 1900. Deve ser menor ou igual a {}(2501_ideProc_perApurPgto).
 
 Nome: infoDep
 Pai: infoIRComplem
