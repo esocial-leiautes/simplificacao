@@ -115,7 +115,8 @@ Pai: infoIRCR
 Descrição: Informação dos beneficiários da pensão alimentícia.
 Ocorrência: 0-99
 Chave: tpRend, cpfDep
-Condição: OC
+Condição: O (se {}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) = [51, 52, 53, 54] com valor > 0 em qualquer rubrica em {infoPgto}(1210_ideBenef_infoPgto), inclusive aquelas referenciadas em {perAnt/nrRec1210Orig}(1210_ideBenef_infoIRComplem_perAnt_nrRec1210Orig))
+OC (nos demais casos)
 
 Nível: 6
 Nome: previdCompl
@@ -123,7 +124,8 @@ Pai: infoIRCR
 Descrição: Informações relativas a planos de previdência complementar.
 Ocorrência: 0-99
 Chave: tpPrev, cnpjEntidPC
-Condição: OC
+Condição: O (se {}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) = [46, 47, 48, 61, 62, 63, 64, 65, 66] com valor > 0 em qualquer rubrica em {infoPgto}(1210_ideBenef_infoPgto), inclusive aquelas referenciadas em {perAnt/nrRec1210Orig}(1210_ideBenef_infoIRComplem_perAnt_nrRec1210Orig))
+OC (nos demais casos)
 
 Nível: 6
 Nome: infoProcRet
@@ -132,6 +134,7 @@ Descrição: Processos relacionados a não retenção de tributos
 Ocorrência: 0-50
 Chave: tpProcRet, nrProcRet, codSusp
 Condição: N (se {tpCR}(../tpCR) = [188901])
+O (se {}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) = [9XXX] (exceto [9067]) com valor > 0 em qualquer rubrica em {infoPgto}(1210_ideBenef_infoPgto), inclusive aquelas referenciadas em {perAnt/nrRec1210Orig}(1210_ideBenef_infoIRComplem_perAnt_nrRec1210Orig))
 OC (nos demais casos)
 
 Nível: 7
@@ -165,7 +168,8 @@ Pai: infoIRComplem
 Descrição: Plano de saúde coletivo
 Ocorrência: 0-99
 Chave: cnpjOper, regANS
-Condição: OC
+Condição: O (se {}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) = [67, 9067] com valor > 0 em qualquer rubrica em {infoPgto}(1210_ideBenef_infoPgto), inclusive aquelas referenciadas em {perAnt/nrRec1210Orig}(1210_ideBenef_infoIRComplem_perAnt_nrRec1210Orig))
+OC (nos demais casos)
 
 Nível: 6
 Nome: infoDepSau
@@ -226,6 +230,7 @@ Dec.: -
 Descrição: Evento Pagamentos de Rendimentos do Trabalho.
 Regras de validação:
 REGRA_CONTROLE_DUPLICIDADE
+REGRA_DESCONTO_IRRF_POSITIVO
 REGRA_EMPREGADO_DOMESTICO
 REGRA_ENVIO_PROC_FECHAMENTO
 REGRA_EVENTOS_EXTEMP
@@ -639,7 +644,7 @@ Ocorrência: 1
 Tamanho: 7
 Dec.: -
 Descrição: Informar {}(1210_ideEvento_perApur) do S-1210 cujo {}(1210_ideBenef_infoIRComplem) será alterado.
-Validação: Deve corresponder a um mês do ano anterior  (ano de {}(1210_ideEvento_perApur) - 1)
+Validação: Deve corresponder a um mês do ano anterior (ano de {}(1210_ideEvento_perApur) - 1)
 
 Nome: nrRec1210Orig
 Pai: perAnt

@@ -13,6 +13,7 @@
                         <xs:documentation>Evento Pagamentos de Rendimentos do Trabalho.</xs:documentation>
                         <xs:documentation>CHAVE_GRUPO: {Id}</xs:documentation>
                         <xs:documentation>REGRA:REGRA_CONTROLE_DUPLICIDADE</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_DESCONTO_IRRF_POSITIVO</xs:documentation>
                         <xs:documentation>REGRA:REGRA_EMPREGADO_DOMESTICO</xs:documentation>
                         <xs:documentation>REGRA:REGRA_ENVIO_PROC_FECHAMENTO</xs:documentation>
                         <xs:documentation>REGRA:REGRA_EVENTOS_EXTEMP</xs:documentation>
@@ -270,7 +271,7 @@
                                                                 <xs:element name="perRefAjuste" type="TS_perApur_mensal">
                                                                     <xs:annotation>
                                                                         <xs:documentation>Informar {}(1210_ideEvento_perApur) do S-1210 cujo {}(1210_ideBenef_infoIRComplem) será alterado.</xs:documentation>
-                                                                        <xs:documentation>Validação: Deve corresponder a um mês do ano anterior  (ano de {}(1210_ideEvento_perApur) - 1)</xs:documentation>
+                                                                        <xs:documentation>Validação: Deve corresponder a um mês do ano anterior (ano de {}(1210_ideEvento_perApur) - 1)</xs:documentation>
                                                                     </xs:annotation>
                                                                 </xs:element>
                                                                 <xs:element name="nrRec1210Orig" type="TS_nrRecibo">
@@ -333,7 +334,7 @@
                                                                     <xs:annotation>
                                                                         <xs:documentation>Informação dos beneficiários da pensão alimentícia.</xs:documentation>
                                                                         <xs:documentation>CHAVE_GRUPO: {tpRend}, {cpfDep}</xs:documentation>
-                                                                        <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
+                                                                        <xs:documentation>CONDICAO_GRUPO: O (se {}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) = [51, 52, 53, 54] com valor > 0 em qualquer rubrica em {infoPgto}(1210_ideBenef_infoPgto), inclusive aquelas referenciadas em {perAnt/nrRec1210Orig}(1210_ideBenef_infoIRComplem_perAnt_nrRec1210Orig)); OC (nos demais casos)</xs:documentation>
                                                                     </xs:annotation>
                                                                     <xs:complexType>
                                                                         <xs:sequence>
@@ -352,7 +353,7 @@
                                                                     <xs:annotation>
                                                                         <xs:documentation>Informações relativas a planos de previdência complementar.</xs:documentation>
                                                                         <xs:documentation>CHAVE_GRUPO: {tpPrev}, {cnpjEntidPC}</xs:documentation>
-                                                                        <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
+                                                                        <xs:documentation>CONDICAO_GRUPO: O (se {}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) = [46, 47, 48, 61, 62, 63, 64, 65, 66] com valor > 0 em qualquer rubrica em {infoPgto}(1210_ideBenef_infoPgto), inclusive aquelas referenciadas em {perAnt/nrRec1210Orig}(1210_ideBenef_infoIRComplem_perAnt_nrRec1210Orig)); OC (nos demais casos)</xs:documentation>
                                                                     </xs:annotation>
                                                                     <xs:complexType>
                                                                         <xs:sequence>
@@ -397,7 +398,7 @@
                                                                         <xs:documentation>Processos relacionados a não retenção de tributos</xs:documentation>
                                                                         <xs:documentation>DESCRICAO_COMPLETA: Informações de processos relacionados a não retenção de tributos ou a depósitos judiciais.</xs:documentation>
                                                                         <xs:documentation>CHAVE_GRUPO: {tpProcRet}, {nrProcRet}, {codSusp}</xs:documentation>
-                                                                        <xs:documentation>CONDICAO_GRUPO: N (se {tpCR}(../tpCR) = [188901]); OC (nos demais casos)</xs:documentation>
+                                                                        <xs:documentation>CONDICAO_GRUPO: N (se {tpCR}(../tpCR) = [188901]); O (se {}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) = [9XXX] (exceto [9067]) com valor > 0 em qualquer rubrica em {infoPgto}(1210_ideBenef_infoPgto), inclusive aquelas referenciadas em {perAnt/nrRec1210Orig}(1210_ideBenef_infoIRComplem_perAnt_nrRec1210Orig)); OC (nos demais casos)</xs:documentation>
                                                                     </xs:annotation>
                                                                     <xs:complexType>
                                                                         <xs:sequence>
@@ -487,7 +488,7 @@
                                                             <xs:documentation>DESCRICAO_COMPLETA: Plano de saúde coletivo.</xs:documentation>
                                                             <xs:documentation>Identificação da(s) operadora(s) de plano privado coletivo empresarial de assistência à saúde.</xs:documentation>
                                                             <xs:documentation>CHAVE_GRUPO: {cnpjOper}, {regANS}</xs:documentation>
-                                                            <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
+                                                            <xs:documentation>CONDICAO_GRUPO: O (se {}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) = [67, 9067] com valor > 0 em qualquer rubrica em {infoPgto}(1210_ideBenef_infoPgto), inclusive aquelas referenciadas em {perAnt/nrRec1210Orig}(1210_ideBenef_infoIRComplem_perAnt_nrRec1210Orig)); OC (nos demais casos)</xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
                                                             <xs:sequence>
