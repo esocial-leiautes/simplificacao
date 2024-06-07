@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>eSocial versão S-1.2 - Leiautes</title>
+<title>eSocial versão S-1.3 - Leiautes</title>
 <link rel="shortcut icon" type="image/x-icon" href="favicon_doc.ico">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 <link rel="stylesheet" href="esocial_html.css">
@@ -11,13 +11,13 @@
 <body>
 <section id="folha-rosto">
 <img alt="Logomarca do eSocial" src="esocial-full.png" class="center">
-<h1 class="title has-text-centered is-3">LEIAUTES DO eSOCIAL<br /><br />Versão S-1.2 (cons. até NT 03/2024)</h1><h2 class="title has-text-centered is-5">(aprovada pela Portaria Conjunta RFB/MPS/MTE nº 44, de 11/08/2023 – DOU de 17/08/2023)</h2><h2 class="title has-text-centered is-5" style="font-weight: normal">Observações: Implantação no ambiente de produção: 01/08/2024</h2><br />
-<h1 class="title has-text-centered is-3">Abril de 2024</h1>
+<h1 class="title has-text-centered is-3">LEIAUTES DO eSOCIAL<br /><br />Versão S-1.3 -</h1><h2 class="title has-text-centered is-5">(aprovada pela Portaria Conjunta RFB/MPS/MTE nº 44, de 11/08/2023 – DOU de 17/08/2023)</h2><br />
+<h1 class="title has-text-centered is-3">Junho de 2024</h1>
 </section>
 <section class="section">
 <div class="container is-fluid">
-<h1 class="title has-text-centered is-1">eSocial versão S-1.2 - Leiautes (cons. até NT 03/2024)</h1>
-<div class="is-hidden-print"><h2 class="title has-text-centered is-5">(aprovada pela Portaria Conjunta RFB/MPS/MTE nº 44, de 11/08/2023 – DOU de 17/08/2023)</h2><h2 class="title has-text-centered is-5" style="font-weight: normal">Observações: Implantação no ambiente de produção: 01/08/2024</h2><br /></div>
+<h1 class="title has-text-centered is-1">eSocial versão S-1.3 - Leiautes -</h1>
+<div class="is-hidden-print"><h2 class="title has-text-centered is-5">(aprovada pela Portaria Conjunta RFB/MPS/MTE nº 44, de 11/08/2023 – DOU de 17/08/2023)</h2><br /></div>
 <h2 class="title has-text-centered is-3">Sumário</h2>
 <ul class="sumario">
 <li><a href="#evtInfoEmpregador">S-1000 - Informações do Empregador/Contribuinte/Órgão Público</a></li>
@@ -269,7 +269,8 @@ OBS.: A presente regra não se aplica a eventos retificadores, periódicos e nã
 </header>
 <div class="modal-card-body">
 <p>A categoria do trabalhador deve ser compatível com a classificação tributária do contribuinte (informada no evento S-1000), conforme Tabela 11.<br />
-No caso dos eventos S-1200 e S-1202, retornar "alerta" caso não seja compatível.</p>
+No caso dos eventos S-1200 e S-1202, retornar "alerta" caso não seja compatível.<br />
+No caso do evento S-2500, não executar a regra se {infoContr/tpContr} = [8].</p>
 </div>
 </div>
 </div>
@@ -1282,8 +1283,9 @@ c) somente é possível retificar processo com {infoContr/tpContr} diferente de 
 2d) {codIncCP} em S-1010 = [31] se {classTrib} em S-1000 = [21, 22] (Pessoa Física) e a categoria do trabalhador pertencer ao grupo "Contribuinte Individual" (7XX);<br />
 3) Se for relativa a dirigente sindical ({codCateg} = [401]), observar a categoria de origem (informada no evento S-2300) para determinar se o trabalhador é empregado ou contribuinte individual, e aplicar uma das duas regras anteriores;<br />
 4) Se for relativa a estagiário ({codCateg} = [901]), não podem ser aceitas rubricas cujo {codIncCP} em S-1010 seja diferente de [00, 01] ou {codIncFGTS} em S-1010 seja diferente de [00];<br />
-5) Se for relativa a grupo diferente de "Empregado" (1XX), não podem ser aceitas rubricas cujo {codIncIRRF} em S-1010 seja igual a [14, 34, 54, 94, 9014, 9034, 9054, 9834].<br />
-Retornar "erro" se o item 2d) ou o item 5) não for atendido. Retornar "alerta" se algum outro item não for obedecido.</p>
+5) Se for relativa a grupo diferente de "Empregado" (1XX), não podem ser aceitas rubricas cujo {codIncIRRF} em S-1010 seja igual a [14, 34, 54, 94, 9014, 9034, 9054, 9834];<br />
+6) Se não for relativa ao grupo "Empregado" (1XX) ou a diretor não empregado, com FGTS, não podem ser aceitas rubricas cuja {natRubr} em S-1010 seja igual a [9253].<br />
+Retornar "erro" se o item 2d), o item 5) ou o item 6) não for atendido. Retornar "alerta" se algum outro item não for obedecido.</p>
 </div>
 </div>
 </div>
@@ -1297,7 +1299,8 @@ Retornar "erro" se o item 2d) ou o item 5) não for atendido. Retornar "alerta" 
 <div class="modal-card-body">
 <p>Se {indApuracao} for igual a [2] (décimo terceiro salário):<br />
 a) No caso do evento S-1200, são permitidas apenas as rubricas cujo {codIncCP} em S-1010 seja igual a [00, 01, 12, 14, 16, 22, 26, 32, 92, 94, 96, 98], cujo {codIncIRRF} em S-1010 seja igual a [0, 1, 9, 12, 14, 32, 34, 42, 47, 52, 54, 62, 64, 71, 77, 81, 82, 83, 92, 94, 9014, 9034, 9054, 9834] e cujo {codIncFGTS} em S-1010 seja igual a [00, 12, 92]. Caso sejam informadas rubricas com {codIncCP}, {codIncIRRF} e/ou {codIncFGTS} diferentes dos valores acima citados, retornar "alerta";<br />
-b) Nos casos dos eventos S-1202 e S-1207, são permitidas apenas as rubricas cujo {codIncCPRP} em S-1010 seja igual a [00, 12, 32, 91, 92] e cujo {codIncIRRF} em S-1010 seja igual a [0, 1, 9, 12, 14, 32, 34, 42, 47, 52, 54, 62, 64, 71, 77, 81, 82, 83, 92, 94, 9014, 9034, 9054, 9834].</p>
+b) Nos casos dos eventos S-1202 e S-1207, são permitidas apenas as rubricas cujo {codIncCPRP} em S-1010 seja igual a [00, 12, 32, 91, 92] e cujo {codIncIRRF} em S-1010 seja igual a [0, 1, 9, 12, 14, 32, 34, 42, 47, 52, 54, 62, 64, 71, 77, 81, 82, 83, 92, 94, 9014, 9034, 9054, 9834];<br />
+c) No caso do evento S-1200, são permitidas apenas as rubricas cuja {natRubr} seja diferente de [9253].</p>
 </div>
 </div>
 </div>
@@ -1438,6 +1441,7 @@ Caso algum item acima não seja atendido, retornar "alerta".</p>
 </header>
 <div class="modal-card-body">
 <p>O contrato identificado por CPF + matrícula (ou CPF + categoria, no caso de TSVE sem informação de matrícula no evento S-2300) deve estar ativo na data do evento, ou seja, a data do evento deve ser igual ou posterior à data de início (no caso de mudança de CPF, igual ou posterior à data de alteração do CPF) e igual ou anterior à data de término.<br />
+Exclusivamente na recepção do evento S-2306, a data do evento deve ser posterior à data de início.<br />
 Quanto aos eventos S-2230, S-2306 e S-2399, deve existir prévio envio do evento de TSVE - Início (S-2300) para o contrato.<br />
 No caso dos eventos S-1200 e S-1202, o período de apuração deve ser igual ou posterior ao mês/ano da data de início (no caso de mudança de CPF, igual ou posterior à data de alteração do CPF) e igual ou anterior ao mês/ano da data de término. Se o período de apuração for posterior ao mês/ano da data de término, observar a <a href="#REGRA_REMUN_JA_EXISTE_DESLIGAMENTO">REGRA_REMUN_JA_EXISTE_DESLIGAMENTO</a>.</p>
 </div>
@@ -1489,9 +1493,10 @@ b) Para cada evento S-2190 pode haver apenas um evento de Admissão ou TSVE - In
 <button class="delete" aria-label="close"></button>
 </header>
 <div class="modal-card-body">
-<p>O CNPJ deve existir na base da RFB e obedecer às seguintes condições:<br />
+<p>O CNPJ deve existir na base da RFB e o evento deve ser recebido se o CNPJ estiver na situação Ativa na data da transmissão do evento.<br />
+Se o CNPJ não estiver na situação Ativa, a recepção do evento deve obedecer às seguintes condições:<br />
 a) Não pode pertencer a pessoa jurídica Inapta (situação=4) pelo motivo de Inexistência de Fato (motivo=15), exceto quando se tratar de evento S-2299 com {mtvDeslig} = [43];<br />
-b) Se estiver baixado:<br />
+b) Se estiver baixado na data da transmissão do evento:<br />
 b1) No caso de evento de tabela, {iniValid} deve ser igual ou anterior ao mês/ano da data de baixa;<br />
 b2) No caso de evento não periódico, a data de ocorrência do evento deve ser igual ou anterior à data de baixa, exceto quando se tratar de evento S-2299 com {mtvDeslig} = [10, 14];<br />
 b3) No caso de evento periódico, {perApur} deve ser igual ou anterior ao mês/ano da data de baixa;<br />
@@ -1692,13 +1697,28 @@ OBS.: Nos eventos de Admissão (S-2200) e TSVE - Início (S-2300), não efetuar 
 <p>O vínculo identificado por CPF + matrícula deve estar ativo na data do evento, ou seja, a data do evento deve ser igual ou posterior à data de admissão/data de exercício (no caso de transferência ou mudança de CPF, igual ou posterior a {sucessaoVinc/dtTransf}, {transfDom/dtTransf} ou {dtAltCPF} do evento S-2200, conforme o caso) e igual ou anterior à data de desligamento (informada em S-2200, S-2299 ou S-8299).<br />
 Quanto aos eventos S-2206, S-2230, S-2231 e S-2299, deve existir prévio envio do evento de Admissão (S-2200) para o vínculo.<br />
 Exclusivamente na recepção do evento S-2206:<br />
-a) considerar como data do evento a informação prestada no campo {dtEf} se este estiver preenchido (nessa situação, a data do evento deve ser igual ou posterior à data de admissão); caso contrário, considerar a informação do campo {dtAlteracao};<br />
-b) considerar como data de desligamento a maior data entre {dtDeslig}, {dtProjFimAPI} e {dtFimRemun} do evento S-2299 (ou a maior data entre {dtDeslig} e {dtProjFimAPI} do evento S-8299, caso não haja S-2299).<br />
+a) considerar como data do evento a informação prestada no campo {dtEf} se este estiver preenchido; caso contrário, considerar a informação do campo {dtAlteracao};<br />
+b) considerar como data de desligamento a maior data entre {dtDeslig}, {dtProjFimAPI} e {dtFimRemun} do evento S-2299 (ou a maior data entre {dtDeslig} e {dtProjFimAPI} do evento S-8299, caso não haja S-2299);<br />
+c) a data do evento deve ser posterior à data de admissão.<br />
 No caso do evento S-2210, quando {tpCat} = [2, 3], considerar vínculo ativo a partir da {dtAdm}, mesmo no caso de sucessão, transferência de titularidade do empregado doméstico ou mudança de CPF.<br />
 No caso dos eventos S-2210, S-2230 e S-2231, considerar como data de desligamento a maior data entre {dtDeslig} e {dtProjFimAPI} do evento S-2299 ou S-8299.<br />
 No caso do evento S-2230 (ou S-2231), se houver afastamento (ou cessão/exercício em outro órgão) com início em data igual ou posterior a {dtDeslig} do evento S-2299 ou S-8299, a data de término do afastamento (ou da cessão) deve ser igual ou anterior a {dtProjFimAPI} do S-2299 ou S-8299. Se {dtProjFimAPI} não existir, a data de término do afastamento (ou da cessão) deve ser igual a {dtDeslig}.<br />
 No caso dos eventos S-1200 e S-1202, {perApur} deve ser igual ou posterior ao mês/ano da data de admissão/data de exercício (no caso de transferência ou mudança de CPF, igual ou posterior ao mês/ano de {sucessaoVinc/dtTransf}, {transfDom/dtTransf} ou {dtAltCPF} do evento S-2200, conforme o caso) e igual ou anterior ao mês/ano da data de desligamento (informada em S-2200, S-2299 ou S-8299).<br />
 No caso do evento S-2299, se houver remuneração informada no registro {infoPerAnt}, o mês/ano do evento (aqui considerado o período ao qual se refere a remuneração, indicado em {perRef}) deve ser igual ou posterior ao mês/ano da data de admissão.</p>
+</div>
+</div>
+</div>
+<div class="modal" id="REGRA_RUBRICA_ECONSIGNADO">
+<div class="modal-background"></div>
+<div class="modal-card">
+<header class="modal-card-head">
+<p class="modal-card-title"><a href="regras.html#REGRA_RUBRICA_ECONSIGNADO">REGRA_RUBRICA_ECONSIGNADO</a></p>
+<button class="delete" aria-label="close"></button>
+</header>
+<div class="modal-card-body">
+<p>Rubrica com {natRubr} em S-1010 igual [9253] não pode ser utilizada:<br />
+a) no grupo {remunPerAnt};<br />
+b) em evento que tenha o campo {indGuia} ou por empregador com {classTrib} igual a [04] em S-1000.</p>
 </div>
 </div>
 </div>
@@ -3858,7 +3878,8 @@ N (nos demais casos)</td>
 <td>4</td>
 <td>-</td>
 <td>Informar o código de classificação da rubrica.<br />
-<strong>Validação:</strong> Deve ser um código válido e existente na <a href="tabelas.html#03">Tabela 03</a>.</td>
+<strong>Validação:</strong> Deve ser um código válido e existente na <a href="tabelas.html#03">Tabela 03</a>.<br />
+Para utilização de código [9253], é necessário que <a href="#1010_infoRubrica_inclusao_ideRubrica_iniValid">iniValid</a> seja igual ou posterior ao mês de início do eConsignado no eSocial.</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="1010_infoRubrica_inclusao_dadosRubrica_tpRubr" id="1010_infoRubrica_inclusao_dadosRubrica_tpRubr">21</td>
@@ -3874,7 +3895,8 @@ N (nos demais casos)</td>
 <strong>1</strong> - Vencimento, provento ou pensão<br />
 <strong>2</strong> - Desconto<br />
 <strong>3</strong> - Informativa<br />
-<strong>4</strong> - Informativa dedutora</td>
+<strong>4</strong> - Informativa dedutora<br />
+<strong>Validação:</strong> Se <a href="#1010_infoRubrica_inclusao_dadosRubrica_natRubr">natRubr</a> = [9253], deve ser preenchido com [2].</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="1010_infoRubrica_inclusao_dadosRubrica_codIncCP" id="1010_infoRubrica_inclusao_dadosRubrica_codIncCP">22</td>
@@ -3950,10 +3972,11 @@ Para utilização de código [9X] ou [9XXX], é necessária a existência de gru
 <strong>11</strong> - Base de cálculo do FGTS mensal<br />
 <strong>12</strong> - Base de cálculo do FGTS 13° salário<br />
 <strong>21</strong> - Base de cálculo do FGTS aviso prévio indenizado<br />
+<strong>31</strong> - Desconto eConsignado<br />
 <strong>91</strong> - Incidência suspensa em decorrência de decisão judicial - FGTS mensal<br />
 <strong>92</strong> - Incidência suspensa em decorrência de decisão judicial - FGTS 13º salário<br />
 <strong>93</strong> - Incidência suspensa em decorrência de decisão judicial - FGTS aviso prévio indenizado<br />
-<strong>Validação:</strong> Para utilização de código [91, 92, 93], é necessária a existência de grupo com informações relativas ao processo.</td>
+<strong>Validação:</strong> Para utilização de código [91, 92, 93], é necessária a existência de grupo com informações relativas ao processo. Para utilização de código [31], é necessário que <a href="#1010_infoRubrica_inclusao_dadosRubrica_natRubr">natRubr</a> seja igual a [9253].</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="1010_infoRubrica_inclusao_dadosRubrica_codIncCPRP" id="1010_infoRubrica_inclusao_dadosRubrica_codIncCPRP">25</td>
@@ -6166,6 +6189,7 @@ N (nos demais casos)</td>
 <a href="#REGRA_RUBRICA_COMPATIVEL_CATEGORIA">REGRA_RUBRICA_COMPATIVEL_CATEGORIA</a><br />
 <a href="#REGRA_RUBRICA_COMPATIVEL_DECTERCEIRO">REGRA_RUBRICA_COMPATIVEL_DECTERCEIRO</a><br />
 <a href="#REGRA_RUBRICA_COMPATIVEL_RESC">REGRA_RUBRICA_COMPATIVEL_RESC</a><br />
+<a href="#REGRA_RUBRICA_ECONSIGNADO">REGRA_RUBRICA_ECONSIGNADO</a><br />
 <a href="#REGRA_TSV_ATIVO_NA_DTEVENTO">REGRA_TSV_ATIVO_NA_DTEVENTO</a><br />
 <a href="#REGRA_VALIDA_EMPREGADOR">REGRA_VALIDA_EMPREGADOR</a><br />
 <a href="#REGRA_VALIDA_PERIODO_APURACAO">REGRA_VALIDA_PERIODO_APURACAO</a></td>
@@ -17811,7 +17835,7 @@ Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo
 <td>-</td>
 <td>Data dos efeitos remuneratórios da alteração contratual.<br />
 Se a alteração foi fruto de lei, acordo coletivo, convenção coletiva ou sentença normativa, informar a data a partir da qual a alteração produz efeitos remuneratórios.<br />
-<strong>Validação:</strong> Deve ser uma data válida, igual ou posterior à data de admissão.</td>
+<strong>Validação:</strong> Deve ser uma data válida, posterior à data de admissão.</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="2206_altContratual_dscAlt" id="2206_altContratual_dscAlt">19</td>
@@ -23422,6 +23446,7 @@ N (nos demais casos)</td>
 <a href="#REGRA_REMUN_PERMITE_EXCLUSAO">REGRA_REMUN_PERMITE_EXCLUSAO</a><br />
 <a href="#REGRA_RETIFICA_MESMO_VINCULO">REGRA_RETIFICA_MESMO_VINCULO</a><br />
 <a href="#REGRA_RUBRICA_COMPATIVEL_CATEGORIA">REGRA_RUBRICA_COMPATIVEL_CATEGORIA</a><br />
+<a href="#REGRA_RUBRICA_ECONSIGNADO">REGRA_RUBRICA_ECONSIGNADO</a><br />
 <a href="#REGRA_VALIDA_EMPREGADOR">REGRA_VALIDA_EMPREGADOR</a><br />
 <a href="#REGRA_VALIDA_PERIODO_APURACAO">REGRA_VALIDA_PERIODO_APURACAO</a><br />
 <a href="#REGRA_VINCULO_ATIVO_NA_DTEVENTO">REGRA_VINCULO_ATIVO_NA_DTEVENTO</a></td>
@@ -28194,6 +28219,7 @@ N (nos demais casos)</td>
 <a href="#REGRA_REMUN_PERMITE_EXCLUSAO">REGRA_REMUN_PERMITE_EXCLUSAO</a><br />
 <a href="#REGRA_RETIFICA_MESMO_VINCULO">REGRA_RETIFICA_MESMO_VINCULO</a><br />
 <a href="#REGRA_RUBRICA_COMPATIVEL_CATEGORIA">REGRA_RUBRICA_COMPATIVEL_CATEGORIA</a><br />
+<a href="#REGRA_RUBRICA_ECONSIGNADO">REGRA_RUBRICA_ECONSIGNADO</a><br />
 <a href="#REGRA_TSV_ATIVO_NA_DTEVENTO">REGRA_TSV_ATIVO_NA_DTEVENTO</a><br />
 <a href="#REGRA_VALIDA_EMPREGADOR">REGRA_VALIDA_EMPREGADOR</a><br />
 <a href="#REGRA_VALIDA_PERIODO_APURACAO">REGRA_VALIDA_PERIODO_APURACAO</a></td>
@@ -38280,6 +38306,7 @@ b) Somar os valores das rubricas cujo <a href="#1010_infoRubrica_inclusao_dadosR
 <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [63], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF">codIncIRRF</a> em S-1010 = [63, 65];<br />
 <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [64], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF">codIncIRRF</a> em S-1010 = [64];<br />
 <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [67], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF">codIncIRRF</a> em S-1010 = [67];<br />
+<a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [68], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF">codIncIRRF</a> em S-1010 = [68];<br />
 <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [7953], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF">codIncIRRF</a> em S-1010 = [35];<br />
 <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [7954], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF">codIncIRRF</a> em S-1010 = [44];<br />
 <a href="#5002_ideTrabalhador_dmDev_infoIR_tpInfoIR">tpInfoIR</a> = [7955], <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF">codIncIRRF</a> em S-1010 = [55];<br />
@@ -40471,6 +40498,16 @@ N (nos demais casos)</td>
 <td>-</td>
 <td>OC</td>
 </tr>
+<tr>
+<td id="r_5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_eConsignado"><a href="#5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_eConsignado">eConsignado</a></td>
+<td><a href="#r_5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS">infoTrabFGTS</a></td>
+<td>7</td>
+<td>Informações relativas ao desconto do eConsignado</td>
+<td>0-N</td>
+<td><a href="#5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_eConsignado_instFinanc">instFinanc</a>, <a href="#5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_eConsignado_nrContrato">nrContrato</a></td>
+<td>O (se existir rubrica com <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncFGTS">codIncFGTS</a> em S-1010 igual a [31] e <a href="#5003_ideEvento_perApur">perApur</a> maior ou igual a data de início do eConsignado no eSocial);<br />
+N (nos demais casos)</td>
+</tr>
 </tbody>
 </table>
 
@@ -41326,6 +41363,54 @@ c) Se <a href="#5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_info
 <td>20</td>
 <td>-</td>
 <td>Informar o número de processo judicial cadastrado.</td>
+</tr>
+<tr class="grupo">
+<td onclick="copiarCaminho.call(this)" title="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_eConsignado" id="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_eConsignado">62</td>
+<td><a href="#r_5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_eConsignado">eConsignado</a></td>
+<td><a href="#r_5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS">infoTrabFGTS</a></td>
+<td>G</td>
+<td>-</td>
+<td>0-N</td>
+<td>-</td>
+<td>-</td>
+<td>Informações relativas ao desconto do eConsignado.<br />
+As inclusões, alterações ou exclusões dos dados que compõem este grupo não surtirão efeito se a guia já estiver paga ou vencida.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_eConsignado_instFinanc" id="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_eConsignado_instFinanc">63</td>
+<td>instFinanc</td>
+<td><a href="#r_5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_eConsignado">eConsignado</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>3</td>
+<td>-</td>
+<td>Instituição financeira do empréstimo eConsignado<br />
+<strong>Origem:</strong> posições 2, 3 e 4 da informação do campo {qtdRubr} do evento remuneratório de origem.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_eConsignado_nrContrato" id="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_eConsignado_nrContrato">64</td>
+<td>nrContrato</td>
+<td><a href="#r_5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_eConsignado">eConsignado</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>8</td>
+<td>-</td>
+<td>Número do contrato do empréstimo eConsignado<br />
+<strong>Origem:</strong> posições 5 a 12 da informação do campo {qtdRubr} do evento remuneratório de origem.</td>
+</tr>
+<tr>
+<td onclick="copiarCaminho.call(this)" title="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_eConsignado_vreConsignado" id="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_eConsignado_vreConsignado">65</td>
+<td>vreConsignado</td>
+<td><a href="#r_5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_eConsignado">eConsignado</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1-14</td>
+<td>2</td>
+<td>Valor do desconto do empréstimo eConsignado<br />
+<strong>Origem:</strong> soma das rubricas com <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncFGTS">codIncFGTS</a> em S-1010 igual a [31].</td>
 </tr>
 </tbody>
 </table>
@@ -45689,7 +45774,7 @@ Deve ser um identificador válido, constante das bases da RFB, conforme indicado
 <td>-</td>
 <td>-</td>
 <td>Data de início do afastamento.<br />
-<strong>Validação:</strong> Deve ser igual ou posterior à data de admissão do trabalhador e igual ou posterior a [2019-09-24].<br />
+<strong>Validação:</strong> Deve ser igual ou posterior à data de admissão do trabalhador.<br />
 Não pode ser posterior à data atual.</td>
 </tr>
 <tr>
@@ -45739,7 +45824,8 @@ Não podem ser informados motivos que não implicam rescisão do contrato de tra
 <td>-</td>
 <td>-</td>
 <td>Preencher com a data de desligamento do vínculo (último dia trabalhado).<br />
-<strong>Validação:</strong> Deve ser igual ou posterior à data de admissão do trabalhador e igual ou posterior a [2019-09-24].</td>
+<strong>Validação:</strong> Deve ser igual ou posterior à data de admissão do trabalhador e igual ou posterior a [2019-09-24].<br />
+Não pode ser posterior à data atual.</td>
 </tr>
 <tr>
 <td onclick="copiarCaminho.call(this)" title="8200_infoAnotJud_desligamento_dtProjFimAPI" id="8200_infoAnotJud_desligamento_dtProjFimAPI">51</td>

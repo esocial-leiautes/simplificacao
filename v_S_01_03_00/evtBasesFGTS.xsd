@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8" ?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns="http://www.esocial.gov.br/schema/evt/evtBasesFGTS/v_S_01_02_00" targetNamespace="http://www.esocial.gov.br/schema/evt/evtBasesFGTS/v_S_01_02_00" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
     <xs:include schemaLocation="tipos.xsd" />
     <xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd" />
@@ -432,7 +432,7 @@
                                                                                                             <xs:documentation>Validação: Deve corresponder ao período informado no evento de origem.</xs:documentation>
                                                                                                         </xs:annotation>
                                                                                                     </xs:element>
-                                                                                                    <xs:element name="tpAcConv" type="TS_tpAcConv_FGTS"/>
+                                                                                                    <xs:element name="tpAcConv" type="TS_tpAcConv_FGTS" />
                                                                                                     <xs:element name="basePerAntE" maxOccurs="99">
                                                                                                         <xs:annotation>
                                                                                                             <xs:documentation>Bases de cálculo e valores quando {tpAcConv}(5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_infoBasePerAntE_tpAcConv) = [E, H, I]</xs:documentation>
@@ -498,6 +498,47 @@
                                                                                     </xs:sequence>
                                                                                 </xs:complexType>
                                                                             </xs:element>
+                                                                            <xs:element name="eConsignado" minOccurs="0" maxOccurs="unbounded">
+                                                                                <xs:complexType>
+                                                                                    <xs:annotation>
+                                                                                        <xs:documentation>Informações relativas ao desconto do eConsignado</xs:documentation>
+                                                                                        <xs:documentation>DESCRICAO_COMPLETA:Informações relativas ao desconto do eConsignado.</xs:documentation>
+                                                                                        <xs:documentation>DESCRICAO_COMPLETA:As inclusões, alterações ou exclusões dos dados que compõem este grupo não surtirão efeito se a guia já estiver paga ou vencida.</xs:documentation>
+                                                                                        <xs:documentation>CHAVE_GRUPO: {instFinanc}, {nrContrato}</xs:documentation>
+                                                                                        <xs:documentation>CONDICAO_GRUPO: O (se existir rubrica com {codIncFGTS}(1010_infoRubrica_inclusao_dadosRubrica_codIncFGTS) em S-1010 igual a [31] e {perApur}(5003_ideEvento_perApur) maior ou igual a data de início do eConsignado no eSocial); N (nos demais casos)</xs:documentation>
+                                                                                    </xs:annotation>
+                                                                                    <xs:sequence>
+                                                                                        <xs:element name="instFinanc">
+                                                                                            <xs:simpleType>
+                                                                                                <xs:annotation>
+                                                                                                    <xs:documentation>Instituição financeira do empréstimo eConsignado</xs:documentation>
+                                                                                                    <xs:documentation>Origem: posições 2, 3 e 4 da informação do campo {qtdRubr} do evento remuneratório de origem.</xs:documentation>
+                                                                                                </xs:annotation>
+                                                                                                <xs:restriction base="xs:string">
+                                                                                                    <xs:pattern value="\d{3}" />
+                                                                                                </xs:restriction>
+                                                                                            </xs:simpleType>
+                                                                                        </xs:element>
+                                                                                        <xs:element name="nrContrato">
+                                                                                            <xs:simpleType>
+                                                                                                <xs:annotation>
+                                                                                                    <xs:documentation>Número do contrato do empréstimo eConsignado</xs:documentation>
+                                                                                                    <xs:documentation>Origem: posições 5 a 12 da informação do campo {qtdRubr} do evento remuneratório de origem.</xs:documentation>
+                                                                                                </xs:annotation>
+                                                                                                <xs:restriction base="xs:string">
+                                                                                                    <xs:pattern value="\d{8}" />
+                                                                                                </xs:restriction>
+                                                                                            </xs:simpleType>
+                                                                                        </xs:element>
+                                                                                        <xs:element name="vreConsignado" type="TS_valorMonetario_positivo">
+                                                                                            <xs:annotation>
+                                                                                                <xs:documentation>Valor do desconto do empréstimo eConsignado</xs:documentation>
+                                                                                                <xs:documentation>Origem: soma das rubricas com {codIncFGTS}(1010_infoRubrica_inclusao_dadosRubrica_codIncFGTS) em S-1010 igual a [31].</xs:documentation>
+                                                                                            </xs:annotation>
+                                                                                        </xs:element>
+                                                                                    </xs:sequence>
+                                                                                </xs:complexType>
+                                                                            </xs:element>
                                                                         </xs:sequence>
                                                                     </xs:complexType>
                                                                 </xs:element>
@@ -506,7 +547,7 @@
                                                     </xs:element>
                                                 </xs:sequence>
                                             </xs:complexType>
-                                        </xs:element>                                                    
+                                        </xs:element>
                                     </xs:sequence>
                                 </xs:complexType>
                             </xs:element>
