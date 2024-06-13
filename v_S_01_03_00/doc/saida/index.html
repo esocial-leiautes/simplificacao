@@ -9703,9 +9703,10 @@ Deve ser informado no formato AAAA-MM.</td>
 <td><a href="#r_1210_ideBenef">ideBenef</a></td>
 <td>4</td>
 <td>Informações dos pagamentos efetuados</td>
-<td>1-999</td>
+<td>0-999</td>
 <td><a href="#1210_ideBenef_infoPgto_tpPgto">tpPgto</a>, <a href="#1210_ideBenef_infoPgto_perRef">perRef</a>, <a href="#1210_ideBenef_infoPgto_ideDmDev">ideDmDev</a></td>
-<td>O</td>
+<td>OC (se <a href="#1210_ideEvento_perApur">perApur</a> = [AAAA-01] e existir pelo menos um grupo <a href="#1210_ideBenef_infoIRComplem_perAnt">infoIRComplem/perAnt</a>);<br>
+O (nos demais casos)</td>
 </tr>
 <tr>
 <td id="r_1210_ideBenef_infoPgto_infoPgtoExt"><a href="#1210_ideBenef_infoPgto_infoPgtoExt">infoPgtoExt</a></td>
@@ -10130,7 +10131,7 @@ Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo
 <td><a href="#r_1210_ideBenef">ideBenef</a></td>
 <td>G</td>
 <td>-</td>
-<td>1-999</td>
+<td>0-999</td>
 <td>-</td>
 <td>-</td>
 <td>Informações dos pagamentos efetuados.</td>
@@ -10636,7 +10637,7 @@ Em caso de inconsistência na validação, o arquivo será aceito, porém com al
 <strong>14</strong> - PLR<br>
 <strong>18</strong> - RRA<br>
 <strong>79</strong> - Rendimento isento ou não tributável<br>
-<strong>Validação:</strong> Se <a href="#1210_ideBenef_infoIRComplem_infoIRCR_tpCR">tpCR</a> = [188901], deve ser igual a [18].</td>
+<strong>Validação:</strong> Preenchimento com valor [18] obrigatório e exclusivo quando <a href="#1210_ideBenef_infoIRComplem_infoIRCR_tpCR">tpCR</a> = [188901].</td>
 </tr>
 <tr>
 <td class="seletor" onclick="copiarCaminho.call(this)" title="1210_ideBenef_infoIRComplem_infoIRCR_penAlim_cpfDep" id="1210_ideBenef_infoIRComplem_infoIRCR_penAlim_cpfDep"></td>
@@ -13313,10 +13314,10 @@ Informar 0 (zero) se <a href="#1280_infoSubstPatr_indSubstPatr">indSubstPatr</a>
 <td>1</td>
 <td>-</td>
 <td>Indicativo de não validação das regras de fechamento, para que os grandes contribuintes possam reduzir o tempo de processamento do evento.<br>
-O preenchimento deste campo implica a não execução da REGRA_VALIDA_FECHAMENTO_FOPAG.<br>
+Deve ser preenchido com [N] para que a validação REGRA_VALIDA_FECHAMENTO_FOPAG seja executada.<br>
 <strong>Valores válidos:</strong><br>
 <strong>S</strong> - Sim<br>
-<strong>Validação:</strong> Não informar se <a href="#1299_ideEvento_procEmi">procEmi</a> for diferente de [1].</td>
+<strong>N</strong> - Não</td>
 </tr>
 </tbody>
 </table>
@@ -15106,7 +15107,7 @@ c) Não pode haver mais de um dependente com o mesmo número de CPF.</td>
 <td>Tipo de regime previdenciário (ou Sistema de Proteção Social dos Militares das Forças Armadas).<br>
 <strong>Valores válidos:</strong><br>
 <strong>1</strong> - Regime Geral de Previdência Social - RGPS<br>
-<strong>2</strong> - Regime Próprio de Previdência Social - RPPS<br>
+<strong>2</strong> - Regime Próprio de Previdência Social - RPPS, Regime dos Parlamentares e Sistema de Proteção dos Militares dos Estados/DF<br>
 <strong>3</strong> - Regime de Previdência Social no exterior<br>
 <strong>4</strong> - Sistema de Proteção Social dos Militares das Forças Armadas - SPSMFA<br>
 <strong>Validação:</strong> Se <a href="#2200_vinculo_infoContrato_codCateg">codCateg</a> = [104], deve ser preenchido com [1]. Se <a href="#2200_vinculo_infoContrato_codCateg">codCateg</a> = [101, 102, 103, 105, 106, 107, 108, 111], não pode ser preenchido com [2, 4].</td>
@@ -17884,7 +17885,7 @@ Se a alteração foi fruto de lei, acordo coletivo, convenção coletiva ou sent
 <td>Tipo de regime previdenciário (ou Sistema de Proteção Social dos Militares das Forças Armadas).<br>
 <strong>Valores válidos:</strong><br>
 <strong>1</strong> - Regime Geral de Previdência Social - RGPS<br>
-<strong>2</strong> - Regime Próprio de Previdência Social - RPPS<br>
+<strong>2</strong> - Regime Próprio de Previdência Social - RPPS, Regime dos Parlamentares e Sistema de Proteção dos Militares dos Estados/DF<br>
 <strong>3</strong> - Regime de Previdência Social no exterior<br>
 <strong>4</strong> - Sistema de Proteção Social dos Militares das Forças Armadas - SPSMFA<br>
 <strong>Validação:</strong> Se <a href="#2206_altContratual_vinculo_infoContrato_codCateg">codCateg</a> = [104], deve ser preenchido com [1]. Se <a href="#2206_altContratual_vinculo_infoContrato_codCateg">codCateg</a> = [101, 102, 103, 105, 106, 107, 108, 111], não pode ser preenchido com [2, 4].</td>
@@ -26421,7 +26422,7 @@ Se <a href="#2300_infoTSVInicio_infoComplementares_infoDirigenteSindical_tpInsc"
 <td>Tipo de regime previdenciário.<br>
 <strong>Valores válidos:</strong><br>
 <strong>1</strong> - Regime Geral de Previdência Social - RGPS<br>
-<strong>2</strong> - Regime Próprio de Previdência Social - RPPS<br>
+<strong>2</strong> - Regime Próprio de Previdência Social - RPPS, Regime dos Parlamentares e Sistema de Proteção dos Militares dos Estados/DF<br>
 <strong>3</strong> - Regime de Previdência Social no exterior<br>
 <strong>Validação:</strong> Se <a href="#2300_infoTSVInicio_infoComplementares_infoDirigenteSindical_categOrig">infoDirigenteSindical/categOrig</a> for relativa a &quot;Empregado&quot;, não pode ser preenchido com [2].</td>
 </tr>
@@ -26511,7 +26512,7 @@ Se <a href="#2300_infoTSVInicio_infoComplementares_infoDirigenteSindical_tpInsc"
 <td>Tipo de regime previdenciário (ou Sistema de Proteção Social dos Militares das Forças Armadas).<br>
 <strong>Valores válidos:</strong><br>
 <strong>1</strong> - Regime Geral de Previdência Social - RGPS<br>
-<strong>2</strong> - Regime Próprio de Previdência Social - RPPS<br>
+<strong>2</strong> - Regime Próprio de Previdência Social - RPPS, Regime dos Parlamentares e Sistema de Proteção dos Militares dos Estados/DF<br>
 <strong>3</strong> - Regime de Previdência Social no exterior<br>
 <strong>4</strong> - Sistema de Proteção Social dos Militares das Forças Armadas - SPSMFA<br>
 <strong>Validação:</strong> Se <a href="#2300_infoTSVInicio_infoComplementares_infoTrabCedido_categOrig">infoTrabCedido/categOrig</a> for relativa a &quot;Empregado&quot;, não pode ser preenchido com [2, 4]. Se <a href="#2300_infoTSVInicio_codCateg">codCateg</a> = [305], deve ser preenchido com [2].</td>
@@ -26616,7 +26617,7 @@ Se <a href="#2300_infoTSVInicio_infoComplementares_infoDirigenteSindical_tpInsc"
 <td>Tipo de regime previdenciário.<br>
 <strong>Valores válidos:</strong><br>
 <strong>1</strong> - Regime Geral de Previdência Social - RGPS<br>
-<strong>2</strong> - Regime Próprio de Previdência Social - RPPS<br>
+<strong>2</strong> - Regime Próprio de Previdência Social - RPPS, Regime dos Parlamentares e Sistema de Proteção dos Militares dos Estados/DF<br>
 <strong>3</strong> - Regime de Previdência Social no exterior</td>
 </tr>
 <tr class="grupo">
@@ -27619,7 +27620,7 @@ Informar somente no caso de TSVE sem informação de matrícula no evento S-2300
 <td>Tipo de regime previdenciário.<br>
 <strong>Valores válidos:</strong><br>
 <strong>1</strong> - Regime Geral de Previdência Social - RGPS<br>
-<strong>2</strong> - Regime Próprio de Previdência Social - RPPS<br>
+<strong>2</strong> - Regime Próprio de Previdência Social - RPPS, Regime dos Parlamentares e Sistema de Proteção dos Militares dos Estados/DF<br>
 <strong>3</strong> - Regime de Previdência Social no exterior<br>
 <strong>Validação:</strong> Se <a href="#2300_infoTSVInicio_infoComplementares_infoDirigenteSindical_categOrig">infoDirigenteSindical/categOrig</a> do evento S-2300 for relativa a &quot;Empregado&quot;, não pode ser preenchido com [2].</td>
 </tr>
@@ -27646,7 +27647,7 @@ Informar somente no caso de TSVE sem informação de matrícula no evento S-2300
 <td>Tipo de regime previdenciário (ou Sistema de Proteção Social dos Militares das Forças Armadas).<br>
 <strong>Valores válidos:</strong><br>
 <strong>1</strong> - Regime Geral de Previdência Social - RGPS<br>
-<strong>2</strong> - Regime Próprio de Previdência Social - RPPS<br>
+<strong>2</strong> - Regime Próprio de Previdência Social - RPPS, Regime dos Parlamentares e Sistema de Proteção dos Militares dos Estados/DF<br>
 <strong>3</strong> - Regime de Previdência Social no exterior<br>
 <strong>4</strong> - Sistema de Proteção Social dos Militares das Forças Armadas - SPSMFA<br>
 <strong>Validação:</strong> Se <a href="#2300_infoTSVInicio_infoComplementares_infoTrabCedido_categOrig">infoTrabCedido/categOrig</a> do evento S-2300 for relativa a &quot;Empregado&quot;, não pode ser preenchido com [2, 4].</td>
@@ -27689,7 +27690,7 @@ Informar somente no caso de TSVE sem informação de matrícula no evento S-2300
 <td>Tipo de regime previdenciário.<br>
 <strong>Valores válidos:</strong><br>
 <strong>1</strong> - Regime Geral de Previdência Social - RGPS<br>
-<strong>2</strong> - Regime Próprio de Previdência Social - RPPS<br>
+<strong>2</strong> - Regime Próprio de Previdência Social - RPPS, Regime dos Parlamentares e Sistema de Proteção dos Militares dos Estados/DF<br>
 <strong>3</strong> - Regime de Previdência Social no exterior</td>
 </tr>
 <tr class="grupo">
@@ -33559,7 +33560,7 @@ Se <a href="#2500_ideTrab_infoContr_codCateg">infoContr/codCateg</a> = [104], de
 <td>Tipo de regime previdenciário.<br>
 <strong>Valores válidos:</strong><br>
 <strong>1</strong> - Regime Geral de Previdência Social - RGPS<br>
-<strong>2</strong> - Regime Próprio de Previdência Social - RPPS<br>
+<strong>2</strong> - Regime Próprio de Previdência Social - RPPS, Regime dos Parlamentares e Sistema de Proteção dos Militares dos Estados/DF<br>
 <strong>3</strong> - Regime de Previdência Social no exterior<br>
 <strong>Validação:</strong> Se <a href="#2500_ideTrab_infoContr_codCateg">infoContr/codCateg</a> = [104], deve ser preenchido com [1]. Se <a href="#2500_ideTrab_infoContr_codCateg">infoContr/codCateg</a> = [101, 102, 103, 105, 106, 107, 108, 111], não pode ser preenchido com [2].</td>
 </tr>
@@ -45667,7 +45668,7 @@ Deve ser um identificador válido, constante das bases da RFB, conforme indicado
 <td>Tipo de regime previdenciário.<br>
 <strong>Valores válidos:</strong><br>
 <strong>1</strong> - Regime Geral de Previdência Social - RGPS<br>
-<strong>2</strong> - Regime Próprio de Previdência Social - RPPS<br>
+<strong>2</strong> - Regime Próprio de Previdência Social - RPPS, Regime dos Parlamentares e Sistema de Proteção dos Militares dos Estados/DF<br>
 <strong>3</strong> - Regime de Previdência Social no exterior<br>
 <strong>Validação:</strong> Se <a href="#8200_infoAnotJud_codCateg">codCateg</a> = [104], deve ser preenchido com [1]. Se <a href="#8200_infoAnotJud_codCateg">codCateg</a> = [101, 102, 103, 105, 106, 107, 108, 111], não pode ser preenchido com [2].</td>
 </tr>

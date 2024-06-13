@@ -44,10 +44,11 @@
                                                 <xs:documentation>Validação: Deve ser o mesmo CPF informado no evento de remuneração ou desligamento (S-1200, S-1202, S-1207, S-2299 ou S-2399).</xs:documentation>
                                             </xs:annotation>
                                         </xs:element>
-                                        <xs:element name="infoPgto" maxOccurs="999">
+                                        <xs:element name="infoPgto" minOccurs="0" maxOccurs="999">
                                             <xs:annotation>
                                                 <xs:documentation>Informações dos pagamentos efetuados.</xs:documentation>
                                                 <xs:documentation>CHAVE_GRUPO: {tpPgto}, {perRef}, {ideDmDev}</xs:documentation>
+                                                <xs:documentation>CONDICAO_GRUPO: OC (se {}(1210_ideEvento_perApur) = [AAAA-01] e existir pelo menos um grupo {infoIRComplem/perAnt}(1210_ideBenef_infoIRComplem_perAnt)); O (nos demais casos)</xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>
@@ -342,7 +343,7 @@
                                                                             <xs:element name="tpRend" type="TS_tpRendPenAlim">
                                                                                 <xs:annotation>
                                                                                     <xs:documentation>Tipo de rendimento.</xs:documentation>
-                                                                                    <xs:documentation>Validação: Se {tpCR}(../tpCR) = [188901], deve ser igual a [18].</xs:documentation>
+                                                                                    <xs:documentation>Validação: Preenchimento com valor [18] obrigatório e exclusivo quando {tpCR}(../tpCR) = [188901].</xs:documentation>
                                                                                 </xs:annotation>
                                                                             </xs:element>
                                                                             <xs:element name="cpfDep" type="TS_cpfPenAlim" />
