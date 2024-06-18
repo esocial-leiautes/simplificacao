@@ -868,7 +868,26 @@
                                                                     </xs:annotation>
                                                                     <xs:complexType>
                                                                         <xs:sequence>
-                                                                            <xs:element name="ind13" type="TS_ind13" />
+                                                                            <xs:element name="ind13">
+                                                                                <xs:simpleType>
+                                                                                    <xs:annotation>
+                                                                                        <xs:documentation>Indicativo de 13° salário.</xs:documentation>
+                                                                                        <xs:documentation>Validação: Se {indApuracao}(/ideEvento_perApur) = [2], preencher com [1].</xs:documentation>
+                                                                                    </xs:annotation>
+                                                                                    <xs:restriction base="xs:byte">
+                                                                                        <xs:enumeration value="0">
+                                                                                            <xs:annotation>
+                                                                                                <xs:documentation>Mensal</xs:documentation>
+                                                                                            </xs:annotation>
+                                                                                        </xs:enumeration>
+                                                                                        <xs:enumeration value="1">
+                                                                                            <xs:annotation>
+                                                                                                <xs:documentation>13° salário</xs:documentation>
+                                                                                            </xs:annotation>
+                                                                                        </xs:enumeration>
+                                                                                    </xs:restriction>
+                                                                                </xs:simpleType>
+                                                                            </xs:element>
                                                                             <xs:element name="tpValorPisPasep">
                                                                                 <xs:simpleType>
                                                                                     <xs:annotation>
@@ -894,8 +913,8 @@
                                                                                     <xs:documentation>Validação: Deve ser maior que 0 (zero).</xs:documentation>
                                                                                     <xs:documentation>Deve corresponder ao somatório dos valores informados no campo {vrRubr} em S-1200, S-1202 e S-2299 (grupos {infoPerApur} e {infoPerAnt}), e também em S-2399, obedecendo ao que segue:</xs:documentation>
                                                                                     <xs:documentation>a) Somar os valores das rubricas cujo {tpRubr}(1010_infoRubrica_inclusao_dadosRubrica_tpRubr) em S-1010 seja igual a [1, 3] e subtrair os valores das rubricas cujo {tpRubr}(1010_infoRubrica_inclusao_dadosRubrica_tpRubr) em S-1010 seja igual a [2, 4], observando a tabela de relacionamento abaixo:</xs:documentation>
-                                                                                    <xs:documentation>{}(./tpValorPisPasep) = [11]*, {}(1010_infoRubrica_inclusao_dadosRubrica_codIncPisPasep) em S-1010 = [11, 12] e ({grauExp} em S-1200/S-2299 = [1] ou não informado);</xs:documentation>
-                                                                                    <xs:documentation>{}(./tpValorPisPasep) = [91]*, {}(1010_infoRubrica_inclusao_dadosRubrica_codIncPisPasep) em S-1010 = [91, 92] e ({grauExp} em S-1200/S-2299 = [1] ou não informado);</xs:documentation>
+                                                                                    <xs:documentation>{}(./tpValorPisPasep) = [11]*, {}(1010_infoRubrica_inclusao_dadosRubrica_codIncPisPasep) em S-1010 = [11, 12];</xs:documentation>
+                                                                                    <xs:documentation>{}(./tpValorPisPasep) = [91]*, {}(1010_infoRubrica_inclusao_dadosRubrica_codIncPisPasep) em S-1010 = [91, 92];</xs:documentation>
                                                                                     <xs:documentation>* Caso {}(1010_infoRubrica_inclusao_dadosRubrica_codIncPisPasep) da rubrica em S-1010 seja igual a [91, 92] e {indSusp}(1070_infoProcesso_inclusao_dadosProc_infoSusp_indSusp) do respectivo processo em S-1070 seja diferente de [90] (decisão definitiva), o valor também deve ser computado na composição das bases do {}(./tpValorPisPasep) = [11].</xs:documentation>
                                                                                     <xs:documentation>*** Caso {indSusp}(1070_infoProcesso_inclusao_dadosProc_infoSusp_indSusp) do respectivo processo em S-1070 seja igual a [90] (decisão definitiva), o valor não deve ser computado.</xs:documentation>
                                                                                 </xs:annotation>
