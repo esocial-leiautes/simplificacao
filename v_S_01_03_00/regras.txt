@@ -144,7 +144,7 @@ d) Não pode conter barra vertical ("|").
 REGRA_ENVIO_PROC_FECHAMENTO
 Durante o processamento do fechamento dos eventos periódicos (evento S-1299), somente é possível transmitir:
 a) Tabelas, se o início de validade do evento for posterior ao período de apuração objeto do fechamento (em caso de preenchimento do grupo {novaValidade}, o novo início de validade também deve ser posterior ao período de apuração);
-b) Eventos S-2205, S-2210, S-2220, S-2221, S-2240, S-2400, S-2405, S-2500, S-2501 e S-8200 (inclusive S-3000 ou S-3500 referente a esses eventos), independentemente da data de ocorrência do evento;
+b) Eventos S-2205, S-2210, S-2220, S-2221, S-2240, S-2400, S-2405, S-2500, S-2501, S-2555 e S-8200 (inclusive S-3000 ou S-3500 referente a esses eventos), independentemente da data de ocorrência do evento;
 c) Demais eventos não periódicos (inclusive S-3000 referente a esses eventos), se o mês/ano da data de ocorrência do evento for posterior ao período de apuração objeto do fechamento (em caso de retificação, devem ser observadas as datas de ocorrência dos eventos original e retificado);
 d) Eventos periódicos, exceto S-1299 (inclusive S-3000 referente a esses eventos, quando cabível), se o período de apuração for diferente do período de apuração objeto do fechamento.
 
@@ -229,6 +229,10 @@ c) Referente ao evento S-1298 (quando for o caso), observar o que segue:
 c1) Se o evento S-1299 foi enviado com {procEmi} = [1, 3], o evento S-1298 deverá ter {procEmi} = [1, 3];
 c2) Se o evento S-1299 foi enviado com {procEmi} = [4], o evento S-1298 poderá ter {procEmi} = [1, 3, 4].
 
+REGRA_EXC_RET_2501
+Não é permitido excluir ou retificar evento S-2501 se houver evento S-2555 com os mesmos {nrProcTrab} e {perApurPgto}.
+.
+
 REGRA_EXCLUI_EVENTO_AFASTAMENTO
 Não é permitida a exclusão de evento de início de afastamento quando já existir evento de fim do mesmo afastamento.
 
@@ -240,6 +244,9 @@ Não é permitida a exclusão de evento de início de cessão/exercício em outr
 
 REGRA_EXCLUSAO_ADMISSAO_TSVE_INICIO
 Não é permitida a exclusão de evento de Admissão ou TSVE - Início (S-2200 ou S-2300) se houver evento de Registro Preliminar (S-2190). A exclusão só é aceita se, primeiramente, houver exclusão do respectivo evento de Registro Preliminar.
+
+REGRA_EXISTE_2501
+Para aceitação do evento S-2555, é necessária a existência de pelo menos um evento S-2501 com os mesmos {nrProcTrab}, {perApurPgto} e com {ideConjunto} preenchido.
 
 REGRA_EXISTE_EVENTO_AFASTAMENTO
 O trabalhador deve estar afastado no mesmo contrato na data definida no campo {dtTermAfast}, no caso de término do afastamento.

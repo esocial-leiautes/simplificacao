@@ -38,7 +38,7 @@ Nome: ideProc
 Pai: evtContProc
 Descrição: Identificação do processo.
 Ocorrência: 1
-Chave: nrProcTrab*, perApurPgto*
+Chave: nrProcTrab*, perApurPgto*, ideConjunto*
 Condição: O
 
 Nível: 3
@@ -201,6 +201,7 @@ Dec.: -
 Descrição: Evento Informações de Tributos Decorrentes de Processo Trabalhista.
 Regras de validação:
 REGRA_ENVIO_PROC_FECHAMENTO
+REGRA_EXC_RET_2501
 REGRA_EXISTE_INFO_EMPREGADOR
 REGRA_VALIDA_EMPREGADOR
 
@@ -346,6 +347,18 @@ Descrição: Mês/ano em que é devida a obrigação de pagar a parcela prevista
 Validação: Deve ser um período igual ou posterior ao mês/ano de {dtSent}(2500_infoProcesso_dadosCompl_infoProcJud_dtSent) ou de {dtCCP}(2500_infoProcesso_dadosCompl_infoCCP_dtCCP) existente no evento S-2500 para o processo indicado em {nrProcTrab}(./nrProcTrab).
 Deve ser informado no formato AAAA-MM.
 
+Nome: ideConjunto
+Pai: ideProc
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 3
+Dec.: -
+Descrição: Identificador atribuído pela empresa ao conjunto de dados de tributos decorrentes de processo trabalhista.
+Validação: Deve ser um identificador único dentre os eventos S-2501 do empregador que tenham os mesmos {}(./nrProcTrab) e {}(./perApurPgto).
+Se for preenchido, não pode haver outro evento S-2501 com os mesmos {}(./nrProcTrab) e {}(./perApurPgto) e sem o campo {}(./ideConjunto).
+Se não for preenchido, não pode haver outro evento S-2501 com os mesmos {}(./nrProcTrab) e {}(./perApurPgto).
+
 Nome: obs
 Pai: ideProc
 Elem.: E
@@ -373,6 +386,7 @@ Tamanho: 11
 Dec.: -
 Descrição: Preencher com o número do CPF do trabalhador.
 Validação: Deve ser um CPF válido e informado no evento S-2500.
+Deve ser único dentre os eventos S-2501 do empregador que tenham os mesmos {}(../ideProc_nrProcTrab) e {}(../ideProc_perApurPgto).
 
 Nome: calcTrib
 Pai: ideTrab

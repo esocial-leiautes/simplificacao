@@ -57,6 +57,7 @@
 <li><a href="#evtCdBenTerm">S-2420 - Cadastro de Benefício - Entes Públicos - Término</a></li>
 <li><a href="#evtProcTrab">S-2500 - Processo Trabalhista</a></li>
 <li><a href="#evtContProc">S-2501 - Informações de Tributos Decorrentes de Processo Trabalhista</a></li>
+<li><a href="#evtConsolidContProc">S-2555 - Solicitação de Consolidação das Informações de Tributos Decorrentes de Processo Trabalhista</a></li>
 <li><a href="#evtExclusao">S-3000 - Exclusão de Eventos</a></li>
 <li><a href="#evtExcProcTrab">S-3500 - Exclusão de Eventos - Processo Trabalhista</a></li>
 <li><a href="#evtBasesTrab">S-5001 - Informações das Contribuições Sociais por Trabalhador</a></li>
@@ -466,7 +467,7 @@ d) Não pode conter barra vertical ("|").</p>
 <div class="modal-card-body">
 <p>Durante o processamento do fechamento dos eventos periódicos (evento S-1299), somente é possível transmitir:<br>
 a) Tabelas, se o início de validade do evento for posterior ao período de apuração objeto do fechamento (em caso de preenchimento do grupo {novaValidade}, o novo início de validade também deve ser posterior ao período de apuração);<br>
-b) Eventos S-2205, S-2210, S-2220, S-2221, S-2240, S-2400, S-2405, S-2500, S-2501 e S-8200 (inclusive S-3000 ou S-3500 referente a esses eventos), independentemente da data de ocorrência do evento;<br>
+b) Eventos S-2205, S-2210, S-2220, S-2221, S-2240, S-2400, S-2405, S-2500, S-2501, S-2555 e S-8200 (inclusive S-3000 ou S-3500 referente a esses eventos), independentemente da data de ocorrência do evento;<br>
 c) Demais eventos não periódicos (inclusive S-3000 referente a esses eventos), se o mês/ano da data de ocorrência do evento for posterior ao período de apuração objeto do fechamento (em caso de retificação, devem ser observadas as datas de ocorrência dos eventos original e retificado);<br>
 d) Eventos periódicos, exceto S-1299 (inclusive S-3000 referente a esses eventos, quando cabível), se o período de apuração for diferente do período de apuração objeto do fechamento.</p>
 </div>
@@ -643,6 +644,19 @@ c2) Se o evento S-1299 foi enviado com {procEmi} = [4], o evento S-1298 poderá 
 </div>
 </div>
 </div>
+<div class="modal" id="REGRA_EXC_RET_2501">
+<div class="modal-background"></div>
+<div class="modal-card">
+<header class="modal-card-head">
+<p class="modal-card-title"><a href="regras.html#REGRA_EXC_RET_2501">REGRA_EXC_RET_2501</a></p>
+<button class="delete" aria-label="close"></button>
+</header>
+<div class="modal-card-body">
+<p>Não é permitido excluir ou retificar evento S-2501 se houver evento S-2555 com os mesmos {nrProcTrab} e {perApurPgto}.<br>
+.</p>
+</div>
+</div>
+</div>
 <div class="modal" id="REGRA_EXCLUI_EVENTO_AFASTAMENTO">
 <div class="modal-background"></div>
 <div class="modal-card">
@@ -688,6 +702,18 @@ c2) Se o evento S-1299 foi enviado com {procEmi} = [4], o evento S-1298 poderá 
 </header>
 <div class="modal-card-body">
 <p>Não é permitida a exclusão de evento de Admissão ou TSVE - Início (S-2200 ou S-2300) se houver evento de Registro Preliminar (S-2190). A exclusão só é aceita se, primeiramente, houver exclusão do respectivo evento de Registro Preliminar.</p>
+</div>
+</div>
+</div>
+<div class="modal" id="REGRA_EXISTE_2501">
+<div class="modal-background"></div>
+<div class="modal-card">
+<header class="modal-card-head">
+<p class="modal-card-title"><a href="regras.html#REGRA_EXISTE_2501">REGRA_EXISTE_2501</a></p>
+<button class="delete" aria-label="close"></button>
+</header>
+<div class="modal-card-body">
+<p>Para aceitação do evento S-2555, é necessária a existência de pelo menos um evento S-2501 com os mesmos {nrProcTrab}, {perApurPgto} e com {ideConjunto} preenchido.</p>
 </div>
 </div>
 </div>
@@ -34399,7 +34425,7 @@ Se preenchida, deve estar no intervalo entre [0000] e [9959], criticando inclusi
 <td>3</td>
 <td>Identificação do processo</td>
 <td>1</td>
-<td><a href="#2501_ideProc_nrProcTrab">nrProcTrab</a>*, <a href="#2501_ideProc_perApurPgto">perApurPgto</a>*</td>
+<td><a href="#2501_ideProc_nrProcTrab">nrProcTrab</a>*, <a href="#2501_ideProc_perApurPgto">perApurPgto</a>*, <a href="#2501_ideProc_ideConjunto">ideConjunto</a>*</td>
 <td>O</td>
 </tr>
 <tr>
@@ -34602,6 +34628,7 @@ OC (nos demais casos)</td>
 <td>Evento Informações de Tributos Decorrentes de Processo Trabalhista.<br>
 <strong>Regras de validação:</strong><br>
 <a href="#REGRA_ENVIO_PROC_FECHAMENTO">REGRA_ENVIO_PROC_FECHAMENTO</a><br>
+<a href="#REGRA_EXC_RET_2501">REGRA_EXC_RET_2501</a><br>
 <a href="#REGRA_EXISTE_INFO_EMPREGADOR">REGRA_EXISTE_INFO_EMPREGADOR</a><br>
 <a href="#REGRA_VALIDA_EMPREGADOR">REGRA_VALIDA_EMPREGADOR</a></td>
 </tr>
@@ -34774,6 +34801,20 @@ Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo
 Deve ser informado no formato AAAA-MM.</td>
 </tr>
 <tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="2501_ideProc_ideConjunto" id="2501_ideProc_ideConjunto"></td>
+<td>ideConjunto</td>
+<td><a href="#r_2501_ideProc">ideProc</a></td>
+<td>E</td>
+<td>N</td>
+<td>0-1</td>
+<td>3</td>
+<td>-</td>
+<td>Identificador atribuído pela empresa ao conjunto de dados de tributos decorrentes de processo trabalhista.<br>
+<strong>Validação:</strong> Deve ser um identificador único dentre os eventos S-2501 do empregador que tenham os mesmos <a href="#2501_ideProc_nrProcTrab">nrProcTrab</a> e <a href="#2501_ideProc_perApurPgto">perApurPgto</a>.<br>
+Se for preenchido, não pode haver outro evento S-2501 com os mesmos <a href="#2501_ideProc_nrProcTrab">nrProcTrab</a> e <a href="#2501_ideProc_perApurPgto">perApurPgto</a> e sem o campo <a href="#2501_ideProc_ideConjunto">ideConjunto</a>.<br>
+Se não for preenchido, não pode haver outro evento S-2501 com os mesmos <a href="#2501_ideProc_nrProcTrab">nrProcTrab</a> e <a href="#2501_ideProc_perApurPgto">perApurPgto</a>.</td>
+</tr>
+<tr>
 <td class="seletor" onclick="copiarCaminho.call(this)" title="2501_ideProc_obs" id="2501_ideProc_obs"></td>
 <td>obs</td>
 <td><a href="#r_2501_ideProc">ideProc</a></td>
@@ -34805,7 +34846,8 @@ Deve ser informado no formato AAAA-MM.</td>
 <td>11</td>
 <td>-</td>
 <td>Preencher com o número do CPF do trabalhador.<br>
-<strong>Validação:</strong> Deve ser um CPF válido e informado no evento S-2500.</td>
+<strong>Validação:</strong> Deve ser um CPF válido e informado no evento S-2500.<br>
+Deve ser único dentre os eventos S-2501 do empregador que tenham os mesmos <a href="#2501_ideProc_nrProcTrab">nrProcTrab</a> e <a href="#2501_ideProc_perApurPgto">perApurPgto</a>.</td>
 </tr>
 <tr class="grupo">
 <td class="seletor" onclick="copiarCaminho.call(this)" title="2501_ideTrab_calcTrib" id="2501_ideTrab_calcTrib"></td>
@@ -35713,6 +35755,257 @@ Deve ser um código válido e existente na <a href="tabelas.html#07">Tabela 07</
 </tbody>
 </table>
 
+<h3 id="evtConsolidContProc" class="title has-text-centered quebra-anterior">S-2555 - Solicitação de Consolidação das Informações de Tributos Decorrentes de Processo Trabalhista</h3>
+<table class="table is-fullwidth is-bordered resumo">
+<tbody>
+<tr>
+<th colspan="7">Tabela de Resumo dos Registros</th>
+</tr>
+<tr class="grupo">
+<td><strong>Grupo</strong></td>
+<td><strong>Grupo Pai</strong></td>
+<td><strong>Nível</strong></td>
+<td><strong>Descrição</strong></td>
+<td><strong>Ocor.</strong></td>
+<td><strong>Chave</strong></td>
+<td><strong>Condição</strong></td>
+</tr>
+<tr>
+<td id="r_2555_eSocial"><a href="#2555_eSocial">eSocial</a></td>
+<td></td>
+<td>1</td>
+<td>eSocial</td>
+<td>1</td>
+<td>-</td>
+<td>O</td>
+</tr>
+<tr>
+<td id="r_2555"><a href="#2555">evtConsolidContProc</a></td>
+<td><a href="#r_2555_eSocial">eSocial</a></td>
+<td>2</td>
+<td>Evento Solicitação de Consolidação das Informações de Tributos Decorrentes de Processo Trabalhista</td>
+<td>1</td>
+<td><a href="#2555_Id">Id</a></td>
+<td>O</td>
+</tr>
+<tr>
+<td id="r_2555_ideEvento"><a href="#2555_ideEvento">ideEvento</a></td>
+<td><a href="#r_2555">evtConsolidContProc</a></td>
+<td>3</td>
+<td>Informações de identificação do evento</td>
+<td>1</td>
+<td>-</td>
+<td>O</td>
+</tr>
+<tr>
+<td id="r_2555_ideEmpregador"><a href="#2555_ideEmpregador">ideEmpregador</a></td>
+<td><a href="#r_2555">evtConsolidContProc</a></td>
+<td>3</td>
+<td>Informações de identificação do empregador ou do contribuinte que está prestando a informação</td>
+<td>1</td>
+<td><a href="#2555_ideEmpregador_tpInsc">tpInsc</a>*, <a href="#2555_ideEmpregador_nrInsc">nrInsc</a>*</td>
+<td>O</td>
+</tr>
+<tr>
+<td id="r_2555_ideProc"><a href="#2555_ideProc">ideProc</a></td>
+<td><a href="#r_2555">evtConsolidContProc</a></td>
+<td>3</td>
+<td>Identificação do processo</td>
+<td>1</td>
+<td><a href="#2555_ideProc_nrProcTrab">nrProcTrab</a>*, <a href="#2555_ideProc_perApurPgto">perApurPgto</a>*</td>
+<td>O</td>
+</tr>
+</tbody>
+</table>
+
+<p class="is-size-6" style="margin-top: -1rem; margin-bottom: 2rem;">* Campo chave do evento</p>
+
+<h4 class="subtitle has-text-centered">Registros do evento S-2555 - Solicitação de Consolidação das Informações de Tributos Decorrentes de Processo Trabalhista</h4>
+<table class="table is-fullwidth is-bordered completo">
+<tbody>
+<tr>
+<th class="seletor">#</th>
+<th>Grupo/Campo</th>
+<th>Grupo Pai</th>
+<th>Elem.</th>
+<th>Tipo</th>
+<th>Ocor.</th>
+<th>Tamanho</th>
+<th>Dec.</th>
+<th>Descrição</th>
+</tr>
+<tr class="grupo">
+<td class="seletor" onclick="copiarCaminho.call(this)" title="2555_eSocial" id="2555_eSocial"></td>
+<td><a href="#r_2555_eSocial">eSocial</a></td>
+<td></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>eSocial</td>
+</tr>
+<tr class="grupo">
+<td class="seletor" onclick="copiarCaminho.call(this)" title="2555" id="2555"></td>
+<td><a href="#r_2555">evtConsolidContProc</a></td>
+<td><a href="#r_2555_eSocial">eSocial</a></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Evento Solicitação de Consolidação das Informações de Tributos Decorrentes de Processo Trabalhista.<br>
+<strong>Regras de validação:</strong><br>
+<a href="#REGRA_ENVIO_PROC_FECHAMENTO">REGRA_ENVIO_PROC_FECHAMENTO</a><br>
+<a href="#REGRA_EXISTE_INFO_EMPREGADOR">REGRA_EXISTE_INFO_EMPREGADOR</a><br>
+<a href="#REGRA_EXISTE_2501">REGRA_EXISTE_2501</a><br>
+<a href="#REGRA_VALIDA_EMPREGADOR">REGRA_VALIDA_EMPREGADOR</a></td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="2555_Id" id="2555_Id"></td>
+<td>Id</td>
+<td><a href="#r_2555">evtConsolidContProc</a></td>
+<td>A</td>
+<td>C</td>
+<td>1</td>
+<td>36</td>
+<td>-</td>
+<td>Identificação única do evento.<br>
+<strong>Regra de validação:</strong><br>
+<a href="#REGRA_VALIDA_ID_EVENTO">REGRA_VALIDA_ID_EVENTO</a></td>
+</tr>
+<tr class="grupo">
+<td class="seletor" onclick="copiarCaminho.call(this)" title="2555_ideEvento" id="2555_ideEvento"></td>
+<td><a href="#r_2555_ideEvento">ideEvento</a></td>
+<td><a href="#r_2555">evtConsolidContProc</a></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Informações de identificação do evento.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="2555_ideEvento_tpAmb" id="2555_ideEvento_tpAmb"></td>
+<td>tpAmb</td>
+<td><a href="#r_2555_ideEvento">ideEvento</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1</td>
+<td>-</td>
+<td>Identificação do ambiente.<br>
+<strong>Valores válidos:</strong><br>
+<strong>1</strong> - Produção<br>
+<strong>2</strong> - Produção restrita<br>
+<strong>7</strong> - Validação (uso interno)<br>
+<strong>8</strong> - Teste (uso interno)<br>
+<strong>9</strong> - Desenvolvimento (uso interno)</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="2555_ideEvento_procEmi" id="2555_ideEvento_procEmi"></td>
+<td>procEmi</td>
+<td><a href="#r_2555_ideEvento">ideEvento</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1-2</td>
+<td>-</td>
+<td>Processo de emissão do evento.<br>
+<strong>Valores válidos:</strong><br>
+<strong>1</strong> - Aplicativo do empregador<br>
+<strong>2</strong> - Aplicativo governamental - Simplificado Pessoa Física<br>
+<strong>3</strong> - Aplicativo governamental - Web Geral<br>
+<strong>4</strong> - Aplicativo governamental - Simplificado Pessoa Jurídica<br>
+<strong>8</strong> - Aplicativo governamental para envio de eventos pelo Judiciário<br>
+<strong>9</strong> - Aplicativo governamental - Integração com a Junta Comercial<br>
+<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="2555_ideEvento_verProc" id="2555_ideEvento_verProc"></td>
+<td>verProc</td>
+<td><a href="#r_2555_ideEvento">ideEvento</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>1-20</td>
+<td>-</td>
+<td>Versão do processo de emissão do evento. Informar a versão do aplicativo emissor do evento.</td>
+</tr>
+<tr class="grupo">
+<td class="seletor" onclick="copiarCaminho.call(this)" title="2555_ideEmpregador" id="2555_ideEmpregador"></td>
+<td><a href="#r_2555_ideEmpregador">ideEmpregador</a></td>
+<td><a href="#r_2555">evtConsolidContProc</a></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Informações de identificação do empregador ou do contribuinte que está prestando a informação.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="2555_ideEmpregador_tpInsc" id="2555_ideEmpregador_tpInsc"></td>
+<td>tpInsc</td>
+<td><a href="#r_2555_ideEmpregador">ideEmpregador</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1</td>
+<td>-</td>
+<td>Preencher com o código correspondente ao tipo de inscrição do empregador ou contribuinte que está prestando a informação, conforme <a href="tabelas.html#05">Tabela 05</a>.<br>
+<strong>Valores válidos:</strong><br>
+<strong>1</strong> - CNPJ<br>
+<strong>2</strong> - CPF</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="2555_ideEmpregador_nrInsc" id="2555_ideEmpregador_nrInsc"></td>
+<td>nrInsc</td>
+<td><a href="#r_2555_ideEmpregador">ideEmpregador</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>8, 11 ou 14</td>
+<td>-</td>
+<td>Informar o número de inscrição do empregador ou contribuinte que está prestando a informação, de acordo com o tipo de inscrição indicado no campo <a href="#2555_ideEmpregador_tpInsc">ideEmpregador/tpInsc</a> e conforme informado em S-1000.</td>
+</tr>
+<tr class="grupo">
+<td class="seletor" onclick="copiarCaminho.call(this)" title="2555_ideProc" id="2555_ideProc"></td>
+<td><a href="#r_2555_ideProc">ideProc</a></td>
+<td><a href="#r_2555">evtConsolidContProc</a></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Identificação do processo.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="2555_ideProc_nrProcTrab" id="2555_ideProc_nrProcTrab"></td>
+<td>nrProcTrab</td>
+<td><a href="#r_2555_ideProc">ideProc</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>15 ou 20</td>
+<td>-</td>
+<td>Número do processo trabalhista, da ata ou número de identificação da conciliação.<br>
+<strong>Validação:</strong> Deve ser um número de processo válido.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="2555_ideProc_perApurPgto" id="2555_ideProc_perApurPgto"></td>
+<td>perApurPgto</td>
+<td><a href="#r_2555_ideProc">ideProc</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>7</td>
+<td>-</td>
+<td>Mês/ano em que é devida a obrigação de pagar a parcela prevista no acordo/sentença.<br>
+<strong>Validação:</strong> Deve ser informado no formato AAAA-MM.</td>
+</tr>
+</tbody>
+</table>
+
 <h3 id="evtExclusao" class="title has-text-centered quebra-anterior">S-3000 - Exclusão de Eventos</h3>
 <table class="table is-fullwidth is-bordered resumo">
 <tbody>
@@ -36158,6 +36451,7 @@ N (nos demais casos)</td>
 <td>Evento Exclusão de Eventos - Processo Trabalhista.<br>
 <strong>Regras de validação:</strong><br>
 <a href="#REGRA_ENVIO_PROC_FECHAMENTO">REGRA_ENVIO_PROC_FECHAMENTO</a><br>
+<a href="#REGRA_EXC_RET_2501">REGRA_EXC_RET_2501</a><br>
 <a href="#REGRA_EXISTE_INFO_EMPREGADOR">REGRA_EXISTE_INFO_EMPREGADOR</a><br>
 <a href="#REGRA_VALIDA_EMPREGADOR">REGRA_VALIDA_EMPREGADOR</a></td>
 </tr>
@@ -36286,8 +36580,8 @@ N (nos demais casos)</td>
 <td>1</td>
 <td>6</td>
 <td>-</td>
-<td>Preencher com o tipo de evento (S-2500 ou S-2501).<br>
-<strong>Validação:</strong> Deve ser igual a [S-2500, S-2501].</td>
+<td>Preencher com o tipo de evento (S-2500, S-2501 ou S-2555).<br>
+<strong>Validação:</strong> Deve ser igual a [S-2500, S-2501, S-2555].</td>
 </tr>
 <tr>
 <td class="seletor" onclick="copiarCaminho.call(this)" title="3500_infoExclusao_nrRecEvt" id="3500_infoExclusao_nrRecEvt"></td>
@@ -36346,7 +36640,19 @@ N (nos demais casos)</td>
 <td>7</td>
 <td>-</td>
 <td>Mês/ano em que é devida a obrigação de pagar a parcela prevista no acordo/sentença.<br>
-<strong>Validação:</strong> Preenchimento obrigatório e exclusivo se <a href="#3500_infoExclusao_tpEvento">tpEvento</a> = [S-2501]. Deve ser o mesmo período informado no evento S-2501 objeto da exclusão.</td>
+<strong>Validação:</strong> Preenchimento obrigatório e exclusivo se <a href="#3500_infoExclusao_tpEvento">tpEvento</a> = [S-2501, S-2555]. Deve ser o mesmo período informado no evento S-2501 ou S-2555 objeto da exclusão.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="3500_infoExclusao_ideProcTrab_ideConjunto" id="3500_infoExclusao_ideProcTrab_ideConjunto"></td>
+<td>ideConjunto</td>
+<td><a href="#r_3500_infoExclusao_ideProcTrab">ideProcTrab</a></td>
+<td>E</td>
+<td>N</td>
+<td>0-1</td>
+<td>3</td>
+<td>-</td>
+<td>Identificador atribuído pela empresa ao conjunto de dados de tributos decorrentes de processo trabalhista.<br>
+<strong>Validação:</strong> Preenchimento exclusivo se <a href="#3500_infoExclusao_tpEvento">tpEvento</a> = [S-2501]. Deve ser o mesmo identificador informado no evento S-2501 objeto da exclusão.</td>
 </tr>
 </tbody>
 </table>
@@ -44402,7 +44708,7 @@ Deve corresponder ao somatório dos valores informados no campo <a href="#5003_i
 <td>23</td>
 <td>-</td>
 <td>Preencher com o número do recibo do arquivo que deu origem ao presente arquivo de retorno.<br>
-<strong>Validação:</strong> Deve ser um recibo de entrega válido, correspondente ao arquivo que deu origem ao presente arquivo de retorno (S-2501 ou S-3500).</td>
+<strong>Validação:</strong> Deve ser um recibo de entrega válido, correspondente ao arquivo que deu origem ao presente arquivo de retorno (S-2501, S-2555 ou S-3500).</td>
 </tr>
 <tr class="grupo">
 <td class="seletor" onclick="copiarCaminho.call(this)" title="5501_ideEmpregador" id="5501_ideEmpregador"></td>
@@ -44461,8 +44767,8 @@ Deve corresponder ao somatório dos valores informados no campo <a href="#5003_i
 <td>15 ou 20</td>
 <td>-</td>
 <td>Número do processo trabalhista, da ata ou número de identificação da conciliação.<br>
-<strong>Validação:</strong> a) Se o evento de origem for S-2501, retornar o campo <a href="#2501_ideProc_nrProcTrab">nrProcTrab</a> desse evento;<br>
-b) Se o evento de origem for S-3500, retornar o campo <a href="#2501_ideProc_nrProcTrab">nrProcTrab</a> do evento S-2501 objeto da exclusão.</td>
+<strong>Validação:</strong> a) Se o evento de origem for S-2501 ou S-2555, retornar o campo {nrProcTrab} desse evento;<br>
+b) Se o evento de origem for S-3500, retornar o campo {nrProcTrab} do evento S-2501 ou S-2555 objeto da exclusão.</td>
 </tr>
 <tr>
 <td class="seletor" onclick="copiarCaminho.call(this)" title="5501_ideProc_perApur" id="5501_ideProc_perApur"></td>
@@ -44474,8 +44780,8 @@ b) Se o evento de origem for S-3500, retornar o campo <a href="#2501_ideProc_nrP
 <td>7</td>
 <td>-</td>
 <td>Mês/ano em que é devida a obrigação de pagar a parcela prevista no acordo/sentença.<br>
-<strong>Validação:</strong> a) Se o evento de origem for S-2501, retornar o campo <a href="#2501_ideProc_perApurPgto">perApurPgto</a> desse evento;<br>
-b) Se o evento de origem for S-3500, retornar o campo <a href="#2501_ideProc_perApurPgto">perApurPgto</a> do evento S-2501 objeto da exclusão.</td>
+<strong>Validação:</strong> a) Se o evento de origem for S-2501 ou S-2555, retornar o campo {perApurPgto} desse evento;<br>
+b) Se o evento de origem for S-3500, retornar o campo {perApurPgto} do evento S-2501 ou S-2555 objeto da exclusão.</td>
 </tr>
 <tr class="grupo">
 <td class="seletor" onclick="copiarCaminho.call(this)" title="5501_ideProc_infoTributos" id="5501_ideProc_infoTributos"></td>
@@ -44499,7 +44805,9 @@ b) Se o evento de origem for S-3500, retornar o campo <a href="#2501_ideProc_per
 <td>-</td>
 <td>Informar o mês/ano (formato AAAA-MM) de referência das informações.<br>
 <strong>Validação:</strong> a) Se o evento de origem for S-2501, retornar o campo <a href="#2501_ideTrab_calcTrib_perRef">perRef</a> desse evento;<br>
-b) Se o evento de origem for S-3500, retornar o campo <a href="#2501_ideTrab_calcTrib_perRef">perRef</a> do evento S-2501 objeto da exclusão.</td>
+b) Se o evento de origem for S-2555, retornar o campo <a href="#2501_ideTrab_calcTrib_perRef">perRef</a> dos eventos S-2501 abrangidos por esse evento;<br>
+c) Se o evento de origem for S-3500 que exclua S-2501, retornar o campo <a href="#2501_ideTrab_calcTrib_perRef">perRef</a> do evento S-2501 objeto da exclusão;<br>
+d) Se o evento de origem for S-3500 que exclua S-2555, retornar o campo <a href="#2501_ideTrab_calcTrib_perRef">perRef</a> dos eventos S-2501 abrangidos pelo evento S-2555 objeto da exclusão.</td>
 </tr>
 <tr class="grupo">
 <td class="seletor" onclick="copiarCaminho.call(this)" title="5501_ideProc_infoTributos_infoCRContrib" id="5501_ideProc_infoTributos_infoCRContrib"></td>
@@ -46342,6 +46650,7 @@ Não podem ser informados motivos que não implicam rescisão do contrato de tra
 <div class="navbar-dropdown">
 <a class="navbar-item" href="index.html#evtProcTrab">S-2500 - Processo Trabalhista</a>
 <a class="navbar-item" href="index.html#evtContProc">S-2501 - Informações de Tributos Decorrentes de Processo Trabalhista</a>
+<a class="navbar-item" href="index.html#evtConsolidContProc">S-2555 - Solicitação de Consolidação das Informações de Tributos Decorrentes de Processo Trabalhista</a>
 <a class="navbar-item" href="index.html#evtExcProcTrab">S-3500 - Exclusão de Eventos - Processo Trabalhista</a>
 <a class="navbar-item" href="index.html#evtTribProcTrab">S-5501 - Informações Consolidadas de Tributos Decorrentes de Processo Trabalhista</a>
 <a class="navbar-item" href="index.html#evtFGTSProcTrab">S-5503 - Informações do FGTS por Trabalhador em Processo Trabalhista</a>
