@@ -522,7 +522,6 @@ Em caso de {exclusao}, o registro identificado pelo período de validade deve ex
 
 REGRA_TSV_ATIVO_NA_DTEVENTO
 O contrato identificado por CPF + matrícula (ou CPF + categoria, no caso de TSVE sem informação de matrícula no evento S-2300) deve estar ativo na data do evento, ou seja, a data do evento deve ser igual ou posterior à data de início (no caso de mudança de CPF, igual ou posterior à data de alteração do CPF) e igual ou anterior à data de término.
-Exclusivamente na recepção do evento S-2306, a data do evento deve ser posterior à data de início.
 Quanto aos eventos S-2230, S-2306 e S-2399, deve existir prévio envio do evento de TSVE - Início (S-2300) para o contrato.
 No caso dos eventos S-1200 e S-1202, o período de apuração deve ser igual ou posterior ao mês/ano da data de início (no caso de mudança de CPF, igual ou posterior à data de alteração do CPF) e igual ou anterior ao mês/ano da data de término. Se o período de apuração for posterior ao mês/ano da data de término, observar a REGRA_REMUN_JA_EXISTE_DESLIGAMENTO. 
 
@@ -634,9 +633,8 @@ REGRA_VINCULO_ATIVO_NA_DTEVENTO
 O vínculo identificado por CPF + matrícula deve estar ativo na data do evento, ou seja, a data do evento deve ser igual ou posterior à data de admissão/data de exercício (no caso de transferência ou mudança de CPF, igual ou posterior a {sucessaoVinc/dtTransf}, {transfDom/dtTransf} ou {dtAltCPF} do evento S-2200, conforme o caso) e igual ou anterior à data de desligamento (informada em S-2200, S-2299 ou S-8299).
 Quanto aos eventos S-2206, S-2230, S-2231 e S-2299, deve existir prévio envio do evento de Admissão (S-2200) para o vínculo.
 Exclusivamente na recepção do evento S-2206:
-a) considerar como data do evento a informação prestada no campo {dtEf} se este estiver preenchido; caso contrário, considerar a informação do campo {dtAlteracao};
-b) considerar como data de desligamento a maior data entre {dtDeslig}, {dtProjFimAPI} e {dtFimRemun} do evento S-2299 (ou a maior data entre {dtDeslig} e {dtProjFimAPI} do evento S-8299, caso não haja S-2299);
-c) a data do evento deve ser posterior à data de admissão.
+a) considerar como data do evento a informação prestada no campo {dtEf} se este estiver preenchido (nessa situação, a data do evento deve ser igual ou posterior à data de admissão); caso contrário, considerar a informação do campo {dtAlteracao};
+b) considerar como data de desligamento a maior data entre {dtDeslig}, {dtProjFimAPI} e {dtFimRemun} do evento S-2299 (ou a maior data entre {dtDeslig} e {dtProjFimAPI} do evento S-8299, caso não haja S-2299).
 No caso do evento S-2210, quando {tpCat} = [2, 3], considerar vínculo ativo a partir da {dtAdm}, mesmo no caso de sucessão, transferência de titularidade do empregado doméstico ou mudança de CPF.
 No caso dos eventos S-2210, S-2230 e S-2231, considerar como data de desligamento a maior data entre {dtDeslig} e {dtProjFimAPI} do evento S-2299 ou S-8299.
 No caso do evento S-2230 (ou S-2231), se houver afastamento (ou cessão/exercício em outro órgão) com início em data igual ou posterior a {dtDeslig} do evento S-2299 ou S-8299, a data de término do afastamento (ou da cessão) deve ser igual ou anterior a {dtProjFimAPI} do S-2299 ou S-8299. Se {dtProjFimAPI} não existir, a data de término do afastamento (ou da cessão) deve ser igual a {dtDeslig}.
