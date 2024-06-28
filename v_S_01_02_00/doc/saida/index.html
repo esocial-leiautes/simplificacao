@@ -270,7 +270,7 @@ OBS.: A presente regra não se aplica a eventos retificadores, periódicos e nã
 <div class="modal-card-body">
 <p>A categoria do trabalhador deve ser compatível com a classificação tributária do contribuinte (informada no evento S-1000), conforme Tabela 11.<br>
 No caso dos eventos S-1200 e S-1202, retornar "alerta" caso não seja compatível.<br>
-No caso do evento S-2500, não executar a regra se {infoContr/tpContr} = [8].</p>
+No caso do evento S-2500, não executar a regra se {ideResp} estiver preenchido.</p>
 </div>
 </div>
 </div>
@@ -1249,8 +1249,8 @@ b) não é possível retificar um código de categoria compatível com o evento 
 5) No caso de retificação de Admissão (S-2200) de empregado doméstico ({codCateg} = [104]), o evento retificador deve ter o mesmo código de categoria do evento original. Caso tenha sido informado incorretamente, o evento deve ser excluído e um novo evento com a categoria correta deve ser enviado.<br>
 6) No caso de retificação de Processo Trabalhista (S-2500):<br>
 a) o evento retificador deve possuir {dtSent} ou {dtCCP} no mesmo mês/ano indicado no evento original;<br>
-b) somente é possível retificar processo com {infoContr/tpContr} = [8] se o evento retificador também tiver {infoContr/tpContr} = [8] e se {ideResp/nrInsc} dos eventos original e retificador forem iguais;<br>
-c) somente é possível retificar processo com {infoContr/tpContr} diferente de [8] se o evento retificador também tiver {infoContr/tpContr} diferente de [8].</p>
+b) somente é possível retificar processo com {ideResp} preenchido se o evento retificador também tiver {ideResp} preenchido e se {ideResp/nrInsc} dos eventos original e retificador forem iguais;<br>
+c) somente é possível retificar processo sem {ideResp} preenchido se o evento retificador também não tiver {ideResp} preenchido.</p>
 </div>
 </div>
 </div>
