@@ -169,7 +169,7 @@ Pai: infoIRComplem
 Descrição: Plano de saúde coletivo
 Ocorrência: 0-99
 Chave: cnpjOper, regANS
-Condição: O (se {}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) = [67, 9067] com valor > 0 em qualquer rubrica em {infoPgto}(1210_ideBenef_infoPgto), inclusive aquelas referenciadas em {perAnt/nrRec1210Orig}(1210_ideBenef_infoIRComplem_perAnt_nrRec1210Orig))
+Condição: O (se {}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) = [67, 9067] ou {}(1010_infoRubrica_inclusao_dadosRubrica_natRubr) = [9219] com valor > 0 em qualquer rubrica em {infoPgto}(1210_ideBenef_infoPgto), inclusive aquelas referenciadas em {perAnt/nrRec1210Orig}(1210_ideBenef_infoIRComplem_perAnt_nrRec1210Orig))
 OC (nos demais casos)
 
 Nível: 6
@@ -231,6 +231,7 @@ Dec.: -
 Descrição: Evento Pagamentos de Rendimentos do Trabalho.
 Regras de validação:
 REGRA_CONTROLE_DUPLICIDADE
+REGRA_CONVIVENCIA_VERSAO_DIRF
 REGRA_DESCONTO_IRRF_POSITIVO
 REGRA_EMPREGADO_DOMESTICO
 REGRA_ENVIO_PROC_FECHAMENTO
@@ -1198,8 +1199,7 @@ Ocorrência: 1
 Tamanho: 1-14
 Dec.: 2
 Descrição: Valor relativo a dedução do rendimento tributável correspondente a pagamento a plano de saúde do dependente.
-Validação: Deve ser maior ou igual a 0 (zero).
-Se for igual a 0 (zero), deve haver informações de reembolso do dependente no grupo {}(1210_ideBenef_infoIRComplem_infoReembMed_infoReembDep).
+Validação: Deve ser maior que 0 (zero).
 
 Nome: infoReembMed
 Pai: infoIRComplem

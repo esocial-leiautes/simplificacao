@@ -13,6 +13,7 @@
                         <xs:documentation>Evento Pagamentos de Rendimentos do Trabalho.</xs:documentation>
                         <xs:documentation>CHAVE_GRUPO: {Id}</xs:documentation>
                         <xs:documentation>REGRA:REGRA_CONTROLE_DUPLICIDADE</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_CONVIVENCIA_VERSAO_DIRF</xs:documentation>
                         <xs:documentation>REGRA:REGRA_DESCONTO_IRRF_POSITIVO</xs:documentation>
                         <xs:documentation>REGRA:REGRA_EMPREGADO_DOMESTICO</xs:documentation>
                         <xs:documentation>REGRA:REGRA_ENVIO_PROC_FECHAMENTO</xs:documentation>
@@ -490,7 +491,7 @@
                                                             <xs:documentation>DESCRICAO_COMPLETA: Plano de saúde coletivo.</xs:documentation>
                                                             <xs:documentation>Identificação da(s) operadora(s) de plano privado coletivo empresarial de assistência à saúde.</xs:documentation>
                                                             <xs:documentation>CHAVE_GRUPO: {cnpjOper}, {regANS}</xs:documentation>
-                                                            <xs:documentation>CONDICAO_GRUPO: O (se {}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) = [67, 9067] com valor > 0 em qualquer rubrica em {infoPgto}(1210_ideBenef_infoPgto), inclusive aquelas referenciadas em {perAnt/nrRec1210Orig}(1210_ideBenef_infoIRComplem_perAnt_nrRec1210Orig)); OC (nos demais casos)</xs:documentation>
+                                                            <xs:documentation>CONDICAO_GRUPO: O (se {}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) = [67, 9067] ou {}(1010_infoRubrica_inclusao_dadosRubrica_natRubr) = [9219] com valor > 0 em qualquer rubrica em {infoPgto}(1210_ideBenef_infoPgto), inclusive aquelas referenciadas em {perAnt/nrRec1210Orig}(1210_ideBenef_infoIRComplem_perAnt_nrRec1210Orig)); OC (nos demais casos)</xs:documentation>
                                                         </xs:annotation>
                                                         <xs:complexType>
                                                             <xs:sequence>
@@ -523,11 +524,10 @@
                                                                                     <xs:documentation>Validação: Deve ser um CPF de dependente cadastrado no eSocial (S-2200/S-2205/S-2300/S-2400/S-2405 ou no grupo {infoDep}(1210_ideBenef_infoIRComplem_infoDep)).</xs:documentation>
                                                                                 </xs:annotation>
                                                                             </xs:element>
-                                                                            <xs:element name="vlrSaudeDep" type="TS_valorMonetario">
+                                                                            <xs:element name="vlrSaudeDep" type="TS_valorMonetario_positivo">
                                                                                 <xs:annotation>
                                                                                     <xs:documentation>Valor relativo a dedução do rendimento tributável correspondente a pagamento a plano de saúde do dependente.</xs:documentation>
-                                                                                    <xs:documentation>Validação: Deve ser maior ou igual a 0 (zero).</xs:documentation>
-                                                                                    <xs:documentation>Se for igual a 0 (zero), deve haver informações de reembolso do dependente no grupo {}(1210_ideBenef_infoIRComplem_infoReembMed_infoReembDep).</xs:documentation>
+                                                                                    <xs:documentation>Validação: Deve ser maior que 0 (zero).</xs:documentation>
                                                                                 </xs:annotation>
                                                                             </xs:element>
                                                                         </xs:sequence>
