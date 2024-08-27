@@ -1705,7 +1705,8 @@ OBS.: No caso de empregador Pessoa Física, a verificação de existência de ev
 </header>
 <div class="modal-card-body">
 <p>a) Se houver contrato com {indContr} = [S] e o campo {nrProcTrab} do S-2200 e/ou do S-2300 estiverem preenchidos, deve existir um evento S-2500 com esse número do processo para o trabalhador.<br>
-b) Se houver vínculo com {tpContr} = [5] e {indContr} = [S], deve existir evento de admissão (S-2200) com {indAdmissao} = [3] e o número de processo trabalhista desse evento deve ser igual a {nrProcTrab} do evento S-2500.</p>
+b) Se houver vínculo com {tpContr} = [2, 4, 5] e {indContr} = [S], deve existir evento de admissão (S-2200) com {indAdmissao} = [3] e o número de processo trabalhista desse evento deve ser igual a {nrProcTrab} do evento S-2500.<br>
+c) Se houver vínculo com {tpContr} = [3, 4], deve exisitr evento de desligamento (S-2299) com número de processo trabalhista igual a {nrProcTrab} do evento S-2500.</p>
 </div>
 </div>
 </div>
@@ -33324,10 +33325,10 @@ c) Decisão que determinar o cumprimento antecipado de obrigação.<br>
 <td>-</td>
 <td>Tipo de contrato a que se refere o processo judicial ou a demanda submetida à CCP ou ao NINTER.<br>
 <strong>Valores válidos:</strong><br>
-<strong>1</strong> - Trabalhador com vínculo formalizado, sem alteração nas datas de admissão e de desligamento<br>
-<strong>2</strong> - Trabalhador com vínculo formalizado, com alteração na data de admissão<br>
-<strong>3</strong> - Trabalhador com vínculo formalizado, com inclusão ou alteração de data de desligamento<br>
-<strong>4</strong> - Trabalhador com vínculo formalizado, com alteração na data de admissão e inclusão ou alteração de data de desligamento<br>
+<strong>1</strong> - Trabalhador com vínculo formalizado no eSocial, sem alteração nas datas de admissão e de desligamento<br>
+<strong>2</strong> - Trabalhador com vínculo formalizado no eSocial, com alteração na data de admissão<br>
+<strong>3</strong> - Trabalhador com vínculo formalizado no eSocial, com inclusão ou alteração de data de desligamento<br>
+<strong>4</strong> - Trabalhador com vínculo formalizado no eSocial, com alteração na data de admissão e inclusão ou alteração de data de desligamento<br>
 <strong>5</strong> - Empregado com reconhecimento de vínculo<br>
 <strong>6</strong> - Trabalhador sem vínculo de emprego/estatutário (TSVE), sem reconhecimento de vínculo empregatício<br>
 <strong>7</strong> - Trabalhador com vínculo de emprego formalizado em período anterior ao eSocial<br>
@@ -33348,7 +33349,7 @@ c) Decisão que determinar o cumprimento antecipado de obrigação.<br>
 <strong>Valores válidos:</strong><br>
 <strong>S</strong> - Sim<br>
 <strong>N</strong> - Não<br>
-<strong>Validação:</strong> Deve ser igual a [N] se o grupo <a href="#2500_ideEmpregador_ideResp">ideResp</a> for informado. Além disso, somente pode haver um contrato com o valor igual a [N].</td>
+<strong>Validação:</strong> Deve ser igual a [N] se o grupo <a href="#2500_ideEmpregador_ideResp">ideResp</a> for informado. Deve ser igual a [S] se <a href="#2500_ideTrab_infoContr_tpContr">tpContr</a> = [1, 2, 3, 4]. Além disso, somente pode haver um contrato com o valor igual a [N].</td>
 </tr>
 <tr>
 <td class="seletor" onclick="copiarCaminho.call(this)" title="2500_ideTrab_infoContr_dtAdmOrig" id="2500_ideTrab_infoContr_dtAdmOrig"></td>
@@ -33360,7 +33361,7 @@ c) Decisão que determinar o cumprimento antecipado de obrigação.<br>
 <td>-</td>
 <td>-</td>
 <td>Preencher com a data de admissão original do vínculo (data de admissão antes da alteração).<br>
-<strong>Validação:</strong> Preenchimento obrigatório se <a href="#2500_ideTrab_infoContr_tpContr">infoContr/tpContr</a> = [2, 4]. Deve ser posterior à data de nascimento do trabalhador.</td>
+<strong>Validação:</strong> Preenchimento obrigatório se <a href="#2500_ideTrab_infoContr_tpContr">infoContr/tpContr</a> = [2, 4]. Se <a href="#2500_ideTrab_infoContr_tpContr">infoContr/tpContr</a> = [2, 4], deve ser diferente de <a href="#2200_vinculo_infoRegimeTrab_infoCeletista_dtAdm">dtAdm</a>/<a href="#2200_vinculo_infoRegimeTrab_infoEstatutario_dtExercicio">dtExercicio</a> em S-2200. Deve ser posterior à data de nascimento do trabalhador.</td>
 </tr>
 <tr>
 <td class="seletor" onclick="copiarCaminho.call(this)" title="2500_ideTrab_infoContr_indReint" id="2500_ideTrab_infoContr_indReint"></td>
@@ -33433,6 +33434,7 @@ Se <a href="#2500_ideTrab_infoContr_indContr">indContr</a> = [N], deve ser criad
 Se <a href="#2500_ideTrab_infoContr_indContr">indContr</a> = [S], deve corresponder à matrícula informada pelo empregador no evento S-2190, S-2200, S-2300 ou S-8200 do respectivo contrato. O campo não deve ser informado somente no caso de TSVE cadastrado em versão do leiaute anterior a S-1.0.<br>
 Se <a href="#2500_ideTrab_infoContr_tpContr">infoContr/tpContr</a> = [9], deve ser preenchida a matrícula que incorporará as demais (informadas no grupo <a href="#2500_ideTrab_infoContr_unicContr">unicContr</a>).<br>
 <strong>Validação:</strong> Se <a href="#2500_ideTrab_infoContr_indContr">indContr</a> = [N], deve ser aplicada a regra de validação abaixo. Além disso, o valor informado neste campo não pode conter a expressão 'eSocial' nas 7 (sete) primeiras posições. Se <a href="#2500_ideTrab_infoContr_indContr">indContr</a> = [S], deve corresponder a uma matrícula existente no Registro de Eventos Trabalhistas - RET para o respectivo trabalhador.<br>
+Retonar alerta caso exista S-2200 com <a href="#2200_vinculo_infoContrato_codCateg">codCateg</a> = [104] e <a href="#2200_vinculo_infoRegimeTrab_infoCeletista_dtAdm">dtAdm</a> igual a <a href="#2500_ideTrab_infoContr_dtAdmOrig">dtAdmOrig</a>.<br>
 <strong>Regra de validação:</strong><br>
 <a href="#REGRA_CARACTERE_ESPECIAL">REGRA_CARACTERE_ESPECIAL</a></td>
 </tr>
@@ -34093,7 +34095,8 @@ Se o processo for referente a empregado doméstico, a inscrição informada deve
 <td>1</td>
 <td>-</td>
 <td>-</td>
-<td>Informações dos períodos e valores decorrentes de processo trabalhista.</td>
+<td>Informações dos períodos e valores decorrentes de processo trabalhista.<br>
+<strong>Validação:</strong> Retornar alerta caso <a href="#2500_ideTrab_infoContr_ideEstab_infoVlr_indReperc">indReperc</a> = [S] e quantidade de grupos (){./idePeriodo} seja diferente da quantidade de meses compreendidos entre <a href="#2500_ideTrab_infoContr_ideEstab_infoVlr_compIni">compIni</a> e <a href="#2500_ideTrab_infoContr_ideEstab_infoVlr_compFim">compFim</a>.</td>
 </tr>
 <tr>
 <td class="seletor" onclick="copiarCaminho.call(this)" title="2500_ideTrab_infoContr_ideEstab_infoVlr_compIni" id="2500_ideTrab_infoContr_ideEstab_infoVlr_compIni"></td>
@@ -34208,7 +34211,8 @@ c) Se <a href="#2500_ideTrab_infoContr_tpContr">infoContr/tpContr</a> = [6], dev
 <td>7</td>
 <td>-</td>
 <td>Informar o mês/ano (formato AAAA-MM) de referência das informações.<br>
-<strong>Validação:</strong> Deve ser um período compreendido entre <a href="#2500_ideTrab_infoContr_ideEstab_infoVlr_compIni">compIni</a> e <a href="#2500_ideTrab_infoContr_ideEstab_infoVlr_compFim">compFim</a>, informado no formato AAAA-MM.</td>
+<strong>Validação:</strong> Deve ser um período compreendido entre <a href="#2500_ideTrab_infoContr_ideEstab_infoVlr_compIni">compIni</a> e <a href="#2500_ideTrab_infoContr_ideEstab_infoVlr_compFim">compFim</a>, informado no formato AAAA-MM.<br>
+Retornar alerta caso <a href="#2500_ideTrab_infoContr_ideEstab_infoVlr_idePeriodo_perRef">perRef</a> seja posterior ao desligamento, se houver.</td>
 </tr>
 <tr class="grupo">
 <td class="seletor" onclick="copiarCaminho.call(this)" title="2500_ideTrab_infoContr_ideEstab_infoVlr_idePeriodo_baseCalculo" id="2500_ideTrab_infoContr_ideEstab_infoVlr_idePeriodo_baseCalculo"></td>
