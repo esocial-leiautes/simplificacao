@@ -12,11 +12,11 @@
 <section id="folha-rosto">
 <img alt="Logomarca do eSocial" src="esocial-full.png" class="center">
 <h1 class="title has-text-centered is-3">ANEXO II DOS LEIAUTES DO eSOCIAL<br>REGRAS DE VALIDAÇÃO</h1>
-<h1 class="title has-text-centered is-3">Versão S-1.2 (cons. até NT 04/2024)</h1>
+<h1 class="title has-text-centered is-3">Versão S-1.2 (cons. até NT 05/2024 rev.)</h1>
 </section>
 <section class="section">
 <div class="container is-fluid">
-<h1 class="title has-text-centered is-1">eSocial versão S-1.2 - Regras (cons. até NT 04/2024)</h1>
+<h1 class="title has-text-centered is-1">eSocial versão S-1.2 - Regras (cons. até NT 05/2024 rev.)</h1>
 <div class="modal" id="r_REGRA_ADMISSAO_POSTERIOR_INICIO_ATIVIDADES">
 <div class="modal-background"></div>
 <div class="modal-card">
@@ -272,6 +272,43 @@
 <li><a href="index.html#1202">evtRmnRPPS</a></li>
 <li><a href="index.html#1207">evtBenPrRP</a></li>
 <li><a href="index.html#1210">evtPgtos</a></li></ul>
+</div>
+</div>
+</div>
+<div class="modal" id="r_REGRA_CONVIVENCIA_VERSAO_DIRF">
+<div class="modal-background"></div>
+<div class="modal-card">
+<header class="modal-card-head">
+<p class="modal-card-title">REGRA_CONVIVENCIA_VERSAO_DIRF</p>
+<button class="delete" aria-label="close"></button>
+</header>
+<div class="modal-card-body">
+<ul><li><a href="index.html#1210">evtPgtos</a></li>
+<li><a href="index.html#2501">evtContProc</a></li></ul>
+</div>
+</div>
+</div>
+<div class="modal" id="r_REGRA_CONVIVENCIA_VERSAO_DIRF_S3500">
+<div class="modal-background"></div>
+<div class="modal-card">
+<header class="modal-card-head">
+<p class="modal-card-title">REGRA_CONVIVENCIA_VERSAO_DIRF_S3500</p>
+<button class="delete" aria-label="close"></button>
+</header>
+<div class="modal-card-body">
+<ul><li><a href="index.html#3500">evtExcProcTrab</a></li></ul>
+</div>
+</div>
+</div>
+<div class="modal" id="r_REGRA_CONVIVENCIA_VERSAO_PIS">
+<div class="modal-background"></div>
+<div class="modal-card">
+<header class="modal-card-head">
+<p class="modal-card-title">REGRA_CONVIVENCIA_VERSAO_PIS</p>
+<button class="delete" aria-label="close"></button>
+</header>
+<div class="modal-card-body">
+<ul><li><a href="index.html#1299">evtFechaEvPer</a></li></ul>
 </div>
 </div>
 </div>
@@ -917,6 +954,18 @@
 </header>
 <div class="modal-card-body">
 <ul><li><a href="index.html#1000">evtInfoEmpregador</a></li></ul>
+</div>
+</div>
+</div>
+<div class="modal" id="r_REGRA_NAO_EXISTE_IDESEQPROC">
+<div class="modal-background"></div>
+<div class="modal-card">
+<header class="modal-card-head">
+<p class="modal-card-title">REGRA_NAO_EXISTE_IDESEQPROC</p>
+<button class="delete" aria-label="close"></button>
+</header>
+<div class="modal-card-body">
+<ul><li><a href="index.html#2501">evtContProc</a></li></ul>
 </div>
 </div>
 </div>
@@ -1872,6 +1921,18 @@ b) {perRef}, se a remuneração for preenchida no grupo {infoPerAnt}.</td>
 <td>A chave de identificação dos eventos S-1200, S-1202, S-1207 e S-1210 é o CPF do trabalhador (ou do beneficiário), não sendo possível a existência de dois eventos válidos do mesmo declarante para o mesmo CPF de trabalhador (ou de beneficiário) no mesmo período de apuração e para o mesmo {indGuia} (no caso dos eventos S-1200 e S-1210 de empregador Pessoa Física). Para "substituição" do evento de um determinado trabalhador (ou beneficiário), é necessária a "exclusão" do evento anterior, ou que o novo evento venha com o indicativo de "retificação" e referência ao evento encaminhado anteriormente.</td>
 </tr>
 <tr>
+<td id="REGRA_CONVIVENCIA_VERSAO_DIRF"><a title="Ver ocorrências"><strong>REGRA_CONVIVENCIA_VERSAO_DIRF</strong></a></td>
+<td>Não é permitido o envio deste evento na versão S-1.2 quando {perApur} ou {perApurPgto} &gt;= [2025-01].</td>
+</tr>
+<tr>
+<td id="REGRA_CONVIVENCIA_VERSAO_DIRF_S3500"><a title="Ver ocorrências"><strong>REGRA_CONVIVENCIA_VERSAO_DIRF_S3500</strong></a></td>
+<td>Não é permitido o envio deste evento na versão S-1.2 para excluir evento S-2501 quando {perApurPgto} &gt;= [2025-01].</td>
+</tr>
+<tr>
+<td id="REGRA_CONVIVENCIA_VERSAO_PIS"><a title="Ver ocorrências"><strong>REGRA_CONVIVENCIA_VERSAO_PIS</strong></a></td>
+<td>Se {perApur} &gt;= [2025-01] e {indTribFolhaPisPasep} em S-1000 = [S], os eventos da competência (S-1200, S-2299, S-2399, S-1202 e S-1299) devem ser todos da versão S-1.2 ou todos de versão igual ou posterior à S-1.3.</td>
+</tr>
+<tr>
 <td id="REGRA_DEMONSTRATIVO"><a title="Ver ocorrências"><strong>REGRA_DEMONSTRATIVO</strong></a></td>
 <td>Para cada demonstrativo do evento:<br>
 1) O somatório dos vencimentos deve ser maior ou igual ao somatório dos descontos.<br>
@@ -2112,6 +2173,10 @@ d) A mudança de classificação tributária de empregador Pessoa Jurídica some
 <tr>
 <td id="REGRA_INFO_EMP_VALIDA_DTINICIAL"><a title="Ver ocorrências"><strong>REGRA_INFO_EMP_VALIDA_DTINICIAL</strong></a></td>
 <td>Em caso de arquivo gerado por Pessoa Jurídica, {iniValid} deve ser sempre igual ou posterior à data de início das atividades da empresa constante na base de dados do CNPJ ou à "data do primeiro vínculo", se existente no cadastro do CNPJ na RFB.</td>
+</tr>
+<tr>
+<td id="REGRA_NAO_EXISTE_IDESEQPROC"><a title="Ver ocorrências"><strong>REGRA_NAO_EXISTE_IDESEQPROC</strong></a></td>
+<td>Não é permitido o envio de evento S-2501 na versão 1.2 se houver outro evento S-2501 no mesmo {perApurPgto} com {ideSeqProc} preenchido.</td>
 </tr>
 <tr>
 <td id="REGRA_MESMO_PROCEMI"><a title="Ver ocorrências"><strong>REGRA_MESMO_PROCEMI</strong></a></td>

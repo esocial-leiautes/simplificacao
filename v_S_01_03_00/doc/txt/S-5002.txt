@@ -1,0 +1,2337 @@
+S-5002 - evtIrrfBenef
+Imposto de Renda Retido na Fonte por Trabalhador
+
+Nível: 1
+Nome: eSocial
+Pai: -
+Descrição: eSocial
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 2
+Nome: evtIrrfBenef
+Pai: eSocial
+Descrição: Evento IRRF por Trabalhador
+Ocorrência: 1
+Chave: Id
+Condição: O
+
+Nível: 3
+Nome: ideEvento
+Pai: evtIrrfBenef
+Descrição: Identificação do evento de retorno.
+Ocorrência: 1
+Chave: perApur*
+Condição: O
+
+Nível: 3
+Nome: ideEmpregador
+Pai: evtIrrfBenef
+Descrição: Informações de identificação do empregador.
+Ocorrência: 1
+Chave: tpInsc*, nrInsc*
+Condição: O
+
+Nível: 3
+Nome: ideTrabalhador
+Pai: evtIrrfBenef
+Descrição: Identificação do beneficiário
+Ocorrência: 1
+Chave: cpfBenef*
+Condição: O
+
+Nível: 4
+Nome: dmDev
+Pai: ideTrabalhador
+Descrição: Informações do demonstrativo de valores devidos.
+Ocorrência: 0-N
+Chave: perRef, ideDmDev, tpPgto
+Condição: OC
+
+Nível: 5
+Nome: infoIR
+Pai: dmDev
+Descrição: Rendimentos tributáveis, deduções, isenções e retenções do IRRF.
+Ocorrência: 0-999
+Chave: tpInfoIR
+Condição: O
+
+Nível: 6
+Nome: infoProcJudRub
+Pai: infoIR
+Descrição: Informações complementares - Demais rendimentos com exigibilidade suspensa decorrentes de decisão judicial aplicável à rubrica.
+Ocorrência: 0-N
+Chave: nrProc
+Condição: OC
+
+Nível: 5
+Nome: totApurMen
+Pai: dmDev
+Descrição: Totalizador dos rendimentos tributáveis, deduções, isenções e retenção de tributos com período de apuração mensal.
+Ocorrência: 0-50
+Chave: CRMen
+Condição: OC
+
+Nível: 5
+Nome: totApurDia
+Pai: dmDev
+Descrição: Totalizador de rendimentos tributáveis e tributos com período de apuração diário.
+Ocorrência: 0-350
+Chave: perApurDia, CRDia, frmTribut, paisResidExt
+Condição: OC
+
+Nível: 5
+Nome: infoRRA
+Pai: dmDev
+Descrição: Informações complementares - RRA.
+Ocorrência: 0-1
+Chave: -
+Condição: OC
+
+Nível: 6
+Nome: despProcJud
+Pai: infoRRA
+Descrição: Despesas com processo judicial
+Ocorrência: 0-1
+Chave: -
+Condição: OC
+
+Nível: 6
+Nome: ideAdv
+Pai: infoRRA
+Descrição: Identificação dos advogados.
+Ocorrência: 0-99
+Chave: tpInsc, nrInsc
+Condição: OC
+
+Nível: 5
+Nome: infoPgtoExt
+Pai: dmDev
+Descrição: Informações complementares relativas a pagamentos no exterior
+Ocorrência: 0-1
+Chave: -
+Condição: OC
+
+Nível: 6
+Nome: endExt
+Pai: infoPgtoExt
+Descrição: Endereço do beneficiário residente ou domiciliado no exterior.
+Ocorrência: 0-1
+Chave: -
+Condição: OC
+
+Nível: 4
+Nome: totInfoIR
+Pai: ideTrabalhador
+Descrição: Totalização dos demonstrativos de valores devidos
+Ocorrência: 0-1
+Chave: -
+Condição: OC
+
+Nível: 5
+Nome: consolidApurMen
+Pai: totInfoIR
+Descrição: Totalizador de valores com período de apuração mensal
+Ocorrência: 0-50
+Chave: CRMen
+Condição: OC
+
+Nível: 4
+Nome: infoIRComplem
+Pai: ideTrabalhador
+Descrição: Informações complementares para a DIRF ou para a DAA, com a legislação aplicada ao imposto de renda.
+Ocorrência: 0-13
+Chave: perAnt_perRefAjuste
+Condição: OC
+
+Nível: 5
+Nome: perAnt
+Pai: infoIRComplem
+Descrição: Informações complementares de períodos anteriores
+Ocorrência: 0-1
+Chave: -
+Condição: OC
+
+Nível: 5
+Nome: ideDep
+Pai: infoIRComplem
+Descrição: Identificação dos dependentes.
+Ocorrência: 0-999
+Chave: cpfDep
+Condição: OC
+
+Nível: 5
+Nome: infoIRCR
+Pai: infoIRComplem
+Descrição: Informações de Imposto de Renda, por Código de Receita - CR.
+Ocorrência: 0-99
+Chave: tpCR
+Condição: OC
+
+Nível: 6
+Nome: dedDepen
+Pai: infoIRCR
+Descrição: Dedução do rendimento tributável relativa a dependentes.
+Ocorrência: 0-999
+Chave: tpRend, cpfDep
+Condição: OC
+
+Nível: 6
+Nome: penAlim
+Pai: infoIRCR
+Descrição: Informação dos beneficiários da pensão alimentícia.
+Ocorrência: 0-99
+Chave: tpRend, cpfDep
+Condição: OC
+
+Nível: 6
+Nome: previdCompl
+Pai: infoIRCR
+Descrição: Informações relativas a planos de previdência complementar.
+Ocorrência: 0-99
+Chave: tpPrev, cnpjEntidPC
+Condição: OC
+
+Nível: 6
+Nome: infoProcRet
+Pai: infoIRCR
+Descrição: Informações de processos relacionados a não retenção de tributos ou a depósitos judiciais.
+Ocorrência: 0-50
+Chave: tpProcRet, nrProcRet, codSusp
+Condição: OC
+
+Nível: 7
+Nome: infoValores
+Pai: infoProcRet
+Descrição: Informações de valores relacionados a não retenção de tributos ou a depósitos judiciais.
+Ocorrência: 0-2
+Chave: indApuracao
+Condição: OC
+
+Nível: 8
+Nome: dedSusp
+Pai: infoValores
+Descrição: Detalhamento das deduções com exigibilidade suspensa.
+Ocorrência: 0-25
+Chave: indTpDeducao, cnpjEntidPC
+Condição: OC
+
+Nível: 9
+Nome: benefPen
+Pai: dedSusp
+Descrição: Informação das deduções suspensas por dependentes e beneficiários da pensão alimentícia.
+Ocorrência: 0-99
+Chave: cpfDep
+Condição: O (se {indTpDeducao}(../indTpDeducao) = [5, 7])
+N (nos demais casos)
+
+Nível: 5
+Nome: planSaude
+Pai: infoIRComplem
+Descrição: Plano de saúde coletivo
+Ocorrência: 0-99
+Chave: cnpjOper, regANS
+Condição: OC
+
+Nível: 6
+Nome: infoDepSau
+Pai: planSaude
+Descrição: Informações de dependente de plano de saúde coletivo empresarial.
+Ocorrência: 0-99
+Chave: cpfDep
+Condição: OC
+
+Nível: 5
+Nome: infoReembMed
+Pai: infoIRComplem
+Descrição: Reembolsos de despesas médicas
+Ocorrência: 0-99
+Chave: cnpjOper, regANS
+Condição: OC
+
+Nível: 6
+Nome: detReembTit
+Pai: infoReembMed
+Descrição: Informação de reembolso do titular do plano de saúde.
+Ocorrência: 0-99
+Chave: tpInsc, nrInsc
+Condição: OC
+
+Nível: 6
+Nome: infoReembDep
+Pai: infoReembMed
+Descrição: Informação de reembolso do dependente do plano de saúde.
+Ocorrência: 0-99
+Chave: cpfBenef
+Condição: OC
+
+Nível: 7
+Nome: detReembDep
+Pai: infoReembDep
+Descrição: Detalhamento dos reembolsos efetuados aos dependentes
+Ocorrência: 0-99
+Chave: tpInsc, nrInsc
+Condição: OC
+
+Nome: eSocial
+Pai: -
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: eSocial
+
+Nome: evtIrrfBenef
+Pai: eSocial
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Evento Imposto de Renda Retido na Fonte por Trabalhador.
+
+Nome: Id
+Pai: evtIrrfBenef
+Elem.: A
+Tipo: C
+Ocorrência: 1
+Tamanho: 36
+Dec.: -
+Descrição: Identificação única do evento.
+
+Nome: ideEvento
+Pai: evtIrrfBenef
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Identificação do evento de retorno.
+
+Nome: nrRecArqBase
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 23
+Dec.: -
+Descrição: Preencher com o número do recibo do arquivo que deu origem ao presente arquivo de retorno ao empregador.
+Validação: Deve corresponder ao recibo de um arquivo com informações de rendimentos sujeitos a Imposto de Renda Retido na Fonte - IRRF (S-1210 ou S-3000).
+
+Nome: perApur
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 7
+Dec.: -
+Descrição: Informar o mês/ano (formato AAAA-MM) de referência das informações.
+
+Nome: ideEmpregador
+Pai: evtIrrfBenef
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do empregador.
+
+Nome: tpInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+
+Nome: nrInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 8, 11 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {ideEmpregador/tpInsc}(./tpInsc) e conforme informado em S-1000.
+
+Nome: ideTrabalhador
+Pai: evtIrrfBenef
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Identificação do beneficiário do pagamento.
+
+Nome: cpfBenef
+Pai: ideTrabalhador
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11
+Dec.: -
+Descrição: Número de inscrição no Cadastro de Pessoas Físicas - CPF do beneficiário do pagamento.
+Origem: campo {cpfBenef}(1210_ideBenef_cpfBenef) de S-1210.
+
+Nome: dmDev
+Pai: ideTrabalhador
+Elem.: G
+Tipo: -
+Ocorrência: 0-N
+Tamanho: -
+Dec.: -
+Descrição: Informações do demonstrativo de valores devidos.
+
+Nome: perRef
+Pai: dmDev
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 4 ou 7
+Dec.: -
+Descrição: Período de referência das informações, no formato AAAA-MM (ou AAAA, se for relativo a 13° salário).
+Origem: campo {perRef}(1210_ideBenef_infoPgto_perRef) de S-1210.
+
+Nome: ideDmDev
+Pai: dmDev
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-30
+Dec.: -
+Descrição: Identificador atribuído pela fonte pagadora para o demonstrativo de valores devidos ao trabalhador.
+Origem: campo {ideDmDev}(1210_ideBenef_infoPgto_ideDmDev) de S-1210.
+
+Nome: tpPgto
+Pai: dmDev
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Informar o evento de origem do pagamento.
+Valores válidos:
+1 - S-1200
+2 - S-2299
+3 - S-2399
+4 - S-1202
+5 - S-1207
+Origem: campo {tpPgto}(1210_ideBenef_infoPgto_tpPgto) de S-1210.
+
+Nome: dtPgto
+Pai: dmDev
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informar a data de pagamento.
+Origem: campo {dtPgto}(1210_ideBenef_infoPgto_dtPgto) de S-1210.
+
+Nome: codCateg
+Pai: dmDev
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 3
+Dec.: -
+Descrição: Preencher com o código da categoria do trabalhador, conforme Tabela 01.
+Validação: a) Se {tpPgto}(./tpPgto) = [1, 4], retornar o código de categoria informado no evento de origem;
+b) Se {tpPgto}(./tpPgto) = [2, 3], retornar o código de categoria existente no Registro de Eventos Trabalhistas - RET;
+c) Se {tpPgto}(./tpPgto) = [5], retornar [000].
+
+Nome: infoIR
+Pai: dmDev
+Elem.: G
+Tipo: -
+Ocorrência: 0-999
+Tamanho: -
+Dec.: -
+Descrição: Rendimentos tributáveis, deduções, isenções e retenções do IRRF.
+
+Nome: tpInfoIR
+Pai: infoIR
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 2-4
+Dec.: -
+Descrição: Consolidação dos tipos de valores relativos ao IRRF.
+Valores válidos:
+Rendimentos tributáveis:
+11 - Remuneração mensal
+12 - 13º salário
+14 - PLR
+Retenções do IRRF efetuadas sobre:
+31 - Remuneração mensal
+32 - 13º salário
+34 - PLR
+Deduções da base de cálculo do IRRF:
+41 - Previdência Social Oficial - PSO - Remuneração mensal
+42 - PSO - 13º salário
+46 - Previdência complementar - Salário mensal
+47 - Previdência complementar - 13º salário
+51 - Pensão alimentícia - Remuneração mensal
+52 - Pensão alimentícia - 13º salário
+54 - Pensão alimentícia - PLR
+61 - Fundo de Aposentadoria Programada Individual - FAPI - Remuneração mensal
+62 - Fundo de Aposentadoria Programada Individual - FAPI - 13º salário
+63 - Fundação de previdência complementar do servidor público - Remuneração mensal
+64 - Fundação de previdência complementar do servidor público - 13º salário
+67 - Plano privado coletivo de assistência à saúde
+68 - Desconto simplificado mensal
+Rendimento não tributável ou isento do IRRF:
+70 - Parcela isenta 65 anos - Remuneração mensal
+71 - Parcela isenta 65 anos - 13º salário
+72 - Diárias
+73 - Ajuda de custo
+74 - Indenização e rescisão de contrato, inclusive a título de PDV e acidentes de trabalho
+75 - Abono pecuniário
+76 - Rendimento de beneficiário com moléstia grave ou acidente em serviço - Remuneração mensal
+77 - Rendimento de beneficiário com moléstia grave ou acidente em serviço - 13º salário
+700 - Auxílio moradia
+701 - Parte não tributável do valor de serviço de transporte de passageiros ou cargas
+702 - Bolsa médico residente - remuneração mensal
+703 - Bolsa médico residente - 13º salário
+704 - Juros de mora recebidos, devidos pelo atraso no pagamento de remuneração por exercício de emprego, cargo ou função.
+79 - Outras isenções
+7900 - Verba transitada pela folha de pagamento de natureza diversa de rendimento ou retenção/isenção/dedução de IR (exemplo: desconto de convênio farmácia, desconto de consignações, etc.)
+Códigos para compatibilidade de versões anteriores:
+7950 - Rendimento não tributável
+7951 - Rendimento não tributável em função de acordos internacionais de bitributação
+7952 - Rendimento tributável - RRA
+7953 - Retenção de IR - RRA
+7954 - Previdência Social Oficial - RRA
+7955 - Pensão alimentícia - RRA
+7956 - Valores pagos a titular ou sócio de microempresa ou empresa de pequeno porte, exceto pró-labore e aluguéis
+7957 - Depósito judicial
+7958 - Compensação judicial do ano-calendário
+7959 - Compensação judicial de anos anteriores
+7960 - Exigibilidade suspensa - Remuneração mensal
+7961 - Exigibilidade suspensa - 13º salário
+7962 - Exigibilidade suspensa - Férias
+7963 - Exigibilidade suspensa - PLR
+7964 - Exigibilidade suspensa - RRA
+Exigibilidade suspensa - Rendimento tributável (base de cálculo do IR):
+9011 - Remuneração mensal
+9012 - 13º salário
+9014 - PLR
+Exigibilidade suspensa - Retenção do IRRF efetuada sobre:
+9031 - Remuneração mensal
+9032 - 13º salário
+9034 - PLR
+9831 - Depósito judicial - Mensal
+9832 - Depósito judicial - 13º salário
+9834 - Depósito judicial - PLR
+Exigibilidade suspensa - Dedução da base de cálculo do IRRF:
+9041 - Previdência Social Oficial - PSO - Remuneração mensal
+9042 - PSO - 13º salário
+9046 - Previdência complementar - Salário mensal
+9047 - Previdência complementar - 13º salário
+9051 - Pensão alimentícia - Remuneração mensal
+9052 - Pensão alimentícia - 13º salário
+9054 - Pensão alimentícia - PLR
+9061 - Fundo de Aposentadoria Programada Individual - FAPI - Remuneração mensal
+9062 - Fundo de Aposentadoria Programada Individual - FAPI - 13º salário
+9063 - Fundação de previdência complementar do servidor público - Remuneração mensal
+9064 - Fundação de previdência complementar do servidor público - 13º salário
+9067 - Plano privado coletivo de assistência à saúde
+Compensação judicial:
+9082 - Compensação judicial do ano-calendário
+9083 - Compensação judicial de anos anteriores
+
+Nome: valor
+Pai: infoIR
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Composição do valor do rendimento tributável, não tributável, retenção, dedução ou isenção do IRRF, de acordo com a classificação apresentada no campo {tpInfoIR}(./tpInfoIR).
+Validação: Deve corresponder ao somatório dos valores informados nas rubricas (campo {vrRubr}) dos eventos que deram origem ao S-1210 (grupos {infoPerApur} e {infoPerAnt} do S-1200, S-1202, S-1207 e S-2299, e grupo {verbasResc} do S-2399), desde que o campo {indApurIR} vinculado às respectivas rubricas seja igual a [0] ou não informado, obedecendo ao que segue:
+a) Somar os valores das rubricas cujo {tpRubr}(1010_infoRubrica_inclusao_dadosRubrica_tpRubr) em S-1010 seja igual a [1, 3] e subtrair os valores das rubricas cujo {tpRubr}(1010_infoRubrica_inclusao_dadosRubrica_tpRubr) em S-1010 seja igual a [2, 4], observando a tabela de relacionamento abaixo:
+{tpInfoIR}(./tpInfoIR) = [11], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [11, 13];
+{tpInfoIR}(./tpInfoIR) = [12], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [12];
+{tpInfoIR}(./tpInfoIR) = [14], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [14];
+{tpInfoIR}(./tpInfoIR) = [70], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [70];
+{tpInfoIR}(./tpInfoIR) = [71], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [71];
+{tpInfoIR}(./tpInfoIR) = [72], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [72];
+{tpInfoIR}(./tpInfoIR) = [73], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [73];
+{tpInfoIR}(./tpInfoIR) = [74], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [74];
+{tpInfoIR}(./tpInfoIR) = [75], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [75];
+{tpInfoIR}(./tpInfoIR) = [76], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [76];
+{tpInfoIR}(./tpInfoIR) = [77], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [77];
+{tpInfoIR}(./tpInfoIR) = [700], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [700];
+{tpInfoIR}(./tpInfoIR) = [701], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [701];
+{tpInfoIR}(./tpInfoIR) = [702], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [702];
+{tpInfoIR}(./tpInfoIR) = [703], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [703];
+{tpInfoIR}(./tpInfoIR) = [704], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [704];
+{tpInfoIR}(./tpInfoIR) = [79], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [79];
+{tpInfoIR}(./tpInfoIR) = [7900], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [9];
+{tpInfoIR}(./tpInfoIR) = [7950], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [0];
+{tpInfoIR}(./tpInfoIR) = [7951], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [1];
+{tpInfoIR}(./tpInfoIR) = [7952], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [15];
+{tpInfoIR}(./tpInfoIR) = [7956], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [78];
+{tpInfoIR}(./tpInfoIR) = [7960], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [91];
+{tpInfoIR}(./tpInfoIR) = [7961], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [92];
+{tpInfoIR}(./tpInfoIR) = [7962], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [93];
+{tpInfoIR}(./tpInfoIR) = [7963], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [94];
+{tpInfoIR}(./tpInfoIR) = [7964], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [95];
+{tpInfoIR}(./tpInfoIR) = [9011], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [9011, 9013];
+{tpInfoIR}(./tpInfoIR) = [9012], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [9012];
+{tpInfoIR}(./tpInfoIR) = [9014], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [9014].
+ 
+b) Somar os valores das rubricas cujo {tpRubr}(1010_infoRubrica_inclusao_dadosRubrica_tpRubr) em S-1010 seja igual a [2, 4] e subtrair os valores das rubricas cujo {tpRubr}(1010_infoRubrica_inclusao_dadosRubrica_tpRubr) em S-1010 seja igual a [1, 3], observando a tabela de relacionamento abaixo:
+{tpInfoIR}(./tpInfoIR) = [31], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [31, 33];
+{tpInfoIR}(./tpInfoIR) = [32], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [32];
+{tpInfoIR}(./tpInfoIR) = [34], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [34];
+{tpInfoIR}(./tpInfoIR) = [41], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [41, 43];
+{tpInfoIR}(./tpInfoIR) = [42], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [42];
+{tpInfoIR}(./tpInfoIR) = [46], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [46, 48];
+{tpInfoIR}(./tpInfoIR) = [47], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [47];
+{tpInfoIR}(./tpInfoIR) = [51], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [51, 53];
+{tpInfoIR}(./tpInfoIR) = [52], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [52];
+{tpInfoIR}(./tpInfoIR) = [54], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [54];
+{tpInfoIR}(./tpInfoIR) = [61], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [61, 66];
+{tpInfoIR}(./tpInfoIR) = [62], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [62];
+{tpInfoIR}(./tpInfoIR) = [63], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [63, 65];
+{tpInfoIR}(./tpInfoIR) = [64], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [64];
+{tpInfoIR}(./tpInfoIR) = [67], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [67];
+{tpInfoIR}(./tpInfoIR) = [68], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [68];
+{tpInfoIR}(./tpInfoIR) = [7953], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [35];
+{tpInfoIR}(./tpInfoIR) = [7954], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [44];
+{tpInfoIR}(./tpInfoIR) = [7955], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [55];
+{tpInfoIR}(./tpInfoIR) = [7957], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [81];
+{tpInfoIR}(./tpInfoIR) = [7958], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [82];
+{tpInfoIR}(./tpInfoIR) = [7959], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [83];
+{tpInfoIR}(./tpInfoIR) = [9031], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [9031, 9033];
+{tpInfoIR}(./tpInfoIR) = [9032], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [9032];
+{tpInfoIR}(./tpInfoIR) = [9034], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [9034];
+{tpInfoIR}(./tpInfoIR) = [9831], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [9831, 9833];
+{tpInfoIR}(./tpInfoIR) = [9832], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [9832];
+{tpInfoIR}(./tpInfoIR) = [9834], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [9834];
+{tpInfoIR}(./tpInfoIR) = [9041], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [9041, 9043];
+{tpInfoIR}(./tpInfoIR) = [9042], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [9042];
+{tpInfoIR}(./tpInfoIR) = [9046], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [9046, 9048];
+{tpInfoIR}(./tpInfoIR) = [9047], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [9047];
+{tpInfoIR}(./tpInfoIR) = [9051], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [9051, 9053];
+{tpInfoIR}(./tpInfoIR) = [9052], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [9052];
+{tpInfoIR}(./tpInfoIR) = [9054], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [9054];
+{tpInfoIR}(./tpInfoIR) = [9061], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [9061, 9066];
+{tpInfoIR}(./tpInfoIR) = [9062], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [9062];
+{tpInfoIR}(./tpInfoIR) = [9063], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [9063, 9065];
+{tpInfoIR}(./tpInfoIR) = [9064], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [9064];
+{tpInfoIR}(./tpInfoIR) = [9067], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [9067];
+{tpInfoIR}(./tpInfoIR) = [9082], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [9082];
+{tpInfoIR}(./tpInfoIR) = [9083], {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) em S-1010 = [9083].
+ 
+OBS.: Se o campo {indApurIR} vinculado à rubrica for igual a [1], considerar {vrRubr} = [0].
+
+Nome: descRendimento
+Pai: infoIR
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-100
+Dec.: -
+Descrição: Descrição do rendimento não tributável ou isento do IRRF.
+Origem: campo {}(1010_infoRubrica_inclusao_dadosRubrica_dscRubr) em S-1010.
+Validação: Informação obrigatória e exclusiva para eventos S-1210 com {}(1210_ideEvento_perApur) posterior ou igual ao início da DIRF e se {}(./tpInfoIR) = [79].
+
+Nome: infoProcJudRub
+Pai: infoIR
+Elem.: G
+Tipo: -
+Ocorrência: 0-N
+Tamanho: -
+Dec.: -
+Descrição: Informações complementares - Demais rendimentos com exigibilidade suspensa decorrentes de decisão judicial aplicável à rubrica.
+
+Nome: nrProc
+Pai: infoProcJudRub
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 20
+Dec.: -
+Descrição: Informar o número do processo judicial.
+Origem: Campo {ideProcessoIRRF/nrProc}(1010_infoRubrica_inclusao_dadosRubrica_ideProcessoIRRF_nrProc) de S-1010, quando {codRubr}(1010_infoRubrica_inclusao_ideRubrica_codRubr) e {ideTabRubr}(1010_infoRubrica_inclusao_ideRubrica_ideTabRubr) de S-1010 com {codIncIRRF}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) = [9X] ou [9XXX] forem informados em {ideDmDev} de evento remuneratório (S-1200, S-1202, S-1207, S-2299 ou S-2399).
+
+Nome: ufVara
+Pai: infoProcJudRub
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 2
+Dec.: -
+Descrição: Identificação da Unidade da Federação - UF da Seção Judiciária.
+Valores válidos:
+ AC, AL, AP, AM, BA, CE, DF, ES, GO, MA, MT, MS, MG, PA, PB, PR, PE, PI, RJ, RN, RS, RO, RR, SC, SP, SE, TO
+Origem: campo {ufVara}(1070_infoProcesso_inclusao_dadosProc_dadosProcJud_ufVara) de S-1070.
+
+Nome: codMunic
+Pai: infoProcJudRub
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 7
+Dec.: -
+Descrição: Preencher com o código do município, conforme tabela do IBGE.
+Origem: campo {codMunic}(1070_infoProcesso_inclusao_dadosProc_dadosProcJud_codMunic) de S-1070.
+
+Nome: idVara
+Pai: infoProcJudRub
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-4
+Dec.: -
+Descrição: Código de identificação da Vara.
+Origem: campo {idVara}(1070_infoProcesso_inclusao_dadosProc_dadosProcJud_idVara) de S-1070.
+
+Nome: totApurMen
+Pai: dmDev
+Elem.: G
+Tipo: -
+Ocorrência: 0-50
+Tamanho: -
+Dec.: -
+Descrição: Totalizador dos rendimentos tributáveis, deduções, isenções e retenção de tributos com período de apuração mensal.
+
+Nome: CRMen
+Pai: totApurMen
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 6
+Dec.: -
+Descrição: Código de Receita - CR relativo ao Imposto de Renda Retido na Fonte sobre rendimentos do trabalho.
+Valores válidos:
+056107 - IRRF mensal, 13° salário e férias sobre trabalho assalariado no país ou ausente no exterior a serviço do país, exceto se contratado por empregador doméstico ou por segurado especial sujeito a recolhimento unificado
+056108 - IRRF mensal e férias - Empregado doméstico
+056109 - IRRF 13° salário na rescisão de contrato de trabalho - Empregado doméstico
+056110 - IRRF - Empregado doméstico 13º salário
+056111 - IRRF - Empregado/Trabalhador rural - Segurado especial
+056112 - IRRF - Empregado/Trabalhador rural - Segurado especial 13° salário
+056113 - IRRF - Empregado/Trabalhador rural - Segurado especial 13° salário rescisório
+058806 - IRRF sobre rendimento do trabalho sem vínculo empregatício
+061001 - IRRF sobre rendimentos relativos a prestação de serviços de transporte rodoviário internacional de carga, pagos a transportador autônomo PF residente no Paraguai
+353301 - Proventos de aposentadoria, reserva, reforma ou pensão pagos por previdência pública
+356201 - IRRF sobre participação dos trabalhadores em lucros ou resultados - PLR
+188901 - Rendimentos Recebidos Acumuladamente - RRA
+
+Nome: vlrRendTrib
+Pai: totApurMen
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor relativo ao rendimento tributável mensal e férias.
+Validação: Deve ser agrupado conforme segue:
+a) Quando o evento de origem for S-1200, S-1202, S-2299, S-2399 e respectivo S-1210:
+{}(./CRMen) = [056107]: se {}(../codCateg) = [101, 102, 103, 105, 106, 107, 108, 111, 301, 302, 303, 304, 305, 306, 307, 308, 309, 310, 311, 312, 313, 314, 401, 410, 501, 721, 722, 723, 761, 901, 902, 903, 904, 906], {indApurIR} = [0], os campos {indRRA} e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não forem informados e {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 for diferente de [22], efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [11];
+{}(./CRMen) = [056108]: se {}(../codCateg) = [104], {indApurIR} = [0] e os campos {indRRA} e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não forem informados, efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [11];
+{}(./CRMen) = [056111]: se {}(../codCateg) = [101, 102, 103, 105, 106, 107, 108, 111], {indApurIR} = [0], os campos {indRRA} e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não forem informados e {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [22], efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [11];
+{}(./CRMen) = [058806]: se {}(../codCateg) = [201, 202, 701, 711, 712, 731, 734, 738, 741, 751, 771, 781], {indApurIR} = [0] e os campos {indRRA} e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não forem informados, efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [11];
+{}(./CRMen) = [061001]: se {}(../codCateg) = [712], {indApurIR} = [0] e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) = [586], efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [11];
+{}(./CRMen) = [356201]: se {}(../codCateg) = [1XX], {indApurIR} = [0] e os campos {indRRA} e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não forem informados, efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [14];
+{}(./CRMen) = [188901]: se {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não for informado, {indApurIR} = [0] e {indRRA} = [S], efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [11, 12, 14].
+ 
+b) Quando o evento de origem for S-1207 e respectivo S-1210:
+{}(./CRMen) = [353301]: se {indApurIR} = [0] e os campos {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) e {indRRA} não forem informados, efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [11, 14];
+{}(./CRMen) = [188901]: se {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não for informado, {indApurIR} = [0] e {indRRA} = [S], efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [11, 12, 14].
+
+Nome: vlrRendTrib13
+Pai: totApurMen
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor relativo ao rendimento do 13º salário.
+Validação: Deve ser agrupado conforme segue:
+a) Quando o evento de origem for S-1200, S-1202, S-2299, S-2399 e respectivo S-1210:
+{}(./CRMen) = [056107]: se {}(../codCateg) = [101, 102, 103, 105, 106, 107, 108, 111, 301, 302, 303, 304, 305, 306, 307, 308, 309, 310, 311, 312, 313, 314, 401, 410, 501, 721, 722, 723, 761, 901, 902, 903, 904, 906], {indApurIR} = [0], os campos {indRRA} e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não forem informados e {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 for diferente de [22], efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [12];
+{}(./CRMen) = [056109]: se {}(../codCateg) = [104], {indApurIR} = [0] e os campos {indRRA} e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não forem informados, efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [12], apenas se origem for S-2299;
+{}(./CRMen) = [056110]: se codCateg = [104], {indApurIR} = [0] e os campos {indRRA} e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não forem informados, efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [12], exceto se origem for S-2299;
+{}(./CRMen) = [056112]: se codCateg = [101, 102, 103, 105, 106, 107, 108, 111], {indApurIR} = [0], os campos {indRRA} e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não forem informados e {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [22], efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [12], exceto se origem for S-2299/S-2399;
+{}(./CRMen) = [056113]: se codCateg = [101, 102, 103, 105, 106, 107, 108, 111], {indApurIR} = [0], os campos {indRRA} e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não forem informados e {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [22], efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [12], apenas se origem for S-2299/S-2399;
+{}(./CRMen) = [058806]: se codCateg = [201, 202, 701, 711, 712, 731, 734, 738, 741, 751, 771, 781], {indApurIR} = [0] e os campos {indRRA} e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não forem informados, efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [12].
+ 
+b) Quando o evento de origem for S-1207 e respectivo S-1210:
+{}(./CRMen) = [353301]: se {indApurIR} = [0] e os campos {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) e {indRRA} não forem informados, efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [12].
+
+Nome: vlrPrevOficial
+Pai: totApurMen
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor relativo à previdência oficial sobre rendimentos do trabalho, mensal e férias.
+Validação: Deve ser agrupado conforme segue:
+a) Quando o evento de origem for S-1200, S-1202, S-2299, S-2399 e respectivo S-1210:
+{}(./CRMen) = [056107]: se codCateg = [101, 102, 103, 105, 106, 107, 108, 111, 301, 302, 303, 304, 305, 306, 307, 308, 309, 310, 311, 312, 313, 314, 401, 410, 501, 721, 722, 723, 761, 901, 902, 903, 904, 906], {indApurIR} = [0], os campos {indRRA} e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não forem informados e {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 for diferente de [22], efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [41];
+{}(./CRMen) = [056108]: se codCateg = [104], {indApurIR} = [0] e os campos {indRRA} e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não forem informados, efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [41];
+{}(./CRMen) = [056111]: se codCateg = [101, 102, 103, 105, 106, 107, 108, 111], {indApurIR} = [0], os campos {indRRA} e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não forem informados e {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [22], efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [41];
+{}(./CRMen) = [058806]: se codCateg = [201, 202, 701, 711, 712, 731, 734, 738, 741, 751, 771, 781], {indApurIR} = [0] e os campos {indRRA} e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não forem informados, efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [41];
+{}(./CRMen) = [061001]: se codCateg = [712], {indApurIR} = [0] e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) = [586], efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [41];
+{}(./CRMen) = [188901]: se {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não for informado, {indApurIR} = [0] e {indRRA} = [S], efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [41, 42].
+ 
+b) Quando o evento de origem for S-1207 e respectivo S-1210:
+{}(./CRMen) = [353301]: se {indApurIR} = [0] e os campos {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) e {indRRA} não forem informados, efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [41];
+{}(./CRMen) = [188901]: se {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não for informado, {indApurIR} = [0] e {indRRA} = [S], efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [41, 42].
+
+Nome: vlrPrevOficial13
+Pai: totApurMen
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor relativo à previdência oficial sobre o 13° salário.
+Validação: Deve ser agrupado conforme segue:
+a) Quando o evento de origem for S-1200, S-1202, S-2299, S-2399 e respectivo S-1210:
+{}(./CRMen) = [056107]: se codCateg = [101, 102, 103, 105, 106, 107, 108, 111, 301, 302, 303, 304, 305, 306, 307, 308, 309, 310, 311, 312, 313, 314, 401, 410, 501, 721, 722, 723, 761, 901, 902, 903, 904, 906], {indApurIR} = [0], os campos {indRRA} e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não forem informados e {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 for diferente de [22], efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [42];
+{}(./CRMen) = [056109]: se codCateg = [104], {indApurIR} = [0] e os campos {indRRA} e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não forem informados, efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [42], apenas se origem for S-2299;
+{}(./CRMen) = [056110]: se codCateg = [104], {indApurIR} = [0] e os campos {indRRA} e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não forem informados, efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [42], exceto se origem for S-2299;
+{}(./CRMen) = [056112]: se codCateg = [101, 102, 103, 105, 106, 107, 108, 111], {indApurIR} = [0], os campos {indRRA} e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não forem informados e {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [22], efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [42], exceto se origem for S-2299/S-2399;
+{}(./CRMen) = [056113]: se codCateg = [101, 102, 103, 105, 106, 107, 108, 111], {indApurIR} = [0], os campos {indRRA} e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não forem informados e {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [22], efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [42], apenas se origem for S-2299/S-2399;
+{}(./CRMen) = [058806]: se codCateg = [201, 202, 701, 711, 712, 731, 734, 738, 741, 751, 771, 781], {indApurIR} = [0] e os campos {indRRA} e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não forem informados, efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [42].
+ 
+b) Quando o evento de origem for S-1207 e respectivo S-1210:
+{}(./CRMen) = [353301]: se {indApurIR} = [0] e os campos {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) e {indRRA} não forem informados, efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [42].
+
+Nome: vlrCRMen
+Pai: totApurMen
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor relativo ao imposto sobre a renda retido na fonte sobre rendimentos do trabalho, mensal e férias.
+Validação: Deve ser agrupado conforme segue:
+a) Quando o evento de origem for S-1200, S-1202, S-2299, S-2399 e respectivo S-1210:
+{CRMen}(./CRMen) = [056107]: se {codCateg}(../codCateg) = [101, 102, 103, 105, 106, 107, 108, 111, 301, 302, 303, 304, 305, 306, 307, 308, 309, 310, 311, 312, 313, 314, 401, 410, 501, 721, 722, 723, 761, 901, 902, 903, 904, 906], {indApurIR} = [0], os campos {indRRA} e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não forem informados e {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 for diferente de [22], efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [31];
+{CRMen}(./CRMen) = [056108]: se {codCateg}(../codCateg) = [104], {indApurIR} = [0] e os campos {indRRA} e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não forem informados, efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [31];
+{CRMen}(./CRMen) = [056111]: se {codCateg}(../codCateg) = [101, 102, 103, 105, 106, 107, 108, 111], {indApurIR} = [0], os campos {indRRA} e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não forem informados e {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [22], efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [31];
+{CRMen}(./CRMen) = [058806]: se {codCateg}(../codCateg) = [201, 202, 701, 711, 712, 731, 734, 738, 741, 751, 771, 781], {indApurIR} = [0] e os campos {indRRA} e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não forem informados, efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [31];
+{CRMen}(./CRMen) = [061001]: se {codCateg}(../codCateg) = [712], {indApurIR} = [0] e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) = [586], efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [31];
+{CRMen}(./CRMen) = [356201]: se {codCateg}(../codCateg) = [1XX], {indApurIR} = [0] e os campos {indRRA} e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não forem informados, efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [34];
+{CRMen}(./CRMen) = [188901]: se {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não for informado, {indApurIR} = [0] e {indRRA} = [S], efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [31, 32, 34].
+ 
+b) Quando o evento de origem for S-1207 e respectivo S-1210:
+{CRMen}(./CRMen) = [353301]: se {indApurIR} = [0] e os campos {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) e {indRRA} não forem informados, efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [31, 34];
+{CRMen}(./CRMen) = [188901]: se {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não for informado, {indApurIR} = [0] e {indRRA} = [S], efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [31, 32, 34].
+
+Nome: vlrCR13Men
+Pai: totApurMen
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor relativo ao imposto sobre a renda retido na fonte sobre rendimentos do trabalho, 13° salário.
+Validação: Deve ser agrupado conforme segue:
+a) Quando o evento de origem for S-1200, S-1202, S-2299, S-2399 e respectivo S-1210:
+{}(./CRMen) = [056107]: se codCateg = [101, 102, 103, 105, 106, 107, 108, 111, 301, 302, 303, 304, 305, 306, 307, 308, 309, 310, 311, 312, 313, 314, 401, 410, 501, 721, 722, 723, 761, 901, 902, 903, 904, 906], {indApurIR} = [0], os campos {indRRA} e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não forem informados e {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 for diferente de [22], efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [32];
+{}(./CRMen) = [056109]: se codCateg = [104], {indApurIR} = [0] e os campos {indRRA} e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não forem informados, efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [32], apenas se origem for S-2299;
+{}(./CRMen) = [056110]: se codCateg = [104], {indApurIR} = [0] e os campos {indRRA} e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não forem informados, efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [32], exceto se origem for S-2299;
+{}(./CRMen) = [056112]: se codCateg = [101, 102, 103, 105, 106, 107, 108, 111], {indApurIR} = [0], os campos {indRRA} e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não forem informados e {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [22], efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [32], exceto se origem for S-2299/S-2399;
+{}(./CRMen) = [056113]: se codCateg = [101, 102, 103, 105, 106, 107, 108, 111], {indApurIR} = [0], os campos {indRRA} e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não forem informados e {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [22], efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [32], apenas se origem for S-2299/S-2399;
+{}(./CRMen) = [058806]: se codCateg = [201, 202, 701, 711, 712, 731, 734, 738, 741, 751, 771, 781], {indApurIR} = [0] e os campos {indRRA} e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não forem informados, efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [32].
+ 
+b) Quando o evento de origem for S-1207 e respectivo S-1210:
+{}(./CRMen) = [353301]: se {indApurIR} = [0] e os campos {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) e {indRRA} não forem informados, efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [32].
+
+Nome: vlrParcIsenta65
+Pai: totApurMen
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor relativo à parcela isenta de proventos de aposentadoria, reserva remunerada, reforma e pensão de beneficiário com 65 anos ou mais.
+Validação: Deve ser agrupado conforme segue:
+a) Quando o evento de origem for S-1200, S-1202, S-2299, S-2399 e respectivo S-1210:
+{}(./CRMen) = [188901]: se {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não for informado, {indApurIR} = [0] e {indRRA} = [S], efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [70, 71].
+ 
+b) Quando o evento de origem for S-1207 e respectivo S-1210:
+{}(./CRMen) = [353301]: se {indApurIR} = [0] e os campos {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) e {indRRA} não forem informados, efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [70];
+{}(./CRMen) = [188901]: se {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não for informado, {indApurIR} = [0] e {indRRA} = [S], efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [70, 71].
+
+Nome: vlrParcIsenta65Dec
+Pai: totApurMen
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor relativo à parcela isenta de proventos de aposentadoria, reserva remunerada, reforma e pensão de beneficiário com 65 anos ou mais sobre o 13º salário.
+Validação: Deve ser agrupado conforme segue:
+a) Quando o evento de origem for S-1207 e respectivo S-1210:
+{}(./CRMen) = [353301]: se {indApurIR} = [0] e os campos {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) e {indRRA} não forem informados, efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [71].
+
+Nome: vlrDiarias
+Pai: totApurMen
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor relativo a diárias.
+Validação: Deve ser agrupado conforme segue:
+a) Quando o evento de origem for S-1200, S-1202, S-2299, S-2399 e respectivo S-1210:
+{}(./CRMen) = [056107]: se codCateg = [101, 102, 103, 105, 106, 107, 108, 111, 301, 302, 303, 304, 305, 306, 307, 308, 309, 310, 311, 312, 313, 314, 401, 410, 501, 721, 722, 723, 761, 901, 902, 903, 904, 906], {indApurIR} = [0], os campos {indRRA} e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não forem informados e {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 for diferente de [22], efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [72];
+{}(./CRMen) = [056108]: se codCateg = [104], {indApurIR} = [0] e os campos {indRRA} e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não forem informados, efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [72];
+{}(./CRMen) = [056111]: se codCateg = [101, 102, 103, 105, 106, 107, 108, 111], {indApurIR} = [0], os campos {indRRA} e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não forem informados e {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [22], efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [72];
+{}(./CRMen) = [058806]: se codCateg = [201, 202, 701, 711, 712, 731, 734, 738, 741, 751, 771, 781], {indApurIR} = [0] e os campos {indRRA} e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não forem informados, efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [72].
+
+Nome: vlrAjudaCusto
+Pai: totApurMen
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor relativo a ajuda de custo.
+Validação: Deve ser agrupado conforme segue:
+a) Quando o evento de origem for S-1200, S-1202, S-2299, S-2399 e respectivo S-1210:
+{}(./CRMen) = [056107]: se codCateg = [101, 102, 103, 105, 106, 107, 108, 111, 301, 302, 303, 304, 305, 306, 307, 308, 309, 310, 311, 312, 313, 314, 401, 410, 501, 721, 722, 723, 761, 901, 902, 903, 904, 906], {indApurIR} = [0], os campos {indRRA} e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não forem informados e {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 for diferente de [22], efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [73];
+{}(./CRMen) = [056108]: se codCateg = [104], {indApurIR} = [0] e os campos {indRRA} e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não forem informados, efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [73];
+{}(./CRMen) = [056111]: se codCateg = [101, 102, 103, 105, 106, 107, 108, 111], {indApurIR} = [0], os campos {indRRA} e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não forem informados e {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [22], efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [73];
+{}(./CRMen) = [058806]: se codCateg = [201, 202, 701, 711, 712, 731, 734, 738, 741, 751, 771, 781], {indApurIR} = [0] e os campos {indRRA} e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não forem informados, efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [73].
+
+Nome: vlrIndResContrato
+Pai: totApurMen
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor relativo a indenização e rescisão de contrato, inclusive a título de PDV e acidentes de trabalho.
+Validação: Deve ser agrupado conforme segue:
+a) Quando o evento de origem for S-1200, S-1202, S-2299, S-2399 e respectivo S-1210:
+{}(./CRMen) = [056107]: se codCateg = [101, 102, 103, 105, 106, 107, 108, 111, 301, 302, 303, 304, 305, 306, 307, 308, 309, 310, 311, 312, 313, 314, 401, 410, 501, 721, 722, 723, 761, 901, 902, 903, 904, 906], {indApurIR} = [0], os campos {indRRA} e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não forem informados e {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 for diferente de [22], efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [74];
+{}(./CRMen) = [056108]: se codCateg = [104], {indApurIR} = [0] e os campos {indRRA} e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não forem informados, efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [74];
+{}(./CRMen) = [056111]: se codCateg = [101, 102, 103, 105, 106, 107, 108, 111], {indApurIR} = [0], os campos {indRRA} e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não forem informados e {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [22], efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [74];
+{}(./CRMen) = [058806]: se codCateg = [201, 202, 701, 711, 712, 731, 734, 738, 741, 751, 771, 781], {indApurIR} = [0] e os campos {indRRA} e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não forem informados, efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [74].
+
+Nome: vlrAbonoPec
+Pai: totApurMen
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor relativo ao abono pecuniário.
+Validação: Deve ser agrupado conforme segue:
+a) Quando o evento de origem for S-1200, S-1202, S-2299, S-2399 e respectivo S-1210:
+{}(./CRMen) = [056107]: se codCateg = [101, 102, 103, 105, 106, 107, 108, 111, 301, 302, 303, 304, 305, 306, 307, 308, 309, 310, 311, 312, 313, 314, 401, 410, 501, 721, 722, 723, 761, 901, 902, 903, 904, 906], {indApurIR} = [0], os campos {indRRA} e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não forem informados e {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 for diferente de [22], efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [75];
+{}(./CRMen) = [056108]: se codCateg = [104], {indApurIR} = [0] e os campos {indRRA} e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não forem informados, efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [75];
+{}(./CRMen) = [056111]: se codCateg = [101, 102, 103, 105, 106, 107, 108, 111], {indApurIR} = [0], os campos {indRRA} e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não forem informados e {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [22], efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [75];
+{}(./CRMen) = [058806]: se codCateg = [201, 202, 701, 711, 712, 731, 734, 738, 741, 751, 771, 781], {indApurIR} = [0] e os campos {indRRA} e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não forem informados, efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [75].
+
+Nome: vlrRendMoleGrave
+Pai: totApurMen
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor relativo ao rendimento de beneficiário com moléstia grave ou acidente em serviço - remuneração mensal.
+Validação: Deve ser agrupado conforme segue:
+a) Quando o evento de origem for S-1200, S-1202, S-2299, S-2399 e respectivo S-1210:
+{}(./CRMen) = [188901]: se {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não for informado, {indApurIR} = [0] e {indRRA} = [S], efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [76, 77].
+ 
+b) Quando o evento de origem for S-1207 e respectivo S-1210:
+{}(./CRMen) = [353301]: se {indApurIR} = [0] e os campos {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) e {indRRA} não forem informados, efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [76];
+{}(./CRMen) = [188901]: se {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não for informado, {indApurIR} = [0] e {indRRA} = [S], efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [76, 77].
+
+Nome: vlrRendMoleGrave13
+Pai: totApurMen
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor relativo ao rendimento de beneficiário com moléstia grave ou acidente em serviço - 13º salário.
+Validação: Deve ser agrupado conforme segue:
+a) Quando o evento de origem for S-1207 e respectivo S-1210:
+{}(./CRMen) = [353301]: se {indApurIR} = [0] e os campos {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) e {indRRA} não forem informados, efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [77].
+
+Nome: vlrAuxMoradia
+Pai: totApurMen
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor relativo ao auxílio moradia.
+Validação: Deve ser agrupado conforme segue:
+a) Quando o evento de origem for S-1200, S-1202, S-2299, S-2399 e respectivo S-1210:
+{}(./CRMen) = [056107]: se codCateg = [101, 102, 103, 105, 106, 107, 108, 111, 301, 302, 303, 304, 305, 306, 307, 308, 309, 310, 311, 312, 313, 314, 401, 410, 501, 721, 722, 723, 761, 901, 902, 903, 904, 906], {indApurIR} = [0], os campos {indRRA} e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não forem informados e {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 for diferente de [22], efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [700];
+{}(./CRMen) = [056108]: se codCateg = [104], {indApurIR} = [0] e os campos {indRRA} e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não forem informados, efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [700];
+{}(./CRMen) = [056111]: se codCateg = [101, 102, 103, 105, 106, 107, 108, 111], {indApurIR} = [0], os campos {indRRA} e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não forem informados e {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [22], efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [700];
+{}(./CRMen) = [058806]: se codCateg = [201, 202, 701, 711, 712, 731, 734, 738, 741, 751, 771, 781], {indApurIR} = [0] e os campos {indRRA} e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não forem informados, efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [700].
+
+Nome: vlrBolsaMedico
+Pai: totApurMen
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor relativo a bolsa médico residente.
+Validação: Deve ser agrupado conforme segue:
+a) Quando o evento de origem for S-1200, S-1202, S-2299, S-2399 e respectivo S-1210:
+{}(./CRMen) = [056107]: se codCateg = [902], {indApurIR} = [0], os campos {indRRA} e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não forem informados e {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 for diferente de [22], efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [702].
+
+Nome: vlrBolsaMedico13
+Pai: totApurMen
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor relativo a bolsa médico residente - 13º salário.
+Validação: Deve ser agrupado conforme segue:
+a) Quando o evento de origem for S-1200, S-1202, S-2299, S-2399 e respectivo S-1210:
+{}(./CRMen) = [056107]: se codCateg = [902], {indApurIR} = [0], os campos {indRRA} e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não forem informados e {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 for diferente de [22], efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [703].
+
+Nome: vlrJurosMora
+Pai: totApurMen
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor relativo aos juros de mora recebidos, devidos pelo atraso no pagamento de remuneração por exercício de emprego, cargo ou função.
+Validação: Deve ser agrupado conforme segue:
+a) Quando o evento de origem for S-1200, S-1202, S-2299, S-2399 e respectivo S-1210:
+{}(./CRMen) = [188901]: se {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não for informado, {indApurIR} = [0] e {indRRA} = [S], efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [704].
+ 
+b) Quando o evento de origem for S-1207 e respectivo S-1210:
+{}(./CRMen) = [188901]: se {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não for informado, {indApurIR} = [0] e {indRRA} = [S], efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [704].
+
+Nome: vlrIsenOutros
+Pai: totApurMen
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor relativo aos rendimentos isentos - outros.
+Validação: Deve ser agrupado conforme segue:
+a) Quando o evento de origem for S-1200, S-1202, S-2299, S-2399 e respectivo S-1210:
+{}(./CRMen) = [056107]: se codCateg = [101, 102, 103, 105, 106, 107, 108, 111, 301, 302, 303, 304, 305, 306, 307, 308, 309, 310, 311, 312, 313, 314, 401, 410, 501, 721, 722, 723, 761, 901, 902, 903, 904, 906], {indApurIR} = [0], os campos {indRRA} e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não forem informados e {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 for diferente de [22], efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [79];
+{}(./CRMen) = [056108]: se codCateg = [104], {indApurIR} = [0] e os campos {indRRA} e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não forem informados, efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [79];
+{}(./CRMen) = [056111]: se codCateg = [101, 102, 103, 105, 106, 107, 108, 111], {indApurIR} = [0], os campos {indRRA} e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não forem informados e {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [22], efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [79];
+{}(./CRMen) = [058806]: se codCateg = [201, 202, 701, 711, 712, 731, 734, 738, 741, 751, 771, 781], {indApurIR} = [0] e os campos {indRRA} e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) não forem informados, efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [79].
+ 
+b) Quando o evento de origem for S-1207 e respectivo S-1210:
+{}(./CRMen) = [353301]: se {indApurIR} = [0] e os campos {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) e {indRRA} não forem informados, efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [79].
+
+Nome: descRendimento
+Pai: totApurMen
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-255
+Dec.: -
+Descrição: Descrição do rendimento não tributável ou isento do IRRF.
+Origem: campo {}(1010_infoRubrica_inclusao_dadosRubrica_dscRubr) em S-1010.
+Validação: Informação obrigatória e exclusiva para eventos S-1210 com {}(1210_ideEvento_perApur) posterior ou igual ao início da DIRF e se {tpInfoIR}(../infoIR_tpInfoIR) = [79].
+
+Nome: totApurDia
+Pai: dmDev
+Elem.: G
+Tipo: -
+Ocorrência: 0-350
+Tamanho: -
+Dec.: -
+Descrição: Totalizador de rendimentos tributáveis e tributos com período de apuração diário.
+
+Nome: perApurDia
+Pai: totApurDia
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-2
+Dec.: -
+Descrição: Período de apuração diário do Código de Receita - CR.
+Validação: Deve ser igual ao dia ("DD") da data informada em {dtPgto}(../dtPgto).
+
+Nome: CRDia
+Pai: totApurDia
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 6
+Dec.: -
+Descrição: Código de Receita - CR relativo ao Imposto de Renda Retido na Fonte sobre rendimentos do trabalho pagos a residente no exterior para fins fiscais.
+Valores válidos:
+047301 - IRRF - Residentes no exterior, para fins fiscais
+
+Nome: frmTribut
+Pai: totApurDia
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 2
+Dec.: -
+Descrição: Forma de tributação, conforme opções disponíveis na Tabela 30.
+
+Nome: paisResidExt
+Pai: totApurDia
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 3
+Dec.: -
+Descrição: Código do país de residência para fins fiscais, quando no exterior, conforme Tabela 06.
+
+Nome: vlrPagoDia
+Pai: totApurDia
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor pago a residente ou domiciliado no exterior.
+Evento de origem: S-1200, S-1202, S-1207, S-2299, S-2399 e respectivo S-1210.
+Validação: Efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [11, 12, 14, 72, 73, 74, 75, 76, 77, 79, 700, 701, 702, 703, 704], se {indApurIR} = [0] e:
+a) {codCateg}(../codCateg) for diferente de [712] e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) for informado com qualquer valor; ou
+b) {codCateg}(../codCateg) = [712] e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) for informado com valor diferente de [586].
+
+Nome: vlrCRDia
+Pai: totApurDia
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor relativo ao Imposto de Renda Retido na Fonte sobre rendimentos do trabalho pagos a residente, para fins fiscais, no exterior.
+Evento de origem: S-1200, S-1202, S-1207, S-2299, S-2399 e respectivo S-1210.
+Validação: Deve ser maior que 0 (zero).
+Efetuar o somatório de {valor}(../infoIR_valor) cujo {tpInfoIR}(../infoIR_tpInfoIR) = [31, 32, 34], se {indApurIR} = [0] e:
+a) {codCateg}(../codCateg) for diferente de [712] e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) for informado com qualquer valor; ou
+b) {codCateg}(../codCateg) = [712] e {paisResidExt}(1210_ideBenef_infoPgto_paisResidExt) for informado com valor diferente de [586].
+
+Nome: infoRRA
+Pai: dmDev
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações complementares relativas a Rendimentos Recebidos Acumuladamente - RRA.
+Origem: Evento remuneratório (S-1200, S-1202, S-1207, S-2299 ou S-2399) relacionado no evento S-1210 por {tpPgto}(1210_ideBenef_infoPgto_tpPgto), {perRef}(1210_ideBenef_infoPgto_perRef) e {ideDmDev}(1210_ideBenef_infoPgto_ideDmDev).
+
+Nome: tpProcRRA
+Pai: infoRRA
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de processo.
+Valores válidos:
+1 - Administrativo
+2 - Judicial
+
+Nome: nrProcRRA
+Pai: infoRRA
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 17, 20 ou 21
+Dec.: -
+Descrição: Informar o número do processo/requerimento administrativo/judicial.
+
+Nome: descRRA
+Pai: infoRRA
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-50
+Dec.: -
+Descrição: Descrição dos Rendimentos Recebidos Acumuladamente - RRA.
+
+Nome: qtdMesesRRA
+Pai: infoRRA
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-4
+Dec.: 1
+Descrição: Número de meses relativo aos Rendimentos Recebidos Acumuladamente - RRA.
+
+Nome: despProcJud
+Pai: infoRRA
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Detalhamento das despesas com processo judicial.
+
+Nome: vlrDespCustas
+Pai: despProcJud
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Preencher com o valor das despesas com custas judiciais.
+
+Nome: vlrDespAdvogados
+Pai: despProcJud
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Preencher com o valor total das despesas com advogado(s).
+
+Nome: ideAdv
+Pai: infoRRA
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição: Identificação dos advogados.
+
+Nome: tpInsc
+Pai: ideAdv
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+
+Nome: nrInsc
+Pai: ideAdv
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do advogado.
+
+Nome: vlrAdv
+Pai: ideAdv
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da despesa com o advogado, se houver.
+
+Nome: infoPgtoExt
+Pai: dmDev
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações complementares relativas a pagamentos a residente fiscal no exterior.
+Evento de origem: S-1210
+
+Nome: paisResidExt
+Pai: infoPgtoExt
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 3
+Dec.: -
+Descrição: Código do país de residência para fins fiscais, quando no exterior, conforme Tabela 06.
+
+Nome: indNIF
+Pai: infoPgtoExt
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo do Número de Identificação Fiscal (NIF).
+Valores válidos:
+1 - Beneficiário com NIF
+2 - Beneficiário dispensado do NIF
+3 - País não exige NIF
+
+Nome: nifBenef
+Pai: infoPgtoExt
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-30
+Dec.: -
+Descrição: Número de Identificação Fiscal (NIF).
+
+Nome: frmTribut
+Pai: infoPgtoExt
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 2
+Dec.: -
+Descrição: Forma de tributação, conforme opções disponíveis na Tabela 30.
+
+Nome: endExt
+Pai: infoPgtoExt
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Endereço do beneficiário residente ou domiciliado no exterior.
+
+Nome: endDscLograd
+Pai: endExt
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-80
+Dec.: -
+Descrição: Descrição do logradouro.
+
+Nome: endNrLograd
+Pai: endExt
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-10
+Dec.: -
+Descrição: Número do logradouro.
+
+Nome: endComplem
+Pai: endExt
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-30
+Dec.: -
+Descrição: Complemento do logradouro.
+
+Nome: endBairro
+Pai: endExt
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-60
+Dec.: -
+Descrição: Nome do bairro/distrito.
+
+Nome: endCidade
+Pai: endExt
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-40
+Dec.: -
+Descrição: Nome da cidade.
+
+Nome: endEstado
+Pai: endExt
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-40
+Dec.: -
+Descrição: Nome da província/estado.
+
+Nome: endCodPostal
+Pai: endExt
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-12
+Dec.: -
+Descrição: Código de Endereçamento Postal.
+
+Nome: telef
+Pai: endExt
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 8-15
+Dec.: -
+Descrição: Número do telefone.
+
+Nome: totInfoIR
+Pai: ideTrabalhador
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição:  Totais dos rendimentos tributáveis, deduções e isenções para todos os demonstrativos.
+
+Nome: consolidApurMen
+Pai: totInfoIR
+Elem.: G
+Tipo: -
+Ocorrência: 0-50
+Tamanho: -
+Dec.: -
+Descrição:  Totalização dos rendimentos tributáveis, deduções e isenções com período de apuração mensal.
+
+Nome: CRMen
+Pai: consolidApurMen
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 6
+Dec.: -
+Descrição: Código de Receita - CR relativo ao Imposto de Renda Retido na Fonte sobre rendimentos do trabalho.
+Valores válidos:
+056107 - IRRF mensal, 13° salário e férias sobre trabalho assalariado no país ou ausente no exterior a serviço do país, exceto se contratado por empregador doméstico ou por segurado especial sujeito a recolhimento unificado
+056108 - IRRF mensal e férias - Empregado doméstico
+056109 - IRRF 13° salário na rescisão de contrato de trabalho - Empregado doméstico
+056110 - IRRF - Empregado doméstico 13º salário
+056111 - IRRF - Empregado/Trabalhador rural - Segurado especial
+056112 - IRRF - Empregado/Trabalhador rural - Segurado especial 13° salário
+056113 - IRRF - Empregado/Trabalhador rural - Segurado especial 13° salário rescisório
+058806 - IRRF sobre rendimento do trabalho sem vínculo empregatício
+061001 - IRRF sobre rendimentos relativos a prestação de serviços de transporte rodoviário internacional de carga, pagos a transportador autônomo PF residente no Paraguai
+353301 - Proventos de aposentadoria, reserva, reforma ou pensão pagos por previdência pública
+356201 - IRRF sobre participação dos trabalhadores em lucros ou resultados - PLR
+188901 - Rendimentos Recebidos Acumuladamente - RRA
+
+Nome: vlrRendTrib
+Pai: consolidApurMen
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor relativo ao rendimento tributável mensal e férias.
+Origem: valores consolidados do campo {totApurMen/vlrRendTrib}(5002_ideTrabalhador_dmDev_totApurMen_vlrRendTrib).
+Validação: Deve ser maior ou igual a 0 (zero).
+
+Nome: vlrRendTrib13
+Pai: consolidApurMen
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor relativo ao rendimento do 13º salário.
+Origem: valores consolidados do campo {totApurMen/vlrRendTrib13}(5002_ideTrabalhador_dmDev_totApurMen_vlrRendTrib13).
+Validação: Deve ser maior ou igual a 0 (zero).
+
+Nome: vlrPrevOficial
+Pai: consolidApurMen
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor relativo à previdência oficial sobre rendimentos do trabalho, mensal e férias.
+Origem: valores consolidados do campo {totApurMen/vlrPrevOficial}(5002_ideTrabalhador_dmDev_totApurMen_vlrPrevOficial).
+Validação: Deve ser maior ou igual a 0 (zero).
+
+Nome: vlrPrevOficial13
+Pai: consolidApurMen
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor relativo à previdência oficial sobre o 13° salário.
+Origem: valores consolidados do campo {totApurMen/vlrPrevOficial13}(5002_ideTrabalhador_dmDev_totApurMen_vlrPrevOficial13).
+Validação: Deve ser maior ou igual a 0 (zero).
+
+Nome: vlrCRMen
+Pai: consolidApurMen
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor relativo ao imposto sobre a renda retido na fonte sobre rendimentos do trabalho, mensal e férias.
+Origem: valores consolidados do campo {totApurMen/vlrCRMen}(5002_ideTrabalhador_dmDev_totApurMen_vlrCRMen).
+Validação: Deve ser maior ou igual a 0 (zero).
+
+Nome: vlrCR13Men
+Pai: consolidApurMen
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor relativo ao imposto sobre a renda retido na fonte sobre rendimentos do trabalho, 13° salário.
+Origem: valores consolidados do campo {totApurMen/vlrCR13Men}(5002_ideTrabalhador_dmDev_totApurMen_vlrCR13Men).
+Validação: Deve ser maior ou igual a 0 (zero).
+
+Nome: vlrParcIsenta65
+Pai: consolidApurMen
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor relativo à parcela isenta de proventos de aposentadoria, reserva remunerada, reforma e pensão de beneficiário com 65 anos ou mais.
+Origem: valores consolidados do campo {totApurMen/vlrParcIsenta65}(5002_ideTrabalhador_dmDev_totApurMen_vlrParcIsenta65).
+Validação: Deve ser maior ou igual a 0 (zero).
+
+Nome: vlrParcIsenta65Dec
+Pai: consolidApurMen
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor relativo à parcela isenta de proventos de aposentadoria, reserva remunerada, reforma e pensão de beneficiário com 65 anos ou mais sobre o 13º salário.
+Origem: valores consolidados do campo {totApurMen/vlrParcIsenta65Dec}(5002_ideTrabalhador_dmDev_totApurMen_vlrParcIsenta65Dec).
+Validação: Deve ser maior ou igual a 0 (zero).
+
+Nome: vlrDiarias
+Pai: consolidApurMen
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor relativo a diárias.
+Origem: valores consolidados do campo {totApurMen/vlrDiarias}(5002_ideTrabalhador_dmDev_totApurMen_vlrDiarias).
+Validação: Deve ser maior ou igual a 0 (zero).
+
+Nome: vlrAjudaCusto
+Pai: consolidApurMen
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor relativo a ajuda de custo.
+Origem: valores consolidados do campo {totApurMen/vlrAjudaCusto}(5002_ideTrabalhador_dmDev_totApurMen_vlrAjudaCusto).
+Validação: Deve ser maior ou igual a 0 (zero).
+
+Nome: vlrIndResContrato
+Pai: consolidApurMen
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor relativo a indenização e rescisão de contrato, inclusive a título de PDV e acidentes de trabalho.
+Origem: valores consolidados do campo {totApurMen/vlrIndResContrato}(5002_ideTrabalhador_dmDev_totApurMen_vlrIndResContrato).
+Validação: Deve ser maior ou igual a 0 (zero).
+
+Nome: vlrAbonoPec
+Pai: consolidApurMen
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor relativo ao abono pecuniário.
+Origem: valores consolidados do campo {totApurMen/vlrAbonoPec}(5002_ideTrabalhador_dmDev_totApurMen_vlrAbonoPec).
+Validação: Deve ser maior ou igual a 0 (zero).
+
+Nome: vlrRendMoleGrave
+Pai: consolidApurMen
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor relativo ao rendimento de beneficiário com moléstia grave ou acidente em serviço - remuneração mensal.
+Origem: valores consolidados do campo {totApurMen/vlrRendMoleGrave}(5002_ideTrabalhador_dmDev_totApurMen_vlrRendMoleGrave).
+Validação: Deve ser maior ou igual a 0 (zero).
+
+Nome: vlrRendMoleGrave13
+Pai: consolidApurMen
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor relativo ao rendimento de beneficiário com moléstia grave ou acidente em serviço - 13º salário.
+Origem: valores consolidados do campo {totApurMen/vlrRendMoleGrave13}(5002_ideTrabalhador_dmDev_totApurMen_vlrRendMoleGrave13).
+Validação: Deve ser maior ou igual a 0 (zero).
+
+Nome: vlrAuxMoradia
+Pai: consolidApurMen
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor relativo ao auxílio moradia.
+Origem: valores consolidados do campo {totApurMen/vlrAuxMoradia}(5002_ideTrabalhador_dmDev_totApurMen_vlrAuxMoradia).
+Validação: Deve ser maior ou igual a 0 (zero).
+
+Nome: vlrBolsaMedico
+Pai: consolidApurMen
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor relativo a bolsa médico residente, mensal.
+Origem: valores consolidados do campo {totApurMen/vlrBolsaMedico}(5002_ideTrabalhador_dmDev_totApurMen_vlrBolsaMedico).
+Validação: Deve ser maior ou igual a 0 (zero).
+
+Nome: vlrBolsaMedico13
+Pai: consolidApurMen
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor relativo a bolsa médico residente, 13º salário.
+Origem: valores consolidados do campo {totApurMen/vlrBolsaMedico13}(5002_ideTrabalhador_dmDev_totApurMen_vlrBolsaMedico13).
+Validação: Deve ser maior ou igual a 0 (zero).
+
+Nome: vlrJurosMora
+Pai: consolidApurMen
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor relativo aos juros de mora recebidos, devidos pelo atraso no pagamento de remuneração por exercício de emprego, cargo ou função.
+Origem: valores consolidados do campo {totApurMen/vlrJurosMora}(5002_ideTrabalhador_dmDev_totApurMen_vlrJurosMora).
+Validação: Deve ser maior ou igual a 0 (zero).
+
+Nome: vlrIsenOutros
+Pai: consolidApurMen
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor relativo aos rendimentos isentos - outros.
+Origem: valores consolidados do campo {totApurMen/vlrIsenOutros}(5002_ideTrabalhador_dmDev_totApurMen_vlrIsenOutros).
+Validação: Deve ser maior ou igual a 0 (zero).
+
+Nome: descRendimento
+Pai: consolidApurMen
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-999
+Dec.: -
+Descrição: Descrição do rendimento não tributável ou isento do IRRF.
+Origem: {totApurMen/descRendimento}(5002_ideTrabalhador_dmDev_totApurMen_descRendimento). Concatenar os campos encontrados com separador ';' e truncar o conteúdo que ultrapassar o tamanho do campo.
+
+Nome: infoIRComplem
+Pai: ideTrabalhador
+Elem.: G
+Tipo: -
+Ocorrência: 0-13
+Tamanho: -
+Dec.: -
+Descrição: Informações complementares para a DIRF ou para a DAA, com a legislação aplicada ao imposto de renda.
+
+Nome: dtLaudo
+Pai: infoIRComplem
+Elem.: E
+Tipo: D
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Data da moléstia grave atribuída pelo laudo.
+Origem: campo {dtLaudo}(1210_ideBenef_infoIRComplem_dtLaudo) de S-1210.
+
+Nome: perAnt
+Pai: infoIRComplem
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição:  Identificação do evento S-1210 original e {}(1210_ideBenef_infoPgto_perRef) cujas informações de {}(1210_ideBenef_infoIRComplem) serão alteradas.
+
+Nome: perRefAjuste
+Pai: perAnt
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 7
+Dec.: -
+Descrição: {}(1210_ideEvento_perApur) do S-1210 cujo {}(1210_ideBenef_infoIRComplem) será alterado.
+Origem: campo {}(1210_ideBenef_infoIRComplem_perAnt_perRefAjuste) de S-1210.
+
+Nome: nrRec1210Orig
+Pai: perAnt
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 23
+Dec.: -
+Descrição: Número do recibo do S-1210 original cujas informações de {}(1210_ideBenef_infoIRComplem) serão alteradas.
+Origem: campo {}(1210_ideBenef_infoIRComplem_perAnt_nrRec1210Orig) de S-1210.
+
+Nome: ideDep
+Pai: infoIRComplem
+Elem.: G
+Tipo: -
+Ocorrência: 0-999
+Tamanho: -
+Dec.: -
+Descrição: Identificação dos dependentes.
+
+Nome: cpfDep
+Pai: ideDep
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11
+Dec.: -
+Descrição: CPF do dependente.
+Origem: campo {cpfDep} de S-2200/S-2205/S-2300/S-2400/S-2405 ou {infoDep/cpfDep}(1210_ideBenef_infoIRComplem_infoDep_cpfDep) de S-1210.
+
+Nome: depIRRF
+Pai: ideDep
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Este campo somente é informado em caso de dependente do trabalhador para fins de dedução de seu rendimento tributável pelo Imposto de Renda.
+Valores válidos:
+S - Sim
+N - Não
+Origem: campo {depIRRF} de S-2200/S-2205/S-2300/S-2400/S-2405 ou {depIRRF}(1210_ideBenef_infoIRComplem_infoDep_depIRRF) de S-1210.
+
+Nome: dtNascto
+Pai: ideDep
+Elem.: E
+Tipo: D
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Data de nascimento do dependente.
+Origem: campo {dependente/dtNascto} de S-2200/S-2205/S-2300/S-2400/S-2405 ou {dtNascto}(1210_ideBenef_infoIRComplem_infoDep_dtNascto) de S-1210.
+
+Nome: nome
+Pai: ideDep
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 2-70
+Dec.: -
+Descrição: Nome do dependente.
+Origem: campo {nmDep} de S-2200/S-2205/S-2300/S-2400/S-2405 ou {nome}(1210_ideBenef_infoIRComplem_infoDep_nome) de S-1210.
+
+Nome: tpDep
+Pai: ideDep
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 2
+Dec.: -
+Descrição: Relação de dependência.
+Origem: campo {tpDep} de S-2200/S-2205/S-2300/S-2400/S-2405 ou {tpDep}(1210_ideBenef_infoIRComplem_infoDep_tpDep) de S-1210.
+
+Nome: descrDep
+Pai: ideDep
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-100
+Dec.: -
+Descrição: Informar a descrição da dependência.
+Origem: campo {descrDep} de S-2200/S-2205/S-2300/S-2400/S-2405 ou {descrDep}(1210_ideBenef_infoIRComplem_infoDep_descrDep) de S-1210.
+
+Nome: infoIRCR
+Pai: infoIRComplem
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição: Informações de Imposto de Renda, por Código de Receita - CR.
+Evento de origem: S-1210.
+
+Nome: tpCR
+Pai: infoIRCR
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 6
+Dec.: -
+Descrição: Código de Receita - CR relativo ao Imposto de Renda Retido na Fonte sobre rendimentos do trabalho.
+Valores válidos:
+056107 - IRRF mensal, 13° salário e férias sobre trabalho assalariado no país ou ausente no exterior a serviço do país, exceto se contratado por empregador doméstico ou por segurado especial sujeito a recolhimento unificado
+056108 - IRRF mensal e férias - Empregado doméstico
+056109 - IRRF 13° salário na rescisão de contrato de trabalho - Empregado doméstico
+056110 - IRRF - Empregado doméstico 13º salário
+056111 - IRRF - Empregado/Trabalhador rural - Segurado especial
+056112 - IRRF - Empregado/Trabalhador rural - Segurado especial 13° salário
+056113 - IRRF - Empregado/Trabalhador rural - Segurado especial 13° salário rescisório
+058806 - IRRF sobre rendimento do trabalho sem vínculo empregatício
+061001 - IRRF sobre rendimentos relativos a prestação de serviços de transporte rodoviário internacional de carga, pagos a transportador autônomo PF residente no Paraguai
+353301 - Proventos de aposentadoria, reserva, reforma ou pensão pagos por previdência pública
+356201 - IRRF sobre participação dos trabalhadores em lucros ou resultados - PLR
+188901 - Rendimentos Recebidos Acumuladamente - RRA
+047301 - IRRF - Residentes no exterior, para fins fiscais
+
+Nome: dedDepen
+Pai: infoIRCR
+Elem.: G
+Tipo: -
+Ocorrência: 0-999
+Tamanho: -
+Dec.: -
+Descrição: Dedução do rendimento tributável relativa a dependentes.
+
+Nome: tpRend
+Pai: dedDepen
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 2
+Dec.: -
+Descrição: Tipo de rendimento.
+Valores válidos:
+11 - Remuneração mensal
+12 - 13º salário
+13 - Férias
+
+Nome: cpfDep
+Pai: dedDepen
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11
+Dec.: -
+Descrição: Informar o número de inscrição do dependente no CPF.
+
+Nome: vlrDedDep
+Pai: dedDepen
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Preencher com o valor da dedução da base de cálculo.
+
+Nome: penAlim
+Pai: infoIRCR
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição: Informação dos beneficiários da pensão alimentícia.
+
+Nome: tpRend
+Pai: penAlim
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 2
+Dec.: -
+Descrição: Tipo de rendimento.
+Valores válidos:
+11 - Remuneração mensal
+12 - 13º salário
+13 - Férias
+14 - PLR
+18 - RRA
+79 - Rendimento isento ou não tributável
+
+Nome: cpfDep
+Pai: penAlim
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11
+Dec.: -
+Descrição: Número do CPF do dependente/beneficiário da pensão alimentícia.
+
+Nome: vlrDedPenAlim
+Pai: penAlim
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor relativo à dedução do rendimento tributável correspondente a pagamento de pensão alimentícia.
+
+Nome: previdCompl
+Pai: infoIRCR
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição: Informações relativas a planos de previdência complementar.
+
+Nome: tpPrev
+Pai: previdCompl
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Tipo de previdência complementar.
+Valores válidos:
+1 - Privada: <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF">codIncIRRF</a> em S-1010 = [46, 47, 48]
+2 - FAPI: <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF">codIncIRRF</a> em S-1010 = [61, 62, 66]
+3 - Funpresp: <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF">codIncIRRF</a> em S-1010 = [63, 64, 65]
+
+Nome: cnpjEntidPC
+Pai: previdCompl
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 14
+Dec.: -
+Descrição: Número de inscrição da entidade de previdência complementar.
+
+Nome: vlrDedPC
+Pai: previdCompl
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da dedução mensal relativa a previdência complementar.
+
+Nome: vlrDedPC13
+Pai: previdCompl
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da dedução do 13º Salário relativa a previdência complementar.
+
+Nome: vlrPatrocFunp
+Pai: previdCompl
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da contribuição mensal do ente público patrocinador da Fundação de Previdência Complementar do Servidor Público (Funpresp).
+
+Nome: vlrPatrocFunp13
+Pai: previdCompl
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da contribuição do 13º Salário do ente público patrocinador da Fundação de Previdência Complementar do Servidor Público (Funpresp).
+
+Nome: infoProcRet
+Pai: infoIRCR
+Elem.: G
+Tipo: -
+Ocorrência: 0-50
+Tamanho: -
+Dec.: -
+Descrição: Informações de processos relacionados a não retenção de tributos ou a depósitos judiciais.
+
+Nome: tpProcRet
+Pai: infoProcRet
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de processo.
+Valores válidos:
+1 - Administrativo
+2 - Judicial
+
+Nome: nrProcRet
+Pai: infoProcRet
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 17, 20 ou 21
+Dec.: -
+Descrição: Informar o número do processo administrativo/judicial.
+
+Nome: codSusp
+Pai: infoProcRet
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: -
+Descrição: Código do indicativo da suspensão, atribuído pelo contribuinte.
+
+Nome: infoValores
+Pai: infoProcRet
+Elem.: G
+Tipo: -
+Ocorrência: 0-2
+Tamanho: -
+Dec.: -
+Descrição: Informações de valores relacionados a não retenção de tributos ou a depósitos judiciais.
+
+Nome: indApuracao
+Pai: infoValores
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo de período de apuração.
+Valores válidos:
+1 - Mensal
+2 - Anual (13° salário)
+
+Nome: vlrNRetido
+Pai: infoValores
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da retenção que deixou de ser efetuada em função de processo administrativo ou judicial.
+
+Nome: vlrDepJud
+Pai: infoValores
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor do depósito judicial em função de processo administrativo ou judicial.
+
+Nome: vlrCmpAnoCal
+Pai: infoValores
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da compensação relativa ao ano calendário em função de processo judicial.
+
+Nome: vlrCmpAnoAnt
+Pai: infoValores
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da compensação relativa a anos anteriores, em função de processo judicial.
+
+Nome: vlrRendSusp
+Pai: infoValores
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor do rendimento com exigibilidade suspensa.
+
+Nome: dedSusp
+Pai: infoValores
+Elem.: G
+Tipo: -
+Ocorrência: 0-25
+Tamanho: -
+Dec.: -
+Descrição: Detalhamento das deduções com exigibilidade suspensa.
+
+Nome: indTpDeducao
+Pai: dedSusp
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo do tipo de dedução.
+Valores válidos:
+1 - Previdência oficial
+2 - Previdência privada
+3 - Fundo de Aposentadoria Programada Individual - FAPI
+4 - Fundação de Previdência Complementar do Servidor Público - Funpresp
+5 - Pensão alimentícia
+7 - Dependentes
+
+Nome: vlrDedSusp
+Pai: dedSusp
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da dedução da base de cálculo do imposto de renda com exigibilidade suspensa.
+
+Nome: cnpjEntidPC
+Pai: dedSusp
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 14
+Dec.: -
+Descrição: Número de inscrição da entidade de previdência complementar.
+
+Nome: vlrPatrocFunp
+Pai: dedSusp
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da contribuição do ente público patrocinador da Fundação de Previdência Complementar do Servidor Público (Funpresp).
+
+Nome: benefPen
+Pai: dedSusp
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição: Informação das deduções suspensas por dependentes e beneficiários da pensão alimentícia.
+
+Nome: cpfDep
+Pai: benefPen
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11
+Dec.: -
+Descrição: Número de inscrição no CPF.
+
+Nome: vlrDepenSusp
+Pai: benefPen
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da dedução relativa a dependentes ou a pensão alimentícia com exigibilidade suspensa.
+
+Nome: planSaude
+Pai: infoIRComplem
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição:  Plano de saúde coletivo.
+Identificação da(s) operadora(s) de plano privado coletivo empresarial de assistência à saúde.
+Evento de origem: S-1210.
+
+Nome: cnpjOper
+Pai: planSaude
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 14
+Dec.: -
+Descrição: Informar o número do CNPJ da operadora de plano privado coletivo empresarial de assistência à saúde.
+
+Nome: regANS
+Pai: planSaude
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 6
+Dec.: -
+Descrição: Registro na Agência Nacional de Saúde - ANS.
+
+Nome: vlrSaudeTit
+Pai: planSaude
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor relativo à dedução do rendimento tributável correspondente a pagamento a plano de saúde do titular.
+
+Nome: infoDepSau
+Pai: planSaude
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição: Informações de dependente de plano de saúde coletivo empresarial.
+
+Nome: cpfDep
+Pai: infoDepSau
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11
+Dec.: -
+Descrição: Número de inscrição no CPF do dependente do plano de saúde.
+
+Nome: vlrSaudeDep
+Pai: infoDepSau
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor relativo a dedução do rendimento tributável correspondente a pagamento a plano de saúde do dependente.
+
+Nome: infoReembMed
+Pai: infoIRComplem
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição:  Informações relativas a reembolsos efetuados no período de apuração ({perApur}(1210_ideEvento_perApur)) pelo empregador ao trabalhador referente a despesas médicas ou odontológicas pagas pelo trabalhador a prestadores de serviços de saúde.
+Evento de origem: S-1210.
+
+Nome: indOrgReemb
+Pai: infoReembMed
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo da origem do reembolso.
+Valores válidos:
+1 - Reembolso efetuado pelo empregador no âmbito do plano de saúde (a operadora reembolsa o empregador)
+2 - Reembolso efetuado pelo empregador como benefício do próprio empregador
+
+Nome: cnpjOper
+Pai: infoReembMed
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 14
+Dec.: -
+Descrição: CNPJ da operadora do plano de saúde.
+
+Nome: regANS
+Pai: infoReembMed
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 6
+Dec.: -
+Descrição: Registro na Agência Nacional de Saúde - ANS.
+
+Nome: detReembTit
+Pai: infoReembMed
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição: Informação de reembolso do titular do plano de saúde.
+
+Nome: tpInsc
+Pai: detReembTit
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Informar o código correspondente ao tipo de inscrição do prestador de serviços.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+
+Nome: nrInsc
+Pai: detReembTit
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do prestador de serviços de assistência médica, de acordo com o tipo de inscrição indicado em {tpInsc}(./tpInsc).
+
+Nome: vlrReemb
+Pai: detReembTit
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor do reembolso relativo ao ano do período indicado em {perApur}(1210_ideEvento_perApur).
+
+Nome: vlrReembAnt
+Pai: detReembTit
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor do reembolso relativo a anos anteriores.
+
+Nome: infoReembDep
+Pai: infoReembMed
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição: Informação de reembolso do dependente do plano de saúde.
+
+Nome: cpfBenef
+Pai: infoReembDep
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11
+Dec.: -
+Descrição: Número de inscrição no CPF do dependente.
+
+Nome: detReembDep
+Pai: infoReembDep
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição:  Detalhamento dos reembolsos efetuados em {perApur}(1210_ideEvento_perApur) pelo empregador ao trabalhador referente a despesas médicas ou odontológicas pagas pelo trabalhador a prestadores de serviços de saúde relativo a despesas de seus dependentes.
+
+Nome: tpInsc
+Pai: detReembDep
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Informar o código correspondente ao tipo de inscrição do prestador de serviços.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+
+Nome: nrInsc
+Pai: detReembDep
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do prestador de serviços de assistência médica, de acordo com o tipo de inscrição indicado em {tpInsc}(./tpInsc).
+
+Nome: vlrReemb
+Pai: detReembDep
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor do reembolso relativo ao ano do período indicado em {perApur}(1210_ideEvento_perApur).
+
+Nome: vlrReembAnt
+Pai: detReembDep
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor do reembolso relativo a anos anteriores.
+

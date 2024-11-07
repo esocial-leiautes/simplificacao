@@ -1,0 +1,1562 @@
+S-2299 - evtDeslig
+Desligamento
+
+Nível: 1
+Nome: eSocial
+Pai: -
+Descrição: eSocial
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 2
+Nome: evtDeslig
+Pai: eSocial
+Descrição: Evento Desligamento.
+Ocorrência: 1
+Chave: Id
+Condição: O
+
+Nível: 3
+Nome: ideEvento
+Pai: evtDeslig
+Descrição: Informações de identificação do evento.
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 3
+Nome: ideEmpregador
+Pai: evtDeslig
+Descrição: Informações de identificação do empregador.
+Ocorrência: 1
+Chave: tpInsc*, nrInsc*
+Condição: O
+
+Nível: 3
+Nome: ideVinculo
+Pai: evtDeslig
+Descrição: Informações de identificação do trabalhador e do vínculo.
+Ocorrência: 1
+Chave: cpfTrab*, matricula*
+Condição: O
+
+Nível: 3
+Nome: infoDeslig
+Pai: evtDeslig
+Descrição: Informações relativas ao desligamento do vínculo.
+Ocorrência: 1
+Chave: dtDeslig*
+Condição: O
+
+Nível: 4
+Nome: infoInterm
+Pai: infoDeslig
+Descrição: Informações relativas ao trabalho intermitente.
+Ocorrência: 0-31
+Chave: dia
+Condição: O (se o código de categoria no RET for igual a [111] no mês/ano de {dtDeslig}(2299_infoDeslig_dtDeslig)
+N (nos demais casos)
+
+Nível: 4
+Nome: observacoes
+Pai: infoDeslig
+Descrição: Observações sobre o desligamento.
+Ocorrência: 0-99
+Chave: -
+Condição: OC
+
+Nível: 4
+Nome: sucessaoVinc
+Pai: infoDeslig
+Descrição: Sucessão do vínculo trabalhista/estatutário
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {mtvDeslig}(2299_infoDeslig_mtvDeslig) = [11, 12, 13, 28, 29, 37, 43])
+N (nos demais casos)
+
+Nível: 4
+Nome: transfTit
+Pai: infoDeslig
+Descrição: Transferência de titularidade do empregado doméstico
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {mtvDeslig}(2299_infoDeslig_mtvDeslig) = [34])
+N (nos demais casos)
+
+Nível: 4
+Nome: mudancaCPF
+Pai: infoDeslig
+Descrição: Informação do novo CPF do trabalhador.
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {mtvDeslig}(2299_infoDeslig_mtvDeslig) = [36])
+N (nos demais casos)
+
+Nível: 4
+Nome: verbasResc
+Pai: infoDeslig
+Descrição: Verbas rescisórias
+Ocorrência: 0-1
+Chave: -
+Condição: N (se {mtvDeslig}(2299_infoDeslig_mtvDeslig) = [11, 12, 13, 25, 28, 29, 30, 34, 36, 43, 44] OU {dtDeslig}(2299_infoDeslig_dtDeslig) for anterior ao início de obrigatoriedade dos eventos periódicos para o empregador OU {tpRegTrab}(2200_vinculo_tpRegTrab) em S-2200 = [2])
+OC (nos demais casos)
+
+Nível: 5
+Nome: dmDev
+Pai: verbasResc
+Descrição: Demonstrativo de valores devidos ao trabalhador
+Ocorrência: 1-50
+Chave: ideDmDev
+Condição: O
+
+Nível: 6
+Nome: infoRRA
+Pai: dmDev
+Descrição: Informações complementares de RRA.
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {indRRA}(../indRRA) = [S])
+N (nos demais casos)
+
+Nível: 7
+Nome: despProcJud
+Pai: infoRRA
+Descrição: Despesas com processo judicial
+Ocorrência: 0-1
+Chave: -
+Condição: OC
+
+Nível: 7
+Nome: ideAdv
+Pai: infoRRA
+Descrição: Identificação dos advogados.
+Ocorrência: 0-99
+Chave: tpInsc, nrInsc
+Condição: OC (se {vlrDespAdvogados}(../despProcJud_vlrDespAdvogados) > 0)
+N (nos demais casos)
+
+Nível: 6
+Nome: infoPerApur
+Pai: dmDev
+Descrição: Verbas rescisórias relativas ao mês/ano da data do desligamento.
+Ocorrência: 0-1
+Chave: -
+Condição: O (se não existir o grupo {infoPerAnt}(2299_infoDeslig_verbasResc_dmDev_infoPerAnt))
+OC (nos demais casos)
+
+Nível: 7
+Nome: ideEstabLot
+Pai: infoPerApur
+Descrição: Identificação do estabelecimento e lotação
+Ocorrência: 1-24
+Chave: tpInsc, nrInsc, codLotacao
+Condição: O
+
+Nível: 8
+Nome: detVerbas
+Pai: ideEstabLot
+Descrição: Detalhamento das verbas rescisórias
+Ocorrência: 1-200
+Chave: -
+Condição: O
+
+Nível: 9
+Nome: descFolha
+Pai: detVerbas
+Descrição: Informações de desconto do empréstimo em folha.
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {}(1010_infoRubrica_inclusao_dadosRubrica_natRubr) em S-1010 = [9253])
+N (nos demais casos)
+
+Nível: 8
+Nome: infoAgNocivo
+Pai: ideEstabLot
+Descrição: Grau de exposição a agentes nocivos
+Ocorrência: 0-1
+Chave: -
+Condição: O (se o trabalhador estiver amparado pelo RGPS)
+N (nos demais casos)
+
+Nível: 8
+Nome: infoSimples
+Pai: ideEstabLot
+Descrição: Informação relativa a empresas do Simples
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [03])
+N (nos demais casos)
+
+Nível: 6
+Nome: infoPerAnt
+Pai: dmDev
+Descrição: Informações relativas a períodos anteriores
+Ocorrência: 0-1
+Chave: -
+Condição: O (se não existir o grupo {infoPerApur}(2299_infoDeslig_verbasResc_dmDev_infoPerApur))
+OC (nos demais casos)
+
+Nível: 7
+Nome: ideADC
+Pai: infoPerAnt
+Descrição: Instrumento ou situação ensejadora da remuneração em períodos anteriores
+Ocorrência: 1-8
+Chave: dtAcConv, tpAcConv
+Condição: O
+
+Nível: 8
+Nome: idePeriodo
+Pai: ideADC
+Descrição: Identificação do período de referência da remuneração
+Ocorrência: 1-180
+Chave: perRef
+Condição: O
+
+Nível: 9
+Nome: ideEstabLot
+Pai: idePeriodo
+Descrição: Identificação do estabelecimento e lotação
+Ocorrência: 1-24
+Chave: tpInsc, nrInsc, codLotacao
+Condição: O
+
+Nível: 10
+Nome: detVerbas
+Pai: ideEstabLot
+Descrição: Detalhamento das verbas rescisórias
+Ocorrência: 1-200
+Chave: -
+Condição: O
+
+Nível: 10
+Nome: infoAgNocivo
+Pai: ideEstabLot
+Descrição: Grau de exposição a agentes nocivos
+Ocorrência: 0-1
+Chave: -
+Condição: O (se o trabalhador estiver amparado pelo RGPS)
+N (nos demais casos)
+
+Nível: 10
+Nome: infoSimples
+Pai: ideEstabLot
+Descrição: Informação relativa a empresas do Simples
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [03])
+N (nos demais casos)
+
+Nível: 5
+Nome: procJudTrab
+Pai: verbasResc
+Descrição: Informações sobre a existência de processos judiciais do trabalhador
+Ocorrência: 0-99
+Chave: tpTrib, nrProcJud, codSusp
+Condição: OC
+
+Nível: 5
+Nome: infoMV
+Pai: verbasResc
+Descrição: Informação de múltiplos vínculos
+Ocorrência: 0-1
+Chave: -
+Condição: OC
+
+Nível: 6
+Nome: remunOutrEmpr
+Pai: infoMV
+Descrição: Remuneração recebida pelo trabalhador em outras empresas ou atividades
+Ocorrência: 1-999
+Chave: tpInsc, nrInsc, codCateg
+Condição: O
+
+Nível: 5
+Nome: procCS
+Pai: verbasResc
+Descrição: Informação sobre processo judicial que suspende a exigibilidade da Contribuição Social Rescisória.
+Ocorrência: 0-1
+Chave: -
+Condição: OC
+
+Nível: 4
+Nome: remunAposDeslig
+Pai: infoDeslig
+Descrição: Informações sobre a quarentena remunerada ou outra situação de desligamento com data anterior
+Ocorrência: 0-1
+Chave: -
+Condição: OC
+
+Nível: 4
+Nome: consigFGTS
+Pai: infoDeslig
+Descrição: Informações sobre operação de crédito consignado com garantia de FGTS.
+Ocorrência: 0-99
+Chave: -
+Condição: OC
+
+Nome: eSocial
+Pai: -
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: eSocial
+
+Nome: evtDeslig
+Pai: eSocial
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Evento Desligamento.
+Regras de validação:
+REGRA_DESLIG_EXCLUI_DESLIGAMENTO_REINTEG
+REGRA_DESLIG_EXCLUSAO_EVENTO
+REGRA_DESLIG_EXISTE_EVENTO_POSTERIOR
+REGRA_DESLIG_JA_EXISTE_BAIXA
+REGRA_DESLIG_TRABALHADOR_AFASTADO
+REGRA_EMPREGADO_DOMESTICO
+REGRA_ENVIO_PROC_FECHAMENTO
+REGRA_EVENTOS_EXTEMP
+REGRA_EVENTO_POSTERIOR_CAT_OBITO
+REGRA_EVE_FOPAG_SIMPLIFICADO
+REGRA_EXISTE_INFO_EMPREGADOR
+REGRA_EXTEMP_DOMESTICO
+REGRA_EXTEMP_REINTEGRACAO
+REGRA_GERAL_VALIDA_DADOS_TABCONTRIB
+REGRA_MESMO_PROCEMI
+REGRA_MUDANCA_CPF
+REGRA_REMUN_FGTS_ANTERIOR_ESOCIAL
+REGRA_REMUN_IND_RETIFICACAO
+REGRA_REMUN_PERMITE_EXCLUSAO
+REGRA_RETIFICA_MESMO_VINCULO
+REGRA_RUBRICA_COMPATIVEL_CATEGORIA
+REGRA_RUBRICA_ECONSIGNADO
+REGRA_VALIDA_EMPREGADOR
+REGRA_VALIDA_PERIODO_APURACAO
+REGRA_VINCULO_ATIVO_NA_DTEVENTO
+
+Nome: Id
+Pai: evtDeslig
+Elem.: A
+Tipo: C
+Ocorrência: 1
+Tamanho: 36
+Dec.: -
+Descrição: Identificação única do evento.
+Regras de validação:
+REGRA_VALIDA_ID_EVENTO
+
+Nome: ideEvento
+Pai: evtDeslig
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do evento.
+
+Nome: indRetif
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Informe [1] para arquivo original ou [2] para arquivo de retificação.
+Valores válidos:
+1 - Original
+2 - Retificação
+
+Nome: nrRecibo
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 23
+Dec.: -
+Descrição: Preencher com o número do recibo do arquivo a ser retificado.
+Validação: O preenchimento é obrigatório se {indRetif}(./indRetif) = [2].
+Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo retificado.
+
+Nome: indGuia
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo do tipo de guia.
+Valores válidos:
+1 - Documento de Arrecadação do eSocial - DAE
+
+Nome: tpAmb
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Identificação do ambiente.
+Valores válidos:
+1 - Produção
+2 - Produção restrita
+7 - Validação (uso interno)
+8 - Teste (uso interno)
+9 - Desenvolvimento (uso interno)
+
+Nome: procEmi
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-2
+Dec.: -
+Descrição: Processo de emissão do evento.
+Valores válidos:
+1 - Aplicativo do empregador
+2 - Aplicativo governamental - Simplificado Pessoa Física
+3 - Aplicativo governamental - Web Geral
+4 - Aplicativo governamental - Simplificado Pessoa Jurídica
+22 - Aplicativo governamental para dispositivos móveis - Empregador Doméstico
+
+Nome: verProc
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-20
+Dec.: -
+Descrição: Versão do processo de emissão do evento. Informar a versão do aplicativo emissor do evento.
+
+Nome: ideEmpregador
+Pai: evtDeslig
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do empregador.
+
+Nome: tpInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+
+Nome: nrInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 8, 11 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {ideEmpregador/tpInsc}(./tpInsc) e conforme informado em S-1000.
+
+Nome: ideVinculo
+Pai: evtDeslig
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do trabalhador e do vínculo.
+
+Nome: cpfTrab
+Pai: ideVinculo
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11
+Dec.: -
+Descrição: Preencher com o número do CPF do trabalhador.
+
+Nome: matricula
+Pai: ideVinculo
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-30
+Dec.: -
+Descrição: Matrícula atribuída ao trabalhador pela empresa ou, no caso de servidor público, a matrícula constante no Sistema de Administração de Recursos Humanos do órgão.
+Validação: Deve corresponder à matrícula informada pelo empregador no evento S-2200 do respectivo vínculo trabalhista.
+
+Nome: infoDeslig
+Pai: evtDeslig
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações relativas ao desligamento do vínculo.
+
+Nome: mtvDeslig
+Pai: infoDeslig
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 2
+Dec.: -
+Descrição: Código de motivo do desligamento.
+Validação: Deve ser um código válido e existente na Tabela 19, bem como compatível com o código de categoria do trabalhador, conforme Tabela 19.
+
+Nome: dtDeslig
+Pai: infoDeslig
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Preencher com a data de desligamento do vínculo (último dia trabalhado).
+Validação: Deve ser uma data igual ou anterior à data atual acrescida de 10 (dez) dias. No caso de empregado reintegrado e quando não se tratar de retificação do desligamento anterior à reintegração, também deve ser uma data igual ou posterior a {dtEfetRetorno}(2298_infoReintegr_dtEfetRetorno) do evento S-2298.
+
+Nome: dtAvPrv
+Pai: infoDeslig
+Elem.: E
+Tipo: D
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Data de concessão do aviso prévio.
+Validação: Se informada, deve ser igual ou posterior à data de admissão e igual ou anterior a {dtDeslig}(./dtDeslig).
+
+Nome: indPagtoAPI
+Pai: infoDeslig
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo de pagamento de aviso prévio indenizado pelo empregador, ao empregado.
+Valores válidos:
+S - Sim
+N - Não
+
+Nome: dtProjFimAPI
+Pai: infoDeslig
+Elem.: E
+Tipo: D
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Data projetada para o término do aviso prévio indenizado.
+Validação: Obrigatório se {indPagtoAPI}(./indPagtoAPI) for igual a [S], devendo ser igual ou posterior a {dtDeslig}(./dtDeslig).
+
+Nome: pensAlim
+Pai: infoDeslig
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo de pensão alimentícia para fins de retenção de FGTS.
+Valores válidos:
+0 - Não existe pensão alimentícia
+1 - Percentual de pensão alimentícia
+2 - Valor de pensão alimentícia
+3 - Percentual e valor de pensão alimentícia
+Validação: Preenchimento obrigatório e exclusivo se o vínculo for celetista ({tpRegTrab}(2200_vinculo_tpRegTrab) em S-2200 = [1]).
+
+Nome: percAliment
+Pai: infoDeslig
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-5
+Dec.: 2
+Descrição: Percentual a ser destinado a pensão alimentícia.
+Validação: Deve ser maior que 0 (zero) e menor ou igual a 100 (cem).
+Informação obrigatória e exclusiva se {pensAlim}(./pensAlim) = [1, 3].
+
+Nome: vrAlim
+Pai: infoDeslig
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da pensão alimentícia.
+Validação: Deve ser maior que 0 (zero).
+Informação obrigatória e exclusiva se {pensAlim}(./pensAlim) = [2, 3].
+
+Nome: nrProcTrab
+Pai: infoDeslig
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 20
+Dec.: -
+Descrição: Número que identifica o processo trabalhista, quando o desligamento se der por decisão judicial.
+Validação: Se preenchido, deve ser um processo judicial válido, com 20 (vinte) algarismos.
+
+Nome: indPDV
+Pai: infoDeslig
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo se o desligamento ocorreu por meio de adesão a Programa de Demissão Voluntária (PDV).
+Valores válidos:
+S - Sim
+Validação: Não informar se {mtvDeslig}(./mtvDeslig) = [10, 11, 12, 13, 28, 29, 30, 34, 36, 37, 40, 43, 44].
+
+Nome: infoInterm
+Pai: infoDeslig
+Elem.: G
+Tipo: -
+Ocorrência: 0-31
+Tamanho: -
+Dec.: -
+Descrição: Informações relativas ao trabalho intermitente.
+
+Nome: dia
+Pai: infoInterm
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-2
+Dec.: -
+Descrição: Dia do mês efetivamente trabalhado pelo empregado com contrato de trabalho intermitente.
+Caso não tenha havido trabalho no mês, informar 0 (zero).
+Validação: Deve ser um número entre 0 e 31, de acordo com o calendário anual.
+Retornar alerta caso seja informado 0 (zero).
+
+Nome: hrsTrab
+Pai: infoInterm
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 4
+Dec.: -
+Descrição: Horas trabalhadas no dia pelo empregado com contrato de trabalho intermitente, no formato HHMM.
+Validação: Preenchimento obrigatório e exclusivo se {}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [22].
+Se preenchida, deve estar no intervalo entre [0000] e [2359], criticando inclusive a segunda parte do número, que indica os minutos, que deve ser menor ou igual a 59.
+
+Nome: observacoes
+Pai: infoDeslig
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição: Observações sobre o desligamento.
+
+Nome: observacao
+Pai: observacoes
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-255
+Dec.: -
+Descrição: Observação relevante sobre o desligamento do trabalhador, que não esteja consignada em outros campos.
+
+Nome: sucessaoVinc
+Pai: infoDeslig
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Grupo preenchido exclusivamente nos casos de sucessão do vínculo trabalhista, com a identificação da empresa sucessora.
+
+Nome: tpInsc
+Pai: sucessaoVinc
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+
+Nome: nrInsc
+Pai: sucessaoVinc
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do empregador sucessor, de acordo com o tipo de inscrição indicado no campo {sucessaoVinc/tpInsc}(./tpInsc).
+Validação: Deve ser um número de inscrição válido e diferente da inscrição do declarante, considerando as particularidades aplicadas à informação de CNPJ de órgão público em S-1000.
+Se {sucessaoVinc/tpInsc}(./tpInsc) = [1], deve possuir 14 (catorze) algarismos e ser diferente do CNPJ base do empregador (exceto se {ideEmpregador/nrInsc}(2299_ideEmpregador_nrInsc) tiver 14 (catorze) algarismos) e dos estabelecimentos informados através do evento S-1005.
+Se {sucessaoVinc/tpInsc}(./tpInsc) = [2], deve possuir 11 (onze) algarismos.
+
+Nome: transfTit
+Pai: infoDeslig
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Transferência de titularidade do empregado doméstico para outro representante da mesma unidade familiar.
+
+Nome: cpfSubstituto
+Pai: transfTit
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11
+Dec.: -
+Descrição: Preencher com o CPF do novo titular.
+Validação: Deve ser um CPF válido e diferente do CPF do declarante e do empregado.
+
+Nome: dtNascto
+Pai: transfTit
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Preencher com a data de nascimento do novo titular.
+Validação: Deve corresponder à data de nascimento cadastrada na base de dados do CPF do {cpfSubstituto}(./cpfSubstituto).
+
+Nome: mudancaCPF
+Pai: infoDeslig
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informação do novo CPF do trabalhador.
+
+Nome: novoCPF
+Pai: mudancaCPF
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11
+Dec.: -
+Descrição: Preencher com o novo CPF do trabalhador.
+Validação: Deve ser um CPF válido e diferente do CPF do empregador e do antigo CPF do trabalhador.
+
+Nome: verbasResc
+Pai: infoDeslig
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Grupo onde são prestadas as informações relativas às verbas devidas ao trabalhador na rescisão contratual.
+
+Nome: dmDev
+Pai: verbasResc
+Elem.: G
+Tipo: -
+Ocorrência: 1-50
+Tamanho: -
+Dec.: -
+Descrição: Identificação de cada um dos demonstrativos de valores devidos ao trabalhador.
+Regras de validação:
+REGRA_DEMONSTRATIVO
+
+Nome: ideDmDev
+Pai: dmDev
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-30
+Dec.: -
+Descrição: Identificador atribuído pela empresa para o demonstrativo de valores devidos ao trabalhador relativo a verbas rescisórias.
+Validação: Deve ser um identificador único dentro da mesma competência (mês/ano da data de desligamento) para cada um dos demonstrativos do trabalhador. Se {procEmi}(2299_ideEvento_procEmi) = [1, 3] e {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [21, 22], o identificador não pode conter a expressão 'eSocial' nas 7 (sete) primeiras posições.
+Regras de validação:
+REGRA_CARACTERE_ESPECIAL
+
+Nome: indRRA
+Pai: dmDev
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo de Rendimentos Recebidos Acumuladamente - RRA.
+Somente preencher este campo se for um demonstrativo de RRA.
+Valores válidos:
+S - Sim
+
+Nome: infoRRA
+Pai: dmDev
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações complementares relativas a Rendimentos Recebidos Acumuladamente - RRA.
+
+Nome: tpProcRRA
+Pai: infoRRA
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de processo.
+Valores válidos:
+1 - Administrativo
+2 - Judicial
+
+Nome: nrProcRRA
+Pai: infoRRA
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 17, 20 ou 21
+Dec.: -
+Descrição: Informar o número do processo/requerimento administrativo/judicial.
+Validação: Informação obrigatória se {tpProcRRA}(./tpProcRRA) = [2] e opcional se {tpProcRRA}(./tpProcRRA) = [1]. Deve ser número de processo válido e:
+a) Se {tpProcRRA}(./tpProcRRA) = [1], deve possuir 17 (dezessete) ou 21 (vinte e um) algarismos;
+b) Se {tpProcRRA}(./tpProcRRA) = [2], deve possuir 20 (vinte) algarismos.
+
+Nome: descRRA
+Pai: infoRRA
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-50
+Dec.: -
+Descrição: Descrição dos Rendimentos Recebidos Acumuladamente - RRA.
+
+Nome: qtdMesesRRA
+Pai: infoRRA
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-4
+Dec.: 1
+Descrição: Número de meses relativo aos Rendimentos Recebidos Acumuladamente - RRA.
+
+Nome: despProcJud
+Pai: infoRRA
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Detalhamento das despesas com processo judicial.
+
+Nome: vlrDespCustas
+Pai: despProcJud
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Preencher com o valor das despesas com custas judiciais.
+Validação: Deve ser maior ou igual a 0 (zero).
+
+Nome: vlrDespAdvogados
+Pai: despProcJud
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Preencher com o valor total das despesas com advogado(s).
+Validação: Se o grupo {}(../ideAdv) for preenchido, o valor informado neste campo deve ser maior ou igual à soma do(s) campo(s) {}(../ideAdv_vlrAdv) do grupo {}(../ideAdv).
+Deve ser maior ou igual a 0 (zero).
+O não preenchimento do grupo {}(../ideAdv) indica que o contribuinte declarante não possui as informações detalhadas por advogado.
+
+Nome: ideAdv
+Pai: infoRRA
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição: Identificação dos advogados.
+
+Nome: tpInsc
+Pai: ideAdv
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+
+Nome: nrInsc
+Pai: ideAdv
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do advogado.
+Validação: Deve ser um número de inscrição válido, de acordo com o tipo de inscrição indicado no campo {ideAdv/tpInsc}(./tpInsc), considerando as particularidades aplicadas à informação de CNPJ de órgão público em S-1000.
+Se {ideAdv/tpInsc}(./tpInsc) = [1], deve possuir 14 (catorze) algarismos e, no caso de declarante pessoa jurídica, ser diferente do CNPJ base do empregador (exceto se {ideEmpregador/nrInsc}(/ideEmpregador_nrInsc) tiver 14 (catorze) algarismos).
+Se {ideAdv/tpInsc}(./tpInsc) = [2], deve possuir 11 (onze) algarismos e, no caso de declarante pessoa física, ser diferente do CPF do empregador.
+
+Nome: vlrAdv
+Pai: ideAdv
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da despesa com o advogado, se houver.
+
+Nome: infoPerApur
+Pai: dmDev
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Verbas rescisórias relativas ao mês/ano da data do desligamento.
+
+Nome: ideEstabLot
+Pai: infoPerApur
+Elem.: G
+Tipo: -
+Ocorrência: 1-24
+Tamanho: -
+Dec.: -
+Descrição: Identificação do estabelecimento e da lotação nos quais o trabalhador possui remuneração no período de apuração. O estabelecimento identificado no grupo pode ser: o número do CNPJ do estabelecimento da própria empresa (matriz/filial), o número da obra (própria) no CNO, ou o número do CAEPF (no caso de pessoa física obrigada a inscrição no Cadastro de Atividade Econômica da Pessoa Física).
+
+Nome: tpInsc
+Pai: ideEstabLot
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição do estabelecimento, de acordo com as opções da Tabela 05.
+Valores válidos:
+1 - CNPJ
+3 - CAEPF
+4 - CNO
+Validação: Se {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [21, 22], deve ser igual a [3, 4].
+Se {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [04], deve ser igual a [1].
+Nos demais casos ({classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 diferente de [04, 21, 22]), deve ser igual a [1, 4].
+
+Nome: nrInsc
+Pai: ideEstabLot
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 12 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do estabelecimento do contribuinte de acordo com o tipo de inscrição indicado no campo {ideEstabLot/tpInsc}(./tpInsc).
+Validação: A inscrição informada deve ser compatível com {ideEstabLot/tpInsc}(./tpInsc).
+
+Nome: codLotacao
+Pai: ideEstabLot
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-30
+Dec.: -
+Descrição: Informar o código atribuído pelo empregador para a lotação tributária.
+
+Nome: detVerbas
+Pai: ideEstabLot
+Elem.: G
+Tipo: -
+Ocorrência: 1-200
+Tamanho: -
+Dec.: -
+Descrição: Detalhamento das verbas rescisórias devidas ao trabalhador. Deve haver pelo menos uma rubrica de folha, mesmo que o valor líquido a ser pago ao trabalhador seja 0 (zero) em função de descontos.
+
+Nome: codRubr
+Pai: detVerbas
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-30
+Dec.: -
+Descrição: Informar o código atribuído pelo empregador que identifica a rubrica em sua folha de pagamento ou o código da rubrica constante da Tabela de Rubricas Padrão.
+Validação: Não pode ser utilizada rubrica cuja {natRubr}(1010_infoRubrica_inclusao_dadosRubrica_natRubr) em S-1010 seja igual a [1801, 9220], desde que mês/ano de {dtDeslig}(2299_infoDeslig_dtDeslig) >= [2021-07].
+
+Nome: ideTabRubr
+Pai: detVerbas
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-8
+Dec.: -
+Descrição: Preencher com o identificador da Tabela de Rubricas para a rubrica definida em {codRubr}(./codRubr).
+
+Nome: qtdRubr
+Pai: detVerbas
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-12
+Dec.: 2
+Descrição: Informar a quantidade de referência para apuração (em horas, cotas, meses, etc.). Ex.: Quantidade de horas extras trabalhadas relacionada com uma rubrica de hora extra, quantidade de dias trabalhados relacionada com uma rubrica de salário, etc.
+Validação: Deve ser maior que 0 (zero).
+
+Nome: fatorRubr
+Pai: detVerbas
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-5
+Dec.: 2
+Descrição: Informar o fator, percentual, etc. da rubrica, quando necessário. Ex.: Adicional de horas extras 50%, relacionado a uma rubrica de horas extras: Fator = 50.
+Validação: Deve ser maior que 0 (zero).
+
+Nome: vrRubr
+Pai: detVerbas
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor total da rubrica.
+Validação: Deve ser maior que 0 (zero).
+
+Nome: indApurIR
+Pai: detVerbas
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo de tipo de apuração de IR.
+Valores válidos:
+0 - Normal (apuração sob a folha de pagamento declarada no eSocial)
+1 - Situação especial de apuração de IR
+Validação: Informação obrigatória e exclusiva se mês/ano de {dtDeslig}(2299_infoDeslig_dtDeslig) >= [2021-07].
+
+Nome: descFolha
+Pai: detVerbas
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações de desconto do empréstimo em folha.
+
+Nome: tpDesc
+Pai: descFolha
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo do tipo de desconto.
+Valores válidos:
+1 - eConsignado
+
+Nome: instFinanc
+Pai: descFolha
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 3
+Dec.: -
+Descrição: Código da Instituição Financeira concedente do empréstimo.
+Validação: Deve ser um código válido, conforme tabela do Banco Central.
+
+Nome: nrDoc
+Pai: descFolha
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 8-12
+Dec.: -
+Descrição: Número do contrato referente ao empréstimo.
+Validação: Se {}(./tpDesc) = [1], deve ser informado com 8 (oito) algarismos.
+
+Nome: observacao
+Pai: descFolha
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-255
+Dec.: -
+Descrição: Outras informações do desconto.
+
+Nome: infoAgNocivo
+Pai: ideEstabLot
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Grupo referente ao detalhamento do grau de exposição do trabalhador aos agentes nocivos que ensejam a cobrança da contribuição adicional para financiamento dos benefícios de aposentadoria especial.
+
+Nome: grauExp
+Pai: infoAgNocivo
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código que representa o grau de exposição a agentes nocivos, conforme Tabela 02.
+Valores válidos:
+1 - Não ensejador de aposentadoria especial
+2 - Ensejador de aposentadoria especial - FAE15_12% (15 anos de contribuição e alíquota de 12%)
+3 - Ensejador de aposentadoria especial - FAE20_09% (20 anos de contribuição e alíquota de 9%)
+4 - Ensejador de aposentadoria especial - FAE25_06% (25 anos de contribuição e alíquota de 6%)
+
+Nome: infoSimples
+Pai: ideEstabLot
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informação relativa a empresas enquadradas no regime de tributação Simples Nacional.
+
+Nome: indSimples
+Pai: infoSimples
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Indicador de contribuição substituída.
+Valores válidos:
+1 - Contribuição substituída integralmente
+2 - Contribuição não substituída
+3 - Contribuição não substituída concomitante com contribuição substituída
+
+Nome: infoPerAnt
+Pai: dmDev
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Remuneração relativa a períodos anteriores, devida em função de acordos coletivos, legislação específica, convenção coletiva de trabalho, dissídio ou conversão de licença saúde em acidente de trabalho.
+
+Nome: ideADC
+Pai: infoPerAnt
+Elem.: G
+Tipo: -
+Ocorrência: 1-8
+Tamanho: -
+Dec.: -
+Descrição: Identificação do instrumento ou situação ensejadora da remuneração relativa a períodos de apuração anteriores.
+
+Nome: dtAcConv
+Pai: ideADC
+Elem.: E
+Tipo: D
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Data da assinatura do acordo, convenção coletiva, sentença normativa ou da conversão da licença saúde em acidente de trabalho.
+Validação: Informação obrigatória se {tpAcConv}(./tpAcConv) = [A, B, C, D, E]. Se preenchida, seu mês/ano deve ser igual ou anterior ao mês/ano da data de desligamento, em {dtDeslig}(2299_infoDeslig_dtDeslig). A data deve ser igual ou posterior a 01/01/1890.
+
+Nome: tpAcConv
+Pai: ideADC
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Tipo do instrumento ou situação ensejadora da remuneração relativa a períodos de apuração anteriores.
+Valores válidos:
+A - Acordo Coletivo de Trabalho
+B - Legislação federal, estadual, municipal ou distrital
+C - Convenção Coletiva de Trabalho
+D - Sentença normativa - Dissídio
+E - Conversão de licença saúde em acidente de trabalho
+G - Antecipação de diferenças de acordo, convenção ou dissídio coletivo
+H - Declaração de base de cálculo de FGTS anterior ao início do FGTS Digital
+I - Sentença judicial (exceto reclamatória trabalhista)
+J - Parcelas complementares conhecidas após o fechamento da folha
+Validação: Se {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [04, 22], não pode ser informado [E, H, I].
+
+Nome: dsc
+Pai: ideADC
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-255
+Dec.: -
+Descrição: Descrição do instrumento ou situação que originou o pagamento das verbas relativas a períodos anteriores.
+
+Nome: idePeriodo
+Pai: ideADC
+Elem.: G
+Tipo: -
+Ocorrência: 1-180
+Tamanho: -
+Dec.: -
+Descrição: Identificação do período ao qual se referem as diferenças de remuneração.
+
+Nome: perRef
+Pai: idePeriodo
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 7
+Dec.: -
+Descrição: Informar o período ao qual se refere o complemento de remuneração, no formato AAAA-MM.
+Validação: Deve ser igual ou anterior ao mês/ano da data do desligamento, informada em {dtDeslig}(2299_infoDeslig_dtDeslig).
+Deve ser informado no formato AAAA-MM.
+Se {tpAcConv}(../tpAcConv) = [H], deve ser anterior ao início do FGTS Digital e igual ou posterior a [1994-07].
+
+Nome: ideEstabLot
+Pai: idePeriodo
+Elem.: G
+Tipo: -
+Ocorrência: 1-24
+Tamanho: -
+Dec.: -
+Descrição: Identificação do estabelecimento e da lotação aos quais se referem as diferenças de remuneração do mês identificado no grupo superior.
+
+Nome: tpInsc
+Pai: ideEstabLot
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição do estabelecimento, de acordo com as opções da Tabela 05.
+Valores válidos:
+1 - CNPJ
+3 - CAEPF
+4 - CNO
+Validação: Se {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [21, 22], deve ser igual a [3, 4].
+Se {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [04], deve ser igual a [1].
+Nos demais casos ({classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 diferente de [04, 21, 22]), deve ser igual a [1, 4].
+
+Nome: nrInsc
+Pai: ideEstabLot
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 12 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do estabelecimento do contribuinte de acordo com o tipo de inscrição indicado no campo {ideEstabLot/tpInsc}(./tpInsc).
+Validação: A inscrição informada deve ser compatível com {ideEstabLot/tpInsc}(./tpInsc).
+
+Nome: codLotacao
+Pai: ideEstabLot
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-30
+Dec.: -
+Descrição: Informar o código atribuído pelo empregador para a lotação tributária.
+
+Nome: detVerbas
+Pai: ideEstabLot
+Elem.: G
+Tipo: -
+Ocorrência: 1-200
+Tamanho: -
+Dec.: -
+Descrição: Detalhamento das verbas rescisórias devidas ao trabalhador. Deve haver pelo menos uma rubrica de folha, mesmo que o valor líquido a ser pago ao trabalhador seja 0 (zero) em função de descontos.
+
+Nome: codRubr
+Pai: detVerbas
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-30
+Dec.: -
+Descrição: Informar o código atribuído pelo empregador que identifica a rubrica em sua folha de pagamento ou o código da rubrica constante da Tabela de Rubricas Padrão.
+Validação: Não pode ser utilizada rubrica cuja {natRubr}(1010_infoRubrica_inclusao_dadosRubrica_natRubr) em S-1010 seja igual a [1801, 9220], desde que mês/ano de {dtDeslig}(2299_infoDeslig_dtDeslig) >= [2021-07].
+
+Nome: ideTabRubr
+Pai: detVerbas
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-8
+Dec.: -
+Descrição: Preencher com o identificador da Tabela de Rubricas para a rubrica definida em {codRubr}(./codRubr).
+
+Nome: qtdRubr
+Pai: detVerbas
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-12
+Dec.: 2
+Descrição: Informar a quantidade de referência para apuração (em horas, cotas, meses, etc.). Ex.: Quantidade de horas extras trabalhadas relacionada com uma rubrica de hora extra, quantidade de dias trabalhados relacionada com uma rubrica de salário, etc.
+Validação: Deve ser maior que 0 (zero).
+
+Nome: fatorRubr
+Pai: detVerbas
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-5
+Dec.: 2
+Descrição: Informar o fator, percentual, etc. da rubrica, quando necessário. Ex.: Adicional de horas extras 50%, relacionado a uma rubrica de horas extras: Fator = 50.
+Validação: Deve ser maior que 0 (zero).
+
+Nome: vrRubr
+Pai: detVerbas
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor total da rubrica.
+Validação: Deve ser maior que 0 (zero).
+
+Nome: indApurIR
+Pai: detVerbas
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo de tipo de apuração de IR.
+Valores válidos:
+0 - Normal (apuração sob a folha de pagamento declarada no eSocial)
+1 - Situação especial de apuração de IR
+Validação: Informação obrigatória e exclusiva se mês/ano de {dtDeslig}(2299_infoDeslig_dtDeslig) >= [2021-07].
+
+Nome: infoAgNocivo
+Pai: ideEstabLot
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Grupo referente ao detalhamento do grau de exposição do trabalhador aos agentes nocivos que ensejam a cobrança da contribuição adicional para financiamento dos benefícios de aposentadoria especial.
+
+Nome: grauExp
+Pai: infoAgNocivo
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código que representa o grau de exposição a agentes nocivos, conforme Tabela 02.
+Valores válidos:
+1 - Não ensejador de aposentadoria especial
+2 - Ensejador de aposentadoria especial - FAE15_12% (15 anos de contribuição e alíquota de 12%)
+3 - Ensejador de aposentadoria especial - FAE20_09% (20 anos de contribuição e alíquota de 9%)
+4 - Ensejador de aposentadoria especial - FAE25_06% (25 anos de contribuição e alíquota de 6%)
+
+Nome: infoSimples
+Pai: ideEstabLot
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informação relativa a empresas enquadradas no regime de tributação Simples Nacional.
+
+Nome: indSimples
+Pai: infoSimples
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Indicador de contribuição substituída.
+Valores válidos:
+1 - Contribuição substituída integralmente
+2 - Contribuição não substituída
+3 - Contribuição não substituída concomitante com contribuição substituída
+
+Nome: procJudTrab
+Pai: verbasResc
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição: Informações sobre a existência de processos judiciais do trabalhador com decisão favorável quanto à não incidência de contribuições sociais e/ou Imposto de Renda.
+
+Nome: tpTrib
+Pai: procJudTrab
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Abrangência da decisão.
+Valores válidos:
+1 - IRRF
+2 - Contribuições sociais do trabalhador
+
+Nome: nrProcJud
+Pai: procJudTrab
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 20
+Dec.: -
+Descrição: Informar um número de processo judicial cadastrado através do evento S-1070, cujo {indMatProc}(1070_infoProcesso_inclusao_dadosProc_indMatProc) seja igual a [1].
+Validação: Deve ser um número de processo judicial válido e existente na Tabela de Processos (S-1070), com {indMatProc}(1070_infoProcesso_inclusao_dadosProc_indMatProc) = [1].
+
+Nome: codSusp
+Pai: procJudTrab
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: -
+Descrição: Código do indicativo da suspensão, atribuído pelo empregador em S-1070.
+Validação: A informação prestada deve estar de acordo com o que foi informado em S-1070.
+
+Nome: infoMV
+Pai: verbasResc
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Grupo preenchido exclusivamente em caso de trabalhador que possua outros vínculos/atividades nos quais já tenha ocorrido desconto de contribuição previdenciária.
+
+Nome: indMV
+Pai: infoMV
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Indicador de desconto da contribuição previdenciária do trabalhador.
+Valores válidos:
+1 - O declarante aplica a(s) alíquota(s) de desconto do segurado sobre a remuneração por ele informada (o percentual da(s) alíquota(s) será(ão) obtido(s) considerando a remuneração total do trabalhador)
+2 - O declarante aplica a(s) alíquota(s) de desconto do segurado sobre a diferença entre o limite máximo do salário de contribuição e a remuneração de outra(s) empresa(s) para as quais o trabalhador informou que houve o desconto
+3 - O declarante não realiza desconto do segurado, uma vez que houve desconto sobre o limite máximo de salário de contribuição em outra(s) empresa(s)
+
+Nome: remunOutrEmpr
+Pai: infoMV
+Elem.: G
+Tipo: -
+Ocorrência: 1-999
+Tamanho: -
+Dec.: -
+Descrição: Informações relativas ao trabalhador que possui vínculo empregatício com outra(s) empresa(s) e/ou que exerce outras atividades como contribuinte individual, detalhando as empresas que efetuaram (ou efetuarão) desconto da contribuição.
+
+Nome: tpInsc
+Pai: remunOutrEmpr
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+
+Nome: nrInsc
+Pai: remunOutrEmpr
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {remunOutrEmpr/tpInsc}(./tpInsc).
+Validação: a) Se {remunOutrEmpr/tpInsc}(./tpInsc) = [1], deve ser um CNPJ válido, diferente do CNPJ base indicado no evento de Informações do Empregador (S-1000) e dos estabelecimentos informados através do evento S-1005.
+b) Se {remunOutrEmpr/tpInsc}(./tpInsc) = [2], deve ser um CPF válido e diferente do CPF do trabalhador e ainda, caso o empregador seja pessoa física, diferente do CPF do empregador.
+
+Nome: codCateg
+Pai: remunOutrEmpr
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 3
+Dec.: -
+Descrição: Preencher com o código da categoria do trabalhador na qual houve a remuneração.
+Validação: Deve ser um código válido e existente na Tabela 01.
+
+Nome: vlrRemunOE
+Pai: remunOutrEmpr
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Preencher com o valor da remuneração recebida pelo trabalhador na outra empresa/atividade, sobre a qual houve desconto/recolhimento da contribuição do segurado.
+Validação: Deve ser maior que 0 (zero).
+
+Nome: procCS
+Pai: verbasResc
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informação sobre processo judicial que suspende a exigibilidade da Contribuição Social Rescisória.
+
+Nome: nrProcJud
+Pai: procCS
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 20
+Dec.: -
+Descrição: Informar um número de processo judicial cadastrado através do evento S-1070, cujo {indMatProc}(1070_infoProcesso_inclusao_dadosProc_indMatProc) seja igual a [1, 7].
+Validação: Deve ser um número de processo judicial válido e existente na Tabela de Processos (S-1070), com {indMatProc}(1070_infoProcesso_inclusao_dadosProc_indMatProc) = [1, 7].
+
+Nome: remunAposDeslig
+Pai: infoDeslig
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações sobre a "quarentena" remunerada de trabalhador desligado ou outra situação de desligamento com data anterior.
+O grupo deve ser preenchido apenas no caso do trabalhador que recebe remuneração após o desligamento por estar impossibilitado de exercer atividade remunerada, no caso de desligamento reconhecido judicialmente com data anterior a competências com remunerações já informadas ou em caso de concessão de aposentadoria de servidor com data anterior a competências com remunerações já informadas no eSocial.
+
+Nome: indRemun
+Pai: remunAposDeslig
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo de situação de remuneração após o desligamento.
+Valores válidos:
+1 - Quarentena
+2 - Desligamento reconhecido judicialmente com data anterior a competências com remunerações já informadas no eSocial
+3 - Aposentadoria de servidor com data anterior a competências com remunerações já informadas no eSocial
+Validação: Informação obrigatória se {dtDeslig}(2299_infoDeslig_dtDeslig) >= [2023-01-16].
+
+Nome: dtFimRemun
+Pai: remunAposDeslig
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Preencher com a data final da quarentena a que está sujeito o trabalhador. No caso de desligamento reconhecido judicialmente ou de concessão de aposentadoria de servidor com data anterior a competências com remunerações já informadas no eSocial, informar o último dia trabalhado.
+Validação: Deve ser uma data posterior a {dtDeslig}(2299_infoDeslig_dtDeslig).
+
+Nome: consigFGTS
+Pai: infoDeslig
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição: Informações sobre operação de crédito consignado com garantia de FGTS.
+
+Nome: insConsig
+Pai: consigFGTS
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-5
+Dec.: -
+Descrição: Matrícula da instituição consignatária, cadastrada na Caixa Econômica Federal.
+
+Nome: nrContr
+Pai: consigFGTS
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-40
+Dec.: -
+Descrição: Número do contrato de empréstimo consignado existente na instituição consignatária.
+

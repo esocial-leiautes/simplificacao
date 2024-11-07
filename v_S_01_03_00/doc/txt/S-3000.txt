@@ -1,0 +1,257 @@
+S-3000 - evtExclusao
+Exclusão de Eventos
+
+Nível: 1
+Nome: eSocial
+Pai: -
+Descrição: eSocial
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 2
+Nome: evtExclusao
+Pai: eSocial
+Descrição: Evento Exclusão
+Ocorrência: 1
+Chave: Id
+Condição: O
+
+Nível: 3
+Nome: ideEvento
+Pai: evtExclusao
+Descrição: Informações de identificação do evento.
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 3
+Nome: ideEmpregador
+Pai: evtExclusao
+Descrição: Informações de identificação do empregador.
+Ocorrência: 1
+Chave: tpInsc, nrInsc
+Condição: O
+
+Nível: 3
+Nome: infoExclusao
+Pai: evtExclusao
+Descrição: Informação do evento que será excluído
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 4
+Nome: ideTrabalhador
+Pai: infoExclusao
+Descrição: Identificação do trabalhador a que se refere o evento a ser excluído
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {tpEvento}(../tpEvento) corresponder a um dos eventos não periódicos (S-2190 a S-2420, S-8200 ou S-8299) ou um dos eventos periódicos (S-1200 a S-1210)
+N (nos demais casos)
+
+Nível: 4
+Nome: ideFolhaPagto
+Pai: infoExclusao
+Descrição: Identificação do período de apuração a que se refere o evento que será excluído
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {tpEvento}(../tpEvento) corresponder a um dos eventos periódicos (S-1200 a S-1280 ou S-1300))
+N (nos demais casos)
+
+Nome: eSocial
+Pai: -
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: eSocial
+
+Nome: evtExclusao
+Pai: eSocial
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Evento Exclusão de Eventos.
+Regras de validação:
+REGRA_ENVIO_PROC_FECHAMENTO
+REGRA_EVE_EXCLUSAO_VALIDA_NRRECIBO
+REGRA_EXISTE_INFO_EMPREGADOR
+REGRA_EXTEMP_DOMESTICO
+REGRA_MESMO_PROCEMI
+REGRA_VALIDA_EMPREGADOR
+REGRA_VALIDA_PERANT_1210
+
+Nome: Id
+Pai: evtExclusao
+Elem.: A
+Tipo: C
+Ocorrência: 1
+Tamanho: 36
+Dec.: -
+Descrição: Identificação única do evento.
+Regras de validação:
+REGRA_VALIDA_ID_EVENTO
+
+Nome: ideEvento
+Pai: evtExclusao
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do evento.
+
+Nome: tpAmb
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Identificação do ambiente.
+Valores válidos:
+1 - Produção
+2 - Produção restrita
+7 - Validação (uso interno)
+8 - Teste (uso interno)
+9 - Desenvolvimento (uso interno)
+
+Nome: procEmi
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-2
+Dec.: -
+Descrição: Processo de emissão do evento.
+Valores válidos:
+1 - Aplicativo do empregador
+2 - Aplicativo governamental - Simplificado Pessoa Física
+3 - Aplicativo governamental - Web Geral
+4 - Aplicativo governamental - Simplificado Pessoa Jurídica
+8 - Aplicativo governamental para envio de eventos pelo Judiciário
+9 - Aplicativo governamental - Integração com a Junta Comercial
+22 - Aplicativo governamental para dispositivos móveis - Empregador Doméstico
+
+Nome: verProc
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-20
+Dec.: -
+Descrição: Versão do processo de emissão do evento. Informar a versão do aplicativo emissor do evento.
+
+Nome: ideEmpregador
+Pai: evtExclusao
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do empregador.
+
+Nome: tpInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+
+Nome: nrInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 8, 11 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {ideEmpregador/tpInsc}(./tpInsc) e conforme informado em S-1000.
+
+Nome: infoExclusao
+Pai: evtExclusao
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Grupo que identifica o evento objeto da exclusão.
+
+Nome: tpEvento
+Pai: infoExclusao
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 6
+Dec.: -
+Descrição: Preencher com o tipo de evento. Ex.: S-1200, S-2200, etc.
+
+Nome: nrRecEvt
+Pai: infoExclusao
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 23
+Dec.: -
+Descrição: Preencher com o número do recibo do evento que será excluído.
+Validação: O recibo deve ser relativo ao mesmo tipo de evento indicado em {tpEvento}(./tpEvento) e o respectivo evento não deve constar como excluído ou retificado. Além disso, no caso de exclusão de eventos em que existe a identificação do trabalhador, o evento que está sendo excluído deve referir-se ao mesmo trabalhador identificado por {cpfTrab}(./ideTrabalhador_cpfTrab).
+
+Nome: ideTrabalhador
+Pai: infoExclusao
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Grupo que identifica a qual trabalhador se refere o evento a ser excluído.
+
+Nome: cpfTrab
+Pai: ideTrabalhador
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11
+Dec.: -
+Descrição: Preencher com o número do CPF do trabalhador ou do beneficiário.
+Validação: O CPF indicado deve existir na base de dados do RET.
+
+Nome: ideFolhaPagto
+Pai: infoExclusao
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Grupo que identifica a qual período de apuração pertence o evento que será excluído.
+
+Nome: indApuracao
+Pai: ideFolhaPagto
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo de período de apuração.
+Valores válidos:
+1 - Mensal
+2 - Anual (13° salário)
+Validação: Preenchimento obrigatório e exclusivo se {tpEvento}(../tpEvento) = [S-1200, S-1202, S-1207, S-1280, S-1300].
+
+Nome: perApur
+Pai: ideFolhaPagto
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 4 ou 7
+Dec.: -
+Descrição: Informar o mês/ano (formato AAAA-MM) ou apenas o ano (formato AAAA) de referência das informações.
+Validação: Deve ser um mês/ano ou ano válido, posterior à implementação do eSocial. Somente pode ser informado ano (formato AAAA) se {indApuracao}(./indApuracao) = [2].
+

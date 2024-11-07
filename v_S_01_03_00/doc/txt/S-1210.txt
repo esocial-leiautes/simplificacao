@@ -1,0 +1,1368 @@
+S-1210 - evtPgtos
+Pagamentos de Rendimentos do Trabalho
+
+Nível: 1
+Nome: eSocial
+Pai: -
+Descrição: eSocial
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 2
+Nome: evtPgtos
+Pai: eSocial
+Descrição: Evento Pagamentos de Rendimentos do Trabalho.
+Ocorrência: 1
+Chave: Id
+Condição: O
+
+Nível: 3
+Nome: ideEvento
+Pai: evtPgtos
+Descrição: Informações de identificação do evento.
+Ocorrência: 1
+Chave: perApur*, indGuia*
+Condição: O
+
+Nível: 3
+Nome: ideEmpregador
+Pai: evtPgtos
+Descrição: Informações de identificação do empregador.
+Ocorrência: 1
+Chave: tpInsc*, nrInsc*
+Condição: O
+
+Nível: 3
+Nome: ideBenef
+Pai: evtPgtos
+Descrição: Identificação do beneficiário do pagamento.
+Ocorrência: 1
+Chave: cpfBenef*
+Condição: O
+
+Nível: 4
+Nome: infoPgto
+Pai: ideBenef
+Descrição: Informações dos pagamentos efetuados.
+Ocorrência: 0-999
+Chave: tpPgto, perRef, ideDmDev
+Condição: OC (se {}(1210_ideEvento_perApur) = [AAAA-01] e existir pelo menos um grupo {infoIRComplem/perAnt}(1210_ideBenef_infoIRComplem_perAnt))
+O (nos demais casos)
+
+Nível: 5
+Nome: infoPgtoExt
+Pai: infoPgto
+Descrição: Informações complementares relativas a pagamentos a residente fiscal no exterior.
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {paisResidExt}(../paisResidExt) for informado)
+N (nos demais casos)
+
+Nível: 6
+Nome: endExt
+Pai: infoPgtoExt
+Descrição: Endereço do beneficiário residente ou domiciliado no exterior.
+Ocorrência: 0-1
+Chave: -
+Condição: OC
+
+Nível: 4
+Nome: infoIRComplem
+Pai: ideBenef
+Descrição: Informações relacionadas à retenção na fonte, aos rendimentos tributáveis e não tributáveis, deduções e/ou isenções, etc., de acordo com a legislação aplicada ao imposto de renda.
+Ocorrência: 0-13
+Chave: perAnt_perRefAjuste
+Condição: O (conforme as condições dos grupos {}(1210_ideBenef_infoIRComplem_infoIRCR_penAlim), {}(1210_ideBenef_infoIRComplem_infoIRCR_previdCompl), {}(1210_ideBenef_infoIRComplem_planSaude) e {}(1210_ideBenef_infoIRComplem_infoIRCR_infoProcRet)} e se {}(1210_ideEvento_perApur) posterior ou igual [2025-01] (início da substituição da DIRF))
+F (nos demais casos)
+
+Nível: 5
+Nome: perAnt
+Pai: infoIRComplem
+Descrição: Informações complementares de períodos anteriores
+Ocorrência: 0-1
+Chave: -
+Condição: F (se o mês de {}(1210_ideEvento_perApur) = [01])
+N (nos demais casos)
+
+Nível: 5
+Nome: infoDep
+Pai: infoIRComplem
+Descrição: Informações de dependentes não cadastrados pelo S-2200/S-2205/S-2300/S-2400/S-2405.
+Ocorrência: 0-999
+Chave: cpfDep
+Condição: OC
+
+Nível: 5
+Nome: infoIRCR
+Pai: infoIRComplem
+Descrição: Informações de Imposto de Renda, por Código de Receita - CR.
+Ocorrência: 0-99
+Chave: tpCR
+Condição: OC
+
+Nível: 6
+Nome: dedDepen
+Pai: infoIRCR
+Descrição: Dedução do rendimento tributável relativa a dependentes.
+Ocorrência: 0-999
+Chave: tpRend, cpfDep
+Condição: N (se {tpCR}(../tpCR) = [188901])
+OC (nos demais casos)
+
+Nível: 6
+Nome: penAlim
+Pai: infoIRCR
+Descrição: Informação dos beneficiários da pensão alimentícia.
+Ocorrência: 0-99
+Chave: tpRend, cpfDep
+Condição: O (se {}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) = [51, 52, 53, 54] com valor > 0 em qualquer rubrica em {infoPgto}(1210_ideBenef_infoPgto), inclusive aquelas referenciadas em {perAnt/nrRec1210Orig}(1210_ideBenef_infoIRComplem_perAnt_nrRec1210Orig))
+OC (nos demais casos)
+
+Nível: 6
+Nome: previdCompl
+Pai: infoIRCR
+Descrição: Informações relativas a planos de previdência complementar.
+Ocorrência: 0-99
+Chave: tpPrev, cnpjEntidPC
+Condição: O (se {}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) = [46, 47, 48, 61, 62, 63, 64, 65, 66] com valor > 0 em qualquer rubrica em {infoPgto}(1210_ideBenef_infoPgto), inclusive aquelas referenciadas em {perAnt/nrRec1210Orig}(1210_ideBenef_infoIRComplem_perAnt_nrRec1210Orig))
+OC (nos demais casos)
+
+Nível: 6
+Nome: infoProcRet
+Pai: infoIRCR
+Descrição: Processos relacionados a não retenção de tributos
+Ocorrência: 0-50
+Chave: tpProcRet, nrProcRet, codSusp
+Condição: N (se {tpCR}(../tpCR) = [188901])
+O (se {}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) = [9XXX] (exceto [9067]) com valor > 0 em qualquer rubrica em {infoPgto}(1210_ideBenef_infoPgto), inclusive aquelas referenciadas em {perAnt/nrRec1210Orig}(1210_ideBenef_infoIRComplem_perAnt_nrRec1210Orig))
+OC (nos demais casos)
+
+Nível: 7
+Nome: infoValores
+Pai: infoProcRet
+Descrição: Informações de valores relacionados a não retenção de tributos ou a depósitos judiciais.
+Ocorrência: 0-2
+Chave: indApuracao
+Condição: OC
+
+Nível: 8
+Nome: dedSusp
+Pai: infoValores
+Descrição: Detalhamento das deduções suspensas
+Ocorrência: 0-25
+Chave: indTpDeducao, cnpjEntidPC
+Condição: OC
+
+Nível: 9
+Nome: benefPen
+Pai: dedSusp
+Descrição: Deduções suspensas por dependentes e beneficiários da pensão alimentícia
+Ocorrência: 0-99
+Chave: cpfDep
+Condição: O (se {indTpDeducao}(../indTpDeducao) = [5, 7])
+N (nos demais casos)
+
+Nível: 5
+Nome: planSaude
+Pai: infoIRComplem
+Descrição: Plano de saúde coletivo
+Ocorrência: 0-99
+Chave: cnpjOper, regANS
+Condição: O (se {}(1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF) = [67, 9067] ou {}(1010_infoRubrica_inclusao_dadosRubrica_natRubr) = [9219] com valor > 0 em qualquer rubrica em {infoPgto}(1210_ideBenef_infoPgto), inclusive aquelas referenciadas em {perAnt/nrRec1210Orig}(1210_ideBenef_infoIRComplem_perAnt_nrRec1210Orig))
+OC (nos demais casos)
+
+Nível: 6
+Nome: infoDepSau
+Pai: planSaude
+Descrição: Informações de dependente de plano de saúde coletivo empresarial.
+Ocorrência: 0-99
+Chave: cpfDep
+Condição: OC
+
+Nível: 5
+Nome: infoReembMed
+Pai: infoIRComplem
+Descrição: Reembolsos de despesas médicas
+Ocorrência: 0-99
+Chave: cnpjOper, regANS
+Condição: OC
+
+Nível: 6
+Nome: detReembTit
+Pai: infoReembMed
+Descrição: Informação de reembolso do titular do plano de saúde.
+Ocorrência: 0-99
+Chave: tpInsc, nrInsc
+Condição: OC
+
+Nível: 6
+Nome: infoReembDep
+Pai: infoReembMed
+Descrição: Informação de reembolso do dependente do plano de saúde.
+Ocorrência: 0-99
+Chave: cpfBenef
+Condição: OC
+
+Nível: 7
+Nome: detReembDep
+Pai: infoReembDep
+Descrição: Detalhamento dos reembolsos efetuados aos dependentes
+Ocorrência: 0-99
+Chave: tpInsc, nrInsc
+Condição: OC
+
+Nome: eSocial
+Pai: -
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: eSocial
+
+Nome: evtPgtos
+Pai: eSocial
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Evento Pagamentos de Rendimentos do Trabalho.
+Regras de validação:
+REGRA_CONTROLE_DUPLICIDADE
+REGRA_DESCONTO_IRRF_POSITIVO
+REGRA_EMPREGADO_DOMESTICO
+REGRA_ENVIO_PROC_FECHAMENTO
+REGRA_EVENTOS_EXTEMP
+REGRA_EVE_FOPAG_SIMPLIFICADO
+REGRA_EXISTE_INFO_EMPREGADOR
+REGRA_MESMO_PROCEMI
+REGRA_PAGTO_IND_RETIFICACAO
+REGRA_PAGTO_PERMITE_EXCLUSAO
+REGRA_VALIDA_DT_PGTO
+REGRA_VALIDA_EMPREGADOR
+REGRA_VALIDA_PER_APUR_PGTO
+REGRA_VALIDA_PERANT_1210
+
+Nome: Id
+Pai: evtPgtos
+Elem.: A
+Tipo: C
+Ocorrência: 1
+Tamanho: 36
+Dec.: -
+Descrição: Identificação única do evento.
+Regras de validação:
+REGRA_VALIDA_ID_EVENTO
+
+Nome: ideEvento
+Pai: evtPgtos
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do evento.
+
+Nome: indRetif
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Informe [1] para arquivo original ou [2] para arquivo de retificação.
+Valores válidos:
+1 - Original
+2 - Retificação
+
+Nome: nrRecibo
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 23
+Dec.: -
+Descrição: Preencher com o número do recibo do arquivo a ser retificado.
+Validação: O preenchimento é obrigatório se {indRetif}(./indRetif) = [2].
+Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo retificado.
+
+Nome: perApur
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 7
+Dec.: -
+Descrição: Informar o mês/ano (formato AAAA-MM) de referência das informações.
+Validação: Deve ser um mês/ano válido, igual ou posterior ao início da obrigatoriedade dos eventos periódicos para o empregador.
+
+Nome: indGuia
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo do tipo de guia.
+Valores válidos:
+1 - Documento de Arrecadação do eSocial - DAE
+
+Nome: tpAmb
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Identificação do ambiente.
+Valores válidos:
+1 - Produção
+2 - Produção restrita
+7 - Validação (uso interno)
+8 - Teste (uso interno)
+9 - Desenvolvimento (uso interno)
+
+Nome: procEmi
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-2
+Dec.: -
+Descrição: Processo de emissão do evento.
+Valores válidos:
+1 - Aplicativo do empregador
+2 - Aplicativo governamental - Simplificado Pessoa Física
+3 - Aplicativo governamental - Web Geral
+4 - Aplicativo governamental - Simplificado Pessoa Jurídica
+22 - Aplicativo governamental para dispositivos móveis - Empregador Doméstico
+
+Nome: verProc
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-20
+Dec.: -
+Descrição: Versão do processo de emissão do evento. Informar a versão do aplicativo emissor do evento.
+
+Nome: ideEmpregador
+Pai: evtPgtos
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do empregador.
+
+Nome: tpInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+
+Nome: nrInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 8, 11 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {ideEmpregador/tpInsc}(./tpInsc) e conforme informado em S-1000.
+
+Nome: ideBenef
+Pai: evtPgtos
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Identificação do beneficiário do pagamento.
+
+Nome: cpfBenef
+Pai: ideBenef
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11
+Dec.: -
+Descrição: Informar o CPF do beneficiário.
+Validação: Deve ser o mesmo CPF informado no evento de remuneração ou desligamento (S-1200, S-1202, S-1207, S-2299 ou S-2399).
+
+Nome: infoPgto
+Pai: ideBenef
+Elem.: G
+Tipo: -
+Ocorrência: 0-999
+Tamanho: -
+Dec.: -
+Descrição: Informações dos pagamentos efetuados.
+
+Nome: dtPgto
+Pai: infoPgto
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informar a data de pagamento.
+Validação: A data informada deve estar compreendida no período de apuração ({perApur}(1210_ideEvento_perApur)), exceto se {procEmi}(1210_ideEvento_procEmi) = [2, 4, 22].
+
+Nome: tpPgto
+Pai: infoPgto
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Informar o evento de origem do pagamento.
+Valores válidos:
+1 - Pagamento de remuneração, conforme apurado em <a href="#1200_dmDev_ideDmDev">ideDmDev</a> do S-1200
+2 - Pagamento de verbas rescisórias conforme apurado em <a href="#2299_infoDeslig_verbasResc_dmDev_ideDmDev">ideDmDev</a> do S-2299
+3 - Pagamento de verbas rescisórias conforme apurado em <a href="#2399_infoTSVTermino_verbasResc_dmDev_ideDmDev">ideDmDev</a> do S-2399
+4 - Pagamento de remuneração conforme apurado em <a href="#1202_dmDev_ideDmDev">ideDmDev</a> do S-1202
+5 - Pagamento de benefícios previdenciários, conforme apurado em <a href="#1207_dmDev_ideDmDev">ideDmDev</a> do S-1207
+
+Nome: perRef
+Pai: infoPgto
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 4 ou 7
+Dec.: -
+Descrição: Informar a competência declarada no campo {perApur} do evento remuneratório a que se refere o pagamento, no formato AAAA-MM (ou AAAA, se for relativa à folha de 13° salário). Se {tpPgto}(1210_ideBenef_infoPgto_tpPgto) = [2, 3], informar o mês/ano da data de desligamento (ou de término), no formato AAAA-MM.
+Validação: Deve corresponder ao conteúdo indicado na relação a seguir:
+Se {tpPgto}(1210_ideBenef_infoPgto_tpPgto) = [1], {perApur}(1200_ideEvento_perApur) do S-1200;
+Se {tpPgto}(1210_ideBenef_infoPgto_tpPgto) = [2], mês/ano de {dtDeslig}(2299_infoDeslig_dtDeslig) do S-2299 (formato AAAA-MM);
+Se {tpPgto}(1210_ideBenef_infoPgto_tpPgto) = [3], mês/ano de {dtTerm}(2399_infoTSVTermino_dtTerm) do S-2399 (formato AAAA-MM);
+Se {tpPgto}(1210_ideBenef_infoPgto_tpPgto) = [4], {perApur}(1202_ideEvento_perApur) do S-1202;
+Se {tpPgto}(1210_ideBenef_infoPgto_tpPgto) = [5], {perApur}(1207_ideEvento_perApur) do S-1207.
+
+Nome: ideDmDev
+Pai: infoPgto
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-30
+Dec.: -
+Descrição: Identificador atribuído pela fonte pagadora para o demonstrativo de valores devidos ao trabalhador conforme definido em S-1200, S-1202, S-1207, S-2299 ou S-2399.
+Validação: Deve ser um valor atribuído pela fonte pagadora em S-1200, S-1202, S-1207, S-2299 ou S-2399 no campo {ideDmDev}, obedecendo à relação:
+Se {tpPgto}(1210_ideBenef_infoPgto_tpPgto) = [1], em S-1200;
+Se {tpPgto}(1210_ideBenef_infoPgto_tpPgto) = [2], em S-2299;
+Se {tpPgto}(1210_ideBenef_infoPgto_tpPgto) = [3], em S-2399;
+Se {tpPgto}(1210_ideBenef_infoPgto_tpPgto) = [4], em S-1202;
+Se {tpPgto}(1210_ideBenef_infoPgto_tpPgto) = [5], em S-1207.
+
+Nome: vrLiq
+Pai: infoPgto
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor líquido recebido pelo trabalhador, composto pelos vencimentos e descontos, inclusive os descontos de IRRF e de pensão alimentícia (se houver).
+Validação: Não pode ser um valor negativo.
+
+Nome: paisResidExt
+Pai: infoPgto
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 3
+Dec.: -
+Descrição: Informar o código do país de residência para fins fiscais, quando no exterior, conforme Tabela 06.
+Somente informar este campo caso o país de residência para fins fiscais seja diferente de Brasil. Se não informado, implica que o país de residência fiscal é Brasil.
+Validação: O campo apenas pode ser preenchido se {perApur}(1210_ideEvento_perApur) >= [2023-03]. Se informado, deve ser um código válido e existente na Tabela 06, exceto [105].
+
+Nome: infoPgtoExt
+Pai: infoPgto
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações complementares relativas a pagamentos a residente fiscal no exterior.
+
+Nome: indNIF
+Pai: infoPgtoExt
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo do Número de Identificação Fiscal (NIF).
+Valores válidos:
+1 - Beneficiário com NIF
+2 - Beneficiário dispensado do NIF
+3 - País não exige NIF
+
+Nome: nifBenef
+Pai: infoPgtoExt
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-30
+Dec.: -
+Descrição: Número de Identificação Fiscal (NIF).
+Validação: Preenchimento obrigatório e exclusivo se {indNIF}(./indNIF) = [1].
+
+Nome: frmTribut
+Pai: infoPgtoExt
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 2
+Dec.: -
+Descrição: Forma de tributação, conforme opções disponíveis na Tabela 30.
+Validação: Deve ser um código válido e existente na Tabela 30. Para os códigos [1X, 30], deve existir informação relativa ao imposto retido na fonte; para os códigos [4X, 50] não é permitida a informação do imposto retido na fonte.
+
+Nome: endExt
+Pai: infoPgtoExt
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Endereço do beneficiário residente ou domiciliado no exterior.
+Regras de validação:
+REGRA_ENDERECO_EXTERIOR
+
+Nome: endDscLograd
+Pai: endExt
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-80
+Dec.: -
+Descrição: Descrição do logradouro.
+
+Nome: endNrLograd
+Pai: endExt
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-10
+Dec.: -
+Descrição: Número do logradouro.
+Validação: Devem ser utilizados apenas caracteres alfanuméricos com, pelo menos, um caractere numérico.
+
+Nome: endComplem
+Pai: endExt
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-30
+Dec.: -
+Descrição: Complemento do logradouro.
+
+Nome: endBairro
+Pai: endExt
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-60
+Dec.: -
+Descrição: Nome do bairro/distrito.
+
+Nome: endCidade
+Pai: endExt
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-40
+Dec.: -
+Descrição: Nome da cidade.
+
+Nome: endEstado
+Pai: endExt
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-40
+Dec.: -
+Descrição: Nome da província/estado.
+
+Nome: endCodPostal
+Pai: endExt
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-12
+Dec.: -
+Descrição: Código de Endereçamento Postal.
+Validação: Devem ser informados apenas caracteres alfanuméricos.
+
+Nome: telef
+Pai: endExt
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 8-15
+Dec.: -
+Descrição: Número do telefone.
+Validação: Devem ser informados apenas caracteres numéricos.
+
+Nome: infoIRComplem
+Pai: ideBenef
+Elem.: G
+Tipo: -
+Ocorrência: 0-13
+Tamanho: -
+Dec.: -
+Descrição: Informações relacionadas à retenção na fonte, aos rendimentos tributáveis e não tributáveis, deduções e/ou isenções, etc., de acordo com a legislação aplicada ao imposto de renda.
+
+Nome: dtLaudo
+Pai: infoIRComplem
+Elem.: E
+Tipo: D
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Data da moléstia grave atribuída pelo laudo.
+Validação: Não pode ser anterior ao ano de 1900. Deve ser anterior ou igual a {}(1210_ideEvento_perApur).
+
+Nome: perAnt
+Pai: infoIRComplem
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição:  Identificação do evento S-1210 original e {}(1210_ideBenef_infoPgto_perRef) cujas informações de {}(1210_ideBenef_infoIRComplem) serão alteradas.
+
+Nome: perRefAjuste
+Pai: perAnt
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 7
+Dec.: -
+Descrição: Informar {}(1210_ideEvento_perApur) do S-1210 cujo {}(1210_ideBenef_infoIRComplem) será alterado.
+Validação: Deve corresponder a um mês do ano anterior (ano de {}(1210_ideEvento_perApur) - 1)
+
+Nome: nrRec1210Orig
+Pai: perAnt
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 23
+Dec.: -
+Descrição: Número do recibo do S-1210 original cujas informações de {}(1210_ideBenef_infoIRComplem) serão alteradas.
+Validação: Deve corresponder ao recibo de um arquivo com informações de rendimentos sujeitos a Imposto de Renda Retido na Fonte - IRRF (S-1210).
+Deve corresponder ao recibo de um evento S-1210 válido, com {}(1210_ideEvento_perApur) igual a {}(./perRefAjuste)
+
+Nome: infoDep
+Pai: infoIRComplem
+Elem.: G
+Tipo: -
+Ocorrência: 0-999
+Tamanho: -
+Dec.: -
+Descrição: Informações de dependentes não cadastrados pelo S-2200/S-2205/S-2300/S-2400/S-2405.
+
+Nome: cpfDep
+Pai: infoDep
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11
+Dec.: -
+Descrição: Número de inscrição no CPF.
+Validação: Deve ser um CPF válido e diferente do CPF do declarante pessoa física ({ideEmpregador/nrInsc}(/ideEmpregador_nrInsc)) e do beneficiário ({cpfBenef}(../../cpfBenef)).
+
+Nome: dtNascto
+Pai: infoDep
+Elem.: E
+Tipo: D
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Preencher com a data de nascimento.
+Validação: Deve ser maior ou igual que 01/01/1890 e menor ou igual à data atual.
+
+Nome: nome
+Pai: infoDep
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 2-70
+Dec.: -
+Descrição: Nome do dependente.
+
+Nome: depIRRF
+Pai: infoDep
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Somente informar este campo em caso de dependente do trabalhador para fins de dedução de seu rendimento tributável pelo Imposto de Renda.
+Valores válidos:
+S - Sim
+
+Nome: tpDep
+Pai: infoDep
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 2
+Dec.: -
+Descrição: Tipo de dependente.
+Validação: Preenchimento obrigatório e exclusivo se {depIRRF}(./depIRRF) = [S].
+Deve ser um código válido e existente na Tabela 07.
+
+Nome: descrDep
+Pai: infoDep
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-100
+Dec.: -
+Descrição: Informar a descrição da dependência.
+Validação: Informação obrigatória e exclusiva se {tpDep}(./tpDep) = [99].
+
+Nome: infoIRCR
+Pai: infoIRComplem
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição: Informações de Imposto de Renda, por Código de Receita - CR.
+
+Nome: tpCR
+Pai: infoIRCR
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 6
+Dec.: -
+Descrição: Código de Receita - CR relativo ao Imposto de Renda Retido na Fonte sobre rendimentos do trabalho.
+Valores válidos:
+056107 - IRRF mensal, 13° salário e férias sobre trabalho assalariado no país ou ausente no exterior a serviço do país, exceto se contratado por empregador doméstico ou por segurado especial sujeito a recolhimento unificado
+056108 - IRRF mensal e férias - Empregado doméstico
+056109 - IRRF 13° salário na rescisão de contrato de trabalho - Empregado doméstico
+056110 - IRRF - Empregado doméstico 13º salário
+056111 - IRRF - Empregado/Trabalhador rural - Segurado especial
+056112 - IRRF - Empregado/Trabalhador rural - Segurado especial 13° salário
+056113 - IRRF - Empregado/Trabalhador rural - Segurado especial 13° salário rescisório
+058806 - IRRF sobre rendimento do trabalho sem vínculo empregatício
+061001 - IRRF sobre rendimentos relativos a prestação de serviços de transporte rodoviário internacional de carga, pagos a transportador autônomo PF residente no Paraguai
+353301 - Proventos de aposentadoria, reserva, reforma ou pensão pagos por previdência pública
+356201 - IRRF sobre participação dos trabalhadores em lucros ou resultados - PLR
+188901 - Rendimentos Recebidos Acumuladamente - RRA
+047301 - IRRF - Residentes no exterior, para fins fiscais
+
+Nome: dedDepen
+Pai: infoIRCR
+Elem.: G
+Tipo: -
+Ocorrência: 0-999
+Tamanho: -
+Dec.: -
+Descrição: Dedução do rendimento tributável relativa a dependentes.
+
+Nome: tpRend
+Pai: dedDepen
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 2
+Dec.: -
+Descrição: Tipo de rendimento.
+Valores válidos:
+11 - Remuneração mensal
+12 - 13º salário
+13 - Férias
+
+Nome: cpfDep
+Pai: dedDepen
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11
+Dec.: -
+Descrição: Número de inscrição no CPF.
+Validação: Deve ser um CPF de dependente cadastrado no eSocial (S-2200/S-2205/S-2300/S-2400/S-2405 ou no grupo {infoDep}(1210_ideBenef_infoIRComplem_infoDep)).
+
+Nome: vlrDedDep
+Pai: dedDepen
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Preencher com o valor da dedução da base de cálculo.
+Validação: O valor informado neste campo deve ser menor ou igual ao valor unitário da dedução por dependente definido na legislação.
+Deve ser maior que 0 (zero).
+Em caso de inconsistência na validação, o arquivo será aceito, porém com alerta ao contribuinte.
+
+Nome: penAlim
+Pai: infoIRCR
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição: Informação dos beneficiários da pensão alimentícia.
+
+Nome: tpRend
+Pai: penAlim
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 2
+Dec.: -
+Descrição: Tipo de rendimento.
+Valores válidos:
+11 - Remuneração mensal
+12 - 13º salário
+13 - Férias
+14 - PLR
+18 - RRA
+79 - Rendimento isento ou não tributável
+Validação: Se {tpCR}(../tpCR) = [188901], deve ser igual a [18].
+
+Nome: cpfDep
+Pai: penAlim
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11
+Dec.: -
+Descrição: Número do CPF do dependente/beneficiário da pensão alimentícia.
+Validação: Deve ser um CPF de dependente cadastrado no eSocial (S-2200/S-2205/S-2300/S-2400/S-2405 ou no grupo {infoDep}(../../infoDep)).
+
+Nome: vlrDedPenAlim
+Pai: penAlim
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor relativo à dedução do rendimento tributável correspondente a pagamento de pensão alimentícia.
+Validação: Deve ser maior que 0 (zero).
+
+Nome: previdCompl
+Pai: infoIRCR
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição: Informações relativas a planos de previdência complementar.
+
+Nome: tpPrev
+Pai: previdCompl
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Tipo de previdência complementar.
+Valores válidos:
+1 - Privada: <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF">codIncIRRF</a> em S-1010 = [46, 47, 48]
+2 - FAPI: <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF">codIncIRRF</a> em S-1010 = [61, 62, 66]
+3 - Funpresp: <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncIRRF">codIncIRRF</a> em S-1010 = [63, 64, 65]
+
+Nome: cnpjEntidPC
+Pai: previdCompl
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 14
+Dec.: -
+Descrição: Número de inscrição da entidade de previdência complementar.
+Validação: Deve ser um CNPJ válido no Cadastro CNPJ e não pode estar com situação cadastral "baixada" (situação = 8) em data anterior ao período de apuração indicado em {perApur}(1210_ideEvento_perApur) ou "nula" (situação = 1).
+
+Nome: vlrDedPC
+Pai: previdCompl
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da dedução mensal relativa a previdência complementar.
+Validação: Preenchimento obrigatório se {vlrDedPC13} não for preenchido. Deve ser maior que 0 (zero).
+
+Nome: vlrDedPC13
+Pai: previdCompl
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da dedução do 13º Salário relativa a previdência complementar.
+Validação: Preenchimento obrigatório se {vlrDedPC} não for preenchido. Deve ser maior que 0 (zero).
+
+Nome: vlrPatrocFunp
+Pai: previdCompl
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da contribuição mensal do ente público patrocinador da Fundação de Previdência Complementar do Servidor Público (Funpresp).
+Validação: Informação permitida apenas se {tpPrev}(./tpPrev) = [3].
+Deve ser maior que 0 (zero).
+
+Nome: vlrPatrocFunp13
+Pai: previdCompl
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da contribuição do 13º Salário do ente público patrocinador da Fundação de Previdência Complementar do Servidor Público (Funpresp).
+Validação: Informação permitida apenas se {tpPrev}(./tpPrev) = [3].
+Deve ser maior que 0 (zero).
+
+Nome: infoProcRet
+Pai: infoIRCR
+Elem.: G
+Tipo: -
+Ocorrência: 0-50
+Tamanho: -
+Dec.: -
+Descrição:  Informações de processos relacionados a não retenção de tributos ou a depósitos judiciais.
+
+Nome: tpProcRet
+Pai: infoProcRet
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de processo.
+Valores válidos:
+1 - Administrativo
+2 - Judicial
+
+Nome: nrProcRet
+Pai: infoProcRet
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 17, 20 ou 21
+Dec.: -
+Descrição: Informar o número do processo administrativo/judicial.
+Validação: Deve ser um número de processo administrativo ou judicial válido e existente na Tabela de Processos (S-1070).
+
+Nome: codSusp
+Pai: infoProcRet
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: -
+Descrição: Código do indicativo da suspensão, atribuído pelo empregador em S-1070.
+Validação: Preenchimento obrigatório se houver informação de {codSusp}(1070_infoProcesso_inclusao_dadosProc_infoSusp_codSusp) em S-1070.
+Se informado, deve constar na Tabela de Processos (S-1070), campo {codSusp}(1070_infoProcesso_inclusao_dadosProc_infoSusp_codSusp), vinculado ao número do processo informado em {nrProcRet}(./nrProcRet).
+
+Nome: infoValores
+Pai: infoProcRet
+Elem.: G
+Tipo: -
+Ocorrência: 0-2
+Tamanho: -
+Dec.: -
+Descrição: Informações de valores relacionados a não retenção de tributos ou a depósitos judiciais.
+
+Nome: indApuracao
+Pai: infoValores
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo de período de apuração.
+Valores válidos:
+1 - Mensal
+2 - Anual (13° salário)
+
+Nome: vlrNRetido
+Pai: infoValores
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da retenção que deixou de ser efetuada em função de processo administrativo ou judicial.
+Validação: Deve ser maior que 0 (zero).
+
+Nome: vlrDepJud
+Pai: infoValores
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor do depósito judicial em função de processo administrativo ou judicial.
+Validação: Informação permitida apenas se {indDeposito}(1070_infoProcesso_inclusao_dadosProc_infoSusp_indDeposito) informado em S-1070 for igual a [S].
+Se informado, deve ser maior que 0 (zero).
+
+Nome: vlrCmpAnoCal
+Pai: infoValores
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da compensação relativa ao ano calendário em função de processo judicial.
+Validação: Informação permitida apenas se {tpProcRet}(../tpProcRet) = [2].
+Se informado, deve ser maior que 0 (zero).
+
+Nome: vlrCmpAnoAnt
+Pai: infoValores
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da compensação relativa a anos anteriores em função de processo judicial.
+Validação: Informação permitida apenas se {tpProcRet}(../tpProcRet) = [2].
+Se informado, deve ser maior que 0 (zero).
+
+Nome: vlrRendSusp
+Pai: infoValores
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor do rendimento com exigibilidade suspensa.
+Validação: Se informado, deve ser maior que 0 (zero).
+
+Nome: dedSusp
+Pai: infoValores
+Elem.: G
+Tipo: -
+Ocorrência: 0-25
+Tamanho: -
+Dec.: -
+Descrição:  Detalhamento das deduções com exigibilidade suspensa.
+
+Nome: indTpDeducao
+Pai: dedSusp
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo do tipo de dedução.
+Valores válidos:
+1 - Previdência oficial
+2 - Previdência privada
+3 - Fundo de Aposentadoria Programada Individual - FAPI
+4 - Fundação de Previdência Complementar do Servidor Público - Funpresp
+5 - Pensão alimentícia
+7 - Dependentes
+
+Nome: vlrDedSusp
+Pai: dedSusp
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da dedução da base de cálculo do imposto de renda com exigibilidade suspensa.
+Validação: Se {indTpDeducao}(./indTpDeducao) = [5, 7], e o grupo {benefPen}(./benefPen) for preenchido, o valor informado neste campo deve ser a soma do(s) campo(s) {vlrDepenSusp}(./benefPen_vlrDepenSusp) do grupo {benefPen}(./benefPen).
+Deve ser maior que 0 (zero).
+O não preenchimento do grupo {benefPen}(./benefPen) indica que o contribuinte declarante não possui as informações detalhadas por dependente/alimentando.
+
+Nome: cnpjEntidPC
+Pai: dedSusp
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 14
+Dec.: -
+Descrição: Número de inscrição da entidade de previdência complementar.
+Validação: Informação obrigatória e exclusiva se {indTpDeducao}(./indTpDeducao) = [2, 3, 4].
+Deve ser um CNPJ válido no Cadastro CNPJ e não pode estar com situação cadastral "baixada" (situação = 8) em data anterior ao período de apuração indicado em {perApur}(1210_ideEvento_perApur) ou "nula" (situação = 1).
+
+Nome: vlrPatrocFunp
+Pai: dedSusp
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da contribuição do ente público patrocinador da Fundação de Previdência Complementar do Servidor Público (Funpresp).
+Validação: Informação exclusiva se {indTpDeducao}(./indTpDeducao) = [4].
+Deve ser maior que 0 (zero).
+
+Nome: benefPen
+Pai: dedSusp
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição:  Informação das deduções suspensas por dependentes e beneficiários da pensão alimentícia.
+
+Nome: cpfDep
+Pai: benefPen
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11
+Dec.: -
+Descrição: Número de inscrição no CPF.
+Validação: Deve ser um CPF de dependente cadastrado no eSocial (S-2200/S-2205/S-2300/S-2400/S-2405 ou no grupo {infoDep}(1210_ideBenef_infoIRComplem_infoDep)).
+
+Nome: vlrDepenSusp
+Pai: benefPen
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da dedução relativa a dependentes ou a pensão alimentícia com exigibilidade suspensa.
+Validação: Deve ser maior que 0 (zero).
+
+Nome: planSaude
+Pai: infoIRComplem
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição:  Plano de saúde coletivo.
+Identificação da(s) operadora(s) de plano privado coletivo empresarial de assistência à saúde.
+
+Nome: cnpjOper
+Pai: planSaude
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 14
+Dec.: -
+Descrição: Informar o número do CNPJ da operadora de plano privado coletivo empresarial de assistência à saúde.
+Validação: Deve ser um CNPJ válido no Cadastro CNPJ e não pode estar com situação cadastral "baixada" (situação = 8) em data anterior ao período de apuração indicado em {perApur}(1210_ideEvento_perApur) ou "nula" (situação = 1).
+Não deve ser igual ao número de inscrição das pessoas jurídicas informadas nos grupos {}(1210_ideBenef_infoIRComplem_infoIRCR_previdCompl) e {ideAdv} do evento remuneratório.
+
+Nome: regANS
+Pai: planSaude
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 6
+Dec.: -
+Descrição: Registro na Agência Nacional de Saúde - ANS.
+Validação: Deve ser um número de registro válido.
+
+Nome: vlrSaudeTit
+Pai: planSaude
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor relativo à dedução do rendimento tributável correspondente a pagamento a plano de saúde do titular.
+Validação: Deve ser maior ou igual a 0 (zero).
+Se for igual a 0 (zero), deve haver informações em registro(s) filho(s), relativas a dependentes ({infoDepSau}(./infoDepSau)).
+
+Nome: infoDepSau
+Pai: planSaude
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição: Informações de dependente de plano de saúde coletivo empresarial.
+
+Nome: cpfDep
+Pai: infoDepSau
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11
+Dec.: -
+Descrição: Número de inscrição no CPF do dependente do plano de saúde.
+Validação: Deve ser um CPF de dependente cadastrado no eSocial (S-2200/S-2205/S-2300/S-2400/S-2405 ou no grupo {infoDep}(1210_ideBenef_infoIRComplem_infoDep)).
+
+Nome: vlrSaudeDep
+Pai: infoDepSau
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor relativo a dedução do rendimento tributável correspondente a pagamento a plano de saúde do dependente.
+Validação: Deve ser maior que 0 (zero).
+
+Nome: infoReembMed
+Pai: infoIRComplem
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição:  Informações relativas a reembolsos efetuados no período de apuração ({perApur}(1210_ideEvento_perApur)) pelo empregador ao trabalhador referente a despesas médicas ou odontológicas pagas pelo trabalhador a prestadores de serviços de saúde.
+
+Nome: indOrgReemb
+Pai: infoReembMed
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo da origem do reembolso.
+Valores válidos:
+1 - Reembolso efetuado pelo empregador no âmbito do plano de saúde (a operadora reembolsa o empregador)
+2 - Reembolso efetuado pelo empregador como benefício do próprio empregador
+
+Nome: cnpjOper
+Pai: infoReembMed
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 14
+Dec.: -
+Descrição: CNPJ da operadora do plano de saúde.
+Validação: Informação obrigatória e exclusiva se {indOrgReemb}(./indOrgReemb) = [1].
+Deve ser um CNPJ válido no Cadastro CNPJ e não pode estar com situação cadastral "baixada" (situação = 8) em data anterior ao período de apuração indicado em {}(1210_ideEvento_perApur) ou "nula" (situação = 1).
+Não deve ser igual ao número de inscrição das pessoas jurídicas informadas nos grupos {}(1210_ideBenef_infoIRComplem_infoIRCR_previdCompl) e {ideAdv} do evento remuneratório.
+
+Nome: regANS
+Pai: infoReembMed
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 6
+Dec.: -
+Descrição: Registro na Agência Nacional de Saúde - ANS.
+Validação: Deve ser um número de registro válido.
+
+Nome: detReembTit
+Pai: infoReembMed
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição: Informação de reembolso do titular do plano de saúde.
+
+Nome: tpInsc
+Pai: detReembTit
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Informar o código correspondente ao tipo de inscrição do prestador de serviços.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+
+Nome: nrInsc
+Pai: detReembTit
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do prestador de serviços de assistência médica, de acordo com o tipo de inscrição indicado em {tpInsc}(./tpInsc).
+Validação: Deve ser um CNPJ ou CPF válido, de acordo com o tipo de inscrição indicado em {tpInsc}(./tpInsc).
+Não pode ser igual a {}(1210_ideBenef_cpfBenef).
+
+Nome: vlrReemb
+Pai: detReembTit
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor do reembolso relativo ao ano do período indicado em {perApur}(1210_ideEvento_perApur).
+Validação: Informação não obrigatória se {vlrReembAnt}(./vlrReembAnt) for maior que zero.
+
+Nome: vlrReembAnt
+Pai: detReembTit
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor do reembolso relativo a anos anteriores.
+Validação: Informação não obrigatória se {vlrReemb}(./vlrReemb) for maior que zero.
+
+Nome: infoReembDep
+Pai: infoReembMed
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição: Informação de reembolso do dependente do plano de saúde.
+
+Nome: cpfBenef
+Pai: infoReembDep
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11
+Dec.: -
+Descrição: Número de inscrição no CPF do dependente.
+Validação: Deve ser um CPF de dependente cadastrado no eSocial (S-2200/S-2205/S-2300/S-2400/S-2405 ou no grupo {infoDep}(1210_ideBenef_infoIRComplem_infoDep)).
+
+Nome: detReembDep
+Pai: infoReembDep
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição:  Detalhamento dos reembolsos efetuados em {perApur}(1210_ideEvento_perApur) pelo empregador ao trabalhador referente a despesas médicas ou odontológicas pagas pelo trabalhador a prestadores de serviços de saúde relativo a despesas de seus dependentes.
+
+Nome: tpInsc
+Pai: detReembDep
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Informar o código correspondente ao tipo de inscrição do prestador de serviços.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+
+Nome: nrInsc
+Pai: detReembDep
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do prestador de serviços de assistência médica, de acordo com o tipo de inscrição indicado em {tpInsc}(./tpInsc).
+Validação: Deve ser um CNPJ ou CPF válido, de acordo com o tipo de inscrição indicado em {tpInsc}(./tpInsc).
+Não pode ser igual a {}(1210_ideBenef_cpfBenef).
+
+Nome: vlrReemb
+Pai: detReembDep
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor do reembolso relativo ao ano do período indicado em {perApur}(1210_ideEvento_perApur).
+Validação: Informação não obrigatória se {vlrReembAnt}(./vlrReembAnt) for maior que zero.
+
+Nome: vlrReembAnt
+Pai: detReembDep
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor do reembolso relativo a anos anteriores.
+Validação: Informação não obrigatória se {vlrReemb}(./vlrReemb) for maior que zero.
+

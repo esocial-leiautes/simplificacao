@@ -1,0 +1,1101 @@
+S-5001 - evtBasesTrab
+Informações das Contribuições Sociais por Trabalhador
+
+Nível: 1
+Nome: eSocial
+Pai: -
+Descrição: eSocial
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 2
+Nome: evtBasesTrab
+Pai: eSocial
+Descrição: Evento Informações das Contribuições Sociais por Trabalhador.
+Ocorrência: 1
+Chave: Id
+Condição: O
+
+Nível: 3
+Nome: ideEvento
+Pai: evtBasesTrab
+Descrição: Identificação do evento de retorno.
+Ocorrência: 1
+Chave: indApuracao*, perApur*
+Condição: O
+
+Nível: 3
+Nome: ideEmpregador
+Pai: evtBasesTrab
+Descrição: Informações de identificação do empregador.
+Ocorrência: 1
+Chave: tpInsc*, nrInsc*
+Condição: O
+
+Nível: 3
+Nome: ideTrabalhador
+Pai: evtBasesTrab
+Descrição: Identificação do trabalhador.
+Ocorrência: 1
+Chave: cpfTrab*
+Condição: O
+
+Nível: 4
+Nome: infoCompl
+Pai: ideTrabalhador
+Descrição: Informações complementares do trabalhador e do contrato.
+Ocorrência: 0-1
+Chave: -
+Condição: OC
+
+Nível: 5
+Nome: sucessaoVinc
+Pai: infoCompl
+Descrição: Grupo de informações da sucessão de vínculo trabalhista
+Ocorrência: 0-1
+Chave: -
+Condição: OC
+
+Nível: 5
+Nome: infoInterm
+Pai: infoCompl
+Descrição: Informações relativas ao trabalho intermitente
+Ocorrência: 0-31
+Chave: dia
+Condição: OC
+
+Nível: 5
+Nome: infoComplCont
+Pai: infoCompl
+Descrição: Informações complementares contratuais do trabalhador
+Ocorrência: 0-N
+Chave: codCBO, natAtividade, qtdDiasTrab
+Condição: OC
+
+Nível: 4
+Nome: procJudTrab
+Pai: ideTrabalhador
+Descrição: Processos judiciais do trabalhador
+Ocorrência: 0-99
+Chave: nrProcJud
+Condição: OC
+
+Nível: 3
+Nome: infoCpCalc
+Pai: evtBasesTrab
+Descrição: Cálculo da contribuição previdenciária do segurado
+Ocorrência: 0-9
+Chave: tpCR
+Condição: OC
+
+Nível: 3
+Nome: infoCp
+Pai: evtBasesTrab
+Descrição: Informações sobre bases e valores das contribuições sociais
+Ocorrência: 0-1
+Chave: -
+Condição: OC
+
+Nível: 4
+Nome: ideEstabLot
+Pai: infoCp
+Descrição: Identificação do estabelecimento ou obra e da lotação tributária
+Ocorrência: 1-N
+Chave: tpInsc, nrInsc, codLotacao
+Condição: O
+
+Nível: 5
+Nome: infoCategIncid
+Pai: ideEstabLot
+Descrição: Informações relativas à matrícula e categoria do trabalhador e tipos de incidências.
+Ocorrência: 1-10
+Chave: matricula, codCateg, indSimples
+Condição: O
+
+Nível: 6
+Nome: infoBaseCS
+Pai: infoCategIncid
+Descrição: Informações sobre bases de cálculo, descontos e deduções de CS
+Ocorrência: 0-99
+Chave: ind13, tpValor
+Condição: N (se {classTrib}(5001_infoCp_classTrib) = [10] e {codCateg}(../codCateg) = [202])
+O (nos demais casos)
+
+Nível: 6
+Nome: calcTerc
+Pai: infoCategIncid
+Descrição: Cálculo das contribuições sociais devidas a Outras Entidades e Fundos.
+Ocorrência: 0-2
+Chave: tpCR
+Condição: OC (se {ideEmpregador/tpInsc}(5001_ideEmpregador_tpInsc) = [1])
+N (nos demais casos)
+
+Nível: 6
+Nome: infoPerRef
+Pai: infoCategIncid
+Descrição: Informações de remuneração por período de referência.
+Ocorrência: 0-N
+Chave: perRef
+Condição: OC
+
+Nível: 7
+Nome: ideADC
+Pai: infoPerRef
+Descrição: Instrumento ou situação ensejadora da remuneração em períodos anteriores
+Ocorrência: 0-N
+Chave: dtAcConv, tpAcConv
+Condição: OC
+
+Nível: 7
+Nome: detInfoPerRef
+Pai: infoPerRef
+Descrição: Detalhamento das informações de remuneração por período de referência
+Ocorrência: 1-99
+Chave: ind13, tpVrPerRef
+Condição: O
+
+Nível: 3
+Nome: infoPisPasep
+Pai: evtBasesTrab
+Descrição: Informações sobre bases de cálculo do PIS/PASEP.
+Ocorrência: 0-1
+Chave: -
+Condição: OC (se {}(1000_infoEmpregador_inclusao_infoCadastro_indTribFolhaPisPasep) = [S] em S-1000, {}(5001_ideEvento_perApur) >= [2025-01] e {ideEmpregador/tpInsc}(5001_ideEmpregador_tpInsc) = [1])
+N (nos demais casos)
+
+Nível: 4
+Nome: ideEstab
+Pai: infoPisPasep
+Descrição: Identificação do estabelecimento ou obra de construção civil.
+Ocorrência: 1-N
+Chave: tpInsc, nrInsc
+Condição: O
+
+Nível: 5
+Nome: infoCategPisPasep
+Pai: ideEstab
+Descrição: Informações relativas à matrícula e categoria do trabalhador.
+Ocorrência: 1-10
+Chave: matricula, codCateg
+Condição: O
+
+Nível: 6
+Nome: infoBasePisPasep
+Pai: infoCategPisPasep
+Descrição: Informações sobre bases de cálculo do PIS/PASEP.
+Ocorrência: 0-99
+Chave: ind13, tpValorPisPasep
+Condição: N (se {classTrib}(5001_infoCp_classTrib) = [10] e {codCateg}(../codCateg) = [202])
+O (nos demais casos)
+
+Nome: eSocial
+Pai: -
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: eSocial
+
+Nome: evtBasesTrab
+Pai: eSocial
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Evento Informações das Contribuições Sociais por Trabalhador.
+
+Nome: Id
+Pai: evtBasesTrab
+Elem.: A
+Tipo: C
+Ocorrência: 1
+Tamanho: 36
+Dec.: -
+Descrição: Identificação única do evento.
+
+Nome: ideEvento
+Pai: evtBasesTrab
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Identificação do evento de retorno.
+
+Nome: nrRecArqBase
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 23
+Dec.: -
+Descrição: Preencher com o número do recibo do arquivo que deu origem ao presente arquivo de retorno ao empregador.
+Validação: Deve ser um recibo de entrega válido, correspondente ao arquivo que deu origem ao presente arquivo de retorno (S-1200, S-1202, S-2299, S-2399 ou S-3000).
+
+Nome: indApuracao
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo de período de apuração.
+Valores válidos:
+1 - Mensal
+2 - Anual (13° salário)
+
+Nome: perApur
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 4 ou 7
+Dec.: -
+Descrição: Informar o mês/ano (formato AAAA-MM) de referência das informações, se {indApuracao}(./indApuracao) for igual a [1], ou apenas o ano (formato AAAA), se {indApuracao}(./indApuracao) for igual a [2].
+
+Nome: ideEmpregador
+Pai: evtBasesTrab
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do empregador.
+
+Nome: tpInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+
+Nome: nrInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 8, 11 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {ideEmpregador/tpInsc}(./tpInsc) e conforme informado em S-1000.
+
+Nome: ideTrabalhador
+Pai: evtBasesTrab
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Identificação do trabalhador.
+
+Nome: cpfTrab
+Pai: ideTrabalhador
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11
+Dec.: -
+Descrição: Preencher com o número do CPF do trabalhador.
+Validação: Deve ser um CPF constante no arquivo gerado pelo empregador no evento de origem.
+
+Nome: infoCompl
+Pai: ideTrabalhador
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações complementares do trabalhador e do contrato.
+
+Nome: sucessaoVinc
+Pai: infoCompl
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Grupo de informações da sucessão de vínculo trabalhista.
+Evento de origem: S-1200.
+
+Nome: tpInsc
+Pai: sucessaoVinc
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+
+Nome: nrInsc
+Pai: sucessaoVinc
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do empregador anterior, de acordo com o tipo de inscrição indicado no campo {sucessaoVinc/tpInsc}(./tpInsc).
+
+Nome: matricAnt
+Pai: sucessaoVinc
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-30
+Dec.: -
+Descrição: Matrícula do trabalhador no empregador anterior.
+
+Nome: dtAdm
+Pai: sucessaoVinc
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Preencher com a data de admissão do trabalhador. No caso de transferência do empregado, deve ser preenchida a data inicial do vínculo no primeiro empregador (data de início do vínculo).
+
+Nome: infoInterm
+Pai: infoCompl
+Elem.: G
+Tipo: -
+Ocorrência: 0-31
+Tamanho: -
+Dec.: -
+Descrição: Informações relativas ao trabalho intermitente.
+Evento de origem: S-1200 ou S-2299.
+
+Nome: dia
+Pai: infoInterm
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-2
+Dec.: -
+Descrição: Dia do mês efetivamente trabalhado pelo empregado com contrato de trabalho intermitente.
+
+Nome: hrsTrab
+Pai: infoInterm
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 4
+Dec.: -
+Descrição: Horas trabalhadas no dia pelo empregado com contrato de trabalho intermitente, no formato HHMM.
+
+Nome: infoComplCont
+Pai: infoCompl
+Elem.: G
+Tipo: -
+Ocorrência: 0-N
+Tamanho: -
+Dec.: -
+Descrição: Informações complementares contratuais do trabalhador.
+Evento de origem: S-1200.
+
+Nome: codCBO
+Pai: infoComplCont
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 6
+Dec.: -
+Descrição: Classificação Brasileira de Ocupações - CBO.
+
+Nome: natAtividade
+Pai: infoComplCont
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Natureza da atividade.
+Valores válidos:
+1 - Trabalho urbano
+2 - Trabalho rural
+
+Nome: qtdDiasTrab
+Pai: infoComplCont
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-2
+Dec.: -
+Descrição: Informação prestada exclusivamente pelo segurado especial em caso de contratação de contribuinte individual, indicando a quantidade de dias trabalhados pelo mesmo.
+
+Nome: procJudTrab
+Pai: ideTrabalhador
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição: Informações sobre processos judiciais do trabalhador com decisão favorável quanto à não incidência ou alterações na incidência de contribuição previdenciária.
+
+Nome: nrProcJud
+Pai: procJudTrab
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 20
+Dec.: -
+Descrição: Informar o número do processo judicial.
+Origem: campo {nrProcJud} de S-1200, S-2299 ou S-2399, se {tpTrib} no evento de origem for igual a [2].
+
+Nome: codSusp
+Pai: procJudTrab
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: -
+Descrição: Código do indicativo da suspensão, atribuído pelo empregador em S-1070.
+Origem: campo {codSusp} de S-1200, S-2299 ou S-2399, se {tpTrib} no evento de origem for igual a [2].
+
+Nome: infoCpCalc
+Pai: evtBasesTrab
+Elem.: G
+Tipo: -
+Ocorrência: 0-9
+Tamanho: -
+Dec.: -
+Descrição: Cálculo da contribuição previdenciária do segurado, incidente sobre a remuneração do período de apuração e de períodos anteriores informada nos eventos S-1200, S-2299 e S-2399.
+
+Nome: tpCR
+Pai: infoCpCalc
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 6
+Dec.: -
+Descrição: Código de Receita - CR da contribuição descontada do trabalhador.
+Valores válidos:
+108201 - Contribuição Previdenciária - CP descontada do segurado empregado/avulso
+108202 - CP descontada do segurado empregado rural curto prazo - Lei 11.718/2008
+108203 - CP descontada do segurado empregado doméstico
+108204 - CP descontada do segurado especial curto prazo - Lei 11.718/2008
+108205 - CP descontada do segurado empregado do segurado especial
+108207 - CP descontada do segurado empregado do MEI
+108221 - CP descontada do segurado empregado/avulso 13° salário
+108222 - CP descontada do segurado empregado rural curto prazo 13° salário - Lei 11.718/2008
+108223 - CP descontada do segurado empregado doméstico 13° salário
+108224 - CP descontada do segurado especial curto prazo 13° salário - Lei 11.718/2008
+108225 - CP descontada do segurado empregado do segurado especial 13° salário
+109901 - CP descontada do contribuinte individual, alíquota de 11%
+109902 - CP descontada do contribuinte individual, alíquota de 20%
+109921 - CP descontada do contribuinte individual, alíquota de 11% - 13º salário
+109922 - CP descontada do contribuinte individual, alíquota de 20% - 13º salário
+Validação: Se {indApuracao}(5001_ideEvento_indApuracao) = [2], deve ser igual a [108221, 108222, 108223, 108224, 108225, 109921, 109922].
+
+Nome: vrCpSeg
+Pai: infoCpCalc
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da contribuição do segurado, devida à Previdência Social, calculada segundo as regras da legislação em vigor, por CR.
+Validação: 1. Se {indMV} do S-1200/S-2299/S-2399 = [3], {vrCpSeg}(./vrCpSeg) = [0]; portanto, não há CR.
+ 
+2. Se {indMV} do S-1200/S-2299/S-2399 = [1, 2], efetuar o somatório das ocorrências do campo {vlrRemunOE} e o somatório de {valor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_valor) quando {tpValor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor) = [11, 12, 13, 14, 19], resultando em [TotalRemun]. Este procedimento visa a identificação da(s) alíquota(s) aplicável(eis):
+2.1. Se {indMV} do S-1200/S-2299/S-2399 = [1], aplicar a(s) alíquota(s) conforme a categoria do segurado sobre a remuneração paga pelo declarante (somatório de {valor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_valor) quando {tpValor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor) = [11, 12, 13, 14, 19]), observado o limite máximo do salário de contribuição.
+2.2. Se {indMV} do S-1200/S-2299/S-2399 = [2]:
+a) Se [TotalRemun] ultrapassar o limite máximo do salário de contribuição, aplicar a(s) alíquota(s) conforme a categoria do segurado sobre a diferença entre o referido limite máximo e o somatório das ocorrências do campo {vlrRemunOE}. Para os períodos de apuração iguais ou posteriores a 03/2020, observar a(s) faixa(s) de remuneração já tributada(s) em outra(s) empresa(s) nas categorias empregado/avulso/agente público.
+b) Se [TotalRemun] for inferior ao limite máximo do salário de contribuição:
+b1) Para as categorias empregado/avulso/agente público: somar {vlrRemunOE} destas mesmas categorias com o somatório de {valor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_valor) quando {tpValor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor) = [11, 12, 13, 14, 19] e aplicar a(s) alíquota(s). Para os períodos de apuração iguais ou posteriores a 03/2020, observar a(s) faixa(s) de remuneração já tributada(s) em outra(s) empresa(s) nas categorias empregado/avulso/agente público.
+b2) Para categoria contribuinte individual: aplicar a alíquota sobre a remuneração paga pelo declarante (somatório de {valor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_valor) quando {tpValor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor) = [11, 12, 13, 14, 19]).
+ 
+3. Se não for informado o grupo {infoMV} do S-1200/S-2299/S-2399:
+a) Se o trabalhador presta serviço para a empresa declarante em apenas uma categoria ({codCateg}(5001_infoCp_ideEstabLot_infoCategIncid_codCateg)), efetuar o somatório de {valor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_valor) quando {tpValor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor) = [11, 12, 13, 14, 19] e aplicar a(s) alíquota(s) conforme a categoria.
+b) Se o trabalhador presta serviço para a empresa declarante em mais de uma categoria ({codCateg}(5001_infoCp_ideEstabLot_infoCategIncid_codCateg)):
+I. Efetuar o somatório de {valor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_valor) quando {tpValor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor) = [11, 12, 13, 14, 19] para todas as categorias de segurado empregado/avulso/agente público e aplicar a(s) alíquota(s) correta(s) conforme faixa salarial, observado o limite máximo do salário de contribuição.
+II. Caso o somatório do item I não tenha atingido o limite máximo do salário de contribuição, efetuar o somatório de {valor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_valor) quando {tpValor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor) = [11, 12, 13, 14, 19] para todas as categorias diferentes de segurado empregado e aplicar a alíquota correta conforme a categoria, observado o limite máximo do salário de contribuição.
+ 
+OBS.: a) No caso de {indApuracao}(5001_ideEvento_indApuracao) = [1], o cálculo deve ser efetuado separadamente para {infoBaseCS/ind13}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_ind13) = [0] e {infoBaseCS/ind13}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_ind13) = [1]. A soma de ambos os cálculos deve corresponder ao valor de {vrCpSeg}(./vrCpSeg).
+b) Aplica-se a alíquota de 20% para o cálculo da contribuição previdenciária a ser descontada de remuneração de trabalhador pertencente às categorias [731, 734], quando o empregador for cooperativa de trabalho ({indCoop}(1000_infoEmpregador_inclusao_infoCadastro_indCoop) em S-1000 = [1]), ou pertencente ao grupo "Contribuinte Individual", quando o Empregador tiver {classTrib}(5001_infoCp_classTrib) = [04, 70, 80]; ou de trabalhador pertencente à categoria = [902] quando o tipo de lotação tributária ({tpLotacao}(1020_infoLotacao_inclusao_dadosLotacao_tpLotacao) em S-1020) for igual a [92]. Caso o trabalhador receba remuneração da empresa em outra categoria do grupo "Contribuinte Individual", primeiro deve ser aplicado o desconto sobre essa categoria (7XX) e depois sobre a remuneração das categorias [731, 734], observado o limite máximo do salário de contribuição.
+c) {vrCpSeg}(./vrCpSeg) deve ser igual a {vrDescSeg}(./vrDescSeg) nas seguintes situações:
+c1) Se houver informações em {infoPerAnt} na composição de {valor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_valor);
+c2) Se houver informação de {procJudTrab} com {tpTrib} = [2] nos eventos que contenham informações de remuneração (S-1200, S-2299 e S-2399);
+c3) Se houver processo do empregador informado em S-1010, contestando incidência de contribuição previdenciária em rubricas utilizadas na composição da remuneração do trabalhador;
+c4) Se, no período de apuração mensal, houver remuneração referente a 13º salário ({codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 = [12, 14, 16, 22, 26, 32, 92, 94, 96, 98]). Nesse caso, o campo {vrCpSeg}(./vrCpSeg) será igual ao valor calculado sobre a remuneração mensal acrescido do desconto sobre a remuneração relativa a 13° salário informado pelo empregador;
+c5) Se {procEmi} do evento S-1200/S-2299/S-2399 for igual a [2, 4, 22];
+c6) Para as categorias do grupo "Contribuinte Individual" (7XX), se o campo {dtTrans11096}(1000_infoEmpregador_inclusao_infoCadastro_dtTrans11096) em S-1000 for informado.
+d) No caso de trabalhador categoria = [102], utilizar somente a alíquota de 8%, observado o limite máximo do salário de contribuição.
+e) No caso de empregador com {classTrib}(5001_infoCp_classTrib) = [21, 22, 60], não calcular para a categoria do grupo "Contribuinte Individual" (7XX). O valor deve ser zerado.
+f) Não calcular quando a categoria do trabalhador for [741] (MEI). O valor deve ser zerado.
+g) Não calcular quando a lotação tributária for [91]. O valor deve ser zerado.
+
+Nome: vrDescSeg
+Pai: infoCpCalc
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor efetivamente descontado do segurado, correspondente a {tpValor}(5001_infoCp_ideEstabLot_infoCategIncid_infoBaseCS_tpValor) = [21] do correspondente {infoCpCalc/tpCR}(./tpCR).
+
+Nome: infoCp
+Pai: evtBasesTrab
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações sobre bases de cálculo, descontos e deduções de contribuições sociais devidas à Previdência Social e a Outras Entidades e Fundos, referentes à remuneração do período de apuração e de períodos anteriores informada nos eventos S-1200, S-2299 e S-2399.
+
+Nome: classTrib
+Pai: infoCp
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 2
+Dec.: -
+Descrição: Preencher com o código correspondente à classificação tributária do contribuinte, conforme Tabela 08.
+Evento de origem: S-1000.
+
+Nome: ideEstabLot
+Pai: infoCp
+Elem.: G
+Tipo: -
+Ocorrência: 1-N
+Tamanho: -
+Dec.: -
+Descrição: Identificação do estabelecimento ou obra de construção civil e da lotação tributária.
+
+Nome: tpInsc
+Pai: ideEstabLot
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+3 - CAEPF
+4 - CNO
+Evento de origem: S-1200, S-2299 ou S-2399.
+
+Nome: nrInsc
+Pai: ideEstabLot
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11, 12 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {ideEstabLot/tpInsc}(./tpInsc).
+Evento de origem: S-1200, S-2299 ou S-2399.
+
+Nome: codLotacao
+Pai: ideEstabLot
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-30
+Dec.: -
+Descrição: Informar o código atribuído pelo empregador para a lotação tributária.
+Evento de origem: S-1200, S-2299 ou S-2399.
+
+Nome: infoCategIncid
+Pai: ideEstabLot
+Elem.: G
+Tipo: -
+Ocorrência: 1-10
+Tamanho: -
+Dec.: -
+Descrição: Informações relativas à matrícula e categoria do trabalhador e tipos de incidências.
+
+Nome: matricula
+Pai: infoCategIncid
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-30
+Dec.: -
+Descrição: Matrícula atribuída ao trabalhador pela empresa ou, no caso de servidor público, a matrícula constante no Sistema de Administração de Recursos Humanos do órgão.
+Evento de origem: S-1200, S-2299 ou S-2399.
+
+Nome: codCateg
+Pai: infoCategIncid
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 3
+Dec.: -
+Descrição: Preencher com o código da categoria do trabalhador, conforme Tabela 01.
+Validação: Se o evento de origem for S-1200, retornar o código de categoria informado nesse evento. Se o evento de origem for S-2299 ou S-2399, retornar o código de categoria existente no Registro de Eventos Trabalhistas - RET.
+
+Nome: indSimples
+Pai: infoCategIncid
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Indicador de contribuição substituída.
+Valores válidos:
+1 - Contribuição substituída integralmente
+2 - Contribuição não substituída
+3 - Contribuição não substituída concomitante com contribuição substituída
+Evento de origem: S-1200, S-2299 ou S-2399.
+
+Nome: infoBaseCS
+Pai: infoCategIncid
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição: Informações sobre bases de cálculo, descontos e deduções de contribuições sociais devidas à Previdência Social e a Outras Entidades e Fundos.
+Evento de origem: S-1200, S-2299 ou S-2399.
+
+Nome: ind13
+Pai: infoBaseCS
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo de 13° salário.
+Valores válidos:
+0 - Mensal
+1 - 13° salário (<a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [12, 14, 16, 22, 26, 32, 92, 94, 96, 98])
+Validação: Se {indApuracao}(/ideEvento_perApur) = [2], preencher com [1].
+
+Nome: tpValor
+Pai: infoBaseCS
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 2
+Dec.: -
+Descrição: Tipo de valor que influi na apuração da contribuição devida.
+Valores válidos:
+11 - Base de cálculo da contribuição previdenciária normal
+12 - Base de cálculo da contribuição previdenciária adicional para o financiamento dos benefícios de aposentadoria especial após 15 anos de contribuição
+13 - Base de cálculo da contribuição previdenciária adicional para o financiamento dos benefícios de aposentadoria especial após 20 anos de contribuição
+14 - Base de cálculo da contribuição previdenciária adicional para o financiamento dos benefícios de aposentadoria especial após 25 anos de contribuição
+15 - Base de cálculo da contribuição previdenciária adicional normal - Exclusiva do empregador
+16 - Base de cálculo da contribuição previdenciária adicional para o financiamento dos benefícios de aposentadoria especial após 15 anos de contribuição - Exclusiva do empregador
+17 - Base de cálculo da contribuição previdenciária adicional para o financiamento dos benefícios de aposentadoria especial após 20 anos de contribuição - Exclusiva do empregador
+18 - Base de cálculo da contribuição previdenciária adicional para o financiamento dos benefícios de aposentadoria especial após 25 anos de contribuição - Exclusiva do empregador
+19 - Base de cálculo da contribuição previdenciária exclusiva do empregado
+21 - Valor total descontado do trabalhador para recolhimento à Previdência Social
+22 - Valor descontado do trabalhador para recolhimento ao SEST
+23 - Valor descontado do trabalhador para recolhimento ao SENAT
+31 - Valor pago ao trabalhador a título de salário-família
+32 - Valor pago ao trabalhador a título de salário-maternidade
+41 - Base de cálculo da contribuição previdenciária normal - Categorias 107 e 108
+42 - Base de cálculo da contribuição previdenciária adicional para o financiamento dos benefícios de aposentadoria especial após 15 anos de contribuição - Categorias 107 e 108
+43 - Base de cálculo da contribuição previdenciária adicional para o financiamento dos benefícios de aposentadoria especial após 20 anos de contribuição - Categorias 107 e 108
+44 - Base de cálculo da contribuição previdenciária adicional para o financiamento dos benefícios de aposentadoria especial após 25 anos de contribuição - Categorias 107 e 108
+45 - Base de cálculo da contribuição previdenciária adicional normal - Exclusiva do empregador - Categorias 107 e 108
+46 - Base de cálculo da contribuição previdenciária adicional para o financiamento dos benefícios de aposentadoria especial após 15 anos de contribuição - Exclusiva do empregador - Categorias 107 e 108
+47 - Base de cálculo da contribuição previdenciária adicional para o financiamento dos benefícios de aposentadoria especial após 20 anos de contribuição - Exclusiva do empregador - Categorias 107 e 108
+48 - Base de cálculo da contribuição previdenciária adicional para o financiamento dos benefícios de aposentadoria especial após 25 anos de contribuição - Exclusiva do empregador - Categorias 107 e 108
+49 - Base de cálculo da contribuição previdenciária exclusiva do empregado - Categorias 107 e 108
+81 - Incidência suspensa em decorrência de decisão judicial - Base de cálculo - BC da Contribuição Previdenciária - CP normal - Categorias 107 e 108
+82 - Incidência suspensa em decorrência de decisão judicial - BC CP aposentadoria especial aos 15 anos de trabalho - Categorias 107 e 108
+83 - Incidência suspensa em decorrência de decisão judicial - BC CP aposentadoria especial aos 20 anos de trabalho - Categorias 107 e 108
+84 - Incidência suspensa em decorrência de decisão judicial - BC CP aposentadoria especial aos 25 anos de trabalho - Categorias 107 e 108
+85 - Incidência suspensa em decorrência de decisão judicial - BC CP normal - Exclusiva do empregador - Categorias 107 e 108
+86 - Incidência suspensa em decorrência de decisão judicial - BC CP aposentadoria especial aos 15 anos de trabalho - Exclusiva do empregador - Categorias 107 e 108
+87 - Incidência suspensa em decorrência de decisão judicial - BC CP aposentadoria especial aos 20 anos de trabalho - Exclusiva do empregador - Categorias 107 e 108
+88 - Incidência suspensa em decorrência de decisão judicial - BC CP aposentadoria especial aos 25 anos de trabalho - Exclusiva do empregador - Categorias 107 e 108
+91 - Incidência suspensa em decorrência de decisão judicial - BC CP normal
+92 - Incidência suspensa em decorrência de decisão judicial - BC CP aposentadoria especial aos 15 anos de trabalho
+93 - Incidência suspensa em decorrência de decisão judicial - BC CP aposentadoria especial aos 20 anos de trabalho
+94 - Incidência suspensa em decorrência de decisão judicial - BC CP aposentadoria especial aos 25 anos de trabalho
+95 - Incidência suspensa em decorrência de decisão judicial - BC CP normal - Exclusiva do empregador
+96 - Incidência suspensa em decorrência de decisão judicial - BC CP aposentadoria especial aos 15 anos de trabalho - Exclusiva do empregador
+97 - Incidência suspensa em decorrência de decisão judicial - BC CP aposentadoria especial aos 20 anos de trabalho - Exclusiva do empregador
+98 - Incidência suspensa em decorrência de decisão judicial - BC CP aposentadoria especial aos 25 anos de trabalho - Exclusiva do empregador
+
+Nome: valor
+Pai: infoBaseCS
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da base de cálculo, dedução ou desconto da contribuição social devida à Previdência Social ou a Outras Entidades e Fundos, conforme definido no campo {tpValor}(./tpValor).
+Validação: Deve ser maior que 0 (zero).
+Deve corresponder ao somatório dos valores informados no campo {vrRubr} em S-1200 e S-2299 (grupos {infoPerApur} e {infoPerAnt}), e também em S-2399, obedecendo ao que segue:
+a) Somar os valores das rubricas cujo {tpRubr}(1010_infoRubrica_inclusao_dadosRubrica_tpRubr) em S-1010 seja igual a [1, 3] e subtrair os valores das rubricas cujo {tpRubr}(1010_infoRubrica_inclusao_dadosRubrica_tpRubr) em S-1010 seja igual a [2, 4], observando a tabela de relacionamento abaixo:
+{tpValor}(./tpValor) = [11]*, {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 = [11, 12] e ({grauExp} em S-1200/S-2299 = [1] ou não informado);
+{tpValor}(./tpValor) = [12]*, {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 = [11, 12] e {grauExp} em S-1200/S-2299 = [2];
+{tpValor}(./tpValor) = [13]*, {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 = [11, 12] e {grauExp} em S-1200/S-2299 = [3];
+{tpValor}(./tpValor) = [14]*, {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 = [11, 12] e {grauExp} em S-1200/S-2299 = [4];
+{tpValor}(./tpValor) = [15]**, {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 = [13, 14] e ({grauExp} em S-1200/S-2299 = [1] ou não informado);
+{tpValor}(./tpValor) = [16]**, {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 = [13, 14] e {grauExp} em S-1200/S-2299 = [2];
+{tpValor}(./tpValor) = [17]**, {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 = [13, 14] e {grauExp} em S-1200/S-2299 = [3];
+{tpValor}(./tpValor) = [18]**, {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 = [13, 14] e {grauExp} em S-1200/S-2299 = [4];
+{tpValor}(./tpValor) = [19], {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 = [15, 16, 21, 22];
+{tpValor}(./tpValor) = [31], {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 = [51];
+{tpValor}(./tpValor) = [32], {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 = [21, 22] ou ({natRubr}(1010_infoRubrica_inclusao_dadosRubrica_natRubr) em S-1010 = [4050, 4051] com {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 = [9X]);
+{tpValor}(./tpValor) = [41]*, {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 = [11, 12] e ({grauExp} em S-1200/S-2299 = [1] ou não informado), observado o limite para {codCateg}(../codCateg) = [107, 108];
+{tpValor}(./tpValor) = [42]*, {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 = [11, 12] e {grauExp} em S-1200/S-2299 = [2], observado o limite para {codCateg}(../codCateg) = [107, 108];
+{tpValor}(./tpValor) = [43]*, {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 = [11, 12] e {grauExp} em S-1200/S-2299 = [3], observado o limite para {codCateg}(../codCateg) = [107, 108];
+{tpValor}(./tpValor) = [44]*, {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 = [11, 12] e {grauExp} em S-1200/S-2299 = [4], observado o limite para {codCateg}(../codCateg) = [107, 108];
+{tpValor}(./tpValor) = [45]**, {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 = [13, 14] e ({grauExp} em S-1200/S-2299 = [1] ou não informado), observado o limite para {codCateg}(../codCateg) = [107, 108];
+{tpValor}(./tpValor) = [46]**, {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 = [13, 14] e {grauExp} em S-1200/S-2299 = [2], observado o limite para {codCateg}(../codCateg) = [107, 108];
+{tpValor}(./tpValor) = [47]**, {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 = [13, 14] e {grauExp} em S-1200/S-2299 = [3], observado o limite para {codCateg}(../codCateg) = [107, 108];
+{tpValor}(./tpValor) = [48]**, {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 = [13, 14] e {grauExp} em S-1200/S-2299 = [4], observado o limite para {codCateg}(../codCateg) = [107, 108];
+{tpValor}(./tpValor) = [49], {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 = [15, 16, 21, 22], observado o limite para {codCateg}(../codCateg) = [107, 108];
+{tpValor}(./tpValor) = [81]*, {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 = [91, 92] e ({grauExp} em S-1200/S-2299 = [1] ou não informado), observado o limite para {codCateg}(../codCateg) = [107, 108];
+{tpValor}(./tpValor) = [82]*, {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 = [91, 92] e {grauExp} em S-1200/S-2299 = [2], observado o limite para {codCateg}(../codCateg) = [107, 108];
+{tpValor}(./tpValor) = [83]*, {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 = [91, 92] e {grauExp} em S-1200/S-2299 = [3], observado o limite para {codCateg}(../codCateg) = [107, 108];
+{tpValor}(./tpValor) = [84]*, {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 = [91, 92] e {grauExp} em S-1200/S-2299 = [4], observado o limite para {codCateg}(../codCateg) = [107, 108];
+{tpValor}(./tpValor) = [85]**, {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 = [95, 96] e ({grauExp} em S-1200/S-2299 = [1] ou não informado), observado o limite para {codCateg}(../codCateg) = [107, 108];
+{tpValor}(./tpValor) = [86]**, {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 = [95, 96] e {grauExp} em S-1200/S-2299 = [2], observado o limite para {codCateg}(../codCateg) = [107, 108];
+{tpValor}(./tpValor) = [87]**, {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 = [95, 96] e {grauExp} em S-1200/S-2299 = [3], observado o limite para {codCateg}(../codCateg) = [107, 108];
+{tpValor}(./tpValor) = [88]**, {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 = [95, 96] e {grauExp} em S-1200/S-2299 = [4], observado o limite para {codCateg}(../codCateg) = [107, 108];
+{tpValor}(./tpValor) = [91]*, {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 = [91, 92] e ({grauExp} em S-1200/S-2299 = [1] ou não informado);
+{tpValor}(./tpValor) = [92]*, {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 = [91, 92] e {grauExp} em S-1200/S-2299 = [2];
+{tpValor}(./tpValor) = [93]*, {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 = [91, 92] e {grauExp} em S-1200/S-2299 = [3];
+{tpValor}(./tpValor) = [94]*, {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 = [91, 92] e {grauExp} em S-1200/S-2299 = [4];
+{tpValor}(./tpValor) = [95]**, {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 = [95, 96] e ({grauExp} em S-1200/S-2299 = [1] ou não informado);
+{tpValor}(./tpValor) = [96]**, {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 = [95, 96] e {grauExp} em S-1200/S-2299 = [2];
+{tpValor}(./tpValor) = [97]**, {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 = [95, 96] e {grauExp} em S-1200/S-2299 = [3];
+{tpValor}(./tpValor) = [98]**, {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 = [95, 96] e {grauExp} em S-1200/S-2299 = [4].
+ 
+b) Somar os valores das rubricas cujo {tpRubr}(1010_infoRubrica_inclusao_dadosRubrica_tpRubr) em S-1010 seja igual a [2, 4] e subtrair os valores das rubricas cujo {tpRubr}(1010_infoRubrica_inclusao_dadosRubrica_tpRubr) em S-1010 seja igual a [1, 3], observando a tabela de relacionamento abaixo:
+{tpValor}(./tpValor) = [21], {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 = [31, 32];
+{tpValor}(./tpValor) = [22], {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 = [34];
+{tpValor}(./tpValor) = [23], {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 = [35].
+ 
+* Caso {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) da rubrica em S-1010 seja igual a [91, 92, 93, 94] e {indSusp}(1070_infoProcesso_inclusao_dadosProc_infoSusp_indSusp) do respectivo processo em S-1070 seja diferente de [90] (decisão definitiva), o valor também deve ser computado na composição das bases do {tpValor}(./tpValor) = [11, 12, 13, 14, 41, 42, 43, 44].
+Se {codCateg}(../codCateg) = [107, 108], caso {tpValor}(./tpValor) = [11] seja maior que o limite do salário-base para essas categorias, então {tpValor}(./tpValor) = [81] é igual a {tpValor}=[41] – ({tpValor}=[11] – {tpValor}=[91]). Se {tpValor}(./tpValor) = [81] resultar negativo, informar 0 (zero). O mesmo se aplica para {tpValor}(./tpValor) = [82, 83, 84].
+** Caso {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) da rubrica em S-1010 seja igual a [95, 96, 97, 98] e {indSusp}(1070_infoProcesso_inclusao_dadosProc_infoSusp_indSusp) do respectivo processo em S-1070 seja diferente de [90] (decisão definitiva), o valor também deve ser computado na composição das bases do {tpValor}(./tpValor) = [15, 16, 17, 18, 45, 46, 47, 48].
+Se {codCateg}(../codCateg) = [107, 108], caso {tpValor}(./tpValor) = [15] seja maior que o limite do salário-base para essas categorias, então {tpValor}(./tpValor) = [85] é igual a {tpValor}=[45] – ({tpValor}=[15] – {tpValor}=[95]). Se {tpValor}(./tpValor) = [85] resultar negativo, informar 0 (zero). O mesmo se aplica para {tpValor}(./tpValor) = [86, 87, 88].
+*** Caso {indSusp}(1070_infoProcesso_inclusao_dadosProc_infoSusp_indSusp) do respectivo processo em S-1070 seja igual a [90] (decisão definitiva), o valor não deve ser computado.
+
+Nome: calcTerc
+Pai: infoCategIncid
+Elem.: G
+Tipo: -
+Ocorrência: 0-2
+Tamanho: -
+Dec.: -
+Descrição: Cálculo das contribuições sociais devidas a Outras Entidades e Fundos.
+
+Nome: tpCR
+Pai: calcTerc
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 6
+Dec.: -
+Descrição: Código de Receita - CR da contribuição descontada do trabalhador.
+Valores válidos:
+121802 - Contribuição ao SEST, descontada do transportador autônomo
+122102 - Contribuição ao SENAT, descontada do transportador autônomo
+
+Nome: vrCsSegTerc
+Pai: calcTerc
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da contribuição social devida a Outras Entidades ou Fundos, calculada segundo a legislação em vigor, por CR.
+Validação: {calcTerc/tpCR}(./tpCR) = [121802] - Somatório de {valor}(../infoBaseCS_valor) quando {tpValor}(../infoBaseCS_tpValor) = [11, 12, 13, 14], multiplicado pela alíquota de 1,5%, se {codCateg}(../codCateg) = [711, 712, 734] (transportador autônomo) e {ideEmpregador/tpInsc}(5001_ideEmpregador_tpInsc) = [1];
+{calcTerc/tpCR}(./tpCR) = [122102] - Somatório de {valor}(../infoBaseCS_valor) quando {tpValor}(../infoBaseCS_tpValor) = [11, 12, 13, 14], multiplicado pela alíquota de 1,0%, se {codCateg}(../codCateg) = [711, 712, 734] (transportador autônomo) e {ideEmpregador/tpInsc}(5001_ideEmpregador_tpInsc) = [1].
+OBS.: No período de 04/2020 a 06/2020, as alíquotas devem ser 0,75% para o SEST e 0,5% para o SENAT.
+
+Nome: vrDescTerc
+Pai: calcTerc
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor efetivamente descontado do segurado, correspondente a {tpValor}(../infoBaseCS_tpValor) = [22, 23], do correspondente {calcTerc/tpCR}(./tpCR).
+
+Nome: infoPerRef
+Pai: infoCategIncid
+Elem.: G
+Tipo: -
+Ocorrência: 0-N
+Tamanho: -
+Dec.: -
+Descrição: Informações de remuneração por período de referência.
+
+Nome: perRef
+Pai: infoPerRef
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 4 ou 7
+Dec.: -
+Descrição: Informar o período ao qual se refere a remuneração.
+Origem: {perApur}(5001_ideEvento_perApur) ou campo {perRef} de S-1200/S-2299.
+
+Nome: ideADC
+Pai: infoPerRef
+Elem.: G
+Tipo: -
+Ocorrência: 0-N
+Tamanho: -
+Dec.: -
+Descrição: Identificação do instrumento ou situação ensejadora da remuneração relativa a períodos de apuração anteriores.
+Evento de origem: S-1200 ou S-2299 (exceto {remunSuc}(./remunSuc), cujo evento de origem somente é S-1200).
+
+Nome: dtAcConv
+Pai: ideADC
+Elem.: E
+Tipo: D
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Data da assinatura do acordo, convenção coletiva, sentença normativa ou da conversão da licença saúde em acidente de trabalho.
+
+Nome: tpAcConv
+Pai: ideADC
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Tipo do instrumento ou situação ensejadora da remuneração relativa a períodos de apuração anteriores.
+Valores válidos:
+A - Acordo Coletivo de Trabalho
+B - Legislação federal, estadual, municipal ou distrital
+C - Convenção Coletiva de Trabalho
+D - Sentença normativa - Dissídio
+E - Conversão de licença saúde em acidente de trabalho
+F - Outras verbas de natureza salarial ou não salarial devidas após o desligamento
+G - Antecipação de diferenças de acordo, convenção ou dissídio coletivo
+H - Declaração de base de cálculo de FGTS anterior ao início do FGTS Digital
+I - Sentença judicial (exceto reclamatória trabalhista)
+J - Parcelas complementares conhecidas após o fechamento da folha
+
+Nome: dsc
+Pai: ideADC
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-255
+Dec.: -
+Descrição: Descrição do instrumento ou situação que originou o pagamento das verbas relativas a períodos anteriores.
+
+Nome: remunSuc
+Pai: ideADC
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Indicar se a remuneração é relativa a verbas de natureza salarial ou não salarial devidas pela empresa sucessora a empregados desligados ainda na sucedida.
+Valores válidos:
+S - Sim
+N - Não
+
+Nome: detInfoPerRef
+Pai: infoPerRef
+Elem.: G
+Tipo: -
+Ocorrência: 1-99
+Tamanho: -
+Dec.: -
+Descrição: Detalhamento das informações de remuneração por período de referência. Deve ser preenchido com informações de {infoPerApur} e {infoPerAnt} do S-1200 e S-2299, e de {dmDev} do S-2399, quando houver.
+
+Nome: ind13
+Pai: detInfoPerRef
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo de 13° salário.
+Valores válidos:
+0 - Mensal
+1 - 13° salário (<a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncCP">codIncCP</a> em S-1010 = [12, 14, 16, 22, 26, 32, 92, 94, 96, 98])
+Validação: Se {indApuracao}(/ideEvento_perApur) = [2], preencher com [1].
+
+Nome: tpVrPerRef
+Pai: detInfoPerRef
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 2
+Dec.: -
+Descrição: Tipo de valor que influi na apuração da contribuição devida.
+Valores válidos:
+11 - Base de cálculo da contribuição previdenciária normal
+12 - Base de cálculo da contribuição previdenciária adicional para o financiamento dos benefícios de aposentadoria especial após 15 anos de contribuição
+13 - Base de cálculo da contribuição previdenciária adicional para o financiamento dos benefícios de aposentadoria especial após 20 anos de contribuição
+14 - Base de cálculo da contribuição previdenciária adicional para o financiamento dos benefícios de aposentadoria especial após 25 anos de contribuição
+15 - Base de cálculo da contribuição previdenciária adicional normal - Exclusiva do empregador
+16 - Base de cálculo da contribuição previdenciária adicional para o financiamento dos benefícios de aposentadoria especial após 15 anos de contribuição - Exclusiva do empregador
+17 - Base de cálculo da contribuição previdenciária adicional para o financiamento dos benefícios de aposentadoria especial após 20 anos de contribuição - Exclusiva do empregador
+18 - Base de cálculo da contribuição previdenciária adicional para o financiamento dos benefícios de aposentadoria especial após 25 anos de contribuição - Exclusiva do empregador
+19 - Base de cálculo da contribuição previdenciária exclusiva do empregado
+21 - Valor total descontado do trabalhador para recolhimento à Previdência Social
+22 - Valor descontado do trabalhador para recolhimento ao SEST
+23 - Valor descontado do trabalhador para recolhimento ao SENAT
+31 - Valor pago ao trabalhador a título de salário-família
+32 - Valor pago ao trabalhador a título de salário-maternidade
+
+Nome: vrPerRef
+Pai: detInfoPerRef
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da base de cálculo, dedução ou desconto da contribuição social, conforme definido no campo {tpVrPerRef}(./tpVrPerRef).
+Validação: Deve ser maior que 0 (zero).
+Deve corresponder ao somatório dos valores informados no campo {vrRubr} em S-1200 e S-2299 (grupos {infoPerApur} e {infoPerAnt}), e também em S-2399, obedecendo ao que segue:
+a) Somar os valores das rubricas cujo {tpRubr}(1010_infoRubrica_inclusao_dadosRubrica_tpRubr) em S-1010 seja igual a [1, 3] e subtrair os valores das rubricas cujo {tpRubr}(1010_infoRubrica_inclusao_dadosRubrica_tpRubr) em S-1010 seja igual a [2, 4], observando a tabela de relacionamento abaixo:
+{tpVrPerRef}(./tpVrPerRef) = [11]*, {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 = [11, 12] e ({grauExp} em S-1200/S-2299 = [1] ou não informado);
+{tpVrPerRef}(./tpVrPerRef) = [12]*, {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 = [11, 12] e {grauExp} em S-1200/S-2299 = [2];
+{tpVrPerRef}(./tpVrPerRef) = [13]*, {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 = [11, 12] e {grauExp} em S-1200/S-2299 = [3];
+{tpVrPerRef}(./tpVrPerRef) = [14]*, {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 = [11, 12] e {grauExp} em S-1200/S-2299 = [4];
+{tpVrPerRef}(./tpVrPerRef) = [15]**, {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 = [13, 14] e ({grauExp} em S-1200/S-2299 = [1] ou não informado);
+{tpVrPerRef}(./tpVrPerRef) = [16]**, {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 = [13, 14] e {grauExp} em S-1200/S-2299 = [2];
+{tpVrPerRef}(./tpVrPerRef) = [17]**, {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 = [13, 14] e {grauExp} em S-1200/S-2299 = [3];
+{tpVrPerRef}(./tpVrPerRef) = [18]**, {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 = [13, 14] e {grauExp} em S-1200/S-2299 = [4];
+{tpVrPerRef}(./tpVrPerRef) = [19], {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 = [15, 16, 21, 22];
+{tpVrPerRef}(./tpVrPerRef) = [31], {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 = [51];
+{tpVrPerRef}(./tpVrPerRef) = [32], {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 = [21, 22] ou ({natRubr}(1010_infoRubrica_inclusao_dadosRubrica_natRubr) em S-1010 = [4050, 4051] com {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 = [9X]).
+ 
+b) Somar os valores das rubricas cujo {tpRubr}(1010_infoRubrica_inclusao_dadosRubrica_tpRubr) em S-1010 seja igual a [2, 4] e subtrair os valores das rubricas cujo {tpRubr}(1010_infoRubrica_inclusao_dadosRubrica_tpRubr) em S-1010 seja igual a [1, 3], observando a tabela de relacionamento abaixo:
+{tpVrPerRef}(./tpVrPerRef) = [21], {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 = [31, 32];
+{tpVrPerRef}(./tpVrPerRef) = [22], {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 = [34];
+{tpVrPerRef}(./tpVrPerRef) = [23], {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) em S-1010 = [35].
+ 
+* Caso {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) da rubrica em S-1010 seja igual a [91, 92, 93, 94] e {indSusp}(1070_infoProcesso_inclusao_dadosProc_infoSusp_indSusp) do respectivo processo em S-1070 seja diferente de [90] (decisão definitiva), o valor deve ser computado na composição das bases do {tpVrPerRef}(./tpVrPerRef) = [11, 12, 13, 14].
+** Caso {codIncCP}(1010_infoRubrica_inclusao_dadosRubrica_codIncCP) da rubrica em S-1010 seja igual a [95, 96, 97, 98] e {indSusp}(1070_infoProcesso_inclusao_dadosProc_infoSusp_indSusp) do respectivo processo em S-1070 seja diferente de [90] (decisão definitiva), o valor deve ser computado na composição das bases do {tpVrPerRef}(./tpVrPerRef) = [15, 16, 17, 18].
+*** Caso {indSusp}(1070_infoProcesso_inclusao_dadosProc_infoSusp_indSusp) do respectivo processo em S-1070 seja igual a [90] (decisão definitiva), o valor não deve ser computado.
+
+Nome: infoPisPasep
+Pai: evtBasesTrab
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações sobre bases de cálculo do PIS/PASEP informadas nos eventos S-1200, S-2299, S-2399 ou S-1202.
+
+Nome: ideEstab
+Pai: infoPisPasep
+Elem.: G
+Tipo: -
+Ocorrência: 1-N
+Tamanho: -
+Dec.: -
+Descrição: Identificação do estabelecimento ou obra de construção civil.
+
+Nome: tpInsc
+Pai: ideEstab
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+4 - CNO
+Evento de origem: S-1200, S-2299, S-2399 ou S-1202.
+
+Nome: nrInsc
+Pai: ideEstab
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 12 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {ideEstab/tpInsc}(./tpInsc).
+Evento de origem: S-1200, S-2299, S-2399 ou S-1202
+
+Nome: infoCategPisPasep
+Pai: ideEstab
+Elem.: G
+Tipo: -
+Ocorrência: 1-10
+Tamanho: -
+Dec.: -
+Descrição: Informações relativas à matrícula e categoria do trabalhador.
+
+Nome: matricula
+Pai: infoCategPisPasep
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-30
+Dec.: -
+Descrição: Matrícula atribuída ao trabalhador pela empresa ou, no caso de servidor público, a matrícula constante no Sistema de Administração de Recursos Humanos do órgão.
+Evento de origem: S-1200, S-2299, S-2399 ou S-1202.
+
+Nome: codCateg
+Pai: infoCategPisPasep
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 3
+Dec.: -
+Descrição: Preencher com o código da categoria do trabalhador, conforme Tabela 01.
+Validação: Se o evento de origem for S-1200 ou S-1202, retornar o código de categoria informado nesse evento. Se o evento de origem for S-2299 ou S-2399, retornar o código de categoria existente no Registro de Eventos Trabalhistas - RET.
+
+Nome: infoBasePisPasep
+Pai: infoCategPisPasep
+Elem.: G
+Tipo: -
+Ocorrência: 0-99
+Tamanho: -
+Dec.: -
+Descrição: Informações sobre bases de cálculo do PIS/PASEP.
+Evento de origem: S-1200, S-2299, S-2399 ou S-1202.
+
+Nome: ind13
+Pai: infoBasePisPasep
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo de 13° salário.
+Valores válidos:
+0 - Mensal
+1 - 13° salário
+Validação: Se {indApuracao}(/ideEvento_perApur) = [2], preencher com [1].
+
+Nome: tpValorPisPasep
+Pai: infoBasePisPasep
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 2
+Dec.: -
+Descrição: Tipo de valor que influi na apuração da contribuição devida.
+Valores válidos:
+11 - Base de cálculo da contribuição para o PIS/PASEP
+91 - Incidência suspensa em decorrência de decisão judicial - BC PIS/PASEP
+
+Nome: valorPisPasep
+Pai: infoBasePisPasep
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da base de cálculo, dedução ou desconto da contribuição social devida ao PIS/PASEP, conforme definido no campo {}(./tpValorPisPasep).
+Validação: Deve ser maior que 0 (zero).
+Deve corresponder ao somatório dos valores informados no campo {vrRubr} em S-1200, S-1202 e S-2299 (grupos {infoPerApur} e {infoPerAnt}), e também em S-2399, obedecendo ao que segue:
+a) Somar os valores das rubricas cujo {tpRubr}(1010_infoRubrica_inclusao_dadosRubrica_tpRubr) em S-1010 seja igual a [1, 3] e subtrair os valores das rubricas cujo {tpRubr}(1010_infoRubrica_inclusao_dadosRubrica_tpRubr) em S-1010 seja igual a [2, 4], observando a tabela de relacionamento abaixo:
+{}(./tpValorPisPasep) = [11]*, {}(1010_infoRubrica_inclusao_dadosRubrica_codIncPisPasep) em S-1010 = [11, 12];
+{}(./tpValorPisPasep) = [91]*, {}(1010_infoRubrica_inclusao_dadosRubrica_codIncPisPasep) em S-1010 = [91, 92];
+* Caso {}(1010_infoRubrica_inclusao_dadosRubrica_codIncPisPasep) da rubrica em S-1010 seja igual a [91, 92] e {indSusp}(1070_infoProcesso_inclusao_dadosProc_infoSusp_indSusp) do respectivo processo em S-1070 seja diferente de [90] (decisão definitiva), o valor também deve ser computado na composição das bases do {}(./tpValorPisPasep) = [11].
+*** Caso {indSusp}(1070_infoProcesso_inclusao_dadosProc_infoSusp_indSusp) do respectivo processo em S-1070 seja igual a [90] (decisão definitiva), o valor não deve ser computado.
+

@@ -1,0 +1,302 @@
+S-1299 - evtFechaEvPer
+Fechamento dos Eventos Periódicos
+
+Nível: 1
+Nome: eSocial
+Pai: -
+Descrição: eSocial
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 2
+Nome: evtFechaEvPer
+Pai: eSocial
+Descrição: Evento Fechamento dos Eventos Periódicos.
+Ocorrência: 1
+Chave: Id
+Condição: O
+
+Nível: 3
+Nome: ideEvento
+Pai: evtFechaEvPer
+Descrição: Informações de identificação do evento.
+Ocorrência: 1
+Chave: indApuracao*, perApur*, indGuia*
+Condição: O
+
+Nível: 3
+Nome: ideEmpregador
+Pai: evtFechaEvPer
+Descrição: Informações de identificação do empregador.
+Ocorrência: 1
+Chave: tpInsc*, nrInsc*
+Condição: O
+
+Nível: 3
+Nome: infoFech
+Pai: evtFechaEvPer
+Descrição: Informações do fechamento.
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nome: eSocial
+Pai: -
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: eSocial
+
+Nome: evtFechaEvPer
+Pai: eSocial
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Evento Fechamento dos Eventos Periódicos.
+Regras de validação:
+REGRA_CONVIVENCIA_VERSAO_PIS
+REGRA_ENVIO_PROC_FECHAMENTO
+REGRA_EVE_FOPAG_SIMPLIFICADO
+REGRA_EXISTE_INFO_EMPREGADOR
+REGRA_REMUN_ANUAL_DEZEMBRO
+REGRA_VALIDA_EMPREGADOR
+REGRA_VALIDA_FECHAMENTO_FOPAG
+
+Nome: Id
+Pai: evtFechaEvPer
+Elem.: A
+Tipo: C
+Ocorrência: 1
+Tamanho: 36
+Dec.: -
+Descrição: Identificação única do evento.
+Regras de validação:
+REGRA_VALIDA_ID_EVENTO
+
+Nome: ideEvento
+Pai: evtFechaEvPer
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do evento.
+
+Nome: indApuracao
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo de período de apuração.
+Valores válidos:
+1 - Mensal
+2 - Anual (13° salário)
+
+Nome: perApur
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 4 ou 7
+Dec.: -
+Descrição: Informar o mês/ano (formato AAAA-MM) de referência das informações, se {indApuracao}(./indApuracao) for igual a [1], ou apenas o ano (formato AAAA), se {indApuracao}(./indApuracao) for igual a [2].
+Validação: Deve ser um mês/ano ou ano válido, igual ou posterior ao início da obrigatoriedade dos eventos periódicos para o empregador.
+
+Nome: indGuia
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo do tipo de guia.
+Valores válidos:
+1 - Documento de Arrecadação do eSocial - DAE
+
+Nome: tpAmb
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Identificação do ambiente.
+Valores válidos:
+1 - Produção
+2 - Produção restrita
+7 - Validação (uso interno)
+8 - Teste (uso interno)
+9 - Desenvolvimento (uso interno)
+
+Nome: procEmi
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-2
+Dec.: -
+Descrição: Processo de emissão do evento.
+Valores válidos:
+1 - Aplicativo do empregador
+2 - Aplicativo governamental - Simplificado Pessoa Física
+3 - Aplicativo governamental - Web Geral
+4 - Aplicativo governamental - Simplificado Pessoa Jurídica
+22 - Aplicativo governamental para dispositivos móveis - Empregador Doméstico
+
+Nome: verProc
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-20
+Dec.: -
+Descrição: Versão do processo de emissão do evento. Informar a versão do aplicativo emissor do evento.
+
+Nome: ideEmpregador
+Pai: evtFechaEvPer
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do empregador.
+
+Nome: tpInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+
+Nome: nrInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 8, 11 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {ideEmpregador/tpInsc}(./tpInsc) e conforme informado em S-1000.
+
+Nome: infoFech
+Pai: evtFechaEvPer
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações do fechamento.
+
+Nome: evtRemun
+Pai: infoFech
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Possui informações relativas a remuneração de trabalhadores ou provento/pensão de beneficiários no período de apuração?
+Valores válidos:
+S - Sim
+N - Não
+Validação: Se for igual a [S], deve existir evento de remuneração (S-1200, S-1202, S-1207, S-2299 ou S-2399) para o período de apuração, considerando o campo {indGuia}(1299_ideEvento_indGuia). Caso contrário, não deve existir evento de remuneração.
+
+Nome: evtPgtos
+Pai: infoFech
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Possui informações de pagamento de rendimentos do trabalho no período de apuração?
+Valores válidos:
+S - Sim
+N - Não
+Validação: Se for igual a [S], deve existir o evento S-1210 para o período de apuração, considerando o campo {indGuia}(1299_ideEvento_indGuia). Caso contrário, não deve existir o evento.
+
+Nome: evtComProd
+Pai: infoFech
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Possui informações de comercialização de produção?
+Valores válidos:
+S - Sim
+N - Não
+Validação: Se for igual a [S], deve existir o evento S-1260 para o período de apuração, considerando o campo {indGuia}(1299_ideEvento_indGuia). Caso contrário, não deve existir o evento.
+
+Nome: evtContratAvNP
+Pai: infoFech
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Contratou, por intermédio de sindicato, serviços de trabalhadores avulsos não portuários?
+Valores válidos:
+S - Sim
+N - Não
+Validação: Se for igual a [S], deve existir o evento S-1270 para o período de apuração, considerando o campo {indGuia}(1299_ideEvento_indGuia). Caso contrário, não deve existir o evento.
+
+Nome: evtInfoComplPer
+Pai: infoFech
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Possui informações de desoneração de folha de pagamento ou, sendo empresa enquadrada no Simples, possui informações sobre a receita obtida em atividades cuja contribuição previdenciária incidente sobre a folha de pagamento é concomitantemente substituída e não substituída?
+Valores válidos:
+S - Sim
+N - Não
+Validação: Se for igual a [S], deve existir o evento S-1280 para o período de apuração. Caso contrário, não deve existir o evento.
+
+Nome: indExcApur1250
+Pai: infoFech
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo de exclusão de apuração das aquisições de produção rural (eventos S-1250) do período de apuração.
+Valores válidos:
+S - Sim
+Validação: Não informar se {perApur}(1299_ideEvento_perApur) >= [2021-07] ou se {indApuracao}(1299_ideEvento_indApuracao) = [2]. Preenchimento obrigatório caso o campo tenha sido informado em fechamento anterior do mesmo período de apuração.
+
+Nome: transDCTFWeb
+Pai: infoFech
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Solicitação de transmissão imediata da DCTFWeb.
+Valores válidos:
+S - Sim
+Validação: Não informar se {perApur}(1299_ideEvento_perApur) < [2021-10]. Preenchimento obrigatório se {perApur}(1299_ideEvento_perApur) >= [2021-10] e ({classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [04] ou {indGuia}(1299_ideEvento_indGuia) estiver informado).
+
+Nome: naoValid
+Pai: infoFech
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo de não validação das regras de fechamento, para que os grandes contribuintes possam reduzir o tempo de processamento do evento.
+O não preenchimento deste campo ou seu preenchimento com [S] implica a não execução da REGRA_VALIDA_FECHAMENTO_FOPAG. Para executá-la, informar [N].
+Valores válidos:
+S - Sim
+N - Não
+
