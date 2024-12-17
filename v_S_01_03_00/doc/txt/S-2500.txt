@@ -82,7 +82,7 @@ Nome: ideTrab
 Pai: evtProcTrab
 Descrição: Informações do trabalhador.
 Ocorrência: 1
-Chave: cpfTrab*
+Chave: cpfTrab*, ideSeqTrab*
 Condição: O
 
 Nível: 4
@@ -637,6 +637,19 @@ Tamanho: -
 Dec.: -
 Descrição: Preencher com a data de nascimento.
 Validação: Preenchimento obrigatório se não existir contrato com {indContr}(2500_ideTrab_infoContr_indContr) = [S]. Deve ser maior ou igual que 01/01/1890 e menor ou igual à data atual.
+
+Nome: ideSeqTrab
+Pai: ideTrab
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-3
+Dec.: -
+Descrição: Número sequencial atribuído pela empresa a cada conjunto de dados de processo trabalhista, quando for necessário enviar o mesmo processo em múltiplos S-2500, para o mesmo {}(./cpfTrab).
+Validação: Deve ser um identificador único dentre os eventos S-2500 do empregador que tenham os mesmos {}(../infoProcesso_nrProcTrab) e {}(./cpfTrab).
+Se for preenchido, não pode haver outro evento S-2500 com os mesmos {}(../infoProcesso_nrProcTrab) e {}(./cpfTrab), e sem o campo {}(./ideSeqTrab).
+Se não for preenchido, não pode haver outro evento S-2500 com os mesmos {}(../infoProcesso_nrProcTrab) e {}(./cpfTrab).
+O valor [0] é reservado para uso interno.
 
 Nome: infoContr
 Pai: ideTrab
