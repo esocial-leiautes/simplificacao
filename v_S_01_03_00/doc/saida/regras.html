@@ -12,11 +12,11 @@
 <section id="folha-rosto">
 <img alt="Logomarca do eSocial" src="esocial-full.png" class="center">
 <h1 class="title has-text-centered is-3">ANEXO II DOS LEIAUTES DO eSOCIAL<br>REGRAS DE VALIDAÇÃO</h1>
-<h1 class="title has-text-centered is-3">Versão S-1.3 (cons. até NT 02/2024 rev.)</h1>
+<h1 class="title has-text-centered is-3">Versão S-1.3 (cons. até NT 03/2025)</h1>
 </section>
 <section class="section">
 <div class="container is-fluid">
-<h1 class="title has-text-centered is-1">eSocial versão S-1.3 - Regras (cons. até NT 02/2024 rev.)</h1>
+<h1 class="title has-text-centered is-1">eSocial versão S-1.3 - Regras (cons. até NT 03/2025)</h1>
 <div class="modal" id="r_REGRA_ADMISSAO_POSTERIOR_INICIO_ATIVIDADES">
 <div class="modal-background"></div>
 <div class="modal-card">
@@ -1826,7 +1826,9 @@
 <tr>
 <td id="REGRA_ADMISSAO_POSTERIOR_INICIO_ATIVIDADES"><a title="Ver ocorrências"><strong>REGRA_ADMISSAO_POSTERIOR_INICIO_ATIVIDADES</strong></a></td>
 <td>Se {tpAdmissao} = [1] e {indAdmissao} = [1], a data informada no campo {dtAdm} deve ser igual ou posterior à data de abertura da empresa ou à data do primeiro vínculo (esta última se constar na base de CNPJ).<br>
-Se {tpAdmissao} = [2, 3, 4, 7] e {indAdmissao} = [1], a data informada no campo {sucessaoVinc/dtTransf} deve ser igual ou posterior à data de abertura da empresa ou à data do primeiro vínculo (esta última se constar na base de CNPJ).</td>
+Se {tpAdmissao} = [1], {indAdmissao} = [2, 3] e {cadIni} = [N], a data informada no campo {dtAdm} deve ser igual ou posterior à data de abertura da empresa ou à data do primeiro vínculo (esta última se constar na base de CNPJ).<br>
+Se {tpAdmissao} = [2, 3, 4, 7] e {indAdmissao} = [1], a data informada no campo {sucessaoVinc/dtTransf} deve ser igual ou posterior à data de abertura da empresa ou à data do primeiro vínculo (esta última se constar na base de CNPJ).<br>
+Se {tpAdmissao} = [2, 3, 4, 7], {indAdmissao} = [2, 3] e {cadIni} = [N], a data informada no campo {sucessaoVinc/dtTransf} deve ser igual ou posterior à data de abertura da empresa ou à data do primeiro vínculo (esta última se constar na base de CNPJ).</td>
 </tr>
 <tr>
 <td id="REGRA_ADMISSAO_VALIDA_DT_ADM"><a title="Ver ocorrências"><strong>REGRA_ADMISSAO_VALIDA_DT_ADM</strong></a></td>
@@ -2098,8 +2100,7 @@ c2) Se o evento S-1299 foi enviado com {procEmi} = [4], o evento S-1298 poderá 
 </tr>
 <tr>
 <td id="REGRA_EXC_RET_2501"><a title="Ver ocorrências"><strong>REGRA_EXC_RET_2501</strong></a></td>
-<td>Não é permitido excluir ou retificar evento S-2501 se houver evento S-2555 com os mesmos {nrProcTrab} e {perApurPgto}.<br>
-.</td>
+<td>Não é permitido excluir, retificar ou enviar novo evento S-2501 se houver evento S-2555 com os mesmos {nrProcTrab} e {perApurPgto}.</td>
 </tr>
 <tr>
 <td id="REGRA_EXCLUI_EVENTO_AFASTAMENTO"><a title="Ver ocorrências"><strong>REGRA_EXCLUI_EVENTO_AFASTAMENTO</strong></a></td>
@@ -2276,7 +2277,8 @@ c2) O campo {tpRegTrab} deve ser igual a [1] e o campo {tpRegPrev} deve ser igua
 d) No caso de transmissão do evento S-2300:<br>
 d1) O campo {dtAdm} informado no evento S-2190 deve ser idêntico ao campo {dtInicio} do evento S-2300;<br>
 d2) Se {codCateg} = [401], o campo {infoDirigenteSindical/tpRegTrab} deve ser igual a [1] ou não deve ser informado, e o campo {infoDirigenteSindical/tpRegPrev} deve ser igual a [1, 3];<br>
-d3) Se {codCateg} = [410], o campo {infoTrabCedido/tpRegTrab} deve ser igual a [1] e o campo {infoTrabCedido/tpRegPrev} deve ser igual a [1, 3].<br>
+d3) Se {codCateg} = [410], o campo {infoTrabCedido/tpRegTrab} deve ser igual a [1] e o campo {infoTrabCedido/tpRegPrev} deve ser igual a [1, 3];<br>
+d4) Se {codCateg} = [304], o campo {infoMandElet/tpRegTrab} deve ser igual a [1] e o campo {infoMandElet/tpRegPrev} deve ser igual a [1, 3].<br>
 2) Caso exista evento S-2190 pendente (sem o correspondente evento S-2200 ou S-2300) para o mesmo trabalhador, mas com matrícula diferente, retornar "alerta".<br>
 3) As informações prestadas nos eventos S-2200/S-2300 substituirão os dados do evento S-2190 no Registro de Eventos Trabalhistas - RET, mesmo quando houver conteúdo diferente.</td>
 </tr>
@@ -2388,10 +2390,11 @@ c) somente é possível retificar processo sem {ideResp} preenchido se o evento 
 <td>Com base na categoria do trabalhador, observar o que segue:<br>
 1) Se for relativa aos grupos "Empregado" (1XX) ou "Avulso" (2XX), não é permitida a inclusão de registro cujo {codRubr} tenha {codIncCP} em S-1010 = [34, 35];<br>
 2) Se for relativa ao grupo "Contribuinte Individual" (7XX), não podem ser utilizados códigos de rubrica cujos {codIncCP} e {codIncIRRF} em S-1010 sejam específicos de segurados empregados. Portanto, não são aceitas rubricas cujo:<br>
-2a) {codIncCP} em S-1010 = [12, 21, 22, 32, 92, 93, 94], exceto se categoria de trabalhador = [721, 722, 723];<br>
+2a) {codIncCP} em S-1010 = [12, 32, 92, 93, 94], exceto se categoria de trabalhador = [721, 722, 723, 771];<br>
 2b) {codIncIRRF} em S-1010 = [12, 13, 32, 33, 42, 43, 47, 48, 52, 53, 62, 63, 64, 65, 66, 71, 76, 77, 92, 93, 9012, 9013, 9032, 9033, 9042, 9043, 9047, 9048, 9052, 9053, 9062, 9063, 9064, 9065, 9066, 9832, 9833], exceto se categoria de trabalhador = [721, 722, 723, 771];<br>
 2c) {codIncCP} em S-1010 = [34, 35] se a categoria do trabalhador for diferente de [711, 712, 734];<br>
 2d) {codIncCP} em S-1010 = [31] se {classTrib} em S-1000 = [21, 22] (Pessoa Física) e a categoria do trabalhador pertencer ao grupo "Contribuinte Individual" (7XX);<br>
+2e) {codIncCP} em S-1010 = [21, 22], exceto se categoria de trabalhador = [721, 722, 723];<br>
 3) Se for relativa a dirigente sindical ({codCateg} = [401]), observar a categoria de origem (informada no evento S-2300) para determinar se o trabalhador é empregado ou contribuinte individual, e aplicar uma das duas regras anteriores;<br>
 4) Se for relativa a estagiário ({codCateg} = [901]), não podem ser aceitas rubricas cujo {codIncCP} em S-1010 seja diferente de [00, 01] ou {codIncFGTS} em S-1010 seja diferente de [00];<br>
 5) Se for relativa a grupo diferente de "Empregado" (1XX), não podem ser aceitas rubricas cujo {codIncIRRF} em S-1010 seja igual a [14, 34, 54, 94, 9014, 9034, 9054, 9834];<br>
@@ -2401,8 +2404,8 @@ Retornar "erro" se o item 2d), o item 5) ou o item 6) não for atendido. Retorna
 <tr>
 <td id="REGRA_RUBRICA_COMPATIVEL_DECTERCEIRO"><a title="Ver ocorrências"><strong>REGRA_RUBRICA_COMPATIVEL_DECTERCEIRO</strong></a></td>
 <td>Se {indApuracao} for igual a [2] (décimo terceiro salário):<br>
-a) No caso do evento S-1200, são permitidas apenas as rubricas cujo {codIncCP} em S-1010 seja igual a [00, 01, 12, 14, 16, 22, 26, 32, 92, 94, 96, 98], cujo {codIncIRRF} em S-1010 seja igual a [0, 1, 9, 12, 14, 32, 34, 42, 47, 52, 54, 62, 64, 71, 77, 81, 82, 83, 92, 94, 9012, 9014, 9032, 9034, 9054, 9832, 9834, 9042, 9047, 9052, 9062, 9064] e cujo {codIncFGTS} em S-1010 seja igual a [00, 12, 92]. Caso sejam informadas rubricas com {codIncCP}, {codIncIRRF} e/ou {codIncFGTS} diferentes dos valores acima citados, retornar "alerta";<br>
-b) Nos casos dos eventos S-1202 e S-1207, são permitidas apenas as rubricas cujo {codIncCPRP} em S-1010 seja igual a [00, 12, 32, 91, 92] e cujo {codIncIRRF} em S-1010 seja igual a [0, 1, 9, 12, 14, 32, 34, 42, 47, 52, 54, 62, 64, 71, 77, 81, 82, 83, 92, 94, 9012, 9014, 9032, 9034, 9054, 9832, 9834, 9042, 9047, 9052, 9062, 9064];<br>
+a) No caso do evento S-1200, são permitidas apenas as rubricas cujo {codIncCP} em S-1010 seja igual a [00, 01, 12, 14, 16, 22, 26, 32, 92, 94, 96, 98], cujo {codIncIRRF} em S-1010 seja igual a [0, 1, 9, 12, 14, 32, 34, 42, 47, 52, 54, 62, 64, 68, 71, 77, 79, 81, 82, 83, 92, 94, 9012, 9014, 9032, 9034, 9054, 9832, 9834, 9042, 9047, 9052, 9062, 9064] e cujo {codIncFGTS} em S-1010 seja igual a [00, 12, 92]. Caso sejam informadas rubricas com {codIncCP}, {codIncIRRF} e/ou {codIncFGTS} diferentes dos valores acima citados, retornar "alerta";<br>
+b) Nos casos dos eventos S-1202 e S-1207, são permitidas apenas as rubricas cujo {codIncCPRP} em S-1010 seja igual a [00, 12, 32, 91, 92] e cujo {codIncIRRF} em S-1010 seja igual a [0, 1, 9, 12, 14, 32, 34, 42, 47, 52, 54, 62, 64, 68, 71, 77, 79, 81, 82, 83, 92, 94, 9012, 9014, 9032, 9034, 9054, 9832, 9834, 9042, 9047, 9052, 9062, 9064]. Caso sejam informadas rubricas com {codIncCPRP} e/ou {codIncIRRF} diferentes dos valores acima citados, retornar "alerta";<br>
 c) No caso do evento S-1200, são permitidas apenas as rubricas cuja {natRubr} seja diferente de [9253].</td>
 </tr>
 <tr>
@@ -2469,9 +2472,10 @@ No caso dos eventos S-1200 e S-1202, o período de apuração deve ser igual ou 
 </tr>
 <tr>
 <td id="REGRA_VALIDA_ADMISSAO_PRELIMINAR"><a title="Ver ocorrências"><strong>REGRA_VALIDA_ADMISSAO_PRELIMINAR</strong></a></td>
-<td>Para aceitação do evento Registro Preliminar de Trabalhador (S-2190):<br>
+<td>1) Para aceitação do evento Registro Preliminar de Trabalhador (S-2190):<br>
 a) O CPF indicado no evento deve existir na base de dados do CPF (verificar CPF + data de nascimento);<br>
-b) Para cada evento S-2190 pode haver apenas um evento de Admissão ou TSVE - Início completo (S-2200 ou S-2300), na relação de 1 para 1. Enquanto não houver o correspondente evento S-2200 ou S-2300 completo, o evento S-2190 fica pendente.</td>
+b) Para cada evento S-2190 pode haver apenas um evento de Admissão ou TSVE - Início completo (S-2200 ou S-2300), na relação de 1 para 1. Enquanto não houver o correspondente evento S-2200 ou S-2300 completo, o evento S-2190 fica pendente.<br>
+2) Se o evento S-2190 se referir a "Empregado" ou "Agente Público" e for enviado sem o grupo {infoRegCTPS} preenchido, retornar "alerta".</td>
 </tr>
 <tr>
 <td id="REGRA_VALIDA_CNPJ"><a title="Ver ocorrências"><strong>REGRA_VALIDA_CNPJ</strong></a></td>

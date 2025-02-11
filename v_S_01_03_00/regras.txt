@@ -1,6 +1,8 @@
 REGRA_ADMISSAO_POSTERIOR_INICIO_ATIVIDADES
 Se {tpAdmissao} = [1] e {indAdmissao} = [1], a data informada no campo {dtAdm} deve ser igual ou posterior à data de abertura da empresa ou à data do primeiro vínculo (esta última se constar na base de CNPJ).
+Se {tpAdmissao} = [1], {indAdmissao} = [2, 3] e {cadIni} = [N], a data informada no campo {dtAdm} deve ser igual ou posterior à data de abertura da empresa ou à data do primeiro vínculo (esta última se constar na base de CNPJ).
 Se {tpAdmissao} = [2, 3, 4, 7] e {indAdmissao} = [1], a data informada no campo {sucessaoVinc/dtTransf} deve ser igual ou posterior à data de abertura da empresa ou à data do primeiro vínculo (esta última se constar na base de CNPJ).
+Se {tpAdmissao} = [2, 3, 4, 7], {indAdmissao} = [2, 3] e {cadIni} = [N], a data informada no campo {sucessaoVinc/dtTransf} deve ser igual ou posterior à data de abertura da empresa ou à data do primeiro vínculo (esta última se constar na base de CNPJ).
 
 REGRA_ADMISSAO_VALIDA_DT_ADM
 1) No caso dos eventos S-2190, S-2200 e S-8200, a data de admissão do trabalhador, informada no campo {dtAdm}:
@@ -233,8 +235,7 @@ c1) Se o evento S-1299 foi enviado com {procEmi} = [1, 3], o evento S-1298 dever
 c2) Se o evento S-1299 foi enviado com {procEmi} = [4], o evento S-1298 poderá ter {procEmi} = [1, 3, 4].
 
 REGRA_EXC_RET_2501
-Não é permitido excluir ou retificar evento S-2501 se houver evento S-2555 com os mesmos {nrProcTrab} e {perApurPgto}.
-.
+Não é permitido excluir, retificar ou enviar novo evento S-2501 se houver evento S-2555 com os mesmos {nrProcTrab} e {perApurPgto}.
 
 REGRA_EXCLUI_EVENTO_AFASTAMENTO
 Não é permitida a exclusão de evento de início de afastamento quando já existir evento de fim do mesmo afastamento.
@@ -381,7 +382,8 @@ c2) O campo {tpRegTrab} deve ser igual a [1] e o campo {tpRegPrev} deve ser igua
 d) No caso de transmissão do evento S-2300:
 d1) O campo {dtAdm} informado no evento S-2190 deve ser idêntico ao campo {dtInicio} do evento S-2300;
 d2) Se {codCateg} = [401], o campo {infoDirigenteSindical/tpRegTrab} deve ser igual a [1] ou não deve ser informado, e o campo {infoDirigenteSindical/tpRegPrev} deve ser igual a [1, 3];
-d3) Se {codCateg} = [410], o campo {infoTrabCedido/tpRegTrab} deve ser igual a [1] e o campo {infoTrabCedido/tpRegPrev} deve ser igual a [1, 3].
+d3) Se {codCateg} = [410], o campo {infoTrabCedido/tpRegTrab} deve ser igual a [1] e o campo {infoTrabCedido/tpRegPrev} deve ser igual a [1, 3];
+d4) Se {codCateg} = [304], o campo {infoMandElet/tpRegTrab} deve ser igual a [1] e o campo {infoMandElet/tpRegPrev} deve ser igual a [1, 3].
 2) Caso exista evento S-2190 pendente (sem o correspondente evento S-2200 ou S-2300) para o mesmo trabalhador, mas com matrícula diferente, retornar "alerta".
 3) As informações prestadas nos eventos S-2200/S-2300 substituirão os dados do evento S-2190 no Registro de Eventos Trabalhistas - RET, mesmo quando houver conteúdo diferente.
 
@@ -478,10 +480,11 @@ REGRA_RUBRICA_COMPATIVEL_CATEGORIA
 Com base na categoria do trabalhador, observar o que segue:
 1) Se for relativa aos grupos "Empregado" (1XX) ou "Avulso" (2XX), não é permitida a inclusão de registro cujo {codRubr} tenha {codIncCP} em S-1010 = [34, 35];
 2) Se for relativa ao grupo "Contribuinte Individual" (7XX), não podem ser utilizados códigos de rubrica cujos {codIncCP} e {codIncIRRF} em S-1010 sejam específicos de segurados empregados. Portanto, não são aceitas rubricas cujo:
-2a) {codIncCP} em S-1010 = [12, 21, 22, 32, 92, 93, 94], exceto se categoria de trabalhador = [721, 722, 723];
+2a) {codIncCP} em S-1010 = [12, 32, 92, 93, 94], exceto se categoria de trabalhador = [721, 722, 723, 771];
 2b) {codIncIRRF} em S-1010 = [12, 13, 32, 33, 42, 43, 47, 48, 52, 53, 62, 63, 64, 65, 66, 71, 76, 77, 92, 93, 9012, 9013, 9032, 9033, 9042, 9043, 9047, 9048, 9052, 9053, 9062, 9063, 9064, 9065, 9066, 9832, 9833], exceto se categoria de trabalhador = [721, 722, 723, 771];
 2c) {codIncCP} em S-1010 = [34, 35] se a categoria do trabalhador for diferente de [711, 712, 734];
 2d) {codIncCP} em S-1010 = [31] se {classTrib} em S-1000 = [21, 22] (Pessoa Física) e a categoria do trabalhador pertencer ao grupo "Contribuinte Individual" (7XX);
+2e) {codIncCP} em S-1010 = [21, 22], exceto se categoria de trabalhador = [721, 722, 723];
 3) Se for relativa a dirigente sindical ({codCateg} = [401]), observar a categoria de origem (informada no evento S-2300) para determinar se o trabalhador é empregado ou contribuinte individual, e aplicar uma das duas regras anteriores;
 4) Se for relativa a estagiário ({codCateg} = [901]), não podem ser aceitas rubricas cujo {codIncCP} em S-1010 seja diferente de [00, 01] ou {codIncFGTS} em S-1010 seja diferente de [00];
 5) Se for relativa a grupo diferente de "Empregado" (1XX), não podem ser aceitas rubricas cujo {codIncIRRF} em S-1010 seja igual a [14, 34, 54, 94, 9014, 9034, 9054, 9834];
@@ -490,8 +493,8 @@ Retornar "erro" se o item 2d), o item 5) ou o item 6) não for atendido. Retorna
 
 REGRA_RUBRICA_COMPATIVEL_DECTERCEIRO
 Se {indApuracao} for igual a [2] (décimo terceiro salário):
-a) No caso do evento S-1200, são permitidas apenas as rubricas cujo {codIncCP} em S-1010 seja igual a [00, 01, 12, 14, 16, 22, 26, 32, 92, 94, 96, 98], cujo {codIncIRRF} em S-1010 seja igual a [0, 1, 9, 12, 14, 32, 34, 42, 47, 52, 54, 62, 64, 71, 77, 81, 82, 83, 92, 94, 9012, 9014, 9032, 9034, 9054, 9832, 9834, 9042, 9047, 9052, 9062, 9064] e cujo {codIncFGTS} em S-1010 seja igual a [00, 12, 92]. Caso sejam informadas rubricas com {codIncCP}, {codIncIRRF} e/ou {codIncFGTS} diferentes dos valores acima citados, retornar "alerta";
-b) Nos casos dos eventos S-1202 e S-1207, são permitidas apenas as rubricas cujo {codIncCPRP} em S-1010 seja igual a [00, 12, 32, 91, 92] e cujo {codIncIRRF} em S-1010 seja igual a [0, 1, 9, 12, 14, 32, 34, 42, 47, 52, 54, 62, 64, 71, 77, 81, 82, 83, 92, 94, 9012, 9014, 9032, 9034, 9054, 9832, 9834, 9042, 9047, 9052, 9062, 9064];
+a) No caso do evento S-1200, são permitidas apenas as rubricas cujo {codIncCP} em S-1010 seja igual a [00, 01, 12, 14, 16, 22, 26, 32, 92, 94, 96, 98], cujo {codIncIRRF} em S-1010 seja igual a [0, 1, 9, 12, 14, 32, 34, 42, 47, 52, 54, 62, 64, 68, 71, 77, 79, 81, 82, 83, 92, 94, 9012, 9014, 9032, 9034, 9054, 9832, 9834, 9042, 9047, 9052, 9062, 9064] e cujo {codIncFGTS} em S-1010 seja igual a [00, 12, 92]. Caso sejam informadas rubricas com {codIncCP}, {codIncIRRF} e/ou {codIncFGTS} diferentes dos valores acima citados, retornar "alerta";
+b) Nos casos dos eventos S-1202 e S-1207, são permitidas apenas as rubricas cujo {codIncCPRP} em S-1010 seja igual a [00, 12, 32, 91, 92] e cujo {codIncIRRF} em S-1010 seja igual a [0, 1, 9, 12, 14, 32, 34, 42, 47, 52, 54, 62, 64, 68, 71, 77, 79, 81, 82, 83, 92, 94, 9012, 9014, 9032, 9034, 9054, 9832, 9834, 9042, 9047, 9052, 9062, 9064]. Caso sejam informadas rubricas com {codIncCPRP} e/ou {codIncIRRF} diferentes dos valores acima citados, retornar "alerta";
 c) No caso do evento S-1200, são permitidas apenas as rubricas cuja {natRubr} seja diferente de [9253].
 
 REGRA_RUBRICA_COMPATIVEL_RESC
@@ -544,9 +547,10 @@ REGRA_UNICIDADE_CONTRATUAL
 No caso de unicidade contratual, o período do contrato de trabalho reconhecido judicialmente (relativo ao campo {matricula}) deve abranger os períodos dos contratos de trabalho referentes às matrículas incorporadas (campos {matUnic}) e/ou contratos incorporados (campos {unicContr/codCateg} e {unicContr/dtInicio}). Além disso, as matrículas e/ou contratos incorporados devem estar desligados, ou seja, devem possuir infomação de data de desligamento e/ou data de término.
 
 REGRA_VALIDA_ADMISSAO_PRELIMINAR
-Para aceitação do evento Registro Preliminar de Trabalhador (S-2190):
+1) Para aceitação do evento Registro Preliminar de Trabalhador (S-2190):
 a) O CPF indicado no evento deve existir na base de dados do CPF (verificar CPF + data de nascimento);
 b) Para cada evento S-2190 pode haver apenas um evento de Admissão ou TSVE - Início completo (S-2200 ou S-2300), na relação de 1 para 1. Enquanto não houver o correspondente evento S-2200 ou S-2300 completo, o evento S-2190 fica pendente.
+2) Se o evento S-2190 se referir a "Empregado" ou "Agente Público" e for enviado sem o grupo {infoRegCTPS} preenchido, retornar "alerta".
 
 REGRA_VALIDA_CNPJ
 O CNPJ deve existir na base da RFB e o evento deve ser recebido se o CNPJ estiver na situação Ativa na data da transmissão do evento. 
