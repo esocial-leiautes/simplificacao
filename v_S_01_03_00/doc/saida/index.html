@@ -12,7 +12,7 @@
 <section id="folha-rosto">
 <img alt="Logomarca do eSocial" src="esocial-full.png" class="center">
 <h1 class="title has-text-centered is-3">LEIAUTES DO eSOCIAL<br><br>Versão S-1.3 (cons. até NT 04/2025)</h1><h2 class="title has-text-centered is-5">(aprovada pela Portaria Conjunta RFB/MPS/MTE nº 13, de 25/06/2024 – DOU de 28/06/2024)</h2><h2 class="title has-text-centered is-5" style="font-weight: normal">Observações: 1) Implantação no ambiente de produção: 02/12/2024; 2) Período de convivência de versões (S-1.2 e S-1.3): 02/12/2024 a 02/02/2025, sendo que os eventos S-1210 (S-5002) e S-2501 devem ser enviados exclusivamente na versão S-1.3 a partir do período de apuração 01/2025.</h2><br>
-<h1 class="title has-text-centered is-3">Março de 2025</h1>
+<h1 class="title has-text-centered is-3">Maio de 2025</h1>
 </section>
 <section class="section">
 <div class="container is-fluid">
@@ -68,6 +68,7 @@
 <li><a href="#evtFGTS">S-5013 - Informações do FGTS Consolidadas por Contribuinte</a></li>
 <li><a href="#evtTribProcTrab">S-5501 - Informações Consolidadas de Tributos Decorrentes de Processo Trabalhista</a></li>
 <li><a href="#evtFGTSProcTrab">S-5503 - Informações do FGTS por Trabalhador em Processo Trabalhista</a></li>
+<li><a href="#evtLancRemun">S-7500 - Lançamento de Remuneração de Trabalhador</a></li>
 <li><a href="#evtAnotJud">S-8200 - Anotação Judicial do Vínculo</a></li>
 <li><a href="#evtBaixa">S-8299 - Baixa Judicial do Vínculo</a></li>
 </ul>
@@ -45739,6 +45740,487 @@ Deve corresponder à multiplicação de <a href="#5503_infoTrabFGTS_infoFGTSProc
 a) Se <a href="#5503_infoTrabFGTS_infoFGTSProcTrab_ideEstab_basePerRef_tpValorProcTrab">tpValorProcTrab</a> = [71], alíquota de 8%;<br>
 b) Se <a href="#5503_infoTrabFGTS_infoFGTSProcTrab_ideEstab_basePerRef_tpValorProcTrab">tpValorProcTrab</a> = [72], alíquota de 2%;<br>
 c) Se <a href="#5503_infoTrabFGTS_infoFGTSProcTrab_ideEstab_basePerRef_tpValorProcTrab">tpValorProcTrab</a> = [73], alíquota de 3,2%.</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="evtLancRemun" class="title has-text-centered quebra-anterior">S-7500 - Lançamento de Remuneração de Trabalhador</h3>
+<table class="table is-fullwidth is-bordered resumo">
+<tbody>
+<tr>
+<th colspan="7">Tabela de Resumo dos Registros</th>
+</tr>
+<tr class="grupo">
+<td><strong>Grupo</strong></td>
+<td><strong>Grupo Pai</strong></td>
+<td><strong>Nível</strong></td>
+<td><strong>Descrição</strong></td>
+<td><strong>Ocor.</strong></td>
+<td><strong>Chave</strong></td>
+<td><strong>Condição</strong></td>
+</tr>
+<tr>
+<td id="r_7500_eSocial"><a href="#7500_eSocial">eSocial</a></td>
+<td></td>
+<td>1</td>
+<td>eSocial</td>
+<td>1</td>
+<td>-</td>
+<td>O</td>
+</tr>
+<tr>
+<td id="r_7500"><a href="#7500">evtLancRemun</a></td>
+<td><a href="#r_7500_eSocial">eSocial</a></td>
+<td>2</td>
+<td>Evento Lançamento de Remuneração de Trabalhador</td>
+<td>1</td>
+<td><a href="#7500_Id">Id</a></td>
+<td>O</td>
+</tr>
+<tr>
+<td id="r_7500_ideEvento"><a href="#7500_ideEvento">ideEvento</a></td>
+<td><a href="#r_7500">evtLancRemun</a></td>
+<td>3</td>
+<td>Informações de identificação do evento</td>
+<td>1</td>
+<td>-</td>
+<td>O</td>
+</tr>
+<tr>
+<td id="r_7500_ideEmpregador"><a href="#7500_ideEmpregador">ideEmpregador</a></td>
+<td><a href="#r_7500">evtLancRemun</a></td>
+<td>3</td>
+<td>Informações de identificação do empregador</td>
+<td>1</td>
+<td><a href="#7500_ideEmpregador_tpInsc">tpInsc</a>*, <a href="#7500_ideEmpregador_nrInsc">nrInsc</a>*</td>
+<td>O</td>
+</tr>
+<tr>
+<td id="r_7500_ideNotificacao"><a href="#7500_ideNotificacao">ideNotificacao</a></td>
+<td><a href="#r_7500">evtLancRemun</a></td>
+<td>3</td>
+<td>Identificação da NoRT</td>
+<td>1</td>
+<td><a href="#7500_ideNotificacao_notAFT">notAFT</a>*</td>
+<td>O</td>
+</tr>
+<tr>
+<td id="r_7500_ideTrabalhador"><a href="#7500_ideTrabalhador">ideTrabalhador</a></td>
+<td><a href="#r_7500">evtLancRemun</a></td>
+<td>3</td>
+<td>Identificação do trabalhador</td>
+<td>1</td>
+<td><a href="#7500_ideTrabalhador_cpfTrab">cpfTrab</a>*</td>
+<td>O</td>
+</tr>
+<tr>
+<td id="r_7500_ideTrabalhador_ideContrato"><a href="#7500_ideTrabalhador_ideContrato">ideContrato</a></td>
+<td><a href="#r_7500_ideTrabalhador">ideTrabalhador</a></td>
+<td>4</td>
+<td>Identificação do contrato</td>
+<td>1-99</td>
+<td><a href="#7500_ideTrabalhador_ideContrato_matricula">matricula</a>, <a href="#7500_ideTrabalhador_ideContrato_codCateg">codCateg</a>, <a href="#7500_ideTrabalhador_ideContrato_dtInicio">dtInicio</a></td>
+<td>O</td>
+</tr>
+<tr>
+<td id="r_7500_ideTrabalhador_ideContrato_idePeriodo"><a href="#7500_ideTrabalhador_ideContrato_idePeriodo">idePeriodo</a></td>
+<td><a href="#r_7500_ideTrabalhador_ideContrato">ideContrato</a></td>
+<td>5</td>
+<td>Identificação do período de referência da remuneração</td>
+<td>1-999</td>
+<td><a href="#7500_ideTrabalhador_ideContrato_idePeriodo_perRef">perRef</a></td>
+<td>O</td>
+</tr>
+<tr>
+<td id="r_7500_ideTrabalhador_ideContrato_idePeriodo_itensRemun"><a href="#7500_ideTrabalhador_ideContrato_idePeriodo_itensRemun">itensRemun</a></td>
+<td><a href="#r_7500_ideTrabalhador_ideContrato_idePeriodo">idePeriodo</a></td>
+<td>6</td>
+<td>Itens da remuneração do trabalhador</td>
+<td>1-200</td>
+<td>-</td>
+<td>O</td>
+</tr>
+</tbody>
+</table>
+
+<p class="is-size-6" style="margin-top: -1rem; margin-bottom: 2rem;">* Campo chave do evento</p>
+
+<h4 class="subtitle has-text-centered">Registros do evento S-7500 - Lançamento de Remuneração de Trabalhador</h4>
+<table class="table is-fullwidth is-bordered completo">
+<tbody>
+<tr>
+<th class="seletor">#</th>
+<th>Grupo/Campo</th>
+<th>Grupo Pai</th>
+<th>Elem.</th>
+<th>Tipo</th>
+<th>Ocor.</th>
+<th>Tamanho</th>
+<th>Dec.</th>
+<th>Descrição</th>
+</tr>
+<tr class="grupo">
+<td class="seletor" onclick="copiarCaminho.call(this)" title="7500_eSocial" id="7500_eSocial"></td>
+<td><a href="#r_7500_eSocial">eSocial</a></td>
+<td></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>eSocial</td>
+</tr>
+<tr class="grupo">
+<td class="seletor" onclick="copiarCaminho.call(this)" title="7500" id="7500"></td>
+<td><a href="#r_7500">evtLancRemun</a></td>
+<td><a href="#r_7500_eSocial">eSocial</a></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Evento Lançamento de Remuneração de Trabalhador<br>
+<strong>Regras de validação:</strong><br>
+<a href="#REGRA_BLOQUEIA_USO_CPF_EMPREGADOR">REGRA_BLOQUEIA_USO_CPF_EMPREGADOR</a><br>
+<a href="#REGRA_ENVIO_PROC_FECHAMENTO">REGRA_ENVIO_PROC_FECHAMENTO</a><br>
+<a href="#REGRA_EXISTE_INFO_EMPREGADOR">REGRA_EXISTE_INFO_EMPREGADOR</a><br>
+<a href="#REGRA_GERAL_VALIDA_DADOS_TABCONTRIB">REGRA_GERAL_VALIDA_DADOS_TABCONTRIB</a></td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="7500_Id" id="7500_Id"></td>
+<td>Id</td>
+<td><a href="#r_7500">evtLancRemun</a></td>
+<td>A</td>
+<td>C</td>
+<td>1</td>
+<td>36</td>
+<td>-</td>
+<td>Identificação única do evento.<br>
+<strong>Regra de validação:</strong><br>
+<a href="#REGRA_VALIDA_ID_EVENTO">REGRA_VALIDA_ID_EVENTO</a></td>
+</tr>
+<tr class="grupo">
+<td class="seletor" onclick="copiarCaminho.call(this)" title="7500_ideEvento" id="7500_ideEvento"></td>
+<td><a href="#r_7500_ideEvento">ideEvento</a></td>
+<td><a href="#r_7500">evtLancRemun</a></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Informações de identificação do evento.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="7500_ideEvento_indRetif" id="7500_ideEvento_indRetif"></td>
+<td>indRetif</td>
+<td><a href="#r_7500_ideEvento">ideEvento</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1</td>
+<td>-</td>
+<td>Informe [1] para arquivo original ou [2] para arquivo de retificação.<br>
+<strong>Valores válidos:</strong><br>
+<strong>1</strong> - Original<br>
+<strong>2</strong> - Retificação</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="7500_ideEvento_nrRecibo" id="7500_ideEvento_nrRecibo"></td>
+<td>nrRecibo</td>
+<td><a href="#r_7500_ideEvento">ideEvento</a></td>
+<td>E</td>
+<td>C</td>
+<td>0-1</td>
+<td>23</td>
+<td>-</td>
+<td>Preencher com o número do recibo do arquivo a ser retificado.<br>
+<strong>Validação:</strong> O preenchimento é obrigatório se <a href="#7500_ideEvento_indRetif">indRetif</a> = [2].<br>
+Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo retificado.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="7500_ideEvento_tpAmb" id="7500_ideEvento_tpAmb"></td>
+<td>tpAmb</td>
+<td><a href="#r_7500_ideEvento">ideEvento</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1</td>
+<td>-</td>
+<td>Identificação do ambiente.<br>
+<strong>Valores válidos:</strong><br>
+<strong>1</strong> - Produção<br>
+<strong>2</strong> - Produção restrita<br>
+<strong>7</strong> - Validação (uso interno)<br>
+<strong>8</strong> - Teste (uso interno)<br>
+<strong>9</strong> - Desenvolvimento (uso interno)</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="7500_ideEvento_procEmi" id="7500_ideEvento_procEmi"></td>
+<td>procEmi</td>
+<td><a href="#r_7500_ideEvento">ideEvento</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1-2</td>
+<td>-</td>
+<td>Processo de emissão do evento.<br>
+<strong>Valores válidos:</strong><br>
+<strong>1</strong> - Aplicativo do empregador<br>
+<strong>2</strong> - Aplicativo governamental - Simplificado Pessoa Física<br>
+<strong>3</strong> - Aplicativo governamental - Web Geral<br>
+<strong>4</strong> - Aplicativo governamental - Simplificado Pessoa Jurídica<br>
+<strong>22</strong> - Aplicativo governamental para dispositivos móveis - Empregador Doméstico</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="7500_ideEvento_verProc" id="7500_ideEvento_verProc"></td>
+<td>verProc</td>
+<td><a href="#r_7500_ideEvento">ideEvento</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>1-20</td>
+<td>-</td>
+<td>Versão do processo de emissão do evento. Informar a versão do aplicativo emissor do evento.</td>
+</tr>
+<tr class="grupo">
+<td class="seletor" onclick="copiarCaminho.call(this)" title="7500_ideEmpregador" id="7500_ideEmpregador"></td>
+<td><a href="#r_7500_ideEmpregador">ideEmpregador</a></td>
+<td><a href="#r_7500">evtLancRemun</a></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Informações de identificação do empregador.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="7500_ideEmpregador_tpInsc" id="7500_ideEmpregador_tpInsc"></td>
+<td>tpInsc</td>
+<td><a href="#r_7500_ideEmpregador">ideEmpregador</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1</td>
+<td>-</td>
+<td>Preencher com o código correspondente ao tipo de inscrição, conforme <a href="tabelas.html#05">Tabela 05</a>.<br>
+<strong>Valores válidos:</strong><br>
+<strong>1</strong> - CNPJ<br>
+<strong>2</strong> - CPF</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="7500_ideEmpregador_nrInsc" id="7500_ideEmpregador_nrInsc"></td>
+<td>nrInsc</td>
+<td><a href="#r_7500_ideEmpregador">ideEmpregador</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>8, 11 ou 14</td>
+<td>-</td>
+<td>Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo <a href="#7500_ideEmpregador_tpInsc">ideEmpregador/tpInsc</a> e conforme informado em S-1000.</td>
+</tr>
+<tr class="grupo">
+<td class="seletor" onclick="copiarCaminho.call(this)" title="7500_ideNotificacao" id="7500_ideNotificacao"></td>
+<td><a href="#r_7500_ideNotificacao">ideNotificacao</a></td>
+<td><a href="#r_7500">evtLancRemun</a></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Identificação da Notificação para Regularização Trabalhista (NoRT).</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="7500_ideNotificacao_notAFT" id="7500_ideNotificacao_notAFT"></td>
+<td>notAFT</td>
+<td><a href="#r_7500_ideNotificacao">ideNotificacao</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>12</td>
+<td>-</td>
+<td>Número da NoRT.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="7500_ideNotificacao_dtNot" id="7500_ideNotificacao_dtNot"></td>
+<td>dtNot</td>
+<td><a href="#r_7500_ideNotificacao">ideNotificacao</a></td>
+<td>E</td>
+<td>D</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Data da NoRT.</td>
+</tr>
+<tr class="grupo">
+<td class="seletor" onclick="copiarCaminho.call(this)" title="7500_ideTrabalhador" id="7500_ideTrabalhador"></td>
+<td><a href="#r_7500_ideTrabalhador">ideTrabalhador</a></td>
+<td><a href="#r_7500">evtLancRemun</a></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Identificação do trabalhador.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="7500_ideTrabalhador_cpfTrab" id="7500_ideTrabalhador_cpfTrab"></td>
+<td>cpfTrab</td>
+<td><a href="#r_7500_ideTrabalhador">ideTrabalhador</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>11</td>
+<td>-</td>
+<td>Preencher com o número do CPF do trabalhador.<br>
+<strong>Validação:</strong> Deve ser um CPF válido.</td>
+</tr>
+<tr class="grupo">
+<td class="seletor" onclick="copiarCaminho.call(this)" title="7500_ideTrabalhador_ideContrato" id="7500_ideTrabalhador_ideContrato"></td>
+<td><a href="#r_7500_ideTrabalhador_ideContrato">ideContrato</a></td>
+<td><a href="#r_7500_ideTrabalhador">ideTrabalhador</a></td>
+<td>G</td>
+<td>-</td>
+<td>1-99</td>
+<td>-</td>
+<td>-</td>
+<td>Identificação do contrato.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="7500_ideTrabalhador_ideContrato_matricula" id="7500_ideTrabalhador_ideContrato_matricula"></td>
+<td>matricula</td>
+<td><a href="#r_7500_ideTrabalhador_ideContrato">ideContrato</a></td>
+<td>E</td>
+<td>C</td>
+<td>0-1</td>
+<td>1-30</td>
+<td>-</td>
+<td>Matrícula atribuída ao trabalhador pela empresa ou, no caso de servidor público, a matrícula constante no Sistema de Administração de Recursos Humanos do órgão.<br>
+<strong>Validação:</strong> Deve corresponder à matrícula informada pelo empregador no evento S-2190, S-2200, S-2300 ou S-7200 do respectivo contrato. Não preencher no caso de TSVE sem informação de matrícula no evento S-2300.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="7500_ideTrabalhador_ideContrato_codCateg" id="7500_ideTrabalhador_ideContrato_codCateg"></td>
+<td>codCateg</td>
+<td><a href="#r_7500_ideTrabalhador_ideContrato">ideContrato</a></td>
+<td>E</td>
+<td>N</td>
+<td>0-1</td>
+<td>3</td>
+<td>-</td>
+<td>Preencher com o código da categoria do trabalhador.<br>
+<strong>Validação:</strong> Informação obrigatória e exclusiva se o campo <a href="#7500_ideTrabalhador_ideContrato_matricula">matricula</a> não estiver preenchido. Deve ser igual ao código de categoria informado no evento S-2300.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="7500_ideTrabalhador_ideContrato_dtInicio" id="7500_ideTrabalhador_ideContrato_dtInicio"></td>
+<td>dtInicio</td>
+<td><a href="#r_7500_ideTrabalhador_ideContrato">ideContrato</a></td>
+<td>E</td>
+<td>D</td>
+<td>0-1</td>
+<td>-</td>
+<td>-</td>
+<td>Data de início de TSVE, que pode ser:<br>
+a) Para o cooperado, a data de ingresso na cooperativa;<br>
+b) Para o diretor não empregado, a data de posse no cargo;<br>
+c) Para o dirigente sindical, a data de início do mandato no sindicato;<br>
+d) Para o estagiário, a data de início do estágio;<br>
+e) Para o trabalhador avulso, a data de ingresso no Órgão Gestor de Mão de Obra - OGMO ou no sindicato;<br>
+f) Para o servidor público exercente de cargo eletivo, a data de início do mandato;<br>
+g) Para os demais trabalhadores, a data de início das atividades.<br>
+<strong>Validação:</strong> Informação obrigatória e exclusiva se o campo <a href="#7500_ideTrabalhador_ideContrato_matricula">matricula</a> não estiver preenchido. Deve ser igual à data de início informada no evento S-2300.</td>
+</tr>
+<tr class="grupo">
+<td class="seletor" onclick="copiarCaminho.call(this)" title="7500_ideTrabalhador_ideContrato_idePeriodo" id="7500_ideTrabalhador_ideContrato_idePeriodo"></td>
+<td><a href="#r_7500_ideTrabalhador_ideContrato_idePeriodo">idePeriodo</a></td>
+<td><a href="#r_7500_ideTrabalhador_ideContrato">ideContrato</a></td>
+<td>G</td>
+<td>-</td>
+<td>1-999</td>
+<td>-</td>
+<td>-</td>
+<td>Identificação do período de referência da remuneração.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="7500_ideTrabalhador_ideContrato_idePeriodo_perRef" id="7500_ideTrabalhador_ideContrato_idePeriodo_perRef"></td>
+<td>perRef</td>
+<td><a href="#r_7500_ideTrabalhador_ideContrato_idePeriodo">idePeriodo</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>4 ou 7</td>
+<td>-</td>
+<td>Informar o período ao qual se refere a remuneração, no formato AAAA-MM ou AAAA.<br>
+<strong>Validação:</strong> Deve ser igual ou anterior ao mês/ano corrente.</td>
+</tr>
+<tr class="grupo">
+<td class="seletor" onclick="copiarCaminho.call(this)" title="7500_ideTrabalhador_ideContrato_idePeriodo_itensRemun" id="7500_ideTrabalhador_ideContrato_idePeriodo_itensRemun"></td>
+<td><a href="#r_7500_ideTrabalhador_ideContrato_idePeriodo_itensRemun">itensRemun</a></td>
+<td><a href="#r_7500_ideTrabalhador_ideContrato_idePeriodo">idePeriodo</a></td>
+<td>G</td>
+<td>-</td>
+<td>1-200</td>
+<td>-</td>
+<td>-</td>
+<td>Rubricas que compõem a remuneração do trabalhador.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="7500_ideTrabalhador_ideContrato_idePeriodo_itensRemun_codRubr" id="7500_ideTrabalhador_ideContrato_idePeriodo_itensRemun_codRubr"></td>
+<td>codRubr</td>
+<td><a href="#r_7500_ideTrabalhador_ideContrato_idePeriodo_itensRemun">itensRemun</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>1-30</td>
+<td>-</td>
+<td>Informar o código atribuído pelo empregador que identifica a rubrica em sua folha de pagamento ou o código da rubrica constante da Tabela de Rubricas Padrão.<br>
+<strong>Validação:</strong> Deve ser um código válido e existente na Tabela de Rubricas do eSocial.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="7500_ideTrabalhador_ideContrato_idePeriodo_itensRemun_ideTabRubr" id="7500_ideTrabalhador_ideContrato_idePeriodo_itensRemun_ideTabRubr"></td>
+<td>ideTabRubr</td>
+<td><a href="#r_7500_ideTrabalhador_ideContrato_idePeriodo_itensRemun">itensRemun</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>1-8</td>
+<td>-</td>
+<td>Preencher com o identificador da Tabela de Rubricas para a rubrica definida em <a href="#7500_ideTrabalhador_ideContrato_idePeriodo_itensRemun_codRubr">codRubr</a>.<br>
+<strong>Validação:</strong> Deve ser igual a [1].</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="7500_ideTrabalhador_ideContrato_idePeriodo_itensRemun_qtdRubr" id="7500_ideTrabalhador_ideContrato_idePeriodo_itensRemun_qtdRubr"></td>
+<td>qtdRubr</td>
+<td><a href="#r_7500_ideTrabalhador_ideContrato_idePeriodo_itensRemun">itensRemun</a></td>
+<td>E</td>
+<td>N</td>
+<td>0-1</td>
+<td>1-12</td>
+<td>2</td>
+<td>Informar a quantidade de referência para apuração (em horas, cotas, meses, etc.). Ex.: Quantidade de horas extras trabalhadas relacionada com uma rubrica de hora extra, quantidade de dias trabalhados relacionada com uma rubrica de salário, etc.<br>
+<strong>Validação:</strong> Deve ser maior que 0 (zero).</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="7500_ideTrabalhador_ideContrato_idePeriodo_itensRemun_fatorRubr" id="7500_ideTrabalhador_ideContrato_idePeriodo_itensRemun_fatorRubr"></td>
+<td>fatorRubr</td>
+<td><a href="#r_7500_ideTrabalhador_ideContrato_idePeriodo_itensRemun">itensRemun</a></td>
+<td>E</td>
+<td>N</td>
+<td>0-1</td>
+<td>1-5</td>
+<td>2</td>
+<td>Informar o fator, percentual, etc. da rubrica, quando necessário. Ex.: Adicional de horas extras 50%, relacionado a uma rubrica de horas extras: Fator = 50.<br>
+<strong>Validação:</strong> Deve ser maior que 0 (zero).</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="7500_ideTrabalhador_ideContrato_idePeriodo_itensRemun_vrRubr" id="7500_ideTrabalhador_ideContrato_idePeriodo_itensRemun_vrRubr"></td>
+<td>vrRubr</td>
+<td><a href="#r_7500_ideTrabalhador_ideContrato_idePeriodo_itensRemun">itensRemun</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1-14</td>
+<td>2</td>
+<td>Valor total da rubrica.<br>
+<strong>Validação:</strong> Deve ser maior que 0 (zero).</td>
 </tr>
 </tbody>
 </table>

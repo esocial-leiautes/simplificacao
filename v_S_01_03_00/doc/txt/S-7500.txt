@@ -1,0 +1,380 @@
+S-7500 - evtLancRemun
+Lançamento de Remuneração de Trabalhador
+
+Nível: 1
+Nome: eSocial
+Pai: -
+Descrição: eSocial
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 2
+Nome: evtLancRemun
+Pai: eSocial
+Descrição: Evento Lançamento de Remuneração de Trabalhador
+Ocorrência: 1
+Chave: Id
+Condição: O
+
+Nível: 3
+Nome: ideEvento
+Pai: evtLancRemun
+Descrição: Informações de identificação do evento.
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 3
+Nome: ideEmpregador
+Pai: evtLancRemun
+Descrição: Informações de identificação do empregador.
+Ocorrência: 1
+Chave: tpInsc*, nrInsc*
+Condição: O
+
+Nível: 3
+Nome: ideNotificacao
+Pai: evtLancRemun
+Descrição: Identificação da NoRT.
+Ocorrência: 1
+Chave: notAFT*
+Condição: O
+
+Nível: 3
+Nome: ideTrabalhador
+Pai: evtLancRemun
+Descrição: Identificação do trabalhador.
+Ocorrência: 1
+Chave: cpfTrab*
+Condição: O
+
+Nível: 4
+Nome: ideContrato
+Pai: ideTrabalhador
+Descrição: Identificação do contrato.
+Ocorrência: 1-99
+Chave: matricula, codCateg, dtInicio
+Condição: O
+
+Nível: 5
+Nome: idePeriodo
+Pai: ideContrato
+Descrição: Identificação do período de referência da remuneração.
+Ocorrência: 1-999
+Chave: perRef
+Condição: O
+
+Nível: 6
+Nome: itensRemun
+Pai: idePeriodo
+Descrição: Itens da remuneração do trabalhador
+Ocorrência: 1-200
+Chave: -
+Condição: O
+
+Nome: eSocial
+Pai: -
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: eSocial
+
+Nome: evtLancRemun
+Pai: eSocial
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Evento Lançamento de Remuneração de Trabalhador
+Regras de validação:
+REGRA_BLOQUEIA_USO_CPF_EMPREGADOR
+REGRA_ENVIO_PROC_FECHAMENTO
+REGRA_EXISTE_INFO_EMPREGADOR
+REGRA_GERAL_VALIDA_DADOS_TABCONTRIB
+
+Nome: Id
+Pai: evtLancRemun
+Elem.: A
+Tipo: C
+Ocorrência: 1
+Tamanho: 36
+Dec.: -
+Descrição: Identificação única do evento.
+Regras de validação:
+REGRA_VALIDA_ID_EVENTO
+
+Nome: ideEvento
+Pai: evtLancRemun
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do evento.
+
+Nome: indRetif
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Informe [1] para arquivo original ou [2] para arquivo de retificação.
+Valores válidos:
+1 - Original
+2 - Retificação
+
+Nome: nrRecibo
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 23
+Dec.: -
+Descrição: Preencher com o número do recibo do arquivo a ser retificado.
+Validação: O preenchimento é obrigatório se {indRetif}(./indRetif) = [2].
+Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo retificado.
+
+Nome: tpAmb
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Identificação do ambiente.
+Valores válidos:
+1 - Produção
+2 - Produção restrita
+7 - Validação (uso interno)
+8 - Teste (uso interno)
+9 - Desenvolvimento (uso interno)
+
+Nome: procEmi
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-2
+Dec.: -
+Descrição: Processo de emissão do evento.
+Valores válidos:
+1 - Aplicativo do empregador
+2 - Aplicativo governamental - Simplificado Pessoa Física
+3 - Aplicativo governamental - Web Geral
+4 - Aplicativo governamental - Simplificado Pessoa Jurídica
+22 - Aplicativo governamental para dispositivos móveis - Empregador Doméstico
+
+Nome: verProc
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-20
+Dec.: -
+Descrição: Versão do processo de emissão do evento. Informar a versão do aplicativo emissor do evento.
+
+Nome: ideEmpregador
+Pai: evtLancRemun
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do empregador.
+
+Nome: tpInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+
+Nome: nrInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 8, 11 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {ideEmpregador/tpInsc}(./tpInsc) e conforme informado em S-1000.
+
+Nome: ideNotificacao
+Pai: evtLancRemun
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Identificação da Notificação para Regularização Trabalhista (NoRT).
+
+Nome: notAFT
+Pai: ideNotificacao
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 12
+Dec.: -
+Descrição: Número da NoRT.
+
+Nome: dtNot
+Pai: ideNotificacao
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Data da NoRT.
+
+Nome: ideTrabalhador
+Pai: evtLancRemun
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Identificação do trabalhador.
+
+Nome: cpfTrab
+Pai: ideTrabalhador
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11
+Dec.: -
+Descrição: Preencher com o número do CPF do trabalhador.
+Validação: Deve ser um CPF válido.
+
+Nome: ideContrato
+Pai: ideTrabalhador
+Elem.: G
+Tipo: -
+Ocorrência: 1-99
+Tamanho: -
+Dec.: -
+Descrição: Identificação do contrato.
+
+Nome: matricula
+Pai: ideContrato
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-30
+Dec.: -
+Descrição: Matrícula atribuída ao trabalhador pela empresa ou, no caso de servidor público, a matrícula constante no Sistema de Administração de Recursos Humanos do órgão.
+Validação: Deve corresponder à matrícula informada pelo empregador no evento S-2190, S-2200, S-2300 ou S-7200 do respectivo contrato. Não preencher no caso de TSVE sem informação de matrícula no evento S-2300.
+
+Nome: codCateg
+Pai: ideContrato
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 3
+Dec.: -
+Descrição: Preencher com o código da categoria do trabalhador.
+Validação: Informação obrigatória e exclusiva se o campo {matricula}(./matricula) não estiver preenchido. Deve ser igual ao código de categoria informado no evento S-2300.
+
+Nome: dtInicio
+Pai: ideContrato
+Elem.: E
+Tipo: D
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Data de início de TSVE, que pode ser:
+a) Para o cooperado, a data de ingresso na cooperativa;
+b) Para o diretor não empregado, a data de posse no cargo;
+c) Para o dirigente sindical, a data de início do mandato no sindicato;
+d) Para o estagiário, a data de início do estágio;
+e) Para o trabalhador avulso, a data de ingresso no Órgão Gestor de Mão de Obra - OGMO ou no sindicato;
+f) Para o servidor público exercente de cargo eletivo, a data de início do mandato;
+g) Para os demais trabalhadores, a data de início das atividades.
+Validação: Informação obrigatória e exclusiva se o campo {matricula}(./matricula) não estiver preenchido. Deve ser igual à data de início informada no evento S-2300.
+
+Nome: idePeriodo
+Pai: ideContrato
+Elem.: G
+Tipo: -
+Ocorrência: 1-999
+Tamanho: -
+Dec.: -
+Descrição: Identificação do período de referência da remuneração.
+
+Nome: perRef
+Pai: idePeriodo
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 4 ou 7
+Dec.: -
+Descrição: Informar o período ao qual se refere a remuneração, no formato AAAA-MM ou AAAA.
+Validação: Deve ser igual ou anterior ao mês/ano corrente.
+
+Nome: itensRemun
+Pai: idePeriodo
+Elem.: G
+Tipo: -
+Ocorrência: 1-200
+Tamanho: -
+Dec.: -
+Descrição: Rubricas que compõem a remuneração do trabalhador.
+
+Nome: codRubr
+Pai: itensRemun
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-30
+Dec.: -
+Descrição: Informar o código atribuído pelo empregador que identifica a rubrica em sua folha de pagamento ou o código da rubrica constante da Tabela de Rubricas Padrão.
+Validação: Deve ser um código válido e existente na Tabela de Rubricas do eSocial.
+
+Nome: ideTabRubr
+Pai: itensRemun
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-8
+Dec.: -
+Descrição: Preencher com o identificador da Tabela de Rubricas para a rubrica definida em {codRubr}(./codRubr).
+Validação: Deve ser igual a [1].
+
+Nome: qtdRubr
+Pai: itensRemun
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-12
+Dec.: 2
+Descrição: Informar a quantidade de referência para apuração (em horas, cotas, meses, etc.). Ex.: Quantidade de horas extras trabalhadas relacionada com uma rubrica de hora extra, quantidade de dias trabalhados relacionada com uma rubrica de salário, etc.
+Validação: Deve ser maior que 0 (zero).
+
+Nome: fatorRubr
+Pai: itensRemun
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-5
+Dec.: 2
+Descrição: Informar o fator, percentual, etc. da rubrica, quando necessário. Ex.: Adicional de horas extras 50%, relacionado a uma rubrica de horas extras: Fator = 50.
+Validação: Deve ser maior que 0 (zero).
+
+Nome: vrRubr
+Pai: itensRemun
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor total da rubrica.
+Validação: Deve ser maior que 0 (zero).
+

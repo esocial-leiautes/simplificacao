@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://www.esocial.gov.br/schema/evt/evtLancRemun/v_S_01_03_00" targetNamespace="http://www.esocial.gov.br/schema/evt/evtLancRemun/v_S_01_03_00" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+    <xs:include schemaLocation="tipos.xsd" />
+    <xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd" />
+    <xs:element name="eSocial">
+        <xs:annotation>
+            <xs:documentation>S-7500 - Lançamento de Remuneração de Trabalhador</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="evtLancRemun">
+                    <xs:annotation>
+                        <xs:documentation>Evento Lançamento de Remuneração de Trabalhador</xs:documentation>
+                        <xs:documentation>CHAVE_GRUPO: {Id}</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_BLOQUEIA_USO_CPF_EMPREGADOR</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_ENVIO_PROC_FECHAMENTO</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_EXISTE_INFO_EMPREGADOR</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_GERAL_VALIDA_DADOS_TABCONTRIB</xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="ideEvento" type="T_ideEvento_trab" />
+                            <xs:element name="ideEmpregador" type="T_ideEmpregador" />
+                            <xs:element name="ideNotificacao">
+                                <xs:annotation>
+                                    <xs:documentation>Identificação da NoRT.</xs:documentation>
+                                    <xs:documentation>DESCRICAO_COMPLETA:Identificação da Notificação para Regularização Trabalhista (NoRT).</xs:documentation>
+                                    <xs:documentation>CHAVE_GRUPO: {notAFT*}</xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="notAFT" type="TS_notAFT">
+                                            <xs:annotation>
+                                                <xs:documentation>Número da NoRT.</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="dtNot" type="xs:date">
+                                            <xs:annotation>
+                                                <xs:documentation>Data da NoRT.</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="ideTrabalhador">
+                                <xs:annotation>
+                                    <xs:documentation>Identificação do trabalhador.</xs:documentation>
+                                    <xs:documentation>CHAVE_GRUPO: {cpfTrab*}</xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="cpfTrab" type="TS_cpfRemun" />
+                                        <xs:element name="ideContrato" maxOccurs="99">
+                                            <xs:annotation>
+                                                <xs:documentation>Identificação do contrato.</xs:documentation>
+                                                <xs:documentation>CHAVE_GRUPO: {matricula}, {codCateg}, {dtInicio}</xs:documentation>
+                                            </xs:annotation>
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="matricula" minOccurs="0" type="TS_matricula">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Matrícula atribuída ao trabalhador pela empresa ou, no caso de servidor público, a matrícula constante no Sistema de Administração de Recursos Humanos do órgão.</xs:documentation>
+                                                            <xs:documentation>Validação: Deve corresponder à matrícula informada pelo empregador no evento S-2190, S-2200, S-2300 ou S-7200 do respectivo contrato. Não preencher no caso de TSVE sem informação de matrícula no evento S-2300.</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:element>
+                                                    <xs:element name="codCateg" minOccurs="0" type="TS_codCateg">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Preencher com o código da categoria do trabalhador.</xs:documentation>
+                                                            <xs:documentation>Validação: Informação obrigatória e exclusiva se o campo {matricula}(./matricula) não estiver preenchido. Deve ser igual ao código de categoria informado no evento S-2300.</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:element>
+                                                    <xs:element name="dtInicio" minOccurs="0" type="xs:date">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Data de início de TSVE, que pode ser:</xs:documentation>
+                                                            <xs:documentation>a) Para o cooperado, a data de ingresso na cooperativa;</xs:documentation>
+                                                            <xs:documentation>b) Para o diretor não empregado, a data de posse no cargo;</xs:documentation>
+                                                            <xs:documentation>c) Para o dirigente sindical, a data de início do mandato no sindicato;</xs:documentation>
+                                                            <xs:documentation>d) Para o estagiário, a data de início do estágio;</xs:documentation>
+                                                            <xs:documentation>e) Para o trabalhador avulso, a data de ingresso no Órgão Gestor de Mão de Obra - OGMO ou no sindicato;</xs:documentation>
+                                                            <xs:documentation>f) Para o servidor público exercente de cargo eletivo, a data de início do mandato;</xs:documentation>
+                                                            <xs:documentation>g) Para os demais trabalhadores, a data de início das atividades.</xs:documentation>
+                                                            <xs:documentation>Validação: Informação obrigatória e exclusiva se o campo {matricula}(./matricula) não estiver preenchido. Deve ser igual à data de início informada no evento S-2300.</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:element>
+                                                    <xs:element name="idePeriodo" maxOccurs="999">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Identificação do período de referência da remuneração.</xs:documentation>
+                                                            <xs:documentation>CHAVE_GRUPO: {perRef}</xs:documentation>
+                                                        </xs:annotation>
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:element name="perRef" type="TS_perApur">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Informar o período ao qual se refere a remuneração, no formato AAAA-MM ou AAAA.</xs:documentation>
+                                                                        <xs:documentation>Validação: Deve ser igual ou anterior ao mês/ano corrente.</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:element>
+                                                                <xs:element name="itensRemun" type="T_itensRemun" maxOccurs="200" />
+                                                            </xs:sequence>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>                     
+                        </xs:sequence>
+                        <xs:attribute name="Id" use="required" type="TS_Id" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:element ref="ds:Signature" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="T_itensRemun">
+        <xs:annotation>
+            <xs:documentation>Itens da remuneração do trabalhador</xs:documentation>
+            <xs:documentation>DESCRICAO_COMPLETA:Rubricas que compõem a remuneração do trabalhador.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="codRubr" type="TS_codigo_esocial">
+                <xs:annotation>
+                    <xs:documentation>Informar o código atribuído pelo empregador que identifica a rubrica em sua folha de pagamento ou o código da rubrica constante da Tabela de Rubricas Padrão.</xs:documentation>
+                    <xs:documentation>Validação: Deve ser um código válido e existente na Tabela de Rubricas do eSocial.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="ideTabRubr" type="TS_ideTabRubr">
+                <xs:annotation>
+                    <xs:documentation>Preencher com o identificador da Tabela de Rubricas para a rubrica definida em {codRubr}(./codRubr).</xs:documentation>
+                    <xs:documentation>Validação: Deve ser igual a [1].</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="qtdRubr" minOccurs="0" type="TS_qtdRubr" />
+            <xs:element name="fatorRubr" minOccurs="0" type="TS_fator" />
+            <xs:element name="vrRubr" type="TS_vrRubr" />
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
