@@ -68,6 +68,7 @@
 <li><a href="#evtFGTS">S-5013 - Informações do FGTS Consolidadas por Contribuinte</a></li>
 <li><a href="#evtTribProcTrab">S-5501 - Informações Consolidadas de Tributos Decorrentes de Processo Trabalhista</a></li>
 <li><a href="#evtFGTSProcTrab">S-5503 - Informações do FGTS por Trabalhador em Processo Trabalhista</a></li>
+<li><a href="#evtBaixaAdm">S-7299 - Baixa Judicial do Vínculo</a></li>
 <li><a href="#evtLancRemun">S-7500 - Lançamento Administrativo de Remuneração de Trabalhador</a></li>
 <li><a href="#evtAnotJud">S-8200 - Anotação Judicial do Vínculo</a></li>
 <li><a href="#evtBaixa">S-8299 - Baixa Judicial do Vínculo</a></li>
@@ -45746,6 +45747,363 @@ c) Se <a href="#5503_infoTrabFGTS_infoFGTSProcTrab_ideEstab_basePerRef_tpValorPr
 </tbody>
 </table>
 
+<h3 id="evtBaixaAdm" class="title has-text-centered quebra-anterior">S-7299 - Baixa Judicial do Vínculo</h3>
+<table class="table is-fullwidth is-bordered resumo">
+<tbody>
+<tr>
+<th colspan="7">Tabela de Resumo dos Registros</th>
+</tr>
+<tr class="grupo">
+<td><strong>Grupo</strong></td>
+<td><strong>Grupo Pai</strong></td>
+<td><strong>Nível</strong></td>
+<td><strong>Descrição</strong></td>
+<td><strong>Ocor.</strong></td>
+<td><strong>Chave</strong></td>
+<td><strong>Condição</strong></td>
+</tr>
+<tr>
+<td id="r_7299_eSocial"><a href="#7299_eSocial">eSocial</a></td>
+<td></td>
+<td>1</td>
+<td>eSocial</td>
+<td>1</td>
+<td>-</td>
+<td>O</td>
+</tr>
+<tr>
+<td id="r_7299"><a href="#7299">evtBaixaAdm</a></td>
+<td><a href="#r_7299_eSocial">eSocial</a></td>
+<td>2</td>
+<td>Evento Baixa Administrativa do Vínculo</td>
+<td>1</td>
+<td><a href="#7299_Id">Id</a></td>
+<td>O</td>
+</tr>
+<tr>
+<td id="r_7299_ideEvento"><a href="#7299_ideEvento">ideEvento</a></td>
+<td><a href="#r_7299">evtBaixaAdm</a></td>
+<td>3</td>
+<td>Informações de identificação do evento</td>
+<td>1</td>
+<td>-</td>
+<td>O</td>
+</tr>
+<tr>
+<td id="r_7299_ideEmpregador"><a href="#7299_ideEmpregador">ideEmpregador</a></td>
+<td><a href="#r_7299">evtBaixaAdm</a></td>
+<td>3</td>
+<td>Informações de identificação do empregador</td>
+<td>1</td>
+<td><a href="#7299_ideEmpregador_tpInsc">tpInsc</a>*, <a href="#7299_ideEmpregador_nrInsc">nrInsc</a>*</td>
+<td>O</td>
+</tr>
+<tr>
+<td id="r_7299_ideVinculo"><a href="#7299_ideVinculo">ideVinculo</a></td>
+<td><a href="#r_7299">evtBaixaAdm</a></td>
+<td>3</td>
+<td>Informações de identificação do trabalhador e do vínculo</td>
+<td>1</td>
+<td><a href="#7299_ideVinculo_cpfTrab">cpfTrab</a>*, <a href="#7299_ideVinculo_matricula">matricula</a>*</td>
+<td>O</td>
+</tr>
+<tr>
+<td id="r_7299_infoBaixa"><a href="#7299_infoBaixa">infoBaixa</a></td>
+<td><a href="#r_7299">evtBaixaAdm</a></td>
+<td>3</td>
+<td>Informações relativas à baixa judicial do vínculo</td>
+<td>1</td>
+<td><a href="#7299_infoBaixa_dtDeslig">dtDeslig</a>*</td>
+<td>O</td>
+</tr>
+</tbody>
+</table>
+
+<p class="is-size-6" style="margin-top: -1rem; margin-bottom: 2rem;">* Campo chave do evento</p>
+
+<h4 class="subtitle has-text-centered">Registros do evento S-7299 - Baixa Judicial do Vínculo</h4>
+<table class="table is-fullwidth is-bordered completo">
+<tbody>
+<tr>
+<th class="seletor">#</th>
+<th>Grupo/Campo</th>
+<th>Grupo Pai</th>
+<th>Elem.</th>
+<th>Tipo</th>
+<th>Ocor.</th>
+<th>Tamanho</th>
+<th>Dec.</th>
+<th>Descrição</th>
+</tr>
+<tr class="grupo">
+<td class="seletor" onclick="copiarCaminho.call(this)" title="7299_eSocial" id="7299_eSocial"></td>
+<td><a href="#r_7299_eSocial">eSocial</a></td>
+<td></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>eSocial</td>
+</tr>
+<tr class="grupo">
+<td class="seletor" onclick="copiarCaminho.call(this)" title="7299" id="7299"></td>
+<td><a href="#r_7299">evtBaixaAdm</a></td>
+<td><a href="#r_7299_eSocial">eSocial</a></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Evento Baixa Administrativa do Vínculo.<br>
+<strong>Regras de validação:</strong><br>
+<a href="#REGRA_BAIXA_JUDICIAL">REGRA_BAIXA_JUDICIAL</a><br>
+<a href="#REGRA_BAIXA_TRABALHADOR_AFASTADO">REGRA_BAIXA_TRABALHADOR_AFASTADO</a><br>
+<a href="#REGRA_DESLIG_EXCLUI_DESLIGAMENTO_REINTEG">REGRA_DESLIG_EXCLUI_DESLIGAMENTO_REINTEG</a><br>
+<a href="#REGRA_DESLIG_EXCLUSAO_EVENTO">REGRA_DESLIG_EXCLUSAO_EVENTO</a><br>
+<a href="#REGRA_DESLIG_EXISTE_EVENTO_POSTERIOR">REGRA_DESLIG_EXISTE_EVENTO_POSTERIOR</a><br>
+<a href="#REGRA_ENVIO_PROC_FECHAMENTO">REGRA_ENVIO_PROC_FECHAMENTO</a><br>
+<a href="#REGRA_EVENTOS_EXTEMP">REGRA_EVENTOS_EXTEMP</a><br>
+<a href="#REGRA_EXISTE_INFO_EMPREGADOR">REGRA_EXISTE_INFO_EMPREGADOR</a><br>
+<a href="#REGRA_RETIFICA_MESMO_VINCULO">REGRA_RETIFICA_MESMO_VINCULO</a><br>
+<a href="#REGRA_VINCULO_ATIVO_NA_DTEVENTO">REGRA_VINCULO_ATIVO_NA_DTEVENTO</a></td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="7299_Id" id="7299_Id"></td>
+<td>Id</td>
+<td><a href="#r_7299">evtBaixaAdm</a></td>
+<td>A</td>
+<td>C</td>
+<td>1</td>
+<td>36</td>
+<td>-</td>
+<td>Identificação única do evento.<br>
+<strong>Regra de validação:</strong><br>
+<a href="#REGRA_VALIDA_ID_EVENTO">REGRA_VALIDA_ID_EVENTO</a></td>
+</tr>
+<tr class="grupo">
+<td class="seletor" onclick="copiarCaminho.call(this)" title="7299_ideEvento" id="7299_ideEvento"></td>
+<td><a href="#r_7299_ideEvento">ideEvento</a></td>
+<td><a href="#r_7299">evtBaixaAdm</a></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Informações de identificação do evento.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="7299_ideEvento_indRetif" id="7299_ideEvento_indRetif"></td>
+<td>indRetif</td>
+<td><a href="#r_7299_ideEvento">ideEvento</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1</td>
+<td>-</td>
+<td>Informe [1] para arquivo original ou [2] para arquivo de retificação.<br>
+<strong>Valores válidos:</strong><br>
+<strong>1</strong> - Original<br>
+<strong>2</strong> - Retificação</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="7299_ideEvento_nrRecibo" id="7299_ideEvento_nrRecibo"></td>
+<td>nrRecibo</td>
+<td><a href="#r_7299_ideEvento">ideEvento</a></td>
+<td>E</td>
+<td>C</td>
+<td>0-1</td>
+<td>23</td>
+<td>-</td>
+<td>Preencher com o número do recibo do arquivo a ser retificado.<br>
+<strong>Validação:</strong> O preenchimento é obrigatório se <a href="#7299_ideEvento_indRetif">indRetif</a> = [2].<br>
+Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo retificado.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="7299_ideEvento_tpAmb" id="7299_ideEvento_tpAmb"></td>
+<td>tpAmb</td>
+<td><a href="#r_7299_ideEvento">ideEvento</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1</td>
+<td>-</td>
+<td>Identificação do ambiente.<br>
+<strong>Valores válidos:</strong><br>
+<strong>1</strong> - Produção<br>
+<strong>2</strong> - Produção restrita<br>
+<strong>7</strong> - Validação (uso interno)<br>
+<strong>8</strong> - Teste (uso interno)<br>
+<strong>9</strong> - Desenvolvimento (uso interno)</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="7299_ideEvento_procEmi" id="7299_ideEvento_procEmi"></td>
+<td>procEmi</td>
+<td><a href="#r_7299_ideEvento">ideEvento</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1</td>
+<td>-</td>
+<td>Processo de emissão do evento.<br>
+<strong>Valores válidos:</strong><br>
+<strong>8</strong> - Aplicativo governamental para envio de eventos pelo Judiciário</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="7299_ideEvento_verProc" id="7299_ideEvento_verProc"></td>
+<td>verProc</td>
+<td><a href="#r_7299_ideEvento">ideEvento</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>1-20</td>
+<td>-</td>
+<td>Versão do processo de emissão do evento. Informar a versão do aplicativo emissor do evento.</td>
+</tr>
+<tr class="grupo">
+<td class="seletor" onclick="copiarCaminho.call(this)" title="7299_ideEmpregador" id="7299_ideEmpregador"></td>
+<td><a href="#r_7299_ideEmpregador">ideEmpregador</a></td>
+<td><a href="#r_7299">evtBaixaAdm</a></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Informações de identificação do empregador.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="7299_ideEmpregador_tpInsc" id="7299_ideEmpregador_tpInsc"></td>
+<td>tpInsc</td>
+<td><a href="#r_7299_ideEmpregador">ideEmpregador</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1</td>
+<td>-</td>
+<td>Preencher com o código correspondente ao tipo de inscrição, conforme <a href="tabelas.html#05">Tabela 05</a>.<br>
+<strong>Valores válidos:</strong><br>
+<strong>1</strong> - CNPJ<br>
+<strong>2</strong> - CPF</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="7299_ideEmpregador_nrInsc" id="7299_ideEmpregador_nrInsc"></td>
+<td>nrInsc</td>
+<td><a href="#r_7299_ideEmpregador">ideEmpregador</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>8, 11 ou 14</td>
+<td>-</td>
+<td>Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo <a href="#7299_ideEmpregador_tpInsc">ideEmpregador/tpInsc</a> e conforme informado em S-1000.</td>
+</tr>
+<tr class="grupo">
+<td class="seletor" onclick="copiarCaminho.call(this)" title="7299_ideVinculo" id="7299_ideVinculo"></td>
+<td><a href="#r_7299_ideVinculo">ideVinculo</a></td>
+<td><a href="#r_7299">evtBaixaAdm</a></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Informações de identificação do trabalhador e do vínculo.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="7299_ideVinculo_cpfTrab" id="7299_ideVinculo_cpfTrab"></td>
+<td>cpfTrab</td>
+<td><a href="#r_7299_ideVinculo">ideVinculo</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>11</td>
+<td>-</td>
+<td>Preencher com o número do CPF do trabalhador.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="7299_ideVinculo_matricula" id="7299_ideVinculo_matricula"></td>
+<td>matricula</td>
+<td><a href="#r_7299_ideVinculo">ideVinculo</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>1-30</td>
+<td>-</td>
+<td>Matrícula atribuída ao trabalhador pela empresa ou, no caso de servidor público, a matrícula constante no Sistema de Administração de Recursos Humanos do órgão.<br>
+<strong>Validação:</strong> Deve corresponder à matrícula informada pelo empregador no evento S-2190, S-2200 ou S-7200 do respectivo vínculo trabalhista.</td>
+</tr>
+<tr class="grupo">
+<td class="seletor" onclick="copiarCaminho.call(this)" title="7299_infoBaixa" id="7299_infoBaixa"></td>
+<td><a href="#r_7299_infoBaixa">infoBaixa</a></td>
+<td><a href="#r_7299">evtBaixaAdm</a></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Informações relativas à baixa judicial do vínculo.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="7299_infoBaixa_mtvDeslig" id="7299_infoBaixa_mtvDeslig"></td>
+<td>mtvDeslig</td>
+<td><a href="#r_7299_infoBaixa">infoBaixa</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>2</td>
+<td>-</td>
+<td>Código de motivo do desligamento.<br>
+<strong>Validação:</strong> Deve ser um código válido e existente na <a href="tabelas.html#19">Tabela 19</a>, bem como compatível com o código de categoria do trabalhador, conforme <a href="tabelas.html#19">Tabela 19</a>.<br>
+Não podem ser informados motivos que não implicam rescisão do contrato de trabalho (igual a [11, 12, 13, 25, 28, 29, 30, 34, 36, 43, 44]).</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="7299_infoBaixa_dtDeslig" id="7299_infoBaixa_dtDeslig"></td>
+<td>dtDeslig</td>
+<td><a href="#r_7299_infoBaixa">infoBaixa</a></td>
+<td>E</td>
+<td>D</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Preencher com a data de desligamento do vínculo (último dia trabalhado).<br>
+<strong>Validação:</strong> Deve ser uma data igual ou posterior a 24/09/2019 e igual ou anterior à data atual. No caso de empregado reintegrado e quando não se tratar de retificação do desligamento anterior à reintegração, também deve ser uma data igual ou posterior a <a href="#2298_infoReintegr_dtEfetRetorno">dtEfetRetorno</a> do evento S-2298.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="7299_infoBaixa_dtProjFimAPI" id="7299_infoBaixa_dtProjFimAPI"></td>
+<td>dtProjFimAPI</td>
+<td><a href="#r_7299_infoBaixa">infoBaixa</a></td>
+<td>E</td>
+<td>D</td>
+<td>0-1</td>
+<td>-</td>
+<td>-</td>
+<td>Data projetada para o término do aviso prévio indenizado.<br>
+<strong>Validação:</strong> Se preenchida, deve ser uma data posterior a <a href="#7299_infoBaixa_dtDeslig">dtDeslig</a>.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="7299_infoBaixa_nrProcAdm" id="7299_infoBaixa_nrProcAdm"></td>
+<td>nrProcAdm</td>
+<td><a href="#r_7299_infoBaixa">infoBaixa</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>17</td>
+<td>-</td>
+<td>Número que identifica o processo administrativo onde a baixa do vínculo foi determinada.<br>
+<strong>Validação:</strong> Deve ser um processo administrativo válido, com 17 (dezessete) algarismos.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="7299_infoBaixa_observacao" id="7299_infoBaixa_observacao"></td>
+<td>observacao</td>
+<td><a href="#r_7299_infoBaixa">infoBaixa</a></td>
+<td>E</td>
+<td>C</td>
+<td>0-1</td>
+<td>1-255</td>
+<td>-</td>
+<td>Observação relevante sobre o desligamento do trabalhador, que não esteja consignada em outros campos.</td>
+</tr>
+</tbody>
+</table>
+
 <h3 id="evtLancRemun" class="title has-text-centered quebra-anterior">S-7500 - Lançamento Administrativo de Remuneração de Trabalhador</h3>
 <table class="table is-fullwidth is-bordered resumo">
 <tbody>
@@ -47291,7 +47649,7 @@ Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo
 <td>1-30</td>
 <td>-</td>
 <td>Matrícula atribuída ao trabalhador pela empresa ou, no caso de servidor público, a matrícula constante no Sistema de Administração de Recursos Humanos do órgão.<br>
-<strong>Validação:</strong> Deve corresponder à matrícula informada pelo empregador no evento S-2190 ou S-2200 do respectivo vínculo trabalhista.</td>
+<strong>Validação:</strong> Deve corresponder à matrícula informada pelo empregador no evento S-2190, S-2200 ou S-7200 do respectivo vínculo trabalhista.</td>
 </tr>
 <tr class="grupo">
 <td class="seletor" onclick="copiarCaminho.call(this)" title="8299_infoBaixa" id="8299_infoBaixa"></td>
