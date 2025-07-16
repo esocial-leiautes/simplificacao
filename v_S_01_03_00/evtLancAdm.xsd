@@ -33,39 +33,23 @@
                                 </xs:annotation>
                                 <xs:complexType>
                                     <xs:sequence>
-                                        <xs:element name="nrProcTrab" type="TS_nrProcJud">
+                                        <xs:element name="nrProcAdm" type="TS_nrProc_17">
                                             <xs:annotation>
-                                                <xs:documentation>Número que identifica o processo judicial onde a anotação do vínculo foi determinada.</xs:documentation>
-                                                <xs:documentation>Validação: Deve ser um processo judicial válido, com 20 (vinte) algarismos.</xs:documentation>
+                                                <xs:documentation>Número que identifica o processo administrativo em que o lançamento administrativo do vínculo foi determinado.</xs:documentation>
+                                                <xs:documentation>Validação: Deve ser um processo administrativo válido, com 17 (dezessete) algarismos.</xs:documentation>
                                             </xs:annotation>
                                         </xs:element>
-                                        <xs:element name="dtSent" type="xs:date">
+                                        <xs:element name="dtDecAdm" type="xs:date">
                                             <xs:annotation>
-                                                <xs:documentation>Informar a data da decisão judicial.</xs:documentation>
+                                                <xs:documentation>Informar a data da decisão administrativa.</xs:documentation>
                                             </xs:annotation>
-                                        </xs:element>
-                                        <xs:element name="ufVara" type="TS_uf">
-                                            <xs:annotation>
-                                                <xs:documentation>Preencher com a sigla da Unidade da Federação onde está localizada a Vara em que o processo tramitou.</xs:documentation>
-                                            </xs:annotation>
-                                        </xs:element>
-                                        <xs:element name="codMunic" type="TS_codMunic" />
-                                        <xs:element name="idVara">
-                                            <xs:simpleType>
-                                                <xs:annotation>
-                                                    <xs:documentation>Código de identificação da Vara em que o processo tramitou.</xs:documentation>
-                                                </xs:annotation>
-                                                <xs:restriction base="xs:integer">
-                                                    <xs:pattern value="\d{1,4}" />
-                                                </xs:restriction>
-                                            </xs:simpleType>
                                         </xs:element>
                                     </xs:sequence>
                                 </xs:complexType>
                             </xs:element>
-                            <xs:element name="infoAnotJud">
+                            <xs:element name="infoLancAdm">
                                 <xs:annotation>
-                                    <xs:documentation>Informações da anotação judicial do vínculo.</xs:documentation>
+                                    <xs:documentation>Informações do lançamento administrativo do vínculo.</xs:documentation>
                                     <xs:documentation>CHAVE_GRUPO: {cpfTrab*}, {matricula*}</xs:documentation>
                                 </xs:annotation>
                                 <xs:complexType>
@@ -86,7 +70,7 @@
                                         <xs:element name="matricula" type="TS_codigo_esocial">
                                             <xs:annotation>
                                                 <xs:documentation>Matrícula atribuída ao trabalhador.</xs:documentation>
-                                                <xs:documentation>Validação: O valor informado deve conter a expressão 'eSocial-JUD-' nas 12 (doze) primeiras posições.</xs:documentation>
+                                                <xs:documentation>Validação: O valor informado deve conter a expressão 'eSocial-ADM-' nas 12 (doze) primeiras posições.</xs:documentation>
                                                 <xs:documentation>REGRA:REGRA_CARACTERE_ESPECIAL</xs:documentation>
                                             </xs:annotation>
                                         </xs:element>
@@ -123,7 +107,7 @@
                                             </xs:annotation>
                                         </xs:element>
                                         <xs:element name="tpRegTrab" type="TS_tpRegTrab_1" />
-                                        <xs:element name="tpRegPrev" type="TS_tpRegPrev_1_2_3">
+                                        <xs:element name="tpRegPrev" type="TS_tpRegPrev_1">
                                             <xs:annotation>
                                                 <xs:documentation>Tipo de regime previdenciário.</xs:documentation>
                                                 <xs:documentation>Validação: Se {}(./codCateg) = [104], deve ser preenchido com [1]. Se {}(./codCateg) = [101, 102, 103, 105, 106, 107, 108, 111], não pode ser preenchido com [2].</xs:documentation>
@@ -146,6 +130,11 @@
                                                         <xs:annotation>
                                                             <xs:documentation>Informar a Classificação Brasileira de Ocupações - CBO relativa ao cargo.</xs:documentation>
                                                             <xs:documentation>Validação: Deve ser um código válido e existente na tabela de CBO, com 6 (seis) posições.</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:element>
+                                                    <xs:element name="nmCargo" type="TS_texto_100">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Informar o nome do cargo.</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
                                                 </xs:sequence>
@@ -188,22 +177,20 @@
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>
-                                                    <xs:element name="tpInsc" minOccurs="0" type="TS_tpInsc_1_2">
+                                                    <xs:element name="tpInsc" type="TS_tpInsc_1_2">
                                                         <xs:annotation>
                                                             <xs:documentation>Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.</xs:documentation>
-                                                            <xs:documentation>Validação: Informação obrigatória e exclusiva se a data de transmissão do evento for igual ou posterior a [2024-04-22].</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
-                                                    <xs:element name="nrInsc" minOccurs="0" type="TS_nrInsc_8_11_14">
+                                                    <xs:element name="nrInsc" type="TS_nrInsc_8_11_14">
                                                         <xs:annotation>
                                                             <xs:documentation>Informar o número de inscrição do empregador no qual consta a matrícula incorporada ou sucedida, de acordo com o tipo de inscrição indicado no campo {incorporacao/tpInsc}(./tpInsc).</xs:documentation>
-                                                            <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se o campo {incorporacao/tpInsc}(./tpInsc) for informado.</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
                                                     <xs:element name="matIncorp" type="TS_matricula">
                                                         <xs:annotation>
                                                             <xs:documentation>Informar a matrícula incorporada (matrícula cujo vínculo/contrato passou a integrar o vínculo reconhecido judicialmente) ou a matrícula no empregador anterior.</xs:documentation>
-                                                            <xs:documentation>Validação: Deve corresponder a uma matrícula informada pelo empregador no evento S-2190, S-2200, S-2300 ou S-7200, pertencente ao trabalhador preenchido em {cpfTrab}(../cpfTrab), no empregador informado em {incorporacao/nrInsc}(./nrInsc).</xs:documentation>
+                                                            <xs:documentation>Validação: Deve corresponder a uma matrícula informada pelo empregador no evento S-2190, S-2200, S-2300 ou S-8200, pertencente ao trabalhador preenchido em {cpfTrab}(../cpfTrab), no empregador informado em {incorporacao/nrInsc}(./nrInsc).</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
                                                 </xs:sequence>
@@ -212,7 +199,7 @@
                                         <xs:element name="afastamento" minOccurs="0">
                                             <xs:annotation>
                                                 <xs:documentation>Informações de afastamento do trabalhador.</xs:documentation>
-                                                <xs:documentation>CONDICAO_GRUPO: N (se grupo {desligamento}(../desligamento) estiver preenchido); O (nos demais casos)</xs:documentation>
+                                                <xs:documentation>CONDICAO_GRUPO: N (se grupo {desligamento}(../desligamento) estiver preenchido); OC (nos demais casos)</xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>
@@ -227,7 +214,7 @@
                                                         <xs:annotation>
                                                             <xs:documentation>Preencher com o código do motivo de afastamento temporário.</xs:documentation>
                                                             <xs:documentation>Validação: Deve ser um código válido e existente na Tabela 18, bem como compatível com o código de categoria do trabalhador, conforme Tabela 18.</xs:documentation>
-                                                            <xs:documentation>Somente podem ser informados os códigos [01, 03, 06, 11, 12, 17, 18, 19, 20, 22, 24, 29, 35].</xs:documentation>
+                                                            <xs:documentation>Somente podem ser informados os códigos [01, 03, 06, 11, 12, 17, 18, 19, 20, 22, 24, 29, 35, 43].</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
                                                 </xs:sequence>
@@ -236,7 +223,7 @@
                                         <xs:element name="desligamento" minOccurs="0">
                                             <xs:annotation>
                                                 <xs:documentation>Informações de desligamento do trabalhador.</xs:documentation>
-                                                <xs:documentation>CONDICAO_GRUPO: N (se grupo {afastamento}(../afastamento) estiver preenchido); O (nos demais casos)</xs:documentation>
+                                                <xs:documentation>CONDICAO_GRUPO: N (se grupo {afastamento}(../afastamento) estiver preenchido); OC (nos demais casos)</xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>

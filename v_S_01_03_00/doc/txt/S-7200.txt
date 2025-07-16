@@ -42,16 +42,16 @@ Chave: -
 Condição: O
 
 Nível: 3
-Nome: infoAnotJud
+Nome: infoLancAdm
 Pai: evtLancAdm
-Descrição: Informações da anotação judicial do vínculo.
+Descrição: Informações do lançamento administrativo do vínculo.
 Ocorrência: 1
 Chave: cpfTrab*, matricula*
 Condição: O
 
 Nível: 4
 Nome: cargo
-Pai: infoAnotJud
+Pai: infoLancAdm
 Descrição: Informações do cargo.
 Ocorrência: 1-99
 Chave: dtCargo
@@ -59,7 +59,7 @@ Condição: O
 
 Nível: 4
 Nome: remuneracao
-Pai: infoAnotJud
+Pai: infoLancAdm
 Descrição: Informações da remuneração e periodicidade de pagamento.
 Ocorrência: 1-99
 Chave: dtRemun
@@ -67,7 +67,7 @@ Condição: O
 
 Nível: 4
 Nome: incorporacao
-Pai: infoAnotJud
+Pai: infoLancAdm
 Descrição: Informação do(s) vínculo(s)/contrato(s) já declarado(s) no eSocial e incorporado(s) ao vínculo ou sucedido(s) pelo vínculo reconhecido judicialmente.
 Ocorrência: 0-9
 Chave: tpInsc, nrInsc, matIncorp
@@ -75,21 +75,21 @@ Condição: OC
 
 Nível: 4
 Nome: afastamento
-Pai: infoAnotJud
+Pai: infoLancAdm
 Descrição: Informações de afastamento do trabalhador.
 Ocorrência: 0-1
 Chave: -
 Condição: N (se grupo {desligamento}(../desligamento) estiver preenchido)
-O (nos demais casos)
+OC (nos demais casos)
 
 Nível: 4
 Nome: desligamento
-Pai: infoAnotJud
+Pai: infoLancAdm
 Descrição: Informações de desligamento do trabalhador.
 Ocorrência: 0-1
 Chave: -
 Condição: N (se grupo {afastamento}(../afastamento) estiver preenchido)
-O (nos demais casos)
+OC (nos demais casos)
 
 Nome: eSocial
 Pai: -
@@ -237,66 +237,36 @@ Tamanho: -
 Dec.: -
 Descrição: Informações do processo judicial.
 
-Nome: nrProcTrab
+Nome: nrProcAdm
 Pai: infoProcesso
 Elem.: E
 Tipo: C
 Ocorrência: 1
-Tamanho: 20
+Tamanho: 17
 Dec.: -
-Descrição: Número que identifica o processo judicial onde a anotação do vínculo foi determinada.
-Validação: Deve ser um processo judicial válido, com 20 (vinte) algarismos.
+Descrição: Número que identifica o processo administrativo em que o lançamento administrativo do vínculo foi determinado.
+Validação: Deve ser um processo administrativo válido, com 17 (dezessete) algarismos.
 
-Nome: dtSent
+Nome: dtDecAdm
 Pai: infoProcesso
 Elem.: E
 Tipo: D
 Ocorrência: 1
 Tamanho: -
 Dec.: -
-Descrição: Informar a data da decisão judicial.
+Descrição: Informar a data da decisão administrativa.
 
-Nome: ufVara
-Pai: infoProcesso
-Elem.: E
-Tipo: C
-Ocorrência: 1
-Tamanho: 2
-Dec.: -
-Descrição: Preencher com a sigla da Unidade da Federação onde está localizada a Vara em que o processo tramitou.
-Valores válidos:
- AC, AL, AP, AM, BA, CE, DF, ES, GO, MA, MT, MS, MG, PA, PB, PR, PE, PI, RJ, RN, RS, RO, RR, SC, SP, SE, TO
-
-Nome: codMunic
-Pai: infoProcesso
-Elem.: E
-Tipo: N
-Ocorrência: 1
-Tamanho: 7
-Dec.: -
-Descrição: Preencher com o código do município, conforme tabela do IBGE.
-Validação: Deve ser um código válido e existente na tabela do IBGE.
-
-Nome: idVara
-Pai: infoProcesso
-Elem.: E
-Tipo: N
-Ocorrência: 1
-Tamanho: 1-4
-Dec.: -
-Descrição: Código de identificação da Vara em que o processo tramitou.
-
-Nome: infoAnotJud
+Nome: infoLancAdm
 Pai: evtLancAdm
 Elem.: G
 Tipo: -
 Ocorrência: 1
 Tamanho: -
 Dec.: -
-Descrição: Informações da anotação judicial do vínculo.
+Descrição: Informações do lançamento administrativo do vínculo.
 
 Nome: cpfTrab
-Pai: infoAnotJud
+Pai: infoLancAdm
 Elem.: E
 Tipo: C
 Ocorrência: 1
@@ -305,7 +275,7 @@ Dec.: -
 Descrição: Preencher com o número do CPF do trabalhador.
 
 Nome: nmTrab
-Pai: infoAnotJud
+Pai: infoLancAdm
 Elem.: E
 Tipo: C
 Ocorrência: 1
@@ -314,7 +284,7 @@ Dec.: -
 Descrição: Informar o nome do trabalhador.
 
 Nome: dtNascto
-Pai: infoAnotJud
+Pai: infoLancAdm
 Elem.: E
 Tipo: D
 Ocorrência: 1
@@ -323,7 +293,7 @@ Dec.: -
 Descrição: Preencher com a data de nascimento.
 
 Nome: dtAdm
-Pai: infoAnotJud
+Pai: infoLancAdm
 Elem.: E
 Tipo: D
 Ocorrência: 1
@@ -333,19 +303,19 @@ Descrição: Preencher com a data de admissão do trabalhador.
 Validação: Deve ser posterior à data de nascimento do trabalhador.
 
 Nome: matricula
-Pai: infoAnotJud
+Pai: infoLancAdm
 Elem.: E
 Tipo: C
 Ocorrência: 1
 Tamanho: 1-30
 Dec.: -
 Descrição: Matrícula atribuída ao trabalhador.
-Validação: O valor informado deve conter a expressão 'eSocial-JUD-' nas 12 (doze) primeiras posições.
+Validação: O valor informado deve conter a expressão 'eSocial-ADM-' nas 12 (doze) primeiras posições.
 Regras de validação:
 REGRA_CARACTERE_ESPECIAL
 
 Nome: codCateg
-Pai: infoAnotJud
+Pai: infoLancAdm
 Elem.: E
 Tipo: N
 Ocorrência: 1
@@ -355,7 +325,7 @@ Descrição: Preencher com o código da categoria do trabalhador.
 Validação: Deve ser um código de categoria referente a "Empregado" ([1XX]).
 
 Nome: natAtividade
-Pai: infoAnotJud
+Pai: infoLancAdm
 Elem.: E
 Tipo: N
 Ocorrência: 1
@@ -368,7 +338,7 @@ Valores válidos:
 Validação: Se {codCateg}(./codCateg) = [104], deve ser preenchido com [1]. Se {codCateg}(./codCateg) = [102], deve ser preenchido com [2].
 
 Nome: tpContr
-Pai: infoAnotJud
+Pai: infoLancAdm
 Elem.: E
 Tipo: N
 Ocorrência: 1
@@ -381,7 +351,7 @@ Valores válidos:
 3 - Prazo determinado, vinculado à ocorrência de um fato
 
 Nome: dtTerm
-Pai: infoAnotJud
+Pai: infoLancAdm
 Elem.: E
 Tipo: D
 Ocorrência: 0-1
@@ -391,7 +361,7 @@ Descrição: Data do término do contrato por prazo determinado.
 Validação: O preenchimento é obrigatório se {tpContr}(./tpContr) = [2]. Não informar se {tpContr}(./tpContr) = [1]. Deve ser igual ou posterior à data de admissão.
 
 Nome: tpInscTrab
-Pai: infoAnotJud
+Pai: infoLancAdm
 Elem.: E
 Tipo: N
 Ocorrência: 0-1
@@ -405,7 +375,7 @@ Valores válidos:
 Validação: Não preencher se {codCateg}(./codCateg) = [104].
 
 Nome: localTrabalho
-Pai: infoAnotJud
+Pai: infoLancAdm
 Elem.: E
 Tipo: C
 Ocorrência: 0-1
@@ -416,7 +386,7 @@ Validação: Preenchimento obrigatório e exclusivo se {tpInscTrab}(./tpInscTrab
 Deve ser um identificador válido, constante das bases da RFB, conforme indicado em {tpInscTrab}(./tpInscTrab).
 
 Nome: tpRegTrab
-Pai: infoAnotJud
+Pai: infoLancAdm
 Elem.: E
 Tipo: N
 Ocorrência: 1
@@ -427,7 +397,7 @@ Valores válidos:
 1 - CLT - Consolidação das Leis de Trabalho e legislações trabalhistas específicas
 
 Nome: tpRegPrev
-Pai: infoAnotJud
+Pai: infoLancAdm
 Elem.: E
 Tipo: N
 Ocorrência: 1
@@ -436,12 +406,10 @@ Dec.: -
 Descrição: Tipo de regime previdenciário.
 Valores válidos:
 1 - Regime Geral de Previdência Social - RGPS
-2 - Regime Próprio de Previdência Social - RPPS, Regime dos Parlamentares e Sistema de Proteção dos Militares dos Estados/DF
-3 - Regime de Previdência Social no exterior
 Validação: Se {}(./codCateg) = [104], deve ser preenchido com [1]. Se {}(./codCateg) = [101, 102, 103, 105, 106, 107, 108, 111], não pode ser preenchido com [2].
 
 Nome: cargo
-Pai: infoAnotJud
+Pai: infoLancAdm
 Elem.: G
 Tipo: -
 Ocorrência: 1-99
@@ -469,8 +437,17 @@ Dec.: -
 Descrição: Informar a Classificação Brasileira de Ocupações - CBO relativa ao cargo.
 Validação: Deve ser um código válido e existente na tabela de CBO, com 6 (seis) posições.
 
+Nome: nmCargo
+Pai: cargo
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-100
+Dec.: -
+Descrição: Informar o nome do cargo.
+
 Nome: remuneracao
-Pai: infoAnotJud
+Pai: infoLancAdm
 Elem.: G
 Tipo: -
 Ocorrência: 1-99
@@ -526,7 +503,7 @@ Descrição: Descrição do salário por tarefa ou variável e como este é calc
 Validação: Preenchimento obrigatório se {undSalFixo}(./undSalFixo) for igual a [6, 7].
 
 Nome: incorporacao
-Pai: infoAnotJud
+Pai: infoLancAdm
 Elem.: G
 Tipo: -
 Ocorrência: 0-9
@@ -538,24 +515,22 @@ Nome: tpInsc
 Pai: incorporacao
 Elem.: E
 Tipo: N
-Ocorrência: 0-1
+Ocorrência: 1
 Tamanho: 1
 Dec.: -
 Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
 Valores válidos:
 1 - CNPJ
 2 - CPF
-Validação: Informação obrigatória e exclusiva se a data de transmissão do evento for igual ou posterior a [2024-04-22].
 
 Nome: nrInsc
 Pai: incorporacao
 Elem.: E
 Tipo: C
-Ocorrência: 0-1
+Ocorrência: 1
 Tamanho: 8, 11 ou 14
 Dec.: -
 Descrição: Informar o número de inscrição do empregador no qual consta a matrícula incorporada ou sucedida, de acordo com o tipo de inscrição indicado no campo {incorporacao/tpInsc}(./tpInsc).
-Validação: Preenchimento obrigatório e exclusivo se o campo {incorporacao/tpInsc}(./tpInsc) for informado.
 
 Nome: matIncorp
 Pai: incorporacao
@@ -565,10 +540,10 @@ Ocorrência: 1
 Tamanho: 1-30
 Dec.: -
 Descrição: Informar a matrícula incorporada (matrícula cujo vínculo/contrato passou a integrar o vínculo reconhecido judicialmente) ou a matrícula no empregador anterior.
-Validação: Deve corresponder a uma matrícula informada pelo empregador no evento S-2190, S-2200, S-2300 ou S-7200, pertencente ao trabalhador preenchido em {cpfTrab}(../cpfTrab), no empregador informado em {incorporacao/nrInsc}(./nrInsc).
+Validação: Deve corresponder a uma matrícula informada pelo empregador no evento S-2190, S-2200, S-2300 ou S-8200, pertencente ao trabalhador preenchido em {cpfTrab}(../cpfTrab), no empregador informado em {incorporacao/nrInsc}(./nrInsc).
 
 Nome: afastamento
-Pai: infoAnotJud
+Pai: infoLancAdm
 Elem.: G
 Tipo: -
 Ocorrência: 0-1
@@ -596,10 +571,10 @@ Tamanho: 2
 Dec.: -
 Descrição: Preencher com o código do motivo de afastamento temporário.
 Validação: Deve ser um código válido e existente na Tabela 18, bem como compatível com o código de categoria do trabalhador, conforme Tabela 18.
-Somente podem ser informados os códigos [01, 03, 06, 11, 12, 17, 18, 19, 20, 22, 24, 29, 35].
+Somente podem ser informados os códigos [01, 03, 06, 11, 12, 17, 18, 19, 20, 22, 24, 29, 35, 43].
 
 Nome: desligamento
-Pai: infoAnotJud
+Pai: infoLancAdm
 Elem.: G
 Tipo: -
 Ocorrência: 0-1
