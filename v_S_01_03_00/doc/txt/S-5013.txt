@@ -70,7 +70,7 @@ Nome: basePerApur
 Pai: infoBaseFGTS
 Descrição: Bases de cálculo e valores do FGTS, exceto se {tpAcConv} = [E, H, I]
 Ocorrência: 0-99
-Chave: tpValor, indIncid
+Chave: tpValor, indIncid, notAFT, natRubr
 Condição: OC
 
 Nível: 7
@@ -394,6 +394,26 @@ Descrição: Valor histórico do FGTS a ser depositado na conta vinculada do tra
 Validação: Deve ser maior que 0 (zero).
 Se {tpValor}(./tpValor) for diferente de [19], deve corresponder ao somatório dos valores informados no campo {dpsFGTS}(5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_infoBaseFGTS_basePerApur_dpsFGTS) do evento S-5003, agrupados por {tpValor}(./tpValor).
 Se {tpValor}(./tpValor) = [19], deve corresponder ao somatório dos valores informados no campo {baseFGTS}(./baseFGTS), e aplicar a alíquota de 8%.
+
+Nome: notAFT
+Pai: basePerApur
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 9
+Dec.: -
+Descrição: Número da notificação de FGTS que deu origem à confissão.
+Evento de origem: S-5003.
+
+Nome: natRubr
+Pai: basePerApur
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 4
+Dec.: -
+Descrição: Informar o código de classificação da rubrica.
+Evento de origem: S-5003.
 
 Nome: infoBasePerAntE
 Pai: infoBaseFGTS

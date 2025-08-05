@@ -194,7 +194,8 @@ Pai: dmDev
 Descrição: Informações relativas a períodos anteriores
 Ocorrência: 0-1
 Chave: -
-Condição: O (se não existir o grupo {infoPerApur}(2299_infoDeslig_verbasResc_dmDev_infoPerApur))
+Condição: N (se {}(2299_infoDeslig_verbasResc_dmDev_notAFT) for informado)
+O (se não existir o grupo {infoPerApur}(2299_infoDeslig_verbasResc_dmDev_infoPerApur))
 OC (nos demais casos)
 
 Nível: 7
@@ -335,6 +336,7 @@ REGRA_REMUN_PERMITE_EXCLUSAO
 REGRA_RETIFICA_MESMO_VINCULO
 REGRA_RUBRICA_COMPATIVEL_CATEGORIA
 REGRA_RUBRICA_ECONSIGNADO
+REGRA_VALIDA_CODINCCP_EXC_SEGURADO
 REGRA_VALIDA_EMPREGADOR
 REGRA_VALIDA_PERIODO_APURACAO
 REGRA_VINCULO_ATIVO_NA_DTEVENTO
@@ -690,7 +692,7 @@ Tamanho: 11 ou 14
 Dec.: -
 Descrição: Informar o número de inscrição do empregador sucessor, de acordo com o tipo de inscrição indicado no campo {sucessaoVinc/tpInsc}(./tpInsc).
 Validação: Deve ser um número de inscrição válido e diferente da inscrição do declarante, considerando as particularidades aplicadas à informação de CNPJ de órgão público em S-1000.
-Se {sucessaoVinc/tpInsc}(./tpInsc) = [1], deve possuir 14 (catorze) algarismos e ser diferente do CNPJ base do empregador (exceto se {ideEmpregador/nrInsc}(2299_ideEmpregador_nrInsc) tiver 14 (catorze) algarismos) e dos estabelecimentos informados através do evento S-1005.
+Se {sucessaoVinc/tpInsc}(./tpInsc) = [1], deve possuir 14 (catorze) algarismos e ser diferente do CNPJ base do empregador (exceto se {ideEmpregador/nrInsc}(2299_ideEmpregador_nrInsc) tiver 14 (catorze) algarismos). Também deve ser diferente dos estabelecimentos informados através do evento S-1005, exceto se a natureza jurídica do declarante for Administração Pública (grupo [1]).
 Se {sucessaoVinc/tpInsc}(./tpInsc) = [2], deve possuir 11 (onze) algarismos.
 
 Nome: transfTit
@@ -784,6 +786,19 @@ Descrição: Indicativo de Rendimentos Recebidos Acumuladamente - RRA.
 Somente preencher este campo se for um demonstrativo de RRA.
 Valores válidos:
 S - Sim
+
+Nome: notAFT
+Pai: dmDev
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 9
+Dec.: -
+Descrição: Número da notificação de FGTS que deu origem à confissão.
+Validação: Se o campo for preenchido:
+a) O mês/ano de {}(2299_infoDeslig_dtDeslig) deve ser igual ou posterior ao início do FGTS Digital;
+b) Todas as rubricas de vencimento ({}(1010_infoRubrica_inclusao_dadosRubrica_tpRubr) em S-1010 = [1]) informadas no demonstrativo devem possuir {}(1010_infoRubrica_inclusao_dadosRubrica_codIncFGTS) em S-1010 = [71];
+c) Devem ser informados apenas caracteres alfanuméricos, com 9 (nove) posições.
 
 Nome: infoRRA
 Pai: dmDev
