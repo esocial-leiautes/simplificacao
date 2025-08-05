@@ -96,7 +96,7 @@ Nome: basePerApur
 Pai: infoBaseFGTS
 Descrição: Bases de cálculo e valores, exceto se {tpAcConv} = [E, H, I]
 Ocorrência: 0-99
-Chave: tpValor, indIncid
+Chave: tpValor, indIncid, notAFT, natRubr
 Condição: OC
 
 Nível: 9
@@ -652,7 +652,7 @@ Descrição: Indicativo de incidência de FGTS.
 Valores válidos:
 1 - Normal (incidência de FGTS)
 9 - Incidência de FGTS suspensa em decorrência de decisão judicial
-Validação: Se {codIncFGTS}(1010_infoRubrica_inclusao_dadosRubrica_codIncFGTS) em S-1010 for igual a [11, 12, 21], deve ser retornado [1].
+Validação: Se {codIncFGTS}(1010_infoRubrica_inclusao_dadosRubrica_codIncFGTS) em S-1010 for igual a [11, 12, 21, 71], deve ser retornado [1].
 Se {codIncFGTS}(1010_infoRubrica_inclusao_dadosRubrica_codIncFGTS) em S-1010 for igual a [91, 92, 93], deve ser retornado [9].
 
 Nome: remFGTS
@@ -679,6 +679,27 @@ Deve corresponder à multiplicação de {remFGTS}(./remFGTS) pela alíquota abai
 a) Se {tpValor}(./tpValor) = [11, 12, 13, 14, 21, 22, 23, 24, 25, 26], alíquota de 8%;
 b) Se {tpValor}(./tpValor) = [15, 16, 17, 18, 27, 28, 29, 30, 31, 32], alíquota de 2%;
 c) Se {tpValor}(./tpValor) = [41, 42, 43, 44, 45, 46, 47, 48, 49, 50], alíquota de 3,2%.
+
+Nome: notAFT
+Pai: basePerApur
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 9
+Dec.: -
+Descrição: Número da notificação de FGTS que deu origem à confissão.
+Evento de origem: S-1200, S-2299 ou S-2399.
+
+Nome: natRubr
+Pai: basePerApur
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 4
+Dec.: -
+Descrição: Informar o código de classificação da rubrica.
+Evento de origem: S-1010.
+Validação: Retornar somente se {notAFT}(./notAFT) for informado.
 
 Nome: detRubrSusp
 Pai: basePerApur
