@@ -346,6 +346,7 @@
             </xs:element>
         </xs:sequence>
     </xs:complexType>
+
     <!-- Grupo {infoRRA} -->
 
     <xs:complexType name="T_infoRRA">
@@ -419,6 +420,25 @@
                         </xs:element>
                     </xs:sequence>
                 </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Grupo {descFolha} (S-1200, S-1202 e S-1207) -->
+
+    <xs:complexType name="T_descFolha">
+        <xs:annotation>
+            <xs:documentation>Informações de desconto do empréstimo em folha.</xs:documentation>
+            <xs:documentation>CONDICAO_GRUPO: O (se {}(1010_infoRubrica_inclusao_dadosRubrica_natRubr) em S-1010 = [9253]); N (nos demais casos)</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="tpDesc" type="TS_tpDesc" />
+            <xs:element name="instFinanc" type="TS_instFinanc" />
+            <xs:element name="nrDoc" type="TS_nrDoc" />
+            <xs:element name="observacao" minOccurs="0" type="TS_observacao">
+                <xs:annotation>
+                    <xs:documentation>Outras informações do desconto.</xs:documentation>
+                </xs:annotation>
             </xs:element>
         </xs:sequence>
     </xs:complexType>
@@ -513,7 +533,6 @@
             </xs:element>
         </xs:sequence>
     </xs:complexType>
-
 
     <!-- Grupo {nascimento} -->
 
@@ -1179,64 +1198,6 @@
             <xs:element name="dtAdm" type="xs:date">
                 <xs:annotation>
                     <xs:documentation>Preencher com a data de admissão do trabalhador. No caso de transferência do empregado, deve ser preenchida a data inicial do vínculo no primeiro empregador (data de início do vínculo).</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-        </xs:sequence>
-    </xs:complexType>
-
-    <!-- Grupo {descFolha} (S-1200, S-1202, S-1207, S-2299 e S-2399) -->
-
-    <xs:complexType name="T_descFolha">
-        <xs:annotation>
-            <xs:documentation>Informações de desconto do empréstimo em folha.</xs:documentation>
-            <xs:documentation>CONDICAO_GRUPO: O (se {}(1010_infoRubrica_inclusao_dadosRubrica_natRubr) em S-1010 = [9253]); N (nos demais casos)</xs:documentation>
-        </xs:annotation>
-        <xs:sequence>
-            <xs:element name="tpDesc">
-                <xs:simpleType>
-                    <xs:annotation>
-                        <xs:documentation>Indicativo do tipo de desconto.</xs:documentation>
-                    </xs:annotation>
-                    <xs:restriction base="xs:byte">
-                        <xs:enumeration value="1">
-                            <xs:annotation>
-                                <xs:documentation>eConsignado</xs:documentation>
-                            </xs:annotation>
-                        </xs:enumeration>
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:element>
-            <xs:element name="instFinanc">
-                <xs:simpleType>
-                    <xs:annotation>
-                        <xs:documentation>Código Bancário de Consignado concedente do empréstimo.</xs:documentation>
-                        <xs:documentation>Validação: Deve ser um código válido, conforme Tabela  37 do eSocial Tabelas, e:</xs:documentation>
-                        <xs:documentation>a) Se {perApur} &lt;= 09/2025, deve possuir 3 posições;</xs:documentation>
-                        <xs:documentation>b) Se {perApur} >= 10/2025, deve possuir 8 posições.</xs:documentation>
-                    </xs:annotation>
-                    <xs:restriction base="xs:string">
-                        <xs:pattern value="\d{3}|\d{8}" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:element>
-            <xs:element name="nrDoc">
-                <xs:simpleType>
-                    <xs:annotation>
-                        <xs:documentation>Número do contrato referente ao empréstimo.</xs:documentation>
-                        <xs:documentation>Validação: Deve obedecer ao que segue:</xs:documentation>
-                        <xs:documentation>a) Somente são permitidos números, letras e os caracteres ".", "/", "-" e "_";</xs:documentation>
-                        <xs:documentation>b) Os caracteres acima mencionados não podem ser informados na primeira e na última posições.</xs:documentation>
-                    </xs:annotation>
-                    <xs:restriction base="xs:string">
-                        <xs:minLength value="2" />
-                        <xs:maxLength value="15" />
-                        <xs:pattern value="[A-Za-z0-9][-_A-Za-z0-9/.//]{0,13}[A-Za-z0-9]" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:element>
-            <xs:element name="observacao" minOccurs="0" type="TS_observacao">
-                <xs:annotation>
-                    <xs:documentation>Outras informações do desconto.</xs:documentation>
                 </xs:annotation>
             </xs:element>
         </xs:sequence>
@@ -2559,6 +2520,51 @@
                     <xs:documentation>Situação especial de apuração de IR</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Campo {tpDesc} -->
+
+    <xs:simpleType name="TS_tpDesc">
+        <xs:annotation>
+            <xs:documentation>Indicativo do tipo de desconto.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:byte">
+            <xs:enumeration value="1">
+                <xs:annotation>
+                    <xs:documentation>eConsignado</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Campo {instFinanc} -->
+
+    <xs:simpleType name="TS_instFinanc">
+        <xs:annotation>
+            <xs:documentation>Código Bancário de Consignado concedente do empréstimo.</xs:documentation>
+            <xs:documentation>Validação: Deve ser um código válido, conforme Tabela  37 do eSocial Tabelas, e:</xs:documentation>
+            <xs:documentation>a) Se {perApur}(/ideEvento_perApur) &lt;= 09/2025, deve possuir 3 posições;</xs:documentation>
+            <xs:documentation>b) Se {perApur}(/ideEvento_perApur) >= 10/2025, deve possuir 8 posições.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="\d{3}|\d{8}" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Campo {nrDoc} -->
+
+    <xs:simpleType name="TS_nrDoc">
+        <xs:annotation>
+            <xs:documentation>Número do contrato referente ao empréstimo.</xs:documentation>
+            <xs:documentation>Validação: Deve obedecer ao que segue:</xs:documentation>
+            <xs:documentation>a) Somente são permitidos números, letras e os caracteres ".", "/", "-" e "_";</xs:documentation>
+            <xs:documentation>b) Os caracteres acima mencionados não podem ser informados na primeira e na última posições.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:minLength value="2" />
+            <xs:maxLength value="15" />
+            <xs:pattern value="[A-Za-z0-9][-_A-Za-z0-9/.//]{0,13}[A-Za-z0-9]" />
         </xs:restriction>
     </xs:simpleType>
 
