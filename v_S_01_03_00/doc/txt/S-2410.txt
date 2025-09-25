@@ -75,6 +75,14 @@ Chave: -
 Condição: O (se {cadIni}(2410_infoBenInicio_cadIni) = [N])
 F (se {cadIni}(2410_infoBenInicio_cadIni) = [S])
 
+Nível: 5
+Nome: infoHomolog
+Pai: dadosBeneficio
+Descrição: Informações relativas à homologação do benefício pelo Tribunal de Contas.
+Ocorrência: 0-1
+Chave: -
+Condição: OC
+
 Nível: 4
 Nome: sucessaoBenef
 Pai: infoBenInicio
@@ -467,6 +475,39 @@ Descrição: Tipo de dependente do instituidor da pensão por morte.
 Valores válidos:
 01 - Cônjuge
 Validação: Se o campo não for informado e {dtIniBeneficio}(2410_infoBenInicio_dtIniBeneficio) >= [2025-11-24], retornar alerta.
+
+Nome: infoHomolog
+Pai: dadosBeneficio
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações relativas à homologação do benefício pelo Tribunal de Contas.
+
+Nome: sitHomolog
+Pai: infoHomolog
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Informar se o benefício requer ou não homologação pelo Tribunal de Contas.
+Valores válidos:
+0 - Não homologado
+1 - Homologado
+2 - Não requer homologação
+Validação: Se o campo não for informado e {dtIniBeneficio}(2410_infoBenInicio_dtIniBeneficio) >= [2025-11-24], retornar alerta.
+
+Nome: dtHomolog
+Pai: infoHomolog
+Elem.: E
+Tipo: D
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informar a data da homologação do benefício pelo Tribunal de Contas competente.
+Validação: Informação obrigatória e exclusiva se {sitHomolog}(./sitHomolog) = [1].
 
 Nome: sucessaoBenef
 Pai: infoBenInicio
