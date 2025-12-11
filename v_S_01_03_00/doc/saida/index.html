@@ -11,12 +11,12 @@
 <body>
 <section id="folha-rosto">
 <img alt="Logomarca do eSocial" src="esocial-full.png" class="center">
-<h1 class="title has-text-centered is-3">LEIAUTES DO eSOCIAL<br><br>Versão S-1.3 (cons. até NT 04/2025 rev. 26/08/2025)</h1><h2 class="title has-text-centered is-5">(aprovada pela Portaria Conjunta RFB/MPS/MTE nº 13, de 25/06/2024 – DOU de 28/06/2024)</h2><h2 class="title has-text-centered is-5" style="font-weight: normal">Observações: 1) Implantação no ambiente de produção: 02/12/2024; 2) Período de convivência de versões (S-1.2 e S-1.3): 02/12/2024 a 02/02/2025, sendo que os eventos S-1210 (S-5002) e S-2501 devem ser enviados exclusivamente na versão S-1.3 a partir do período de apuração 01/2025.</h2><br>
-<h1 class="title has-text-centered is-3">Agosto de 2025</h1>
+<h1 class="title has-text-centered is-3">LEIAUTES DO eSOCIAL<br><br>Versão S-1.3 (cons. até NT 05/2025)</h1><h2 class="title has-text-centered is-5">(aprovada pela Portaria Conjunta RFB/MPS/MTE nº 13, de 25/06/2024 – DOU de 28/06/2024)</h2><h2 class="title has-text-centered is-5" style="font-weight: normal">Observações: 1) Implantação no ambiente de produção: 02/12/2024; 2) Período de convivência de versões (S-1.2 e S-1.3): 02/12/2024 a 02/02/2025, sendo que os eventos S-1210 (S-5002) e S-2501 devem ser enviados exclusivamente na versão S-1.3 a partir do período de apuração 01/2025.</h2><br>
+<h1 class="title has-text-centered is-3">Outubro de 2025</h1>
 </section>
 <section class="section">
 <div class="container is-fluid">
-<h1 class="title has-text-centered is-1">eSocial versão S-1.3 - Leiautes (cons. até NT 04/2025 rev. 26/08/2025)</h1>
+<h1 class="title has-text-centered is-1">eSocial versão S-1.3 - Leiautes (cons. até NT 05/2025)</h1>
 <div class="is-hidden-print"><h2 class="title has-text-centered is-5">(aprovada pela Portaria Conjunta RFB/MPS/MTE nº 13, de 25/06/2024 – DOU de 28/06/2024)</h2><h2 class="title has-text-centered is-5" style="font-weight: normal">Observações: 1) Implantação no ambiente de produção: 02/12/2024; 2) Período de convivência de versões (S-1.2 e S-1.3): 02/12/2024 a 02/02/2025, sendo que os eventos S-1210 (S-5002) e S-2501 devem ser enviados exclusivamente na versão S-1.3 a partir do período de apuração 01/2025.</h2><br></div>
 <h2 class="title has-text-centered is-3">Sumário</h2>
 <ul class="sumario">
@@ -1386,6 +1386,22 @@ Caso esta regra não seja atendida, retornar "alerta".</p>
 </div>
 </div>
 </div>
+<div class="modal" id="REGRA_RUBRICA_ECONSIGNADO">
+<div class="modal-background"></div>
+<div class="modal-card">
+<header class="modal-card-head">
+<p class="modal-card-title"><a href="regras.html#REGRA_RUBRICA_ECONSIGNADO">REGRA_RUBRICA_ECONSIGNADO</a></p>
+<button class="delete" aria-label="close"></button>
+</header>
+<div class="modal-card-body">
+<p>1) Rubrica com {codIncFGTS} em S-1010 = [31] não pode ser utilizada:<br>
+a) no grupo {remunPerAnt};<br>
+b) nos eventos S-1202 e S-1207;<br>
+c) em período de apuração anterior ao mês de início do eConsignado no eSocial.<br>
+2) As informações de {instFinanc} e {nrDoc} serão validadas. Em caso de divergência, retornar "alerta".</p>
+</div>
+</div>
+</div>
 <div class="modal" id="REGRA_TABESTAB_VALIDA_ESTABELECIMENTO">
 <div class="modal-background"></div>
 <div class="modal-card">
@@ -1799,20 +1815,6 @@ No caso dos eventos S-2210, S-2230 e S-2231, considerar como data de desligament
 No caso do evento S-2230 (ou S-2231), se houver afastamento (ou cessão/exercício em outro órgão) com início em data igual ou posterior a {dtDeslig} do evento S-2299 ou S-8299, a data de término do afastamento (ou da cessão) deve ser igual ou anterior a {dtProjFimAPI} do S-2299 ou S-8299. Se {dtProjFimAPI} não existir, a data de término do afastamento (ou da cessão) deve ser igual a {dtDeslig}.<br>
 No caso dos eventos S-1200 e S-1202, {perApur} deve ser igual ou posterior ao mês/ano da data de admissão/data de exercício (no caso de transferência ou mudança de CPF, igual ou posterior ao mês/ano de {sucessaoVinc/dtTransf}, {transfDom/dtTransf} ou {dtAltCPF} do evento S-2200, conforme o caso) e igual ou anterior ao mês/ano da data de desligamento (informada em S-2200, S-2299 ou S-8299).<br>
 No caso do evento S-2299, se houver remuneração informada no registro {infoPerAnt}, o mês/ano do evento (aqui considerado o período ao qual se refere a remuneração, indicado em {perRef}) deve ser igual ou posterior ao mês/ano da data de admissão.</p>
-</div>
-</div>
-</div>
-<div class="modal" id="REGRA_RUBRICA_ECONSIGNADO">
-<div class="modal-background"></div>
-<div class="modal-card">
-<header class="modal-card-head">
-<p class="modal-card-title"><a href="regras.html#REGRA_RUBRICA_ECONSIGNADO">REGRA_RUBRICA_ECONSIGNADO</a></p>
-<button class="delete" aria-label="close"></button>
-</header>
-<div class="modal-card-body">
-<p>Rubrica com {natRubr} em S-1010 igual [9253] não pode ser utilizada:<br>
-a) no grupo {remunPerAnt};<br>
-b) em evento que tenha o campo {indGuia} ou por empregador com {classTrib} igual a [04] em S-1000.</p>
 </div>
 </div>
 </div>
@@ -3987,8 +3989,7 @@ N (nos demais casos)</td>
 <td>4</td>
 <td>-</td>
 <td>Informar o código de classificação da rubrica.<br>
-<strong>Validação:</strong> Deve ser um código válido e existente na <a href="tabelas.html#03">Tabela 03</a>.<br>
-Para utilização de código [9253], é necessário que <a href="#1010_infoRubrica_inclusao_ideRubrica_iniValid">iniValid</a> seja igual ou posterior ao mês de início do eConsignado no eSocial.</td>
+<strong>Validação:</strong> Deve ser um código válido e existente na <a href="tabelas.html#03">Tabela 03</a>.</td>
 </tr>
 <tr>
 <td class="seletor" onclick="copiarCaminho.call(this)" title="1010_infoRubrica_inclusao_dadosRubrica_tpRubr" id="1010_infoRubrica_inclusao_dadosRubrica_tpRubr"></td>
@@ -7246,8 +7247,8 @@ b) cuja <a href="#1010_infoRubrica_inclusao_dadosRubrica_natRubr">natRubr</a> em
 <td>1</td>
 <td>3</td>
 <td>-</td>
-<td>Código da Instituição Financeira concedente do empréstimo.<br>
-<strong>Validação:</strong> Deve ser um código válido, conforme tabela do Banco Central.</td>
+<td>Código Bancário de Consignado concedente do empréstimo.<br>
+<strong>Validação:</strong> Deve ser um código válido, conforme Tabela  37 do eSocial Tabelas.</td>
 </tr>
 <tr>
 <td class="seletor" onclick="copiarCaminho.call(this)" title="1200_dmDev_infoPerApur_ideEstabLot_remunPerApur_itensRemun_descFolha_nrDoc" id="1200_dmDev_infoPerApur_ideEstabLot_remunPerApur_itensRemun_descFolha_nrDoc"></td>
@@ -7256,9 +7257,12 @@ b) cuja <a href="#1010_infoRubrica_inclusao_dadosRubrica_natRubr">natRubr</a> em
 <td>E</td>
 <td>C</td>
 <td>1</td>
-<td>1-15</td>
+<td>2-15</td>
 <td>-</td>
-<td>Número do contrato referente ao empréstimo.</td>
+<td>Número do contrato referente ao empréstimo.<br>
+<strong>Validação:</strong> Deve obedecer ao que segue:<br>
+a) Somente são permitidos números, letras e os caracteres &quot;.&quot;, &quot;/&quot;, &quot;-&quot; e &quot;_&quot;;<br>
+b) Os caracteres &quot;.&quot;, &quot;/&quot;, &quot;-&quot; e &quot;_&quot; não podem ser informados na primeira e na última posições.</td>
 </tr>
 <tr>
 <td class="seletor" onclick="copiarCaminho.call(this)" title="1200_dmDev_infoPerApur_ideEstabLot_remunPerApur_itensRemun_descFolha_observacao" id="1200_dmDev_infoPerApur_ideEstabLot_remunPerApur_itensRemun_descFolha_observacao"></td>
@@ -7935,6 +7939,7 @@ OC (nos demais casos)</td>
 <a href="#REGRA_REMUN_PERMITE_EXCLUSAO">REGRA_REMUN_PERMITE_EXCLUSAO</a><br>
 <a href="#REGRA_REMUN_TRAB_EXISTENTE_RET">REGRA_REMUN_TRAB_EXISTENTE_RET</a><br>
 <a href="#REGRA_REMUN_VALIDA_INFO_COMPLEMENTAR">REGRA_REMUN_VALIDA_INFO_COMPLEMENTAR</a><br>
+<a href="#REGRA_RUBRICA_ECONSIGNADO">REGRA_RUBRICA_ECONSIGNADO</a><br>
 <a href="#REGRA_TSV_ATIVO_NA_DTEVENTO">REGRA_TSV_ATIVO_NA_DTEVENTO</a><br>
 <a href="#REGRA_VALIDA_EMPREGADOR">REGRA_VALIDA_EMPREGADOR</a><br>
 <a href="#REGRA_VALIDA_PERIODO_APURACAO">REGRA_VALIDA_PERIODO_APURACAO</a></td>
@@ -8595,8 +8600,8 @@ Se <a href="#1202_dmDev_infoRRA_ideAdv_tpInsc">ideAdv/tpInsc</a> = [2], deve pos
 <td>1</td>
 <td>3</td>
 <td>-</td>
-<td>Código da Instituição Financeira concedente do empréstimo.<br>
-<strong>Validação:</strong> Deve ser um código válido, conforme tabela do Banco Central.</td>
+<td>Código Bancário de Consignado concedente do empréstimo.<br>
+<strong>Validação:</strong> Deve ser um código válido, conforme Tabela  37 do eSocial Tabelas.</td>
 </tr>
 <tr>
 <td class="seletor" onclick="copiarCaminho.call(this)" title="1202_dmDev_infoPerApur_ideEstab_remunPerApur_itensRemun_descFolha_nrDoc" id="1202_dmDev_infoPerApur_ideEstab_remunPerApur_itensRemun_descFolha_nrDoc"></td>
@@ -8605,9 +8610,12 @@ Se <a href="#1202_dmDev_infoRRA_ideAdv_tpInsc">ideAdv/tpInsc</a> = [2], deve pos
 <td>E</td>
 <td>C</td>
 <td>1</td>
-<td>1-15</td>
+<td>2-15</td>
 <td>-</td>
-<td>Número do contrato referente ao empréstimo.</td>
+<td>Número do contrato referente ao empréstimo.<br>
+<strong>Validação:</strong> Deve obedecer ao que segue:<br>
+a) Somente são permitidos números, letras e os caracteres &quot;.&quot;, &quot;/&quot;, &quot;-&quot; e &quot;_&quot;;<br>
+b) Os caracteres &quot;.&quot;, &quot;/&quot;, &quot;-&quot; e &quot;_&quot; não podem ser informados na primeira e na última posições.</td>
 </tr>
 <tr>
 <td class="seletor" onclick="copiarCaminho.call(this)" title="1202_dmDev_infoPerApur_ideEstab_remunPerApur_itensRemun_descFolha_observacao" id="1202_dmDev_infoPerApur_ideEstab_remunPerApur_itensRemun_descFolha_observacao"></td>
@@ -9043,6 +9051,7 @@ OC (nos demais casos)</td>
 <a href="#REGRA_REMUN_IND_RETIFICACAO">REGRA_REMUN_IND_RETIFICACAO</a><br>
 <a href="#REGRA_REMUN_PERMITE_EXCLUSAO">REGRA_REMUN_PERMITE_EXCLUSAO</a><br>
 <a href="#REGRA_RUBRICA_COMPATIVEL_DECTERCEIRO">REGRA_RUBRICA_COMPATIVEL_DECTERCEIRO</a><br>
+<a href="#REGRA_RUBRICA_ECONSIGNADO">REGRA_RUBRICA_ECONSIGNADO</a><br>
 <a href="#REGRA_VALIDA_EMPREGADOR">REGRA_VALIDA_EMPREGADOR</a><br>
 <a href="#REGRA_VALIDA_PERIODO_APURACAO">REGRA_VALIDA_PERIODO_APURACAO</a></td>
 </tr>
@@ -9586,8 +9595,8 @@ Se <a href="#1207_dmDev_infoRRA_ideAdv_tpInsc">ideAdv/tpInsc</a> = [2], deve pos
 <td>1</td>
 <td>3</td>
 <td>-</td>
-<td>Código da Instituição Financeira concedente do empréstimo.<br>
-<strong>Validação:</strong> Deve ser um código válido, conforme tabela do Banco Central.</td>
+<td>Código Bancário de Consignado concedente do empréstimo.<br>
+<strong>Validação:</strong> Deve ser um código válido, conforme Tabela  37 do eSocial Tabelas.</td>
 </tr>
 <tr>
 <td class="seletor" onclick="copiarCaminho.call(this)" title="1207_dmDev_infoPerApur_ideEstab_itensRemun_descFolha_nrDoc" id="1207_dmDev_infoPerApur_ideEstab_itensRemun_descFolha_nrDoc"></td>
@@ -9596,9 +9605,12 @@ Se <a href="#1207_dmDev_infoRRA_ideAdv_tpInsc">ideAdv/tpInsc</a> = [2], deve pos
 <td>E</td>
 <td>C</td>
 <td>1</td>
-<td>1-15</td>
+<td>2-15</td>
 <td>-</td>
-<td>Número do contrato referente ao empréstimo.</td>
+<td>Número do contrato referente ao empréstimo.<br>
+<strong>Validação:</strong> Deve obedecer ao que segue:<br>
+a) Somente são permitidos números, letras e os caracteres &quot;.&quot;, &quot;/&quot;, &quot;-&quot; e &quot;_&quot;;<br>
+b) Os caracteres &quot;.&quot;, &quot;/&quot;, &quot;-&quot; e &quot;_&quot; não podem ser informados na primeira e na última posições.</td>
 </tr>
 <tr>
 <td class="seletor" onclick="copiarCaminho.call(this)" title="1207_dmDev_infoPerApur_ideEstab_itensRemun_descFolha_observacao" id="1207_dmDev_infoPerApur_ideEstab_itensRemun_descFolha_observacao"></td>
@@ -24475,8 +24487,8 @@ Nos demais casos (<a href="#1000_infoEmpregador_inclusao_infoCadastro_classTrib"
 <td>1</td>
 <td>3</td>
 <td>-</td>
-<td>Código da Instituição Financeira concedente do empréstimo.<br>
-<strong>Validação:</strong> Deve ser um código válido, conforme tabela do Banco Central.</td>
+<td>Código Bancário de Consignado concedente do empréstimo.<br>
+<strong>Validação:</strong> Deve ser um código válido, conforme Tabela  37 do eSocial Tabelas.</td>
 </tr>
 <tr>
 <td class="seletor" onclick="copiarCaminho.call(this)" title="2299_infoDeslig_verbasResc_dmDev_infoPerApur_ideEstabLot_detVerbas_descFolha_nrDoc" id="2299_infoDeslig_verbasResc_dmDev_infoPerApur_ideEstabLot_detVerbas_descFolha_nrDoc"></td>
@@ -24485,9 +24497,12 @@ Nos demais casos (<a href="#1000_infoEmpregador_inclusao_infoCadastro_classTrib"
 <td>E</td>
 <td>C</td>
 <td>1</td>
-<td>1-15</td>
+<td>2-15</td>
 <td>-</td>
-<td>Número do contrato referente ao empréstimo.</td>
+<td>Número do contrato referente ao empréstimo.<br>
+<strong>Validação:</strong> Deve obedecer ao que segue:<br>
+a) Somente são permitidos números, letras e os caracteres &quot;.&quot;, &quot;/&quot;, &quot;-&quot; e &quot;_&quot;;<br>
+b) Os caracteres &quot;.&quot;, &quot;/&quot;, &quot;-&quot; e &quot;_&quot; não podem ser informados na primeira e na última posições.</td>
 </tr>
 <tr>
 <td class="seletor" onclick="copiarCaminho.call(this)" title="2299_infoDeslig_verbasResc_dmDev_infoPerApur_ideEstabLot_detVerbas_descFolha_observacao" id="2299_infoDeslig_verbasResc_dmDev_infoPerApur_ideEstabLot_detVerbas_descFolha_observacao"></td>
@@ -29090,8 +29105,8 @@ b) cuja <a href="#1010_infoRubrica_inclusao_dadosRubrica_natRubr">natRubr</a> em
 <td>1</td>
 <td>3</td>
 <td>-</td>
-<td>Código da Instituição Financeira concedente do empréstimo.<br>
-<strong>Validação:</strong> Deve ser um código válido, conforme tabela do Banco Central.</td>
+<td>Código Bancário de Consignado concedente do empréstimo.<br>
+<strong>Validação:</strong> Deve ser um código válido, conforme Tabela  37 do eSocial Tabelas.</td>
 </tr>
 <tr>
 <td class="seletor" onclick="copiarCaminho.call(this)" title="2399_infoTSVTermino_verbasResc_dmDev_ideEstabLot_detVerbas_descFolha_nrDoc" id="2399_infoTSVTermino_verbasResc_dmDev_ideEstabLot_detVerbas_descFolha_nrDoc"></td>
@@ -29100,9 +29115,12 @@ b) cuja <a href="#1010_infoRubrica_inclusao_dadosRubrica_natRubr">natRubr</a> em
 <td>E</td>
 <td>C</td>
 <td>1</td>
-<td>1-15</td>
+<td>2-15</td>
 <td>-</td>
-<td>Número do contrato referente ao empréstimo.</td>
+<td>Número do contrato referente ao empréstimo.<br>
+<strong>Validação:</strong> Deve obedecer ao que segue:<br>
+a) Somente são permitidos números, letras e os caracteres &quot;.&quot;, &quot;/&quot;, &quot;-&quot; e &quot;_&quot;;<br>
+b) Os caracteres &quot;.&quot;, &quot;/&quot;, &quot;-&quot; e &quot;_&quot; não podem ser informados na primeira e na última posições.</td>
 </tr>
 <tr>
 <td class="seletor" onclick="copiarCaminho.call(this)" title="2399_infoTSVTermino_verbasResc_dmDev_ideEstabLot_detVerbas_descFolha_observacao" id="2399_infoTSVTermino_verbasResc_dmDev_ideEstabLot_detVerbas_descFolha_observacao"></td>
@@ -30900,6 +30918,15 @@ N (nos demais casos)</td>
 F (se <a href="#2410_infoBenInicio_cadIni">cadIni</a> = [S])</td>
 </tr>
 <tr>
+<td id="r_2410_infoBenInicio_dadosBeneficio_infoHomolog"><a href="#2410_infoBenInicio_dadosBeneficio_infoHomolog">infoHomolog</a></td>
+<td><a href="#r_2410_infoBenInicio_dadosBeneficio">dadosBeneficio</a></td>
+<td>5</td>
+<td>Informações relativas à homologação do benefício pelo Tribunal de Contas</td>
+<td>0-1</td>
+<td>-</td>
+<td>OC</td>
+</tr>
+<tr>
 <td id="r_2410_infoBenInicio_sucessaoBenef"><a href="#2410_infoBenInicio_sucessaoBenef">sucessaoBenef</a></td>
 <td><a href="#r_2410_infoBenInicio">infoBenInicio</a></td>
 <td>4</td>
@@ -31366,6 +31393,88 @@ b) Se <a href="#2410_infoBenInicio_cadIni">cadIni</a> = [N], deve ser igual ou p
 <td>-</td>
 <td>Data de óbito do instituidor da pensão por morte.</td>
 </tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="2410_infoBenInicio_dadosBeneficio_infoPenMorte_instPenMorte_tpDepInst" id="2410_infoBenInicio_dadosBeneficio_infoPenMorte_instPenMorte_tpDepInst"></td>
+<td>tpDepInst</td>
+<td><a href="#r_2410_infoBenInicio_dadosBeneficio_infoPenMorte_instPenMorte">instPenMorte</a></td>
+<td>E</td>
+<td>C</td>
+<td>0-1</td>
+<td>2</td>
+<td>-</td>
+<td>Tipo de dependente do instituidor da pensão por morte.<br>
+<strong>Valores válidos:</strong><br>
+<strong>01</strong> - Cônjuge<br>
+<strong>02</strong> - Companheiro(a)<br>
+<strong>03</strong> - Filho(a) até 21 anos<br>
+<strong>04</strong> - Enteado(a)<br>
+<strong>05</strong> - Ex-companheiro(a)<br>
+<strong>06</strong> - Irmão(a)<br>
+<strong>07</strong> - Neto(a)<br>
+<strong>08</strong> - Filha maior solteira<br>
+<strong>09</strong> - Pais<br>
+<strong>10</strong> - Menor sob guarda ou tutela<br>
+<strong>11</strong> - Filho(a) maior inválido ou com deficiência<br>
+<strong>12</strong> - Ex-cônjuge<br>
+<strong>13</strong> - Avós<br>
+<strong>14</strong> - Bisavós<br>
+<strong>15</strong> - Bisneto(a)<br>
+<strong>16</strong> - Curatelado(a)<br>
+<strong>17</strong> - Designado(a)<br>
+<strong>99</strong> - Agregados/Outros<br>
+<strong>Validação:</strong> Se o campo não for informado e <a href="#2410_infoBenInicio_dtIniBeneficio">dtIniBeneficio</a> &gt;= [2025-11-24], retornar alerta.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="2410_infoBenInicio_dadosBeneficio_infoPenMorte_instPenMorte_descrDepInst" id="2410_infoBenInicio_dadosBeneficio_infoPenMorte_instPenMorte_descrDepInst"></td>
+<td>descrDepInst</td>
+<td><a href="#r_2410_infoBenInicio_dadosBeneficio_infoPenMorte_instPenMorte">instPenMorte</a></td>
+<td>E</td>
+<td>C</td>
+<td>0-1</td>
+<td>1-100</td>
+<td>-</td>
+<td>Informar a descrição da dependência do instituidor da pensão por morte.<br>
+<strong>Validação:</strong> Informação obrigatória e exclusiva se <a href="#2410_infoBenInicio_dadosBeneficio_infoPenMorte_instPenMorte_tpDepInst">tpDepInst</a> = [99].</td>
+</tr>
+<tr class="grupo">
+<td class="seletor" onclick="copiarCaminho.call(this)" title="2410_infoBenInicio_dadosBeneficio_infoHomolog" id="2410_infoBenInicio_dadosBeneficio_infoHomolog"></td>
+<td><a href="#r_2410_infoBenInicio_dadosBeneficio_infoHomolog">infoHomolog</a></td>
+<td><a href="#r_2410_infoBenInicio_dadosBeneficio">dadosBeneficio</a></td>
+<td>G</td>
+<td>-</td>
+<td>0-1</td>
+<td>-</td>
+<td>-</td>
+<td>Informações relativas à homologação do benefício pelo Tribunal de Contas.<br>
+<strong>Validação:</strong> Se o grupo não for informado e <a href="#2410_infoBenInicio_dtIniBeneficio">dtIniBeneficio</a> &gt;= [2025-11-24], retornar alerta.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="2410_infoBenInicio_dadosBeneficio_infoHomolog_sitHomolog" id="2410_infoBenInicio_dadosBeneficio_infoHomolog_sitHomolog"></td>
+<td>sitHomolog</td>
+<td><a href="#r_2410_infoBenInicio_dadosBeneficio_infoHomolog">infoHomolog</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1</td>
+<td>-</td>
+<td>Informar se o benefício requer ou não homologação pelo Tribunal de Contas.<br>
+<strong>Valores válidos:</strong><br>
+<strong>0</strong> - Não homologado<br>
+<strong>1</strong> - Homologado<br>
+<strong>2</strong> - Não requer homologação</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="2410_infoBenInicio_dadosBeneficio_infoHomolog_dtHomolog" id="2410_infoBenInicio_dadosBeneficio_infoHomolog_dtHomolog"></td>
+<td>dtHomolog</td>
+<td><a href="#r_2410_infoBenInicio_dadosBeneficio_infoHomolog">infoHomolog</a></td>
+<td>E</td>
+<td>D</td>
+<td>0-1</td>
+<td>-</td>
+<td>-</td>
+<td>Informar a data da homologação do benefício pelo Tribunal de Contas competente.<br>
+<strong>Validação:</strong> Informação obrigatória e exclusiva se <a href="#2410_infoBenInicio_dadosBeneficio_infoHomolog_sitHomolog">sitHomolog</a> = [1].</td>
+</tr>
 <tr class="grupo">
 <td class="seletor" onclick="copiarCaminho.call(this)" title="2410_infoBenInicio_sucessaoBenef" id="2410_infoBenInicio_sucessaoBenef"></td>
 <td><a href="#r_2410_infoBenInicio_sucessaoBenef">sucessaoBenef</a></td>
@@ -31609,6 +31718,15 @@ c) Se <a href="#2410_infoBenInicio_indSitBenef">indSitBenef</a> = [2], deve ser 
 <td>-</td>
 <td>O (se <a href="#2416_infoBenAlteracao_dadosBeneficio_tpBeneficio">tpBeneficio</a> pertencer ao grupo [06]);<br>
 N (nos demais casos)</td>
+</tr>
+<tr>
+<td id="r_2416_infoBenAlteracao_dadosBeneficio_infoPenMorte_instPenMorte"><a href="#2416_infoBenAlteracao_dadosBeneficio_infoPenMorte_instPenMorte">instPenMorte</a></td>
+<td><a href="#r_2416_infoBenAlteracao_dadosBeneficio_infoPenMorte">infoPenMorte</a></td>
+<td>6</td>
+<td>Informações do instituidor da pensão por morte</td>
+<td>0-1</td>
+<td>-</td>
+<td>OC</td>
 </tr>
 <tr>
 <td id="r_2416_infoBenAlteracao_dadosBeneficio_suspensao"><a href="#2416_infoBenAlteracao_dadosBeneficio_suspensao">suspensao</a></td>
@@ -31943,6 +32061,60 @@ Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo
 <strong>Valores válidos:</strong><br>
 <strong>1</strong> - Vitalícia<br>
 <strong>2</strong> - Temporária</td>
+</tr>
+<tr class="grupo">
+<td class="seletor" onclick="copiarCaminho.call(this)" title="2416_infoBenAlteracao_dadosBeneficio_infoPenMorte_instPenMorte" id="2416_infoBenAlteracao_dadosBeneficio_infoPenMorte_instPenMorte"></td>
+<td><a href="#r_2416_infoBenAlteracao_dadosBeneficio_infoPenMorte_instPenMorte">instPenMorte</a></td>
+<td><a href="#r_2416_infoBenAlteracao_dadosBeneficio_infoPenMorte">infoPenMorte</a></td>
+<td>G</td>
+<td>-</td>
+<td>0-1</td>
+<td>-</td>
+<td>-</td>
+<td>Informações do instituidor da pensão por morte.<br>
+<strong>Validação:</strong> Se o grupo não for informado e <a href="#2416_infoBenAlteracao_dtAltBeneficio">dtAltBeneficio</a> &gt;= [2025-11-24], retornar alerta.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="2416_infoBenAlteracao_dadosBeneficio_infoPenMorte_instPenMorte_tpDepInst" id="2416_infoBenAlteracao_dadosBeneficio_infoPenMorte_instPenMorte_tpDepInst"></td>
+<td>tpDepInst</td>
+<td><a href="#r_2416_infoBenAlteracao_dadosBeneficio_infoPenMorte_instPenMorte">instPenMorte</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>2</td>
+<td>-</td>
+<td>Tipo de dependente do instituidor da pensão por morte.<br>
+<strong>Valores válidos:</strong><br>
+<strong>01</strong> - Cônjuge<br>
+<strong>02</strong> - Companheiro(a)<br>
+<strong>03</strong> - Filho(a) até 21 anos<br>
+<strong>04</strong> - Enteado(a)<br>
+<strong>05</strong> - Ex-companheiro(a)<br>
+<strong>06</strong> - Irmão(a)<br>
+<strong>07</strong> - Neto(a)<br>
+<strong>08</strong> - Filha maior solteira<br>
+<strong>09</strong> - Pais<br>
+<strong>10</strong> - Menor sob guarda ou tutela<br>
+<strong>11</strong> - Filho(a) maior inválido ou com deficiência<br>
+<strong>12</strong> - Ex-cônjuge<br>
+<strong>13</strong> - Avós<br>
+<strong>14</strong> - Bisavós<br>
+<strong>15</strong> - Bisneto(a)<br>
+<strong>16</strong> - Curatelado(a)<br>
+<strong>17</strong> - Designado(a)<br>
+<strong>99</strong> - Agregados/Outros</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="2416_infoBenAlteracao_dadosBeneficio_infoPenMorte_instPenMorte_descrDepInst" id="2416_infoBenAlteracao_dadosBeneficio_infoPenMorte_instPenMorte_descrDepInst"></td>
+<td>descrDepInst</td>
+<td><a href="#r_2416_infoBenAlteracao_dadosBeneficio_infoPenMorte_instPenMorte">instPenMorte</a></td>
+<td>E</td>
+<td>C</td>
+<td>0-1</td>
+<td>1-100</td>
+<td>-</td>
+<td>Informar a descrição da dependência do instituidor da pensão por morte.<br>
+<strong>Validação:</strong> Informação obrigatória e exclusiva se <a href="#2416_infoBenAlteracao_dadosBeneficio_infoPenMorte_instPenMorte_tpDepInst">tpDepInst</a> = [99].</td>
 </tr>
 <tr class="grupo">
 <td class="seletor" onclick="copiarCaminho.call(this)" title="2416_infoBenAlteracao_dadosBeneficio_suspensao" id="2416_infoBenAlteracao_dadosBeneficio_suspensao"></td>
@@ -41980,8 +42152,8 @@ As inclusões, alterações ou exclusões dos dados que compõem este grupo não
 <td>1</td>
 <td>3</td>
 <td>-</td>
-<td>Instituição financeira do empréstimo eConsignado.<br>
-<strong>Origem:</strong> campo {descFolha/instFinanc} dos eventos remuneratórios (S-1200, S-1202, S-1207, S-2299 e S-2399).</td>
+<td>Código Bancário de Consignado concedente do empréstimo.<br>
+<strong>Origem:</strong> campo {descFolha/instFinanc} do evento remuneratório (S-1200, S-2299 ou S-2399).</td>
 </tr>
 <tr>
 <td class="seletor" onclick="copiarCaminho.call(this)" title="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_eConsignado_nrContrato" id="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_eConsignado_nrContrato"></td>
@@ -41990,10 +42162,10 @@ As inclusões, alterações ou exclusões dos dados que compõem este grupo não
 <td>E</td>
 <td>C</td>
 <td>1</td>
-<td>1-15</td>
+<td>2-15</td>
 <td>-</td>
 <td>Número do contrato do empréstimo eConsignado.<br>
-<strong>Origem:</strong> campo {descFolha/nrDoc} dos eventos remuneratórios (S-1200, S-1202, S-1207, S-2299 e S-2399).</td>
+<strong>Origem:</strong> campo {descFolha/nrDoc} do evento remuneratório (S-1200, S-2299 ou S-2399).</td>
 </tr>
 <tr>
 <td class="seletor" onclick="copiarCaminho.call(this)" title="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_eConsignado_vreConsignado" id="5003_infoFGTS_ideEstab_ideLotacao_infoTrabFGTS_eConsignado_vreConsignado"></td>

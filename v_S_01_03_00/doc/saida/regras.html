@@ -12,11 +12,11 @@
 <section id="folha-rosto">
 <img alt="Logomarca do eSocial" src="esocial-full.png" class="center">
 <h1 class="title has-text-centered is-3">ANEXO II DOS LEIAUTES DO eSOCIAL<br>REGRAS DE VALIDAÇÃO</h1>
-<h1 class="title has-text-centered is-3">Versão S-1.3 (cons. até NT 04/2025 rev. 26/08/2025)</h1>
+<h1 class="title has-text-centered is-3">Versão S-1.3 (cons. até NT 05/2025)</h1>
 </section>
 <section class="section">
 <div class="container is-fluid">
-<h1 class="title has-text-centered is-1">eSocial versão S-1.3 - Regras (cons. até NT 04/2025 rev. 26/08/2025)</h1>
+<h1 class="title has-text-centered is-1">eSocial versão S-1.3 - Regras (cons. até NT 05/2025)</h1>
 <div class="modal" id="r_REGRA_ADMISSAO_POSTERIOR_INICIO_ATIVIDADES">
 <div class="modal-background"></div>
 <div class="modal-card">
@@ -1385,6 +1385,22 @@
 </div>
 </div>
 </div>
+<div class="modal" id="r_REGRA_RUBRICA_ECONSIGNADO">
+<div class="modal-background"></div>
+<div class="modal-card">
+<header class="modal-card-head">
+<p class="modal-card-title">REGRA_RUBRICA_ECONSIGNADO</p>
+<button class="delete" aria-label="close"></button>
+</header>
+<div class="modal-card-body">
+<ul><li><a href="index.html#1200">evtRemun</a></li>
+<li><a href="index.html#1202">evtRmnRPPS</a></li>
+<li><a href="index.html#1207">evtBenPrRP</a></li>
+<li><a href="index.html#2299">evtDeslig</a></li>
+<li><a href="index.html#2399">evtTSVTermino</a></li></ul>
+</div>
+</div>
+</div>
 <div class="modal" id="r_REGRA_TABESTAB_VALIDA_ESTABELECIMENTO">
 <div class="modal-background"></div>
 <div class="modal-card">
@@ -1840,20 +1856,6 @@
 <li><a href="index.html#2240">evtExpRisco</a></li>
 <li><a href="index.html#2299">evtDeslig</a></li>
 <li><a href="index.html#8299">evtBaixa</a></li></ul>
-</div>
-</div>
-</div>
-<div class="modal" id="r_REGRA_RUBRICA_ECONSIGNADO">
-<div class="modal-background"></div>
-<div class="modal-card">
-<header class="modal-card-head">
-<p class="modal-card-title">REGRA_RUBRICA_ECONSIGNADO</p>
-<button class="delete" aria-label="close"></button>
-</header>
-<div class="modal-card-body">
-<ul><li><a href="index.html#1200">evtRemun</a></li>
-<li><a href="index.html#2299">evtDeslig</a></li>
-<li><a href="index.html#2399">evtTSVTermino</a></li></ul>
 </div>
 </div>
 </div>
@@ -2467,6 +2469,14 @@ c) No caso do evento S-1200, são permitidas apenas as rubricas cuja {natRubr} s
 Caso esta regra não seja atendida, retornar "alerta".</td>
 </tr>
 <tr>
+<td id="REGRA_RUBRICA_ECONSIGNADO"><a title="Ver ocorrências"><strong>REGRA_RUBRICA_ECONSIGNADO</strong></a></td>
+<td>1) Rubrica com {codIncFGTS} em S-1010 = [31] não pode ser utilizada:<br>
+a) no grupo {remunPerAnt};<br>
+b) nos eventos S-1202 e S-1207;<br>
+c) em período de apuração anterior ao mês de início do eConsignado no eSocial.<br>
+2) As informações de {instFinanc} e {nrDoc} serão validadas. Em caso de divergência, retornar "alerta".</td>
+</tr>
+<tr>
 <td id="REGRA_TABESTAB_VALIDA_ESTABELECIMENTO"><a title="Ver ocorrências"><strong>REGRA_TABESTAB_VALIDA_ESTABELECIMENTO</strong></a></td>
 <td>1) Órgão Público da Administração Direta, Autárquica ou Fundacional (natureza jurídica pertencente ao grupo [1]) pode cadastrar estabelecimento com CNPJ de raiz igual ou diferente da inscrição do órgão público informada em S-1000. No caso de CNPJ de raiz diferente, o estabelecimento deve pertencer ao mesmo EFR - Ente Federativo Responsável do Órgão Público (definido em S-1000).<br>
 2) Empregador Pessoa Jurídica pode cadastrar estabelecimento com CNPJ de raiz diferente da inscrição do contribuinte informada em S-1000, desde que a natureza jurídica desse estabelecimento seja igual a 212-7 (Sociedade em Conta de Participação - SCP).</td>
@@ -2657,12 +2667,6 @@ No caso dos eventos S-2210, S-2230 e S-2231, considerar como data de desligament
 No caso do evento S-2230 (ou S-2231), se houver afastamento (ou cessão/exercício em outro órgão) com início em data igual ou posterior a {dtDeslig} do evento S-2299 ou S-8299, a data de término do afastamento (ou da cessão) deve ser igual ou anterior a {dtProjFimAPI} do S-2299 ou S-8299. Se {dtProjFimAPI} não existir, a data de término do afastamento (ou da cessão) deve ser igual a {dtDeslig}.<br>
 No caso dos eventos S-1200 e S-1202, {perApur} deve ser igual ou posterior ao mês/ano da data de admissão/data de exercício (no caso de transferência ou mudança de CPF, igual ou posterior ao mês/ano de {sucessaoVinc/dtTransf}, {transfDom/dtTransf} ou {dtAltCPF} do evento S-2200, conforme o caso) e igual ou anterior ao mês/ano da data de desligamento (informada em S-2200, S-2299 ou S-8299).<br>
 No caso do evento S-2299, se houver remuneração informada no registro {infoPerAnt}, o mês/ano do evento (aqui considerado o período ao qual se refere a remuneração, indicado em {perRef}) deve ser igual ou posterior ao mês/ano da data de admissão.</td>
-</tr>
-<tr>
-<td id="REGRA_RUBRICA_ECONSIGNADO"><a title="Ver ocorrências"><strong>REGRA_RUBRICA_ECONSIGNADO</strong></a></td>
-<td>Rubrica com {natRubr} em S-1010 igual [9253] não pode ser utilizada:<br>
-a) no grupo {remunPerAnt};<br>
-b) em evento que tenha o campo {indGuia} ou por empregador com {classTrib} igual a [04] em S-1000.</td>
 </tr>
 </tbody>
 </table>

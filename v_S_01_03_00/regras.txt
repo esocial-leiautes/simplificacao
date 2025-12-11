@@ -512,6 +512,13 @@ REGRA_RUBRICA_COMPATIVEL_RESC
 Rubrica com {codIncFGTS} em S-1010 = [21, 93] só pode ser utilizada nos eventos Desligamento (S-2299) e TSVE - Término (S-2399), ou ainda no grupo {remunPerAnt} do evento Remuneração RGPS (S-1200).
 Caso esta regra não seja atendida, retornar "alerta".
 
+REGRA_RUBRICA_ECONSIGNADO
+1) Rubrica com {codIncFGTS} em S-1010 = [31] não pode ser utilizada:
+a) no grupo {remunPerAnt};
+b) nos eventos S-1202 e S-1207;
+c) em período de apuração anterior ao mês de início do eConsignado no eSocial.
+2) As informações de {instFinanc} e {nrDoc} serão validadas. Em caso de divergência, retornar "alerta".
+
 REGRA_TABESTAB_VALIDA_ESTABELECIMENTO
 1) Órgão Público da Administração Direta, Autárquica ou Fundacional (natureza jurídica pertencente ao grupo [1]) pode cadastrar estabelecimento com CNPJ de raiz igual ou diferente da inscrição do órgão público informada em S-1000. No caso de CNPJ de raiz diferente, o estabelecimento deve pertencer ao mesmo EFR - Ente Federativo Responsável do Órgão Público (definido em S-1000).
 2) Empregador Pessoa Jurídica pode cadastrar estabelecimento com CNPJ de raiz diferente da inscrição do contribuinte informada em S-1000, desde que a natureza jurídica desse estabelecimento seja igual a 212-7 (Sociedade em Conta de Participação - SCP).
@@ -675,8 +682,3 @@ No caso dos eventos S-2210, S-2230 e S-2231, considerar como data de desligament
 No caso do evento S-2230 (ou S-2231), se houver afastamento (ou cessão/exercício em outro órgão) com início em data igual ou posterior a {dtDeslig} do evento S-2299 ou S-8299, a data de término do afastamento (ou da cessão) deve ser igual ou anterior a {dtProjFimAPI} do S-2299 ou S-8299. Se {dtProjFimAPI} não existir, a data de término do afastamento (ou da cessão) deve ser igual a {dtDeslig}.
 No caso dos eventos S-1200 e S-1202, {perApur} deve ser igual ou posterior ao mês/ano da data de admissão/data de exercício (no caso de transferência ou mudança de CPF, igual ou posterior ao mês/ano de {sucessaoVinc/dtTransf}, {transfDom/dtTransf} ou {dtAltCPF} do evento S-2200, conforme o caso) e igual ou anterior ao mês/ano da data de desligamento (informada em S-2200, S-2299 ou S-8299).
 No caso do evento S-2299, se houver remuneração informada no registro {infoPerAnt}, o mês/ano do evento (aqui considerado o período ao qual se refere a remuneração, indicado em {perRef}) deve ser igual ou posterior ao mês/ano da data de admissão.
-
-REGRA_RUBRICA_ECONSIGNADO
-Rubrica com {natRubr} em S-1010 igual [9253] não pode ser utilizada:
-a) no grupo {remunPerAnt};
-b) em evento que tenha o campo {indGuia} ou por empregador com {classTrib} igual a [04] em S-1000.

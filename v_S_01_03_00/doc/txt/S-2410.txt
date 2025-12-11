@@ -75,6 +75,14 @@ Chave: -
 Condição: O (se {cadIni}(2410_infoBenInicio_cadIni) = [N])
 F (se {cadIni}(2410_infoBenInicio_cadIni) = [S])
 
+Nível: 5
+Nome: infoHomolog
+Pai: dadosBeneficio
+Descrição: Informações relativas à homologação do benefício pelo Tribunal de Contas.
+Ocorrência: 0-1
+Chave: -
+Condição: OC
+
 Nível: 4
 Nome: sucessaoBenef
 Pai: infoBenInicio
@@ -455,6 +463,78 @@ Ocorrência: 1
 Tamanho: -
 Dec.: -
 Descrição: Data de óbito do instituidor da pensão por morte.
+
+Nome: tpDepInst
+Pai: instPenMorte
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 2
+Dec.: -
+Descrição: Tipo de dependente do instituidor da pensão por morte.
+Valores válidos:
+01 - Cônjuge
+02 - Companheiro(a)
+03 - Filho(a) até 21 anos
+04 - Enteado(a)
+05 - Ex-companheiro(a)
+06 - Irmão(a)
+07 - Neto(a)
+08 - Filha maior solteira
+09 - Pais
+10 - Menor sob guarda ou tutela
+11 - Filho(a) maior inválido ou com deficiência
+12 - Ex-cônjuge
+13 - Avós
+14 - Bisavós
+15 - Bisneto(a)
+16 - Curatelado(a)
+17 - Designado(a)
+99 - Agregados/Outros
+Validação: Se o campo não for informado e {dtIniBeneficio}(2410_infoBenInicio_dtIniBeneficio) >= [2025-11-24], retornar alerta.
+
+Nome: descrDepInst
+Pai: instPenMorte
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-100
+Dec.: -
+Descrição: Informar a descrição da dependência do instituidor da pensão por morte.
+Validação: Informação obrigatória e exclusiva se {tpDepInst}(./tpDepInst) = [99].
+
+Nome: infoHomolog
+Pai: dadosBeneficio
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações relativas à homologação do benefício pelo Tribunal de Contas.
+Validação: Se o grupo não for informado e {dtIniBeneficio}(2410_infoBenInicio_dtIniBeneficio) >= [2025-11-24], retornar alerta.
+
+Nome: sitHomolog
+Pai: infoHomolog
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Informar se o benefício requer ou não homologação pelo Tribunal de Contas.
+Valores válidos:
+0 - Não homologado
+1 - Homologado
+2 - Não requer homologação
+
+Nome: dtHomolog
+Pai: infoHomolog
+Elem.: E
+Tipo: D
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informar a data da homologação do benefício pelo Tribunal de Contas competente.
+Validação: Informação obrigatória e exclusiva se {sitHomolog}(./sitHomolog) = [1].
 
 Nome: sucessaoBenef
 Pai: infoBenInicio
