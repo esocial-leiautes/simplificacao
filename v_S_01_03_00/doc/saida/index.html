@@ -1658,7 +1658,7 @@ OBS.: A alínea "a" de ambos os itens acima não deve ser executada quando se tr
 <button class="delete" aria-label="close"></button>
 </header>
 <div class="modal-card-body">
-<p>Caso o campo {naoValid} não esteja informado, efetuar as seguintes verificações:<br>
+<p>Caso o campo {naoValid} esteja informado com [N], efetuar as seguintes verificações:<br>
 a) Não deve existir evento de Registro Preliminar (S-2190) sem o correspondente evento de Admissão (S-2200) ou TSVE - Início (S-2300) cujo mês/ano da "data de admissão" ou da "data de início" seja anterior ou igual ao período de apuração da folha de pagamento. Em caso de não existência, deve ser gerado um "alerta" para o empregador (ou seja, embora a situação seja irregular, não há impedimento para o fechamento dos eventos periódicos).<br>
 b) Validar a integridade entre os eventos de remuneração recepcionados e os empregados e agentes públicos "ativos" do Registro de Eventos Trabalhistas - RET, da seguinte forma:<br>
 b1) Todos os trabalhadores admitidos (S-2190 ou S-2200) em período igual ou anterior ao período de apuração que não estejam desligados ou cujo desligamento ou baixa judicial seja posterior ao período de apuração devem possuir o respectivo evento de remuneração (S-1200, S-1202 ou S-2299 para trabalhadores com {tpRegTrab} = [1] e S-1200 ou S-1202 para trabalhadores com {tpRegTrab} = [2]) já encaminhado para o mesmo período de apuração, exceto:<br>
@@ -34444,7 +34444,7 @@ c) Se <a href="#2500_ideTrab_infoContr_tpContr">infoContr/tpContr</a> = [6], dev
 <td>7</td>
 <td>-</td>
 <td>Competência final a que se refere o processo ou conciliação, no formato AAAA-MM.<br>
-<strong>Validação:</strong> Deve ser igual ou posterior a <a href="#2500_ideTrab_infoContr_ideEstab_infoVlr_compIni">compIni</a> e igual ou anterior ao mês/ano de <a href="#2500_infoProcesso_dadosCompl_infoProcJud_dtSent">dtSent</a> ou <a href="#2500_infoProcesso_dadosCompl_infoCCP_dtCCP">dtCCP</a>.</td>
+<strong>Validação:</strong> Deve ser igual ou posterior a <a href="#2500_ideTrab_infoContr_ideEstab_infoVlr_compIni">compIni</a>. Se for posterior ao mês/ano de <a href="#2500_infoProcesso_dadosCompl_infoProcJud_dtSent">dtSent</a> ou <a href="#2500_infoProcesso_dadosCompl_infoCCP_dtCCP">dtCCP</a>, retornar alerta.</td>
 </tr>
 <tr>
 <td class="seletor" onclick="copiarCaminho.call(this)" title="2500_ideTrab_infoContr_ideEstab_infoVlr_indReperc" id="2500_ideTrab_infoContr_ideEstab_infoVlr_indReperc"></td>
@@ -35226,7 +35226,7 @@ Deve ser único dentre os eventos S-2501 do empregador que tenham os mesmos <a h
 <td>7</td>
 <td>-</td>
 <td>Informar o mês/ano (formato AAAA-MM) de referência das informações.<br>
-<strong>Validação:</strong> Deve ser um período existente no evento S-2500 para o trabalhador indicado em <a href="#2501_ideTrab_cpfTrab">cpfTrab</a> (observado o campo <a href="#2500_ideTrab_ideSeqTrab">ideSeqTrab</a> de S-2500, se existente) e igual ou posterior a [2008-12].</td>
+<strong>Validação:</strong> Deve ser um período existente no evento S-2500 para o trabalhador indicado em <a href="#2501_ideTrab_cpfTrab">cpfTrab</a> (observado o campo <a href="#2500_ideTrab_ideSeqTrab">ideSeqTrab</a> de S-2500, se existente), igual ou posterior a [2008-12] e igual ou anterior a <a href="#2501_ideProc_perApurPgto">perApurPgto</a>.</td>
 </tr>
 <tr>
 <td class="seletor" onclick="copiarCaminho.call(this)" title="2501_ideTrab_calcTrib_vrBcCpMensal" id="2501_ideTrab_calcTrib_vrBcCpMensal"></td>
