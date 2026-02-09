@@ -69,7 +69,8 @@
                                                         <xs:annotation>
                                                             <xs:documentation>Preencher com a data de admissão do trabalhador no empregador de origem (responsável direto) quando se tratar de vínculo que não foi informado no eSocial.</xs:documentation>
                                                             <xs:documentation>Em caso de TSVE sem informação de matrícula no evento S-2300, informar a data de início.</xs:documentation>
-                                                            <xs:documentation>Validação: Se informado, deve ser posterior à data de nascimento do trabalhador e igual ou anterior ao ano do óbito, se existente. Não deve ser informado se houver informação no campo {}(./matRespDir).</xs:documentation>
+                                                            <xs:documentation>Validação: Se informado, deve ser posterior à data de nascimento do trabalhador e igual ou anterior à data do óbito, se existente (se não for possível obter a data do óbito, deve ser igual ou anterior ao ano do óbito; se não for possível obter a data e o ano do óbito, o evento deve ser recebido mediante alerta).</xs:documentation>
+                                                            <xs:documentation>Não deve ser informado se houver informação no campo {}(./matRespDir).</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
                                                     <xs:element name="matRespDir" minOccurs="0" type="TS_matricula">
@@ -443,7 +444,7 @@
                                                                             <xs:element name="dtAdm" type="xs:date">
                                                                                 <xs:annotation>
                                                                                     <xs:documentation>Preencher com a data de admissão do trabalhador.</xs:documentation>
-                                                                                    <xs:documentation>Validação: Deve ser posterior à data de nascimento do trabalhador e igual ou anterior ao ano do óbito, se existente.</xs:documentation>
+                                                                                    <xs:documentation>Validação: Deve ser posterior à data de nascimento do trabalhador e igual ou anterior à data do óbito, se existente (se não for possível obter a data do óbito, deve ser igual ou anterior ao ano do óbito; se não for possível obter a data e o ano do óbito, o evento deve ser recebido mediante alerta).</xs:documentation>
                                                                                 </xs:annotation>
                                                                             </xs:element>
                                                                             <xs:element name="tmpParc" minOccurs="0" type="TS_tmpParc">
@@ -464,7 +465,7 @@
                                                                                         <xs:element name="dtTerm" minOccurs="0" type="TS_dtTerm">
                                                                                             <xs:annotation>
                                                                                                 <xs:documentation>Data do término do contrato por prazo determinado.</xs:documentation>
-                                                                                                <xs:documentation>Validação: O preenchimento é obrigatório se {duracao/tpContr}(./tpContr) = [2]. Não informar se {duracao/tpContr}(./tpContr) = [1]. Se preenchido, deve ser igual ou posterior à data de admissão (no caso de transferência, igual ou posterior a {sucessaoVinc/dtTransf}(../sucessaoVinc_dtTransf)).</xs:documentation>
+                                                                                                <xs:documentation>Validação: O preenchimento é obrigatório se {duracao/tpContr}(./tpContr) = [2]. Não informar se {duracao/tpContr}(./tpContr) = [1]. Se preenchido, deve ser igual ou posterior à data de admissão (no caso de transferência, igual ou posterior a {dtTransf}(../sucessaoVinc_dtTransf)).</xs:documentation>
                                                                                             </xs:annotation>
                                                                                         </xs:element>
                                                                                         <xs:element name="clauAssec" minOccurs="0" type="TS_sim_nao">
@@ -552,13 +553,13 @@
                                                                                         <xs:element name="matricAnt" minOccurs="0" type="TS_matricula">
                                                                                             <xs:annotation>
                                                                                                 <xs:documentation>Matrícula do trabalhador no empregador anterior.</xs:documentation>
-                                                                                                <xs:documentation>Validação: Se {sucessaoVinc/dtTransf}(./dtTransf) for igual ou posterior a [2024-04-22], a matrícula informada neste campo deve ser idêntica à matricula do trabalhador no empregador anterior.</xs:documentation>
+                                                                                                <xs:documentation>Validação: Se {dtTransf}(./dtTransf) for igual ou posterior a [2024-04-22], a matrícula informada neste campo deve ser idêntica à matricula do trabalhador no empregador anterior.</xs:documentation>
                                                                                             </xs:annotation>
                                                                                         </xs:element>
                                                                                         <xs:element name="dtTransf" type="xs:date">
                                                                                             <xs:annotation>
                                                                                                 <xs:documentation>Preencher com a data da transferência do empregado para o empregador declarante.</xs:documentation>
-                                                                                                <xs:documentation>Validação: Deve ser posterior à data de admissão do trabalhador e igual ou anterior ao ano do óbito, se existente.</xs:documentation>
+                                                                                                <xs:documentation>Validação: Deve ser posterior à data de admissão do trabalhador e igual ou anterior à data do óbito, se existente (se não for possível obter a data do óbito, deve ser igual ou anterior ao ano do óbito; se não for possível obter a data e o ano do óbito, o evento deve ser recebido mediante alerta).</xs:documentation>
                                                                                             </xs:annotation>
                                                                                         </xs:element>
                                                                                     </xs:sequence>

@@ -447,7 +447,8 @@ Tamanho: -
 Dec.: -
 Descrição: Preencher com a data de admissão do trabalhador no empregador de origem (responsável direto) quando se tratar de vínculo que não foi informado no eSocial.
 Em caso de TSVE sem informação de matrícula no evento S-2300, informar a data de início.
-Validação: Se informado, deve ser posterior à data de nascimento do trabalhador e igual ou anterior ao ano do óbito, se existente. Não deve ser informado se houver informação no campo {}(./matRespDir).
+Validação: Se informado, deve ser posterior à data de nascimento do trabalhador e igual ou anterior à data do óbito, se existente (se não for possível obter a data do óbito, deve ser igual ou anterior ao ano do óbito; se não for possível obter a data e o ano do óbito, o evento deve ser recebido mediante alerta).
+Não deve ser informado se houver informação no campo {}(./matRespDir).
 
 Nome: matRespDir
 Pai: ideResp
@@ -949,7 +950,7 @@ Ocorrência: 1
 Tamanho: -
 Dec.: -
 Descrição: Preencher com a data de admissão do trabalhador.
-Validação: Deve ser posterior à data de nascimento do trabalhador e igual ou anterior ao ano do óbito, se existente.
+Validação: Deve ser posterior à data de nascimento do trabalhador e igual ou anterior à data do óbito, se existente (se não for possível obter a data do óbito, deve ser igual ou anterior ao ano do óbito; se não for possível obter a data e o ano do óbito, o evento deve ser recebido mediante alerta).
 
 Nome: tmpParc
 Pai: infoVinc
@@ -997,7 +998,7 @@ Ocorrência: 0-1
 Tamanho: -
 Dec.: -
 Descrição: Data do término do contrato por prazo determinado.
-Validação: O preenchimento é obrigatório se {duracao/tpContr}(./tpContr) = [2]. Não informar se {duracao/tpContr}(./tpContr) = [1]. Se preenchido, deve ser igual ou posterior à data de admissão (no caso de transferência, igual ou posterior a {sucessaoVinc/dtTransf}(../sucessaoVinc_dtTransf)).
+Validação: O preenchimento é obrigatório se {duracao/tpContr}(./tpContr) = [2]. Não informar se {duracao/tpContr}(./tpContr) = [1]. Se preenchido, deve ser igual ou posterior à data de admissão (no caso de transferência, igual ou posterior a {dtTransf}(../sucessaoVinc_dtTransf)).
 
 Nome: clauAssec
 Pai: duracao
@@ -1086,7 +1087,7 @@ Ocorrência: 0-1
 Tamanho: 1-30
 Dec.: -
 Descrição: Matrícula do trabalhador no empregador anterior.
-Validação: Se {sucessaoVinc/dtTransf}(./dtTransf) for igual ou posterior a [2024-04-22], a matrícula informada neste campo deve ser idêntica à matricula do trabalhador no empregador anterior.
+Validação: Se {dtTransf}(./dtTransf) for igual ou posterior a [2024-04-22], a matrícula informada neste campo deve ser idêntica à matricula do trabalhador no empregador anterior.
 
 Nome: dtTransf
 Pai: sucessaoVinc
@@ -1096,7 +1097,7 @@ Ocorrência: 1
 Tamanho: -
 Dec.: -
 Descrição: Preencher com a data da transferência do empregado para o empregador declarante.
-Validação: Deve ser posterior à data de admissão do trabalhador e igual ou anterior ao ano do óbito, se existente.
+Validação: Deve ser posterior à data de admissão do trabalhador e igual ou anterior à data do óbito, se existente (se não for possível obter a data do óbito, deve ser igual ou anterior ao ano do óbito; se não for possível obter a data e o ano do óbito, o evento deve ser recebido mediante alerta).
 
 Nome: infoDeslig
 Pai: infoVinc
