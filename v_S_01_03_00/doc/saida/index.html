@@ -27194,7 +27194,8 @@ Grupo preenchido exclusivamente caso seja necessário enviar cadastramento inici
 <td>Preencher com a data do término.<br>
 <strong>Validação:</strong> Devem ser observadas as seguintes regras:<br>
 a) Deve ser igual ou posterior à data de início do TSVE;<br>
-b) Deve ser anterior à data de início da obrigatoriedade dos eventos não periódicos para o empregador.</td>
+b) Caso a situação no cadastro do CPF na RFB seja igual a &quot;Titular Falecido&quot;, <a href="#2300_infoTSVInicio_termino_dtTerm">dtTerm</a> deve ser igual ou anterior à data de óbito no cadastro do CPF da RFB (se não for possível obter a data do óbito, o ano de <a href="#2300_infoTSVInicio_termino_dtTerm">dtTerm</a> deve ser igual ou anterior ao ano do óbito; se não for possível obter a data e o ano do óbito, o evento deve ser recebido mediante alerta);<br>
+c) Deve ser anterior à data de início da obrigatoriedade dos eventos não periódicos para o empregador.</td>
 </tr>
 </tbody>
 </table>
@@ -28625,7 +28626,10 @@ Informar somente no caso de TSVE sem informação de matrícula no evento S-2300
 <td>-</td>
 <td>-</td>
 <td>Data do término.<br>
-<strong>Validação:</strong> Deve ser uma data igual ou anterior à data atual acrescida de 10 (dez) dias.</td>
+<strong>Validação:</strong> Deve ser uma data igual ou anterior à data atual acrescida de 10 (dez) dias.<br>
+Se <a href="#2399_infoTSVTermino_mtvDesligTSV">mtvDesligTSV</a> = [05]:<br>
+a) Caso a situação no cadastro do CPF na RFB seja diferente de &quot;Titular Falecido&quot;, retornar erro até o 7º (sétimo) dia de <a href="#2399_infoTSVTermino_dtTerm">dtTerm</a> e retornar alerta a partir do 8º (oitavo) dia de <a href="#2399_infoTSVTermino_dtTerm">dtTerm</a>;<br>
+b) Caso a situação no cadastro do CPF na RFB seja igual a &quot;Titular Falecido&quot;, <a href="#2399_infoTSVTermino_dtTerm">dtTerm</a> deve ser igual à data de óbito no cadastro do CPF da RFB (se não for possível obter a data do óbito, o ano de <a href="#2399_infoTSVTermino_dtTerm">dtTerm</a> deve ser igual ao ano do óbito; se não for possível obter a data e o ano do óbito, o evento deve ser recebido mediante alerta).</td>
 </tr>
 <tr>
 <td class="seletor" onclick="copiarCaminho.call(this)" title="2399_infoTSVTermino_mtvDesligTSV" id="2399_infoTSVTermino_mtvDesligTSV"></td>
@@ -31259,8 +31263,9 @@ Se informado, deve ser um CNPJ válido, com 14 (catorze) algarismos.</td>
 <td>-</td>
 <td>Data de início do benefício.<br>
 <strong>Validação:</strong> Deve observar o que segue:<br>
-a) Se <a href="#2410_infoBenInicio_cadIni">cadIni</a> = [S], deve ser anterior à data de início da obrigatoriedade dos eventos não periódicos para o ente público no eSocial;<br>
-b) Se <a href="#2410_infoBenInicio_cadIni">cadIni</a> = [N], deve ser igual ou posterior à data de início da obrigatoriedade dos eventos não periódicos para o ente público no eSocial e igual ou anterior à data atual.</td>
+a) Deve ser igual ou anterior à data do óbito, se existente (se não for possível obter a data do óbito, deve ser igual ou anterior ao ano do óbito; se não for possível obter a data e o ano do óbito, o evento deve ser recebido mediante alerta);<br>
+b) Se <a href="#2410_infoBenInicio_cadIni">cadIni</a> = [S], deve ser anterior à data de início da obrigatoriedade dos eventos não periódicos para o ente público no eSocial;<br>
+c) Se <a href="#2410_infoBenInicio_cadIni">cadIni</a> = [N], deve ser igual ou posterior à data de início da obrigatoriedade dos eventos não periódicos para o ente público no eSocial e igual ou anterior à data atual.</td>
 </tr>
 <tr>
 <td class="seletor" onclick="copiarCaminho.call(this)" title="2410_infoBenInicio_dtPublic" id="2410_infoBenInicio_dtPublic"></td>
