@@ -1117,6 +1117,9 @@ Tamanho: -
 Dec.: -
 Descrição: Preencher com a data de desligamento do vínculo (último dia trabalhado).
 Validação: Deve ser igual ou posterior a {dtAdm}(../dtAdm) e não superior à data atual (data do envio do evento) acrescida de 10 dias corridos.
+Se {mtvDeslig}(./mtvDeslig) = [10]:
+a) Caso a situação no cadastro do CPF na RFB seja diferente de "Titular Falecido", retornar erro até o 7º (sétimo) dia de {dtDeslig}(./dtDeslig) e retornar alerta a partir do 8º (oitavo) dia de {dtDeslig}(./dtDeslig);
+b) Caso a situação no cadastro do CPF na RFB seja igual a "Titular Falecido", {dtDeslig}(./dtDeslig) deve ser igual à data de óbito no cadastro do CPF da RFB (se não for possível obter a data do óbito, o ano de {dtDeslig}(./dtDeslig) deve ser igual ao ano do óbito; se não for possível obter a data e o ano do óbito, o evento deve ser recebido mediante alerta).
 
 Nome: mtvDeslig
 Pai: infoDeslig
