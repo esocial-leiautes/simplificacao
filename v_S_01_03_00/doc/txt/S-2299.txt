@@ -185,7 +185,7 @@ Pai: ideEstabLot
 Descrição: Informação relativa a empresas do Simples
 Ocorrência: 0-1
 Chave: -
-Condição: O (se {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [03])
+Condição: O (se {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [03] no mês/ano de {dtDeslig}(2299_infoDeslig_dtDeslig))
 N (nos demais casos)
 
 Nível: 6
@@ -245,7 +245,7 @@ Pai: ideEstabLot
 Descrição: Informação relativa a empresas do Simples
 Ocorrência: 0-1
 Chave: -
-Condição: O (se {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [03])
+Condição: O (se {classTrib}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [03] no mês/ano de {dtDeslig}(2299_infoDeslig_dtDeslig))
 N (nos demais casos)
 
 Nível: 5
@@ -520,6 +520,9 @@ Tamanho: -
 Dec.: -
 Descrição: Preencher com a data de desligamento do vínculo (último dia trabalhado).
 Validação: Deve ser uma data igual ou anterior à data atual acrescida de 10 (dez) dias. No caso de empregado reintegrado e quando não se tratar de retificação do desligamento anterior à reintegração, também deve ser uma data igual ou posterior a {dtEfetRetorno}(2298_infoReintegr_dtEfetRetorno) do evento S-2298.
+Se {mtvDeslig}(./mtvDeslig) = [10]:
+a) Caso a situação no cadastro do CPF na RFB seja diferente de "Titular Falecido", retornar erro até o 7º (sétimo) dia de {dtDeslig}(./dtDeslig) e retornar alerta a partir do 8º (oitavo) dia de {dtDeslig}(./dtDeslig);
+b) Caso a situação no cadastro do CPF na RFB seja igual a "Titular Falecido", {dtDeslig}(./dtDeslig) deve ser igual à data de óbito no cadastro do CPF da RFB (se não for possível obter a data do óbito, o ano de {dtDeslig}(./dtDeslig) deve ser igual ao ano do óbito; se não for possível obter a data e o ano do óbito, o evento deve ser recebido mediante alerta).
 
 Nome: dtAvPrv
 Pai: infoDeslig
@@ -797,8 +800,7 @@ Dec.: -
 Descrição: Número da notificação de FGTS que deu origem à confissão.
 Validação: Se o campo for preenchido:
 a) O mês/ano de {}(2299_infoDeslig_dtDeslig) deve ser igual ou posterior ao início do FGTS Digital;
-b) Todas as rubricas de vencimento ({}(1010_infoRubrica_inclusao_dadosRubrica_tpRubr) em S-1010 = [1]) informadas no demonstrativo devem possuir {}(1010_infoRubrica_inclusao_dadosRubrica_codIncFGTS) em S-1010 = [71];
-c) Devem ser informados apenas caracteres alfanuméricos, com 9 (nove) posições.
+b) Devem ser informados apenas caracteres alfanuméricos, com 9 (nove) posições.
 
 Nome: infoRRA
 Pai: dmDev

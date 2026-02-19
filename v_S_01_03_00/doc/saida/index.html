@@ -11,12 +11,12 @@
 <body>
 <section id="folha-rosto">
 <img alt="Logomarca do eSocial" src="esocial-full.png" class="center">
-<h1 class="title has-text-centered is-3">LEIAUTES DO eSOCIAL<br><br>Versão S-1.3 (cons. até NT 05/2025)</h1><h2 class="title has-text-centered is-5">(aprovada pela Portaria Conjunta RFB/MPS/MTE nº 13, de 25/06/2024 – DOU de 28/06/2024)</h2><h2 class="title has-text-centered is-5" style="font-weight: normal">Observações: 1) Implantação no ambiente de produção: 02/12/2024; 2) Período de convivência de versões (S-1.2 e S-1.3): 02/12/2024 a 02/02/2025, sendo que os eventos S-1210 (S-5002) e S-2501 devem ser enviados exclusivamente na versão S-1.3 a partir do período de apuração 01/2025.</h2><br>
-<h1 class="title has-text-centered is-3">Outubro de 2025</h1>
+<h1 class="title has-text-centered is-3">LEIAUTES DO eSOCIAL<br><br>Versão S-1.3 (cons. até NT 06/2026)</h1><h2 class="title has-text-centered is-5">(aprovada pela Portaria Conjunta RFB/MPS/MTE nº 13, de 25/06/2024 – DOU de 28/06/2024)</h2><h2 class="title has-text-centered is-5" style="font-weight: normal">Observações: 1) Implantação no ambiente de produção: 02/12/2024; 2) Período de convivência de versões (S-1.2 e S-1.3): 02/12/2024 a 02/02/2025, sendo que os eventos S-1210 (S-5002) e S-2501 devem ser enviados exclusivamente na versão S-1.3 a partir do período de apuração 01/2025.</h2><br>
+<h1 class="title has-text-centered is-3">Fevereiro de 2026</h1>
 </section>
 <section class="section">
 <div class="container is-fluid">
-<h1 class="title has-text-centered is-1">eSocial versão S-1.3 - Leiautes (cons. até NT 05/2025)</h1>
+<h1 class="title has-text-centered is-1">eSocial versão S-1.3 - Leiautes (cons. até NT 06/2026)</h1>
 <div class="is-hidden-print"><h2 class="title has-text-centered is-5">(aprovada pela Portaria Conjunta RFB/MPS/MTE nº 13, de 25/06/2024 – DOU de 28/06/2024)</h2><h2 class="title has-text-centered is-5" style="font-weight: normal">Observações: 1) Implantação no ambiente de produção: 02/12/2024; 2) Período de convivência de versões (S-1.2 e S-1.3): 02/12/2024 a 02/02/2025, sendo que os eventos S-1210 (S-5002) e S-2501 devem ser enviados exclusivamente na versão S-1.3 a partir do período de apuração 01/2025.</h2><br></div>
 <h2 class="title has-text-centered is-3">Sumário</h2>
 <ul class="sumario">
@@ -360,7 +360,7 @@ b) {perRef}, se a remuneração for preenchida no grupo {infoPerAnt}.</p>
 a) {perApur} (ou mês/ano de {dtDeslig}, para S-2299), se pertencerem ao grupo {infoPerApur};<br>
 b) {perRef}, se pertencerem ao grupo {infoPerAnt}.<br>
 2.4) Para o evento S-2399, as informações dos campos {ideEstabLot/nrInsc} e {codLotacao} devem constar nas Tabelas S-1005 e S-1020, respectivamente, vigentes no mês/ano de {dtTerm}.<br>
-2.5) Se o campo {notAFT} não for informado, não pode haver rubrica no demonstrativo com {codIncFGTS} em S-1010 = [71].<br>
+2.5) Se o tipo de inscrição do estabelecimento for igual a [1] (CNPJ) e {indDesFolha} em S-1000 = [2] no período de apuração (mês/ano de {dtDeslig}, para S-2299, ou mês/ano de {dtTerm}, para S-2399), a natureza jurídica desse estabelecimento deve ser diferente de [110-4, 111-2, 112-0, 113-9, 114-7, 115-5]. Caso essa regra não seja atendida, retornar "alerta".<br>
 3) No caso dos eventos S-1202 e S-1207:<br>
 3.1) Para as rubricas cujo {codIncCPRP} em S-1010 = [31, 32], o somatório do valor das rubricas cujo {tpRubr} em S-1010 = [2, 4] deverá ser maior ou igual ao somatório do valor das rubricas cujo {tpRubr} em S-1010 = [1, 3], considerando cada {codIncCPRP} individualmente.<br>
 3.2) As informações dos campos {codRubr} e {ideTabRubr} devem constar conjuntamente na Tabela S-1010, com o campo {codIncCPRP} preenchido, vigentes nos períodos mencionados no item 3.3 abaixo.<br>
@@ -1367,7 +1367,7 @@ Retornar "erro" se o item 2d), o item 5) ou o item 6) não for atendido. Retorna
 </header>
 <div class="modal-card-body">
 <p>Se {indApuracao} for igual a [2] (décimo terceiro salário):<br>
-a) No caso do evento S-1200, são permitidas apenas as rubricas cujo {codIncCP} em S-1010 seja igual a [00, 01, 12, 14, 16, 22, 26, 32, 92, 94, 96, 98], cujo {codIncIRRF} em S-1010 seja igual a [0, 1, 9, 12, 14, 32, 34, 42, 47, 52, 54, 62, 64, 68, 71, 77, 79, 81, 82, 83, 92, 94, 9012, 9014, 9032, 9034, 9054, 9832, 9834, 9042, 9047, 9052, 9062, 9064] e cujo {codIncFGTS} em S-1010 seja igual a [00, 12, 71, 92]. Caso sejam informadas rubricas com {codIncCP}, {codIncIRRF} e/ou {codIncFGTS} diferentes dos valores acima citados, retornar "alerta";<br>
+a) No caso do evento S-1200, são permitidas apenas as rubricas cujo {codIncCP} em S-1010 seja igual a [00, 01, 12, 14, 16, 22, 26, 32, 92, 94, 96, 98], cujo {codIncIRRF} em S-1010 seja igual a [0, 1, 9, 12, 14, 32, 34, 42, 47, 52, 54, 62, 64, 68, 71, 77, 79, 81, 82, 83, 92, 94, 9012, 9014, 9032, 9034, 9054, 9832, 9834, 9042, 9047, 9052, 9062, 9064] e cujo {codIncFGTS} em S-1010 seja igual a [00, 12, 92]. Caso sejam informadas rubricas com {codIncCP}, {codIncIRRF} e/ou {codIncFGTS} diferentes dos valores acima citados, retornar "alerta";<br>
 b) Nos casos dos eventos S-1202 e S-1207, são permitidas apenas as rubricas cujo {codIncCPRP} em S-1010 seja igual a [00, 12, 32, 91, 92] e cujo {codIncIRRF} em S-1010 seja igual a [0, 1, 9, 12, 14, 32, 34, 42, 47, 52, 54, 62, 64, 68, 71, 77, 79, 81, 82, 83, 92, 94, 9012, 9014, 9032, 9034, 9054, 9832, 9834, 9042, 9047, 9052, 9062, 9064]. Caso sejam informadas rubricas com {codIncCPRP} e/ou {codIncIRRF} diferentes dos valores acima citados, retornar "alerta";<br>
 c) No caso do evento S-1200, são permitidas apenas as rubricas cuja {natRubr} seja diferente de [9253].</p>
 </div>
@@ -1410,7 +1410,7 @@ c) em período de apuração anterior ao mês de início do eConsignado no eSoci
 <button class="delete" aria-label="close"></button>
 </header>
 <div class="modal-card-body">
-<p>1) Órgão Público da Administração Direta, Autárquica ou Fundacional (natureza jurídica pertencente ao grupo [1]) pode cadastrar estabelecimento com CNPJ de raiz igual ou diferente da inscrição do órgão público informada em S-1000. No caso de CNPJ de raiz diferente, o estabelecimento deve pertencer ao mesmo EFR - Ente Federativo Responsável do Órgão Público (definido em S-1000).<br>
+<p>1) Órgão Público da Administração Direta, Autárquica ou Fundacional (natureza jurídica do declarante pertencente ao grupo [1]) pode cadastrar estabelecimento com CNPJ de raiz igual ou diferente da inscrição do órgão público informada em S-1000, exceto se {indDesFolha} em S-1000 = [2] e a natureza jurídica do estabelecimento for igual a [110-4, 111-2, 112-0, 113-9, 114-7, 115-5]. No caso de CNPJ de raiz diferente que não se enquadre na exceção mencionada, o estabelecimento deve pertencer ao mesmo EFR - Ente Federativo Responsável do Órgão Público (definido em S-1000). No caso de CNPJ de raiz diferente que se enquadre na exceção citada, retornar "alerta".<br>
 2) Empregador Pessoa Jurídica pode cadastrar estabelecimento com CNPJ de raiz diferente da inscrição do contribuinte informada em S-1000, desde que a natureza jurídica desse estabelecimento seja igual a 212-7 (Sociedade em Conta de Participação - SCP).</p>
 </div>
 </div>
@@ -1658,7 +1658,7 @@ OBS.: A alínea "a" de ambos os itens acima não deve ser executada quando se tr
 <button class="delete" aria-label="close"></button>
 </header>
 <div class="modal-card-body">
-<p>Caso o campo {naoValid} não esteja informado, efetuar as seguintes verificações:<br>
+<p>Caso o campo {naoValid} esteja informado com [N], efetuar as seguintes verificações:<br>
 a) Não deve existir evento de Registro Preliminar (S-2190) sem o correspondente evento de Admissão (S-2200) ou TSVE - Início (S-2300) cujo mês/ano da "data de admissão" ou da "data de início" seja anterior ou igual ao período de apuração da folha de pagamento. Em caso de não existência, deve ser gerado um "alerta" para o empregador (ou seja, embora a situação seja irregular, não há impedimento para o fechamento dos eventos periódicos).<br>
 b) Validar a integridade entre os eventos de remuneração recepcionados e os empregados e agentes públicos "ativos" do Registro de Eventos Trabalhistas - RET, da seguinte forma:<br>
 b1) Todos os trabalhadores admitidos (S-2190 ou S-2200) em período igual ou anterior ao período de apuração que não estejam desligados ou cujo desligamento ou baixa judicial seja posterior ao período de apuração devem possuir o respectivo evento de remuneração (S-1200, S-1202 ou S-2299 para trabalhadores com {tpRegTrab} = [1] e S-1200 ou S-1202 para trabalhadores com {tpRegTrab} = [2]) já encaminhado para o mesmo período de apuração, exceto:<br>
@@ -6860,8 +6860,7 @@ Somente preencher este campo se for um demonstrativo de RRA.<br>
 <td>Número da notificação de FGTS que deu origem à confissão.<br>
 <strong>Validação:</strong> Se o campo for preenchido:<br>
 a) <a href="#1200_ideEvento_perApur">perApur</a> deve ser igual ou posterior ao início do FGTS Digital;<br>
-b) Todas as rubricas de vencimento (<a href="#1010_infoRubrica_inclusao_dadosRubrica_tpRubr">tpRubr</a> em S-1010 = [1]) informadas no demonstrativo devem possuir <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncFGTS">codIncFGTS</a> em S-1010 = [71];<br>
-c) Devem ser informados apenas caracteres alfanuméricos, com 9 (nove) posições.</td>
+b) Devem ser informados apenas caracteres alfanuméricos, com 9 (nove) posições.</td>
 </tr>
 <tr class="grupo">
 <td class="seletor" onclick="copiarCaminho.call(this)" title="1200_dmDev_infoRRA" id="1200_dmDev_infoRRA"></td>
@@ -7125,7 +7124,7 @@ Se informado, deve ser um número entre 0 e 31, de acordo com o calendário anua
 <strong>1</strong> - Contribuição substituída integralmente<br>
 <strong>2</strong> - Contribuição não substituída<br>
 <strong>3</strong> - Contribuição não substituída concomitante com contribuição substituída<br>
-<strong>Validação:</strong> O preenchimento do campo é obrigatório apenas no caso das empresas enquadradas no regime de tributação Simples Nacional, com tributação previdenciária substituída e não substituída (<a href="#1000_infoEmpregador_inclusao_infoCadastro_classTrib">classTrib</a> em S-1000 = [03]). Para os demais empregadores, não deve ser informado.</td>
+<strong>Validação:</strong> O preenchimento do campo é obrigatório apenas no caso das empresas enquadradas no regime de tributação Simples Nacional, com tributação previdenciária substituída e não substituída em <a href="#1200_ideEvento_perApur">perApur</a> (<a href="#1000_infoEmpregador_inclusao_infoCadastro_classTrib">classTrib</a> em S-1000 = [03] em <a href="#1200_ideEvento_perApur">perApur</a>). Para os demais empregadores, não deve ser informado.</td>
 </tr>
 <tr class="grupo">
 <td class="seletor" onclick="copiarCaminho.call(this)" title="1200_dmDev_infoPerApur_ideEstabLot_remunPerApur_itensRemun" id="1200_dmDev_infoPerApur_ideEstabLot_remunPerApur_itensRemun"></td>
@@ -7503,7 +7502,7 @@ Nos demais casos (<a href="#1000_infoEmpregador_inclusao_infoCadastro_classTrib"
 <strong>1</strong> - Contribuição substituída integralmente<br>
 <strong>2</strong> - Contribuição não substituída<br>
 <strong>3</strong> - Contribuição não substituída concomitante com contribuição substituída<br>
-<strong>Validação:</strong> O preenchimento do campo é obrigatório apenas no caso das empresas enquadradas no regime de tributação Simples Nacional, com tributação previdenciária substituída e não substituída (<a href="#1000_infoEmpregador_inclusao_infoCadastro_classTrib">classTrib</a> em S-1000 = [03]). Para os demais empregadores, não deve ser informado.</td>
+<strong>Validação:</strong> O preenchimento do campo é obrigatório apenas no caso das empresas enquadradas no regime de tributação Simples Nacional, com tributação previdenciária substituída e não substituída em <a href="#1200_ideEvento_perApur">perApur</a> (<a href="#1000_infoEmpregador_inclusao_infoCadastro_classTrib">classTrib</a> em S-1000 = [03] em <a href="#1200_ideEvento_perApur">perApur</a>). Para os demais empregadores, não deve ser informado.</td>
 </tr>
 <tr class="grupo">
 <td class="seletor" onclick="copiarCaminho.call(this)" title="1200_dmDev_infoPerAnt_ideADC_idePeriodo_ideEstabLot_remunPerAnt_itensRemun" id="1200_dmDev_infoPerAnt_ideADC_idePeriodo_ideEstabLot_remunPerAnt_itensRemun"></td>
@@ -13535,7 +13534,8 @@ O não preenchimento deste campo ou seu preenchimento com [S] implica a não exe
 <td>Informações referentes ao registro e à CTPS Digital</td>
 <td>0-1</td>
 <td>-</td>
-<td>OC (se <a href="#2190_infoRegPrelim_codCateg">codCateg</a> for relativo a &quot;Empregado&quot; ou &quot;Agente Público&quot;);<br>
+<td>O (se <a href="#2190_infoRegPrelim_codCateg">codCateg</a> for relativo a &quot;Empregado&quot; ou &quot;Agente Público&quot; e se <a href="#2190_infoRegPrelim_dtAdm">dtAdm</a> &gt;= [2026-01-02]);<br>
+OC (se <a href="#2190_infoRegPrelim_codCateg">codCateg</a> for relativo a &quot;Empregado&quot; ou &quot;Agente Público&quot; e se <a href="#2190_infoRegPrelim_dtAdm">dtAdm</a> &lt; [2026-01-02]);<br>
 N (nos demais casos)</td>
 </tr>
 </tbody>
@@ -13769,7 +13769,7 @@ Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo
 <td>-</td>
 <td>-</td>
 <td>Preencher com a data de admissão do trabalhador (ou data de início, no caso de Trabalhador Sem Vínculo de Emprego/Estatutário - TSVE).<br>
-<strong>Validação:</strong> Deve ser posterior à data de nascimento do trabalhador, igual ou posterior à data de início da obrigatoriedade dos eventos não periódicos para o empregador e igual ou anterior ao ano do óbito, se existente.</td>
+<strong>Validação:</strong> Deve ser posterior à data de nascimento do trabalhador, igual ou posterior à data de início da obrigatoriedade dos eventos não periódicos para o empregador e igual ou anterior à data do óbito, se existente (se não for possível obter a data do óbito, deve ser igual ou anterior ao ano do óbito; se não for possível obter a data e o ano do óbito, o evento deve ser recebido mediante alerta).</td>
 </tr>
 <tr>
 <td class="seletor" onclick="copiarCaminho.call(this)" title="2190_infoRegPrelim_matricula" id="2190_infoRegPrelim_matricula"></td>
@@ -15306,7 +15306,7 @@ c) Não pode haver mais de um dependente com o mesmo número de CPF.</td>
 <td>Preencher com a data de admissão do trabalhador.<br>
 No caso de transferência do empregado ou de mudança de CPF, preencher com a data inicial do vínculo no primeiro empregador (data de início do vínculo).<br>
 <strong>Validação:</strong> Devem ser observadas as seguintes regras:<br>
-a) Deve ser posterior à data de nascimento do trabalhador e igual ou anterior ao ano do óbito, se existente;<br>
+a) Deve ser posterior à data de nascimento do trabalhador e igual ou anterior à data do óbito, se existente (se não for possível obter a data do óbito, deve ser igual ou anterior ao ano do óbito; se não for possível obter a data e o ano do óbito, o evento deve ser recebido mediante alerta);<br>
 b) Se <a href="#2200_vinculo_cadIni">cadIni</a> = [S], deve ser anterior à data de início da obrigatoriedade dos eventos não periódicos para o empregador no eSocial;<br>
 c) Se <a href="#2200_vinculo_cadIni">cadIni</a> = [N] e <a href="#2200_vinculo_infoRegimeTrab_infoCeletista_tpAdmissao">tpAdmissao</a> = [1], deve ser igual ou posterior à data de início da obrigatoriedade dos eventos não periódicos para o empregador no eSocial.</td>
 </tr>
@@ -15675,7 +15675,7 @@ Se <a href="#2200_vinculo_infoContrato_codCateg">codCateg</a> = [302], deve ser 
 <td>-</td>
 <td>Data da entrada em exercício pelo servidor.<br>
 <strong>Validação:</strong> Devem ser observadas as seguintes regras:<br>
-a) Deve ser posterior à data de nascimento do trabalhador;<br>
+a) Deve ser posterior à data de nascimento do trabalhador e igual ou anterior à data do óbito, se existente (se não for possível obter a data do óbito, deve ser igual ou anterior ao ano do óbito; se não for possível obter a data e o ano do óbito, o evento deve ser recebido mediante alerta);<br>
 b) Se <a href="#2200_vinculo_cadIni">cadIni</a> = [S], deve ser anterior à data de início da obrigatoriedade dos eventos não periódicos para o empregador/ente público no eSocial;<br>
 c) Se <a href="#2200_vinculo_cadIni">cadIni</a> = [N] e <a href="#2200_vinculo_infoRegimeTrab_infoEstatutario_tpProv">tpProv</a> for diferente de [5, 8, 10], deve ser igual ou posterior à data de início da obrigatoriedade dos eventos não periódicos para o empregador/ente público no eSocial.</td>
 </tr>
@@ -16264,7 +16264,7 @@ Se <a href="#2200_vinculo_sucessaoVinc_tpInsc">sucessaoVinc/tpInsc</a> = [6], de
 <td>-</td>
 <td>Preencher com a data da transferência do empregado para o empregador declarante.<br>
 <strong>Validação:</strong> Devem ser observadas as seguintes regras:<br>
-a) Deve ser posterior à data de admissão do trabalhador e igual ou anterior ao ano do óbito, se existente;<br>
+a) Deve ser posterior à data de admissão do trabalhador e igual ou anterior à data do óbito, se existente (se não for possível obter a data do óbito, deve ser igual ou anterior ao ano do óbito; se não for possível obter a data e o ano do óbito, o evento deve ser recebido mediante alerta);<br>
 b) Se <a href="#2200_vinculo_cadIni">cadIni</a> = [S], deve ser anterior à data de início da obrigatoriedade dos eventos não periódicos para o empregador;<br>
 c) Se <a href="#2200_vinculo_cadIni">cadIni</a> = [N], deve ser igual ou posterior à data de início da obrigatoriedade dos eventos não periódicos para o empregador.</td>
 </tr>
@@ -16442,8 +16442,9 @@ Grupo preenchido exclusivamente caso seja necessário enviar cadastramento inici
 <td>Preencher com a data de desligamento do vínculo (último dia trabalhado).<br>
 <strong>Validação:</strong> Devem ser observadas as seguintes regras:<br>
 a) Deve ser igual ou posterior à data de admissão/exercício do trabalhador;<br>
-b) Se <a href="#2200_vinculo_cadIni">cadIni</a> = [S], deve ser anterior à data de início da obrigatoriedade dos eventos não periódicos para o empregador;<br>
-c) Se <a href="#2200_vinculo_cadIni">cadIni</a> = [N], deve ser anterior à data da transferência do empregado (<a href="#2200_vinculo_sucessaoVinc_dtTransf">sucessaoVinc/dtTransf</a> ou <a href="#2200_vinculo_transfDom_dtTransf">transfDom/dtTransf</a>). Não informar se <a href="#2200_vinculo_infoRegimeTrab_infoCeletista_tpAdmissao">tpAdmissao</a> = [1] ou se <a href="#2200_vinculo_infoRegimeTrab_infoEstatutario_tpProv">tpProv</a> for diferente de [5, 8].</td>
+b) Caso a situação no cadastro do CPF na RFB seja igual a &quot;Titular Falecido&quot;, <a href="#2200_vinculo_desligamento_dtDeslig">dtDeslig</a> deve ser igual ou anterior à data de óbito no cadastro do CPF da RFB (se não for possível obter a data do óbito, o ano de <a href="#2200_vinculo_desligamento_dtDeslig">dtDeslig</a> deve ser igual ou anterior ao ano do óbito; se não for possível obter a data e o ano do óbito, o evento deve ser recebido mediante alerta);<br>
+c) Se <a href="#2200_vinculo_cadIni">cadIni</a> = [S], deve ser anterior à data de início da obrigatoriedade dos eventos não periódicos para o empregador;<br>
+d) Se <a href="#2200_vinculo_cadIni">cadIni</a> = [N], deve ser anterior à data da transferência do empregado (<a href="#2200_vinculo_sucessaoVinc_dtTransf">sucessaoVinc/dtTransf</a> ou <a href="#2200_vinculo_transfDom_dtTransf">transfDom/dtTransf</a>). Não informar se <a href="#2200_vinculo_infoRegimeTrab_infoCeletista_tpAdmissao">tpAdmissao</a> = [1] ou se <a href="#2200_vinculo_infoRegimeTrab_infoEstatutario_tpProv">tpProv</a> for diferente de [5, 8].</td>
 </tr>
 <tr class="grupo">
 <td class="seletor" onclick="copiarCaminho.call(this)" title="2200_vinculo_cessao" id="2200_vinculo_cessao"></td>
@@ -23421,7 +23422,7 @@ N (nos demais casos)</td>
 <td>Informação relativa a empresas do Simples</td>
 <td>0-1</td>
 <td>-</td>
-<td>O (se <a href="#1000_infoEmpregador_inclusao_infoCadastro_classTrib">classTrib</a> em S-1000 = [03]);<br>
+<td>O (se <a href="#1000_infoEmpregador_inclusao_infoCadastro_classTrib">classTrib</a> em S-1000 = [03] no mês/ano de <a href="#2299_infoDeslig_dtDeslig">dtDeslig</a>);<br>
 N (nos demais casos)</td>
 </tr>
 <tr>
@@ -23488,7 +23489,7 @@ N (nos demais casos)</td>
 <td>Informação relativa a empresas do Simples</td>
 <td>0-1</td>
 <td>-</td>
-<td>O (se <a href="#1000_infoEmpregador_inclusao_infoCadastro_classTrib">classTrib</a> em S-1000 = [03]);<br>
+<td>O (se <a href="#1000_infoEmpregador_inclusao_infoCadastro_classTrib">classTrib</a> em S-1000 = [03] no mês/ano de <a href="#2299_infoDeslig_dtDeslig">dtDeslig</a>);<br>
 N (nos demais casos)</td>
 </tr>
 <tr>
@@ -23825,7 +23826,10 @@ Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo
 <td>-</td>
 <td>-</td>
 <td>Preencher com a data de desligamento do vínculo (último dia trabalhado).<br>
-<strong>Validação:</strong> Deve ser uma data igual ou anterior à data atual acrescida de 10 (dez) dias. No caso de empregado reintegrado e quando não se tratar de retificação do desligamento anterior à reintegração, também deve ser uma data igual ou posterior a <a href="#2298_infoReintegr_dtEfetRetorno">dtEfetRetorno</a> do evento S-2298.</td>
+<strong>Validação:</strong> Deve ser uma data igual ou anterior à data atual acrescida de 10 (dez) dias. No caso de empregado reintegrado e quando não se tratar de retificação do desligamento anterior à reintegração, também deve ser uma data igual ou posterior a <a href="#2298_infoReintegr_dtEfetRetorno">dtEfetRetorno</a> do evento S-2298.<br>
+Se <a href="#2299_infoDeslig_mtvDeslig">mtvDeslig</a> = [10]:<br>
+a) Caso a situação no cadastro do CPF na RFB seja diferente de &quot;Titular Falecido&quot;, retornar erro até o 7º (sétimo) dia de <a href="#2299_infoDeslig_dtDeslig">dtDeslig</a> e retornar alerta a partir do 8º (oitavo) dia de <a href="#2299_infoDeslig_dtDeslig">dtDeslig</a>;<br>
+b) Caso a situação no cadastro do CPF na RFB seja igual a &quot;Titular Falecido&quot;, <a href="#2299_infoDeslig_dtDeslig">dtDeslig</a> deve ser igual à data de óbito no cadastro do CPF da RFB (se não for possível obter a data do óbito, o ano de <a href="#2299_infoDeslig_dtDeslig">dtDeslig</a> deve ser igual ao ano do óbito; se não for possível obter a data e o ano do óbito, o evento deve ser recebido mediante alerta).</td>
 </tr>
 <tr>
 <td class="seletor" onclick="copiarCaminho.call(this)" title="2299_infoDeslig_dtAvPrv" id="2299_infoDeslig_dtAvPrv"></td>
@@ -24155,8 +24159,7 @@ Somente preencher este campo se for um demonstrativo de RRA.<br>
 <td>Número da notificação de FGTS que deu origem à confissão.<br>
 <strong>Validação:</strong> Se o campo for preenchido:<br>
 a) O mês/ano de <a href="#2299_infoDeslig_dtDeslig">dtDeslig</a> deve ser igual ou posterior ao início do FGTS Digital;<br>
-b) Todas as rubricas de vencimento (<a href="#1010_infoRubrica_inclusao_dadosRubrica_tpRubr">tpRubr</a> em S-1010 = [1]) informadas no demonstrativo devem possuir <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncFGTS">codIncFGTS</a> em S-1010 = [71];<br>
-c) Devem ser informados apenas caracteres alfanuméricos, com 9 (nove) posições.</td>
+b) Devem ser informados apenas caracteres alfanuméricos, com 9 (nove) posições.</td>
 </tr>
 <tr class="grupo">
 <td class="seletor" onclick="copiarCaminho.call(this)" title="2299_infoDeslig_verbasResc_dmDev_infoRRA" id="2299_infoDeslig_verbasResc_dmDev_infoRRA"></td>
@@ -26309,7 +26312,7 @@ e) Para o trabalhador avulso, a data de ingresso no Órgão Gestor de Mão de Ob
 f) Para o servidor público exercente de cargo eletivo, a data de início do mandato;<br>
 g) Para os demais trabalhadores, a data de início das atividades.<br>
 <strong>Validação:</strong> Devem ser observadas as seguintes regras:<br>
-a) Deve ser posterior à data de nascimento do trabalhador, não pode ser posterior a 30 (trinta) dias da data atual e deve ser igual ou anterior ao ano do óbito, se existente;<br>
+a) Deve ser posterior à data de nascimento do trabalhador, não pode ser posterior a 30 (trinta) dias da data atual e deve ser igual ou anterior à data do óbito, se existente (se não for possível obter a data do óbito, deve ser igual ou anterior ao ano do óbito; se não for possível obter a data e o ano do óbito, o evento deve ser recebido mediante alerta);<br>
 b) Se <a href="#2300_infoTSVInicio_cadIni">cadIni</a> = [S], deve ser anterior à data de início da obrigatoriedade dos eventos não periódicos para o empregador no eSocial;<br>
 c) Se <a href="#2300_infoTSVInicio_cadIni">cadIni</a> = [N], deve ser igual ou posterior à data de início da obrigatoriedade dos eventos não periódicos para o empregador no eSocial.</td>
 </tr>
@@ -27188,7 +27191,8 @@ Grupo preenchido exclusivamente caso seja necessário enviar cadastramento inici
 <td>Preencher com a data do término.<br>
 <strong>Validação:</strong> Devem ser observadas as seguintes regras:<br>
 a) Deve ser igual ou posterior à data de início do TSVE;<br>
-b) Deve ser anterior à data de início da obrigatoriedade dos eventos não periódicos para o empregador.</td>
+b) Caso a situação no cadastro do CPF na RFB seja igual a &quot;Titular Falecido&quot;, <a href="#2300_infoTSVInicio_termino_dtTerm">dtTerm</a> deve ser igual ou anterior à data de óbito no cadastro do CPF da RFB (se não for possível obter a data do óbito, o ano de <a href="#2300_infoTSVInicio_termino_dtTerm">dtTerm</a> deve ser igual ou anterior ao ano do óbito; se não for possível obter a data e o ano do óbito, o evento deve ser recebido mediante alerta);<br>
+c) Deve ser anterior à data de início da obrigatoriedade dos eventos não periódicos para o empregador.</td>
 </tr>
 </tbody>
 </table>
@@ -28619,7 +28623,10 @@ Informar somente no caso de TSVE sem informação de matrícula no evento S-2300
 <td>-</td>
 <td>-</td>
 <td>Data do término.<br>
-<strong>Validação:</strong> Deve ser uma data igual ou anterior à data atual acrescida de 10 (dez) dias.</td>
+<strong>Validação:</strong> Deve ser uma data igual ou anterior à data atual acrescida de 10 (dez) dias.<br>
+Se <a href="#2399_infoTSVTermino_mtvDesligTSV">mtvDesligTSV</a> = [05]:<br>
+a) Caso a situação no cadastro do CPF na RFB seja diferente de &quot;Titular Falecido&quot;, retornar erro até o 7º (sétimo) dia de <a href="#2399_infoTSVTermino_dtTerm">dtTerm</a> e retornar alerta a partir do 8º (oitavo) dia de <a href="#2399_infoTSVTermino_dtTerm">dtTerm</a>;<br>
+b) Caso a situação no cadastro do CPF na RFB seja igual a &quot;Titular Falecido&quot;, <a href="#2399_infoTSVTermino_dtTerm">dtTerm</a> deve ser igual à data de óbito no cadastro do CPF da RFB (se não for possível obter a data do óbito, o ano de <a href="#2399_infoTSVTermino_dtTerm">dtTerm</a> deve ser igual ao ano do óbito; se não for possível obter a data e o ano do óbito, o evento deve ser recebido mediante alerta).</td>
 </tr>
 <tr>
 <td class="seletor" onclick="copiarCaminho.call(this)" title="2399_infoTSVTermino_mtvDesligTSV" id="2399_infoTSVTermino_mtvDesligTSV"></td>
@@ -28786,8 +28793,7 @@ Somente preencher este campo se for um demonstrativo de RRA.<br>
 <td>Número da notificação de FGTS que deu origem à confissão.<br>
 <strong>Validação:</strong> Se o campo for preenchido:<br>
 a) O mês/ano de <a href="#2399_infoTSVTermino_dtTerm">dtTerm</a> deve ser igual ou posterior ao início do FGTS Digital;<br>
-b) Todas as rubricas de vencimento (<a href="#1010_infoRubrica_inclusao_dadosRubrica_tpRubr">tpRubr</a> em S-1010 = [1]) informadas no demonstrativo devem possuir <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncFGTS">codIncFGTS</a> em S-1010 = [71];<br>
-c) Devem ser informados apenas caracteres alfanuméricos, com 9 (nove) posições.</td>
+b) Devem ser informados apenas caracteres alfanuméricos, com 9 (nove) posições.</td>
 </tr>
 <tr class="grupo">
 <td class="seletor" onclick="copiarCaminho.call(this)" title="2399_infoTSVTermino_verbasResc_dmDev_infoRRA" id="2399_infoTSVTermino_verbasResc_dmDev_infoRRA"></td>
@@ -31253,8 +31259,9 @@ Se informado, deve ser um CNPJ válido, com 14 (catorze) algarismos.</td>
 <td>-</td>
 <td>Data de início do benefício.<br>
 <strong>Validação:</strong> Deve observar o que segue:<br>
-a) Se <a href="#2410_infoBenInicio_cadIni">cadIni</a> = [S], deve ser anterior à data de início da obrigatoriedade dos eventos não periódicos para o ente público no eSocial;<br>
-b) Se <a href="#2410_infoBenInicio_cadIni">cadIni</a> = [N], deve ser igual ou posterior à data de início da obrigatoriedade dos eventos não periódicos para o ente público no eSocial e igual ou anterior à data atual.</td>
+a) Deve ser igual ou anterior à data do óbito, se existente (se não for possível obter a data do óbito, deve ser igual ou anterior ao ano do óbito; se não for possível obter a data e o ano do óbito, o evento deve ser recebido mediante alerta);<br>
+b) Se <a href="#2410_infoBenInicio_cadIni">cadIni</a> = [S], deve ser anterior à data de início da obrigatoriedade dos eventos não periódicos para o ente público no eSocial;<br>
+c) Se <a href="#2410_infoBenInicio_cadIni">cadIni</a> = [N], deve ser igual ou posterior à data de início da obrigatoriedade dos eventos não periódicos para o ente público no eSocial e igual ou anterior à data atual.</td>
 </tr>
 <tr>
 <td class="seletor" onclick="copiarCaminho.call(this)" title="2410_infoBenInicio_dtPublic" id="2410_infoBenInicio_dtPublic"></td>
@@ -31520,7 +31527,7 @@ b) Se <a href="#2410_infoBenInicio_cadIni">cadIni</a> = [N], deve ser igual ou p
 <td>-</td>
 <td>Preencher com a data da transferência do benefício para o órgão público declarante.<br>
 <strong>Validação:</strong> Devem ser observadas as seguintes regras:<br>
-a) Deve ser posterior à data de início do benefício;<br>
+a) Deve ser posterior à data de início do benefício e igual ou anterior à data do óbito, se existente (se não for possível obter a data do óbito, deve ser igual ou anterior ao ano do óbito; se não for possível obter a data e o ano do óbito, o evento deve ser recebido mediante alerta);<br>
 b) Deve ser igual ou posterior à data de início da obrigatoriedade dos eventos não periódicos para o ente público no eSocial e igual ou anterior à data atual.</td>
 </tr>
 <tr>
@@ -31614,7 +31621,10 @@ Grupo preenchido exclusivamente caso seja necessário enviar evento de reativaç
 <strong>Validação:</strong> Devem ser observadas as seguintes regras:<br>
 a) Deve ser igual ou posterior à data de início do benefício;<br>
 b) Se <a href="#2410_infoBenInicio_cadIni">cadIni</a> = [S], deve ser anterior à data de início da obrigatoriedade dos eventos não periódicos para o ente público no eSocial;<br>
-c) Se <a href="#2410_infoBenInicio_indSitBenef">indSitBenef</a> = [2], deve ser anterior a <a href="#2410_infoBenInicio_sucessaoBenef_dtTransf">dtTransf</a>.</td>
+c) Se <a href="#2410_infoBenInicio_indSitBenef">indSitBenef</a> = [2], deve ser anterior a <a href="#2410_infoBenInicio_sucessaoBenef_dtTransf">dtTransf</a>;<br>
+d) Se <a href="#2410_infoBenInicio_infoBenTermino_mtvTermino">mtvTermino</a> = [01]:<br>
+d1) Caso a situação no cadastro do CPF na RFB seja diferente de &quot;Titular Falecido&quot;, retornar erro até o 7º (sétimo) dia de <a href="#2410_infoBenInicio_infoBenTermino_dtTermBeneficio">dtTermBeneficio</a> e retornar alerta a partir do 8º (oitavo) dia de <a href="#2410_infoBenInicio_infoBenTermino_dtTermBeneficio">dtTermBeneficio</a>;<br>
+d2) Caso a situação no cadastro do CPF na RFB seja igual a &quot;Titular Falecido&quot;, <a href="#2410_infoBenInicio_infoBenTermino_dtTermBeneficio">dtTermBeneficio</a> deve ser igual à data de óbito no cadastro do CPF da RFB (se não for possível obter a data do óbito, o ano de <a href="#2410_infoBenInicio_infoBenTermino_dtTermBeneficio">dtTermBeneficio</a> deve ser igual ao ano do óbito; se não for possível obter a data e o ano do óbito, o evento deve ser recebido mediante alerta).</td>
 </tr>
 <tr>
 <td class="seletor" onclick="copiarCaminho.call(this)" title="2410_infoBenInicio_infoBenTermino_mtvTermino" id="2410_infoBenInicio_infoBenTermino_mtvTermino"></td>
@@ -32777,7 +32787,10 @@ Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo
 <td>-</td>
 <td>-</td>
 <td>Data de cessação do benefício.<br>
-<strong>Validação:</strong> Deve ser igual ou anterior à data atual. No caso de benefício reativado, também deve ser uma data igual ou posterior a <a href="#2418_infoReativ_dtEfetReativ">dtEfetReativ</a> do evento S-2418.</td>
+<strong>Validação:</strong> Deve ser igual ou anterior à data atual. No caso de benefício reativado, também deve ser uma data igual ou posterior a <a href="#2418_infoReativ_dtEfetReativ">dtEfetReativ</a> do evento S-2418.<br>
+Se <a href="#2420_infoBenTermino_mtvTermino">mtvTermino</a> = [01]:<br>
+a) Caso a situação no cadastro do CPF na RFB seja diferente de &quot;Titular Falecido&quot;, retornar erro até o 7º (sétimo) dia de <a href="#2420_infoBenTermino_dtTermBeneficio">dtTermBeneficio</a> e retornar alerta a partir do 8º (oitavo) dia de <a href="#2420_infoBenTermino_dtTermBeneficio">dtTermBeneficio</a>;<br>
+b) Caso a situação no cadastro do CPF na RFB seja igual a &quot;Titular Falecido&quot;, <a href="#2420_infoBenTermino_dtTermBeneficio">dtTermBeneficio</a> deve ser igual à data de óbito no cadastro do CPF da RFB (se não for possível obter a data do óbito, o ano de <a href="#2420_infoBenTermino_dtTermBeneficio">dtTermBeneficio</a> deve ser igual ao ano do óbito; se não for possível obter a data e o ano do óbito, o evento deve ser recebido mediante alerta).</td>
 </tr>
 <tr>
 <td class="seletor" onclick="copiarCaminho.call(this)" title="2420_infoBenTermino_mtvTermino" id="2420_infoBenTermino_mtvTermino"></td>
@@ -32907,7 +32920,7 @@ N (nos demais casos)</td>
 <td>Informações complementares do processo judicial</td>
 <td>0-1</td>
 <td>-</td>
-<td>O (se <a href="#2500_infoProcesso_origem">origem</a> = [1]);<br>
+<td>O (se <a href="#2500_infoProcesso_origem">origem</a> = [1, 3]);<br>
 N (nos demais casos)</td>
 </tr>
 <tr>
@@ -33120,7 +33133,7 @@ N (nos demais casos)</td>
 <td>Informações relativas ao trabalho intermitente</td>
 <td>0-31</td>
 <td><a href="#2500_ideTrab_infoContr_ideEstab_infoVlr_idePeriodo_infoInterm_dia">dia</a></td>
-<td>O ((se <a href="#2500_ideTrab_infoContr_indContr">infoContr/indContr</a> = [N] e <a href="#2500_ideTrab_infoContr_codCateg">infoContr/codCateg</a> = [111]) ou (se <a href="#2500_ideTrab_infoContr_indContr">infoContr/indContr</a> = [S] e o código de categoria no RET for igual a [111]));<br>
+<td>O ((se (<a href="#2500_ideTrab_infoContr_codCateg">infoContr/codCateg</a> ou o código de categoria no RET for diferente de [111]) e <a href="#2500_ideTrab_infoContr_mudCategAtiv_codCateg">mudCategAtiv/codCateg</a> = [111] e mês/ano de <a href="#2500_ideTrab_infoContr_mudCategAtiv_dtMudCategAtiv">dtMudCategAtiv</a> &lt;= <a href="#2500_ideTrab_infoContr_ideEstab_infoVlr_idePeriodo_perRef">perRef</a>) OU (se (<a href="#2500_ideTrab_infoContr_codCateg">infoContr/codCateg</a> ou o código de categoria no RET for igual a [111]) e <a href="#2500_ideTrab_infoContr_mudCategAtiv_codCateg">mudCategAtiv/codCateg</a> não for informado ou for igual a [111]));<br>
 N (nos demais casos)</td>
 </tr>
 </tbody>
@@ -33362,7 +33375,8 @@ b) Se <a href="#2500_ideEmpregador_ideResp_tpInsc">ideResp/tpInsc</a> = [2], dev
 <td>-</td>
 <td>Preencher com a data de admissão do trabalhador no empregador de origem (responsável direto) quando se tratar de vínculo que não foi informado no eSocial.<br>
 Em caso de TSVE sem informação de matrícula no evento S-2300, informar a data de início.<br>
-<strong>Validação:</strong> Se informado, deve ser posterior à data de nascimento do trabalhador e igual ou anterior ao ano do óbito, se existente. Não deve ser informado se houver informação no campo <a href="#2500_ideEmpregador_ideResp_matRespDir">matRespDir</a>.</td>
+<strong>Validação:</strong> Se informado, deve ser posterior à data de nascimento do trabalhador e igual ou anterior à data do óbito, se existente (se não for possível obter a data do óbito, deve ser igual ou anterior ao ano do óbito; se não for possível obter a data e o ano do óbito, o evento deve ser recebido mediante alerta).<br>
+Não deve ser informado se houver informação no campo <a href="#2500_ideEmpregador_ideResp_matRespDir">matRespDir</a>.</td>
 </tr>
 <tr>
 <td class="seletor" onclick="copiarCaminho.call(this)" title="2500_ideEmpregador_ideResp_matRespDir" id="2500_ideEmpregador_ideResp_matRespDir"></td>
@@ -33398,8 +33412,9 @@ Em caso de TSVE sem informação de matrícula no evento S-2300, informar a data
 <td>-</td>
 <td>Informar a origem do processo/demanda.<br>
 <strong>Valores válidos:</strong><br>
-<strong>1</strong> - Processo judicial<br>
-<strong>2</strong> - Demanda submetida à CCP ou ao NINTER</td>
+<strong>1</strong> - Processo judicial trabalhista<br>
+<strong>2</strong> - Demanda submetida à CCP ou ao NINTER<br>
+<strong>3</strong> - Processo da Justiça Comum</td>
 </tr>
 <tr>
 <td class="seletor" onclick="copiarCaminho.call(this)" title="2500_infoProcesso_nrProcTrab" id="2500_infoProcesso_nrProcTrab"></td>
@@ -33411,7 +33426,10 @@ Em caso de TSVE sem informação de matrícula no evento S-2300, informar a data
 <td>15 ou 20</td>
 <td>-</td>
 <td>Número do processo trabalhista, da ata ou número de identificação da conciliação.<br>
-<strong>Validação:</strong> Se <a href="#2500_infoProcesso_origem">origem</a> = [1], deve ser um processo judicial válido, com 20 (vinte) algarismos. Se <a href="#2500_infoProcesso_origem">origem</a> = [2], deve possuir 15 (quinze) algarismos.</td>
+<strong>Validação:</strong> Se <a href="#2500_infoProcesso_origem">origem</a> = [1, 3], deve ser um processo judicial válido, com 20 (vinte) algarismos. Se <a href="#2500_infoProcesso_origem">origem</a> = [2], deve possuir 15 (quinze) algarismos.<br>
+Além disso, caso <a href="#2500_infoProcesso_dadosCompl_infoProcJud_dtSent">dtSent</a> &gt;= [2026-04-27]:<br>
+a) Se <a href="#2500_infoProcesso_origem">origem</a> = [1], o 14º (décimo quarto) algarismo deve ser igual a &quot;5&quot;;<br>
+b) Se <a href="#2500_infoProcesso_origem">origem</a> = [3], o 14º (décimo quarto) algarismo deve ser igual a &quot;4&quot; ou &quot;8&quot;.</td>
 </tr>
 <tr>
 <td class="seletor" onclick="copiarCaminho.call(this)" title="2500_infoProcesso_obsProcTrab" id="2500_infoProcesso_obsProcTrab"></td>
@@ -33495,6 +33513,18 @@ c) Decisão que determinar o cumprimento antecipado de obrigação.<br>
 <td>1-4</td>
 <td>-</td>
 <td>Código de identificação da Vara em que o processo tramitou.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="2500_infoProcesso_dadosCompl_infoProcJud_infoPatPrec" id="2500_infoProcesso_dadosCompl_infoProcJud_infoPatPrec"></td>
+<td>infoPatPrec</td>
+<td><a href="#r_2500_infoProcesso_dadosCompl_infoProcJud">infoProcJud</a></td>
+<td>E</td>
+<td>N</td>
+<td>0-1</td>
+<td>1-14</td>
+<td>2</td>
+<td>Valor total da cota patronal incidente sobre a remuneração paga ao trabalhador, que será objeto de requisição autônoma.<br>
+<strong>Validação:</strong> Preenchimento obrigatório e exclusivo se <a href="#2500_infoProcesso_origem">origem</a> = [3].</td>
 </tr>
 <tr class="grupo">
 <td class="seletor" onclick="copiarCaminho.call(this)" title="2500_infoProcesso_dadosCompl_infoCCP" id="2500_infoProcesso_dadosCompl_infoCCP"></td>
@@ -33639,7 +33669,7 @@ O campo não pode ser informado se todos os contratos do evento tiverem <a href=
 <strong>7</strong> - Trabalhador com vínculo de emprego formalizado em período anterior ao eSocial<br>
 <strong>8</strong> - Responsabilidade indireta<br>
 <strong>9</strong> - Trabalhador cujos contratos foram unificados (unicidade contratual)<br>
-<strong>Validação:</strong> Deve ser igual a [6, 8] se o grupo <a href="#2500_ideEmpregador_ideResp">ideResp</a> for informado.</td>
+<strong>Validação:</strong> Deve ser igual a [6, 8] se o grupo <a href="#2500_ideEmpregador_ideResp">ideResp</a> for informado. Além disso, se <a href="#2500_infoProcesso_origem">origem</a> = [3], deve ser igual a [1].</td>
 </tr>
 <tr>
 <td class="seletor" onclick="copiarCaminho.call(this)" title="2500_ideTrab_infoContr_indContr" id="2500_ideTrab_infoContr_indContr"></td>
@@ -33776,7 +33806,7 @@ d) Para o estagiário, a data de início do estágio;<br>
 e) Para o trabalhador avulso, a data de ingresso no Órgão Gestor de Mão de Obra - OGMO ou no sindicato;<br>
 f) Para o servidor público exercente de cargo eletivo, a data de início do mandato;<br>
 g) Para os demais trabalhadores, a data de início das atividades.<br>
-<strong>Validação:</strong> Informação obrigatória e exclusiva se (<a href="#2500_ideTrab_infoContr_tpContr">infoContr/tpContr</a> = [6] e <a href="#2500_ideTrab_infoContr_indContr">indContr</a> = [N]) ou se o campo <a href="#2500_ideTrab_infoContr_matricula">matricula</a> não estiver preenchido. Deve ser posterior à data de nascimento do trabalhador. Se o campo <a href="#2500_ideTrab_infoContr_matricula">matricula</a> não estiver preenchido, deve ser igual à data de início informada no evento S-2300.</td>
+<strong>Validação:</strong> Informação obrigatória e exclusiva se (<a href="#2500_ideTrab_infoContr_tpContr">infoContr/tpContr</a> = [6] e <a href="#2500_ideTrab_infoContr_indContr">indContr</a> = [N]) ou se o campo <a href="#2500_ideTrab_infoContr_matricula">matricula</a> não estiver preenchido. Deve ser posterior à data de nascimento do trabalhador e igual ou anterior à data do óbito, se existente (se não for possível obter a data do óbito, deve ser igual ou anterior ao ano do óbito; se não for possível obter a data e o ano do óbito, o evento deve ser recebido mediante alerta). Se o campo <a href="#2500_ideTrab_infoContr_matricula">matricula</a> não estiver preenchido, deve ser igual à data de início informada no evento S-2300.</td>
 </tr>
 <tr class="grupo">
 <td class="seletor" onclick="copiarCaminho.call(this)" title="2500_ideTrab_infoContr_infoCompl" id="2500_ideTrab_infoContr_infoCompl"></td>
@@ -33935,7 +33965,7 @@ Se <a href="#2500_ideTrab_infoContr_codCateg">infoContr/codCateg</a> = [104], de
 <td>-</td>
 <td>-</td>
 <td>Preencher com a data de admissão do trabalhador.<br>
-<strong>Validação:</strong> Deve ser posterior à data de nascimento do trabalhador e igual ou anterior ao ano do óbito, se existente.</td>
+<strong>Validação:</strong> Deve ser posterior à data de nascimento do trabalhador e igual ou anterior à data do óbito, se existente (se não for possível obter a data do óbito, deve ser igual ou anterior ao ano do óbito; se não for possível obter a data e o ano do óbito, o evento deve ser recebido mediante alerta).</td>
 </tr>
 <tr>
 <td class="seletor" onclick="copiarCaminho.call(this)" title="2500_ideTrab_infoContr_infoCompl_infoVinc_tmpParc" id="2500_ideTrab_infoContr_infoCompl_infoVinc_tmpParc"></td>
@@ -33991,7 +34021,7 @@ Informar este campo apenas no caso de empregado submetido a horário de trabalho
 <td>-</td>
 <td>-</td>
 <td>Data do término do contrato por prazo determinado.<br>
-<strong>Validação:</strong> O preenchimento é obrigatório se <a href="#2500_ideTrab_infoContr_infoCompl_infoVinc_duracao_tpContr">duracao/tpContr</a> = [2]. Não informar se <a href="#2500_ideTrab_infoContr_infoCompl_infoVinc_duracao_tpContr">duracao/tpContr</a> = [1]. Se preenchido, deve ser igual ou posterior à data de admissão (no caso de transferência, igual ou posterior a <a href="#2500_ideTrab_infoContr_infoCompl_infoVinc_sucessaoVinc_dtTransf">sucessaoVinc/dtTransf</a>).</td>
+<strong>Validação:</strong> O preenchimento é obrigatório se <a href="#2500_ideTrab_infoContr_infoCompl_infoVinc_duracao_tpContr">duracao/tpContr</a> = [2]. Não informar se <a href="#2500_ideTrab_infoContr_infoCompl_infoVinc_duracao_tpContr">duracao/tpContr</a> = [1]. Se preenchido, deve ser igual ou posterior à data de admissão (no caso de transferência, igual ou posterior a <a href="#2500_ideTrab_infoContr_infoCompl_infoVinc_sucessaoVinc_dtTransf">dtTransf</a>).</td>
 </tr>
 <tr>
 <td class="seletor" onclick="copiarCaminho.call(this)" title="2500_ideTrab_infoContr_infoCompl_infoVinc_duracao_clauAssec" id="2500_ideTrab_infoContr_infoCompl_infoVinc_duracao_clauAssec"></td>
@@ -34096,7 +34126,7 @@ Se <a href="#2500_ideTrab_infoContr_infoCompl_infoVinc_sucessaoVinc_tpInsc">suce
 <td>1-30</td>
 <td>-</td>
 <td>Matrícula do trabalhador no empregador anterior.<br>
-<strong>Validação:</strong> Se <a href="#2500_ideTrab_infoContr_infoCompl_infoVinc_sucessaoVinc_dtTransf">sucessaoVinc/dtTransf</a> for igual ou posterior a [2024-04-22], a matrícula informada neste campo deve ser idêntica à matricula do trabalhador no empregador anterior.</td>
+<strong>Validação:</strong> Se <a href="#2500_ideTrab_infoContr_infoCompl_infoVinc_sucessaoVinc_dtTransf">dtTransf</a> for igual ou posterior a [2024-04-22], a matrícula informada neste campo deve ser idêntica à matricula do trabalhador no empregador anterior.</td>
 </tr>
 <tr>
 <td class="seletor" onclick="copiarCaminho.call(this)" title="2500_ideTrab_infoContr_infoCompl_infoVinc_sucessaoVinc_dtTransf" id="2500_ideTrab_infoContr_infoCompl_infoVinc_sucessaoVinc_dtTransf"></td>
@@ -34108,7 +34138,7 @@ Se <a href="#2500_ideTrab_infoContr_infoCompl_infoVinc_sucessaoVinc_tpInsc">suce
 <td>-</td>
 <td>-</td>
 <td>Preencher com a data da transferência do empregado para o empregador declarante.<br>
-<strong>Validação:</strong> Deve ser posterior à data de admissão do trabalhador e igual ou anterior ao ano do óbito, se existente.</td>
+<strong>Validação:</strong> Deve ser posterior à data de admissão do trabalhador e igual ou anterior à data do óbito, se existente (se não for possível obter a data do óbito, deve ser igual ou anterior ao ano do óbito; se não for possível obter a data e o ano do óbito, o evento deve ser recebido mediante alerta).</td>
 </tr>
 <tr class="grupo">
 <td class="seletor" onclick="copiarCaminho.call(this)" title="2500_ideTrab_infoContr_infoCompl_infoVinc_infoDeslig" id="2500_ideTrab_infoContr_infoCompl_infoVinc_infoDeslig"></td>
@@ -34131,7 +34161,10 @@ Se <a href="#2500_ideTrab_infoContr_infoCompl_infoVinc_sucessaoVinc_tpInsc">suce
 <td>-</td>
 <td>-</td>
 <td>Preencher com a data de desligamento do vínculo (último dia trabalhado).<br>
-<strong>Validação:</strong> Deve ser igual ou posterior a <a href="#2500_ideTrab_infoContr_infoCompl_infoVinc_dtAdm">dtAdm</a> e não superior à data atual (data do envio do evento) acrescida de 10 dias corridos.</td>
+<strong>Validação:</strong> Deve ser igual ou posterior a <a href="#2500_ideTrab_infoContr_infoCompl_infoVinc_dtAdm">dtAdm</a> e não superior à data atual (data do envio do evento) acrescida de 10 dias corridos.<br>
+Se <a href="#2500_ideTrab_infoContr_infoCompl_infoVinc_infoDeslig_mtvDeslig">mtvDeslig</a> = [10]:<br>
+a) Caso a situação no cadastro do CPF na RFB seja diferente de &quot;Titular Falecido&quot;, retornar erro até o 7º (sétimo) dia de <a href="#2500_ideTrab_infoContr_infoCompl_infoVinc_infoDeslig_dtDeslig">dtDeslig</a> e retornar alerta a partir do 8º (oitavo) dia de <a href="#2500_ideTrab_infoContr_infoCompl_infoVinc_infoDeslig_dtDeslig">dtDeslig</a>;<br>
+b) Caso a situação no cadastro do CPF na RFB seja igual a &quot;Titular Falecido&quot;, <a href="#2500_ideTrab_infoContr_infoCompl_infoVinc_infoDeslig_dtDeslig">dtDeslig</a> deve ser igual à data de óbito no cadastro do CPF da RFB (se não for possível obter a data do óbito, o ano de <a href="#2500_ideTrab_infoContr_infoCompl_infoVinc_infoDeslig_dtDeslig">dtDeslig</a> deve ser igual ao ano do óbito; se não for possível obter a data e o ano do óbito, o evento deve ser recebido mediante alerta).</td>
 </tr>
 <tr>
 <td class="seletor" onclick="copiarCaminho.call(this)" title="2500_ideTrab_infoContr_infoCompl_infoVinc_infoDeslig_mtvDeslig" id="2500_ideTrab_infoContr_infoCompl_infoVinc_infoDeslig_mtvDeslig"></td>
@@ -34222,7 +34255,10 @@ Informação obrigatória e exclusiva se <a href="#2500_ideTrab_infoContr_infoCo
 <td>-</td>
 <td>-</td>
 <td>Data do término.<br>
-<strong>Validação:</strong> Deve ser igual ou posterior a <a href="#2500_ideTrab_infoContr_dtInicio">dtInicio</a> e igual ou anterior à data atual acrescida de 10 (dez) dias.</td>
+<strong>Validação:</strong> Deve ser igual ou posterior a <a href="#2500_ideTrab_infoContr_dtInicio">dtInicio</a> e igual ou anterior à data atual acrescida de 10 (dez) dias.<br>
+Se <a href="#2500_ideTrab_infoContr_infoCompl_infoTerm_mtvDesligTSV">mtvDesligTSV</a> = [05]:<br>
+a) Caso a situação no cadastro do CPF na RFB seja diferente de &quot;Titular Falecido&quot;, retornar erro até o 7º (sétimo) dia de <a href="#2500_ideTrab_infoContr_infoCompl_infoTerm_dtTerm">dtTerm</a> e retornar alerta a partir do 8º (oitavo) dia de <a href="#2500_ideTrab_infoContr_infoCompl_infoTerm_dtTerm">dtTerm</a>;<br>
+b) Caso a situação no cadastro do CPF na RFB seja igual a &quot;Titular Falecido&quot;, <a href="#2500_ideTrab_infoContr_infoCompl_infoTerm_dtTerm">dtTerm</a> deve ser igual à data de óbito no cadastro do CPF da RFB (se não for possível obter a data do óbito, o ano de <a href="#2500_ideTrab_infoContr_infoCompl_infoTerm_dtTerm">dtTerm</a> deve ser igual ao ano do óbito; se não for possível obter a data e o ano do óbito, o evento deve ser recebido mediante alerta).</td>
 </tr>
 <tr>
 <td class="seletor" onclick="copiarCaminho.call(this)" title="2500_ideTrab_infoContr_infoCompl_infoTerm_mtvDesligTSV" id="2500_ideTrab_infoContr_infoCompl_infoTerm_mtvDesligTSV"></td>
@@ -34266,8 +34302,10 @@ Informação obrigatória e exclusiva se <a href="#2500_ideTrab_infoContr_infoCo
 <td>-</td>
 <td>Preencher com o código da categoria do trabalhador.<br>
 <strong>Validação:</strong> Deve ser um código válido e existente na <a href="tabelas.html#01">Tabela 01</a> e obedecer ao que segue:<br>
-a) Se <a href="#2500_ideTrab_infoContr_indContr">indContr</a> = [S], deve ser um código de categoria diferente daquele presente no contrato original;<br>
-b) Se <a href="#2500_ideTrab_infoContr_indContr">indContr</a> = [N], deve ser um código de categoria diferente daquele informado em <a href="#2500_ideTrab_infoContr_codCateg">infoContr/codCateg</a>.</td>
+a) Se <a href="#2500_ideTrab_infoContr_indContr">indContr</a> = [S] e <a href="#2500_ideTrab_infoContr_indCateg">indCateg</a> = [S], deve ser um código de categoria diferente daquele presente no contrato original;<br>
+b) Se <a href="#2500_ideTrab_infoContr_indContr">indContr</a> = [N] e <a href="#2500_ideTrab_infoContr_indCateg">indCateg</a> = [S], deve ser um código de categoria diferente daquele informado em <a href="#2500_ideTrab_infoContr_codCateg">infoContr/codCateg</a>;<br>
+c) Se <a href="#2500_ideTrab_infoContr_indContr">indContr</a> = [S] e <a href="#2500_ideTrab_infoContr_indCateg">indCateg</a> = [N], deve ser o mesmo código de categoria daquele presente no contrato original;<br>
+d) Se <a href="#2500_ideTrab_infoContr_indContr">indContr</a> = [N] e <a href="#2500_ideTrab_infoContr_indCateg">indCateg</a> = [N], deve ser o mesmo código de categoria daquele informado em <a href="#2500_ideTrab_infoContr_codCateg">infoContr/codCateg</a>.</td>
 </tr>
 <tr>
 <td class="seletor" onclick="copiarCaminho.call(this)" title="2500_ideTrab_infoContr_mudCategAtiv_natAtividade" id="2500_ideTrab_infoContr_mudCategAtiv_natAtividade"></td>
@@ -34285,8 +34323,10 @@ b) Se <a href="#2500_ideTrab_infoContr_indContr">indContr</a> = [N], deve ser um
 <strong>Validação:</strong> Não informar se <a href="#2500_ideTrab_infoContr_mudCategAtiv_codCateg">mudCategAtiv/codCateg</a> = [721, 722, 771, 901] e observar o que segue:<br>
 a) Se <a href="#2500_ideTrab_infoContr_mudCategAtiv_codCateg">mudCategAtiv/codCateg</a> = [104], não pode ser preenchido com [2];<br>
 b) Se <a href="#2500_ideTrab_infoContr_mudCategAtiv_codCateg">mudCategAtiv/codCateg</a> = [102], não pode ser preenchido com [1];<br>
-c) Se <a href="#2500_ideTrab_infoContr_indContr">indContr</a> = [S], deve ser uma natureza de atividade diferente daquela presente no contrato original;<br>
-d) Se <a href="#2500_ideTrab_infoContr_indContr">indContr</a> = [N], deve ser uma natureza de atividade diferente daquela informada em <a href="#2500_ideTrab_infoContr_infoCompl_natAtividade">infoContr/natAtividade</a>.</td>
+c) Se <a href="#2500_ideTrab_infoContr_indContr">indContr</a> = [S] e <a href="#2500_ideTrab_infoContr_indNatAtiv">indNatAtiv</a> = [S], deve ser uma natureza de atividade diferente daquela presente no contrato original;<br>
+d) Se <a href="#2500_ideTrab_infoContr_indContr">indContr</a> = [N] e <a href="#2500_ideTrab_infoContr_indNatAtiv">indNatAtiv</a> = [S], deve ser uma natureza de atividade diferente daquela informada em <a href="#2500_ideTrab_infoContr_infoCompl_natAtividade">infoContr/natAtividade</a>;<br>
+e) Se <a href="#2500_ideTrab_infoContr_indContr">indContr</a> = [S] e <a href="#2500_ideTrab_infoContr_indNatAtiv">indNatAtiv</a> = [N], deve ser a mesma natureza de atividade daquela presente no contrato original;<br>
+f) Se <a href="#2500_ideTrab_infoContr_indContr">indContr</a> = [N] e <a href="#2500_ideTrab_infoContr_indNatAtiv">indNatAtiv</a> = [N], deve ser a mesma natureza de atividade daquela informada em <a href="#2500_ideTrab_infoContr_infoCompl_natAtividade">infoContr/natAtividade</a>.</td>
 </tr>
 <tr>
 <td class="seletor" onclick="copiarCaminho.call(this)" title="2500_ideTrab_infoContr_mudCategAtiv_dtMudCategAtiv" id="2500_ideTrab_infoContr_mudCategAtiv_dtMudCategAtiv"></td>
@@ -34427,7 +34467,7 @@ c) Se <a href="#2500_ideTrab_infoContr_tpContr">infoContr/tpContr</a> = [6], dev
 <td>7</td>
 <td>-</td>
 <td>Competência final a que se refere o processo ou conciliação, no formato AAAA-MM.<br>
-<strong>Validação:</strong> Deve ser igual ou posterior a <a href="#2500_ideTrab_infoContr_ideEstab_infoVlr_compIni">compIni</a> e igual ou anterior ao mês/ano de <a href="#2500_infoProcesso_dadosCompl_infoProcJud_dtSent">dtSent</a> ou <a href="#2500_infoProcesso_dadosCompl_infoCCP_dtCCP">dtCCP</a>.</td>
+<strong>Validação:</strong> Deve ser igual ou posterior a <a href="#2500_ideTrab_infoContr_ideEstab_infoVlr_compIni">compIni</a>. Se for posterior ao mês/ano de <a href="#2500_infoProcesso_dadosCompl_infoProcJud_dtSent">dtSent</a> ou <a href="#2500_infoProcesso_dadosCompl_infoCCP_dtCCP">dtCCP</a>, retornar alerta.</td>
 </tr>
 <tr>
 <td class="seletor" onclick="copiarCaminho.call(this)" title="2500_ideTrab_infoContr_ideEstab_infoVlr_indReperc" id="2500_ideTrab_infoContr_ideEstab_infoVlr_indReperc"></td>
@@ -35123,7 +35163,7 @@ Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo
 <td>15 ou 20</td>
 <td>-</td>
 <td>Número do processo trabalhista, da ata ou número de identificação da conciliação.<br>
-<strong>Validação:</strong> Deve ser um número de processo válido e declarado no evento S-2500 para o(s) trabalhador(es) informado(s) em <a href="#2501_ideTrab_cpfTrab">cpfTrab</a>.</td>
+<strong>Validação:</strong> Deve ser um número de processo válido e declarado no evento S-2500 para o(s) trabalhador(es) informado(s) em <a href="#2501_ideTrab_cpfTrab">cpfTrab</a>, com <a href="#2500_infoProcesso_origem">origem</a> em S-2500 diferente de [3].</td>
 </tr>
 <tr>
 <td class="seletor" onclick="copiarCaminho.call(this)" title="2501_ideProc_perApurPgto" id="2501_ideProc_perApurPgto"></td>
@@ -35209,7 +35249,7 @@ Deve ser único dentre os eventos S-2501 do empregador que tenham os mesmos <a h
 <td>7</td>
 <td>-</td>
 <td>Informar o mês/ano (formato AAAA-MM) de referência das informações.<br>
-<strong>Validação:</strong> Deve ser um período existente no evento S-2500 para o trabalhador indicado em <a href="#2501_ideTrab_cpfTrab">cpfTrab</a> (observado o campo <a href="#2500_ideTrab_ideSeqTrab">ideSeqTrab</a> de S-2500, se existente) e igual ou posterior a [2008-12].</td>
+<strong>Validação:</strong> Deve ser um período existente no evento S-2500 para o trabalhador indicado em <a href="#2501_ideTrab_cpfTrab">cpfTrab</a> (observado o campo <a href="#2500_ideTrab_ideSeqTrab">ideSeqTrab</a> de S-2500, se existente), igual ou posterior a [2008-12] e igual ou anterior a <a href="#2501_ideProc_perApurPgto">perApurPgto</a>.</td>
 </tr>
 <tr>
 <td class="seletor" onclick="copiarCaminho.call(this)" title="2501_ideTrab_calcTrib_vrBcCpMensal" id="2501_ideTrab_calcTrib_vrBcCpMensal"></td>
@@ -37610,6 +37650,7 @@ O (nos demais casos)</td>
 <strong>109902</strong> - CP descontada do contribuinte individual, alíquota de 20%<br>
 <strong>109921</strong> - CP descontada do contribuinte individual, alíquota de 11% - 13º salário<br>
 <strong>109922</strong> - CP descontada do contribuinte individual, alíquota de 20% - 13º salário<br>
+<strong>160601</strong> - Empréstimo Consignado do Trabalhador, Lei nº 10.820/2003 (aplicável apenas ao DAE dos módulos simplificados)<br>
 <strong>Validação:</strong> Se <a href="#5001_ideEvento_indApuracao">indApuracao</a> = [2], deve ser igual a [108221, 108222, 108223, 108224, 108225, 109921, 109922].</td>
 </tr>
 <tr>
@@ -41836,7 +41877,7 @@ d) Se o evento de origem for S-3000 (referente a exclusão de S-2299 ou S-2399),
 <strong>Valores válidos:</strong><br>
 <strong>1</strong> - Normal (incidência de FGTS)<br>
 <strong>9</strong> - Incidência de FGTS suspensa em decorrência de decisão judicial<br>
-<strong>Validação:</strong> Se <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncFGTS">codIncFGTS</a> em S-1010 for igual a [11, 12, 21, 71], deve ser retornado [1].<br>
+<strong>Validação:</strong> Se <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncFGTS">codIncFGTS</a> em S-1010 for igual a [11, 12, 21], deve ser retornado [1].<br>
 Se <a href="#1010_infoRubrica_inclusao_dadosRubrica_codIncFGTS">codIncFGTS</a> em S-1010 for igual a [91, 92, 93], deve ser retornado [9].</td>
 </tr>
 <tr>
@@ -45672,8 +45713,9 @@ N (nos demais casos)</td>
 <td>-</td>
 <td>Informar a origem do processo/demanda.<br>
 <strong>Valores válidos:</strong><br>
-<strong>1</strong> - Processo judicial<br>
-<strong>2</strong> - Demanda submetida à CCP ou ao NINTER</td>
+<strong>1</strong> - Processo judicial trabalhista<br>
+<strong>2</strong> - Demanda submetida à CCP ou ao NINTER<br>
+<strong>3</strong> - Processo da Justiça Comum</td>
 </tr>
 <tr>
 <td class="seletor" onclick="copiarCaminho.call(this)" title="5503_ideProc_nrProcTrab" id="5503_ideProc_nrProcTrab"></td>
@@ -46386,7 +46428,7 @@ Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo
 <td>-</td>
 <td>-</td>
 <td>Preencher com a data de admissão do trabalhador.<br>
-<strong>Validação:</strong> Deve ser posterior à data de nascimento do trabalhador.</td>
+<strong>Validação:</strong> Deve ser posterior à data de nascimento do trabalhador e igual ou anterior à data do óbito, se existente (se não for possível obter a data do óbito, deve ser igual ou anterior ao ano do óbito; se não for possível obter a data e o ano do óbito, o evento deve ser recebido mediante alerta).</td>
 </tr>
 <tr>
 <td class="seletor" onclick="copiarCaminho.call(this)" title="8200_infoAnotJud_matricula" id="8200_infoAnotJud_matricula"></td>
@@ -46736,8 +46778,10 @@ Não podem ser informados motivos que não implicam rescisão do contrato de tra
 <td>-</td>
 <td>-</td>
 <td>Preencher com a data de desligamento do vínculo (último dia trabalhado).<br>
-<strong>Validação:</strong> Deve ser igual ou posterior à data de admissão do trabalhador e igual ou posterior a [2019-09-24].<br>
-Não pode ser posterior à data atual.</td>
+<strong>Validação:</strong> Deve ser igual ou posterior à data de admissão do trabalhador e igual ou posterior a [2019-09-24]. Não pode ser posterior à data atual.<br>
+Se <a href="#8200_infoAnotJud_desligamento_mtvDeslig">mtvDeslig</a> = [10]:<br>
+a) Caso a situação no cadastro do CPF na RFB seja diferente de &quot;Titular Falecido&quot;, retornar erro até o 7º (sétimo) dia de <a href="#8200_infoAnotJud_desligamento_dtDeslig">dtDeslig</a> e retornar alerta a partir do 8º (oitavo) dia de <a href="#8200_infoAnotJud_desligamento_dtDeslig">dtDeslig</a>;<br>
+b) Caso a situação no cadastro do CPF na RFB seja igual a &quot;Titular Falecido&quot;, <a href="#8200_infoAnotJud_desligamento_dtDeslig">dtDeslig</a> deve ser igual à data de óbito no cadastro do CPF da RFB (se não for possível obter a data do óbito, o ano de <a href="#8200_infoAnotJud_desligamento_dtDeslig">dtDeslig</a> deve ser igual ao ano do óbito; se não for possível obter a data e o ano do óbito, o evento deve ser recebido mediante alerta).</td>
 </tr>
 <tr>
 <td class="seletor" onclick="copiarCaminho.call(this)" title="8200_infoAnotJud_desligamento_dtProjFimAPI" id="8200_infoAnotJud_desligamento_dtProjFimAPI"></td>
@@ -47071,7 +47115,10 @@ Não podem ser informados motivos que não implicam rescisão do contrato de tra
 <td>-</td>
 <td>-</td>
 <td>Preencher com a data de desligamento do vínculo (último dia trabalhado).<br>
-<strong>Validação:</strong> Deve ser uma data igual ou posterior a 24/09/2019 e igual ou anterior à data atual. No caso de empregado reintegrado e quando não se tratar de retificação do desligamento anterior à reintegração, também deve ser uma data igual ou posterior a <a href="#2298_infoReintegr_dtEfetRetorno">dtEfetRetorno</a> do evento S-2298.</td>
+<strong>Validação:</strong> Deve ser uma data igual ou posterior a 24/09/2019 e igual ou anterior à data atual. No caso de empregado reintegrado e quando não se tratar de retificação do desligamento anterior à reintegração, também deve ser uma data igual ou posterior a <a href="#2298_infoReintegr_dtEfetRetorno">dtEfetRetorno</a> do evento S-2298.<br>
+Se <a href="#8299_infoBaixa_mtvDeslig">mtvDeslig</a> = [10]:<br>
+a) Caso a situação no cadastro do CPF na RFB seja diferente de &quot;Titular Falecido&quot;, retornar erro até o 7º (sétimo) dia de <a href="#8299_infoBaixa_dtDeslig">dtDeslig</a> e retornar alerta a partir do 8º (oitavo) dia de <a href="#8299_infoBaixa_dtDeslig">dtDeslig</a>;<br>
+b) Caso a situação no cadastro do CPF na RFB seja igual a &quot;Titular Falecido&quot;, <a href="#8299_infoBaixa_dtDeslig">dtDeslig</a> deve ser igual à data de óbito no cadastro do CPF da RFB (se não for possível obter a data do óbito, o ano de <a href="#8299_infoBaixa_dtDeslig">dtDeslig</a> deve ser igual ao ano do óbito; se não for possível obter a data e o ano do óbito, o evento deve ser recebido mediante alerta).</td>
 </tr>
 <tr>
 <td class="seletor" onclick="copiarCaminho.call(this)" title="8299_infoBaixa_dtProjFimAPI" id="8299_infoBaixa_dtProjFimAPI"></td>

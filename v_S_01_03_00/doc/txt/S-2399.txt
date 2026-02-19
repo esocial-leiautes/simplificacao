@@ -383,6 +383,9 @@ Tamanho: -
 Dec.: -
 Descrição: Data do término.
 Validação: Deve ser uma data igual ou anterior à data atual acrescida de 10 (dez) dias.
+Se {mtvDesligTSV}(./mtvDesligTSV) = [05]:
+a) Caso a situação no cadastro do CPF na RFB seja diferente de "Titular Falecido", retornar erro até o 7º (sétimo) dia de {dtTerm}(./dtTerm) e retornar alerta a partir do 8º (oitavo) dia de {dtTerm}(./dtTerm);
+b) Caso a situação no cadastro do CPF na RFB seja igual a "Titular Falecido", {dtTerm}(./dtTerm) deve ser igual à data de óbito no cadastro do CPF da RFB (se não for possível obter a data do óbito, o ano de {dtTerm}(./dtTerm) deve ser igual ao ano do óbito; se não for possível obter a data e o ano do óbito, o evento deve ser recebido mediante alerta).
 
 Nome: mtvDesligTSV
 Pai: infoTSVTermino
@@ -525,8 +528,7 @@ Dec.: -
 Descrição: Número da notificação de FGTS que deu origem à confissão.
 Validação: Se o campo for preenchido:
 a) O mês/ano de {}(2399_infoTSVTermino_dtTerm) deve ser igual ou posterior ao início do FGTS Digital;
-b) Todas as rubricas de vencimento ({}(1010_infoRubrica_inclusao_dadosRubrica_tpRubr) em S-1010 = [1]) informadas no demonstrativo devem possuir {}(1010_infoRubrica_inclusao_dadosRubrica_codIncFGTS) em S-1010 = [71];
-c) Devem ser informados apenas caracteres alfanuméricos, com 9 (nove) posições.
+b) Devem ser informados apenas caracteres alfanuméricos, com 9 (nove) posições.
 
 Nome: infoRRA
 Pai: dmDev

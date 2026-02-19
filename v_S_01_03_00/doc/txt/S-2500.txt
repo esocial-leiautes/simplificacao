@@ -65,7 +65,7 @@ Pai: dadosCompl
 Descrição: Informações complementares do processo judicial.
 Ocorrência: 0-1
 Chave: -
-Condição: O (se {origem}(2500_infoProcesso_origem) = [1])
+Condição: O (se {origem}(2500_infoProcesso_origem) = [1, 3])
 N (nos demais casos)
 
 Nível: 5
@@ -256,7 +256,7 @@ Pai: idePeriodo
 Descrição: Informações relativas ao trabalho intermitente.
 Ocorrência: 0-31
 Chave: dia
-Condição: O ((se {infoContr/indContr}(2500_ideTrab_infoContr_indContr) = [N] e {infoContr/codCateg}(2500_ideTrab_infoContr_codCateg) = [111]) ou (se {infoContr/indContr}(2500_ideTrab_infoContr_indContr) = [S] e o código de categoria no RET for igual a [111]))
+Condição: O ((se ({infoContr/codCateg}(2500_ideTrab_infoContr_codCateg) ou o código de categoria no RET for diferente de [111]) e {mudCategAtiv/codCateg}(2500_ideTrab_infoContr_mudCategAtiv_codCateg) = [111] e mês/ano de {dtMudCategAtiv}(2500_ideTrab_infoContr_mudCategAtiv_dtMudCategAtiv) <= {perRef}(../perRef)) OU (se ({infoContr/codCateg}(2500_ideTrab_infoContr_codCateg) ou o código de categoria no RET for igual a [111]) e {mudCategAtiv/codCateg}(2500_ideTrab_infoContr_mudCategAtiv_codCateg) não for informado ou for igual a [111]))
 N (nos demais casos)
 
 Nome: eSocial
@@ -447,7 +447,8 @@ Tamanho: -
 Dec.: -
 Descrição: Preencher com a data de admissão do trabalhador no empregador de origem (responsável direto) quando se tratar de vínculo que não foi informado no eSocial.
 Em caso de TSVE sem informação de matrícula no evento S-2300, informar a data de início.
-Validação: Se informado, deve ser posterior à data de nascimento do trabalhador e igual ou anterior ao ano do óbito, se existente. Não deve ser informado se houver informação no campo {}(./matRespDir).
+Validação: Se informado, deve ser posterior à data de nascimento do trabalhador e igual ou anterior à data do óbito, se existente (se não for possível obter a data do óbito, deve ser igual ou anterior ao ano do óbito; se não for possível obter a data e o ano do óbito, o evento deve ser recebido mediante alerta).
+Não deve ser informado se houver informação no campo {}(./matRespDir).
 
 Nome: matRespDir
 Pai: ideResp
@@ -477,8 +478,9 @@ Tamanho: 1
 Dec.: -
 Descrição: Informar a origem do processo/demanda.
 Valores válidos:
-1 - Processo judicial
+1 - Processo judicial trabalhista
 2 - Demanda submetida à CCP ou ao NINTER
+3 - Processo da Justiça Comum
 
 Nome: nrProcTrab
 Pai: infoProcesso
@@ -488,7 +490,10 @@ Ocorrência: 1
 Tamanho: 15 ou 20
 Dec.: -
 Descrição: Número do processo trabalhista, da ata ou número de identificação da conciliação.
-Validação: Se {origem}(./origem) = [1], deve ser um processo judicial válido, com 20 (vinte) algarismos. Se {origem}(./origem) = [2], deve possuir 15 (quinze) algarismos.
+Validação: Se {origem}(./origem) = [1, 3], deve ser um processo judicial válido, com 20 (vinte) algarismos. Se {origem}(./origem) = [2], deve possuir 15 (quinze) algarismos.
+Além disso, caso {dtSent}(2500_infoProcesso_dadosCompl_infoProcJud_dtSent) >= [2026-04-27]:
+a) Se {origem}(./origem) = [1], o 14º (décimo quarto) algarismo deve ser igual a "5";
+b) Se {origem}(./origem) = [3], o 14º (décimo quarto) algarismo deve ser igual a "4" ou "8".
 
 Nome: obsProcTrab
 Pai: infoProcesso
@@ -559,6 +564,16 @@ Ocorrência: 1
 Tamanho: 1-4
 Dec.: -
 Descrição: Código de identificação da Vara em que o processo tramitou.
+
+Nome: infoPatPrec
+Pai: infoProcJud
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor total da cota patronal incidente sobre a remuneração paga ao trabalhador, que será objeto de requisição autônoma.
+Validação: Preenchimento obrigatório e exclusivo se {origem}(../../origem) = [3].
 
 Nome: infoCCP
 Pai: dadosCompl
@@ -681,7 +696,7 @@ Valores válidos:
 7 - Trabalhador com vínculo de emprego formalizado em período anterior ao eSocial
 8 - Responsabilidade indireta
 9 - Trabalhador cujos contratos foram unificados (unicidade contratual)
-Validação: Deve ser igual a [6, 8] se o grupo {ideResp}(2500_ideEmpregador_ideResp) for informado.
+Validação: Deve ser igual a [6, 8] se o grupo {ideResp}(2500_ideEmpregador_ideResp) for informado. Além disso, se {origem}(2500_infoProcesso_origem) = [3], deve ser igual a [1].
 
 Nome: indContr
 Pai: infoContr
@@ -800,7 +815,7 @@ d) Para o estagiário, a data de início do estágio;
 e) Para o trabalhador avulso, a data de ingresso no Órgão Gestor de Mão de Obra - OGMO ou no sindicato;
 f) Para o servidor público exercente de cargo eletivo, a data de início do mandato;
 g) Para os demais trabalhadores, a data de início das atividades.
-Validação: Informação obrigatória e exclusiva se ({infoContr/tpContr}(./tpContr) = [6] e {indContr}(./indContr) = [N]) ou se o campo {matricula}(./matricula) não estiver preenchido. Deve ser posterior à data de nascimento do trabalhador. Se o campo {matricula}(./matricula) não estiver preenchido, deve ser igual à data de início informada no evento S-2300.
+Validação: Informação obrigatória e exclusiva se ({infoContr/tpContr}(./tpContr) = [6] e {indContr}(./indContr) = [N]) ou se o campo {matricula}(./matricula) não estiver preenchido. Deve ser posterior à data de nascimento do trabalhador e igual ou anterior à data do óbito, se existente (se não for possível obter a data do óbito, deve ser igual ou anterior ao ano do óbito; se não for possível obter a data e o ano do óbito, o evento deve ser recebido mediante alerta). Se o campo {matricula}(./matricula) não estiver preenchido, deve ser igual à data de início informada no evento S-2300.
 
 Nome: infoCompl
 Pai: infoContr
@@ -935,7 +950,7 @@ Ocorrência: 1
 Tamanho: -
 Dec.: -
 Descrição: Preencher com a data de admissão do trabalhador.
-Validação: Deve ser posterior à data de nascimento do trabalhador e igual ou anterior ao ano do óbito, se existente.
+Validação: Deve ser posterior à data de nascimento do trabalhador e igual ou anterior à data do óbito, se existente (se não for possível obter a data do óbito, deve ser igual ou anterior ao ano do óbito; se não for possível obter a data e o ano do óbito, o evento deve ser recebido mediante alerta).
 
 Nome: tmpParc
 Pai: infoVinc
@@ -983,7 +998,7 @@ Ocorrência: 0-1
 Tamanho: -
 Dec.: -
 Descrição: Data do término do contrato por prazo determinado.
-Validação: O preenchimento é obrigatório se {duracao/tpContr}(./tpContr) = [2]. Não informar se {duracao/tpContr}(./tpContr) = [1]. Se preenchido, deve ser igual ou posterior à data de admissão (no caso de transferência, igual ou posterior a {sucessaoVinc/dtTransf}(../sucessaoVinc_dtTransf)).
+Validação: O preenchimento é obrigatório se {duracao/tpContr}(./tpContr) = [2]. Não informar se {duracao/tpContr}(./tpContr) = [1]. Se preenchido, deve ser igual ou posterior à data de admissão (no caso de transferência, igual ou posterior a {dtTransf}(../sucessaoVinc_dtTransf)).
 
 Nome: clauAssec
 Pai: duracao
@@ -1072,7 +1087,7 @@ Ocorrência: 0-1
 Tamanho: 1-30
 Dec.: -
 Descrição: Matrícula do trabalhador no empregador anterior.
-Validação: Se {sucessaoVinc/dtTransf}(./dtTransf) for igual ou posterior a [2024-04-22], a matrícula informada neste campo deve ser idêntica à matricula do trabalhador no empregador anterior.
+Validação: Se {dtTransf}(./dtTransf) for igual ou posterior a [2024-04-22], a matrícula informada neste campo deve ser idêntica à matricula do trabalhador no empregador anterior.
 
 Nome: dtTransf
 Pai: sucessaoVinc
@@ -1082,7 +1097,7 @@ Ocorrência: 1
 Tamanho: -
 Dec.: -
 Descrição: Preencher com a data da transferência do empregado para o empregador declarante.
-Validação: Deve ser posterior à data de admissão do trabalhador e igual ou anterior ao ano do óbito, se existente.
+Validação: Deve ser posterior à data de admissão do trabalhador e igual ou anterior à data do óbito, se existente (se não for possível obter a data do óbito, deve ser igual ou anterior ao ano do óbito; se não for possível obter a data e o ano do óbito, o evento deve ser recebido mediante alerta).
 
 Nome: infoDeslig
 Pai: infoVinc
@@ -1102,6 +1117,9 @@ Tamanho: -
 Dec.: -
 Descrição: Preencher com a data de desligamento do vínculo (último dia trabalhado).
 Validação: Deve ser igual ou posterior a {dtAdm}(../dtAdm) e não superior à data atual (data do envio do evento) acrescida de 10 dias corridos.
+Se {mtvDeslig}(./mtvDeslig) = [10]:
+a) Caso a situação no cadastro do CPF na RFB seja diferente de "Titular Falecido", retornar erro até o 7º (sétimo) dia de {dtDeslig}(./dtDeslig) e retornar alerta a partir do 8º (oitavo) dia de {dtDeslig}(./dtDeslig);
+b) Caso a situação no cadastro do CPF na RFB seja igual a "Titular Falecido", {dtDeslig}(./dtDeslig) deve ser igual à data de óbito no cadastro do CPF da RFB (se não for possível obter a data do óbito, o ano de {dtDeslig}(./dtDeslig) deve ser igual ao ano do óbito; se não for possível obter a data e o ano do óbito, o evento deve ser recebido mediante alerta).
 
 Nome: mtvDeslig
 Pai: infoDeslig
@@ -1179,6 +1197,9 @@ Tamanho: -
 Dec.: -
 Descrição: Data do término.
 Validação: Deve ser igual ou posterior a {dtInicio}(../../dtInicio) e igual ou anterior à data atual acrescida de 10 (dez) dias.
+Se {mtvDesligTSV}(./mtvDesligTSV) = [05]:
+a) Caso a situação no cadastro do CPF na RFB seja diferente de "Titular Falecido", retornar erro até o 7º (sétimo) dia de {dtTerm}(./dtTerm) e retornar alerta a partir do 8º (oitavo) dia de {dtTerm}(./dtTerm);
+b) Caso a situação no cadastro do CPF na RFB seja igual a "Titular Falecido", {dtTerm}(./dtTerm) deve ser igual à data de óbito no cadastro do CPF da RFB (se não for possível obter a data do óbito, o ano de {dtTerm}(./dtTerm) deve ser igual ao ano do óbito; se não for possível obter a data e o ano do óbito, o evento deve ser recebido mediante alerta).
 
 Nome: mtvDesligTSV
 Pai: infoTerm
@@ -1216,8 +1237,10 @@ Tamanho: 3
 Dec.: -
 Descrição: Preencher com o código da categoria do trabalhador.
 Validação: Deve ser um código válido e existente na Tabela 01 e obedecer ao que segue:
-a) Se {}(../indContr) = [S], deve ser um código de categoria diferente daquele presente no contrato original;
-b) Se {}(../indContr) = [N], deve ser um código de categoria diferente daquele informado em {infoContr/codCateg}(../codCateg).
+a) Se {indContr}(../indContr) = [S] e {indCateg}(../indCateg) = [S], deve ser um código de categoria diferente daquele presente no contrato original;
+b) Se {indContr}(../indContr) = [N] e {indCateg}(../indCateg) = [S], deve ser um código de categoria diferente daquele informado em {infoContr/codCateg}(../codCateg);
+c) Se {indContr}(../indContr) = [S] e {indCateg}(../indCateg) = [N], deve ser o mesmo código de categoria daquele presente no contrato original;
+d) Se {indContr}(../indContr) = [N] e {indCateg}(../indCateg) = [N], deve ser o mesmo código de categoria daquele informado em {infoContr/codCateg}(../codCateg).
 
 Nome: natAtividade
 Pai: mudCategAtiv
@@ -1233,8 +1256,10 @@ Valores válidos:
 Validação: Não informar se {mudCategAtiv/codCateg}(./codCateg) = [721, 722, 771, 901] e observar o que segue:
 a) Se {mudCategAtiv/codCateg}(./codCateg) = [104], não pode ser preenchido com [2];
 b) Se {mudCategAtiv/codCateg}(./codCateg) = [102], não pode ser preenchido com [1];
-c) Se {}(../indContr) = [S], deve ser uma natureza de atividade diferente daquela presente no contrato original;
-d) Se {}(../indContr) = [N], deve ser uma natureza de atividade diferente daquela informada em {infoContr/natAtividade}(../infoCompl_natAtividade).
+c) Se {indContr}(../indContr) = [S] e {indNatAtiv}(../indNatAtiv) = [S], deve ser uma natureza de atividade diferente daquela presente no contrato original;
+d) Se {indContr}(../indContr) = [N] e {indNatAtiv}(../indNatAtiv) = [S], deve ser uma natureza de atividade diferente daquela informada em {infoContr/natAtividade}(../infoCompl_natAtividade);
+e) Se {indContr}(../indContr) = [S] e {indNatAtiv}(../indNatAtiv) = [N], deve ser a mesma natureza de atividade daquela presente no contrato original;
+f) Se {indContr}(../indContr) = [N] e {indNatAtiv}(../indNatAtiv) = [N], deve ser a mesma natureza de atividade daquela informada em {infoContr/natAtividade}(../infoCompl_natAtividade).
 
 Nome: dtMudCategAtiv
 Pai: mudCategAtiv
@@ -1353,7 +1378,7 @@ Ocorrência: 1
 Tamanho: 7
 Dec.: -
 Descrição: Competência final a que se refere o processo ou conciliação, no formato AAAA-MM.
-Validação: Deve ser igual ou posterior a {compIni}(./compIni) e igual ou anterior ao mês/ano de {dtSent}(2500_infoProcesso_dadosCompl_infoProcJud_dtSent) ou {dtCCP}(2500_infoProcesso_dadosCompl_infoCCP_dtCCP).
+Validação: Deve ser igual ou posterior a {compIni}(./compIni). Se for posterior ao mês/ano de {dtSent}(2500_infoProcesso_dadosCompl_infoProcJud_dtSent) ou {dtCCP}(2500_infoProcesso_dadosCompl_infoCCP_dtCCP), retornar alerta.
 
 Nome: indReperc
 Pai: infoVlr

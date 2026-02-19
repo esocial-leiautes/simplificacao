@@ -109,7 +109,7 @@ Para cada demonstrativo do evento:
 a) {perApur} (ou mês/ano de {dtDeslig}, para S-2299), se pertencerem ao grupo {infoPerApur};
 b) {perRef}, se pertencerem ao grupo {infoPerAnt}.
 2.4) Para o evento S-2399, as informações dos campos {ideEstabLot/nrInsc} e {codLotacao} devem constar nas Tabelas S-1005 e S-1020, respectivamente, vigentes no mês/ano de {dtTerm}.
-2.5) Se o campo {notAFT} não for informado, não pode haver rubrica no demonstrativo com {codIncFGTS} em S-1010 = [71].
+2.5) Se o tipo de inscrição do estabelecimento for igual a [1] (CNPJ) e {indDesFolha} em S-1000 = [2] no período de apuração (mês/ano de {dtDeslig}, para S-2299, ou mês/ano de {dtTerm}, para S-2399), a natureza jurídica desse estabelecimento deve ser diferente de [110-4, 111-2, 112-0, 113-9, 114-7, 115-5]. Caso essa regra não seja atendida, retornar "alerta".
 3) No caso dos eventos S-1202 e S-1207:
 3.1) Para as rubricas cujo {codIncCPRP} em S-1010 = [31, 32], o somatório do valor das rubricas cujo {tpRubr} em S-1010 = [2, 4] deverá ser maior ou igual ao somatório do valor das rubricas cujo {tpRubr} em S-1010 = [1, 3], considerando cada {codIncCPRP} individualmente.
 3.2) As informações dos campos {codRubr} e {ideTabRubr} devem constar conjuntamente na Tabela S-1010, com o campo {codIncCPRP} preenchido, vigentes nos períodos mencionados no item 3.3 abaixo.
@@ -504,7 +504,7 @@ Retornar "erro" se o item 2d), o item 5) ou o item 6) não for atendido. Retorna
 
 REGRA_RUBRICA_COMPATIVEL_DECTERCEIRO
 Se {indApuracao} for igual a [2] (décimo terceiro salário):
-a) No caso do evento S-1200, são permitidas apenas as rubricas cujo {codIncCP} em S-1010 seja igual a [00, 01, 12, 14, 16, 22, 26, 32, 92, 94, 96, 98], cujo {codIncIRRF} em S-1010 seja igual a [0, 1, 9, 12, 14, 32, 34, 42, 47, 52, 54, 62, 64, 68, 71, 77, 79, 81, 82, 83, 92, 94, 9012, 9014, 9032, 9034, 9054, 9832, 9834, 9042, 9047, 9052, 9062, 9064] e cujo {codIncFGTS} em S-1010 seja igual a [00, 12, 71, 92]. Caso sejam informadas rubricas com {codIncCP}, {codIncIRRF} e/ou {codIncFGTS} diferentes dos valores acima citados, retornar "alerta";
+a) No caso do evento S-1200, são permitidas apenas as rubricas cujo {codIncCP} em S-1010 seja igual a [00, 01, 12, 14, 16, 22, 26, 32, 92, 94, 96, 98], cujo {codIncIRRF} em S-1010 seja igual a [0, 1, 9, 12, 14, 32, 34, 42, 47, 52, 54, 62, 64, 68, 71, 77, 79, 81, 82, 83, 92, 94, 9012, 9014, 9032, 9034, 9054, 9832, 9834, 9042, 9047, 9052, 9062, 9064] e cujo {codIncFGTS} em S-1010 seja igual a [00, 12, 92]. Caso sejam informadas rubricas com {codIncCP}, {codIncIRRF} e/ou {codIncFGTS} diferentes dos valores acima citados, retornar "alerta";
 b) Nos casos dos eventos S-1202 e S-1207, são permitidas apenas as rubricas cujo {codIncCPRP} em S-1010 seja igual a [00, 12, 32, 91, 92] e cujo {codIncIRRF} em S-1010 seja igual a [0, 1, 9, 12, 14, 32, 34, 42, 47, 52, 54, 62, 64, 68, 71, 77, 79, 81, 82, 83, 92, 94, 9012, 9014, 9032, 9034, 9054, 9832, 9834, 9042, 9047, 9052, 9062, 9064]. Caso sejam informadas rubricas com {codIncCPRP} e/ou {codIncIRRF} diferentes dos valores acima citados, retornar "alerta";
 c) No caso do evento S-1200, são permitidas apenas as rubricas cuja {natRubr} seja diferente de [9253].
 
@@ -520,7 +520,7 @@ c) em período de apuração anterior ao mês de início do eConsignado no eSoci
 2) As informações de {instFinanc} e {nrDoc} serão validadas. Em caso de divergência, retornar "alerta".
 
 REGRA_TABESTAB_VALIDA_ESTABELECIMENTO
-1) Órgão Público da Administração Direta, Autárquica ou Fundacional (natureza jurídica pertencente ao grupo [1]) pode cadastrar estabelecimento com CNPJ de raiz igual ou diferente da inscrição do órgão público informada em S-1000. No caso de CNPJ de raiz diferente, o estabelecimento deve pertencer ao mesmo EFR - Ente Federativo Responsável do Órgão Público (definido em S-1000).
+1) Órgão Público da Administração Direta, Autárquica ou Fundacional (natureza jurídica do declarante pertencente ao grupo [1]) pode cadastrar estabelecimento com CNPJ de raiz igual ou diferente da inscrição do órgão público informada em S-1000, exceto se {indDesFolha} em S-1000 = [2] e a natureza jurídica do estabelecimento for igual a [110-4, 111-2, 112-0, 113-9, 114-7, 115-5]. No caso de CNPJ de raiz diferente que não se enquadre na exceção mencionada, o estabelecimento deve pertencer ao mesmo EFR - Ente Federativo Responsável do Órgão Público (definido em S-1000). No caso de CNPJ de raiz diferente que se enquadre na exceção citada, retornar "alerta".
 2) Empregador Pessoa Jurídica pode cadastrar estabelecimento com CNPJ de raiz diferente da inscrição do contribuinte informada em S-1000, desde que a natureza jurídica desse estabelecimento seja igual a 212-7 (Sociedade em Conta de Participação - SCP).
 
 REGRA_TABESTAB_VALIDA_INFO_CNO
@@ -606,7 +606,7 @@ b) Não pode estar anulado.
 OBS.: A alínea "a" de ambos os itens acima não deve ser executada quando se tratar dos eventos S-1298 e S-3000. A alínea "a" do item 1) também não deve ser executada quando se tratar dos eventos S-2299 e S-2399.
 
 REGRA_VALIDA_FECHAMENTO_FOPAG
-Caso o campo {naoValid} não esteja informado, efetuar as seguintes verificações:
+Caso o campo {naoValid} esteja informado com [N], efetuar as seguintes verificações:
 a) Não deve existir evento de Registro Preliminar (S-2190) sem o correspondente evento de Admissão (S-2200) ou TSVE - Início (S-2300) cujo mês/ano da "data de admissão" ou da "data de início" seja anterior ou igual ao período de apuração da folha de pagamento. Em caso de não existência, deve ser gerado um "alerta" para o empregador (ou seja, embora a situação seja irregular, não há impedimento para o fechamento dos eventos periódicos).
 b) Validar a integridade entre os eventos de remuneração recepcionados e os empregados e agentes públicos "ativos" do Registro de Eventos Trabalhistas - RET, da seguinte forma:
 b1) Todos os trabalhadores admitidos (S-2190 ou S-2200) em período igual ou anterior ao período de apuração que não estejam desligados ou cujo desligamento ou baixa judicial seja posterior ao período de apuração devem possuir o respectivo evento de remuneração (S-1200, S-1202 ou S-2299 para trabalhadores com {tpRegTrab} = [1] e S-1200 ou S-1202 para trabalhadores com {tpRegTrab} = [2]) já encaminhado para o mesmo período de apuração, exceto:
