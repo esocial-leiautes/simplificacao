@@ -690,6 +690,30 @@
                                                                         </xs:sequence>
                                                                     </xs:complexType>
                                                                 </xs:element>
+                                                                <xs:element name="localTrabalho" minOccurs="0">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Informações do local de trabalho.</xs:documentation>
+                                                                        <xs:documentation>CONDICAO_GRUPO: O ((se {infoContr/codCateg}(../../codCateg) = [1XX, 301, 302, 303, 306, 307, 309, 310, 312, 314] e {dtAdm}(../infoVinc_dtAdm) >= [2026-09-21]) ou (se {infoContr/codCateg}(../../codCateg) = [2XX, 304, 305, 4XX, 721, 722, 723, 731, 734, 738, 761, 771, 901, 902, 906] e {dtInicio}(../../dtInicio) >= [2026-09-21])); F ((se {infoContr/codCateg}(../../codCateg) = [1XX, 301, 302, 303, 306, 307, 309, 310, 312, 314] e {dtAdm}(../infoVinc_dtAdm) &lt; [2026-09-21]) ou (se {infoContr/codCateg}(../../codCateg) = [2XX, 304, 305, 4XX, 721, 722, 723, 731, 734, 738, 761, 771, 901, 902, 906] e {dtInicio}(../../dtInicio) &lt; [2026-09-21])); N (nos demais casos)</xs:documentation>
+                                                                    </xs:annotation>
+                                                                    <xs:complexType>
+                                                                        <xs:sequence>
+                                                                            <xs:element name="localTrabGeral" minOccurs="0" type="T_localTrabGeral">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Estabelecimento onde o trabalhador exercerá suas atividades</xs:documentation>
+                                                                                    <xs:documentation>DESCRICAO_COMPLETA:Estabelecimento (CNPJ, CNO, CAEPF) onde o trabalhador (exceto doméstico) exercerá suas atividades. Caso o trabalhador exerça suas atividades em instalações de terceiros, este campo deve ser preenchido com o estabelecimento do próprio empregador ao qual o trabalhador esteja vinculado.</xs:documentation>
+                                                                                    <xs:documentation>CONDICAO_GRUPO: N (se {infoContr/codCateg}(../../../codCateg) = [104]); O (nos demais casos)</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:element>
+                                                                            <xs:element name="localTempDom" minOccurs="0" type="T_endereco_brasil">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Endereço de trabalho do trabalhador doméstico e trabalhador temporário</xs:documentation>
+                                                                                    <xs:documentation>DESCRICAO_COMPLETA:Grupo preenchido exclusivamente em caso de trabalhador doméstico e trabalhador temporário, indicando o endereço onde o trabalhador exerce suas atividades.</xs:documentation>
+                                                                                    <xs:documentation>CONDICAO_GRUPO: N (se {infoContr/codCateg}(../../../codCateg) for diferente de [104, 106]); O (nos demais casos)</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:element>
+                                                                        </xs:sequence>
+                                                                    </xs:complexType>
+                                                                </xs:element>
                                                             </xs:sequence>
                                                         </xs:complexType>
                                                     </xs:element>

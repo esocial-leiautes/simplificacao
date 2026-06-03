@@ -164,6 +164,34 @@ Chave: -
 Condição: OC (se {infoContr/tpContr}(2500_ideTrab_infoContr_tpContr) = [6]
 N (nos demais casos)
 
+Nível: 6
+Nome: localTrabalho
+Pai: infoCompl
+Descrição: Informações do local de trabalho.
+Ocorrência: 0-1
+Chave: -
+Condição: O ((se {infoContr/codCateg}(../../codCateg) = [1XX, 301, 302, 303, 306, 307, 309, 310, 312, 314] e {dtAdm}(../infoVinc_dtAdm) >= [2026-09-21]) ou (se {infoContr/codCateg}(../../codCateg) = [2XX, 304, 305, 4XX, 721, 722, 723, 731, 734, 738, 761, 771, 901, 902, 906] e {dtInicio}(../../dtInicio) >= [2026-09-21]))
+F ((se {infoContr/codCateg}(../../codCateg) = [1XX, 301, 302, 303, 306, 307, 309, 310, 312, 314] e {dtAdm}(../infoVinc_dtAdm) < [2026-09-21]) ou (se {infoContr/codCateg}(../../codCateg) = [2XX, 304, 305, 4XX, 721, 722, 723, 731, 734, 738, 761, 771, 901, 902, 906] e {dtInicio}(../../dtInicio) < [2026-09-21]))
+N (nos demais casos)
+
+Nível: 7
+Nome: localTrabGeral
+Pai: localTrabalho
+Descrição: Estabelecimento onde o trabalhador exercerá suas atividades
+Ocorrência: 0-1
+Chave: -
+Condição: N (se {infoContr/codCateg}(../../../codCateg) = [104])
+O (nos demais casos)
+
+Nível: 7
+Nome: localTempDom
+Pai: localTrabalho
+Descrição: Endereço de trabalho do trabalhador doméstico e trabalhador temporário
+Ocorrência: 0-1
+Chave: -
+Condição: N (se {infoContr/codCateg}(../../../codCateg) for diferente de [104, 106])
+O (nos demais casos)
+
 Nível: 5
 Nome: mudCategAtiv
 Pai: infoContr
@@ -1257,6 +1285,143 @@ Valores válidos:
 06 - Exoneração do diretor não empregado por falência, encerramento ou supressão de parte da empresa
 99 - Outros
 Validação: Informação obrigatória e exclusiva se {infoContr/codCateg}(2500_ideTrab_infoContr_codCateg) = [721].
+
+Nome: localTrabalho
+Pai: infoCompl
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações do local de trabalho.
+
+Nome: localTrabGeral
+Pai: localTrabalho
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Estabelecimento (CNPJ, CNO, CAEPF) onde o trabalhador (exceto doméstico) exercerá suas atividades. Caso o trabalhador exerça suas atividades em instalações de terceiros, este campo deve ser preenchido com o estabelecimento do próprio empregador ao qual o trabalhador esteja vinculado.
+
+Nome: tpInsc
+Pai: localTrabGeral
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+3 - CAEPF
+4 - CNO
+
+Nome: nrInsc
+Pai: localTrabGeral
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 12 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {localTrabGeral/tpInsc}(./tpInsc).
+Validação: Deve ser um número de inscrição válido e existente na Tabela de Estabelecimentos (S-1005), bem como compatível com {localTrabGeral/tpInsc}(./tpInsc).
+
+Nome: descComp
+Pai: localTrabGeral
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-80
+Dec.: -
+Descrição: Descrição complementar do local de trabalho.
+
+Nome: localTempDom
+Pai: localTrabalho
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Grupo preenchido exclusivamente em caso de trabalhador doméstico e trabalhador temporário, indicando o endereço onde o trabalhador exerce suas atividades.
+
+Nome: tpLograd
+Pai: localTempDom
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-4
+Dec.: -
+Descrição: Tipo de logradouro.
+Validação: Se informado, deve ser um código válido e existente na Tabela 20.
+
+Nome: dscLograd
+Pai: localTempDom
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-100
+Dec.: -
+Descrição: Descrição do logradouro.
+
+Nome: nrLograd
+Pai: localTempDom
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-10
+Dec.: -
+Descrição: Número do logradouro.
+Se não houver número a ser informado, preencher com "S/N".
+
+Nome: complemento
+Pai: localTempDom
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-30
+Dec.: -
+Descrição: Complemento do logradouro.
+
+Nome: bairro
+Pai: localTempDom
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-90
+Dec.: -
+Descrição: Nome do bairro/distrito.
+
+Nome: cep
+Pai: localTempDom
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 8
+Dec.: -
+Descrição: Código de Endereçamento Postal - CEP.
+Validação: Deve ser preenchido apenas com números, com 8 (oito) posições.
+
+Nome: codMunic
+Pai: localTempDom
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 7
+Dec.: -
+Descrição: Preencher com o código do município, conforme tabela do IBGE.
+Validação: Deve ser um código válido e existente na tabela do IBGE.
+
+Nome: uf
+Pai: localTempDom
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 2
+Dec.: -
+Descrição: Preencher com a sigla da Unidade da Federação - UF.
+Valores válidos:
+ AC, AL, AP, AM, BA, CE, DF, ES, GO, MA, MT, MS, MG, PA, PB, PR, PE, PI, RJ, RN, RS, RO, RR, SC, SP, SE, TO
 
 Nome: mudCategAtiv
 Pai: infoContr
