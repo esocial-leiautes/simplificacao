@@ -2457,7 +2457,9 @@ c) somente é possível retificar processo sem {ideResp} preenchido se o evento 
 <tr>
 <td id="REGRA_RUBRICA_COMPATIVEL_CATEGORIA"><a title="Ver ocorrências"><strong>REGRA_RUBRICA_COMPATIVEL_CATEGORIA</strong></a></td>
 <td>Com base na categoria do trabalhador, observar o que segue:<br>
-1) Se for relativa aos grupos "Empregado" (1XX) ou "Avulso" (2XX), não é permitida a inclusão de registro cujo {codRubr} tenha {codIncCP} em S-1010 = [34, 35];<br>
+1a) Se for relativa aos grupos "Empregado" (1XX) ou "Avulso" (2XX), não é permitida a inclusão de registro cujo {codRubr} tenha {codIncCP} em S-1010 = [34, 35];<br>
+1b) Se for relativa ao grupo "Avulso" (2XX), não é permitida a inclusão de registro cujo {codRubr} tenha {codIncCP} em S-1010 = [21, 22];<br>
+1c) Se for empregador com {classTrib} em S-1000 = [04] (MEI), não é permitida a inclusão de registro cujo {codRubr} tenha {codIncCP} em S-1010 = [21, 22];<br>
 2) Se for relativa ao grupo "Contribuinte Individual" (7XX), não podem ser utilizados códigos de rubrica cujos {codIncCP} e {codIncIRRF} em S-1010 sejam específicos de segurados empregados. Portanto, não são aceitas rubricas cujo:<br>
 2a) {codIncCP} em S-1010 = [12, 32, 92, 93, 94], exceto se categoria de trabalhador = [721, 722, 723, 771];<br>
 2b) {codIncIRRF} em S-1010 = [12, 13, 32, 33, 42, 43, 47, 48, 52, 53, 62, 63, 64, 65, 66, 71, 76, 77, 92, 93, 9012, 9013, 9032, 9033, 9042, 9043, 9047, 9048, 9052, 9053, 9062, 9063, 9064, 9065, 9066, 9832, 9833], exceto se categoria de trabalhador = [721, 722, 723, 771];<br>
@@ -2468,7 +2470,7 @@ c) somente é possível retificar processo sem {ideResp} preenchido se o evento 
 4) Se for relativa a estagiário ({codCateg} = [901]), não podem ser aceitas rubricas cujo {codIncCP} em S-1010 seja diferente de [00, 01] ou {codIncFGTS} em S-1010 seja diferente de [00];<br>
 5) Se for relativa a grupo diferente de "Empregado" (1XX), não podem ser aceitas rubricas cujo {codIncIRRF} em S-1010 seja igual a [14, 34, 54, 94, 9014, 9034, 9054, 9834];<br>
 6) Se não for relativa ao grupo "Empregado" (1XX) ou a diretor não empregado, com FGTS, não podem ser aceitas rubricas cuja {natRubr} em S-1010 seja igual a [9253].<br>
-Retornar "erro" se o item 2d), o item 5) ou o item 6) não for atendido. Retornar "alerta" se algum outro item não for obedecido.</td>
+Retornar "erro" se o item 1b), o item 1c), o item 2d), o item 5) ou o item 6) não for atendido. Retornar "alerta" se algum outro item não for obedecido.</td>
 </tr>
 <tr>
 <td id="REGRA_RUBRICA_COMPATIVEL_DECTERCEIRO"><a title="Ver ocorrências"><strong>REGRA_RUBRICA_COMPATIVEL_DECTERCEIRO</strong></a></td>
