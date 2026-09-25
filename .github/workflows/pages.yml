@@ -1,0 +1,103 @@
+name: Publicar GitHub Pages
+
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar repositório
+        uses: actions/checkout@v6
+
+      - name: Encontrar versão mais recente
+        shell: bash
+        run: |
+          LATEST=$(
+            find . -maxdepth 1 -mindepth 1 -type d \
+              -regextype posix-extended \
+              -regex './v_S_[0-9]{2}_[0-9]{2}_[0-9]{2}' \
+              -printf '%f\n' |
+            sort -V |
+            tail -n 1
+          )
+
+          if [ -z "$LATEST" ]; then
+            echo "Nenhuma versão encontrada."
+            exit 1
+          fi
+
+          echo "Última versão: $LATEST"
+          echo "LATEST=$LATEST" >> "$GITHUB_ENV"
+
+      - name: Montar site
+        run: |
+          mkdir -p site
+
+          # Copia as versões para o site
+          find . -maxdepth 1 -mindepth 1 -type d \
+            -regextype posix-extended \
+            -regex './v_S_[0-9]{2}_[0-9]{2}_[0-9]{2}' \
+            -exec cp -R {} site/ \;
+
+          # Página inicial
+          cat > site/index.html <<EOF
+          <!DOCTYPE html>
+          <html lang="pt-BR">
+          <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="refresh" content="0; url=./${LATEST}/doc/saida/">
+            <title>Leiautes eSocial</title>
+          </head>
+          <body>
+            <p>Redirecionando para a versão mais recente...</p>
+          </body>
+          </html>
+          EOF
+
+          # Alias /atual/
+          mkdir -p site/atual
+
+          cat > site/atual/index.html <<EOF
+          <!DOCTYPE html>
+          <html lang="pt-BR">
+          <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="refresh" content="0; url=../${LATEST}/doc/saida/">
+            <title>Leiaute Atual</title>
+          </head>
+          <body>
+            <p>Redirecionando para a versão atual...</p>
+          </body>
+          </html>
+          EOF
+
+      - name: Enviar artefato do Pages
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Publicar
+        id: deployment
+        uses: actions/deploy-pages@v5
