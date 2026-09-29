@@ -1,5 +1,5 @@
 S-8200 - evtAnotJud
-Anotação Judicial
+Anotação Judicial do Vínculo
 
 Nível: 1
 Nome: eSocial
@@ -12,7 +12,7 @@ Condição: O
 Nível: 2
 Nome: evtAnotJud
 Pai: eSocial
-Descrição: Evento Anotação Judicial.
+Descrição: Evento Anotação Judicial do Vínculo.
 Ocorrência: 1
 Chave: Id
 Condição: O
@@ -44,7 +44,7 @@ Condição: O
 Nível: 3
 Nome: infoAnotJud
 Pai: evtAnotJud
-Descrição: Informações da anotação judicial.
+Descrição: Informações da anotação judicial do vínculo.
 Ocorrência: 1
 Chave: cpfTrab*, matricula*
 Condição: O
@@ -53,19 +53,17 @@ Nível: 4
 Nome: cargo
 Pai: infoAnotJud
 Descrição: Informações do cargo.
-Ocorrência: 0-99
+Ocorrência: 1-99
 Chave: dtCargo
-Condição: OC (se {codCateg}(../codCateg) = [901, 903, 904, 906])
-O (nos demais casos)
+Condição: O
 
 Nível: 4
 Nome: remuneracao
 Pai: infoAnotJud
 Descrição: Informações da remuneração e periodicidade de pagamento.
-Ocorrência: 0-99
+Ocorrência: 1-99
 Chave: dtRemun
-Condição: O (se {tpRegTrab}(../tpRegTrab) = [1] ou se {codCateg}(../codCateg) = [721, 722, 771])
-OC (nos demais casos)
+Condição: O
 
 Nível: 4
 Nome: incorporacao
@@ -90,7 +88,7 @@ Descrição: Informações de afastamento do trabalhador.
 Ocorrência: 0-1
 Chave: -
 Condição: N (se grupo {desligamento}(../desligamento) estiver preenchido)
-OC (nos demais casos)
+O (nos demais casos)
 
 Nível: 4
 Nome: desligamento
@@ -99,7 +97,7 @@ Descrição: Informações de desligamento do trabalhador.
 Ocorrência: 0-1
 Chave: -
 Condição: N (se grupo {afastamento}(../afastamento) estiver preenchido)
-OC (nos demais casos)
+O (nos demais casos)
 
 Nome: eSocial
 Pai: -
@@ -117,7 +115,7 @@ Tipo: -
 Ocorrência: 1
 Tamanho: -
 Dec.: -
-Descrição: Evento Anotação Judicial.
+Descrição: Evento Anotação Judicial do Vínculo.
 Regras de validação:
 REGRA_ADMISSAO_VALIDA_DT_ADM
 REGRA_ADMISSAO_VALIDA_DURACAO_CONTRATO
@@ -303,7 +301,7 @@ Tipo: -
 Ocorrência: 1
 Tamanho: -
 Dec.: -
-Descrição: Informações da anotação judicial.
+Descrição: Informações da anotação judicial do vínculo.
 
 Nome: cpfTrab
 Pai: infoAnotJud
@@ -332,27 +330,6 @@ Tamanho: -
 Dec.: -
 Descrição: Preencher com a data de nascimento.
 
-Nome: nmSoc
-Pai: infoAnotJud
-Elem.: E
-Tipo: C
-Ocorrência: 0-1
-Tamanho: 2-70
-Dec.: -
-Descrição: Nome social para travesti ou transexual.
-Validação: Informação validada na base de dados do CPF.
-
-Nome: ideSeqTrab
-Pai: infoAnotJud
-Elem.: E
-Tipo: N
-Ocorrência: 0-1
-Tamanho: 1-3
-Dec.: -
-Descrição: Número sequencial atribuído a cada conjunto de dados, quando for necessário enviar novo contrato no mesmo {}(../infoProcesso_nrProcTrab) para o mesmo {}(./cpfTrab).
-Validação: Deve ser um identificador único dentre os eventos S-8200 do empregador que tenham os mesmos {}(../infoProcesso_nrProcTrab) e {}(./cpfTrab).
-O valor [0] é reservado para uso interno.
-
 Nome: dtAdm
 Pai: infoAnotJud
 Elem.: E
@@ -360,7 +337,7 @@ Tipo: D
 Ocorrência: 1
 Tamanho: -
 Dec.: -
-Descrição: Preencher com a data de admissão do trabalhador (ou data de início, no caso de Trabalhador Sem Vínculo de Emprego/Estatutário - TSVE).
+Descrição: Preencher com a data de admissão do trabalhador.
 Validação: Deve ser posterior à data de nascimento do trabalhador e igual ou anterior à data do óbito, se existente (se não for possível obter a data do óbito, deve ser igual ou anterior ao ano do óbito; se não for possível obter a data e o ano do óbito, o evento deve ser recebido mediante alerta).
 
 Nome: matricula
@@ -383,28 +360,26 @@ Ocorrência: 1
 Tamanho: 3
 Dec.: -
 Descrição: Preencher com o código da categoria do trabalhador.
-Validação: Deve ser um código válido e existente na Tabela 01.
-Não podem ser informados os códigos [304, 401, 410].
+Validação: Deve ser um código de categoria referente a "Empregado" ([1XX]).
 
 Nome: natAtividade
 Pai: infoAnotJud
 Elem.: E
 Tipo: N
-Ocorrência: 0-1
+Ocorrência: 1
 Tamanho: 1
 Dec.: -
 Descrição: Natureza da atividade.
 Valores válidos:
 1 - Trabalho urbano
 2 - Trabalho rural
-Validação: Preenchimento obrigatório se {codCateg}(./codCateg) for relativo a "Empregado", "Agente Público", "Avulso" ou igual a [401, 731, 734, 738]. Não deve ser preenchido se {codCateg}(./codCateg) = [721, 722, 771, 901].
-Se {codCateg}(./codCateg) = [104], deve ser preenchido com [1]. Se {codCateg}(./codCateg) = [102], deve ser preenchido com [2].
+Validação: Se {codCateg}(./codCateg) = [104], deve ser preenchido com [1]. Se {codCateg}(./codCateg) = [102], deve ser preenchido com [2].
 
 Nome: tpContr
 Pai: infoAnotJud
 Elem.: E
 Tipo: N
-Ocorrência: 0-1
+Ocorrência: 1
 Tamanho: 1
 Dec.: -
 Descrição: Tipo de contrato de trabalho.
@@ -412,7 +387,6 @@ Valores válidos:
 1 - Prazo indeterminado
 2 - Prazo determinado, definido em dias
 3 - Prazo determinado, vinculado à ocorrência de um fato
-Validação: Preenchimento obrigatório se {codCateg}(./codCateg) for igual a [1XX, 301, 302, 303, 306, 307, 309, 310, 312].
 
 Nome: dtTerm
 Pai: infoAnotJud
@@ -436,7 +410,7 @@ Valores válidos:
 1 - CNPJ
 3 - CAEPF
 4 - CNO
-Validação: Preenchimento obrigatório se {codCateg}(./codCateg) for igual a [1XX (exceto 104), 2XX, 3XX (exceto 308, 311, 313, 314), 4XX, 721, 722, 723, 731, 734, 738, 761, 771, 901, 902, 906].
+Validação: Não preencher se {codCateg}(./codCateg) = [104].
 
 Nome: localTrabalho
 Pai: infoAnotJud
@@ -453,19 +427,18 @@ Nome: tpRegTrab
 Pai: infoAnotJud
 Elem.: E
 Tipo: N
-Ocorrência: 0-1
+Ocorrência: 1
 Tamanho: 1
 Dec.: -
 Descrição: Tipo de regime trabalhista.
 Valores válidos:
 1 - CLT - Consolidação das Leis de Trabalho e legislações trabalhistas específicas
-Validação: Preenchimento obrigatório se {codCateg}(./codCateg) for igual a [1XX, 301, 302, 303, 306, 307, 309, 310, 312].
 
 Nome: tpRegPrev
 Pai: infoAnotJud
 Elem.: E
 Tipo: N
-Ocorrência: 0-1
+Ocorrência: 1
 Tamanho: 1
 Dec.: -
 Descrição: Tipo de regime previdenciário.
@@ -473,14 +446,13 @@ Valores válidos:
 1 - Regime Geral de Previdência Social - RGPS
 2 - Regime Próprio de Previdência Social - RPPS, Regime dos Parlamentares e Sistema de Proteção dos Militares dos Estados/DF
 3 - Regime de Previdência Social no exterior
-Validação: Preenchimento obrigatório se {codCateg}(./codCateg) for igual a [1XX, 301, 302, 303, 306, 307, 309, 310, 312].
-Se {codCateg}(./codCateg) = [104], deve ser preenchido com [1]. Se {codCateg}(./codCateg) = [101, 102, 103, 105, 106, 107, 108, 111], não pode ser preenchido com [2].
+Validação: Se {}(./codCateg) = [104], deve ser preenchido com [1]. Se {}(./codCateg) = [101, 102, 103, 105, 106, 107, 108, 111], não pode ser preenchido com [2].
 
 Nome: cargo
 Pai: infoAnotJud
 Elem.: G
 Tipo: -
-Ocorrência: 0-99
+Ocorrência: 1-99
 Tamanho: -
 Dec.: -
 Descrição: Informações do cargo.
@@ -493,7 +465,7 @@ Ocorrência: 1
 Tamanho: -
 Dec.: -
 Descrição: Data a partir da qual as informações do cargo estão vigentes.
-Validação: Deve ser igual ou posterior à data de admissão (ou data de início) e igual ou anterior à data de desligamento, se informada.
+Validação: Deve ser igual ou posterior à data de admissão e igual ou anterior à data de desligamento, se informada.
 
 Nome: CBOCargo
 Pai: cargo
@@ -519,7 +491,7 @@ Nome: remuneracao
 Pai: infoAnotJud
 Elem.: G
 Tipo: -
-Ocorrência: 0-99
+Ocorrência: 1-99
 Tamanho: -
 Dec.: -
 Descrição: Informações da remuneração e periodicidade de pagamento.
@@ -532,7 +504,7 @@ Ocorrência: 1
 Tamanho: -
 Dec.: -
 Descrição: Data a partir da qual as informações de remuneração e periodicidade de pagamento estão vigentes.
-Validação: Deve ser igual ou posterior à data de admissão (ou data de início) e igual ou anterior à data de desligamento, se informada.
+Validação: Deve ser igual ou posterior à data de admissão e igual ou anterior à data de desligamento, se informada.
 
 Nome: vrSalFx
 Pai: remuneracao
@@ -648,7 +620,7 @@ Ocorrência: 1
 Tamanho: -
 Dec.: -
 Descrição: Data de início do afastamento.
-Validação: Deve ser igual ou posterior à data de admissão (ou data de início) do trabalhador.
+Validação: Deve ser igual ou posterior à data de admissão do trabalhador.
 Não pode ser posterior à data atual.
 
 Nome: codMotAfast
@@ -660,7 +632,7 @@ Tamanho: 2
 Dec.: -
 Descrição: Preencher com o código do motivo de afastamento temporário.
 Validação: Deve ser um código válido e existente na Tabela 18, bem como compatível com o código de categoria do trabalhador, conforme Tabela 18.
-Somente podem ser informados os códigos [01, 03, 06, 11, 12, 17, 18, 19, 20, 22, 24, 29, 35, 43, 46, 47, 48, 49, 50, 51, 52, 53].
+Somente podem ser informados os códigos [01, 03, 06, 11, 12, 17, 18, 19, 20, 22, 24, 29, 35, 43].
 
 Nome: desligamento
 Pai: infoAnotJud
@@ -689,8 +661,8 @@ Tipo: D
 Ocorrência: 1
 Tamanho: -
 Dec.: -
-Descrição: Preencher com a data de desligamento do vínculo ou de término de TSVE (último dia trabalhado).
-Validação: Deve ser igual ou posterior à data de admissão (ou data de início) do trabalhador. Não pode ser posterior à data atual.
+Descrição: Preencher com a data de desligamento do vínculo (último dia trabalhado).
+Validação: Deve ser igual ou posterior à data de admissão do trabalhador e igual ou posterior a [2019-09-24]. Não pode ser posterior à data atual.
 Se {mtvDeslig}(./mtvDeslig) = [10]:
 a) Caso a situação no cadastro do CPF na RFB seja diferente de "Titular Falecido", retornar erro até o 7º (sétimo) dia de {dtDeslig}(./dtDeslig) e retornar alerta a partir do 8º (oitavo) dia de {dtDeslig}(./dtDeslig);
 b) Caso a situação no cadastro do CPF na RFB seja igual a "Titular Falecido", {dtDeslig}(./dtDeslig) deve ser igual à data de óbito no cadastro do CPF da RFB (se não for possível obter a data do óbito, o ano de {dtDeslig}(./dtDeslig) deve ser igual ao ano do óbito; se não for possível obter a data e o ano do óbito, o evento deve ser recebido mediante alerta).

@@ -4,13 +4,13 @@
     <xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd" />
     <xs:element name="eSocial">
         <xs:annotation>
-            <xs:documentation>S-8200 - Anotação Judicial</xs:documentation>
+            <xs:documentation>S-8200 - Anotação Judicial do Vínculo</xs:documentation>
         </xs:annotation>
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="evtAnotJud">
                     <xs:annotation>
-                        <xs:documentation>Evento Anotação Judicial.</xs:documentation>
+                        <xs:documentation>Evento Anotação Judicial do Vínculo.</xs:documentation>
                         <xs:documentation>CHAVE_GRUPO: {Id}</xs:documentation>
                         <xs:documentation>REGRA:REGRA_ADMISSAO_VALIDA_DT_ADM</xs:documentation>
                         <xs:documentation>REGRA:REGRA_ADMISSAO_VALIDA_DURACAO_CONTRATO</xs:documentation>
@@ -65,7 +65,7 @@
                             </xs:element>
                             <xs:element name="infoAnotJud">
                                 <xs:annotation>
-                                    <xs:documentation>Informações da anotação judicial.</xs:documentation>
+                                    <xs:documentation>Informações da anotação judicial do vínculo.</xs:documentation>
                                     <xs:documentation>CHAVE_GRUPO: {cpfTrab*}, {matricula*}</xs:documentation>
                                 </xs:annotation>
                                 <xs:complexType>
@@ -77,22 +77,9 @@
                                                 <xs:documentation>Preencher com a data de nascimento.</xs:documentation>
                                             </xs:annotation>
                                         </xs:element>
-                                        <xs:element name="nmSoc" minOccurs="0" type="TS_nmSoc" />
-                                        <xs:element name="ideSeqTrab" minOccurs="0">
+                                        <xs:element name="dtAdm" type="xs:date">
                                             <xs:annotation>
-                                                <xs:documentation>Número sequencial atribuído a cada conjunto de dados, quando for necessário enviar novo contrato no mesmo {}(../infoProcesso_nrProcTrab) para o mesmo {}(./cpfTrab).</xs:documentation>
-                                                <xs:documentation>Validação: Deve ser um identificador único dentre os eventos S-8200 do empregador que tenham os mesmos {}(../infoProcesso_nrProcTrab) e {}(./cpfTrab).</xs:documentation>
-                                                <xs:documentation>O valor [0] é reservado para uso interno.</xs:documentation>
-                                            </xs:annotation>
-                                            <xs:simpleType>
-                                                <xs:restriction base="xs:positiveInteger">
-                                                    <xs:pattern value="\d{1,3}" />
-                                                </xs:restriction>
-                                            </xs:simpleType>
-                                        </xs:element>
-                                        <xs:element name="dtAdm" type="TS_dt1890">
-                                            <xs:annotation>
-                                                <xs:documentation>Preencher com a data de admissão do trabalhador (ou data de início, no caso de Trabalhador Sem Vínculo de Emprego/Estatutário - TSVE).</xs:documentation>
+                                                <xs:documentation>Preencher com a data de admissão do trabalhador.</xs:documentation>
                                                 <xs:documentation>Validação: Deve ser posterior à data de nascimento do trabalhador e igual ou anterior à data do óbito, se existente (se não for possível obter a data do óbito, deve ser igual ou anterior ao ano do óbito; se não for possível obter a data e o ano do óbito, o evento deve ser recebido mediante alerta).</xs:documentation>
                                             </xs:annotation>
                                         </xs:element>
@@ -106,67 +93,53 @@
                                         <xs:element name="codCateg" type="TS_codCateg">
                                             <xs:annotation>
                                                 <xs:documentation>Preencher com o código da categoria do trabalhador.</xs:documentation>
-                                                <xs:documentation>Validação: Deve ser um código válido e existente na Tabela 01.</xs:documentation>
-                                                <xs:documentation>Não podem ser informados os códigos [304, 401, 410].</xs:documentation>
+                                                <xs:documentation>Validação: Deve ser um código de categoria referente a "Empregado" ([1XX]).</xs:documentation>
                                             </xs:annotation>
-                                        </xs:element>    
-                                        <xs:element name="natAtividade" minOccurs="0" type="TS_natAtividade">
+                                        </xs:element>
+                                        <xs:element name="natAtividade" type="TS_natAtividade">
                                             <xs:annotation>
                                                 <xs:documentation>Natureza da atividade.</xs:documentation>
-                                                <xs:documentation>Validação: Preenchimento obrigatório se {codCateg}(./codCateg) for relativo a "Empregado", "Agente Público", "Avulso" ou igual a [401, 731, 734, 738]. Não deve ser preenchido se {codCateg}(./codCateg) = [721, 722, 771, 901].</xs:documentation>
-                                                <xs:documentation>Se {codCateg}(./codCateg) = [104], deve ser preenchido com [1]. Se {codCateg}(./codCateg) = [102], deve ser preenchido com [2].</xs:documentation>
+                                                <xs:documentation>Validação: Se {codCateg}(./codCateg) = [104], deve ser preenchido com [1]. Se {codCateg}(./codCateg) = [102], deve ser preenchido com [2].</xs:documentation>
                                             </xs:annotation>
                                         </xs:element>
-                                        <xs:element name="tpContr" minOccurs="0" type="TS_tpContr">
-                                            <xs:annotation>
-                                                <xs:documentation>Tipo de contrato de trabalho.</xs:documentation>
-                                                <xs:documentation>Validação: Preenchimento obrigatório se {codCateg}(./codCateg) for igual a [1XX, 301, 302, 303, 306, 307, 309, 310, 312].</xs:documentation>
-                                            </xs:annotation>
-                                        </xs:element>
+                                        <xs:element name="tpContr" type="TS_tpContr" />
                                         <xs:element name="dtTerm" minOccurs="0" type="xs:date">
                                             <xs:annotation>
                                                 <xs:documentation>Data do término do contrato por prazo determinado.</xs:documentation>
                                                 <xs:documentation>Validação: O preenchimento é obrigatório se {tpContr}(./tpContr) = [2]. Não informar se {tpContr}(./tpContr) = [1]. Deve ser igual ou posterior à data de admissão.</xs:documentation>
                                             </xs:annotation>
                                         </xs:element>
-                                        <xs:element name="tpInscTrab" minOccurs="0" type="TS_tpInsc_1_3_4">
+                                        <xs:element name="tpInscTrab" type="TS_tpInsc_1_3_4" minOccurs="0">
                                             <xs:annotation>
                                                 <xs:documentation>Preencher com o código correspondente ao tipo de inscrição do estabelecimento relativo ao local de trabalho.</xs:documentation>
-                                                <xs:documentation>Validação: Preenchimento obrigatório se {codCateg}(./codCateg) for igual a [1XX (exceto 104), 2XX, 3XX (exceto 308, 311, 313, 314), 4XX, 721, 722, 723, 731, 734, 738, 761, 771, 901, 902, 906].</xs:documentation>
+                                                <xs:documentation>Validação: Não preencher se {codCateg}(./codCateg) = [104].</xs:documentation>
                                             </xs:annotation>
                                         </xs:element>
-                                        <xs:element name="localTrabalho" minOccurs="0" type="TS_nrInsc_12_14">
+                                        <xs:element name="localTrabalho" type="TS_nrInsc_12_14" minOccurs="0">
                                             <xs:annotation>
                                                 <xs:documentation>Informar o número de inscrição do estabelecimento relativo ao local de trabalho.</xs:documentation>
                                                 <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se {tpInscTrab}(./tpInscTrab) for informado.</xs:documentation>
                                                 <xs:documentation>Deve ser um identificador válido, constante das bases da RFB, conforme indicado em {tpInscTrab}(./tpInscTrab).</xs:documentation>
                                             </xs:annotation>
                                         </xs:element>
-                                        <xs:element name="tpRegTrab" minOccurs="0" type="TS_tpRegTrab_1">
-                                            <xs:annotation>
-                                                <xs:documentation>Tipo de regime trabalhista.</xs:documentation>
-                                                <xs:documentation>Validação: Preenchimento obrigatório se {codCateg}(./codCateg) for igual a [1XX, 301, 302, 303, 306, 307, 309, 310, 312].</xs:documentation>
-                                            </xs:annotation>
-                                        </xs:element>
-                                        <xs:element name="tpRegPrev" minOccurs="0" type="TS_tpRegPrev_1_2_3">
+                                        <xs:element name="tpRegTrab" type="TS_tpRegTrab_1" />
+                                        <xs:element name="tpRegPrev" type="TS_tpRegPrev_1_2_3">
                                             <xs:annotation>
                                                 <xs:documentation>Tipo de regime previdenciário.</xs:documentation>
-                                                <xs:documentation>Validação: Preenchimento obrigatório se {codCateg}(./codCateg) for igual a [1XX, 301, 302, 303, 306, 307, 309, 310, 312].</xs:documentation>
-                                                <xs:documentation>Se {codCateg}(./codCateg) = [104], deve ser preenchido com [1]. Se {codCateg}(./codCateg) = [101, 102, 103, 105, 106, 107, 108, 111], não pode ser preenchido com [2].</xs:documentation>
+                                                <xs:documentation>Validação: Se {}(./codCateg) = [104], deve ser preenchido com [1]. Se {}(./codCateg) = [101, 102, 103, 105, 106, 107, 108, 111], não pode ser preenchido com [2].</xs:documentation>
                                             </xs:annotation>
                                         </xs:element>
-                                        <xs:element name="cargo" minOccurs="0" maxOccurs="99">
+                                        <xs:element name="cargo" maxOccurs="99">
                                             <xs:annotation>
                                                 <xs:documentation>Informações do cargo.</xs:documentation>
                                                 <xs:documentation>CHAVE_GRUPO: {dtCargo}</xs:documentation>
-                                                <xs:documentation>CONDICAO_GRUPO: OC (se {codCateg}(../codCateg) = [901, 903, 904, 906]); O (nos demais casos)</xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>
                                                     <xs:element name="dtCargo" type="xs:date">
                                                         <xs:annotation>
                                                             <xs:documentation>Data a partir da qual as informações do cargo estão vigentes.</xs:documentation>
-                                                            <xs:documentation>Validação: Deve ser igual ou posterior à data de admissão (ou data de início) e igual ou anterior à data de desligamento, se informada.</xs:documentation>
+                                                            <xs:documentation>Validação: Deve ser igual ou posterior à data de admissão e igual ou anterior à data de desligamento, se informada.</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
                                                     <xs:element name="CBOCargo" type="TS_cbo">
@@ -184,18 +157,17 @@
                                                 </xs:sequence>
                                             </xs:complexType>
                                         </xs:element>
-                                        <xs:element name="remuneracao" minOccurs="0" maxOccurs="99">
+                                        <xs:element name="remuneracao" maxOccurs="99">
                                             <xs:annotation>
                                                 <xs:documentation>Informações da remuneração e periodicidade de pagamento.</xs:documentation>
                                                 <xs:documentation>CHAVE_GRUPO: {dtRemun}</xs:documentation>
-                                                <xs:documentation>CONDICAO_GRUPO: O (se {tpRegTrab}(../tpRegTrab) = [1] ou se {codCateg}(../codCateg) = [721, 722, 771]); OC (nos demais casos)</xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>
                                                     <xs:element name="dtRemun" type="xs:date">
                                                         <xs:annotation>
                                                             <xs:documentation>Data a partir da qual as informações de remuneração e periodicidade de pagamento estão vigentes.</xs:documentation>
-                                                            <xs:documentation>Validação: Deve ser igual ou posterior à data de admissão (ou data de início) e igual ou anterior à data de desligamento, se informada.</xs:documentation>
+                                                            <xs:documentation>Validação: Deve ser igual ou posterior à data de admissão e igual ou anterior à data de desligamento, se informada.</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
                                                     <xs:element name="vrSalFx" type="TS_vrSalFx">
@@ -257,14 +229,14 @@
                                         <xs:element name="afastamento" minOccurs="0">
                                             <xs:annotation>
                                                 <xs:documentation>Informações de afastamento do trabalhador.</xs:documentation>
-                                                <xs:documentation>CONDICAO_GRUPO: N (se grupo {desligamento}(../desligamento) estiver preenchido); OC (nos demais casos)</xs:documentation>
+                                                <xs:documentation>CONDICAO_GRUPO: N (se grupo {desligamento}(../desligamento) estiver preenchido); O (nos demais casos)</xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>
                                                     <xs:element name="dtIniAfast" type="xs:date">
                                                         <xs:annotation>
                                                             <xs:documentation>Data de início do afastamento.</xs:documentation>
-                                                            <xs:documentation>Validação: Deve ser igual ou posterior à data de admissão (ou data de início) do trabalhador.</xs:documentation>
+                                                            <xs:documentation>Validação: Deve ser igual ou posterior à data de admissão do trabalhador.</xs:documentation>
                                                             <xs:documentation>Não pode ser posterior à data atual.</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
@@ -272,7 +244,7 @@
                                                         <xs:annotation>
                                                             <xs:documentation>Preencher com o código do motivo de afastamento temporário.</xs:documentation>
                                                             <xs:documentation>Validação: Deve ser um código válido e existente na Tabela 18, bem como compatível com o código de categoria do trabalhador, conforme Tabela 18.</xs:documentation>
-                                                            <xs:documentation>Somente podem ser informados os códigos [01, 03, 06, 11, 12, 17, 18, 19, 20, 22, 24, 29, 35, 43, 46, 47, 48, 49, 50, 51, 52, 53].</xs:documentation>
+                                                            <xs:documentation>Somente podem ser informados os códigos [01, 03, 06, 11, 12, 17, 18, 19, 20, 22, 24, 29, 35, 43].</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
                                                 </xs:sequence>
@@ -281,15 +253,15 @@
                                         <xs:element name="desligamento" minOccurs="0">
                                             <xs:annotation>
                                                 <xs:documentation>Informações de desligamento do trabalhador.</xs:documentation>
-                                                <xs:documentation>CONDICAO_GRUPO: N (se grupo {afastamento}(../afastamento) estiver preenchido); OC (nos demais casos)</xs:documentation>
+                                                <xs:documentation>CONDICAO_GRUPO: N (se grupo {afastamento}(../afastamento) estiver preenchido); O (nos demais casos)</xs:documentation>
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:sequence>
                                                     <xs:element name="mtvDeslig" type="TS_mtvDeslig" />
                                                     <xs:element name="dtDeslig" type="xs:date">
                                                         <xs:annotation>
-                                                            <xs:documentation>Preencher com a data de desligamento do vínculo ou de término de TSVE (último dia trabalhado).</xs:documentation>
-                                                            <xs:documentation>Validação: Deve ser igual ou posterior à data de admissão (ou data de início) do trabalhador. Não pode ser posterior à data atual.</xs:documentation>
+                                                            <xs:documentation>Preencher com a data de desligamento do vínculo (último dia trabalhado).</xs:documentation>
+                                                            <xs:documentation>Validação: Deve ser igual ou posterior à data de admissão do trabalhador e igual ou posterior a [2019-09-24]. Não pode ser posterior à data atual.</xs:documentation>
                                                             <xs:documentation>Se {mtvDeslig}(./mtvDeslig) = [10]:</xs:documentation>
                                                             <xs:documentation>a) Caso a situação no cadastro do CPF na RFB seja diferente de "Titular Falecido", retornar erro até o 7º (sétimo) dia de {dtDeslig}(./dtDeslig) e retornar alerta a partir do 8º (oitavo) dia de {dtDeslig}(./dtDeslig);</xs:documentation>
                                                             <xs:documentation>b) Caso a situação no cadastro do CPF na RFB seja igual a "Titular Falecido", {dtDeslig}(./dtDeslig) deve ser igual à data de óbito no cadastro do CPF da RFB (se não for possível obter a data do óbito, o ano de {dtDeslig}(./dtDeslig) deve ser igual ao ano do óbito; se não for possível obter a data e o ano do óbito, o evento deve ser recebido mediante alerta).</xs:documentation>
