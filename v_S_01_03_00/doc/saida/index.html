@@ -70,6 +70,7 @@
 <li><a href="#evtFGTSProcTrab">S-5503 - Informações do FGTS por Trabalhador em Processo Trabalhista</a></li>
 <li><a href="#evtAnotJud">S-8200 - Anotação Judicial do Vínculo</a></li>
 <li><a href="#evtBaixa">S-8299 - Baixa Judicial do Vínculo</a></li>
+<li><a href="#evtAnotJudTSVE">S-8300 - Anotação Judicial do Trabalhador Sem Vínculo de Emprego/Estatutário</a></li>
 </ul>
 <div class="modal" id="REGRA_ADMISSAO_POSTERIOR_INICIO_ATIVIDADES">
 <div class="modal-background"></div>
@@ -47593,6 +47594,773 @@ b) Caso a situação no cadastro do CPF na RFB seja igual a &quot;Titular Faleci
 <td>1-255</td>
 <td>-</td>
 <td>Observação relevante sobre o desligamento do trabalhador, que não esteja consignada em outros campos.</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="evtAnotJudTSVE" class="title has-text-centered quebra-anterior">S-8300 - Anotação Judicial do Trabalhador Sem Vínculo de Emprego/Estatutário</h3>
+<table class="table is-fullwidth is-bordered resumo">
+<tbody>
+<tr>
+<th colspan="7">Tabela de Resumo dos Registros</th>
+</tr>
+<tr class="grupo">
+<td><strong>Grupo</strong></td>
+<td><strong>Grupo Pai</strong></td>
+<td><strong>Nível</strong></td>
+<td><strong>Descrição</strong></td>
+<td><strong>Ocor.</strong></td>
+<td><strong>Chave</strong></td>
+<td><strong>Condição</strong></td>
+</tr>
+<tr>
+<td id="r_8300_eSocial"><a href="#8300_eSocial">eSocial</a></td>
+<td></td>
+<td>1</td>
+<td>eSocial</td>
+<td>1</td>
+<td>-</td>
+<td>O</td>
+</tr>
+<tr>
+<td id="r_8300"><a href="#8300">evtAnotJudTSVE</a></td>
+<td><a href="#r_8300_eSocial">eSocial</a></td>
+<td>2</td>
+<td>Evento Anotação Judicial do TSVE</td>
+<td>1</td>
+<td><a href="#8300_Id">Id</a></td>
+<td>O</td>
+</tr>
+<tr>
+<td id="r_8300_ideEvento"><a href="#8300_ideEvento">ideEvento</a></td>
+<td><a href="#r_8300">evtAnotJudTSVE</a></td>
+<td>3</td>
+<td>Informações de identificação do evento</td>
+<td>1</td>
+<td>-</td>
+<td>O</td>
+</tr>
+<tr>
+<td id="r_8300_ideEmpregador"><a href="#8300_ideEmpregador">ideEmpregador</a></td>
+<td><a href="#r_8300">evtAnotJudTSVE</a></td>
+<td>3</td>
+<td>Informações de identificação do empregador</td>
+<td>1</td>
+<td><a href="#8300_ideEmpregador_tpInsc">tpInsc</a>*, <a href="#8300_ideEmpregador_nrInsc">nrInsc</a>*</td>
+<td>O</td>
+</tr>
+<tr>
+<td id="r_8300_infoProcesso"><a href="#8300_infoProcesso">infoProcesso</a></td>
+<td><a href="#r_8300">evtAnotJudTSVE</a></td>
+<td>3</td>
+<td>Informações do processo judicial</td>
+<td>1</td>
+<td>-</td>
+<td>O</td>
+</tr>
+<tr>
+<td id="r_8300_infoAnotJud"><a href="#8300_infoAnotJud">infoAnotJud</a></td>
+<td><a href="#r_8300">evtAnotJudTSVE</a></td>
+<td>3</td>
+<td>Informações da anotação judicial do TSVE</td>
+<td>1</td>
+<td><a href="#8300_infoAnotJud_cpfTrab">cpfTrab</a>*, <a href="#8300_infoAnotJud_matricula">matricula</a>*</td>
+<td>O</td>
+</tr>
+<tr>
+<td id="r_8300_infoAnotJud_cargo"><a href="#8300_infoAnotJud_cargo">cargo</a></td>
+<td><a href="#r_8300_infoAnotJud">infoAnotJud</a></td>
+<td>4</td>
+<td>Informações do cargo</td>
+<td>0-99</td>
+<td><a href="#8300_infoAnotJud_cargo_dtCargo">dtCargo</a></td>
+<td>OC (se <a href="#8300_infoAnotJud_codCateg">codCateg</a> = [901, 903, 904, 906]);<br>
+O (nos demais casos)</td>
+</tr>
+<tr>
+<td id="r_8300_infoAnotJud_remuneracao"><a href="#8300_infoAnotJud_remuneracao">remuneracao</a></td>
+<td><a href="#r_8300_infoAnotJud">infoAnotJud</a></td>
+<td>4</td>
+<td>Informações da remuneração e periodicidade de pagamento</td>
+<td>0-99</td>
+<td><a href="#8300_infoAnotJud_remuneracao_dtRemun">dtRemun</a></td>
+<td>O (se <a href="#8300_infoAnotJud_codCateg">codCateg</a> = [721, 722, 771, 906]);<br>
+OC (nos demais casos)</td>
+</tr>
+<tr>
+<td id="r_8300_infoAnotJud_incorporacao"><a href="#8300_infoAnotJud_incorporacao">incorporacao</a></td>
+<td><a href="#r_8300_infoAnotJud">infoAnotJud</a></td>
+<td>4</td>
+<td>Informação do(s) contrato(s) já declarado(s) no eSocial e incorporado(s) ao contrato reconhecido judicialmente</td>
+<td>0-9</td>
+<td><a href="#8300_infoAnotJud_incorporacao_tpInsc">tpInsc</a>, <a href="#8300_infoAnotJud_incorporacao_nrInsc">nrInsc</a>, <a href="#8300_infoAnotJud_incorporacao_matIncorp">matIncorp</a></td>
+<td>OC</td>
+</tr>
+<tr>
+<td id="r_8300_infoAnotJud_afastamento"><a href="#8300_infoAnotJud_afastamento">afastamento</a></td>
+<td><a href="#r_8300_infoAnotJud">infoAnotJud</a></td>
+<td>4</td>
+<td>Informações de afastamento do trabalhador</td>
+<td>0-1</td>
+<td>-</td>
+<td>N (se grupo <a href="#8300_infoAnotJud_termino">termino</a> estiver preenchido);<br>
+OC (nos demais casos)</td>
+</tr>
+<tr>
+<td id="r_8300_infoAnotJud_termino"><a href="#8300_infoAnotJud_termino">termino</a></td>
+<td><a href="#r_8300_infoAnotJud">infoAnotJud</a></td>
+<td>4</td>
+<td>Informações do término do TSVE</td>
+<td>0-1</td>
+<td>-</td>
+<td>N (se grupo <a href="#8300_infoAnotJud_afastamento">afastamento</a> estiver preenchido);<br>
+OC (nos demais casos)</td>
+</tr>
+</tbody>
+</table>
+
+<p class="is-size-6" style="margin-top: -1rem; margin-bottom: 2rem;">* Campo chave do evento</p>
+
+<h4 class="subtitle has-text-centered">Registros do evento S-8300 - Anotação Judicial do Trabalhador Sem Vínculo de Emprego/Estatutário</h4>
+<table class="table is-fullwidth is-bordered completo">
+<tbody>
+<tr>
+<th class="seletor">#</th>
+<th>Grupo/Campo</th>
+<th>Grupo Pai</th>
+<th>Elem.</th>
+<th>Tipo</th>
+<th>Ocor.</th>
+<th>Tamanho</th>
+<th>Dec.</th>
+<th>Descrição</th>
+</tr>
+<tr class="grupo">
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8300_eSocial" id="8300_eSocial"></td>
+<td><a href="#r_8300_eSocial">eSocial</a></td>
+<td></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>eSocial</td>
+</tr>
+<tr class="grupo">
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8300" id="8300"></td>
+<td><a href="#r_8300">evtAnotJudTSVE</a></td>
+<td><a href="#r_8300_eSocial">eSocial</a></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Evento Anotação Judicial do Trabalhador Sem Vínculo de Emprego/Estatutário (TSVE).<br>
+<strong>Regras de validação:</strong><br>
+<a href="#REGRA_BLOQUEIA_USO_CPF_EMPREGADOR">REGRA_BLOQUEIA_USO_CPF_EMPREGADOR</a><br>
+<a href="#REGRA_COMPATIBILIDADE_CATEGORIA_CLASSTRIB">REGRA_COMPATIBILIDADE_CATEGORIA_CLASSTRIB</a><br>
+<a href="#REGRA_ENVIO_PROC_FECHAMENTO">REGRA_ENVIO_PROC_FECHAMENTO</a><br>
+<a href="#REGRA_EVENTOS_EXTEMP">REGRA_EVENTOS_EXTEMP</a><br>
+<a href="#REGRA_EXISTE_INFO_EMPREGADOR">REGRA_EXISTE_INFO_EMPREGADOR</a><br>
+<a href="#REGRA_RETIFICA_MESMO_VINCULO">REGRA_RETIFICA_MESMO_VINCULO</a><br>
+<a href="#REGRA_VALIDA_MATRICULA">REGRA_VALIDA_MATRICULA</a><br>
+<a href="#REGRA_VALIDA_TRABALHADOR_BASE_CPF">REGRA_VALIDA_TRABALHADOR_BASE_CPF</a></td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8300_Id" id="8300_Id"></td>
+<td>Id</td>
+<td><a href="#r_8300">evtAnotJudTSVE</a></td>
+<td>A</td>
+<td>C</td>
+<td>1</td>
+<td>36</td>
+<td>-</td>
+<td>Identificação única do evento.<br>
+<strong>Regra de validação:</strong><br>
+<a href="#REGRA_VALIDA_ID_EVENTO">REGRA_VALIDA_ID_EVENTO</a></td>
+</tr>
+<tr class="grupo">
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8300_ideEvento" id="8300_ideEvento"></td>
+<td><a href="#r_8300_ideEvento">ideEvento</a></td>
+<td><a href="#r_8300">evtAnotJudTSVE</a></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Informações de identificação do evento.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8300_ideEvento_indRetif" id="8300_ideEvento_indRetif"></td>
+<td>indRetif</td>
+<td><a href="#r_8300_ideEvento">ideEvento</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1</td>
+<td>-</td>
+<td>Informe [1] para arquivo original ou [2] para arquivo de retificação.<br>
+<strong>Valores válidos:</strong><br>
+<strong>1</strong> - Original<br>
+<strong>2</strong> - Retificação</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8300_ideEvento_nrRecibo" id="8300_ideEvento_nrRecibo"></td>
+<td>nrRecibo</td>
+<td><a href="#r_8300_ideEvento">ideEvento</a></td>
+<td>E</td>
+<td>C</td>
+<td>0-1</td>
+<td>23</td>
+<td>-</td>
+<td>Preencher com o número do recibo do arquivo a ser retificado.<br>
+<strong>Validação:</strong> O preenchimento é obrigatório se <a href="#8300_ideEvento_indRetif">indRetif</a> = [2].<br>
+Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo retificado.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8300_ideEvento_tpAmb" id="8300_ideEvento_tpAmb"></td>
+<td>tpAmb</td>
+<td><a href="#r_8300_ideEvento">ideEvento</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1</td>
+<td>-</td>
+<td>Identificação do ambiente.<br>
+<strong>Valores válidos:</strong><br>
+<strong>1</strong> - Produção<br>
+<strong>2</strong> - Produção restrita<br>
+<strong>7</strong> - Validação (uso interno)<br>
+<strong>8</strong> - Teste (uso interno)<br>
+<strong>9</strong> - Desenvolvimento (uso interno)</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8300_ideEvento_procEmi" id="8300_ideEvento_procEmi"></td>
+<td>procEmi</td>
+<td><a href="#r_8300_ideEvento">ideEvento</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1</td>
+<td>-</td>
+<td>Processo de emissão do evento.<br>
+<strong>Valores válidos:</strong><br>
+<strong>8</strong> - Aplicativo governamental para envio de eventos pelo Judiciário</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8300_ideEvento_verProc" id="8300_ideEvento_verProc"></td>
+<td>verProc</td>
+<td><a href="#r_8300_ideEvento">ideEvento</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>1-20</td>
+<td>-</td>
+<td>Versão do processo de emissão do evento. Informar a versão do aplicativo emissor do evento.</td>
+</tr>
+<tr class="grupo">
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8300_ideEmpregador" id="8300_ideEmpregador"></td>
+<td><a href="#r_8300_ideEmpregador">ideEmpregador</a></td>
+<td><a href="#r_8300">evtAnotJudTSVE</a></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Informações de identificação do empregador.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8300_ideEmpregador_tpInsc" id="8300_ideEmpregador_tpInsc"></td>
+<td>tpInsc</td>
+<td><a href="#r_8300_ideEmpregador">ideEmpregador</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1</td>
+<td>-</td>
+<td>Preencher com o código correspondente ao tipo de inscrição, conforme <a href="tabelas.html#05">Tabela 05</a>.<br>
+<strong>Valores válidos:</strong><br>
+<strong>1</strong> - CNPJ<br>
+<strong>2</strong> - CPF</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8300_ideEmpregador_nrInsc" id="8300_ideEmpregador_nrInsc"></td>
+<td>nrInsc</td>
+<td><a href="#r_8300_ideEmpregador">ideEmpregador</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>8, 11 ou 14</td>
+<td>-</td>
+<td>Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo <a href="#8300_ideEmpregador_tpInsc">ideEmpregador/tpInsc</a> e conforme informado em S-1000.</td>
+</tr>
+<tr class="grupo">
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8300_infoProcesso" id="8300_infoProcesso"></td>
+<td><a href="#r_8300_infoProcesso">infoProcesso</a></td>
+<td><a href="#r_8300">evtAnotJudTSVE</a></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Informações do processo judicial.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8300_infoProcesso_nrProcTrab" id="8300_infoProcesso_nrProcTrab"></td>
+<td>nrProcTrab</td>
+<td><a href="#r_8300_infoProcesso">infoProcesso</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>20</td>
+<td>-</td>
+<td>Número que identifica o processo judicial onde a anotação do contrato foi determinada.<br>
+<strong>Validação:</strong> Deve ser um processo judicial válido, com 20 (vinte) algarismos.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8300_infoProcesso_dtSent" id="8300_infoProcesso_dtSent"></td>
+<td>dtSent</td>
+<td><a href="#r_8300_infoProcesso">infoProcesso</a></td>
+<td>E</td>
+<td>D</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Informar a data da decisão judicial.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8300_infoProcesso_ufVara" id="8300_infoProcesso_ufVara"></td>
+<td>ufVara</td>
+<td><a href="#r_8300_infoProcesso">infoProcesso</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>2</td>
+<td>-</td>
+<td>Preencher com a sigla da Unidade da Federação onde está localizada a Vara em que o processo tramitou.<br>
+<strong>Valores válidos:</strong> AC, AL, AP, AM, BA, CE, DF, ES, GO, MA, MT, MS, MG, PA, PB, PR, PE, PI, RJ, RN, RS, RO, RR, SC, SP, SE, TO</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8300_infoProcesso_codMunic" id="8300_infoProcesso_codMunic"></td>
+<td>codMunic</td>
+<td><a href="#r_8300_infoProcesso">infoProcesso</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>7</td>
+<td>-</td>
+<td>Preencher com o código do município, conforme tabela do IBGE.<br>
+<strong>Validação:</strong> Deve ser um código válido e existente na tabela do IBGE.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8300_infoProcesso_idVara" id="8300_infoProcesso_idVara"></td>
+<td>idVara</td>
+<td><a href="#r_8300_infoProcesso">infoProcesso</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1-4</td>
+<td>-</td>
+<td>Código de identificação da Vara em que o processo tramitou.</td>
+</tr>
+<tr class="grupo">
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8300_infoAnotJud" id="8300_infoAnotJud"></td>
+<td><a href="#r_8300_infoAnotJud">infoAnotJud</a></td>
+<td><a href="#r_8300">evtAnotJudTSVE</a></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Informações da anotação judicial do TSVE.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8300_infoAnotJud_cpfTrab" id="8300_infoAnotJud_cpfTrab"></td>
+<td>cpfTrab</td>
+<td><a href="#r_8300_infoAnotJud">infoAnotJud</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>11</td>
+<td>-</td>
+<td>Preencher com o número do CPF do trabalhador.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8300_infoAnotJud_nmTrab" id="8300_infoAnotJud_nmTrab"></td>
+<td>nmTrab</td>
+<td><a href="#r_8300_infoAnotJud">infoAnotJud</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>2-70</td>
+<td>-</td>
+<td>Informar o nome do trabalhador.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8300_infoAnotJud_dtNascto" id="8300_infoAnotJud_dtNascto"></td>
+<td>dtNascto</td>
+<td><a href="#r_8300_infoAnotJud">infoAnotJud</a></td>
+<td>E</td>
+<td>D</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Preencher com a data de nascimento.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8300_infoAnotJud_nmSoc" id="8300_infoAnotJud_nmSoc"></td>
+<td>nmSoc</td>
+<td><a href="#r_8300_infoAnotJud">infoAnotJud</a></td>
+<td>E</td>
+<td>C</td>
+<td>0-1</td>
+<td>2-70</td>
+<td>-</td>
+<td>Nome social para travesti ou transexual.<br>
+<strong>Validação:</strong> Informação validada na base de dados do CPF.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8300_infoAnotJud_ideSeqTrab" id="8300_infoAnotJud_ideSeqTrab"></td>
+<td>ideSeqTrab</td>
+<td><a href="#r_8300_infoAnotJud">infoAnotJud</a></td>
+<td>E</td>
+<td>N</td>
+<td>0-1</td>
+<td>1-3</td>
+<td>-</td>
+<td>Número sequencial atribuído a cada conjunto de dados, quando for necessário enviar novo contrato no mesmo <a href="#8300_infoProcesso_nrProcTrab">nrProcTrab</a> para o mesmo <a href="#8300_infoAnotJud_cpfTrab">cpfTrab</a>.<br>
+<strong>Validação:</strong> Deve ser um identificador único dentre os eventos S-8300 do empregador que tenham os mesmos <a href="#8300_infoProcesso_nrProcTrab">nrProcTrab</a> e <a href="#8300_infoAnotJud_cpfTrab">cpfTrab</a>.<br>
+O valor [0] é reservado para uso interno.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8300_infoAnotJud_dtInicio" id="8300_infoAnotJud_dtInicio"></td>
+<td>dtInicio</td>
+<td><a href="#r_8300_infoAnotJud">infoAnotJud</a></td>
+<td>E</td>
+<td>D</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Data de início, que pode ser:<br>
+a) Para o cooperado, a data de ingresso na cooperativa;<br>
+b) Para o diretor não empregado, a data de posse no cargo;<br>
+c) Para o estagiário, a data de início do estágio;<br>
+d) Para o trabalhador avulso, a data de ingresso no Órgão Gestor de Mão de Obra - OGMO ou no sindicato;<br>
+e) Para os demais trabalhadores, a data de início das atividades.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8300_infoAnotJud_matricula" id="8300_infoAnotJud_matricula"></td>
+<td>matricula</td>
+<td><a href="#r_8300_infoAnotJud">infoAnotJud</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>1-30</td>
+<td>-</td>
+<td>Matrícula atribuída ao trabalhador.<br>
+<strong>Validação:</strong> O valor informado deve conter a expressão 'eSocial-JUD-' nas 12 (doze) primeiras posições.<br>
+<strong>Regra de validação:</strong><br>
+<a href="#REGRA_CARACTERE_ESPECIAL">REGRA_CARACTERE_ESPECIAL</a></td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8300_infoAnotJud_codCateg" id="8300_infoAnotJud_codCateg"></td>
+<td>codCateg</td>
+<td><a href="#r_8300_infoAnotJud">infoAnotJud</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>3</td>
+<td>-</td>
+<td>Preencher com o código da categoria do trabalhador.<br>
+<strong>Validação:</strong> Deve ser um código de categoria referente a &quot;Avulso&quot;, &quot;Contribuinte Individual&quot; ou &quot;Bolsista&quot; ([2XX, 7XX, 9XX]).</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8300_infoAnotJud_natAtividade" id="8300_infoAnotJud_natAtividade"></td>
+<td>natAtividade</td>
+<td><a href="#r_8300_infoAnotJud">infoAnotJud</a></td>
+<td>E</td>
+<td>N</td>
+<td>0-1</td>
+<td>1</td>
+<td>-</td>
+<td>Natureza da atividade.<br>
+<strong>Valores válidos:</strong><br>
+<strong>1</strong> - Trabalho urbano<br>
+<strong>2</strong> - Trabalho rural<br>
+<strong>Validação:</strong> Preenchimento obrigatório se <a href="#8300_infoAnotJud_codCateg">codCateg</a> for relativo a &quot;Avulso&quot; ou igual a [731, 734, 738]. Não deve ser preenchido se <a href="#8300_infoAnotJud_codCateg">codCateg</a> = [721, 722, 771, 901].</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8300_infoAnotJud_tpInscTrab" id="8300_infoAnotJud_tpInscTrab"></td>
+<td>tpInscTrab</td>
+<td><a href="#r_8300_infoAnotJud">infoAnotJud</a></td>
+<td>E</td>
+<td>N</td>
+<td>0-1</td>
+<td>1</td>
+<td>-</td>
+<td>Preencher com o código correspondente ao tipo de inscrição do estabelecimento relativo ao local de trabalho.<br>
+<strong>Valores válidos:</strong><br>
+<strong>1</strong> - CNPJ<br>
+<strong>3</strong> - CAEPF<br>
+<strong>4</strong> - CNO<br>
+<strong>Validação:</strong> Preenchimento obrigatório e exclusivo se <a href="#8300_infoAnotJud_codCateg">codCateg</a> for igual a [2XX, 721, 722, 723, 731, 734, 738, 761, 771, 901, 902, 906].</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8300_infoAnotJud_localTrabalho" id="8300_infoAnotJud_localTrabalho"></td>
+<td>localTrabalho</td>
+<td><a href="#r_8300_infoAnotJud">infoAnotJud</a></td>
+<td>E</td>
+<td>C</td>
+<td>0-1</td>
+<td>12 ou 14</td>
+<td>-</td>
+<td>Informar o número de inscrição do estabelecimento relativo ao local de trabalho.<br>
+<strong>Validação:</strong> Preenchimento obrigatório e exclusivo se <a href="#8300_infoAnotJud_tpInscTrab">tpInscTrab</a> for informado.<br>
+Deve ser um identificador válido, constante das bases da RFB, conforme indicado em <a href="#8300_infoAnotJud_tpInscTrab">tpInscTrab</a>.</td>
+</tr>
+<tr class="grupo">
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8300_infoAnotJud_cargo" id="8300_infoAnotJud_cargo"></td>
+<td><a href="#r_8300_infoAnotJud_cargo">cargo</a></td>
+<td><a href="#r_8300_infoAnotJud">infoAnotJud</a></td>
+<td>G</td>
+<td>-</td>
+<td>0-99</td>
+<td>-</td>
+<td>-</td>
+<td>Informações do cargo.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8300_infoAnotJud_cargo_dtCargo" id="8300_infoAnotJud_cargo_dtCargo"></td>
+<td>dtCargo</td>
+<td><a href="#r_8300_infoAnotJud_cargo">cargo</a></td>
+<td>E</td>
+<td>D</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Data a partir da qual as informações do cargo estão vigentes.<br>
+<strong>Validação:</strong> Deve ser igual ou posterior a <a href="#8300_infoAnotJud_dtInicio">dtInicio</a> e igual ou anterior a <a href="#8300_infoAnotJud_termino_dtTerm">dtTerm</a>, se informado.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8300_infoAnotJud_cargo_CBOCargo" id="8300_infoAnotJud_cargo_CBOCargo"></td>
+<td>CBOCargo</td>
+<td><a href="#r_8300_infoAnotJud_cargo">cargo</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>6</td>
+<td>-</td>
+<td>Informar a Classificação Brasileira de Ocupações - CBO relativa ao cargo.<br>
+<strong>Validação:</strong> Deve ser um código válido e existente na tabela de CBO, com 6 (seis) posições.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8300_infoAnotJud_cargo_nmCargo" id="8300_infoAnotJud_cargo_nmCargo"></td>
+<td>nmCargo</td>
+<td><a href="#r_8300_infoAnotJud_cargo">cargo</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>1-100</td>
+<td>-</td>
+<td>Informar o nome do cargo.</td>
+</tr>
+<tr class="grupo">
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8300_infoAnotJud_remuneracao" id="8300_infoAnotJud_remuneracao"></td>
+<td><a href="#r_8300_infoAnotJud_remuneracao">remuneracao</a></td>
+<td><a href="#r_8300_infoAnotJud">infoAnotJud</a></td>
+<td>G</td>
+<td>-</td>
+<td>0-99</td>
+<td>-</td>
+<td>-</td>
+<td>Informações da remuneração e periodicidade de pagamento.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8300_infoAnotJud_remuneracao_dtRemun" id="8300_infoAnotJud_remuneracao_dtRemun"></td>
+<td>dtRemun</td>
+<td><a href="#r_8300_infoAnotJud_remuneracao">remuneracao</a></td>
+<td>E</td>
+<td>D</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Data a partir da qual as informações de remuneração e periodicidade de pagamento estão vigentes.<br>
+<strong>Validação:</strong> Deve ser igual ou posterior a <a href="#8300_infoAnotJud_dtInicio">dtInicio</a> e igual ou anterior a <a href="#8300_infoAnotJud_termino_dtTerm">dtTerm</a>, se informado.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8300_infoAnotJud_remuneracao_vrSalFx" id="8300_infoAnotJud_remuneracao_vrSalFx"></td>
+<td>vrSalFx</td>
+<td><a href="#r_8300_infoAnotJud_remuneracao">remuneracao</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1-14</td>
+<td>2</td>
+<td>Salário base do trabalhador, correspondente à parte fixa da remuneração em <a href="#8300_infoAnotJud_remuneracao_dtRemun">dtRemun</a>.<br>
+<strong>Validação:</strong> Se <a href="#8300_infoAnotJud_remuneracao_undSalFixo">undSalFixo</a> for igual a [7], preencher com 0 (zero).</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8300_infoAnotJud_remuneracao_undSalFixo" id="8300_infoAnotJud_remuneracao_undSalFixo"></td>
+<td>undSalFixo</td>
+<td><a href="#r_8300_infoAnotJud_remuneracao">remuneracao</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1</td>
+<td>-</td>
+<td>Unidade de pagamento da parte fixa da remuneração.<br>
+<strong>Valores válidos:</strong><br>
+<strong>1</strong> - Por hora<br>
+<strong>2</strong> - Por dia<br>
+<strong>3</strong> - Por semana<br>
+<strong>4</strong> - Por quinzena<br>
+<strong>5</strong> - Por mês<br>
+<strong>6</strong> - Por tarefa<br>
+<strong>7</strong> - Não aplicável - Salário exclusivamente variável</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8300_infoAnotJud_remuneracao_dscSalVar" id="8300_infoAnotJud_remuneracao_dscSalVar"></td>
+<td>dscSalVar</td>
+<td><a href="#r_8300_infoAnotJud_remuneracao">remuneracao</a></td>
+<td>E</td>
+<td>C</td>
+<td>0-1</td>
+<td>1-999</td>
+<td>-</td>
+<td>Descrição do salário por tarefa ou variável e como este é calculado. Ex.: Comissões pagas no percentual de 10% sobre as vendas.<br>
+<strong>Validação:</strong> Preenchimento obrigatório se <a href="#8300_infoAnotJud_remuneracao_undSalFixo">undSalFixo</a> for igual a [6, 7].</td>
+</tr>
+<tr class="grupo">
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8300_infoAnotJud_incorporacao" id="8300_infoAnotJud_incorporacao"></td>
+<td><a href="#r_8300_infoAnotJud_incorporacao">incorporacao</a></td>
+<td><a href="#r_8300_infoAnotJud">infoAnotJud</a></td>
+<td>G</td>
+<td>-</td>
+<td>0-9</td>
+<td>-</td>
+<td>-</td>
+<td>Informação do(s) contrato(s) já declarado(s) no eSocial e incorporado(s) ao contrato reconhecido judicialmente.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8300_infoAnotJud_incorporacao_tpInsc" id="8300_infoAnotJud_incorporacao_tpInsc"></td>
+<td>tpInsc</td>
+<td><a href="#r_8300_infoAnotJud_incorporacao">incorporacao</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1</td>
+<td>-</td>
+<td>Preencher com o código correspondente ao tipo de inscrição, conforme <a href="tabelas.html#05">Tabela 05</a>.<br>
+<strong>Valores válidos:</strong><br>
+<strong>1</strong> - CNPJ<br>
+<strong>2</strong> - CPF</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8300_infoAnotJud_incorporacao_nrInsc" id="8300_infoAnotJud_incorporacao_nrInsc"></td>
+<td>nrInsc</td>
+<td><a href="#r_8300_infoAnotJud_incorporacao">incorporacao</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>8, 11 ou 14</td>
+<td>-</td>
+<td>Informar o número de inscrição do empregador no qual consta a matrícula incorporada ou sucedida, de acordo com o tipo de inscrição indicado no campo <a href="#8300_infoAnotJud_incorporacao_tpInsc">incorporacao/tpInsc</a>.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8300_infoAnotJud_incorporacao_matIncorp" id="8300_infoAnotJud_incorporacao_matIncorp"></td>
+<td>matIncorp</td>
+<td><a href="#r_8300_infoAnotJud_incorporacao">incorporacao</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>1-30</td>
+<td>-</td>
+<td>Informar a matrícula incorporada (matrícula cujo contrato passou a integrar o vínculo reconhecido judicialmente).<br>
+<strong>Validação:</strong> Deve corresponder a uma matrícula informada pelo empregador no evento S-2300, pertencente ao trabalhador preenchido em <a href="#8300_infoAnotJud_cpfTrab">cpfTrab</a>, no empregador informado em <a href="#8300_infoAnotJud_incorporacao_nrInsc">incorporacao/nrInsc</a>.</td>
+</tr>
+<tr class="grupo">
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8300_infoAnotJud_afastamento" id="8300_infoAnotJud_afastamento"></td>
+<td><a href="#r_8300_infoAnotJud_afastamento">afastamento</a></td>
+<td><a href="#r_8300_infoAnotJud">infoAnotJud</a></td>
+<td>G</td>
+<td>-</td>
+<td>0-1</td>
+<td>-</td>
+<td>-</td>
+<td>Informações de afastamento do trabalhador.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8300_infoAnotJud_afastamento_dtIniAfast" id="8300_infoAnotJud_afastamento_dtIniAfast"></td>
+<td>dtIniAfast</td>
+<td><a href="#r_8300_infoAnotJud_afastamento">afastamento</a></td>
+<td>E</td>
+<td>D</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Data de início do afastamento.<br>
+<strong>Validação:</strong> Deve ser igual ou posterior a <a href="#8300_infoAnotJud_dtInicio">dtInicio</a>.<br>
+Não pode ser posterior à data atual.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8300_infoAnotJud_afastamento_codMotAfast" id="8300_infoAnotJud_afastamento_codMotAfast"></td>
+<td>codMotAfast</td>
+<td><a href="#r_8300_infoAnotJud_afastamento">afastamento</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>2</td>
+<td>-</td>
+<td>Preencher com o código do motivo de afastamento temporário.<br>
+<strong>Validação:</strong> Deve ser um código válido e existente na <a href="tabelas.html#18">Tabela 18</a>, bem como compatível com o código de categoria do trabalhador, conforme <a href="tabelas.html#18">Tabela 18</a>.<br>
+Somente podem ser informados os códigos [01, 03, 11, 17, 18, 19, 20, 24, 29, 35, 43, 46, 47, 48, 49, 50, 51, 52].</td>
+</tr>
+<tr class="grupo">
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8300_infoAnotJud_termino" id="8300_infoAnotJud_termino"></td>
+<td><a href="#r_8300_infoAnotJud_termino">termino</a></td>
+<td><a href="#r_8300_infoAnotJud">infoAnotJud</a></td>
+<td>G</td>
+<td>-</td>
+<td>0-1</td>
+<td>-</td>
+<td>-</td>
+<td>Informações do término do TSVE.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8300_infoAnotJud_termino_mtvDesligTSV" id="8300_infoAnotJud_termino_mtvDesligTSV"></td>
+<td>mtvDesligTSV</td>
+<td><a href="#r_8300_infoAnotJud_termino">termino</a></td>
+<td>E</td>
+<td>C</td>
+<td>0-1</td>
+<td>2</td>
+<td>-</td>
+<td>Motivo do término.<br>
+<strong>Valores válidos:</strong><br>
+<strong>01</strong> - Exoneração do diretor não empregado sem justa causa, por deliberação da assembleia, dos sócios cotistas ou da autoridade competente<br>
+<strong>02</strong> - Término de mandato do diretor não empregado que não tenha sido reconduzido ao cargo<br>
+<strong>03</strong> - Exoneração a pedido de diretor não empregado<br>
+<strong>04</strong> - Exoneração do diretor não empregado por culpa recíproca ou força maior<br>
+<strong>05</strong> - Morte do diretor não empregado<br>
+<strong>06</strong> - Exoneração do diretor não empregado por falência, encerramento ou supressão de parte da empresa<br>
+<strong>07</strong> - Mudança de CPF<br>
+<strong>99</strong> - Outros<br>
+<strong>Validação:</strong> Informação obrigatória e exclusiva se <a href="#8300_infoAnotJud_codCateg">codCateg</a> = [721].</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8300_infoAnotJud_termino_dtTerm" id="8300_infoAnotJud_termino_dtTerm"></td>
+<td>dtTerm</td>
+<td><a href="#r_8300_infoAnotJud_termino">termino</a></td>
+<td>E</td>
+<td>D</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Preencher com a data do término.<br>
+<strong>Validação:</strong> Deve ser igual ou posterior a <a href="#8300_infoAnotJud_dtInicio">dtInicio</a>. Não pode ser posterior à data atual.<br>
+Se <a href="#8300_infoAnotJud_termino_mtvDesligTSV">mtvDesligTSV</a> = [05]:<br>
+a) Caso a situação no cadastro do CPF na RFB seja diferente de &quot;Titular Falecido&quot;, retornar erro até o 7º (sétimo) dia de <a href="#8300_infoAnotJud_termino_dtTerm">dtTerm</a> e retornar alerta a partir do 8º (oitavo) dia de <a href="#8300_infoAnotJud_termino_dtTerm">dtTerm</a>;<br>
+b) Caso a situação no cadastro do CPF na RFB seja igual a &quot;Titular Falecido&quot;, <a href="#8300_infoAnotJud_termino_dtTerm">dtTerm</a> deve ser igual à data de óbito no cadastro do CPF da RFB (se não for possível obter a data do óbito, o ano de <a href="#8300_infoAnotJud_termino_dtTerm">dtTerm</a> deve ser igual ao ano do óbito; se não for possível obter a data e o ano do óbito, o evento deve ser recebido mediante alerta).</td>
 </tr>
 </tbody>
 </table>
