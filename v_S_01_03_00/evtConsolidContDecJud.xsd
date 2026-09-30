@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://www.esocial.gov.br/schema/evt/evtConsolidContDecJud/v_S_01_03_00" targetNamespace="http://www.esocial.gov.br/schema/evt/evtConsolidContDecJud/v_S_01_03_00" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+    <xs:include schemaLocation="tipos.xsd" />
+    <xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd" />
+    <xs:element name="eSocial">
+        <xs:annotation>
+            <xs:documentation>S-8555 - Solicitação de Consolidação das Informações de Contribuições Sociais Decorrentes de Decisão Judicial</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="evtConsolidContDecJud">
+                    <xs:annotation>
+                        <xs:documentation>Evento Solicitação de Consolidação das Informações de Contribuições Sociais Decorrentes de Decisão Judicial.</xs:documentation>
+                        <xs:documentation>CHAVE_GRUPO: {Id}</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_ENVIO_PROC_FECHAMENTO</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_EXISTE_INFO_EMPREGADOR</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_EXISTE_2501</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_VALIDA_EMPREGADOR</xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="ideEvento" type="T_ideEvento_exclusao_8555" />
+                            <xs:element name="ideEmpregador" type="T_ideEmpregador" />
+                            <xs:element name="ideProc">
+                                <xs:annotation>
+                                    <xs:documentation>Identificação do processo.</xs:documentation>
+                                    <xs:documentation>CHAVE_GRUPO: {nrProcTrab*}, {perApurPgto*}</xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="nrProcTrab" type="TS_nrProcJud">
+                                            <xs:annotation>
+                                                <xs:documentation>Número do processo trabalhista.</xs:documentation>
+                                                <xs:documentation>Validação: Deve ser um número de processo válido.</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="perApurPgto" type="TS_periodo_mensal">
+                                            <xs:annotation>
+                                                <xs:documentation>Mês/ano em que é devida a obrigação de pagar a parcela prevista no acordo/sentença.</xs:documentation>
+                                                <xs:documentation>Validação: Deve ser informado no formato AAAA-MM.</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="Id" use="required" type="TS_Id" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:element ref="ds:Signature" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

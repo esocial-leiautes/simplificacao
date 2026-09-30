@@ -73,6 +73,7 @@
 <li><a href="#evtAnotJudTSVE">S-8300 - Anotação Judicial do Trabalhador Sem Vínculo de Emprego/Estatutário</a></li>
 <li><a href="#evtRemunJud">S-8500 - Remuneração Judicial</a></li>
 <li><a href="#evtContDecJud">S-8501 - Informações de Contribuições Sociais Decorrentes de Decisão Judicial</a></li>
+<li><a href="#evtConsolidContDecJud">S-8555 - Solicitação de Consolidação das Informações de Contribuições Sociais Decorrentes de Decisão Judicial</a></li>
 </ul>
 <div class="modal" id="REGRA_ADMISSAO_POSTERIOR_INICIO_ATIVIDADES">
 <div class="modal-background"></div>
@@ -48731,7 +48732,7 @@ Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo
 <td>E</td>
 <td>C</td>
 <td>1</td>
-<td>15 ou 20</td>
+<td>20</td>
 <td>-</td>
 <td>Número que identifica o processo judicial.<br>
 <strong>Validação:</strong> a) Se <a href="#8500_infoProcesso_indAnotJud">indAnotJud</a> = [S], deve ser um número de processo válido e declarado no evento S-8200 ou S-8300 para o contrato informado em <a href="#8500_ideTrab_cpfTrab">cpfTrab</a> e <a href="#8500_ideTrab_matricula">matricula</a>.<br>
@@ -49430,7 +49431,7 @@ Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo
 <td>E</td>
 <td>C</td>
 <td>1</td>
-<td>15 ou 20</td>
+<td>20</td>
 <td>-</td>
 <td>Número do processo trabalhista.<br>
 <strong>Validação:</strong> Deve ser um número de processo válido e declarado no evento S-2500 ou S-8500 para o(s) trabalhador(es) informado(s) em <a href="#8501_ideTrab_cpfTrab">cpfTrab</a>.</td>
@@ -49594,6 +49595,251 @@ Deve ser maior que 0 (zero).</td>
 </tr>
 </tbody>
 </table>
+
+<h3 id="evtConsolidContDecJud" class="title has-text-centered quebra-anterior">S-8555 - Solicitação de Consolidação das Informações de Contribuições Sociais Decorrentes de Decisão Judicial</h3>
+<table class="table is-fullwidth is-bordered resumo">
+<tbody>
+<tr>
+<th colspan="7">Tabela de Resumo dos Registros</th>
+</tr>
+<tr class="grupo">
+<td><strong>Grupo</strong></td>
+<td><strong>Grupo Pai</strong></td>
+<td><strong>Nível</strong></td>
+<td><strong>Descrição</strong></td>
+<td><strong>Ocor.</strong></td>
+<td><strong>Chave</strong></td>
+<td><strong>Condição</strong></td>
+</tr>
+<tr>
+<td id="r_8555_eSocial"><a href="#8555_eSocial">eSocial</a></td>
+<td></td>
+<td>1</td>
+<td>eSocial</td>
+<td>1</td>
+<td>-</td>
+<td>O</td>
+</tr>
+<tr>
+<td id="r_8555"><a href="#8555">evtConsolidContDecJud</a></td>
+<td><a href="#r_8555_eSocial">eSocial</a></td>
+<td>2</td>
+<td>Evento Solicitação de Consolidação das Informações de Contribuições Sociais Decorrentes de Decisão Judicial</td>
+<td>1</td>
+<td><a href="#8555_Id">Id</a></td>
+<td>O</td>
+</tr>
+<tr>
+<td id="r_8555_ideEvento"><a href="#8555_ideEvento">ideEvento</a></td>
+<td><a href="#r_8555">evtConsolidContDecJud</a></td>
+<td>3</td>
+<td>Informações de identificação do evento</td>
+<td>1</td>
+<td>-</td>
+<td>O</td>
+</tr>
+<tr>
+<td id="r_8555_ideEmpregador"><a href="#8555_ideEmpregador">ideEmpregador</a></td>
+<td><a href="#r_8555">evtConsolidContDecJud</a></td>
+<td>3</td>
+<td>Informações de identificação do empregador</td>
+<td>1</td>
+<td><a href="#8555_ideEmpregador_tpInsc">tpInsc</a>*, <a href="#8555_ideEmpregador_nrInsc">nrInsc</a>*</td>
+<td>O</td>
+</tr>
+<tr>
+<td id="r_8555_ideProc"><a href="#8555_ideProc">ideProc</a></td>
+<td><a href="#r_8555">evtConsolidContDecJud</a></td>
+<td>3</td>
+<td>Identificação do processo</td>
+<td>1</td>
+<td><a href="#8555_ideProc_nrProcTrab">nrProcTrab</a>*, <a href="#8555_ideProc_perApurPgto">perApurPgto</a>*</td>
+<td>O</td>
+</tr>
+</tbody>
+</table>
+
+<p class="is-size-6" style="margin-top: -1rem; margin-bottom: 2rem;">* Campo chave do evento</p>
+
+<h4 class="subtitle has-text-centered">Registros do evento S-8555 - Solicitação de Consolidação das Informações de Contribuições Sociais Decorrentes de Decisão Judicial</h4>
+<table class="table is-fullwidth is-bordered completo">
+<tbody>
+<tr>
+<th class="seletor">#</th>
+<th>Grupo/Campo</th>
+<th>Grupo Pai</th>
+<th>Elem.</th>
+<th>Tipo</th>
+<th>Ocor.</th>
+<th>Tamanho</th>
+<th>Dec.</th>
+<th>Descrição</th>
+</tr>
+<tr class="grupo">
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8555_eSocial" id="8555_eSocial"></td>
+<td><a href="#r_8555_eSocial">eSocial</a></td>
+<td></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>eSocial</td>
+</tr>
+<tr class="grupo">
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8555" id="8555"></td>
+<td><a href="#r_8555">evtConsolidContDecJud</a></td>
+<td><a href="#r_8555_eSocial">eSocial</a></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Evento Solicitação de Consolidação das Informações de Contribuições Sociais Decorrentes de Decisão Judicial.<br>
+<strong>Regras de validação:</strong><br>
+<a href="#REGRA_ENVIO_PROC_FECHAMENTO">REGRA_ENVIO_PROC_FECHAMENTO</a><br>
+<a href="#REGRA_EXISTE_INFO_EMPREGADOR">REGRA_EXISTE_INFO_EMPREGADOR</a><br>
+<a href="#REGRA_EXISTE_2501">REGRA_EXISTE_2501</a><br>
+<a href="#REGRA_VALIDA_EMPREGADOR">REGRA_VALIDA_EMPREGADOR</a></td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8555_Id" id="8555_Id"></td>
+<td>Id</td>
+<td><a href="#r_8555">evtConsolidContDecJud</a></td>
+<td>A</td>
+<td>C</td>
+<td>1</td>
+<td>36</td>
+<td>-</td>
+<td>Identificação única do evento.<br>
+<strong>Regra de validação:</strong><br>
+<a href="#REGRA_VALIDA_ID_EVENTO">REGRA_VALIDA_ID_EVENTO</a></td>
+</tr>
+<tr class="grupo">
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8555_ideEvento" id="8555_ideEvento"></td>
+<td><a href="#r_8555_ideEvento">ideEvento</a></td>
+<td><a href="#r_8555">evtConsolidContDecJud</a></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Informações de identificação do evento.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8555_ideEvento_tpAmb" id="8555_ideEvento_tpAmb"></td>
+<td>tpAmb</td>
+<td><a href="#r_8555_ideEvento">ideEvento</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1</td>
+<td>-</td>
+<td>Identificação do ambiente.<br>
+<strong>Valores válidos:</strong><br>
+<strong>1</strong> - Produção<br>
+<strong>2</strong> - Produção restrita<br>
+<strong>7</strong> - Validação (uso interno)<br>
+<strong>8</strong> - Teste (uso interno)<br>
+<strong>9</strong> - Desenvolvimento (uso interno)</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8555_ideEvento_procEmi" id="8555_ideEvento_procEmi"></td>
+<td>procEmi</td>
+<td><a href="#r_8555_ideEvento">ideEvento</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1</td>
+<td>-</td>
+<td>Processo de emissão do evento.<br>
+<strong>Valores válidos:</strong><br>
+<strong>8</strong> - Aplicativo governamental para envio de eventos pelo Judiciário</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8555_ideEvento_verProc" id="8555_ideEvento_verProc"></td>
+<td>verProc</td>
+<td><a href="#r_8555_ideEvento">ideEvento</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>1-20</td>
+<td>-</td>
+<td>Versão do processo de emissão do evento. Informar a versão do aplicativo emissor do evento.</td>
+</tr>
+<tr class="grupo">
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8555_ideEmpregador" id="8555_ideEmpregador"></td>
+<td><a href="#r_8555_ideEmpregador">ideEmpregador</a></td>
+<td><a href="#r_8555">evtConsolidContDecJud</a></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Informações de identificação do empregador.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8555_ideEmpregador_tpInsc" id="8555_ideEmpregador_tpInsc"></td>
+<td>tpInsc</td>
+<td><a href="#r_8555_ideEmpregador">ideEmpregador</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1</td>
+<td>-</td>
+<td>Preencher com o código correspondente ao tipo de inscrição, conforme <a href="tabelas.html#05">Tabela 05</a>.<br>
+<strong>Valores válidos:</strong><br>
+<strong>1</strong> - CNPJ<br>
+<strong>2</strong> - CPF</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8555_ideEmpregador_nrInsc" id="8555_ideEmpregador_nrInsc"></td>
+<td>nrInsc</td>
+<td><a href="#r_8555_ideEmpregador">ideEmpregador</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>8, 11 ou 14</td>
+<td>-</td>
+<td>Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo <a href="#8555_ideEmpregador_tpInsc">ideEmpregador/tpInsc</a> e conforme informado em S-1000.</td>
+</tr>
+<tr class="grupo">
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8555_ideProc" id="8555_ideProc"></td>
+<td><a href="#r_8555_ideProc">ideProc</a></td>
+<td><a href="#r_8555">evtConsolidContDecJud</a></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Identificação do processo.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8555_ideProc_nrProcTrab" id="8555_ideProc_nrProcTrab"></td>
+<td>nrProcTrab</td>
+<td><a href="#r_8555_ideProc">ideProc</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>20</td>
+<td>-</td>
+<td>Número do processo trabalhista.<br>
+<strong>Validação:</strong> Deve ser um número de processo válido.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8555_ideProc_perApurPgto" id="8555_ideProc_perApurPgto"></td>
+<td>perApurPgto</td>
+<td><a href="#r_8555_ideProc">ideProc</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>7</td>
+<td>-</td>
+<td>Mês/ano em que é devida a obrigação de pagar a parcela prevista no acordo/sentença.<br>
+<strong>Validação:</strong> Deve ser informado no formato AAAA-MM.</td>
+</tr>
+</tbody>
+</table>
 </div>
 </section>
 <nav id="navbarBottom" class="navbar is-fixed-bottom has-shadow is-hidden-print">
@@ -49690,6 +49936,7 @@ Deve ser maior que 0 (zero).</td>
 <a class="navbar-item" href="index.html#evtAnotJudTSVE">S-8300 - Anotação Judicial do Trabalhador Sem Vínculo de Emprego/Estatutário</a>
 <a class="navbar-item" href="index.html#evtRemunJud">S-8500 - Remuneração Judicial</a>
 <a class="navbar-item" href="index.html#evtContDecJud">S-8501 - Informações de Contribuições Sociais Decorrentes de Decisão Judicial</a>
+<a class="navbar-item" href="index.html#evtConsolidContDecJud">S-8555 - Solicitação de Consolidação das Informações de Contribuições Sociais Decorrentes de Decisão Judicial</a>
 </div>
 </div>
 <div class="navbar-item">
