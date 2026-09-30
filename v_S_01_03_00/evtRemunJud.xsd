@@ -238,12 +238,24 @@
                                                                         </xs:sequence>
                                                                     </xs:complexType>
                                                                 </xs:element>
-                                                                <xs:element name="infoInterm" minOccurs="0" maxOccurs="31" type="T_infoIntermProcTrab">
+                                                                <xs:element name="infoInterm" minOccurs="0" maxOccurs="31">
                                                                     <xs:annotation>
                                                                         <xs:documentation>Informações relativas ao trabalho intermitente.</xs:documentation>
                                                                         <xs:documentation>CHAVE_GRUPO: {dia}</xs:documentation>
                                                                         <xs:documentation>CONDICAO_GRUPO: O (se (o código de categoria do trabalhador for igual a [111]); N (nos demais casos)</xs:documentation>
                                                                     </xs:annotation>
+                                                                    <xs:complexType>
+                                                                        <xs:sequence>
+                                                                            <xs:element name="dia" type="TS_dia" />
+                                                                            <xs:element name="hrsTrab" minOccurs="0" type="TS_hora">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Horas trabalhadas no dia pelo empregado com contrato de trabalho intermitente, no formato HHMM.</xs:documentation>
+                                                                                    <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se {}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [22] em {}(8500_ideEstab_infoVlr_idePeriodo_perRef).</xs:documentation>
+                                                                                    <xs:documentation>Se preenchida, deve estar no intervalo entre [0000] e [2359], criticando inclusive a segunda parte do número, que indica os minutos, que deve ser menor ou igual a 59.</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:element>
+                                                                        </xs:sequence>
+                                                                    </xs:complexType>
                                                                 </xs:element>
                                                             </xs:sequence>
                                                         </xs:complexType>
