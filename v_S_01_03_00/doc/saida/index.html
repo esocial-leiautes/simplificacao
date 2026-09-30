@@ -36809,7 +36809,7 @@ Deve ser um código válido e existente na <a href="tabelas.html#07">Tabela 07</
 <td>Identificação do trabalhador a que se refere o evento a ser excluído</td>
 <td>0-1</td>
 <td>-</td>
-<td>O (se <a href="#3000_infoExclusao_tpEvento">tpEvento</a> corresponder a um dos eventos não periódicos (S-2190 a S-2420, S-8200 a S-8501) ou um dos eventos periódicos (S-1200 a S-1210);<br>
+<td>O (se <a href="#3000_infoExclusao_tpEvento">tpEvento</a> corresponder a um dos eventos não periódicos (S-2190 a S-2420 ou S-8200 a S-8501) ou um dos eventos periódicos (S-1200 a S-1210);<br>
 N (nos demais casos)</td>
 </tr>
 <tr>
@@ -48999,7 +48999,7 @@ Retornar alerta caso <a href="#8500_ideEstab_infoVlr_idePeriodo_perRef">perRef</
 <td>1</td>
 <td>1-14</td>
 <td>2</td>
-<td>Valor da base de cálculo da contribuição previdenciária sobre a remuneração mensal do trabalhador.<br>
+<td>Valor da base de cálculo da contribuição previdenciária sobre os valores objeto de condenação em pecúnia de natureza salarial.<br>
 <strong>Validação:</strong> Deve ser maior ou igual a 0 (zero).</td>
 </tr>
 <tr>
@@ -49011,7 +49011,31 @@ Retornar alerta caso <a href="#8500_ideEstab_infoVlr_idePeriodo_perRef">perRef</
 <td>0-1</td>
 <td>1-14</td>
 <td>2</td>
-<td>Valor da base de cálculo da contribuição previdenciária sobre a remuneração do trabalhador referente ao 13º salário.<br>
+<td>Valor da base de cálculo da contribuição previdenciária sobre os valores objeto de condenação em pecúnia de natureza salarial - 13º salário.<br>
+<strong>Validação:</strong> Deve ser maior ou igual a 0 (zero).</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8500_ideEstab_infoVlr_idePeriodo_baseCalculo_vrBcCpPagoMensal" id="8500_ideEstab_infoVlr_idePeriodo_baseCalculo_vrBcCpPagoMensal"></td>
+<td>vrBcCpPagoMensal</td>
+<td><a href="#r_8500_ideEstab_infoVlr_idePeriodo_baseCalculo">baseCalculo</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1-14</td>
+<td>2</td>
+<td>Valor da base de cálculo da contribuição previdenciária sobre os valores já pagos pelo empregador, mas cuja natureza salarial foi reconhecida apenas no processo.<br>
+<strong>Validação:</strong> Deve ser maior ou igual a 0 (zero).</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8500_ideEstab_infoVlr_idePeriodo_baseCalculo_vrBcCpPago13" id="8500_ideEstab_infoVlr_idePeriodo_baseCalculo_vrBcCpPago13"></td>
+<td>vrBcCpPago13</td>
+<td><a href="#r_8500_ideEstab_infoVlr_idePeriodo_baseCalculo">baseCalculo</a></td>
+<td>E</td>
+<td>N</td>
+<td>0-1</td>
+<td>1-14</td>
+<td>2</td>
+<td>Valor da base de cálculo da contribuição previdenciária sobre os valores já pagos pelo empregador, mas cuja natureza salarial foi reconhecida apenas no processo - 13º salário.<br>
 <strong>Validação:</strong> Deve ser maior ou igual a 0 (zero).</td>
 </tr>
 <tr>
@@ -49248,6 +49272,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 destino.scrollIntoView({ behavior: 'smooth' });
                 e.currentTarget.value = '';
             }
+        }
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === "Escape") {
+            (document.querySelectorAll('.is-active') || []).forEach(($modal) => {
+                $modal.classList.remove('is-active');
+            });
         }
     });
 });
