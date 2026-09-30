@@ -71,6 +71,7 @@
 <li><a href="#evtAnotJud">S-8200 - Anotação Judicial do Vínculo</a></li>
 <li><a href="#evtBaixa">S-8299 - Baixa Judicial do Vínculo</a></li>
 <li><a href="#evtAnotJudTSVE">S-8300 - Anotação Judicial do Trabalhador Sem Vínculo de Emprego/Estatutário</a></li>
+<li><a href="#evtRemunJud">S-8500 - Remuneração Judicial</a></li>
 </ul>
 <div class="modal" id="REGRA_ADMISSAO_POSTERIOR_INICIO_ATIVIDADES">
 <div class="modal-background"></div>
@@ -48364,6 +48365,734 @@ b) Caso a situação no cadastro do CPF na RFB seja igual a &quot;Titular Faleci
 </tr>
 </tbody>
 </table>
+
+<h3 id="evtRemunJud" class="title has-text-centered quebra-anterior">S-8500 - Remuneração Judicial</h3>
+<table class="table is-fullwidth is-bordered resumo">
+<tbody>
+<tr>
+<th colspan="7">Tabela de Resumo dos Registros</th>
+</tr>
+<tr class="grupo">
+<td><strong>Grupo</strong></td>
+<td><strong>Grupo Pai</strong></td>
+<td><strong>Nível</strong></td>
+<td><strong>Descrição</strong></td>
+<td><strong>Ocor.</strong></td>
+<td><strong>Chave</strong></td>
+<td><strong>Condição</strong></td>
+</tr>
+<tr>
+<td id="r_8500_eSocial"><a href="#8500_eSocial">eSocial</a></td>
+<td></td>
+<td>1</td>
+<td>eSocial</td>
+<td>1</td>
+<td>-</td>
+<td>O</td>
+</tr>
+<tr>
+<td id="r_8500"><a href="#8500">evtRemunJud</a></td>
+<td><a href="#r_8500_eSocial">eSocial</a></td>
+<td>2</td>
+<td>Evento Remuneração Judicial</td>
+<td>1</td>
+<td><a href="#8500_Id">Id</a></td>
+<td>O</td>
+</tr>
+<tr>
+<td id="r_8500_ideEvento"><a href="#8500_ideEvento">ideEvento</a></td>
+<td><a href="#r_8500">evtRemunJud</a></td>
+<td>3</td>
+<td>Informações de identificação do evento</td>
+<td>1</td>
+<td>-</td>
+<td>O</td>
+</tr>
+<tr>
+<td id="r_8500_ideEmpregador"><a href="#8500_ideEmpregador">ideEmpregador</a></td>
+<td><a href="#r_8500">evtRemunJud</a></td>
+<td>3</td>
+<td>Informações de identificação do empregador</td>
+<td>1</td>
+<td><a href="#8500_ideEmpregador_tpInsc">tpInsc</a>*, <a href="#8500_ideEmpregador_nrInsc">nrInsc</a>*</td>
+<td>O</td>
+</tr>
+<tr>
+<td id="r_8500_infoProcesso"><a href="#8500_infoProcesso">infoProcesso</a></td>
+<td><a href="#r_8500">evtRemunJud</a></td>
+<td>3</td>
+<td>Informações do processo judicial</td>
+<td>1</td>
+<td>-</td>
+<td>O</td>
+</tr>
+<tr>
+<td id="r_8500_infoProcesso_dadosProc"><a href="#8500_infoProcesso_dadosProc">dadosProc</a></td>
+<td><a href="#r_8500_infoProcesso">infoProcesso</a></td>
+<td>4</td>
+<td>Informações complementares do processo judicial</td>
+<td>1</td>
+<td>-</td>
+<td>O (se <a href="#8500_infoProcesso_indAnotJud">indAnotJud</a> = [N]);<br>
+N (nos demais casos)</td>
+</tr>
+<tr>
+<td id="r_8500_ideTrab"><a href="#8500_ideTrab">ideTrab</a></td>
+<td><a href="#r_8500">evtRemunJud</a></td>
+<td>3</td>
+<td>Informações do trabalhador</td>
+<td>1</td>
+<td><a href="#8500_ideTrab_cpfTrab">cpfTrab</a>*, <a href="#8500_ideTrab_matricula">matricula</a>*, <a href="#8500_ideTrab_codCateg">codCateg</a>*</td>
+<td>O</td>
+</tr>
+<tr>
+<td id="r_8500_ideEstab"><a href="#8500_ideEstab">ideEstab</a></td>
+<td><a href="#r_8500">evtRemunJud</a></td>
+<td>3</td>
+<td>Identificação do estabelecimento</td>
+<td>1</td>
+<td>-</td>
+<td>O</td>
+</tr>
+<tr>
+<td id="r_8500_ideEstab_infoVlr"><a href="#8500_ideEstab_infoVlr">infoVlr</a></td>
+<td><a href="#r_8500_ideEstab">ideEstab</a></td>
+<td>4</td>
+<td>Informações dos períodos e valores</td>
+<td>1</td>
+<td>-</td>
+<td>O</td>
+</tr>
+<tr>
+<td id="r_8500_ideEstab_infoVlr_abono"><a href="#8500_ideEstab_infoVlr_abono">abono</a></td>
+<td><a href="#r_8500_ideEstab_infoVlr">infoVlr</a></td>
+<td>5</td>
+<td>Identificação do(s) ano(s)-base em que houve indenização substitutiva de abono salarial</td>
+<td>0-9</td>
+<td><a href="#8500_ideEstab_infoVlr_abono_anoBase">anoBase</a></td>
+<td>O (se <a href="#8500_ideEstab_infoVlr_indenAbono">indenAbono</a> = [S]);<br>
+N (nos demais casos)</td>
+</tr>
+<tr>
+<td id="r_8500_ideEstab_infoVlr_idePeriodo"><a href="#8500_ideEstab_infoVlr_idePeriodo">idePeriodo</a></td>
+<td><a href="#r_8500_ideEstab_infoVlr">infoVlr</a></td>
+<td>5</td>
+<td>Identificação do período ao qual se referem as bases de cálculo</td>
+<td>1-999</td>
+<td><a href="#8500_ideEstab_infoVlr_idePeriodo_perRef">perRef</a></td>
+<td>O</td>
+</tr>
+<tr>
+<td id="r_8500_ideEstab_infoVlr_idePeriodo_baseCalculo"><a href="#8500_ideEstab_infoVlr_idePeriodo_baseCalculo">baseCalculo</a></td>
+<td><a href="#r_8500_ideEstab_infoVlr_idePeriodo">idePeriodo</a></td>
+<td>6</td>
+<td>Bases de cálculo de contribuição previdenciária e FGTS decorrentes de processo trabalhista e ainda não declaradas</td>
+<td>0-1</td>
+<td>-</td>
+<td>OC</td>
+</tr>
+<tr>
+<td id="r_8500_ideEstab_infoVlr_idePeriodo_baseCalculo_infoAgNocivo"><a href="#8500_ideEstab_infoVlr_idePeriodo_baseCalculo_infoAgNocivo">infoAgNocivo</a></td>
+<td><a href="#r_8500_ideEstab_infoVlr_idePeriodo_baseCalculo">baseCalculo</a></td>
+<td>7</td>
+<td>Grau de exposição a agentes nocivos</td>
+<td>0-1</td>
+<td>-</td>
+<td>O (se o código de categoria do trabalhador for igual a [1XX, 2XX, 3XX, 731, 734, 738] ou se o código de categoria do trabalhador for igual a [4XX] com {categOrig} em S-2300 = [1XX, 2XX, 3XX, 731, 734, 738]);<br>
+N (nos demais casos)</td>
+</tr>
+<tr>
+<td id="r_8500_ideEstab_infoVlr_idePeriodo_infoInterm"><a href="#8500_ideEstab_infoVlr_idePeriodo_infoInterm">infoInterm</a></td>
+<td><a href="#r_8500_ideEstab_infoVlr_idePeriodo">idePeriodo</a></td>
+<td>6</td>
+<td>Informações relativas ao trabalho intermitente</td>
+<td>0-31</td>
+<td><a href="#8500_ideEstab_infoVlr_idePeriodo_infoInterm_dia">dia</a></td>
+<td>O (se (o código de categoria do trabalhador for igual a [111]);<br>
+N (nos demais casos)</td>
+</tr>
+</tbody>
+</table>
+
+<p class="is-size-6" style="margin-top: -1rem; margin-bottom: 2rem;">* Campo chave do evento</p>
+
+<h4 class="subtitle has-text-centered">Registros do evento S-8500 - Remuneração Judicial</h4>
+<table class="table is-fullwidth is-bordered completo">
+<tbody>
+<tr>
+<th class="seletor">#</th>
+<th>Grupo/Campo</th>
+<th>Grupo Pai</th>
+<th>Elem.</th>
+<th>Tipo</th>
+<th>Ocor.</th>
+<th>Tamanho</th>
+<th>Dec.</th>
+<th>Descrição</th>
+</tr>
+<tr class="grupo">
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8500_eSocial" id="8500_eSocial"></td>
+<td><a href="#r_8500_eSocial">eSocial</a></td>
+<td></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>eSocial</td>
+</tr>
+<tr class="grupo">
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8500" id="8500"></td>
+<td><a href="#r_8500">evtRemunJud</a></td>
+<td><a href="#r_8500_eSocial">eSocial</a></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Evento Remuneração Judicial.<br>
+<strong>Regras de validação:</strong><br>
+<a href="#REGRA_BLOQUEIA_USO_CPF_EMPREGADOR">REGRA_BLOQUEIA_USO_CPF_EMPREGADOR</a><br>
+<a href="#REGRA_ENVIO_PROC_FECHAMENTO">REGRA_ENVIO_PROC_FECHAMENTO</a><br>
+<a href="#REGRA_EVENTOS_EXTEMP">REGRA_EVENTOS_EXTEMP</a><br>
+<a href="#REGRA_EXISTE_INFO_EMPREGADOR">REGRA_EXISTE_INFO_EMPREGADOR</a><br>
+<a href="#REGRA_RETIFICA_MESMO_VINCULO">REGRA_RETIFICA_MESMO_VINCULO</a></td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8500_Id" id="8500_Id"></td>
+<td>Id</td>
+<td><a href="#r_8500">evtRemunJud</a></td>
+<td>A</td>
+<td>C</td>
+<td>1</td>
+<td>36</td>
+<td>-</td>
+<td>Identificação única do evento.<br>
+<strong>Regra de validação:</strong><br>
+<a href="#REGRA_VALIDA_ID_EVENTO">REGRA_VALIDA_ID_EVENTO</a></td>
+</tr>
+<tr class="grupo">
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8500_ideEvento" id="8500_ideEvento"></td>
+<td><a href="#r_8500_ideEvento">ideEvento</a></td>
+<td><a href="#r_8500">evtRemunJud</a></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Informações de identificação do evento.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8500_ideEvento_indRetif" id="8500_ideEvento_indRetif"></td>
+<td>indRetif</td>
+<td><a href="#r_8500_ideEvento">ideEvento</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1</td>
+<td>-</td>
+<td>Informe [1] para arquivo original ou [2] para arquivo de retificação.<br>
+<strong>Valores válidos:</strong><br>
+<strong>1</strong> - Original<br>
+<strong>2</strong> - Retificação</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8500_ideEvento_nrRecibo" id="8500_ideEvento_nrRecibo"></td>
+<td>nrRecibo</td>
+<td><a href="#r_8500_ideEvento">ideEvento</a></td>
+<td>E</td>
+<td>C</td>
+<td>0-1</td>
+<td>23</td>
+<td>-</td>
+<td>Preencher com o número do recibo do arquivo a ser retificado.<br>
+<strong>Validação:</strong> O preenchimento é obrigatório se <a href="#8500_ideEvento_indRetif">indRetif</a> = [2].<br>
+Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo retificado.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8500_ideEvento_tpAmb" id="8500_ideEvento_tpAmb"></td>
+<td>tpAmb</td>
+<td><a href="#r_8500_ideEvento">ideEvento</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1</td>
+<td>-</td>
+<td>Identificação do ambiente.<br>
+<strong>Valores válidos:</strong><br>
+<strong>1</strong> - Produção<br>
+<strong>2</strong> - Produção restrita<br>
+<strong>7</strong> - Validação (uso interno)<br>
+<strong>8</strong> - Teste (uso interno)<br>
+<strong>9</strong> - Desenvolvimento (uso interno)</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8500_ideEvento_procEmi" id="8500_ideEvento_procEmi"></td>
+<td>procEmi</td>
+<td><a href="#r_8500_ideEvento">ideEvento</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1</td>
+<td>-</td>
+<td>Processo de emissão do evento.<br>
+<strong>Valores válidos:</strong><br>
+<strong>8</strong> - Aplicativo governamental para envio de eventos pelo Judiciário</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8500_ideEvento_verProc" id="8500_ideEvento_verProc"></td>
+<td>verProc</td>
+<td><a href="#r_8500_ideEvento">ideEvento</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>1-20</td>
+<td>-</td>
+<td>Versão do processo de emissão do evento. Informar a versão do aplicativo emissor do evento.</td>
+</tr>
+<tr class="grupo">
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8500_ideEmpregador" id="8500_ideEmpregador"></td>
+<td><a href="#r_8500_ideEmpregador">ideEmpregador</a></td>
+<td><a href="#r_8500">evtRemunJud</a></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Informações de identificação do empregador.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8500_ideEmpregador_tpInsc" id="8500_ideEmpregador_tpInsc"></td>
+<td>tpInsc</td>
+<td><a href="#r_8500_ideEmpregador">ideEmpregador</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1</td>
+<td>-</td>
+<td>Preencher com o código correspondente ao tipo de inscrição, conforme <a href="tabelas.html#05">Tabela 05</a>.<br>
+<strong>Valores válidos:</strong><br>
+<strong>1</strong> - CNPJ<br>
+<strong>2</strong> - CPF</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8500_ideEmpregador_nrInsc" id="8500_ideEmpregador_nrInsc"></td>
+<td>nrInsc</td>
+<td><a href="#r_8500_ideEmpregador">ideEmpregador</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>8, 11 ou 14</td>
+<td>-</td>
+<td>Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo <a href="#8500_ideEmpregador_tpInsc">ideEmpregador/tpInsc</a> e conforme informado em S-1000.</td>
+</tr>
+<tr class="grupo">
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8500_infoProcesso" id="8500_infoProcesso"></td>
+<td><a href="#r_8500_infoProcesso">infoProcesso</a></td>
+<td><a href="#r_8500">evtRemunJud</a></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Informações do processo judicial.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8500_infoProcesso_indAnotJud" id="8500_infoProcesso_indAnotJud"></td>
+<td>indAnotJud</td>
+<td><a href="#r_8500_infoProcesso">infoProcesso</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>1</td>
+<td>-</td>
+<td>Indicativo se o processo foi declarado em evento S-8200 ou S-8300 para o contrato informado em <a href="#8500_ideTrab_cpfTrab">cpfTrab</a>, <a href="#8500_ideTrab_matricula">matricula</a> e <a href="#8500_ideTrab_codCateg">codCateg</a>.<br>
+<strong>Valores válidos:</strong><br>
+<strong>S</strong> - Sim<br>
+<strong>N</strong> - Não</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8500_infoProcesso_nrProcTrab" id="8500_infoProcesso_nrProcTrab"></td>
+<td>nrProcTrab</td>
+<td><a href="#r_8500_infoProcesso">infoProcesso</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>15 ou 20</td>
+<td>-</td>
+<td>Número que identifica o processo judicial.<br>
+<strong>Validação:</strong> a) Se <a href="#8500_infoProcesso_indAnotJud">indAnotJud</a> = [S], deve ser um número de processo válido e declarado no evento S-8200 ou S-8300 para o contrato informado em <a href="#8500_ideTrab_cpfTrab">cpfTrab</a>, <a href="#8500_ideTrab_matricula">matricula</a> e <a href="#8500_ideTrab_codCateg">codCateg</a>.<br>
+b) Se <a href="#8500_infoProcesso_indAnotJud">indAnotJud</a> = [N], deve ser um processo judicial válido, com 20 (vinte) algarismos. Além disso, o 14º (décimo quarto) algarismo deve ser igual a &quot;5&quot;;</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8500_infoProcesso_dtSent" id="8500_infoProcesso_dtSent"></td>
+<td>dtSent</td>
+<td><a href="#r_8500_infoProcesso">infoProcesso</a></td>
+<td>E</td>
+<td>D</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Informar a data da decisão judicial.<br>
+<strong>Validação:</strong> Deve ser igual ou anterior à data atual.<br>
+Se <a href="#8500_infoProcesso_indAnotJud">indAnotJud</a> = [S], deve ser a mesma data informada no evento S-8200 ou S-8300 para o contrato informado em <a href="#8500_ideTrab_cpfTrab">cpfTrab</a>, <a href="#8500_ideTrab_matricula">matricula</a> e <a href="#8500_ideTrab_codCateg">codCateg</a>.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8500_infoProcesso_obsProcTrab" id="8500_infoProcesso_obsProcTrab"></td>
+<td>obsProcTrab</td>
+<td><a href="#r_8500_infoProcesso">infoProcesso</a></td>
+<td>E</td>
+<td>C</td>
+<td>0-1</td>
+<td>1-999</td>
+<td>-</td>
+<td>Observações relacionadas ao processo judicial.</td>
+</tr>
+<tr class="grupo">
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8500_infoProcesso_dadosProc" id="8500_infoProcesso_dadosProc"></td>
+<td><a href="#r_8500_infoProcesso_dadosProc">dadosProc</a></td>
+<td><a href="#r_8500_infoProcesso">infoProcesso</a></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Informações complementares do processo judicial.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8500_infoProcesso_dadosProc_ufVara" id="8500_infoProcesso_dadosProc_ufVara"></td>
+<td>ufVara</td>
+<td><a href="#r_8500_infoProcesso_dadosProc">dadosProc</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>2</td>
+<td>-</td>
+<td>Preencher com a sigla da Unidade da Federação onde está localizada a Vara em que o processo tramitou.<br>
+<strong>Valores válidos:</strong> AC, AL, AP, AM, BA, CE, DF, ES, GO, MA, MT, MS, MG, PA, PB, PR, PE, PI, RJ, RN, RS, RO, RR, SC, SP, SE, TO</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8500_infoProcesso_dadosProc_codMunic" id="8500_infoProcesso_dadosProc_codMunic"></td>
+<td>codMunic</td>
+<td><a href="#r_8500_infoProcesso_dadosProc">dadosProc</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>7</td>
+<td>-</td>
+<td>Preencher com o código do município, conforme tabela do IBGE.<br>
+<strong>Validação:</strong> Deve ser um código válido e existente na tabela do IBGE.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8500_infoProcesso_dadosProc_idVara" id="8500_infoProcesso_dadosProc_idVara"></td>
+<td>idVara</td>
+<td><a href="#r_8500_infoProcesso_dadosProc">dadosProc</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1-4</td>
+<td>-</td>
+<td>Código de identificação da Vara em que o processo tramitou.</td>
+</tr>
+<tr class="grupo">
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8500_ideTrab" id="8500_ideTrab"></td>
+<td><a href="#r_8500_ideTrab">ideTrab</a></td>
+<td><a href="#r_8500">evtRemunJud</a></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Informações do trabalhador.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8500_ideTrab_cpfTrab" id="8500_ideTrab_cpfTrab"></td>
+<td>cpfTrab</td>
+<td><a href="#r_8500_ideTrab">ideTrab</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>11</td>
+<td>-</td>
+<td>Preencher com o número do CPF do trabalhador.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8500_ideTrab_matricula" id="8500_ideTrab_matricula"></td>
+<td>matricula</td>
+<td><a href="#r_8500_ideTrab">ideTrab</a></td>
+<td>E</td>
+<td>C</td>
+<td>0-1</td>
+<td>1-30</td>
+<td>-</td>
+<td>Matrícula atribuída ao trabalhador.<br>
+<strong>Validação:</strong> Deve corresponder à matrícula informada no evento S-2190, S-2200, S-2300, S-8200 ou S-8300 do respectivo contrato.  O campo não deve ser informado somente no caso de Trabalhador Sem Vínculo de Emprego/Estatutário (TSVE) cadastrado em versão do leiaute anterior a S-1.0.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8500_ideTrab_codCateg" id="8500_ideTrab_codCateg"></td>
+<td>codCateg</td>
+<td><a href="#r_8500_ideTrab">ideTrab</a></td>
+<td>E</td>
+<td>N</td>
+<td>0-1</td>
+<td>3</td>
+<td>-</td>
+<td>Preencher com o código da categoria do trabalhador.<br>
+Informar somente no caso de TSVE sem informação de matrícula no evento S-2300.<br>
+<strong>Validação:</strong> Informação obrigatória e exclusiva se o campo <a href="#8500_ideTrab_matricula">matricula</a> não estiver preenchido. Deve corresponder ao código de categoria informado no evento S-2300.</td>
+</tr>
+<tr class="grupo">
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8500_ideEstab" id="8500_ideEstab"></td>
+<td><a href="#r_8500_ideEstab">ideEstab</a></td>
+<td><a href="#r_8500">evtRemunJud</a></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Identificação do estabelecimento responsável pelo pagamento ao trabalhador dos valores informados neste evento.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8500_ideEstab_tpInsc" id="8500_ideEstab_tpInsc"></td>
+<td>tpInsc</td>
+<td><a href="#r_8500_ideEstab">ideEstab</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1</td>
+<td>-</td>
+<td>Preencher com o código correspondente ao tipo de inscrição do estabelecimento, de acordo com as opções da <a href="tabelas.html#05">Tabela 05</a>.<br>
+No caso de empregador doméstico, informar [3] (CAEPF).<br>
+<strong>Valores válidos:</strong><br>
+<strong>1</strong> - CNPJ<br>
+<strong>3</strong> - CAEPF<br>
+<strong>4</strong> - CNO<br>
+<strong>Validação:</strong> Se <a href="#8500_ideEmpregador_tpInsc">ideEmpregador/tpInsc</a> = [1], deve ser igual a [1, 4]. Se <a href="#8500_ideEmpregador_tpInsc">ideEmpregador/tpInsc</a> = [2], deve ser igual a [3, 4].</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8500_ideEstab_nrInsc" id="8500_ideEstab_nrInsc"></td>
+<td>nrInsc</td>
+<td><a href="#r_8500_ideEstab">ideEstab</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>12 ou 14</td>
+<td>-</td>
+<td>Informar o número de inscrição do estabelecimento do contribuinte de acordo com o tipo de inscrição indicado no campo acima.<br>
+No caso de empregador doméstico, informar os 9 (nove) primeiros dígitos do CPF do empregador, seguidos de 5 (cinco) dígitos 0 (zero). Por exemplo, se o CPF do empregador doméstico for 111111111-99, informar 11111111100000.<br>
+<strong>Validação:</strong> A inscrição informada deve ser compatível com <a href="#8500_ideEstab_tpInsc">ideEstab/tpInsc</a> e o número deve constar na base da RFB e pertencer a <a href="#8500_ideEmpregador_nrInsc">ideEmpregador/nrInsc</a>.<br>
+Se o processo for referente a empregado doméstico, a inscrição informada deve ser igual aos 9 (nove) primeiros dígitos do CPF do empregador, seguidos de 5 (cinco) dígitos 0 (zero).</td>
+</tr>
+<tr class="grupo">
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8500_ideEstab_infoVlr" id="8500_ideEstab_infoVlr"></td>
+<td><a href="#r_8500_ideEstab_infoVlr">infoVlr</a></td>
+<td><a href="#r_8500_ideEstab">ideEstab</a></td>
+<td>G</td>
+<td>-</td>
+<td>1</td>
+<td>-</td>
+<td>-</td>
+<td>Informações dos períodos e valores decorrentes de processo trabalhista.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8500_ideEstab_infoVlr_vrSaldoFGTS" id="8500_ideEstab_infoVlr_vrSaldoFGTS"></td>
+<td>vrSaldoFGTS</td>
+<td><a href="#r_8500_ideEstab_infoVlr">infoVlr</a></td>
+<td>E</td>
+<td>N</td>
+<td>0-1</td>
+<td>1-14</td>
+<td>2</td>
+<td>Valor do saldo para fins rescisórios do FGTS (base de cálculo para recolhimento da indenização compensatória do FGTS).<br>
+<strong>Validação:</strong> O campo não pode ser informado se o código de categoria do trabalhador for igual a [2XX, 7XX (exceto [721]), 9XX].<br>
+Deve ser maior que 0 (zero).</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8500_ideEstab_infoVlr_indenSD" id="8500_ideEstab_infoVlr_indenSD"></td>
+<td>indenSD</td>
+<td><a href="#r_8500_ideEstab_infoVlr">infoVlr</a></td>
+<td>E</td>
+<td>C</td>
+<td>0-1</td>
+<td>1</td>
+<td>-</td>
+<td>Houve decisão para pagamento da indenização substitutiva do seguro-desemprego?<br>
+<strong>Valores válidos:</strong><br>
+<strong>S</strong> - Sim</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8500_ideEstab_infoVlr_indenAbono" id="8500_ideEstab_infoVlr_indenAbono"></td>
+<td>indenAbono</td>
+<td><a href="#r_8500_ideEstab_infoVlr">infoVlr</a></td>
+<td>E</td>
+<td>C</td>
+<td>0-1</td>
+<td>1</td>
+<td>-</td>
+<td>Houve decisão para pagamento da indenização substitutiva de abono salarial?<br>
+<strong>Valores válidos:</strong><br>
+<strong>S</strong> - Sim</td>
+</tr>
+<tr class="grupo">
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8500_ideEstab_infoVlr_abono" id="8500_ideEstab_infoVlr_abono"></td>
+<td><a href="#r_8500_ideEstab_infoVlr_abono">abono</a></td>
+<td><a href="#r_8500_ideEstab_infoVlr">infoVlr</a></td>
+<td>G</td>
+<td>-</td>
+<td>0-9</td>
+<td>-</td>
+<td>-</td>
+<td>Identificação do(s) ano(s)-base em que houve indenização substitutiva de abono salarial.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8500_ideEstab_infoVlr_abono_anoBase" id="8500_ideEstab_infoVlr_abono_anoBase"></td>
+<td>anoBase</td>
+<td><a href="#r_8500_ideEstab_infoVlr_abono">abono</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>4</td>
+<td>-</td>
+<td>Ano-base em que houve indenização substitutiva do abono salarial.</td>
+</tr>
+<tr class="grupo">
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8500_ideEstab_infoVlr_idePeriodo" id="8500_ideEstab_infoVlr_idePeriodo"></td>
+<td><a href="#r_8500_ideEstab_infoVlr_idePeriodo">idePeriodo</a></td>
+<td><a href="#r_8500_ideEstab_infoVlr">infoVlr</a></td>
+<td>G</td>
+<td>-</td>
+<td>1-999</td>
+<td>-</td>
+<td>-</td>
+<td>Identificação do período ao qual se referem as bases de cálculo.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8500_ideEstab_infoVlr_idePeriodo_perRef" id="8500_ideEstab_infoVlr_idePeriodo_perRef"></td>
+<td>perRef</td>
+<td><a href="#r_8500_ideEstab_infoVlr_idePeriodo">idePeriodo</a></td>
+<td>E</td>
+<td>C</td>
+<td>1</td>
+<td>7</td>
+<td>-</td>
+<td>Informar o mês/ano (formato AAAA-MM) de referência das informações.<br>
+<strong>Validação:</strong> Deve ser informado no formato AAAA-MM.<br>
+Retornar alerta caso <a href="#8500_ideEstab_infoVlr_idePeriodo_perRef">perRef</a> seja posterior ao desligamento ou término, se houver.</td>
+</tr>
+<tr class="grupo">
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8500_ideEstab_infoVlr_idePeriodo_baseCalculo" id="8500_ideEstab_infoVlr_idePeriodo_baseCalculo"></td>
+<td><a href="#r_8500_ideEstab_infoVlr_idePeriodo_baseCalculo">baseCalculo</a></td>
+<td><a href="#r_8500_ideEstab_infoVlr_idePeriodo">idePeriodo</a></td>
+<td>G</td>
+<td>-</td>
+<td>0-1</td>
+<td>-</td>
+<td>-</td>
+<td>Bases de cálculo de contribuição previdenciária e FGTS decorrentes de processo trabalhista e ainda não declaradas.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8500_ideEstab_infoVlr_idePeriodo_baseCalculo_vrBcCpMensal" id="8500_ideEstab_infoVlr_idePeriodo_baseCalculo_vrBcCpMensal"></td>
+<td>vrBcCpMensal</td>
+<td><a href="#r_8500_ideEstab_infoVlr_idePeriodo_baseCalculo">baseCalculo</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1-14</td>
+<td>2</td>
+<td>Valor da base de cálculo da contribuição previdenciária sobre a remuneração mensal do trabalhador.<br>
+<strong>Validação:</strong> Deve ser maior ou igual a 0 (zero).</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8500_ideEstab_infoVlr_idePeriodo_baseCalculo_vrBcCp13" id="8500_ideEstab_infoVlr_idePeriodo_baseCalculo_vrBcCp13"></td>
+<td>vrBcCp13</td>
+<td><a href="#r_8500_ideEstab_infoVlr_idePeriodo_baseCalculo">baseCalculo</a></td>
+<td>E</td>
+<td>N</td>
+<td>0-1</td>
+<td>1-14</td>
+<td>2</td>
+<td>Valor da base de cálculo da contribuição previdenciária sobre a remuneração do trabalhador referente ao 13º salário.<br>
+<strong>Validação:</strong> Deve ser maior ou igual a 0 (zero).</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8500_ideEstab_infoVlr_idePeriodo_baseCalculo_vrBcFGTS" id="8500_ideEstab_infoVlr_idePeriodo_baseCalculo_vrBcFGTS"></td>
+<td>vrBcFGTS</td>
+<td><a href="#r_8500_ideEstab_infoVlr_idePeriodo_baseCalculo">baseCalculo</a></td>
+<td>E</td>
+<td>N</td>
+<td>0-1</td>
+<td>1-14</td>
+<td>2</td>
+<td>Valor da base de cálculo de FGTS relativo a verba reconhecida no processo trabalhista.<br>
+Deve ser maior ou igual a 0 (zero).</td>
+</tr>
+<tr class="grupo">
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8500_ideEstab_infoVlr_idePeriodo_baseCalculo_infoAgNocivo" id="8500_ideEstab_infoVlr_idePeriodo_baseCalculo_infoAgNocivo"></td>
+<td><a href="#r_8500_ideEstab_infoVlr_idePeriodo_baseCalculo_infoAgNocivo">infoAgNocivo</a></td>
+<td><a href="#r_8500_ideEstab_infoVlr_idePeriodo_baseCalculo">baseCalculo</a></td>
+<td>G</td>
+<td>-</td>
+<td>0-1</td>
+<td>-</td>
+<td>-</td>
+<td>Grupo referente ao detalhamento do grau de exposição do trabalhador aos agentes nocivos que ensejam a cobrança da contribuição adicional para financiamento dos benefícios de aposentadoria especial.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8500_ideEstab_infoVlr_idePeriodo_baseCalculo_infoAgNocivo_grauExp" id="8500_ideEstab_infoVlr_idePeriodo_baseCalculo_infoAgNocivo_grauExp"></td>
+<td>grauExp</td>
+<td><a href="#r_8500_ideEstab_infoVlr_idePeriodo_baseCalculo_infoAgNocivo">infoAgNocivo</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1</td>
+<td>-</td>
+<td>Preencher com o código que representa o grau de exposição a agentes nocivos, conforme <a href="tabelas.html#02">Tabela 02</a>.<br>
+<strong>Valores válidos:</strong><br>
+<strong>1</strong> - Não ensejador de aposentadoria especial<br>
+<strong>2</strong> - Ensejador de aposentadoria especial - FAE15_12% (15 anos de contribuição e alíquota de 12%)<br>
+<strong>3</strong> - Ensejador de aposentadoria especial - FAE20_09% (20 anos de contribuição e alíquota de 9%)<br>
+<strong>4</strong> - Ensejador de aposentadoria especial - FAE25_06% (25 anos de contribuição e alíquota de 6%)</td>
+</tr>
+<tr class="grupo">
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8500_ideEstab_infoVlr_idePeriodo_infoInterm" id="8500_ideEstab_infoVlr_idePeriodo_infoInterm"></td>
+<td><a href="#r_8500_ideEstab_infoVlr_idePeriodo_infoInterm">infoInterm</a></td>
+<td><a href="#r_8500_ideEstab_infoVlr_idePeriodo">idePeriodo</a></td>
+<td>G</td>
+<td>-</td>
+<td>0-31</td>
+<td>-</td>
+<td>-</td>
+<td>Informações relativas ao trabalho intermitente.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8500_ideEstab_infoVlr_idePeriodo_infoInterm_dia" id="8500_ideEstab_infoVlr_idePeriodo_infoInterm_dia"></td>
+<td>dia</td>
+<td><a href="#r_8500_ideEstab_infoVlr_idePeriodo_infoInterm">infoInterm</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1-2</td>
+<td>-</td>
+<td>Dia do mês efetivamente trabalhado pelo empregado com contrato de trabalho intermitente.<br>
+Caso não tenha havido trabalho no mês, informar 0 (zero).<br>
+<strong>Validação:</strong> Deve ser um número entre 0 e 31, de acordo com o calendário anual.<br>
+Retornar alerta caso seja informado 0 (zero).</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="8500_ideEstab_infoVlr_idePeriodo_infoInterm_hrsTrab" id="8500_ideEstab_infoVlr_idePeriodo_infoInterm_hrsTrab"></td>
+<td>hrsTrab</td>
+<td><a href="#r_8500_ideEstab_infoVlr_idePeriodo_infoInterm">infoInterm</a></td>
+<td>E</td>
+<td>C</td>
+<td>0-1</td>
+<td>4</td>
+<td>-</td>
+<td>Horas trabalhadas no dia pelo empregado com contrato de trabalho intermitente, no formato HHMM.<br>
+<strong>Validação:</strong> Preenchimento obrigatório e exclusivo se <a href="#1000_infoEmpregador_inclusao_infoCadastro_classTrib">classTrib</a> em S-1000 = [22] em <a href="#2500_ideTrab_infoContr_ideEstab_infoVlr_idePeriodo_perRef">perRef</a>.<br>
+Se preenchida, deve estar no intervalo entre [0000] e [2359], criticando inclusive a segunda parte do número, que indica os minutos, que deve ser menor ou igual a 59.</td>
+</tr>
+</tbody>
+</table>
 </div>
 </section>
 <nav id="navbarBottom" class="navbar is-fixed-bottom has-shadow is-hidden-print">
@@ -48458,7 +49187,7 @@ b) Caso a situação no cadastro do CPF na RFB seja igual a &quot;Titular Faleci
 <a class="navbar-item" href="index.html#evtAnotJud">S-8200 - Anotação Judicial do Vínculo</a>
 <a class="navbar-item" href="index.html#evtBaixa">S-8299 - Baixa Judicial do Vínculo</a>
 <a class="navbar-item" href="index.html#evtAnotJudTSVE">S-8300 - Anotação Judicial do Trabalhador Sem Vínculo de Emprego/Estatutário</a>
-<a class="navbar-item" href="index.html#evtremunJud">S-8500 - Remuneração Judicial</a>
+<a class="navbar-item" href="index.html#evtRemunJud">S-8500 - Remuneração Judicial</a>
 </div>
 </div>
 <div class="navbar-item">

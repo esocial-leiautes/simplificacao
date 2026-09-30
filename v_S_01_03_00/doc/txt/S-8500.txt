@@ -1,0 +1,591 @@
+S-8500 - evtRemunJud
+Remuneração Judicial
+
+Nível: 1
+Nome: eSocial
+Pai: -
+Descrição: eSocial
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 2
+Nome: evtRemunJud
+Pai: eSocial
+Descrição: Evento Remuneração Judicial.
+Ocorrência: 1
+Chave: Id
+Condição: O
+
+Nível: 3
+Nome: ideEvento
+Pai: evtRemunJud
+Descrição: Informações de identificação do evento.
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 3
+Nome: ideEmpregador
+Pai: evtRemunJud
+Descrição: Informações de identificação do empregador.
+Ocorrência: 1
+Chave: tpInsc*, nrInsc*
+Condição: O
+
+Nível: 3
+Nome: infoProcesso
+Pai: evtRemunJud
+Descrição: Informações do processo judicial.
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 4
+Nome: dadosProc
+Pai: infoProcesso
+Descrição: Informações complementares do processo judicial.
+Ocorrência: 1
+Chave: -
+Condição: O (se {indAnotJud}(../indAnotJud) = [N])
+N (nos demais casos)
+
+Nível: 3
+Nome: ideTrab
+Pai: evtRemunJud
+Descrição: Informações do trabalhador.
+Ocorrência: 1
+Chave: cpfTrab*, matricula*, codCateg*
+Condição: O
+
+Nível: 3
+Nome: ideEstab
+Pai: evtRemunJud
+Descrição: Identificação do estabelecimento.
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 4
+Nome: infoVlr
+Pai: ideEstab
+Descrição: Informações dos períodos e valores.
+Ocorrência: 1
+Chave: -
+Condição: O
+
+Nível: 5
+Nome: abono
+Pai: infoVlr
+Descrição: Identificação do(s) ano(s)-base em que houve indenização substitutiva de abono salarial.
+Ocorrência: 0-9
+Chave: anoBase
+Condição: O (se {indenAbono}(../indenAbono) = [S])
+N (nos demais casos)
+
+Nível: 5
+Nome: idePeriodo
+Pai: infoVlr
+Descrição: Identificação do período ao qual se referem as bases de cálculo.
+Ocorrência: 1-999
+Chave: perRef
+Condição: O
+
+Nível: 6
+Nome: baseCalculo
+Pai: idePeriodo
+Descrição: Bases de cálculo de contribuição previdenciária e FGTS decorrentes de processo trabalhista e ainda não declaradas.
+Ocorrência: 0-1
+Chave: -
+Condição: OC
+
+Nível: 7
+Nome: infoAgNocivo
+Pai: baseCalculo
+Descrição: Grau de exposição a agentes nocivos
+Ocorrência: 0-1
+Chave: -
+Condição: O (se o código de categoria do trabalhador for igual a [1XX, 2XX, 3XX, 731, 734, 738] ou se o código de categoria do trabalhador for igual a [4XX] com {categOrig} em S-2300 = [1XX, 2XX, 3XX, 731, 734, 738])
+N (nos demais casos)
+
+Nível: 6
+Nome: infoInterm
+Pai: idePeriodo
+Descrição: Informações relativas ao trabalho intermitente.
+Ocorrência: 0-31
+Chave: dia
+Condição: O (se (o código de categoria do trabalhador for igual a [111])
+N (nos demais casos)
+
+Nome: eSocial
+Pai: -
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: eSocial
+
+Nome: evtRemunJud
+Pai: eSocial
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Evento Remuneração Judicial.
+Regras de validação:
+REGRA_BLOQUEIA_USO_CPF_EMPREGADOR
+REGRA_ENVIO_PROC_FECHAMENTO
+REGRA_EVENTOS_EXTEMP
+REGRA_EXISTE_INFO_EMPREGADOR
+REGRA_RETIFICA_MESMO_VINCULO
+
+Nome: Id
+Pai: evtRemunJud
+Elem.: A
+Tipo: C
+Ocorrência: 1
+Tamanho: 36
+Dec.: -
+Descrição: Identificação única do evento.
+Regras de validação:
+REGRA_VALIDA_ID_EVENTO
+
+Nome: ideEvento
+Pai: evtRemunJud
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do evento.
+
+Nome: indRetif
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Informe [1] para arquivo original ou [2] para arquivo de retificação.
+Valores válidos:
+1 - Original
+2 - Retificação
+
+Nome: nrRecibo
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 23
+Dec.: -
+Descrição: Preencher com o número do recibo do arquivo a ser retificado.
+Validação: O preenchimento é obrigatório se {indRetif}(./indRetif) = [2].
+Deve ser um recibo de entrega válido, correspondente ao arquivo que está sendo retificado.
+
+Nome: tpAmb
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Identificação do ambiente.
+Valores válidos:
+1 - Produção
+2 - Produção restrita
+7 - Validação (uso interno)
+8 - Teste (uso interno)
+9 - Desenvolvimento (uso interno)
+
+Nome: procEmi
+Pai: ideEvento
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Processo de emissão do evento.
+Valores válidos:
+8 - Aplicativo governamental para envio de eventos pelo Judiciário
+
+Nome: verProc
+Pai: ideEvento
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1-20
+Dec.: -
+Descrição: Versão do processo de emissão do evento. Informar a versão do aplicativo emissor do evento.
+
+Nome: ideEmpregador
+Pai: evtRemunJud
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações de identificação do empregador.
+
+Nome: tpInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição, conforme Tabela 05.
+Valores válidos:
+1 - CNPJ
+2 - CPF
+
+Nome: nrInsc
+Pai: ideEmpregador
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 8, 11 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do contribuinte de acordo com o tipo de inscrição indicado no campo {ideEmpregador/tpInsc}(./tpInsc) e conforme informado em S-1000.
+
+Nome: infoProcesso
+Pai: evtRemunJud
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações do processo judicial.
+
+Nome: indAnotJud
+Pai: infoProcesso
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo se o processo foi declarado em evento S-8200 ou S-8300 para o contrato informado em {cpfTrab}(8500_ideTrab_cpfTrab), {matricula}(8500_ideTrab_matricula) e {codCateg}(8500_ideTrab_codCateg).
+Valores válidos:
+S - Sim
+N - Não
+
+Nome: nrProcTrab
+Pai: infoProcesso
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 15 ou 20
+Dec.: -
+Descrição: Número que identifica o processo judicial.
+Validação: a) Se {indAnotJud}(./indAnotJud) = [S], deve ser um número de processo válido e declarado no evento S-8200 ou S-8300 para o contrato informado em {cpfTrab}(8500_ideTrab_cpfTrab), {matricula}(8500_ideTrab_matricula) e {codCateg}(8500_ideTrab_codCateg).
+b) Se {indAnotJud}(./indAnotJud) = [N], deve ser um processo judicial válido, com 20 (vinte) algarismos. Além disso, o 14º (décimo quarto) algarismo deve ser igual a "5";
+
+Nome: dtSent
+Pai: infoProcesso
+Elem.: E
+Tipo: D
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informar a data da decisão judicial.
+Validação: Deve ser igual ou anterior à data atual.
+Se {indAnotJud}(./indAnotJud) = [S], deve ser a mesma data informada no evento S-8200 ou S-8300 para o contrato informado em {cpfTrab}(8500_ideTrab_cpfTrab), {matricula}(8500_ideTrab_matricula) e {codCateg}(8500_ideTrab_codCateg).
+
+Nome: obsProcTrab
+Pai: infoProcesso
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-999
+Dec.: -
+Descrição: Observações relacionadas ao processo judicial.
+
+Nome: dadosProc
+Pai: infoProcesso
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações complementares do processo judicial.
+
+Nome: ufVara
+Pai: dadosProc
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 2
+Dec.: -
+Descrição: Preencher com a sigla da Unidade da Federação onde está localizada a Vara em que o processo tramitou.
+Valores válidos:
+ AC, AL, AP, AM, BA, CE, DF, ES, GO, MA, MT, MS, MG, PA, PB, PR, PE, PI, RJ, RN, RS, RO, RR, SC, SP, SE, TO
+
+Nome: codMunic
+Pai: dadosProc
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 7
+Dec.: -
+Descrição: Preencher com o código do município, conforme tabela do IBGE.
+Validação: Deve ser um código válido e existente na tabela do IBGE.
+
+Nome: idVara
+Pai: dadosProc
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-4
+Dec.: -
+Descrição: Código de identificação da Vara em que o processo tramitou.
+
+Nome: ideTrab
+Pai: evtRemunJud
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações do trabalhador.
+
+Nome: cpfTrab
+Pai: ideTrab
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 11
+Dec.: -
+Descrição: Preencher com o número do CPF do trabalhador.
+
+Nome: matricula
+Pai: ideTrab
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-30
+Dec.: -
+Descrição: Matrícula atribuída ao trabalhador.
+Validação: Deve corresponder à matrícula informada no evento S-2190, S-2200, S-2300, S-8200 ou S-8300 do respectivo contrato.  O campo não deve ser informado somente no caso de Trabalhador Sem Vínculo de Emprego/Estatutário (TSVE) cadastrado em versão do leiaute anterior a S-1.0.
+
+Nome: codCateg
+Pai: ideTrab
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 3
+Dec.: -
+Descrição: Preencher com o código da categoria do trabalhador.
+Informar somente no caso de TSVE sem informação de matrícula no evento S-2300.
+Validação: Informação obrigatória e exclusiva se o campo {matricula}(./matricula) não estiver preenchido. Deve corresponder ao código de categoria informado no evento S-2300.
+
+Nome: ideEstab
+Pai: evtRemunJud
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Identificação do estabelecimento responsável pelo pagamento ao trabalhador dos valores informados neste evento.
+
+Nome: tpInsc
+Pai: ideEstab
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código correspondente ao tipo de inscrição do estabelecimento, de acordo com as opções da Tabela 05.
+No caso de empregador doméstico, informar [3] (CAEPF).
+Valores válidos:
+1 - CNPJ
+3 - CAEPF
+4 - CNO
+Validação: Se {ideEmpregador/tpInsc}(8500_ideEmpregador_tpInsc) = [1], deve ser igual a [1, 4]. Se {ideEmpregador/tpInsc}(8500_ideEmpregador_tpInsc) = [2], deve ser igual a [3, 4].
+
+Nome: nrInsc
+Pai: ideEstab
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 12 ou 14
+Dec.: -
+Descrição: Informar o número de inscrição do estabelecimento do contribuinte de acordo com o tipo de inscrição indicado no campo acima.
+No caso de empregador doméstico, informar os 9 (nove) primeiros dígitos do CPF do empregador, seguidos de 5 (cinco) dígitos 0 (zero). Por exemplo, se o CPF do empregador doméstico for 111111111-99, informar 11111111100000.
+Validação: A inscrição informada deve ser compatível com {ideEstab/tpInsc}(./tpInsc) e o número deve constar na base da RFB e pertencer a {ideEmpregador/nrInsc}(8500_ideEmpregador_nrInsc).
+Se o processo for referente a empregado doméstico, a inscrição informada deve ser igual aos 9 (nove) primeiros dígitos do CPF do empregador, seguidos de 5 (cinco) dígitos 0 (zero).
+
+Nome: infoVlr
+Pai: ideEstab
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações dos períodos e valores decorrentes de processo trabalhista.
+
+Nome: vrSaldoFGTS
+Pai: infoVlr
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor do saldo para fins rescisórios do FGTS (base de cálculo para recolhimento da indenização compensatória do FGTS).
+Validação: O campo não pode ser informado se o código de categoria do trabalhador for igual a [2XX, 7XX (exceto [721]), 9XX].
+Deve ser maior que 0 (zero).
+
+Nome: indenSD
+Pai: infoVlr
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Houve decisão para pagamento da indenização substitutiva do seguro-desemprego?
+Valores válidos:
+S - Sim
+
+Nome: indenAbono
+Pai: infoVlr
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Houve decisão para pagamento da indenização substitutiva de abono salarial?
+Valores válidos:
+S - Sim
+
+Nome: abono
+Pai: infoVlr
+Elem.: G
+Tipo: -
+Ocorrência: 0-9
+Tamanho: -
+Dec.: -
+Descrição: Identificação do(s) ano(s)-base em que houve indenização substitutiva de abono salarial.
+
+Nome: anoBase
+Pai: abono
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 4
+Dec.: -
+Descrição: Ano-base em que houve indenização substitutiva do abono salarial.
+
+Nome: idePeriodo
+Pai: infoVlr
+Elem.: G
+Tipo: -
+Ocorrência: 1-999
+Tamanho: -
+Dec.: -
+Descrição: Identificação do período ao qual se referem as bases de cálculo.
+
+Nome: perRef
+Pai: idePeriodo
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 7
+Dec.: -
+Descrição: Informar o mês/ano (formato AAAA-MM) de referência das informações.
+Validação: Deve ser informado no formato AAAA-MM.
+Retornar alerta caso {}(./perRef) seja posterior ao desligamento ou término, se houver.
+
+Nome: baseCalculo
+Pai: idePeriodo
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Bases de cálculo de contribuição previdenciária e FGTS decorrentes de processo trabalhista e ainda não declaradas.
+
+Nome: vrBcCpMensal
+Pai: baseCalculo
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da base de cálculo da contribuição previdenciária sobre a remuneração mensal do trabalhador.
+Validação: Deve ser maior ou igual a 0 (zero).
+
+Nome: vrBcCp13
+Pai: baseCalculo
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da base de cálculo da contribuição previdenciária sobre a remuneração do trabalhador referente ao 13º salário.
+Validação: Deve ser maior ou igual a 0 (zero).
+
+Nome: vrBcFGTS
+Pai: baseCalculo
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da base de cálculo de FGTS relativo a verba reconhecida no processo trabalhista.
+Deve ser maior ou igual a 0 (zero).
+
+Nome: infoAgNocivo
+Pai: baseCalculo
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Grupo referente ao detalhamento do grau de exposição do trabalhador aos agentes nocivos que ensejam a cobrança da contribuição adicional para financiamento dos benefícios de aposentadoria especial.
+
+Nome: grauExp
+Pai: infoAgNocivo
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código que representa o grau de exposição a agentes nocivos, conforme Tabela 02.
+Valores válidos:
+1 - Não ensejador de aposentadoria especial
+2 - Ensejador de aposentadoria especial - FAE15_12% (15 anos de contribuição e alíquota de 12%)
+3 - Ensejador de aposentadoria especial - FAE20_09% (20 anos de contribuição e alíquota de 9%)
+4 - Ensejador de aposentadoria especial - FAE25_06% (25 anos de contribuição e alíquota de 6%)
+
+Nome: infoInterm
+Pai: idePeriodo
+Elem.: G
+Tipo: -
+Ocorrência: 0-31
+Tamanho: -
+Dec.: -
+Descrição: Informações relativas ao trabalho intermitente.
+
+Nome: dia
+Pai: infoInterm
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-2
+Dec.: -
+Descrição: Dia do mês efetivamente trabalhado pelo empregado com contrato de trabalho intermitente.
+Caso não tenha havido trabalho no mês, informar 0 (zero).
+Validação: Deve ser um número entre 0 e 31, de acordo com o calendário anual.
+Retornar alerta caso seja informado 0 (zero).
+
+Nome: hrsTrab
+Pai: infoInterm
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 4
+Dec.: -
+Descrição: Horas trabalhadas no dia pelo empregado com contrato de trabalho intermitente, no formato HHMM.
+Validação: Preenchimento obrigatório e exclusivo se {}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [22] em {}(2500_ideTrab_infoContr_ideEstab_infoVlr_idePeriodo_perRef).
+Se preenchida, deve estar no intervalo entre [0000] e [2359], criticando inclusive a segunda parte do número, que indica os minutos, que deve ser menor ou igual a 59.
+

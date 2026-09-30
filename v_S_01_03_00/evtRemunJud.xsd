@@ -1,0 +1,254 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://www.esocial.gov.br/schema/evt/evtRemunJud/v_S_01_03_00" targetNamespace="http://www.esocial.gov.br/schema/evt/evtRemunJud/v_S_01_03_00" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+    <xs:include schemaLocation="tipos.xsd" />
+    <xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd" />
+    <xs:element name="eSocial">
+        <xs:annotation>
+            <xs:documentation>S-8500 - Remuneração Judicial</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="evtRemunJud">
+                    <xs:annotation>
+                        <xs:documentation>Evento Remuneração Judicial.</xs:documentation>
+                        <xs:documentation>CHAVE_GRUPO: {Id}</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_BLOQUEIA_USO_CPF_EMPREGADOR</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_ENVIO_PROC_FECHAMENTO</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_EVENTOS_EXTEMP</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_EXISTE_INFO_EMPREGADOR</xs:documentation>
+                        <xs:documentation>REGRA:REGRA_RETIFICA_MESMO_VINCULO</xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="ideEvento" type="T_ideEvento_trab_jud" />
+                            <xs:element name="ideEmpregador" type="T_ideEmpregador" />
+                            <xs:element name="infoProcesso">
+                                <xs:annotation>
+                                    <xs:documentation>Informações do processo judicial.</xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="indAnotJud" type="TS_sim_nao">
+                                            <xs:annotation>
+                                                <xs:documentation>Indicativo se o processo foi declarado em evento S-8200 ou S-8300 para o contrato informado em {cpfTrab}(8500_ideTrab_cpfTrab), {matricula}(8500_ideTrab_matricula) e {codCateg}(8500_ideTrab_codCateg).</xs:documentation>
+                                            </xs:annotation>                                               
+                                        </xs:element>                                        
+                                        <xs:element name="nrProcTrab" type="TS_nrProcTrab">
+                                            <xs:annotation>
+                                                <xs:documentation>Número que identifica o processo judicial.</xs:documentation>
+                                                <xs:documentation>Validação: a) Se {indAnotJud}(./indAnotJud) = [S], deve ser um número de processo válido e declarado no evento S-8200 ou S-8300 para o contrato informado em {cpfTrab}(8500_ideTrab_cpfTrab), {matricula}(8500_ideTrab_matricula) e {codCateg}(8500_ideTrab_codCateg).</xs:documentation> 
+                                                <xs:documentation>b) Se {indAnotJud}(./indAnotJud) = [N], deve ser um processo judicial válido, com 20 (vinte) algarismos. Além disso, o 14º (décimo quarto) algarismo deve ser igual a "5";</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="dtSent" type="xs:date">
+                                            <xs:annotation>
+                                                <xs:documentation>Informar a data da decisão judicial.</xs:documentation>
+                                                <xs:documentation>Validação: Deve ser igual ou anterior à data atual.</xs:documentation>
+                                                <xs:documentation>Se {indAnotJud}(./indAnotJud) = [S], deve ser a mesma data informada no evento S-8200 ou S-8300 para o contrato informado em {cpfTrab}(8500_ideTrab_cpfTrab), {matricula}(8500_ideTrab_matricula) e {codCateg}(8500_ideTrab_codCateg).</xs:documentation> 
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="obsProcTrab" minOccurs="0" type="TS_texto_999">
+                                            <xs:annotation>
+                                                <xs:documentation>Observações relacionadas ao processo judicial.</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="dadosProc">
+                                            <xs:annotation>
+                                                <xs:documentation>Informações complementares do processo judicial.</xs:documentation>
+                                                <xs:documentation>CONDICAO_GRUPO: O (se {indAnotJud}(../indAnotJud) = [N]); N (nos demais casos)</xs:documentation>
+                                            </xs:annotation>
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="ufVara" type="TS_uf">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Preencher com a sigla da Unidade da Federação onde está localizada a Vara em que o processo tramitou.</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:element>
+                                                    <xs:element name="codMunic" type="TS_codMunic" />
+                                                    <xs:element name="idVara">
+                                                        <xs:simpleType>
+                                                            <xs:annotation>
+                                                                <xs:documentation>Código de identificação da Vara em que o processo tramitou.</xs:documentation>
+                                                            </xs:annotation>
+                                                            <xs:restriction base="xs:integer">
+                                                                <xs:pattern value="\d{1,4}" />
+                                                            </xs:restriction>
+                                                        </xs:simpleType>
+                                                    </xs:element>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="ideTrab">
+                                <xs:annotation>
+                                    <xs:documentation>Informações do trabalhador.</xs:documentation>
+                                    <xs:documentation>CHAVE_GRUPO: {cpfTrab*}, {matricula*}, {codCateg*}</xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="cpfTrab" type="TS_cpfTrab" />
+                                        <xs:element name="matricula" minOccurs="0" type="TS_matricula">
+                                            <xs:annotation>
+                                                <xs:documentation>Matrícula atribuída ao trabalhador.</xs:documentation>
+                                                <xs:documentation>Validação: Deve corresponder à matrícula informada no evento S-2190, S-2200, S-2300, S-8200 ou S-8300 do respectivo contrato.  O campo não deve ser informado somente no caso de Trabalhador Sem Vínculo de Emprego/Estatutário (TSVE) cadastrado em versão do leiaute anterior a S-1.0.</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="codCateg" minOccurs="0" type="TS_codCateg">
+                                            <xs:annotation>
+                                                <xs:documentation>Preencher com o código da categoria do trabalhador.</xs:documentation>
+                                                <xs:documentation>Informar somente no caso de TSVE sem informação de matrícula no evento S-2300.</xs:documentation>
+                                                <xs:documentation>Validação: Informação obrigatória e exclusiva se o campo {matricula}(./matricula) não estiver preenchido. Deve corresponder ao código de categoria informado no evento S-2300.</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="ideEstab">
+                                <xs:annotation>
+                                    <xs:documentation>Identificação do estabelecimento.</xs:documentation>
+                                    <xs:documentation>DESCRICAO_COMPLETA:Identificação do estabelecimento responsável pelo pagamento ao trabalhador dos valores informados neste evento.</xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="tpInsc" type="TS_tpInsc_EstabLot">
+                                            <xs:annotation>
+                                                <xs:documentation>Preencher com o código correspondente ao tipo de inscrição do estabelecimento, de acordo com as opções da Tabela 05.</xs:documentation>
+                                                <xs:documentation>No caso de empregador doméstico, informar [3] (CAEPF).</xs:documentation>
+                                                <xs:documentation>Validação: Se {ideEmpregador/tpInsc}(8500_ideEmpregador_tpInsc) = [1], deve ser igual a [1, 4]. Se {ideEmpregador/tpInsc}(8500_ideEmpregador_tpInsc) = [2], deve ser igual a [3, 4].</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="nrInsc" type="TS_nrInsc_EstabLot">
+                                            <xs:annotation>
+                                                <xs:documentation>Informar o número de inscrição do estabelecimento do contribuinte de acordo com o tipo de inscrição indicado no campo acima.</xs:documentation>
+                                                <xs:documentation>No caso de empregador doméstico, informar os 9 (nove) primeiros dígitos do CPF do empregador, seguidos de 5 (cinco) dígitos 0 (zero). Por exemplo, se o CPF do empregador doméstico for 111111111-99, informar 11111111100000.</xs:documentation>
+                                                <xs:documentation>Validação: A inscrição informada deve ser compatível com {ideEstab/tpInsc}(./tpInsc) e o número deve constar na base da RFB e pertencer a {ideEmpregador/nrInsc}(8500_ideEmpregador_nrInsc).</xs:documentation>
+                                                <xs:documentation>Se o processo for referente a empregado doméstico, a inscrição informada deve ser igual aos 9 (nove) primeiros dígitos do CPF do empregador, seguidos de 5 (cinco) dígitos 0 (zero).</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="infoVlr">
+                                            <xs:annotation>
+                                                <xs:documentation>Informações dos períodos e valores.</xs:documentation>
+                                                <xs:documentation>DESCRICAO_COMPLETA:Informações dos períodos e valores decorrentes de processo trabalhista.</xs:documentation>
+                                            </xs:annotation>
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="vrSaldoFGTS" minOccurs="0" type="TS_valorMonetario_positivo">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Valor do saldo para fins rescisórios do FGTS (base de cálculo para recolhimento da indenização compensatória do FGTS).</xs:documentation>
+                                                            <xs:documentation>Validação: O campo não pode ser informado se o código de categoria do trabalhador for igual a [2XX, 7XX (exceto [721]), 9XX].</xs:documentation>
+                                                            <xs:documentation>Deve ser maior que 0 (zero).</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:element>
+                                                    <xs:element name="indenSD" minOccurs="0" type="TS_sim">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Houve decisão para pagamento da indenização substitutiva do seguro-desemprego?</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:element>
+                                                    <xs:element name="indenAbono" minOccurs="0" type="TS_sim">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Houve decisão para pagamento da indenização substitutiva de abono salarial?</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:element>
+                                                    <xs:element name="abono" minOccurs="0" maxOccurs="9">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Identificação do(s) ano(s)-base em que houve indenização substitutiva de abono salarial.</xs:documentation>
+                                                            <xs:documentation>CHAVE_GRUPO: {anoBase}</xs:documentation>
+                                                            <xs:documentation>CONDICAO_GRUPO: O (se {indenAbono}(../indenAbono) = [S]); N (nos demais casos)</xs:documentation>
+                                                        </xs:annotation>
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:element name="anoBase">
+                                                                    <xs:simpleType>
+                                                                        <xs:annotation>
+                                                                            <xs:documentation>Ano-base em que houve indenização substitutiva do abono salarial.</xs:documentation>
+                                                                        </xs:annotation>
+                                                                        <xs:restriction base="xs:integer">
+                                                                            <xs:pattern value="\d{4}" />
+                                                                            <xs:minInclusive value="1900" />
+                                                                        </xs:restriction>
+                                                                    </xs:simpleType>
+                                                                </xs:element>
+                                                            </xs:sequence>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                    <xs:element name="idePeriodo" maxOccurs="999">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Identificação do período ao qual se referem as bases de cálculo.</xs:documentation>
+                                                            <xs:documentation>CHAVE_GRUPO: {perRef}</xs:documentation>
+                                                        </xs:annotation>
+                                                        <xs:complexType>
+                                                            <xs:sequence>
+                                                                <xs:element name="perRef" type="TS_periodo_mensal">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Informar o mês/ano (formato AAAA-MM) de referência das informações.</xs:documentation>
+                                                                        <xs:documentation>Validação: Deve ser informado no formato AAAA-MM.</xs:documentation>
+                                                                        <xs:documentation>Retornar alerta caso {}(./perRef) seja posterior ao desligamento ou término, se houver.</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:element>
+                                                                <xs:element name="baseCalculo" minOccurs="0">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Bases de cálculo de contribuição previdenciária e FGTS decorrentes de processo trabalhista e ainda não declaradas.</xs:documentation>
+                                                                        <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
+                                                                    </xs:annotation>
+                                                                    <xs:complexType>
+                                                                        <xs:sequence>
+                                                                            <xs:element name="vrBcCpMensal" type="TS_valorMonetario">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Valor da base de cálculo da contribuição previdenciária sobre a remuneração mensal do trabalhador.</xs:documentation>
+                                                                                    <xs:documentation>Validação: Deve ser maior ou igual a 0 (zero).</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:element>
+                                                                            <xs:element name="vrBcCp13" minOccurs="0" type="TS_valorMonetario">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Valor da base de cálculo da contribuição previdenciária sobre a remuneração do trabalhador referente ao 13º salário.</xs:documentation>
+                                                                                    <xs:documentation>Validação: Deve ser maior ou igual a 0 (zero).</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:element>
+                                                                            <xs:element name="vrBcFGTS" minOccurs="0" type="TS_valorMonetario">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Valor da base de cálculo de FGTS relativo a verba reconhecida no processo trabalhista.</xs:documentation>
+                                                                                    <xs:documentation>Deve ser maior ou igual a 0 (zero).</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:element>
+                                                                            <xs:element name="infoAgNocivo" minOccurs="0">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Grau de exposição a agentes nocivos</xs:documentation>
+                                                                                    <xs:documentation>DESCRICAO_COMPLETA:Grupo referente ao detalhamento do grau de exposição do trabalhador aos agentes nocivos que ensejam a cobrança da contribuição adicional para financiamento dos benefícios de aposentadoria especial.</xs:documentation>
+                                                                                    <xs:documentation>CONDICAO_GRUPO: O (se o código de categoria do trabalhador for igual a [1XX, 2XX, 3XX, 731, 734, 738] ou se o código de categoria do trabalhador for igual a [4XX] com {categOrig} em S-2300 = [1XX, 2XX, 3XX, 731, 734, 738]); N (nos demais casos)</xs:documentation>
+                                                                                </xs:annotation>
+                                                                                <xs:complexType>
+                                                                                    <xs:sequence>
+                                                                                        <xs:element name="grauExp" type="TS_grauExp" />
+                                                                                    </xs:sequence>
+                                                                                </xs:complexType>
+                                                                            </xs:element>
+                                                                        </xs:sequence>
+                                                                    </xs:complexType>
+                                                                </xs:element>
+                                                                <xs:element name="infoInterm" minOccurs="0" maxOccurs="31" type="T_infoIntermProcTrab">
+                                                                    <xs:annotation>
+                                                                        <xs:documentation>Informações relativas ao trabalho intermitente.</xs:documentation>
+                                                                        <xs:documentation>CHAVE_GRUPO: {dia}</xs:documentation>
+                                                                        <xs:documentation>CONDICAO_GRUPO: O (se (o código de categoria do trabalhador for igual a [111]); N (nos demais casos)</xs:documentation>
+                                                                    </xs:annotation>
+                                                                </xs:element>
+                                                            </xs:sequence>
+                                                        </xs:complexType>
+                                                    </xs:element>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="Id" use="required" type="TS_Id" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:element ref="ds:Signature" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
