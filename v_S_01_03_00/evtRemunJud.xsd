@@ -83,7 +83,7 @@
                             <xs:element name="ideTrab">
                                 <xs:annotation>
                                     <xs:documentation>Informações do trabalhador.</xs:documentation>
-                                    <xs:documentation>CHAVE_GRUPO: {cpfTrab*}, {matricula*}, {codCateg*}</xs:documentation>
+                                    <xs:documentation>CHAVE_GRUPO: {cpfTrab*}, {matricula*}, {codCateg*}, {dtInicio*)</xs:documentation>
                                 </xs:annotation>
                                 <xs:complexType>
                                     <xs:sequence>
@@ -99,6 +99,19 @@
                                                 <xs:documentation>Preencher com o código da categoria do trabalhador.</xs:documentation>
                                                 <xs:documentation>Informar somente no caso de TSVE sem informação de matrícula no evento S-2300.</xs:documentation>
                                                 <xs:documentation>Validação: Informação obrigatória e exclusiva se o campo {matricula}(./matricula) não estiver preenchido. Deve corresponder ao código de categoria informado no evento S-2300.</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="dtInicio" minOccurs="0" type="xs:date">
+                                            <xs:annotation>
+                                                <xs:documentation>Data de início de TSVE, que pode ser:</xs:documentation>
+                                                <xs:documentation>a) Para o cooperado, a data de ingresso na cooperativa;</xs:documentation>
+                                                <xs:documentation>b) Para o diretor não empregado, a data de posse no cargo;</xs:documentation>
+                                                <xs:documentation>c) Para o dirigente sindical, a data de início do mandato no sindicato;</xs:documentation>
+                                                <xs:documentation>d) Para o estagiário, a data de início do estágio;</xs:documentation>
+                                                <xs:documentation>e) Para o trabalhador avulso, a data de ingresso no Órgão Gestor de Mão de Obra - OGMO ou no sindicato;</xs:documentation>
+                                                <xs:documentation>f) Para o servidor público exercente de cargo eletivo, a data de início do mandato;</xs:documentation>
+                                                <xs:documentation>g) Para os demais trabalhadores, a data de início das atividades.</xs:documentation>
+                                                <xs:documentation>Validação: Informação obrigatória e exclusiva se o campo {matricula}(./matricula) não estiver preenchido. Deve ser igual à data de início informada no evento S-2300.</xs:documentation>
                                             </xs:annotation>
                                         </xs:element>
                                     </xs:sequence>
