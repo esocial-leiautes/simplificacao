@@ -759,7 +759,12 @@
                     <xs:documentation>c) Se {tmpParc}(./tmpParc) = [3], deve ser menor ou igual a [26].</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element name="tpJornada" type="TS_tpJornada" />
+            <xs:element name="tpJornada" type="TS_tpJornada">
+                <xs:annotation>
+                    <xs:documentation>Tipo de jornada.</xs:documentation>
+                    <xs:documentation>Validação: Se {dtAlteracao}(2206_altContratual_dtAlteracao) for igual ou posterior a [2027-XX-XX], somente podem ser informados os valores [2, 7, 8, 11, 12].</xs:documentation>
+                </xs:annotation>
+            </xs:element>
             <xs:element name="tmpParc" type="TS_tmpParc">
                 <xs:annotation>
                     <xs:documentation>Preencher com o código relativo ao tipo de contrato em tempo parcial.</xs:documentation>
@@ -3942,6 +3947,7 @@
     <xs:simpleType name="TS_tpJornada">
         <xs:annotation>
             <xs:documentation>Tipo de jornada.</xs:documentation>
+            <xs:documentation>Validação: Se {dtAdm}(2200_vinculo_infoRegimeTrab_infoCeletista_dtAdm), {sucessaoVinc/dtTransf}(2200_vinculo_sucessaoVinc_dtTransf) ou {dtAltCPF}(2200_vinculo_mudancaCPF_dtAltCPF) (maior data entre elas) for igual ou posterior a [2027-XX-XX], somente podem ser informados os valores [2, 7, 8, 11, 12].</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:byte">
             <xs:enumeration value="2">
@@ -3974,9 +3980,24 @@
                     <xs:documentation>Turno ininterrupto de revezamento</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
+            <xs:enumeration value="8">
+                <xs:annotation>
+                    <xs:documentation>Semana espanhola</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
             <xs:enumeration value="9">
                 <xs:annotation>
                     <xs:documentation>Demais tipos de jornada</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="11">
+                <xs:annotation>
+                    <xs:documentation>Jornada com folga em dia fixo</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="12">
+                <xs:annotation>
+                    <xs:documentation>Jornada com folga em dia variável</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
         </xs:restriction>
