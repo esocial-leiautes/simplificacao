@@ -772,7 +772,12 @@
                     <xs:documentation>Se {tpJornada}(./tpJornada) = [2] e {dtAlteracao}(2206_altContratual_dtAlteracao) for igual ou posterior a [2026-11-23], deve ser igual a [0].</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element name="horNoturno" minOccurs="0" type="TS_horNoturno" />
+            <xs:element name="horNoturno" minOccurs="0" type="TS_horNoturno">
+                <xs:annotation>
+                    <xs:documentation>Indicar se a jornada semanal possui horário noturno (no todo ou em parte).</xs:documentation>
+                    <xs:documentation>Validação: Informação obrigatória se {codCateg}(../codCateg) for diferente de [111] e se {dtAlteracao}(2206_altContratual_dtAlteracao) for anterior a [2027-XX-XX]. Não informar se {dtAlteracao}(2206_altContratual_dtAlteracao) for igual ou posterior a [2027-XX-XX]. </xs:documentation>
+                </xs:annotation>
+            </xs:element>
             <xs:element name="dscJorn" type="TS_dscJorn" />
         </xs:sequence>
     </xs:complexType>
@@ -4035,7 +4040,7 @@
     <xs:simpleType name="TS_horNoturno">
         <xs:annotation>
             <xs:documentation>Indicar se a jornada semanal possui horário noturno (no todo ou em parte).</xs:documentation>
-            <xs:documentation>Validação: Informação obrigatória se {codCateg}(../codCateg) for diferente de [111].</xs:documentation>
+            <xs:documentation>Validação: Informação obrigatória se {codCateg}(../codCateg) for diferente de [111] e se {dtAdm}(2200_vinculo_infoRegimeTrab_infoCeletista_dtAdm), {sucessaoVinc/dtTransf}(2200_vinculo_sucessaoVinc_dtTransf), {transfDom/dtTransf}(2200_vinculo_transfDom_dtTransf) ou {dtAltCPF}(2200_vinculo_mudancaCPF_dtAltCPF) (maior data entre elas) for anterior a [2027-XX-XX]. Não informar se {dtAdm}(2200_vinculo_infoRegimeTrab_infoCeletista_dtAdm), {sucessaoVinc/dtTransf}(2200_vinculo_sucessaoVinc_dtTransf), {transfDom/dtTransf}(2200_vinculo_transfDom_dtTransf) ou {dtAltCPF}(2200_vinculo_mudancaCPF_dtAltCPF) (maior data entre elas) for igual ou posterior a [2027-XX-XX]. </xs:documentation>
         </xs:annotation>
         <xs:restriction base="TS_sim_nao" />
     </xs:simpleType>
