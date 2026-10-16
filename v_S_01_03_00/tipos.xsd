@@ -745,6 +745,7 @@
             <xs:element name="horNoturno" minOccurs="0" type="TS_horNoturno" />
             <xs:element name="dscJorn" minOccurs="0" type="TS_dscJorn" />
             <xs:element name="indAcRedIntra" minOccurs="0" type="TS_indAcRedIntra" />
+            <xs:element name="indAcAmpIntra" minOccurs="0" type="TS_indAcAmpIntra" />
         </xs:sequence>
     </xs:complexType>
 
@@ -786,6 +787,7 @@
                 </xs:annotation>
             </xs:element>
             <xs:element name="indAcRedIntra" minOccurs="0" type="TS_indAcRedIntra" />
+            <xs:element name="indAcAmpIntra" minOccurs="0" type="TS_indAcAmpIntra" />
         </xs:sequence>
     </xs:complexType>
 
@@ -4068,6 +4070,43 @@
         <xs:annotation>
             <xs:documentation>Informar o código indicativo de existência de acordo autorizando redução do intervalo intrajornada.</xs:documentation>
             <xs:documentation>O preenchimento do campo é obrigatório se a duração do intervalo for inferior ao mínimo legal.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:byte">
+            <xs:enumeration value="1">
+                <xs:annotation>
+                    <xs:documentation>Acordo Coletivo de Trabalho</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="2">
+                <xs:annotation>
+                    <xs:documentation>Convenção Coletiva de Trabalho</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="3">
+                <xs:annotation>
+                    <xs:documentation>Acordo individual escrito</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="4">
+                <xs:annotation>
+                    <xs:documentation>Acordo individual verbal ou tácito</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="5">
+                <xs:annotation>
+                    <xs:documentation>Inexistente</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
+
+    <!-- Campo {indAcAmpIntra} -->
+
+    <xs:simpleType name="TS_indAcAmpIntra">
+        <xs:annotation>
+            <xs:documentation>Informar o código indicativo de existência de acordo autorizando ampliação do intervalo intrajornada.</xs:documentation>
+            <xs:documentation>O preenchimento do campo é obrigatório se a duração do intervalo for superior ao máximo legal.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:byte">
             <xs:enumeration value="1">
