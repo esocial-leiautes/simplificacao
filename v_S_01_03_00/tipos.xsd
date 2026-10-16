@@ -744,6 +744,7 @@
             <xs:element name="tmpParc" type="TS_tmpParc" />
             <xs:element name="horNoturno" minOccurs="0" type="TS_horNoturno" />
             <xs:element name="dscJorn" minOccurs="0" type="TS_dscJorn" />
+            <xs:element name="indAcRedIntra" minOccurs="0" type="TS_indAcRedIntra" />
         </xs:sequence>
     </xs:complexType>
 
@@ -784,6 +785,7 @@
                     <xs:documentation>Validação: Preenchimento obrigatório se {dtAlteracao}(2206_altContratual_dtAlteracao) for anterior a [2027-XX-XX]. Se {dtAlteracao}(2206_altContratual_dtAlteracao) for igual ou posterior a [2027-XX-XX], o preenchimento é obrigatório e exclusivo se {tpJornada}(./tpJornada) = [7, 9].</xs:documentation>
                 </xs:annotation>
             </xs:element>
+            <xs:element name="indAcRedIntra" minOccurs="0" type="TS_indAcRedIntra" />
         </xs:sequence>
     </xs:complexType>
 
@@ -4058,6 +4060,42 @@
             <xs:documentation>Validação: Preenchimento obrigatório se {dtAdm}(2200_vinculo_infoRegimeTrab_infoCeletista_dtAdm), {sucessaoVinc/dtTransf}(2200_vinculo_sucessaoVinc_dtTransf), {transfDom/dtTransf}(2200_vinculo_transfDom_dtTransf) ou {dtAltCPF}(2200_vinculo_mudancaCPF_dtAltCPF) (maior data entre elas) for anterior a [2027-XX-XX]. Se {dtAdm}(2200_vinculo_infoRegimeTrab_infoCeletista_dtAdm), {sucessaoVinc/dtTransf}(2200_vinculo_sucessaoVinc_dtTransf), {transfDom/dtTransf}(2200_vinculo_transfDom_dtTransf) ou {dtAltCPF}(2200_vinculo_mudancaCPF_dtAltCPF) (maior data entre elas) for igual ou posterior a [2027-XX-XX], o preenchimento é obrigatório e exclusivo se {tpJornada}(./tpJornada) = [7, 9].</xs:documentation>
         </xs:annotation>
         <xs:restriction base="TS_texto_999" />
+    </xs:simpleType>
+
+    <!-- Campo {indAcRedIntra} -->
+
+    <xs:simpleType name="TS_indAcRedIntra">
+        <xs:annotation>
+            <xs:documentation>Informar o código indicativo de existência de acordo autorizando redução do intervalo intrajornada.</xs:documentation>
+            <xs:documentation>O preenchimento do campo é obrigatório se a duração do intervalo for inferior ao mínimo legal.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:byte">
+            <xs:enumeration value="1">
+                <xs:annotation>
+                    <xs:documentation>Acordo Coletivo de Trabalho</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="2">
+                <xs:annotation>
+                    <xs:documentation>Convenção Coletiva de Trabalho</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="3">
+                <xs:annotation>
+                    <xs:documentation>Acordo individual escrito</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="4">
+                <xs:annotation>
+                    <xs:documentation>Acordo individual verbal ou tácito</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="5">
+                <xs:annotation>
+                    <xs:documentation>Inexistente</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
     </xs:simpleType>
 
     <!-- Campo {codMotAfast} -->
