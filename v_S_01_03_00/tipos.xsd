@@ -746,6 +746,12 @@
             <xs:element name="dscJorn" minOccurs="0" type="TS_dscJorn" />
             <xs:element name="indAcRedIntra" minOccurs="0" type="TS_indAcRedIntra" />
             <xs:element name="indAcAmpIntra" minOccurs="0" type="TS_indAcAmpIntra" />
+            <xs:element name="infoComp" minOccurs="0" type="T_infoComp">
+                <xs:annotation>
+                    <xs:documentation>Informações de regime de compensação de jornada.</xs:documentation>
+                    <xs:documentation>CONDICAO_GRUPO: O (se {dtAdm}(2200_vinculo_infoRegimeTrab_infoCeletista_dtAdm), {sucessaoVinc/dtTransf}(2200_vinculo_sucessaoVinc_dtTransf), {transfDom/dtTransf}(2200_vinculo_transfDom_dtTransf) ou {dtAltCPF}(2200_vinculo_mudancaCPF_dtAltCPF) (maior data entre elas) for igual ou posterior a [2027-XX-XX]); F (nos demais casos)</xs:documentation>
+                </xs:annotation>
+            </xs:element>
         </xs:sequence>
     </xs:complexType>
 
@@ -788,6 +794,23 @@
             </xs:element>
             <xs:element name="indAcRedIntra" minOccurs="0" type="TS_indAcRedIntra" />
             <xs:element name="indAcAmpIntra" minOccurs="0" type="TS_indAcAmpIntra" />
+            <xs:element name="infoComp" minOccurs="0" type="T_infoComp">
+                <xs:annotation>
+                    <xs:documentation>Informações de regime de compensação de jornada.</xs:documentation>
+                    <xs:documentation>CONDICAO_GRUPO: O ({dtAlteracao}(2206_altContratual_dtAlteracao) for igual ou posterior a [2027-XX-XX]); F (nos demais casos)</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Grupo {infoComp} -->
+
+    <xs:complexType name="T_infoComp">
+        <xs:sequence>
+            <xs:element name="compJorn" type="TS_compJorn" />
+            <xs:element name="perDurComp" minOccurs="0" type="TS_perDurComp" />
+            <xs:element name="tpCompJorn" minOccurs="0" type="TS_tpCompJorn" />
+            <xs:element name="acAutorComp" minOccurs="0" type="TS_acAutorComp" />
         </xs:sequence>
     </xs:complexType>
 
@@ -4100,13 +4123,128 @@
         </xs:restriction>
     </xs:simpleType>
 
-
     <!-- Campo {indAcAmpIntra} -->
 
     <xs:simpleType name="TS_indAcAmpIntra">
         <xs:annotation>
             <xs:documentation>Informar o código indicativo de existência de acordo autorizando ampliação do intervalo intrajornada.</xs:documentation>
             <xs:documentation>O preenchimento do campo é obrigatório se a duração do intervalo for superior ao máximo legal.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:byte">
+            <xs:enumeration value="1">
+                <xs:annotation>
+                    <xs:documentation>Acordo Coletivo de Trabalho</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="2">
+                <xs:annotation>
+                    <xs:documentation>Convenção Coletiva de Trabalho</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="3">
+                <xs:annotation>
+                    <xs:documentation>Acordo individual escrito</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="4">
+                <xs:annotation>
+                    <xs:documentation>Acordo individual verbal ou tácito</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="5">
+                <xs:annotation>
+                    <xs:documentation>Inexistente</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Campo {compJorn} -->
+
+    <xs:simpleType name="TS_compJorn">
+        <xs:annotation>
+            <xs:documentation>Preencher com o código indicativo de existência de regime de compensação de jornada.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:byte">
+            <xs:enumeration value="1">
+                <xs:annotation>
+                    <xs:documentation>Semanal</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="2">
+                <xs:annotation>
+                    <xs:documentation>Mensal (mês civil)</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="3">
+                <xs:annotation>
+                    <xs:documentation>Semana espanhola</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="4">
+                <xs:annotation>
+                    <xs:documentation>Semestral</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="5">
+                <xs:annotation>
+                    <xs:documentation>Anual</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="6">
+                <xs:annotation>
+                    <xs:documentation>Outro</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="7">
+                <xs:annotation>
+                    <xs:documentation>Não há regime de compensação</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Campo {perDurComp} -->
+
+    <xs:simpleType name="TS_perDurComp">
+        <xs:annotation>
+            <xs:documentation>Informar a quantidade de meses em que deve ocorrer a compensação.</xs:documentation>
+            <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se {compJorn}(./compJorn) = [6].</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:byte">
+            <xs:pattern value="\d{1,2}" />
+            <xs:minExclusive value="1" />
+            <xs:maxExclusive value="12" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Campo {tpCompJorn} -->
+
+    <xs:simpleType name="TS_tpCompJorn">
+        <xs:annotation>
+            <xs:documentation>Informar o código indicativo do tipo de regime de compensação.</xs:documentation>
+            <xs:documentation>Validação: Preenchimento obrigatório se {compJorn}(./compJorn) = [4, 5, 6]. Não preencher se {compJorn}(./compJorn) = [7].</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:byte">
+            <xs:enumeration value="1">
+                <xs:annotation>
+                    <xs:documentation>Termo inicial fixo</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="2">
+                <xs:annotation>
+                    <xs:documentation>Termo inicial móvel</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Campo {acAutorComp} -->
+
+    <xs:simpleType name="TS_acAutorComp">
+        <xs:annotation>
+            <xs:documentation>Informar o código do tipo de acordo que autoriza o regime de compensação de jornada.</xs:documentation>
+            <xs:documentation>Validação: Preenchimento obrigatório se {compJorn}(./compJorn) = [3, 4, 5, 6]. Não preencher se {compJorn}(./compJorn) = [7].</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:byte">
             <xs:enumeration value="1">

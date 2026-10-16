@@ -14249,6 +14249,16 @@ OC (se <a href="#2200_vinculo_infoRegimeTrab_infoCeletista_tpRegJor">tpRegJor</a
 F (nos demais casos)</td>
 </tr>
 <tr>
+<td id="r_2200_vinculo_infoContrato_horContratual_infoComp"><a href="#2200_vinculo_infoContrato_horContratual_infoComp">infoComp</a></td>
+<td><a href="#r_2200_vinculo_infoContrato_horContratual">horContratual</a></td>
+<td>6</td>
+<td>Informações de regime de compensação de jornada</td>
+<td>0-1</td>
+<td>-</td>
+<td>O (se <a href="#2200_vinculo_infoRegimeTrab_infoCeletista_dtAdm">dtAdm</a>, <a href="#2200_vinculo_sucessaoVinc_dtTransf">sucessaoVinc/dtTransf</a>, <a href="#2200_vinculo_transfDom_dtTransf">transfDom/dtTransf</a> ou <a href="#2200_vinculo_mudancaCPF_dtAltCPF">dtAltCPF</a> (maior data entre elas) for igual ou posterior a [2027-XX-XX]);<br>
+F (nos demais casos)</td>
+</tr>
+<tr>
 <td id="r_2200_vinculo_infoContrato_alvaraJudicial"><a href="#2200_vinculo_infoContrato_alvaraJudicial">alvaraJudicial</a></td>
 <td><a href="#r_2200_vinculo_infoContrato">infoContrato</a></td>
 <td>5</td>
@@ -16219,6 +16229,81 @@ O preenchimento do campo é obrigatório se a duração do intervalo for superio
 <strong>5</strong> - Inexistente</td>
 </tr>
 <tr class="grupo">
+<td class="seletor" onclick="copiarCaminho.call(this)" title="2200_vinculo_infoContrato_horContratual_infoComp" id="2200_vinculo_infoContrato_horContratual_infoComp"></td>
+<td><a href="#r_2200_vinculo_infoContrato_horContratual_infoComp">infoComp</a></td>
+<td><a href="#r_2200_vinculo_infoContrato_horContratual">horContratual</a></td>
+<td>G</td>
+<td>-</td>
+<td>0-1</td>
+<td>-</td>
+<td>-</td>
+<td>Informações de regime de compensação de jornada.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="2200_vinculo_infoContrato_horContratual_infoComp_compJorn" id="2200_vinculo_infoContrato_horContratual_infoComp_compJorn"></td>
+<td>compJorn</td>
+<td><a href="#r_2200_vinculo_infoContrato_horContratual_infoComp">infoComp</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1</td>
+<td>-</td>
+<td>Preencher com o código indicativo de existência de regime de compensação de jornada.<br>
+<strong>Valores válidos:</strong><br>
+<strong>1</strong> - Semanal<br>
+<strong>2</strong> - Mensal (mês civil)<br>
+<strong>3</strong> - Semana espanhola<br>
+<strong>4</strong> - Semestral<br>
+<strong>5</strong> - Anual<br>
+<strong>6</strong> - Outro<br>
+<strong>7</strong> - Não há regime de compensação</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="2200_vinculo_infoContrato_horContratual_infoComp_perDurComp" id="2200_vinculo_infoContrato_horContratual_infoComp_perDurComp"></td>
+<td>perDurComp</td>
+<td><a href="#r_2200_vinculo_infoContrato_horContratual_infoComp">infoComp</a></td>
+<td>E</td>
+<td>N</td>
+<td>0-1</td>
+<td>1-2</td>
+<td>-</td>
+<td>Informar a quantidade de meses em que deve ocorrer a compensação.<br>
+<strong>Validação:</strong> Preenchimento obrigatório e exclusivo se <a href="#2200_vinculo_infoContrato_horContratual_infoComp_compJorn">compJorn</a> = [6].</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="2200_vinculo_infoContrato_horContratual_infoComp_tpCompJorn" id="2200_vinculo_infoContrato_horContratual_infoComp_tpCompJorn"></td>
+<td>tpCompJorn</td>
+<td><a href="#r_2200_vinculo_infoContrato_horContratual_infoComp">infoComp</a></td>
+<td>E</td>
+<td>N</td>
+<td>0-1</td>
+<td>1</td>
+<td>-</td>
+<td>Informar o código indicativo do tipo de regime de compensação.<br>
+<strong>Valores válidos:</strong><br>
+<strong>1</strong> - Termo inicial fixo<br>
+<strong>2</strong> - Termo inicial móvel<br>
+<strong>Validação:</strong> Preenchimento obrigatório se <a href="#2200_vinculo_infoContrato_horContratual_infoComp_compJorn">compJorn</a> = [4, 5, 6]. Não preencher se <a href="#2200_vinculo_infoContrato_horContratual_infoComp_compJorn">compJorn</a> = [7].</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="2200_vinculo_infoContrato_horContratual_infoComp_acAutorComp" id="2200_vinculo_infoContrato_horContratual_infoComp_acAutorComp"></td>
+<td>acAutorComp</td>
+<td><a href="#r_2200_vinculo_infoContrato_horContratual_infoComp">infoComp</a></td>
+<td>E</td>
+<td>N</td>
+<td>0-1</td>
+<td>1</td>
+<td>-</td>
+<td>Informar o código do tipo de acordo que autoriza o regime de compensação de jornada.<br>
+<strong>Valores válidos:</strong><br>
+<strong>1</strong> - Acordo Coletivo de Trabalho<br>
+<strong>2</strong> - Convenção Coletiva de Trabalho<br>
+<strong>3</strong> - Acordo individual escrito<br>
+<strong>4</strong> - Acordo individual verbal ou tácito<br>
+<strong>5</strong> - Inexistente<br>
+<strong>Validação:</strong> Preenchimento obrigatório se <a href="#2200_vinculo_infoContrato_horContratual_infoComp_compJorn">compJorn</a> = [3, 4, 5, 6]. Não preencher se <a href="#2200_vinculo_infoContrato_horContratual_infoComp_compJorn">compJorn</a> = [7].</td>
+</tr>
+<tr class="grupo">
 <td class="seletor" onclick="copiarCaminho.call(this)" title="2200_vinculo_infoContrato_alvaraJudicial" id="2200_vinculo_infoContrato_alvaraJudicial"></td>
 <td><a href="#r_2200_vinculo_infoContrato_alvaraJudicial">alvaraJudicial</a></td>
 <td><a href="#r_2200_vinculo_infoContrato">infoContrato</a></td>
@@ -17806,6 +17891,16 @@ N (nos demais casos)</td>
 OC (nos demais casos)</td>
 </tr>
 <tr>
+<td id="r_2206_altContratual_vinculo_infoContrato_horContratual_infoComp"><a href="#2206_altContratual_vinculo_infoContrato_horContratual_infoComp">infoComp</a></td>
+<td><a href="#r_2206_altContratual_vinculo_infoContrato_horContratual">horContratual</a></td>
+<td>7</td>
+<td>Informações de regime de compensação de jornada</td>
+<td>0-1</td>
+<td>-</td>
+<td>O (<a href="#2206_altContratual_dtAlteracao">dtAlteracao</a> for igual ou posterior a [2027-XX-XX]);<br>
+F (nos demais casos)</td>
+</tr>
+<tr>
 <td id="r_2206_altContratual_vinculo_infoContrato_alvaraJudicial"><a href="#2206_altContratual_vinculo_infoContrato_alvaraJudicial">alvaraJudicial</a></td>
 <td><a href="#r_2206_altContratual_vinculo_infoContrato">infoContrato</a></td>
 <td>6</td>
@@ -18851,6 +18946,81 @@ O preenchimento do campo é obrigatório se a duração do intervalo for superio
 <strong>3</strong> - Acordo individual escrito<br>
 <strong>4</strong> - Acordo individual verbal ou tácito<br>
 <strong>5</strong> - Inexistente</td>
+</tr>
+<tr class="grupo">
+<td class="seletor" onclick="copiarCaminho.call(this)" title="2206_altContratual_vinculo_infoContrato_horContratual_infoComp" id="2206_altContratual_vinculo_infoContrato_horContratual_infoComp"></td>
+<td><a href="#r_2206_altContratual_vinculo_infoContrato_horContratual_infoComp">infoComp</a></td>
+<td><a href="#r_2206_altContratual_vinculo_infoContrato_horContratual">horContratual</a></td>
+<td>G</td>
+<td>-</td>
+<td>0-1</td>
+<td>-</td>
+<td>-</td>
+<td>Informações de regime de compensação de jornada.</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="2206_altContratual_vinculo_infoContrato_horContratual_infoComp_compJorn" id="2206_altContratual_vinculo_infoContrato_horContratual_infoComp_compJorn"></td>
+<td>compJorn</td>
+<td><a href="#r_2206_altContratual_vinculo_infoContrato_horContratual_infoComp">infoComp</a></td>
+<td>E</td>
+<td>N</td>
+<td>1</td>
+<td>1</td>
+<td>-</td>
+<td>Preencher com o código indicativo de existência de regime de compensação de jornada.<br>
+<strong>Valores válidos:</strong><br>
+<strong>1</strong> - Semanal<br>
+<strong>2</strong> - Mensal (mês civil)<br>
+<strong>3</strong> - Semana espanhola<br>
+<strong>4</strong> - Semestral<br>
+<strong>5</strong> - Anual<br>
+<strong>6</strong> - Outro<br>
+<strong>7</strong> - Não há regime de compensação</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="2206_altContratual_vinculo_infoContrato_horContratual_infoComp_perDurComp" id="2206_altContratual_vinculo_infoContrato_horContratual_infoComp_perDurComp"></td>
+<td>perDurComp</td>
+<td><a href="#r_2206_altContratual_vinculo_infoContrato_horContratual_infoComp">infoComp</a></td>
+<td>E</td>
+<td>N</td>
+<td>0-1</td>
+<td>1-2</td>
+<td>-</td>
+<td>Informar a quantidade de meses em que deve ocorrer a compensação.<br>
+<strong>Validação:</strong> Preenchimento obrigatório e exclusivo se <a href="#2206_altContratual_vinculo_infoContrato_horContratual_infoComp_compJorn">compJorn</a> = [6].</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="2206_altContratual_vinculo_infoContrato_horContratual_infoComp_tpCompJorn" id="2206_altContratual_vinculo_infoContrato_horContratual_infoComp_tpCompJorn"></td>
+<td>tpCompJorn</td>
+<td><a href="#r_2206_altContratual_vinculo_infoContrato_horContratual_infoComp">infoComp</a></td>
+<td>E</td>
+<td>N</td>
+<td>0-1</td>
+<td>1</td>
+<td>-</td>
+<td>Informar o código indicativo do tipo de regime de compensação.<br>
+<strong>Valores válidos:</strong><br>
+<strong>1</strong> - Termo inicial fixo<br>
+<strong>2</strong> - Termo inicial móvel<br>
+<strong>Validação:</strong> Preenchimento obrigatório se <a href="#2206_altContratual_vinculo_infoContrato_horContratual_infoComp_compJorn">compJorn</a> = [4, 5, 6]. Não preencher se <a href="#2206_altContratual_vinculo_infoContrato_horContratual_infoComp_compJorn">compJorn</a> = [7].</td>
+</tr>
+<tr>
+<td class="seletor" onclick="copiarCaminho.call(this)" title="2206_altContratual_vinculo_infoContrato_horContratual_infoComp_acAutorComp" id="2206_altContratual_vinculo_infoContrato_horContratual_infoComp_acAutorComp"></td>
+<td>acAutorComp</td>
+<td><a href="#r_2206_altContratual_vinculo_infoContrato_horContratual_infoComp">infoComp</a></td>
+<td>E</td>
+<td>N</td>
+<td>0-1</td>
+<td>1</td>
+<td>-</td>
+<td>Informar o código do tipo de acordo que autoriza o regime de compensação de jornada.<br>
+<strong>Valores válidos:</strong><br>
+<strong>1</strong> - Acordo Coletivo de Trabalho<br>
+<strong>2</strong> - Convenção Coletiva de Trabalho<br>
+<strong>3</strong> - Acordo individual escrito<br>
+<strong>4</strong> - Acordo individual verbal ou tácito<br>
+<strong>5</strong> - Inexistente<br>
+<strong>Validação:</strong> Preenchimento obrigatório se <a href="#2206_altContratual_vinculo_infoContrato_horContratual_infoComp_compJorn">compJorn</a> = [3, 4, 5, 6]. Não preencher se <a href="#2206_altContratual_vinculo_infoContrato_horContratual_infoComp_compJorn">compJorn</a> = [7].</td>
 </tr>
 <tr class="grupo">
 <td class="seletor" onclick="copiarCaminho.call(this)" title="2206_altContratual_vinculo_infoContrato_alvaraJudicial" id="2206_altContratual_vinculo_infoContrato_alvaraJudicial"></td>

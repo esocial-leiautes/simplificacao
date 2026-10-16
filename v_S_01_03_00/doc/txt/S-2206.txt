@@ -164,6 +164,15 @@ Chave: -
 Condição: O (se {tpRegJor}(../../infoRegimeTrab_infoCeletista_tpRegJor) = [1])
 OC (nos demais casos)
 
+Nível: 7
+Nome: infoComp
+Pai: horContratual
+Descrição: Informações de regime de compensação de jornada.
+Ocorrência: 0-1
+Chave: -
+Condição: O ({dtAlteracao}(2206_altContratual_dtAlteracao) for igual ou posterior a [2027-XX-XX])
+F (nos demais casos)
+
 Nível: 6
 Nome: alvaraJudicial
 Pai: infoContrato
@@ -1037,6 +1046,71 @@ Valores válidos:
 3 - Acordo individual escrito
 4 - Acordo individual verbal ou tácito
 5 - Inexistente
+
+Nome: infoComp
+Pai: horContratual
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações de regime de compensação de jornada.
+
+Nome: compJorn
+Pai: infoComp
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código indicativo de existência de regime de compensação de jornada.
+Valores válidos:
+1 - Semanal
+2 - Mensal (mês civil)
+3 - Semana espanhola
+4 - Semestral
+5 - Anual
+6 - Outro
+7 - Não há regime de compensação
+
+Nome: perDurComp
+Pai: infoComp
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-2
+Dec.: -
+Descrição: Informar a quantidade de meses em que deve ocorrer a compensação.
+Validação: Preenchimento obrigatório e exclusivo se {compJorn}(./compJorn) = [6].
+
+Nome: tpCompJorn
+Pai: infoComp
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Informar o código indicativo do tipo de regime de compensação.
+Valores válidos:
+1 - Termo inicial fixo
+2 - Termo inicial móvel
+Validação: Preenchimento obrigatório se {compJorn}(./compJorn) = [4, 5, 6]. Não preencher se {compJorn}(./compJorn) = [7].
+
+Nome: acAutorComp
+Pai: infoComp
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Informar o código do tipo de acordo que autoriza o regime de compensação de jornada.
+Valores válidos:
+1 - Acordo Coletivo de Trabalho
+2 - Convenção Coletiva de Trabalho
+3 - Acordo individual escrito
+4 - Acordo individual verbal ou tácito
+5 - Inexistente
+Validação: Preenchimento obrigatório se {compJorn}(./compJorn) = [3, 4, 5, 6]. Não preencher se {compJorn}(./compJorn) = [7].
 
 Nome: alvaraJudicial
 Pai: infoContrato
