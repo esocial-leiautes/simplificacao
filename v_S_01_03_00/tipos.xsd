@@ -752,6 +752,14 @@
                     <xs:documentation>CONDICAO_GRUPO: O (se {dtAdm}(2200_vinculo_infoRegimeTrab_infoCeletista_dtAdm), {sucessaoVinc/dtTransf}(2200_vinculo_sucessaoVinc_dtTransf), {transfDom/dtTransf}(2200_vinculo_transfDom_dtTransf) ou {dtAltCPF}(2200_vinculo_mudancaCPF_dtAltCPF) (maior data entre elas) for igual ou posterior a [2027-XX-XX]); F (nos demais casos)</xs:documentation>
                 </xs:annotation>
             </xs:element>
+            <xs:element name="atvHrNotDif" minOccurs="0" type="T_atvHrNotDif">
+                <xs:annotation>
+                    <xs:documentation>Informações sobre hora noturna diferenciada.</xs:documentation>
+                    <xs:documentation>DESCRICAO_COMPLETA: Informações sobre hora noturna diferenciada.</xs:documentation>
+                    <xs:documentation>Preencher este grupo somente quando a jornada semanal possuir horário noturno (ainda que parcialmente) e esse horário não for o previsto no art. 73 da CLT.</xs:documentation>
+                    <xs:documentation>CONDICAO_GRUPO: OC (se {codCateg}(../../codCateg) for diferente de [111], se {tpJornada}(../tpJornada) for diferente de [7, 9] e se {dtAdm}(2200_vinculo_infoRegimeTrab_infoCeletista_dtAdm), {sucessaoVinc/dtTransf}(2200_vinculo_sucessaoVinc_dtTransf), {transfDom/dtTransf}(2200_vinculo_transfDom_dtTransf) ou {dtAltCPF}(2200_vinculo_mudancaCPF_dtAltCPF) (maior data entre elas) for igual ou posterior a [2027-XX-XX]); N (nos demais casos)</xs:documentation>
+                </xs:annotation>
+            </xs:element>
         </xs:sequence>
     </xs:complexType>
 
@@ -800,6 +808,14 @@
                     <xs:documentation>CONDICAO_GRUPO: O ({dtAlteracao}(2206_altContratual_dtAlteracao) for igual ou posterior a [2027-XX-XX]); F (nos demais casos)</xs:documentation>
                 </xs:annotation>
             </xs:element>
+            <xs:element name="atvHrNotDif" minOccurs="0" type="T_atvHrNotDif">
+                <xs:annotation>
+                    <xs:documentation>Informações sobre hora noturna diferenciada.</xs:documentation>
+                    <xs:documentation>DESCRICAO_COMPLETA: Informações sobre hora noturna diferenciada.</xs:documentation>
+                    <xs:documentation>Preencher este grupo somente quando a jornada semanal possuir horário noturno (ainda que parcialmente) e esse horário não for o previsto no art. 73 da CLT.</xs:documentation>
+                    <xs:documentation>CONDICAO_GRUPO: OC (se {codCateg}(../../codCateg) for diferente de [111], se {tpJornada}(../tpJornada) for diferente de [7, 9] e se {dtAlteracao}(2206_altContratual_dtAlteracao) for igual ou posterior a [2027-XX-XX]); N (nos demais casos)</xs:documentation>
+                </xs:annotation>
+            </xs:element>
         </xs:sequence>
     </xs:complexType>
 
@@ -811,6 +827,17 @@
             <xs:element name="perDurComp" minOccurs="0" type="TS_perDurComp" />
             <xs:element name="tpCompJorn" minOccurs="0" type="TS_tpCompJorn" />
             <xs:element name="acAutorComp" minOccurs="0" type="TS_acAutorComp" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <!-- Grupo {atvHrNotDif} -->
+
+    <xs:complexType name="T_atvHrNotDif">
+        <xs:sequence>
+            <xs:element name="tpHorNot" type="TS_tpHorNot" />
+            <xs:element name="hrInicio" minOccurs="0" type="TS_hrInicio" />
+            <xs:element name="hrFim" minOccurs="0" type="TS_hrFim" />
+            <xs:element name="durHorNot" minOccurs="0" type="TS_durHorNot" />
         </xs:sequence>
     </xs:complexType>
 
@@ -4274,6 +4301,84 @@
             </xs:enumeration>
         </xs:restriction>
     </xs:simpleType>
+
+    <!-- Campo {tpHorNot} -->
+
+    <xs:simpleType name="TS_tpHorNot">
+        <xs:annotation>
+            <xs:documentation>Indicar se a jornada semanal possui horário noturno (no todo ou em parte) distinto do trabalho urbano previsto na CLT.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:byte">
+            <xs:enumeration value="1">
+                <xs:annotation>
+                    <xs:documentation>Trabalhador rural na lavoura (art. 7º, parte inicial, da Lei 5.889/1973)</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="2">
+                <xs:annotation>
+                    <xs:documentation>Trabalhador rural na pecuária (art. 7º, parte final, da Lei 5.889/1973)</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="3">
+                <xs:annotation>
+                    <xs:documentation>Advogado empregado (art. 20, § 3º, da Lei 8.906/1994)</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="4">
+                <xs:annotation>
+                    <xs:documentation>Aeronauta (art. 39 da Lei 13.475/2017)</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="5">
+                <xs:annotation>
+                    <xs:documentation>Trabalhador avulso portuário (art. 4º, § 1º, da Lei 4.860/1965)</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="6">
+                <xs:annotation>
+                    <xs:documentation>Outros</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>    
+ 
+    <!-- Campo {hrInicio} -->
+
+    <xs:simpleType name="TS_hrInicio">
+        <xs:annotation>
+            <xs:documentation>Preencher com o horário inicial do período noturno, no formato HHMM. </xs:documentation>
+            <xs:documentation>Validação: Informação obrigatória e exclusiva se {tpHorNot}(./tpHorNot) = [6].</xs:documentation>
+            <xs:documentation>Deve estar no intervalo entre [0000] e [2359], criticando inclusive a segunda parte do número, que indica os minutos, que deve ser menor ou igual a 59.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="TS_hora" />
+    </xs:simpleType>
+ 
+    <!-- Campo {hrFim} -->
+
+    <xs:simpleType name="TS_hrFim">
+        <xs:annotation>
+            <xs:documentation>Preencher com o horário final do período noturno, no formato HHMM. </xs:documentation>
+            <xs:documentation>Validação: Informação obrigatória e exclusiva se {tpHorNot}(./tpHorNot) = [6].</xs:documentation>
+            <xs:documentation>Deve estar no intervalo entre [0000] e [2359], criticando inclusive a segunda parte do número, que indica os minutos, que deve ser menor ou igual a 59.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="TS_hora" />
+    </xs:simpleType>  
+ 
+        <!-- Campo {durHorNot} -->
+
+    <xs:simpleType name="TS_durHorNot">
+        <xs:annotation>
+            <xs:documentation>Duração da hora durante o horário noturno, em minutos. </xs:documentation>
+            <xs:documentation>Validação: Informação obrigatória e exclusiva se {tpHorNot}(./tpHorNot) = [6].</xs:documentation>
+            <xs:documentation>Deve ser um número maior que 0 (zero) e menor ou igual a 60 (sessenta).</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:decimal">
+            <xs:totalDigits value="4" />
+            <xs:fractionDigits value="2" />
+            <xs:minExclusive value="0" />
+            <xs:maxInclusive value="60" />
+        </xs:restriction>
+    </xs:simpleType>  
 
     <!-- Campo {codMotAfast} -->
 

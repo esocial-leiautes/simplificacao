@@ -274,6 +274,15 @@ Chave: -
 Condição: O (se {dtAdm}(2200_vinculo_infoRegimeTrab_infoCeletista_dtAdm), {sucessaoVinc/dtTransf}(2200_vinculo_sucessaoVinc_dtTransf), {transfDom/dtTransf}(2200_vinculo_transfDom_dtTransf) ou {dtAltCPF}(2200_vinculo_mudancaCPF_dtAltCPF) (maior data entre elas) for igual ou posterior a [2027-XX-XX])
 F (nos demais casos)
 
+Nível: 6
+Nome: atvHrNotDif
+Pai: horContratual
+Descrição: Informações sobre hora noturna diferenciada.
+Ocorrência: 0-1
+Chave: -
+Condição: OC (se {codCateg}(../../codCateg) for diferente de [111], se {tpJornada}(../tpJornada) for diferente de [7, 9] e se {dtAdm}(2200_vinculo_infoRegimeTrab_infoCeletista_dtAdm), {sucessaoVinc/dtTransf}(2200_vinculo_sucessaoVinc_dtTransf), {transfDom/dtTransf}(2200_vinculo_transfDom_dtTransf) ou {dtAltCPF}(2200_vinculo_mudancaCPF_dtAltCPF) (maior data entre elas) for igual ou posterior a [2027-XX-XX])
+N (nos demais casos)
+
 Nível: 5
 Nome: alvaraJudicial
 Pai: infoContrato
@@ -2074,6 +2083,65 @@ Valores válidos:
 4 - Acordo individual verbal ou tácito
 5 - Inexistente
 Validação: Preenchimento obrigatório se {compJorn}(./compJorn) = [3, 4, 5, 6]. Não preencher se {compJorn}(./compJorn) = [7].
+
+Nome: atvHrNotDif
+Pai: horContratual
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição:  Informações sobre hora noturna diferenciada.
+Preencher este grupo somente quando a jornada semanal possuir horário noturno (ainda que parcialmente) e esse horário não for o previsto no art. 73 da CLT.
+
+Nome: tpHorNot
+Pai: atvHrNotDif
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Indicar se a jornada semanal possui horário noturno (no todo ou em parte) distinto do trabalho urbano previsto na CLT.
+Valores válidos:
+1 - Trabalhador rural na lavoura (art. 7º, parte inicial, da Lei 5.889/1973)
+2 - Trabalhador rural na pecuária (art. 7º, parte final, da Lei 5.889/1973)
+3 - Advogado empregado (art. 20, § 3º, da Lei 8.906/1994)
+4 - Aeronauta (art. 39 da Lei 13.475/2017)
+5 - Trabalhador avulso portuário (art. 4º, § 1º, da Lei 4.860/1965)
+6 - Outros
+
+Nome: hrInicio
+Pai: atvHrNotDif
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 4
+Dec.: -
+Descrição: Preencher com o horário inicial do período noturno, no formato HHMM. 
+Validação: Informação obrigatória e exclusiva se {tpHorNot}(./tpHorNot) = [6].
+Deve estar no intervalo entre [0000] e [2359], criticando inclusive a segunda parte do número, que indica os minutos, que deve ser menor ou igual a 59.
+
+Nome: hrFim
+Pai: atvHrNotDif
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 4
+Dec.: -
+Descrição: Preencher com o horário final do período noturno, no formato HHMM. 
+Validação: Informação obrigatória e exclusiva se {tpHorNot}(./tpHorNot) = [6].
+Deve estar no intervalo entre [0000] e [2359], criticando inclusive a segunda parte do número, que indica os minutos, que deve ser menor ou igual a 59.
+
+Nome: durHorNot
+Pai: atvHrNotDif
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-4
+Dec.: 2
+Descrição: Duração da hora durante o horário noturno, em minutos. 
+Validação: Informação obrigatória e exclusiva se {tpHorNot}(./tpHorNot) = [6].
+Deve ser um número maior que 0 (zero) e menor ou igual a 60 (sessenta).
 
 Nome: alvaraJudicial
 Pai: infoContrato
