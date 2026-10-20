@@ -752,6 +752,13 @@
                     <xs:documentation>CONDICAO_GRUPO: O (se {dtAdm}(2200_vinculo_infoRegimeTrab_infoCeletista_dtAdm), {sucessaoVinc/dtTransf}(2200_vinculo_sucessaoVinc_dtTransf), {transfDom/dtTransf}(2200_vinculo_transfDom_dtTransf) ou {dtAltCPF}(2200_vinculo_mudancaCPF_dtAltCPF) (maior data entre elas) for igual ou posterior a [2027-XX-XX]); N (nos demais casos)</xs:documentation>
                 </xs:annotation>
             </xs:element>
+            <xs:element name="horarios" minOccurs="0" type="T_horarios">
+                <xs:annotation>
+                    <xs:documentation>Informações do horário contratual do trabalhador.</xs:documentation>
+                    <xs:documentation>Validação: Cada valor do campo {dia}(./horario_dias_dia) somente pode ser preenchido no máximo uma única vez.</xs:documentation>
+                    <xs:documentation>CONDICAO_GRUPO: O (se {dtAdm}(2200_vinculo_infoRegimeTrab_infoCeletista_dtAdm), {sucessaoVinc/dtTransf}(2200_vinculo_sucessaoVinc_dtTransf), {transfDom/dtTransf}(2200_vinculo_transfDom_dtTransf) ou {dtAltCPF}(2200_vinculo_mudancaCPF_dtAltCPF) (maior data entre elas) for igual ou posterior a [2027-XX-XX] e se {tpJornada}(../tpJornada) for diferente de [7, 9]); N (nos demais casos)</xs:documentation>
+                </xs:annotation>
+            </xs:element>
             <xs:element name="atvHrNotDif" minOccurs="0" type="T_atvHrNotDif">
                 <xs:annotation>
                     <xs:documentation>Informações sobre hora noturna diferenciada.</xs:documentation>
@@ -808,6 +815,13 @@
                     <xs:documentation>CONDICAO_GRUPO: O (se {dtAlteracao}(2206_altContratual_dtAlteracao) for igual ou posterior a [2027-XX-XX]); N (nos demais casos)</xs:documentation>
                 </xs:annotation>
             </xs:element>
+            <xs:element name="horarios" minOccurs="0" type="T_horarios">
+                <xs:annotation>
+                    <xs:documentation>Informações do horário contratual do trabalhador.</xs:documentation>
+                    <xs:documentation>Validação: Cada valor do campo {dia} somente pode ser preenchido no máximo uma única vez.</xs:documentation>
+                    <xs:documentation>CONDICAO_GRUPO: O (se {dtAlteracao}(2206_altContratual_dtAlteracao) for igual ou posterior a [2027-XX-XX] e se {tpJornada}(../tpJornada) for diferente de [7, 9]); N (nos demais casos)</xs:documentation>
+                </xs:annotation>
+            </xs:element>
             <xs:element name="atvHrNotDif" minOccurs="0" type="T_atvHrNotDif">
                 <xs:annotation>
                     <xs:documentation>Informações sobre hora noturna diferenciada.</xs:documentation>
@@ -838,6 +852,81 @@
             <xs:element name="hrInicio" minOccurs="0" type="TS_hrInicio" />
             <xs:element name="hrFim" minOccurs="0" type="TS_hrFim" />
             <xs:element name="durHorNot" minOccurs="0" type="TS_durHorNot" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Grupo {horarios} -->
+
+    <xs:complexType name="T_horarios">
+        <xs:sequence>
+            <xs:element name="horario" minOccurs="1" maxOccurs="7" type="T_horario">
+                <xs:annotation>
+                    <xs:documentation>Informações dos horários de trabalho.</xs:documentation>
+                    <xs:documentation>CHAVE_GRUPO: {durJornada}, {hrEntrada}</xs:documentation>
+                    <xs:documentation>CONDICAO_GRUPO: O</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="escalas" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Informações das escalas do trabalhador.</xs:documentation>
+                    <xs:documentation>CONDICAO_GRUPO: O (se {tpJornada}(../../tpJornada) = [7, 9, 12]); N (nos demais casos)</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="qtdDSR" type="TS_qtdDSR" />
+                        <xs:element name="qtdMaxDiasCorr" type="TS_qtdMaxDiasCorr" />
+                        <xs:element name="coincDSRDom" minOccurs="0" type="TS_coincDSRDom" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Grupo {horario} -->
+
+    <xs:complexType name="T_horario">
+        <xs:sequence>
+            <xs:element name="durJornada" type="TS_durJornada" />
+            <xs:element name="hrEntrada" type="TS_hrEntrada" />
+            <xs:element name="hrSaida" type="TS_hrSaida" />
+            <xs:element name="intervalos" minOccurs="0" maxOccurs="2">
+                <xs:annotation>
+                    <xs:documentation>Informações sobre os intervalos intrajornada.</xs:documentation>
+                    <xs:documentation>CHAVE_GRUPO: {tpInterv}</xs:documentation>
+                    <xs:documentation>CONDICAO_GRUPO: OC</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="tpInterv" type="TS_tpInterv" />
+                        <xs:element name="intervalo" minOccurs="1" maxOccurs="9">
+                            <xs:annotation>
+                                <xs:documentation>Horário de início, quantidade e duração do intervalo intrajornada.</xs:documentation>
+                                <xs:documentation>CHAVE_GRUPO: {iniInterv}, {qtdInterv}, {durInterv}</xs:documentation>
+                                <xs:documentation>CONDICAO_GRUPO: O</xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="iniInterv" minOccurs="0" type="TS_iniInterv" />
+                                    <xs:element name="qtdInterv" minOccurs="0" type="TS_qtdInterv" />
+                                    <xs:element name="durInterv" type="TS_durInterv" />
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="dias" minOccurs="1" maxOccurs="7">
+                <xs:annotation>
+                    <xs:documentation>Dia(s) de trabalho relativo(s) à jornada informada.</xs:documentation>
+                    <xs:documentation>CHAVE_GRUPO: {dia}</xs:documentation>
+                    <xs:documentation>CONDICAO_GRUPO: O</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="dia" type="TS_diaSemana"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
         </xs:sequence>
     </xs:complexType>
 
@@ -4302,6 +4391,223 @@
         </xs:restriction>
     </xs:simpleType>
 
+    <!-- Campo {durJornada} -->
+
+    <xs:simpleType name="TS_durJornada">
+        <xs:annotation>
+            <xs:documentation>Preencher com a duração da jornada diária, em minutos. </xs:documentation>
+            <xs:documentation>Validação: Deve ser um número maior que 0 (zero).</xs:documentation>
+            <xs:documentation>Caso a duração informada não corresponda aos horários informados, retornar alerta.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:integer">
+            <xs:minExclusive value="0" />
+            <xs:maxInclusive value="999 " />
+            <xs:pattern value="\d{1,3}" />
+        </xs:restriction>
+    </xs:simpleType>
+ 
+    <!-- Campo {hrEntrada} -->
+
+    <xs:simpleType name="TS_hrEntrada">
+        <xs:annotation>
+            <xs:documentation>Preencher com a hora do início da jornada, no formato HHMM. </xs:documentation>
+            <xs:documentation>Validação: Deve estar no intervalo entre [0000] e [2359], criticando inclusive a segunda parte do número, que indica os minutos, que deve ser menor ou igual a 59.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="TS_hora" />
+    </xs:simpleType>
+ 
+    <!-- Campo {hrSaida} -->
+
+    <xs:simpleType name="TS_hrSaida">
+        <xs:annotation>
+            <xs:documentation>Preencher com a hora do término da jornada, no formato HHMM. </xs:documentation>
+            <xs:documentation>Validação: Deve estar no intervalo entre [0000] e [2359], criticando inclusive a segunda parte do número, que indica os minutos, que deve ser menor ou igual a 59.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="TS_hora" />
+    </xs:simpleType>
+
+    <!-- Campo {tpInterv} -->
+
+    <xs:simpleType name="TS_tpInterv">
+        <xs:annotation>
+            <xs:documentation>Preencher com o código do tipo de intervalo intrajornada.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:byte">
+            <xs:enumeration value="1">
+                <xs:annotation>
+                    <xs:documentation>Intervalo em horário fixo</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="2">
+                <xs:annotation>
+                    <xs:documentation>Intervalo em horário móvel</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Campo {iniInterv} -->
+
+    <xs:simpleType name="TS_iniInterv">
+        <xs:annotation>
+            <xs:documentation>Preencher com o horário de início do intervalo intrajornada, no formato HHMM. </xs:documentation>
+            <xs:documentation>Validação: Informação obrigatória e exclusiva se {tpInterv}(../tpInterv) = [1].</xs:documentation>
+            <xs:documentation>Deve estar no intervalo entre [0000] e [2359], criticando inclusive a segunda parte do número, que indica os minutos, que deve ser menor ou igual a 59.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="TS_hora" />
+    </xs:simpleType>
+
+    <!-- Campo {qtdInterv} -->
+
+    <xs:simpleType name="TS_qtdInterv">
+        <xs:annotation>
+            <xs:documentation>Informar a quantidade de intervalos, caso haja mais de um. </xs:documentation>
+            <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se {tpInterv}(../tpInterv) = [2].</xs:documentation>
+            <xs:documentation>Deve ser um número maior ou igual a 2 (dois).</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:byte">
+            <xs:minInclusive value="2" />
+            <xs:maxInclusive value="9" />
+            <xs:pattern value="\d{1}" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Campo {durInterv} -->
+
+    <xs:simpleType name="TS_durInterv">
+        <xs:annotation>
+            <xs:documentation>Preencher com a duração do intervalo intrajornada, em minutos. </xs:documentation>
+            <xs:documentation>Validação: Deve ser um número maior que 0 (zero).</xs:documentation>            
+        </xs:annotation>
+        <xs:restriction base="xs:integer">
+            <xs:minExclusive value="0" />
+            <xs:maxInclusive value="999 " />
+            <xs:pattern value="\d{1,3}" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Campo {dia} -->
+
+    <xs:simpleType name="TS_diaSemana">
+        <xs:annotation>
+            <xs:documentation>Informar o código indicativo do dia da semana a que se refere o horário de trabalho.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:byte">
+            <xs:enumeration value="1">
+                <xs:annotation>
+                    <xs:documentation>Dia variável</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="2">
+                <xs:annotation>
+                    <xs:documentation>Segunda-feira</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="3">
+                <xs:annotation>
+                    <xs:documentation>Terça-feira</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="4">
+                <xs:annotation>
+                    <xs:documentation>Quarta-feira</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="5">
+                <xs:annotation>
+                    <xs:documentation>Quinta-feira</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="6">
+                <xs:annotation>
+                    <xs:documentation>Sexta-feira</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="7">
+                <xs:annotation>
+                    <xs:documentation>Sábado</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="8">
+                <xs:annotation>
+                    <xs:documentation>Domingo</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
+     <!-- Campo {qtdDSR} -->
+
+    <xs:simpleType name="TS_qtdDSR">
+        <xs:annotation>
+            <xs:documentation>Preencher com a quantidade de DSRs (Descansos Semanais Remunerados). Se houver compensação mensal de DSR, informar a quantidade média. Caso não haja compensação mensal e a quantidade de DSRs varie semanalmente, informar a menor quantidade.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:byte">
+            <xs:minInclusive value="1" />
+            <xs:maxInclusive value="7" />
+            <xs:pattern value="\d{1}" />
+        </xs:restriction>
+    </xs:simpleType>
+
+     <!-- Campo {qtdMaxDiasCorr} -->
+
+    <xs:simpleType name="TS_qtdMaxDiasCorr">
+        <xs:annotation>
+            <xs:documentation>Preencher com a quantidade máxima de dias corridos trabalhados.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:byte">
+            <xs:minInclusive value="1" />
+            <xs:maxInclusive value="99" />
+            <xs:pattern value="\d{1,2}" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Campo {coincDSRDom} -->
+
+    <xs:simpleType name="TS_coincDSRDom">
+        <xs:annotation>
+            <xs:documentation>Informar o código referente à coincidência periódica do DSR com o domingo.</xs:documentation>
+            <xs:documentation>Validação: Preenchimento obrigatório se {dia}(../horario_dias_dia) = [1].</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:byte">
+            <xs:enumeration value="1">
+                <xs:annotation>
+                    <xs:documentation>Coincide no máximo na 2ª semana</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="2">
+                <xs:annotation>
+                    <xs:documentation>Coincide no máximo na 3ª semana</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="3">
+                <xs:annotation>
+                    <xs:documentation>Coincide no máximo na 7ª semana</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="4">
+                <xs:annotation>
+                    <xs:documentation>Coincide uma vez por mês</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="5">
+                <xs:annotation>
+                    <xs:documentation>Nâo coincide</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="6">
+                <xs:annotation>
+                    <xs:documentation>Coincide toda semana</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="7">
+                <xs:annotation>
+                    <xs:documentation>Coincidência variável</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
     <!-- Campo {tpHorNot} -->
 
     <xs:simpleType name="TS_tpHorNot">
@@ -4364,7 +4670,7 @@
         <xs:restriction base="TS_hora" />
     </xs:simpleType>  
  
-        <!-- Campo {durHorNot} -->
+    <!-- Campo {durHorNot} -->
 
     <xs:simpleType name="TS_durHorNot">
         <xs:annotation>
@@ -4378,8 +4684,8 @@
             <xs:minExclusive value="0" />
             <xs:maxInclusive value="60" />
         </xs:restriction>
-    </xs:simpleType>  
-
+    </xs:simpleType>
+   
     <!-- Campo {codMotAfast} -->
 
     <xs:simpleType name="TS_codMotAfast">

@@ -174,6 +174,56 @@ Condição: O (se {dtAlteracao}(2206_altContratual_dtAlteracao) for igual ou pos
 N (nos demais casos)
 
 Nível: 7
+Nome: horarios
+Pai: horContratual
+Descrição: Informações do horário contratual do trabalhador.
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {dtAlteracao}(2206_altContratual_dtAlteracao) for igual ou posterior a [2027-XX-XX] e se {tpJornada}(../tpJornada) for diferente de [7, 9])
+N (nos demais casos)
+
+Nível: 8
+Nome: horario
+Pai: horarios
+Descrição: Informações dos horários de trabalho.
+Ocorrência: 1-7
+Chave: durJornada, hrEntrada
+Condição: O
+
+Nível: 9
+Nome: intervalos
+Pai: horario
+Descrição: Informações sobre os intervalos intrajornada.
+Ocorrência: 0-2
+Chave: tpInterv
+Condição: OC
+
+Nível: 10
+Nome: intervalo
+Pai: intervalos
+Descrição: Horário de início, quantidade e duração do intervalo intrajornada.
+Ocorrência: 1-9
+Chave: iniInterv, qtdInterv, durInterv
+Condição: O
+
+Nível: 9
+Nome: dias
+Pai: horario
+Descrição: Dia(s) de trabalho relativo(s) à jornada informada.
+Ocorrência: 1-7
+Chave: dia
+Condição: O
+
+Nível: 8
+Nome: escalas
+Pai: horarios
+Descrição: Informações das escalas do trabalhador.
+Ocorrência: 0-1
+Chave: -
+Condição: O (se {tpJornada}(../../tpJornada) = [7, 9, 12])
+N (nos demais casos)
+
+Nível: 7
 Nome: atvHrNotDif
 Pai: horContratual
 Descrição: Informações sobre hora noturna diferenciada.
@@ -1120,6 +1170,190 @@ Valores válidos:
 4 - Acordo individual verbal ou tácito
 5 - Inexistente
 Validação: Preenchimento obrigatório se {compJorn}(./compJorn) = [3, 4, 5, 6]. Não preencher se {compJorn}(./compJorn) = [7].
+
+Nome: horarios
+Pai: horContratual
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações do horário contratual do trabalhador.
+Validação: Cada valor do campo {dia} somente pode ser preenchido no máximo uma única vez.
+
+Nome: horario
+Pai: horarios
+Elem.: G
+Tipo: -
+Ocorrência: 1-7
+Tamanho: -
+Dec.: -
+Descrição: Informações dos horários de trabalho.
+
+Nome: durJornada
+Pai: horario
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-3
+Dec.: -
+Descrição: Preencher com a duração da jornada diária, em minutos. 
+Validação: Deve ser um número maior que 0 (zero).
+Caso a duração informada não corresponda aos horários informados, retornar alerta.
+
+Nome: hrEntrada
+Pai: horario
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 4
+Dec.: -
+Descrição: Preencher com a hora do início da jornada, no formato HHMM. 
+Validação: Deve estar no intervalo entre [0000] e [2359], criticando inclusive a segunda parte do número, que indica os minutos, que deve ser menor ou igual a 59.
+
+Nome: hrSaida
+Pai: horario
+Elem.: E
+Tipo: C
+Ocorrência: 1
+Tamanho: 4
+Dec.: -
+Descrição: Preencher com a hora do término da jornada, no formato HHMM. 
+Validação: Deve estar no intervalo entre [0000] e [2359], criticando inclusive a segunda parte do número, que indica os minutos, que deve ser menor ou igual a 59.
+
+Nome: intervalos
+Pai: horario
+Elem.: G
+Tipo: -
+Ocorrência: 0-2
+Tamanho: -
+Dec.: -
+Descrição: Informações sobre os intervalos intrajornada.
+
+Nome: tpInterv
+Pai: intervalos
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com o código do tipo de intervalo intrajornada.
+Valores válidos:
+1 - Intervalo em horário fixo
+2 - Intervalo em horário móvel
+
+Nome: intervalo
+Pai: intervalos
+Elem.: G
+Tipo: -
+Ocorrência: 1-9
+Tamanho: -
+Dec.: -
+Descrição: Horário de início, quantidade e duração do intervalo intrajornada.
+
+Nome: iniInterv
+Pai: intervalo
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 4
+Dec.: -
+Descrição: Preencher com o horário de início do intervalo intrajornada, no formato HHMM. 
+Validação: Informação obrigatória e exclusiva se {tpInterv}(../tpInterv) = [1].
+Deve estar no intervalo entre [0000] e [2359], criticando inclusive a segunda parte do número, que indica os minutos, que deve ser menor ou igual a 59.
+
+Nome: qtdInterv
+Pai: intervalo
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Informar a quantidade de intervalos, caso haja mais de um. 
+Validação: Preenchimento obrigatório e exclusivo se {tpInterv}(../tpInterv) = [2].
+Deve ser um número maior ou igual a 2 (dois).
+
+Nome: durInterv
+Pai: intervalo
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-3
+Dec.: -
+Descrição: Preencher com a duração do intervalo intrajornada, em minutos. 
+Validação: Deve ser um número maior que 0 (zero).
+
+Nome: dias
+Pai: horario
+Elem.: G
+Tipo: -
+Ocorrência: 1-7
+Tamanho: -
+Dec.: -
+Descrição: Dia(s) de trabalho relativo(s) à jornada informada.
+
+Nome: dia
+Pai: dias
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Informar o código indicativo do dia da semana a que se refere o horário de trabalho.
+Valores válidos:
+1 - Dia variável
+2 - Segunda-feira
+3 - Terça-feira
+4 - Quarta-feira
+5 - Quinta-feira
+6 - Sexta-feira
+7 - Sábado
+8 - Domingo
+
+Nome: escalas
+Pai: horarios
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Informações das escalas do trabalhador.
+
+Nome: qtdDSR
+Pai: escalas
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Preencher com a quantidade de DSRs (Descansos Semanais Remunerados). Se houver compensação mensal de DSR, informar a quantidade média. Caso não haja compensação mensal e a quantidade de DSRs varie semanalmente, informar a menor quantidade.
+
+Nome: qtdMaxDiasCorr
+Pai: escalas
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1-2
+Dec.: -
+Descrição: Preencher com a quantidade máxima de dias corridos trabalhados.
+
+Nome: coincDSRDom
+Pai: escalas
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Informar o código referente à coincidência periódica do DSR com o domingo.
+Valores válidos:
+1 - Coincide no máximo na 2ª semana
+2 - Coincide no máximo na 3ª semana
+3 - Coincide no máximo na 7ª semana
+4 - Coincide uma vez por mês
+5 - Nâo coincide
+6 - Coincide toda semana
+7 - Coincidência variável
+Validação: Preenchimento obrigatório se {dia}(../horario_dias_dia) = [1].
 
 Nome: atvHrNotDif
 Pai: horContratual
