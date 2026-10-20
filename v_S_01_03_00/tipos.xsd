@@ -759,6 +759,12 @@
                     <xs:documentation>CONDICAO_GRUPO: O (se {dtAdm}(2200_vinculo_infoRegimeTrab_infoCeletista_dtAdm), {sucessaoVinc/dtTransf}(2200_vinculo_sucessaoVinc_dtTransf), {transfDom/dtTransf}(2200_vinculo_transfDom_dtTransf) ou {dtAltCPF}(2200_vinculo_mudancaCPF_dtAltCPF) (maior data entre elas) for igual ou posterior a [2027-XX-XX] e se {tpJornada}(../tpJornada) for diferente de [7, 9]); N (nos demais casos)</xs:documentation>
                 </xs:annotation>
             </xs:element>
+            <xs:element name="escalas" minOccurs="0" type="T_escalas">
+                <xs:annotation>
+                    <xs:documentation>Informações das escalas do trabalhador.</xs:documentation>
+                    <xs:documentation>CONDICAO_GRUPO: O (se {tpJornada}(../tpJornada) = [7, 9, 12]); N (nos demais casos)</xs:documentation>
+                </xs:annotation>
+            </xs:element>
             <xs:element name="atvHrNotDif" minOccurs="0" type="T_atvHrNotDif">
                 <xs:annotation>
                     <xs:documentation>Informações sobre hora noturna diferenciada.</xs:documentation>
@@ -818,8 +824,14 @@
             <xs:element name="horarios" minOccurs="0" type="T_horarios">
                 <xs:annotation>
                     <xs:documentation>Informações do horário contratual do trabalhador.</xs:documentation>
-                    <xs:documentation>Validação: Cada valor do campo {dia} somente pode ser preenchido no máximo uma única vez.</xs:documentation>
+                    <xs:documentation>Validação: Cada valor do campo {dia}(./horario_dias_dia) somente pode ser preenchido no máximo uma única vez.</xs:documentation>
                     <xs:documentation>CONDICAO_GRUPO: O (se {dtAlteracao}(2206_altContratual_dtAlteracao) for igual ou posterior a [2027-XX-XX] e se {tpJornada}(../tpJornada) for diferente de [7, 9]); N (nos demais casos)</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="escalas" minOccurs="0" type="T_escalas">
+                <xs:annotation>
+                    <xs:documentation>Informações das escalas do trabalhador.</xs:documentation>
+                    <xs:documentation>CONDICAO_GRUPO: O (se {tpJornada}(../tpJornada) = [7, 9, 12]); N (nos demais casos)</xs:documentation>
                 </xs:annotation>
             </xs:element>
             <xs:element name="atvHrNotDif" minOccurs="0" type="T_atvHrNotDif">
@@ -866,19 +878,16 @@
                     <xs:documentation>CONDICAO_GRUPO: O</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element name="escalas" minOccurs="0">
-                <xs:annotation>
-                    <xs:documentation>Informações das escalas do trabalhador.</xs:documentation>
-                    <xs:documentation>CONDICAO_GRUPO: O (se {tpJornada}(../../tpJornada) = [7, 9, 12]); N (nos demais casos)</xs:documentation>
-                </xs:annotation>
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element name="qtdDSR" type="TS_qtdDSR" />
-                        <xs:element name="qtdMaxDiasCorr" type="TS_qtdMaxDiasCorr" />
-                        <xs:element name="coincDSRDom" minOccurs="0" type="TS_coincDSRDom" />
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Grupo {escalas} -->
+
+    <xs:complexType name="T_escalas">
+        <xs:sequence>
+            <xs:element name="qtdDSR" type="TS_qtdDSR" />
+            <xs:element name="qtdMaxDiasCorr" type="TS_qtdMaxDiasCorr" />
+            <xs:element name="coincDSRDom" minOccurs="0" type="TS_coincDSRDom" />
         </xs:sequence>
     </xs:complexType>
 
@@ -4567,7 +4576,7 @@
     <xs:simpleType name="TS_coincDSRDom">
         <xs:annotation>
             <xs:documentation>Informar o código referente à coincidência periódica do DSR com o domingo.</xs:documentation>
-            <xs:documentation>Validação: Preenchimento obrigatório se {dia}(../horario_dias_dia) = [1].</xs:documentation>
+            <xs:documentation>Validação: Preenchimento obrigatório se {dia}(../horarios_horario_dias_dia) = [1].</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:byte">
             <xs:enumeration value="1">
