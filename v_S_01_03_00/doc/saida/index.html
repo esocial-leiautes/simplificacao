@@ -15492,7 +15492,9 @@ Se for igual a [6], <a href="#2200_vinculo_cadIni">cadIni</a> deve ser igual a [
 <strong>1</strong> - Submetido a horário de trabalho (Capítulo II do Título II da CLT)<br>
 <strong>2</strong> - Atividade externa especificada no inciso I do art. 62 da CLT<br>
 <strong>3</strong> - Função especificada no inciso II do art. 62 da CLT<br>
-<strong>4</strong> - Teletrabalho, previsto no inciso III do art. 62 da CLT</td>
+<strong>4</strong> - Teletrabalho, previsto no inciso III do art. 62 da CLT<br>
+<strong>5</strong> - Empregado enquadrado no art. 8º da EC 141/2026<br>
+<strong>Validação:</strong> Se for informado [5] e o campo <a href="#2200_trabalhador_grauInstr">grauInstr</a> for diferente de [09, 10, 11, 12], retornar alerta.</td>
 </tr>
 <tr>
 <td class="seletor" onclick="copiarCaminho.call(this)" title="2200_vinculo_infoRegimeTrab_infoCeletista_natAtividade" id="2200_vinculo_infoRegimeTrab_infoCeletista_natAtividade"></td>
@@ -18679,7 +18681,9 @@ Se a alteração foi fruto de lei, acordo coletivo, convenção coletiva ou sent
 <strong>1</strong> - Submetido a horário de trabalho (Capítulo II do Título II da CLT)<br>
 <strong>2</strong> - Atividade externa especificada no inciso I do art. 62 da CLT<br>
 <strong>3</strong> - Função especificada no inciso II do art. 62 da CLT<br>
-<strong>4</strong> - Teletrabalho, previsto no inciso III do art. 62 da CLT</td>
+<strong>4</strong> - Teletrabalho, previsto no inciso III do art. 62 da CLT<br>
+<strong>5</strong> - Empregado enquadrado no art. 8º da EC 141/2026<br>
+<strong>Validação:</strong> Se for informado [5] e o campo {grauInstr} no RET for diferente de [09, 10, 11, 12], retornar alerta.</td>
 </tr>
 <tr>
 <td class="seletor" onclick="copiarCaminho.call(this)" title="2206_altContratual_vinculo_infoRegimeTrab_infoCeletista_natAtividade" id="2206_altContratual_vinculo_infoRegimeTrab_infoCeletista_natAtividade"></td>
@@ -48676,6 +48680,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 destino.scrollIntoView({ behavior: 'smooth' });
                 e.currentTarget.value = '';
             }
+        }
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === "Escape") {
+            (document.querySelectorAll('.is-active') || []).forEach(($modal) => {
+                $modal.classList.remove('is-active');
+            });
         }
     });
 });
