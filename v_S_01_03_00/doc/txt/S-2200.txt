@@ -284,10 +284,18 @@ Condição: O (se {dtAdm}(2200_vinculo_infoRegimeTrab_infoCeletista_dtAdm), {suc
 N (nos demais casos)
 
 Nível: 7
+Nome: dias
+Pai: horarios
+Descrição: Dia de trabalho relativo ao horário contratual.
+Ocorrência: 1-7
+Chave: dia
+Condição: O
+
+Nível: 7
 Nome: horario
 Pai: horarios
-Descrição: Informações dos horários de trabalho.
-Ocorrência: 1-7
+Descrição: Informações do horário diário de trabalho.
+Ocorrência: 1
 Chave: durJornada, hrEntrada, hrSaida
 Condição: O
 
@@ -305,14 +313,6 @@ Pai: intervalos
 Descrição: Horário de início, quantidade e duração do intervalo intrajornada.
 Ocorrência: 1-9
 Chave: iniInterv, qtdInterv, durInterv
-Condição: O
-
-Nível: 8
-Nome: dias
-Pai: horario
-Descrição: Dia(s) de trabalho relativo(s) à jornada informada.
-Ocorrência: 1-7
-Chave: dia
 Condição: O
 
 Nível: 6
@@ -2160,16 +2160,44 @@ Ocorrência: 0-1
 Tamanho: -
 Dec.: -
 Descrição: Informações do horário contratual do trabalhador.
-Validação: Cada valor do campo {dia}(./horario_dias_dia) somente pode ser preenchido no máximo uma única vez.
 
-Nome: horario
+Nome: dias
 Pai: horarios
 Elem.: G
 Tipo: -
 Ocorrência: 1-7
 Tamanho: -
 Dec.: -
-Descrição: Informações dos horários de trabalho.
+Descrição: Dia de trabalho relativo ao horário contratual.
+Validação: Se houver informação com o campo {dia}(./dia) = [1], não pode haver preenchimento de outro {dia}(./dia).
+
+Nome: dia
+Pai: dias
+Elem.: E
+Tipo: N
+Ocorrência: 1
+Tamanho: 1
+Dec.: -
+Descrição: Informar o código indicativo do dia da semana a que se refere o horário de trabalho.
+Valores válidos:
+1 - Dia variável
+2 - Segunda-feira
+3 - Terça-feira
+4 - Quarta-feira
+5 - Quinta-feira
+6 - Sexta-feira
+7 - Sábado
+8 - Domingo
+Validação: Se {tpJornada}(../../tpJornada) = [12], deve ser igual a [1].
+
+Nome: horario
+Pai: horarios
+Elem.: G
+Tipo: -
+Ocorrência: 1
+Tamanho: -
+Dec.: -
+Descrição: Informações do horário diário de trabalho.
 
 Nome: durJornada
 Pai: horario
@@ -2263,34 +2291,6 @@ Tamanho: 1-3
 Dec.: -
 Descrição: Preencher com a duração do intervalo intrajornada, em minutos. 
 Validação: Deve ser um número maior que 0 (zero).
-
-Nome: dias
-Pai: horario
-Elem.: G
-Tipo: -
-Ocorrência: 1-7
-Tamanho: -
-Dec.: -
-Descrição: Dia(s) de trabalho relativo(s) à jornada informada.
-
-Nome: dia
-Pai: dias
-Elem.: E
-Tipo: N
-Ocorrência: 1
-Tamanho: 1
-Dec.: -
-Descrição: Informar o código indicativo do dia da semana a que se refere o horário de trabalho.
-Valores válidos:
-1 - Dia variável
-2 - Segunda-feira
-3 - Terça-feira
-4 - Quarta-feira
-5 - Quinta-feira
-6 - Sexta-feira
-7 - Sábado
-8 - Domingo
-Validação: Se {tpJornada}(../../../tpJornada) = [12], deve ser igual a [1].
 
 Nome: escalas
 Pai: horContratual
