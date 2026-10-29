@@ -791,6 +791,8 @@
             <xs:element name="tpJornada" type="TS_tpJornada">
                 <xs:annotation>
                     <xs:documentation>Tipo de jornada.</xs:documentation>
+                    <xs:documentation>OBS.: Considera-se horário fixo aquele com entrada e saída predeterminadas para cada dia trabalhado; no valor [12], o horário deve ser o mesmo em todos os dias trabalhados. O intervalo em horário móvel não descaracteriza o horário fixo.</xs:documentation>
+                    <xs:documentation>Os valores [2, 7] prevalecem sobre os demais.</xs:documentation>
                     <xs:documentation>Validação: Se {dtAlteracao}(2206_altContratual_dtAlteracao) for igual ou posterior a [2027-XX-XX], somente podem ser informados os valores [2, 7, 9, 11, 12].</xs:documentation>
                 </xs:annotation>
             </xs:element>
@@ -4120,6 +4122,8 @@
     <xs:simpleType name="TS_tpJornada">
         <xs:annotation>
             <xs:documentation>Tipo de jornada.</xs:documentation>
+            <xs:documentation>OBS.: Considera-se horário fixo aquele com entrada e saída predeterminadas para cada dia trabalhado; no valor [12], o horário deve ser o mesmo em todos os dias trabalhados. O intervalo em horário móvel não descaracteriza o horário fixo.</xs:documentation>
+            <xs:documentation>Os valores [2, 7] prevalecem sobre os demais.</xs:documentation>
             <xs:documentation>Validação: Se {dtAdm}(2200_vinculo_infoRegimeTrab_infoCeletista_dtAdm), {sucessaoVinc/dtTransf}(2200_vinculo_sucessaoVinc_dtTransf), {transfDom/dtTransf}(2200_vinculo_transfDom_dtTransf) ou {dtAltCPF}(2200_vinculo_mudancaCPF_dtAltCPF) (maior data entre elas) for igual ou posterior a [2027-XX-XX], somente podem ser informados os valores [2, 7, 9, 11, 12].</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:byte">
@@ -4155,12 +4159,12 @@
             </xs:enumeration>
             <xs:enumeration value="9">
                 <xs:annotation>
-                    <xs:documentation>Demais tipos de jornada</xs:documentation>
+                    <xs:documentation>Demais tipos de jornada, inclusive jornadas que têm horário de entrada ou de saída variável</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
             <xs:enumeration value="11">
                 <xs:annotation>
-                    <xs:documentation>Jornada com horário fixo e todas as folgas em dias fixos</xs:documentation>
+                    <xs:documentation>Jornada com horário fixo e todas as folgas em dias fixos da semana</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
             <xs:enumeration value="12">
