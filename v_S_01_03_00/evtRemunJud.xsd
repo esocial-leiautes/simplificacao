@@ -33,7 +33,7 @@
                                         <xs:element name="indAnotJud" type="TS_sim_nao">
                                             <xs:annotation>
                                                 <xs:documentation>Indicativo se o processo foi declarado em evento S-8200 ou S-8300 para o contrato informado em {cpfTrab}(8500_ideTrab_cpfTrab) e {matricula}(8500_ideTrab_matricula).</xs:documentation>
-                                            </xs:annotation>                                               
+                                            </xs:annotation>                   
                                         </xs:element>                                        
                                         <xs:element name="nrProcTrab" type="TS_nrProcJud">
                                             <xs:annotation>
@@ -151,8 +151,14 @@
                                                     <xs:element name="vrSaldoFGTS" minOccurs="0" type="TS_valorMonetario_positivo">
                                                         <xs:annotation>
                                                             <xs:documentation>Valor do saldo para fins rescisórios do FGTS (base de cálculo para recolhimento da indenização compensatória do FGTS).</xs:documentation>
-                                                            <xs:documentation>Validação: O campo não pode ser informado se o código de categoria do trabalhador for igual a [2XX, 7XX (exceto [721]), 9XX].</xs:documentation>
+                                                            <xs:documentation>Validação: O campo não pode ser informado se o código de categoria do trabalhador for igual a [2XX, 7XX (exceto [721]), 9XX], bem como se {indQuitMultaFGTS}(./indQuitMultaFGTS) for preenchido.</xs:documentation>
                                                             <xs:documentation>Deve ser maior que 0 (zero).</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:element>
+                                                    <xs:element name="indQuitMultaFGTS" minOccurs="0" type="TS_sim">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Indicativo de quitação da indenização compensatória do FGTS.</xs:documentation>
+                                                            <xs:documentation>Preencher este campo somente quando a indenização compensatória do FGTS deva ser desconsiderada por força de transação ou sentença judicial.</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
                                                     <xs:element name="indenSD" minOccurs="0" type="TS_sim">
@@ -237,8 +243,14 @@
                                                                             <xs:element name="vrBcFGTS" minOccurs="0" type="TS_valorMonetario">
                                                                                 <xs:annotation>
                                                                                     <xs:documentation>Valor da base de cálculo de FGTS relativo a verba reconhecida no processo trabalhista.</xs:documentation>
-                                                                                    <xs:documentation>Validação: O campo não pode ser informado se o código de categoria do trabalhador for igual a [7XX (exceto [721]), 9XX].</xs:documentation>
+                                                                                    <xs:documentation>Validação: O campo não pode ser informado se o código de categoria do trabalhador for igual a [7XX (exceto [721]), 9XX], bem como se {indQuitFGTS}(./indQuitFGTS) for preenchido.</xs:documentation>
                                                                                     <xs:documentation>Deve ser maior ou igual a 0 (zero).</xs:documentation>
+                                                                                </xs:annotation>
+                                                                            </xs:element>
+                                                                            <xs:element name="indQuitFGTS" minOccurs="0" type="TS_sim">
+                                                                                <xs:annotation>
+                                                                                    <xs:documentation>Indicativo de quitação de FGTS.</xs:documentation>
+                                                                                    <xs:documentation>Preencher este campo somente quando o valor de FGTS anteriormente declarado (eSocial ou GFIP) do {perRef}(../perRef) deva ser desconsiderado por força de transação ou sentença judicial.</xs:documentation>
                                                                                 </xs:annotation>
                                                                             </xs:element>
                                                                             <xs:element name="infoAgNocivo" minOccurs="0">
