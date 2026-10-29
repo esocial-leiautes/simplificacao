@@ -61,6 +61,7 @@ table.regras th { text-align: center!important; }
 table.completo td:first-child { cursor: default; }
 
 table.resumo tr:not(.grupo) td:nth-child(4),
+table.resumo tr:not(.grupo) td:nth-child(1),
 table.completo td:last-child { text-align: left!important; }
 
 td[rowspan]{ vertical-align: middle; }
@@ -76,3 +77,41 @@ td[rowspan]{ vertical-align: middle; }
 .sub-cabecalho { background-color: #ddd; }
 
 #folha-rosto { display: none; }
+
+table.resumo td.tree-node {
+    position: relative;
+    vertical-align: middle;
+}
+
+table.resumo .tree-continuacao,
+table.resumo .tree-ramo {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 0;
+    pointer-events: none;
+}
+
+table.resumo .tree-continuacao { transform: translateX(-2px); }
+
+table.resumo .tree-continuacao,
+table.resumo .tree-ramo.continua::before,
+table.resumo .tree-ramo.ultimo::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -2px;
+    border-left: 1px solid #888;
+}
+
+table.resumo .tree-ramo.ultimo::before { bottom: 50%; }
+
+table.resumo .tree-ramo::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: -2px;
+    width: .375em;
+    border-top: 1px solid #888;
+}
