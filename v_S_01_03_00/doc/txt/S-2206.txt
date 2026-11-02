@@ -161,8 +161,10 @@ Pai: infoContrato
 Descrição: Informações do horário contratual do trabalhador.
 Ocorrência: 0-1
 Chave: -
-Condição: O (se {tpRegJor}(../../infoRegimeTrab_infoCeletista_tpRegJor) = [1])
-OC (nos demais casos)
+Condição: N (se {codCateg}(../codCateg) = [111] e se {dtAlteracao}(2206_altContratual_dtAlteracao) for igual ou posterior a [2027-XX-XX])
+O (se {tpRegJor}(../../infoRegimeTrab_infoCeletista_tpRegJor) = [1] E ((se {codCateg}(../codCateg) for diferente de [111] e se {dtAlteracao}(2206_altContratual_dtAlteracao) for igual ou posterior a [2027-XX-XX]) ou (se {dtAlteracao}(2206_altContratual_dtAlteracao) for anterior a [2027-XX-XX])))
+OC (se {tpRegJor}(../../infoRegimeTrab_infoCeletista_tpRegJor) = [2, 3, 4, 5] E ((se {codCateg}(../codCateg) for diferente de [111] e se {dtAlteracao}(2206_altContratual_dtAlteracao) for igual ou posterior a [2027-XX-XX]) ou (se {dtAlteracao}(2206_altContratual_dtAlteracao) for anterior a [2027-XX-XX])))
+F (nos demais casos)
 
 Nível: 7
 Nome: infoComp
