@@ -100,13 +100,29 @@ Chave: -
 Condição: O
 
 Nível: 7
-Nome: infoAgNocivo
+Nome: infoCP
 Pai: baseCalculo
+Descrição: Bases de cálculo de contribuição previdenciária decorrentes de processo trabalhista.
+Ocorrência: 0-1
+Chave: -
+Condição: OC
+
+Nível: 8
+Nome: infoAgNocivo
+Pai: infoCP
 Descrição: Grau de exposição a agentes nocivos
 Ocorrência: 0-1
 Chave: -
 Condição: O (se o código de categoria do trabalhador for igual a [1XX, 2XX, 3XX, 731, 734, 738] ou se o código de categoria do trabalhador for igual a [4XX] com {categOrig} em S-2300 = [1XX, 2XX, 3XX, 731, 734, 738])
 N (nos demais casos)
+
+Nível: 7
+Nome: infoFGTS
+Pai: baseCalculo
+Descrição: Bases de cálculo de FGTS decorrentes de processo trabalhista.
+Ocorrência: 0-1
+Chave: -
+Condição: OC
 
 Nome: eSocial
 Pai: -
@@ -527,8 +543,17 @@ Tamanho: -
 Dec.: -
 Descrição: Bases de cálculo de contribuição previdenciária e FGTS decorrentes de processo trabalhista e ainda não declaradas.
 
-Nome: vrBcCpMensal
+Nome: infoCP
 Pai: baseCalculo
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Bases de cálculo de contribuição previdenciária decorrentes de processo trabalhista.
+
+Nome: vrBcCpMensal
+Pai: infoCP
 Elem.: E
 Tipo: N
 Ocorrência: 1
@@ -538,7 +563,7 @@ Descrição: Valor da base de cálculo da contribuição previdenciária sobre o
 Validação: Deve ser maior ou igual a 0 (zero).
 
 Nome: vrBcCp13
-Pai: baseCalculo
+Pai: infoCP
 Elem.: E
 Tipo: N
 Ocorrência: 0-1
@@ -548,7 +573,7 @@ Descrição: Valor da base de cálculo da contribuição previdenciária sobre o
 Validação: Deve ser maior ou igual a 0 (zero).
 
 Nome: vrBcCpPagoMensal
-Pai: baseCalculo
+Pai: infoCP
 Elem.: E
 Tipo: N
 Ocorrência: 0-1
@@ -558,7 +583,7 @@ Descrição: Remuneração paga espontaneamente sem a correspondente contribuiç
 Validação: Deve ser maior ou igual a 0 (zero).
 
 Nome: vrBcCpPago13
-Pai: baseCalculo
+Pai: infoCP
 Elem.: E
 Tipo: N
 Ocorrência: 0-1
@@ -567,31 +592,8 @@ Dec.: 2
 Descrição: Valor da base de cálculo da contribuição previdenciária sobre os valores já pagos pelo empregador, mas cuja natureza salarial foi reconhecida apenas no processo - 13º salário.
 Validação: Deve ser maior ou igual a 0 (zero).
 
-Nome: vrBcFGTS
-Pai: baseCalculo
-Elem.: E
-Tipo: N
-Ocorrência: 0-1
-Tamanho: 1-14
-Dec.: 2
-Descrição: Valor da base de cálculo de FGTS relativo a verba reconhecida no processo trabalhista.
-Validação: O campo não pode ser informado se o código de categoria do trabalhador for igual a [7XX (exceto [721]), 9XX], bem como se {indQuitFGTS}(./indQuitFGTS) for preenchido.
-Deve ser maior ou igual a 0 (zero).
-
-Nome: indQuitFGTS
-Pai: baseCalculo
-Elem.: E
-Tipo: C
-Ocorrência: 0-1
-Tamanho: 1
-Dec.: -
-Descrição: Indicativo de quitação de FGTS.
-Preencher este campo somente quando o valor de FGTS anteriormente declarado (eSocial ou GFIP) do {perRef}(../perRef) deva ser desconsiderado por força de transação ou sentença judicial.
-Valores válidos:
-S - Sim
-
 Nome: infoAgNocivo
-Pai: baseCalculo
+Pai: infoCP
 Elem.: G
 Tipo: -
 Ocorrência: 0-1
@@ -612,4 +614,36 @@ Valores válidos:
 2 - Ensejador de aposentadoria especial - FAE15_12% (15 anos de contribuição e alíquota de 12%)
 3 - Ensejador de aposentadoria especial - FAE20_09% (20 anos de contribuição e alíquota de 9%)
 4 - Ensejador de aposentadoria especial - FAE25_06% (25 anos de contribuição e alíquota de 6%)
+
+Nome: infoFGTS
+Pai: baseCalculo
+Elem.: G
+Tipo: -
+Ocorrência: 0-1
+Tamanho: -
+Dec.: -
+Descrição: Bases de cálculo de FGTS decorrentes de processo trabalhista.
+
+Nome: vrBcFGTS
+Pai: infoFGTS
+Elem.: E
+Tipo: N
+Ocorrência: 0-1
+Tamanho: 1-14
+Dec.: 2
+Descrição: Valor da base de cálculo de FGTS relativo a verba reconhecida no processo trabalhista.
+Validação: O campo não pode ser informado se o código de categoria do trabalhador for igual a [7XX (exceto [721]), 9XX], bem como se {indQuitFGTS}(./indQuitFGTS) for preenchido.
+Deve ser maior ou igual a 0 (zero).
+
+Nome: indQuitFGTS
+Pai: infoFGTS
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1
+Dec.: -
+Descrição: Indicativo de quitação de FGTS.
+Preencher este campo somente quando o valor de FGTS anteriormente declarado (eSocial ou GFIP) do {perRef}(../../perRef) deva ser desconsiderado por força de transação ou sentença judicial.
+Valores válidos:
+S - Sim
 
