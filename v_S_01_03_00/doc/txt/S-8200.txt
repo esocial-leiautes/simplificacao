@@ -481,11 +481,12 @@ Nome: CBOCargo
 Pai: cargo
 Elem.: E
 Tipo: C
-Ocorrência: 1
+Ocorrência: 0-1
 Tamanho: 6
 Dec.: -
 Descrição: Informar a Classificação Brasileira de Ocupações - CBO relativa ao cargo.
-Validação: Deve ser um código válido e existente na tabela de CBO, com 6 (seis) posições.
+Validação: O preenchimento é obrigatório, exceto se for relativo a trabalhador com {codCateg}(../codCateg) = [302].
+Se informado, deve ser um código válido e existente na tabela de CBO, com 6 (seis) posições.
 
 Nome: nmCargo
 Pai: cargo
@@ -495,7 +496,28 @@ Ocorrência: 0-1
 Tamanho: 1-100
 Dec.: -
 Descrição: Informar o nome do cargo.
-Validação: Preenchimento obrigatório se {dtSent}(8200_infoProcesso_dtSent) >= [2026-10-26].
+Validação: Preenchimento obrigatório se {dtSent}(8200_infoProcesso_dtSent) >= [2026-10-26] e se {CBOCargo}(./CBOCargo) for preenchido.
+
+Nome: CBOFuncao
+Pai: cargo
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 6
+Dec.: -
+Descrição: Informar a CBO relativa à função de confiança/cargo em comissão.
+Validação: Preenchimento obrigatório se for relativo a trabalhador com {codCateg}(../codCateg) = [302].
+Se informado, deve ser um código válido e existente na tabela de CBO, com 6 (seis) posições.
+
+Nome: nmFuncao
+Pai: cargo
+Elem.: E
+Tipo: C
+Ocorrência: 0-1
+Tamanho: 1-100
+Dec.: -
+Descrição: Informar o nome da função de confiança/cargo em comissão.
+Validação: Preenchimento obrigatório e exclusivo se {CBOFuncao}(./CBOFuncao) for informado.
 
 Nome: remuneracao
 Pai: infoAnotJud

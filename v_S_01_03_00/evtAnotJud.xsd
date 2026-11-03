@@ -143,16 +143,30 @@
                                                             <xs:documentation>Validação: Deve ser igual ou posterior à data de admissão e igual ou anterior à data de desligamento, se informada.</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
-                                                    <xs:element name="CBOCargo" type="TS_cbo">
+                                                    <xs:element name="CBOCargo" minOccurs="0" type="TS_cbo">
                                                         <xs:annotation>
                                                             <xs:documentation>Informar a Classificação Brasileira de Ocupações - CBO relativa ao cargo.</xs:documentation>
-                                                            <xs:documentation>Validação: Deve ser um código válido e existente na tabela de CBO, com 6 (seis) posições.</xs:documentation>
+                                                            <xs:documentation>Validação: O preenchimento é obrigatório, exceto se for relativo a trabalhador com {codCateg}(../codCateg) = [302].</xs:documentation>
+                                                            <xs:documentation>Se informado, deve ser um código válido e existente na tabela de CBO, com 6 (seis) posições.</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
                                                     <xs:element name="nmCargo" minOccurs="0" type="TS_texto_100">
                                                         <xs:annotation>
                                                             <xs:documentation>Informar o nome do cargo.</xs:documentation>
-                                                            <xs:documentation>Validação: Preenchimento obrigatório se {dtSent}(8200_infoProcesso_dtSent) >= [2026-10-26].</xs:documentation>
+                                                            <xs:documentation>Validação: Preenchimento obrigatório se {dtSent}(8200_infoProcesso_dtSent) >= [2026-10-26] e se {CBOCargo}(./CBOCargo) for preenchido.</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:element>
+                                                    <xs:element name="CBOFuncao" minOccurs="0" type="TS_CBOFuncao">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Informar a CBO relativa à função de confiança/cargo em comissão.</xs:documentation>
+                                                            <xs:documentation>Validação: Preenchimento obrigatório se for relativo a trabalhador com {codCateg}(../codCateg) = [302].</xs:documentation>
+                                                            <xs:documentation>Se informado, deve ser um código válido e existente na tabela de CBO, com 6 (seis) posições.</xs:documentation>
+                                                        </xs:annotation>
+                                                    </xs:element>
+                                                    <xs:element name="nmFuncao" minOccurs="0" type="TS_texto_100">
+                                                        <xs:annotation>
+                                                            <xs:documentation>Informar o nome da função de confiança/cargo em comissão.</xs:documentation>
+                                                            <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se {CBOFuncao}(./CBOFuncao) for informado.</xs:documentation>
                                                         </xs:annotation>
                                                     </xs:element>
                                                 </xs:sequence>
