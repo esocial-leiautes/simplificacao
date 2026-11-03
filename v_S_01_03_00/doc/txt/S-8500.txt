@@ -108,15 +108,6 @@ Chave: -
 Condição: O (se o código de categoria do trabalhador for igual a [1XX, 2XX, 3XX, 731, 734, 738] ou se o código de categoria do trabalhador for igual a [4XX] com {categOrig} em S-2300 = [1XX, 2XX, 3XX, 731, 734, 738])
 N (nos demais casos)
 
-Nível: 6
-Nome: infoInterm
-Pai: idePeriodo
-Descrição: Informações relativas ao trabalho intermitente.
-Ocorrência: 0-31
-Chave: dia
-Condição: O (se (o código de categoria do trabalhador for igual a [111])
-N (nos demais casos)
-
 Nome: eSocial
 Pai: -
 Elem.: G
@@ -621,36 +612,4 @@ Valores válidos:
 2 - Ensejador de aposentadoria especial - FAE15_12% (15 anos de contribuição e alíquota de 12%)
 3 - Ensejador de aposentadoria especial - FAE20_09% (20 anos de contribuição e alíquota de 9%)
 4 - Ensejador de aposentadoria especial - FAE25_06% (25 anos de contribuição e alíquota de 6%)
-
-Nome: infoInterm
-Pai: idePeriodo
-Elem.: G
-Tipo: -
-Ocorrência: 0-31
-Tamanho: -
-Dec.: -
-Descrição: Informações relativas ao trabalho intermitente.
-
-Nome: dia
-Pai: infoInterm
-Elem.: E
-Tipo: N
-Ocorrência: 1
-Tamanho: 1-2
-Dec.: -
-Descrição: Dia do mês efetivamente trabalhado pelo empregado com contrato de trabalho intermitente.
-Caso não tenha havido trabalho no mês, informar 0 (zero).
-Validação: Deve ser um número entre 0 e 31, de acordo com o calendário anual.
-Retornar alerta caso seja informado 0 (zero).
-
-Nome: hrsTrab
-Pai: infoInterm
-Elem.: E
-Tipo: C
-Ocorrência: 0-1
-Tamanho: 4
-Dec.: -
-Descrição: Horas trabalhadas no dia pelo empregado com contrato de trabalho intermitente, no formato HHMM.
-Validação: Preenchimento obrigatório e exclusivo se {}(1000_infoEmpregador_inclusao_infoCadastro_classTrib) em S-1000 = [22] em {}(8500_ideEstab_infoVlr_idePeriodo_perRef).
-Se preenchida, deve estar no intervalo entre [0000] e [2359], criticando inclusive a segunda parte do número, que indica os minutos, que deve ser menor ou igual a 59.
 
