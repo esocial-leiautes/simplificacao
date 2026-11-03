@@ -927,9 +927,9 @@
                     <xs:documentation>Validação: O campo somente pode ser preenchido se {indAcHorFlex}(../../../indAcHorFlex) for informado.</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element name="durJornada" type="TS_durJornada" />
-            <xs:element name="hrEntrada" type="TS_hrEntrada" />
-            <xs:element name="hrSaida" type="TS_hrSaida" />
+            <xs:element name="durJornada" minOccurs="0" type="TS_durJornada" />
+            <xs:element name="hrEntrada" minOccurs="0" type="TS_hrEntrada" />
+            <xs:element name="hrSaida" minOccurs="0" type="TS_hrSaida" />
             <xs:element name="intervalos" minOccurs="0" maxOccurs="2">
                 <xs:annotation>
                     <xs:documentation>Informações sobre os intervalos intrajornada.</xs:documentation>
@@ -4546,8 +4546,8 @@
     <xs:simpleType name="TS_durJornada">
         <xs:annotation>
             <xs:documentation>Preencher com a duração da jornada diária, em minutos. Devem ser consideradas as horas reduzidas noturnas, se houver.</xs:documentation>
-            <xs:documentation>Validação: Deve ser um número maior que 0 (zero).</xs:documentation>
-            <xs:documentation>Caso a duração informada não corresponda aos horários informados, retornar alerta.</xs:documentation>
+            <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se {horFlex}(./horFlex) for informado.</xs:documentation>
+            <xs:documentation>Deve ser um número maior que 0 (zero).</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:integer">
             <xs:minExclusive value="0" />
@@ -4559,8 +4559,9 @@
 
     <xs:simpleType name="TS_hrEntrada">
         <xs:annotation>
-            <xs:documentation>Preencher com a hora do início da jornada, no formato HHMM. </xs:documentation>
-            <xs:documentation>Validação: Deve estar no intervalo entre [0000] e [2359], criticando inclusive a segunda parte do número, que indica os minutos, que deve ser menor ou igual a 59.</xs:documentation>
+            <xs:documentation>Preencher com a hora do início da jornada, no formato HHMM.</xs:documentation>
+            <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se {horFlex}(./horFlex) não for informado.</xs:documentation>
+            <xs:documentation>Deve estar no intervalo entre [0000] e [2359], criticando inclusive a segunda parte do número, que indica os minutos, que deve ser menor ou igual a 59.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="TS_hora" />
     </xs:simpleType>
@@ -4569,8 +4570,9 @@
 
     <xs:simpleType name="TS_hrSaida">
         <xs:annotation>
-            <xs:documentation>Preencher com a hora do término da jornada, no formato HHMM. </xs:documentation>
-            <xs:documentation>Validação: Deve estar no intervalo entre [0000] e [2359], criticando inclusive a segunda parte do número, que indica os minutos, que deve ser menor ou igual a 59.</xs:documentation>
+            <xs:documentation>Preencher com a hora do término da jornada, no formato HHMM.</xs:documentation>
+            <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se {horFlex}(./horFlex) não for informado.</xs:documentation>
+            <xs:documentation>Deve estar no intervalo entre [0000] e [2359], criticando inclusive a segunda parte do número, que indica os minutos, que deve ser menor ou igual a 59.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="TS_hora" />
     </xs:simpleType>
