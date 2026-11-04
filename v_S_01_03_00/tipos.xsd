@@ -749,6 +749,7 @@
             <xs:element name="indAcRedIntra" minOccurs="0" type="TS_indAcRedIntra" />
             <xs:element name="indAcAmpIntra" minOccurs="0" type="TS_indAcAmpIntra" />
             <xs:element name="indAutFracIntra" minOccurs="0" type="TS_indAutFracIntra" />
+            <xs:element name="indAut12x36" minOccurs="0" type="TS_indAut12x36" />
             <xs:element name="infoComp" minOccurs="0" type="T_infoComp">
                 <xs:annotation>
                     <xs:documentation>Informações de regime de compensação de jornada.</xs:documentation>
@@ -829,6 +830,7 @@
             <xs:element name="indAcRedIntra" minOccurs="0" type="TS_indAcRedIntra" />
             <xs:element name="indAcAmpIntra" minOccurs="0" type="TS_indAcAmpIntra" />
             <xs:element name="indAutFracIntra" minOccurs="0" type="TS_indAutFracIntra" />
+            <xs:element name="indAut12x36" minOccurs="0" type="TS_indAut12x36" />
             <xs:element name="infoComp" minOccurs="0" type="T_infoComp">
                 <xs:annotation>
                     <xs:documentation>Informações de regime de compensação de jornada.</xs:documentation>
@@ -4390,13 +4392,54 @@
             </xs:enumeration>
         </xs:restriction>
     </xs:simpleType>
-    
+
     <!-- Campo {indAutFracIntra} -->
 
     <xs:simpleType name="TS_indAutFracIntra">
         <xs:annotation>
             <xs:documentation>Informar o código indicativo de existência de autorização do fracionamento do intervalo intrajornada.</xs:documentation>
             <xs:documentation>O preenchimento do campo é obrigatório se a jornada diária tiver mais de um intervalo intrajornada.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:byte">
+            <xs:enumeration value="0">
+                <xs:annotation>
+                    <xs:documentation>Norma legal</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="1">
+                <xs:annotation>
+                    <xs:documentation>Acordo Coletivo de Trabalho</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="2">
+                <xs:annotation>
+                    <xs:documentation>Convenção Coletiva de Trabalho</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="3">
+                <xs:annotation>
+                    <xs:documentation>Acordo individual escrito</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="4">
+                <xs:annotation>
+                    <xs:documentation>Acordo individual verbal ou tácito</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="5">
+                <xs:annotation>
+                    <xs:documentation>Inexistente</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Campo {indAut12x36} -->
+
+    <xs:simpleType name="TS_indAut12x36">
+        <xs:annotation>
+            <xs:documentation>Informar o código indicativo de existência de autorização de adoação da jornada 12 x 36.</xs:documentation>
+            <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se {tpJornada}(./tpJornada) = [2].</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:byte">
             <xs:enumeration value="0">
