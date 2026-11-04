@@ -4521,12 +4521,13 @@
         <xs:annotation>
             <xs:documentation>Informar a quantidade de meses em que deve ocorrer a compensação.</xs:documentation>
             <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se {compJorn}(./compJorn) = [5].</xs:documentation>
+            <xs:documentation>Se informado, deve ser maior que 0 (zero).</xs:documentation>
         </xs:annotation>
-        <xs:restriction base="xs:byte">
-            <xs:pattern value="\d{1,2}" />
-            <xs:minExclusive value="1" />
-            <xs:maxExclusive value="12" />
-        </xs:restriction>
+        <xs:restriction base="xs:decimal">
+            <xs:totalDigits value="3" />
+            <xs:fractionDigits value="1" />
+            <xs:minExclusive value="0" />
+        </xs:restriction>    
     </xs:simpleType>
 
     <!-- Campo {tpCompJorn} -->
