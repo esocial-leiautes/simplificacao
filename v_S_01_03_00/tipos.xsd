@@ -745,12 +745,12 @@
             <xs:element name="horNoturno" minOccurs="0" type="TS_horNoturno" />
             <xs:element name="dscJorn" minOccurs="0" type="TS_dscJorn" />
             <xs:element name="indAcAmpJor" minOccurs="0" type="TS_indAcAmpJor" />
-            <xs:element name="indAcAmpTIR" minOccurs="0" type="TS_indAcAmpTIR" />
             <xs:element name="indAcHorFlex" minOccurs="0" type="TS_indAcHorFlex" />
             <xs:element name="indAcRedIntra" minOccurs="0" type="TS_indAcRedIntra" />
             <xs:element name="indAcAmpIntra" minOccurs="0" type="TS_indAcAmpIntra" />
             <xs:element name="indAutFracIntra" minOccurs="0" type="TS_indAutFracIntra" />
             <xs:element name="indAut12x36" minOccurs="0" type="TS_indAut12x36" />
+            <xs:element name="indAutAmpTIR" minOccurs="0" type="TS_indAutAmpTIR" />
             <xs:element name="infoComp" minOccurs="0" type="T_infoComp">
                 <xs:annotation>
                     <xs:documentation>Informações de regime de compensação de jornada.</xs:documentation>
@@ -833,12 +833,12 @@
                     <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se {qtdHrsSem}(./qtdHrsSem) > [40] e se {dtAlteracao}(2206_altContratual_dtAlteracao) for igual ou posterior a [2027-XX-XX] e anterior a [2027-12-16].</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element name="indAcAmpTIR" minOccurs="0" type="TS_indAcAmpTIR" />
             <xs:element name="indAcHorFlex" minOccurs="0" type="TS_indAcHorFlex" />
             <xs:element name="indAcRedIntra" minOccurs="0" type="TS_indAcRedIntra" />
             <xs:element name="indAcAmpIntra" minOccurs="0" type="TS_indAcAmpIntra" />
             <xs:element name="indAutFracIntra" minOccurs="0" type="TS_indAutFracIntra" />
             <xs:element name="indAut12x36" minOccurs="0" type="TS_indAut12x36" />
+            <xs:element name="indAutAmpTIR" minOccurs="0" type="TS_indAutAmpTIR" />
             <xs:element name="infoComp" minOccurs="0" type="T_infoComp">
                 <xs:annotation>
                     <xs:documentation>Informações de regime de compensação de jornada.</xs:documentation>
@@ -4300,43 +4300,6 @@
         </xs:restriction>
     </xs:simpleType>
 
-    <!-- Campo {indAcAmpTIR} -->
-
-    <xs:simpleType name="TS_indAcAmpTIR">
-        <xs:annotation>
-            <xs:documentation>Informar o código indicativo de existência de acordo autorizando ampliação da jornada diária no Turno Ininterrupto de Revezamento.</xs:documentation>
-            <xs:documentation>O preenchimento do campo é obrigatório quando se tratar de Turno Ininterrupto de Revezamento com jornada diária superior a 6 (seis) horas.</xs:documentation>
-            <xs:documentation>Validação: Não informar se {tpJornada}(./tpJornada) = [2, 9, 11, 12].</xs:documentation>
-        </xs:annotation>
-        <xs:restriction base="xs:byte">
-            <xs:enumeration value="1">
-                <xs:annotation>
-                    <xs:documentation>Acordo Coletivo de Trabalho</xs:documentation>
-                </xs:annotation>
-            </xs:enumeration>
-            <xs:enumeration value="2">
-                <xs:annotation>
-                    <xs:documentation>Convenção Coletiva de Trabalho</xs:documentation>
-                </xs:annotation>
-            </xs:enumeration>
-            <xs:enumeration value="3">
-                <xs:annotation>
-                    <xs:documentation>Acordo individual escrito</xs:documentation>
-                </xs:annotation>
-            </xs:enumeration>
-            <xs:enumeration value="4">
-                <xs:annotation>
-                    <xs:documentation>Acordo individual verbal ou tácito</xs:documentation>
-                </xs:annotation>
-            </xs:enumeration>
-            <xs:enumeration value="5">
-                <xs:annotation>
-                    <xs:documentation>Inexistente</xs:documentation>
-                </xs:annotation>
-            </xs:enumeration>
-        </xs:restriction>
-    </xs:simpleType>
-
     <!-- Campo {indAcHorFlex} -->
 
     <xs:simpleType name="TS_indAcHorFlex">
@@ -4489,8 +4452,50 @@
 
     <xs:simpleType name="TS_indAut12x36">
         <xs:annotation>
-            <xs:documentation>Informar o código indicativo de existência de autorização de adoação da jornada 12 x 36.</xs:documentation>
+            <xs:documentation>Informar o código indicativo de existência de autorização de adoção da jornada 12 x 36.</xs:documentation>
             <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se {tpJornada}(./tpJornada) = [2].</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:byte">
+            <xs:enumeration value="0">
+                <xs:annotation>
+                    <xs:documentation>Norma legal</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="1">
+                <xs:annotation>
+                    <xs:documentation>Acordo Coletivo de Trabalho</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="2">
+                <xs:annotation>
+                    <xs:documentation>Convenção Coletiva de Trabalho</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="3">
+                <xs:annotation>
+                    <xs:documentation>Acordo individual escrito</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="4">
+                <xs:annotation>
+                    <xs:documentation>Acordo individual verbal ou tácito</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="5">
+                <xs:annotation>
+                    <xs:documentation>Inexistente</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Campo {indAutAmpTIR} -->
+
+    <xs:simpleType name="TS_indAutAmpTIR">
+        <xs:annotation>
+            <xs:documentation>Informar o código indicativo de existência de autorização de ampliação da jornada diária no Turno Ininterrupto de Revezamento.</xs:documentation>
+            <xs:documentation>O preenchimento do campo é obrigatório quando se tratar de Turno Ininterrupto de Revezamento com jornada diária superior a 6 (seis) horas.</xs:documentation>
+            <xs:documentation>Validação: Não informar se {tpJornada}(./tpJornada) = [2, 9, 11, 12].</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:byte">
             <xs:enumeration value="0">
