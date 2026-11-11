@@ -923,9 +923,8 @@
 
     <xs:complexType name="T_escalas">
         <xs:sequence>
-            <xs:element name="qtdDSR" type="TS_qtdDSR" />
-            <xs:element name="qtdMaxDiasCorr" type="TS_qtdMaxDiasCorr" />
-            <xs:element name="coincDSRDom" type="TS_coincDSRDom" />
+            <xs:element name="qtdDiasTrabCiclo" type="TS_qtdDiasTrabCiclo" />
+            <xs:element name="qtdDiasFolgaCiclo" type="TS_qtdDiasFolgaCiclo" />
         </xs:sequence>
     </xs:complexType>
 
@@ -4794,77 +4793,31 @@
         </xs:restriction>
     </xs:simpleType>
 
-     <!-- Campo {qtdDSR} -->
+     <!-- Campo {qtdDiasTrabCiclo} -->
 
-    <xs:simpleType name="TS_qtdDSR">
+    <xs:simpleType name="TS_qtdDiasTrabCiclo">
         <xs:annotation>
-            <xs:documentation>Preencher com a quantidade de DSRs (Descansos Semanais Remunerados).</xs:documentation>
-            <xs:documentation>OBS: 1) Se houver compensação mensal de DSR; se a quantidade de DSRs variar semanalmente; ou se o regime de trabalho ultrapassar uma semana civil (trabalhador embarcado, por exemplo), deve ser informada a quantidade média de DSRs.</xs:documentation>
-            <xs:documentation>2) Se a quantidade de dias trabalhados na semana for inferior a 5 (cinco), informar [2].</xs:documentation>
-        </xs:annotation>
-        <xs:restriction base="xs:decimal">
-            <xs:totalDigits value="3" />
-            <xs:fractionDigits value="2" />
-            <xs:minInclusive value="1" />
-            <xs:maxInclusive value="7" />
-        </xs:restriction>
-    </xs:simpleType>
-
-     <!-- Campo {qtdMaxDiasCorr} -->
-
-    <xs:simpleType name="TS_qtdMaxDiasCorr">
-        <xs:annotation>
-            <xs:documentation>Preencher com a quantidade máxima de dias corridos trabalhados.</xs:documentation>
+            <xs:documentation>Quantidade de dias consecutivos de trabalho no ciclo da escala.</xs:documentation>
+            <xs:documentation>Validação: Deve ser maior que 0 (zero).</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:byte">
-            <xs:minInclusive value="1" />
+            <xs:minExclusive value="0" />
             <xs:maxInclusive value="99" />
             <xs:pattern value="\d{1,2}" />
         </xs:restriction>
     </xs:simpleType>
 
-    <!-- Campo {coincDSRDom} -->
+     <!-- Campo {qtdDiasFolgaCiclo} -->
 
-    <xs:simpleType name="TS_coincDSRDom">
+    <xs:simpleType name="TS_qtdDiasFolgaCiclo">
         <xs:annotation>
-            <xs:documentation>Informar o código referente à coincidência periódica do DSR com o domingo.</xs:documentation>
+            <xs:documentation>Quantidade de dias consecutivos de folga no ciclo da escala.</xs:documentation>
+            <xs:documentation>Validação: Deve ser maior que 0 (zero).</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:byte">
-            <xs:enumeration value="1">
-                <xs:annotation>
-                    <xs:documentation>Coincide no máximo na 2ª semana</xs:documentation>
-                </xs:annotation>
-            </xs:enumeration>
-            <xs:enumeration value="2">
-                <xs:annotation>
-                    <xs:documentation>Coincide no máximo na 3ª semana</xs:documentation>
-                </xs:annotation>
-            </xs:enumeration>
-            <xs:enumeration value="3">
-                <xs:annotation>
-                    <xs:documentation>Coincide no máximo na 7ª semana</xs:documentation>
-                </xs:annotation>
-            </xs:enumeration>
-            <xs:enumeration value="4">
-                <xs:annotation>
-                    <xs:documentation>Coincide uma vez por mês</xs:documentation>
-                </xs:annotation>
-            </xs:enumeration>
-            <xs:enumeration value="5">
-                <xs:annotation>
-                    <xs:documentation>Não coincide</xs:documentation>
-                </xs:annotation>
-            </xs:enumeration>
-            <xs:enumeration value="6">
-                <xs:annotation>
-                    <xs:documentation>Coincide toda semana</xs:documentation>
-                </xs:annotation>
-            </xs:enumeration>
-            <xs:enumeration value="7">
-                <xs:annotation>
-                    <xs:documentation>Coincidência variável</xs:documentation>
-                </xs:annotation>
-            </xs:enumeration>
+            <xs:minExclusive value="0" />
+            <xs:maxInclusive value="99" />
+            <xs:pattern value="\d{1,2}" />
         </xs:restriction>
     </xs:simpleType>
 
