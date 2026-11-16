@@ -744,11 +744,11 @@
             <xs:element name="tmpParc" minOccurs="0" type="TS_tmpParc" />
             <xs:element name="horNoturno" minOccurs="0" type="TS_horNoturno" />
             <xs:element name="dscJorn" minOccurs="0" type="TS_dscJorn" />
-            <xs:element name="indAcAmpJor" minOccurs="0" type="TS_indAcAmpJor" />
-            <xs:element name="indAcHorFlex" minOccurs="0" type="TS_indAcHorFlex" />
-            <xs:element name="indAcCompDSR" minOccurs="0" type="TS_indAcCompDSR" />
-            <xs:element name="indAcRedIntra" minOccurs="0" type="TS_indAcRedIntra" />
-            <xs:element name="indAcAmpIntra" minOccurs="0" type="TS_indAcAmpIntra" />
+            <xs:element name="indAutAmpJor" minOccurs="0" type="TS_indAutAmpJor" />
+            <xs:element name="indAutHorFlex" minOccurs="0" type="TS_indAutHorFlex" />
+            <xs:element name="indAutCompDSR" minOccurs="0" type="TS_indAutCompDSR" />
+            <xs:element name="indAutRedIntra" minOccurs="0" type="TS_indAutRedIntra" />
+            <xs:element name="indAutAmpIntra" minOccurs="0" type="TS_indAutAmpIntra" />
             <xs:element name="indAutFracIntra" minOccurs="0" type="TS_indAutFracIntra" />
             <xs:element name="indAut12x36" minOccurs="0" type="TS_indAut12x36" />
             <xs:element name="indAutAmpTIR" minOccurs="0" type="TS_indAutAmpTIR" />
@@ -833,16 +833,16 @@
                     <xs:documentation>b) não preencher se {tpJornada}(./tpJornada) = [2, 11] ou se ({tpJornada}(./tpJornada) = [12] e o grupo {escala}(./escala) for informado).</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element name="indAcAmpJor" minOccurs="0" type="TS_indAcAmpJor">
+            <xs:element name="indAutAmpJor" minOccurs="0" type="TS_indAutAmpJor">
                 <xs:annotation>
                     <xs:documentation>Informar o código indicativo de existência de acordo autorizando ampliação da jornada diária durante o período de transição da EC 141/2026.</xs:documentation>
                     <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se {qtdHrsSem}(./qtdHrsSem) > [40] e se {dtAlteracao}(2206_altContratual_dtAlteracao) for igual ou posterior a [2027-XX-XX] e anterior a [2027-12-16].</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element name="indAcHorFlex" minOccurs="0" type="TS_indAcHorFlex" />
-            <xs:element name="indAcCompDSR" minOccurs="0" type="TS_indAcCompDSR" />
-            <xs:element name="indAcRedIntra" minOccurs="0" type="TS_indAcRedIntra" />
-            <xs:element name="indAcAmpIntra" minOccurs="0" type="TS_indAcAmpIntra" />
+            <xs:element name="indAutHorFlex" minOccurs="0" type="TS_indAutHorFlex" />
+            <xs:element name="indAutCompDSR" minOccurs="0" type="TS_indAutCompDSR" />
+            <xs:element name="indAutRedIntra" minOccurs="0" type="TS_indAutRedIntra" />
+            <xs:element name="indAutAmpIntra" minOccurs="0" type="TS_indAutAmpIntra" />
             <xs:element name="indAutFracIntra" minOccurs="0" type="TS_indAutFracIntra" />
             <xs:element name="indAut12x36" minOccurs="0" type="TS_indAut12x36" />
             <xs:element name="indAutAmpTIR" minOccurs="0" type="TS_indAutAmpTIR" />
@@ -949,7 +949,7 @@
             <xs:element name="horFlex" minOccurs="0" type="TS_sim">
                 <xs:annotation>
                     <xs:documentation>Indicativo de adoção de horário flexível.</xs:documentation>
-                    <xs:documentation>Validação: O campo somente pode ser preenchido se {indAcHorFlex}(../../../indAcHorFlex) for informado.</xs:documentation>
+                    <xs:documentation>Validação: O campo somente pode ser preenchido se {indAutHorFlex}(../../../indAutHorFlex) for informado.</xs:documentation>
                 </xs:annotation>
             </xs:element>
             <xs:element name="durJornada" minOccurs="0" type="TS_durJornada" />
@@ -4280,14 +4280,19 @@
         <xs:restriction base="TS_texto_999" />
     </xs:simpleType>
 
-    <!-- Campo {indAcAmpJor} -->
+    <!-- Campo {indAutAmpJor} -->
 
-    <xs:simpleType name="TS_indAcAmpJor">
+    <xs:simpleType name="TS_indAutAmpJor">
         <xs:annotation>
-            <xs:documentation>Informar o código indicativo de existência de acordo autorizando ampliação da jornada diária durante o período de transição da EC 141/2026.</xs:documentation>
+            <xs:documentation>Informar o código indicativo de existência de autorização de ampliação da jornada diária durante o período de transição da EC 141/2026.</xs:documentation>
             <xs:documentation>Validação: Preenchimento obrigatório e exclusivo se {qtdHrsSem}(./qtdHrsSem) > [40] e se {dtAdm}(2200_vinculo_infoRegimeTrab_infoCeletista_dtAdm), {sucessaoVinc/dtTransf}(2200_vinculo_sucessaoVinc_dtTransf), {transfDom/dtTransf}(2200_vinculo_transfDom_dtTransf) ou {dtAltCPF}(2200_vinculo_mudancaCPF_dtAltCPF) (maior data entre elas) for igual ou posterior a [2027-XX-XX] e anterior a [2027-12-16].</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:byte">
+            <xs:enumeration value="0">
+                <xs:annotation>
+                    <xs:documentation>Norma legal ou decisão judicial</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
             <xs:enumeration value="1">
                 <xs:annotation>
                     <xs:documentation>Acordo Coletivo de Trabalho</xs:documentation>
@@ -4316,13 +4321,18 @@
         </xs:restriction>
     </xs:simpleType>
 
-    <!-- Campo {indAcHorFlex} -->
+    <!-- Campo {indAutHorFlex} -->
 
-    <xs:simpleType name="TS_indAcHorFlex">
+    <xs:simpleType name="TS_indAutHorFlex">
         <xs:annotation>
-            <xs:documentation>Informar o código indicativo de existência de acordo autorizando adoção de horário flexível.</xs:documentation>
+            <xs:documentation>Informar o código indicativo de existência de autorização de adoção de horário flexível.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:byte">
+            <xs:enumeration value="0">
+                <xs:annotation>
+                    <xs:documentation>Norma legal ou decisão judicial</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
             <xs:enumeration value="1">
                 <xs:annotation>
                     <xs:documentation>Acordo Coletivo de Trabalho</xs:documentation>
@@ -4351,13 +4361,18 @@
         </xs:restriction>
     </xs:simpleType>
     
-    <!-- Campo {indAcCompDSR} -->
+    <!-- Campo {indAutCompDSR} -->
 
-    <xs:simpleType name="TS_indAcCompDSR">
+    <xs:simpleType name="TS_indAutCompDSR">
         <xs:annotation>
-            <xs:documentation>Informar o código indicativo de existência de acordo autorizando compensação de DSR (Descanso Semanal Remunerado).</xs:documentation>
+            <xs:documentation>Informar o código indicativo de existência de autorização de compensação de DSR (Descanso Semanal Remunerado).</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:byte">
+            <xs:enumeration value="0">
+                <xs:annotation>
+                    <xs:documentation>Norma legal ou decisão judicial</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
             <xs:enumeration value="1">
                 <xs:annotation>
                     <xs:documentation>Acordo Coletivo de Trabalho</xs:documentation>
@@ -4386,14 +4401,19 @@
         </xs:restriction>
     </xs:simpleType>
 
-    <!-- Campo {indAcRedIntra} -->
+    <!-- Campo {indAutRedIntra} -->
 
-    <xs:simpleType name="TS_indAcRedIntra">
+    <xs:simpleType name="TS_indAutRedIntra">
         <xs:annotation>
-            <xs:documentation>Informar o código indicativo de existência de acordo autorizando redução do intervalo intrajornada.</xs:documentation>
+            <xs:documentation>Informar o código indicativo de existência de autorização de redução do intervalo intrajornada.</xs:documentation>
             <xs:documentation>O preenchimento do campo é obrigatório se a duração do intervalo for inferior ao mínimo legal.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:byte">
+            <xs:enumeration value="0">
+                <xs:annotation>
+                    <xs:documentation>Norma legal ou decisão judicial</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
             <xs:enumeration value="1">
                 <xs:annotation>
                     <xs:documentation>Acordo Coletivo de Trabalho</xs:documentation>
@@ -4422,14 +4442,19 @@
         </xs:restriction>
     </xs:simpleType>
 
-    <!-- Campo {indAcAmpIntra} -->
+    <!-- Campo {indAutAmpIntra} -->
 
-    <xs:simpleType name="TS_indAcAmpIntra">
+    <xs:simpleType name="TS_indAutAmpIntra">
         <xs:annotation>
-            <xs:documentation>Informar o código indicativo de existência de acordo autorizando ampliação do intervalo intrajornada.</xs:documentation>
+            <xs:documentation>Informar o código indicativo de existência de autorização de ampliação do intervalo intrajornada.</xs:documentation>
             <xs:documentation>O preenchimento do campo é obrigatório se a duração do intervalo for superior ao máximo legal.</xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:byte">
+            <xs:enumeration value="0">
+                <xs:annotation>
+                    <xs:documentation>Norma legal ou decisão judicial</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
             <xs:enumeration value="1">
                 <xs:annotation>
                     <xs:documentation>Acordo Coletivo de Trabalho</xs:documentation>
@@ -4468,7 +4493,7 @@
         <xs:restriction base="xs:byte">
             <xs:enumeration value="0">
                 <xs:annotation>
-                    <xs:documentation>Norma legal</xs:documentation>
+                    <xs:documentation>Norma legal ou decisão judicial</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
             <xs:enumeration value="1">
@@ -4509,7 +4534,7 @@
         <xs:restriction base="xs:byte">
             <xs:enumeration value="0">
                 <xs:annotation>
-                    <xs:documentation>Norma legal</xs:documentation>
+                    <xs:documentation>Norma legal ou decisão judicial</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
             <xs:enumeration value="1">
@@ -4551,7 +4576,7 @@
         <xs:restriction base="xs:byte">
             <xs:enumeration value="0">
                 <xs:annotation>
-                    <xs:documentation>Norma legal</xs:documentation>
+                    <xs:documentation>Norma legal ou decisão judicial</xs:documentation>
                 </xs:annotation>
             </xs:enumeration>
             <xs:enumeration value="1">
