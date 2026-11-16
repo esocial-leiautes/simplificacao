@@ -886,7 +886,7 @@
             <xs:element name="compJorn" type="TS_compJorn" />
             <xs:element name="perDurComp" minOccurs="0" type="TS_perDurComp" />
             <xs:element name="tpCompJorn" minOccurs="0" type="TS_tpCompJorn" />
-            <xs:element name="acAutComp" minOccurs="0" type="TS_acAutComp" />
+            <xs:element name="indAutComp" minOccurs="0" type="TS_indAutComp" />
         </xs:sequence>
     </xs:complexType>
     
@@ -4476,40 +4476,14 @@
         </xs:restriction>
     </xs:simpleType>
 
-    <!-- Campo {acAutComp} -->
+    <!-- Campo {indAutComp} -->
 
-    <xs:simpleType name="TS_acAutComp">
+    <xs:simpleType name="TS_indAutComp">
         <xs:annotation>
-            <xs:documentation>Informar o código do tipo de acordo que autoriza o regime de compensação de jornada.</xs:documentation>
-            <xs:documentation>Validação: Preenchimento obrigatório se {compJorn}(./compJorn) = [3, 4, 5]. Não preencher se {compJorn}(./compJorn) = [6].</xs:documentation>
+            <xs:documentation>Informar o código indicativo de existência de autorização do regime de compensação de jornada.</xs:documentation>
+            <xs:documentation>Validação: Preenchimento obrigatório se {compJorn}(./compJorn) = [3, 4, 9]. Não preencher se {compJorn}(./compJorn) = [6].</xs:documentation>
         </xs:annotation>
-        <xs:restriction base="xs:byte">
-            <xs:enumeration value="1">
-                <xs:annotation>
-                    <xs:documentation>Acordo Coletivo de Trabalho</xs:documentation>
-                </xs:annotation>
-            </xs:enumeration>
-            <xs:enumeration value="2">
-                <xs:annotation>
-                    <xs:documentation>Convenção Coletiva de Trabalho</xs:documentation>
-                </xs:annotation>
-            </xs:enumeration>
-            <xs:enumeration value="3">
-                <xs:annotation>
-                    <xs:documentation>Acordo individual escrito</xs:documentation>
-                </xs:annotation>
-            </xs:enumeration>
-            <xs:enumeration value="4">
-                <xs:annotation>
-                    <xs:documentation>Acordo individual verbal ou tácito</xs:documentation>
-                </xs:annotation>
-            </xs:enumeration>
-            <xs:enumeration value="5">
-                <xs:annotation>
-                    <xs:documentation>Inexistente</xs:documentation>
-                </xs:annotation>
-            </xs:enumeration>
-        </xs:restriction>
+        <xs:restriction base="TS_codJornada" />
     </xs:simpleType>
 
     <!-- Campo {durJornada} -->
